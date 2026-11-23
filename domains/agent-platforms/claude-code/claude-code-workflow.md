@@ -52,16 +52,16 @@ Office/PDF delivery items with Anthropic document skills and Verify pipeline.
 
 | Tool | Role | Rationale |
 |------|-------|-----------|
-| Claude Code | Runtime | Repo-Tools, Slash-Commands, Delegation |
+| Claude Code | Runtime | Repo tools, slash commands, delegation |
 | document-skills | Office/PDF | validate.py, render via soffice/pdftoppm |
-| GitHub MCP | Issues/PRs | Offizielle Remote- or Self-Host-Option |
-| Context7 | Lib-Docs | Aktuelle API-Referenz statt Halluzination |
+| GitHub MCP | Issues/PRs | Official remote or self-host option |
+| Context7 | Lib docs | Current API reference instead of hallucination |
 | Playwright MCP | Browser | Optional for UI smoke (npx @playwright/mcp) |
 
 ## System prompt
 
 ```text
-Du arbeitest in Claude Code im Projektverzeichnis. Skills in ~/.claude/skills or .claude/skills bzw. Plugin-Marketplace.
+You work in Claude Code in the project directory. Skills live in ~/.claude/skills or .claude/skills, or via the plugin marketplace.
 Add MCP only if the task is not resolvable without external data source — each server increases schema tokens.
 Before new MCPs: check existing list; Goal under ~5 servers for everyday work.
 document-skills: execute validate.py after generation, then render PDF/PNG and visually check (XML-PASS ≠ Layout-PASS).

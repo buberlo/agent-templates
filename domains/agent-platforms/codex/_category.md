@@ -18,8 +18,8 @@ OpenAI Codex CLI as a coding agent, often delegated by Hermes, MCP-capable.
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
 
-| Hermes-Skill codex | Skill | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | Delegiert Features/PRs an OpenAI Codex CLI. | Bundled autonomous-ai-agents/codex. | Bundled. | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | no (as cited) |
-| OpenClaw MCP serve / ACP | Bruecke | https://docs.openclaw.ai/cli/mcp/serve |OpenClaw as an MCP server for clients such as Codex or Claude Code, or ACP if OpenClaw hosts the coding runtime.| openclaw mcp serve (stdio) bzw. openclaw acp. | 395.081 Stars | https://docs.openclaw.ai/cli/mcp/serve | no (as cited) |
+| Hermes-Skill codex | Skill | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | Delegates features/PRs to OpenAI Codex CLI. | Bundled autonomous-ai-agents/codex. | Bundled. | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | no (as cited) |
+| OpenClaw MCP serve / ACP | Bridge | https://docs.openclaw.ai/cli/mcp/serve |OpenClaw as an MCP server for clients such as Codex or Claude Code, or ACP if OpenClaw hosts the coding runtime.| openclaw mcp serve (stdio) or `openclaw acp`. | 395.081 Stars | https://docs.openclaw.ai/cli/mcp/serve | no (as cited) |
 
 ## Typical workflows
 
