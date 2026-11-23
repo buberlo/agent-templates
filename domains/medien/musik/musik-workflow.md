@@ -1,100 +1,150 @@
 ---
 id: musik-workflow
-title: "Musik"
 domain: medien
+title: "Songwriting und AI-Musik-Prompts"
 category: musik
 tags:
-  - musik
-  - medien
-  - skill
+  - music
+  - songwriting
+  - suno
 target_agents:
   - hermes
-  - grokbot
-  - generic-mcp-agents
+  - openclaw
   - generic
 required_tools:
   - name: Hermes-Skill songwriting-and-ai-music
-    install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "Bundled-Katalog."
+    install: "Bundled creative/songwriting-and-ai-music"
+    version_notes: "Craft + Suno-Prompt-Patterns"
 inputs:
-  - "Kontext/Briefing für Musik"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Mood, Genre, Tempo, Sprache"
+  - "Lyrics-Entwurf oder Thema"
+  - "Freigabe für generative Musik ja/nein"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
-example_count: 2
-version: "1.0.0"
+  - "Lyrics- und Prompt-Paket"
+  - "Rechte-/ToS-Checkliste"
+risk_level: medium
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Musikproduktion, Prompting für generative Musik und songwriting-nahe Agent-Skills.
+**Musik-Creative** strukturieren: Lyrics nach Handwerksregeln, **Suno- oder Diensle-Prompts** aus dem Hermes-Skill ableiten—generative Generierung nur nach Rechte-Freigabe, keine stillen Uploads.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Musik**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Jingle, Podcast-Intro-Musik oder Demo-Song geplant.
+- Texte und Prompts sollen reviewbar in Markdown liegen.
+- Nutzer will Skill-Wissen zu Songwriting nutzen.
+
+**Wann nicht**
+
+- Mastering fertiger Multitracks (audio-bearbeitung-Template).
+- Sampling urheberrechtlich geschützter Masters.
+- Automatische Spotify-Distribution ohne Label-Freigabe.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill songwriting-and-ai-music | Skill | Aus Recherche 2026-11-23 |
+| Hermes songwriting-and-ai-music | Struktur, Prompts | Bundled Skill-Katalog |
+| Suno o. ä. | Generierung | Nur nach Freigabe; ToS variieren |
+| ffmpeg | Kurz-Snippet prüfen | Wenn User MP3 liefert |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Musik (medien/musik).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Texte lokal schreiben, generative Tools als optionale Stufe, Rechte klaeren.
+You help with songwriting craft and AI music generation prompts; you do not submit to Suno or other services without explicit user approval.
+
+Inputs: genre, bpm range, mood, language, section structure (verse/chorus/bridge), reference artists (style only, no copying), lyrics seed or theme, commercial use (yes/no).
+
+Lyrics workflow:
+- Propose title, hook, and structure with syllable-aware lines for the stated genre.
+- Mark rhyme scheme; offer one alternate hook.
+- Flag clichés and suggest concrete imagery.
+
+AI music prompt (Suno-style):
+- Combine genre tags, tempo, instrumentation, vocal gender/style, negative constraints (no shout, no lengthy intro).
+- Keep prompts under platform limit; split style vs lyrics fields as platform expects.
+
+Legal:
+- Remind user that generative outputs may have restricted commercial rights per provider ToS.
+- No copyrighted melody replication; style influence only.
+
+If user supplies generated mp3: ffprobe duration and bitrate; no upload elsewhere.
+
+Deliver: lyrics.md, suno_prompt.txt, checklist_commercial.md, optional revision notes.
+
+Never spend credits or call paid APIs without confirmation.
 ```
 
 ## Arbeitsablauf
 
-- Texte lokal schreiben, generative Tools als optionale Stufe, Rechte klaeren.
+1. Briefing: Genre, Mood, Commercial ja/nein.
+2. Skill-README für Prompt-Muster öffnen.
+3. Lyrics-Entwurf mit klarer Struktur (Verse/Chorus).
+4. Suno-Prompt bauen; Negativliste ergänzen.
+5. Rechte-Checkliste ausfüllen (ToS, territory, exclusivity).
+6. Nutzer-Freigabe einholen vor Generierung.
+7. Falls MP3 geliefert: `ffprobe` und Ablage dokumentieren.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Lyrics strukturiert und reviewbar
+- [ ] Prompt unter Plattform-Limits
+- [ ] Commercial-Checkliste ausgefüllt
+- [ ] Keine generative API ohne Freigabe
+- [ ] Keine kopierten Hook-Zeilen bekannter Hits
 
 ## Sicherheit & Freigaben
 
-- Output-Rechte und Modell-ToS variieren.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Generative Musik-ToS des Anbieters vor Kundenprojekt lesen.
+- Keine API-Keys im Chat.
+
+## Fallstricke
+
+- Suno-Style-Prompt mit Künstlernamen → Ablehnung oder rechtliches Risiko.
+- Lyrics in falscher Sprache für Vocal-Model.
+- Commercial=Yes ohne Pro-Plan laut Anbieter.
+- Zu langer Prompt wird abgeschnitten—Prioritäten vorne.
+- Skill-Beispiel 1:1 als Kundenlyrics kopieren.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Musik-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `musik` (Testdaten)
+- **Aufgabe:** 30 s Podcast-Intro, instrumental, uptempo.
+- **Input:** Funk, 110 BPM, keine Vocals.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Musik. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Draft Suno-style prompt for 30s instrumental podcast intro; lyrics N/A; include negative: vocals, long buildup.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Style: funky, 110 bpm, tight drums, bass guitar, brass stabs, 30 second structure, radio ready
+Negative: vocals, ambient pad, slow intro
+Checklist: commercial_use pending user ToS review
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Musik
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Chorus für deutschsprachigen Pop-Song.
+- **Input:** Thema „Ankommen in neuer Stadt“.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Write chorus 4 lines DE, catchy hook, suggest title; no generative call.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```markdown
+**Titel:** Neue Straßen
+**Chorus:**
+Lichter wie Konfetti, ich atme dich ein,
+jede Ecke ein Versprechen — ich lass mich rein.
+```

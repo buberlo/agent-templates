@@ -1,103 +1,155 @@
 ---
 id: animation-motion-workflow
-title: "Animation und Motion"
 domain: medien
+title: "Motion Graphics mit Remotion und Hermes-Creative"
 category: animation-motion
 tags:
-  - animation
-  - medien
-  - skill
+  - remotion
+  - manim
+  - motion
 target_agents:
   - hermes
-  - grokbot
-  - generic-mcp-agents
-  - generic
+  - claude-code
+  - cursor
 required_tools:
   - name: Remotion Agent Skills
     install: "https://github.com/remotion-dev/skills"
-    version_notes: "7841 GitHub Stars"
-  - name: Hermes-Skills manim-video, p5js, ascii-video
-    install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "Bundled-Katalog."
+    version_notes: "React-basierte Videos"
+  - name: Hermes-Skills manim-video
+    install: "Bundled creative/manim"
+    version_notes: "Mathe/Explain-Animationen"
+  - name: Hermes-Skills p5js
+    install: "Bundled creative/p5js"
+    version_notes: "Interaktive Sketches als Video"
 inputs:
-  - "Kontext/Briefing für Animation und Motion"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Storyboard oder Skript"
+  - "Technikwahl (Remotion vs. Manim vs. p5)"
+  - "Dauer und Auflösung"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
-example_count: 2
-version: "1.0.0"
+  - "Gerendertes MP4 oder GIF"
+  - "Quellcode im Repo"
+risk_level: medium
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Motion Graphics, Manim, p5.js, Remotion und andere programmatische Animation.
+**Programmatische Motion** von der Idee zum Render: Remotion für UI-/Daten-Motion, **Manim** für Erklär-Mathe, **p5.js** für generative Kurzloops—Skills nutzen, Output immer ansehen.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Animation und Motion**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Animation soll versioniert (Git) und parametrisierbar sein.
+- Wiederkehrende Erklärvideos oder Social-Motion aus Templates.
+- Hermes bundled creative-Skills verfügbar.
+
+**Wann nicht**
+
+- Handgezeichnete Character-Animation Frame-für-Frame.
+- After-Effects-Projekt mit bestehenden AEP-Assets ohne Portierung.
+- Echtzeit-Interactive ohne Render-Schritt.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Remotion Agent Skills | Skill | Aus Recherche 2026-11-23 |
-| Hermes-Skills manim-video, p5js, ascii-v | Skill | Aus Recherche 2026-11-23 |
+| Remotion | React-Composition | Produktion, Skills-Ökosystem |
+| Manim CE | Vektor-Erklärung | Formeln, Graphen |
+| p5.js | Generativ | Kurze Loops, noise fields |
+| ffmpeg | Nachbearbeitung | GIF, Kompression |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Animation und Motion (medien/animation-motion).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Skript oder React-Komponente erzeugen, lokal rendern, Output ansehen.
+You create programmatic motion videos by picking the right engine before coding.
+
+Inputs: script/storyboard, resolution, fps, duration, brand colors/fonts, engine hint (remotion|manim|p5|auto).
+
+Auto choice:
+- UI mockups, KPI counters, text-heavy corporate → Remotion.
+- Equations, graphs, geometric proofs → Manim (Community Edition).
+- Abstract generative loops, particle fields → p5.js record via ccapture or frame export.
+
+Remotion: follow remotion-dev/skills; compose with Series/Sequence; render via npx remotion render.
+Manim: scene per file; manim -pqh scene.py SceneName; respect safe margins for text.
+p5: fixed randomSeed for reproducibility; export frames then ffmpeg -framerate 30 -i frame_%04d.png out.mp4.
+
+Always preview low resolution before final render to save time.
+Store source in repo; attach render command and dependency versions.
+
+ffmpeg post: only if user needs gif (-vf fps=15,palettegen) or lighter mp4.
+
+No stock audio without license. Get approval before publishing.
+
+Match frame rate to delivery platform (30 vs 60) before final render.
+Export a contact sheet still every 5s for stakeholder async review.
+Pin dependency versions in README after first successful render.
+If text animates, verify contrast ratio against background for accessibility.
 ```
 
 ## Arbeitsablauf
 
-- Skript oder React-Komponente erzeugen, lokal rendern, Output ansehen.
+1. Storyboard in 3–7 Shots; Dauer pro Shot festlegen.
+2. Engine wählen und Skill-README öffnen.
+3. Scaffold (Remotion project / manim Scene / p5 sketch).
+4. Low-res Preview (480p oder -ql).
+5. Final render volle Auflösung.
+6. `ffprobe` und Stichprobe im Player.
+7. Commit mit README: Render-Befehl.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Render ohne Fehler; Dauer ±1 Frame
+- [ ] Text lesbar auf Zielgerät (min font size checked)
+- [ ] Quellcode und Befehl dokumentiert
+- [ ] Random Seeds fixiert wo nötig
+- [ ] Keine unlizenzierte Musik
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Manim/p5 in Sandbox bei untrusted Dependencies.
+- Publish auf Social nur nach Freigabe.
+
+## Fallstricke
+
+- Manim-LaTeX fehlt auf Server → Build fail; Dependencies vorab.
+- p5 ohne `randomSeed` → nicht reproduzierbar.
+- Remotion `durationInFrames` zu kurz.
+- GIF aus voller HD ohne Palette → 50 MB Monster.
+- Skills veraltet vs. Remotion Major Version—Version pinnen.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Animation und Motion-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `animation-motion` (Testdaten)
+- **Aufgabe:** 10 s KPI-Counter in Remotion.
+- **Input:** Start 0, End 1200000 EUR, 1080p30.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Animation und Motion. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Remotion composition KpiCount 300 frames, animate number with easing, render out/kpi.mp4.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```bash
+npx remotion render KpiCount out/kpi.mp4
+Duration: 10.00s, 1920x1080
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Animation und Motion
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Sinuskurve erklären mit Manim.
+- **Input:** 45 s, 1080p.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Single Manim scene PlotSine, voiceover placeholder text on screen only, render -pqh.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+manim -pqh plot_sine.py PlotSine → media/videos/plot_sine/1080p60/PlotSine.mp4
+```
