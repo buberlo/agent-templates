@@ -4,33 +4,31 @@ title: "Monitoring und Observability"
 domain: devops-cloud
 category: monitoring-observability
 tags:
-  - monitoring
-  - devops-cloud
-  - mcp
+  - prometheus
+  - grafana
+  - alerts
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: Sentry MCP
-    install: "https://github.com/getsentry/sentry-mcp"
-    version_notes: "973 GitHub Stars"
-  - name: grafana MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/grafana"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: datadog MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/datadog"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: betterstack MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/betterstack"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
+  - name: promtool
+    install: "Teil von Prometheus"
+    version_notes: "rules test"
+  - name: curl
+    install: "Prometheus HTTP API"
+    version_notes: "instant query"
+  - name: kubectl
+    install: "ServiceMonitors CR"
+    version_notes: "Operator stacks"
 inputs:
-  - "Kontext/Briefing für Monitoring und Observability"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Metric/Alert-Name, Cluster oder VM"
+  - "SLO oder Schwellwert"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Validierte Rule oder Dashboard-JSON-Snippet"
+  - "Runbook-Link für Alert"
+risk_level: high
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
@@ -38,74 +36,103 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Metrics, Traces, Dashboards in Grafana, Datadog, Sentry, Prometheus.
+Metriken, Alerts und SLOs pflegen — PromQL prüfen, Rules testen, Prod-Alerts nicht stillschweigend deaktivieren.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Monitoring und Observability**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Neuer Alert, flaky firing, Dashboard für on-call.
+- Nach Deploy: SLI-Verifikation.
+
+**Wann nicht:** Vollständiges Observability-Vendor-Migration in einem Sprint.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Sentry MCP | MCP | Aus Recherche 2026-11-23 |
-| grafana MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| datadog MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| betterstack MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| promtool | Rules | check rules |
+| Prometheus API | Query | instant/range |
+| Grafana | Dashboards | Export/Import JSON |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Monitoring und Observability (devops-cloud/monitoring-observability).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Community-Posts koppeln Coding-Agenten mit Sentry plus Browser-MCP, um Prod-Fehler zu sehen.
+Observability workflow (devops-cloud/monitoring-observability).
+
+Validate recording and alerting rules with promtool check rules and promtool test rules.
+Query live: curl -G <prometheus>/api/v1/query --data-urlencode 'query=up{job="api"}'.
+SLO alerts: for duration must match error budget policy user provides.
+Never silence all alerts in prod without incident id and expiry.
+Label sets: consistent job, service, env labels on new rules.
+Dashboard changes: export JSON diff summary, not full paste if huge.
+kubectl apply ServiceMonitor only after promtool pass and approval.
+Recording rules before complex dashboards to avoid expensive queries.
+Document alert runbook URL in annotation runbook_url.
+No cardinality explosion from high-cardinality labels in user suggestions.
 ```
 
 ## Arbeitsablauf
 
-- Community-Posts koppeln Coding-Agenten mit Sentry plus Browser-MCP, um Prod-Fehler zu sehen.
+1. Alert symptom und aktuelle Rule-Datei laden.
+2. `promtool check rules alerts/api.yaml`.
+3. Test vectors: `promtool test rules tests/api_alerts_test.yaml`.
+4. Live: `curl -G 'http://prom:9090/api/v1/query' --data-urlencode 'query=rate(http_requests_total{status=~"5.."}[5m])'`.
+5. Rule-Änderung als PR; Grafana Panel ergänzen.
+6. Nach Freigabe: `kubectl apply -f servicemonitor-api.yaml`.
+7. Ampeco firing test in staging (`amtool alert add` nur staging).
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] promtool check + test grün
+- [ ] Runbook-Annotation gesetzt
+- [ ] Kein prod silence ohne Ticket
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Prod-Alert-Config: high risk.
+- Metrics können interne Hostnamen enthüllen — redigieren in öffentlichen Tickets.
+
+## Fallstricke
+
+- `rate()` ohne `[5m]` minimum sinnvoll — spike noise.
+- Alert ohne `for:` — flapping pager.
+- Recording rule cyclic dependency.
+- Grafana Variable ohne datasource — broken dashboard.
+- kube-state-metrics fehlt — Pods unknown aber App „up“.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Monitoring und Observability-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `monitoring-observability` (Testdaten)
+- **Aufgabe:** 5xx-Rate-Alert prüfen.
+- **Input:** `alerts/api.yaml` rule `HighErrorRate`.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Monitoring und Observability. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+promtool check and test; show instant query for current 5xx rate.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```bash
+promtool check rules alerts/api.yaml
+promtool test rules tests/api_alerts_test.yaml
+curl -G 'http://localhost:9090/api/v1/query' \
+  --data-urlencode 'query=sum(rate(http_requests_total{status=~"5.."}[5m]))'
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Monitoring und Observability
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** ServiceMonitor für neues Deployment.
+- **Input:** NS `prod`, port metrics 8080.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Draft ServiceMonitor yaml; apply only after approval note.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```bash
+kubectl apply -f servicemonitor-api.yaml   # after APPROVE
+kubectl get servicemonitor -n prod
+```

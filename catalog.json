@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T11:24:56Z",
+  "generated_at": "2026-11-23T11:34:34Z",
   "domains": [
     {
       "slug": "agent-platforms",
@@ -2134,8 +2134,8 @@
       "category": "cicd",
       "tags": [
         "cicd",
-        "devops-cloud",
-        "mcp"
+        "mcp",
+        "github-actions"
       ],
       "target_agents": [
         "hermes",
@@ -2143,7 +2143,7 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -2157,16 +2157,19 @@
       "tags": [
         "github-actions",
         "ci",
-        "pytest"
+        "pytest",
+        "gh"
       ],
       "target_agents": [
         "hermes",
         "grokbot",
-        "generic"
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
       ],
       "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/devops-cloud/cicd/coding-github-actions-ci-pipeline.md"
     },
@@ -2176,9 +2179,9 @@
       "domain": "devops-cloud",
       "category": "cloud-aws",
       "tags": [
+        "aws",
         "cloud",
-        "devops-cloud",
-        "mcp"
+        "cli"
       ],
       "target_agents": [
         "hermes",
@@ -2186,7 +2189,7 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "high",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -2198,9 +2201,9 @@
       "domain": "devops-cloud",
       "category": "cloud-azure",
       "tags": [
+        "azure",
         "cloud",
-        "devops-cloud",
-        "mcp"
+        "az-cli"
       ],
       "target_agents": [
         "hermes",
@@ -2208,7 +2211,7 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "high",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -2220,9 +2223,9 @@
       "domain": "devops-cloud",
       "category": "cloud-gcp",
       "tags": [
+        "gcp",
         "cloud",
-        "devops-cloud",
-        "mcp"
+        "gcloud"
       ],
       "target_agents": [
         "hermes",
@@ -2230,7 +2233,7 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "high",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -2242,9 +2245,9 @@
       "domain": "devops-cloud",
       "category": "cloud-kosten",
       "tags": [
-        "cloud",
-        "devops-cloud",
-        "mcp"
+        "finops",
+        "cost",
+        "cloud"
       ],
       "target_agents": [
         "hermes",
@@ -2252,7 +2255,7 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -2265,8 +2268,8 @@
       "category": "docker-container",
       "tags": [
         "docker",
-        "devops-cloud",
-        "cli"
+        "container",
+        "buildkit"
       ],
       "target_agents": [
         "hermes",
@@ -2274,7 +2277,7 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -2292,11 +2295,13 @@
       ],
       "target_agents": [
         "hermes",
-        "generic"
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
       ],
       "risk_level": "high",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/devops-cloud/iac-terraform/coding-terraform-aws-baseline.md"
     },
@@ -2307,8 +2312,8 @@
       "category": "incident-response",
       "tags": [
         "incident",
-        "devops-cloud",
-        "mcp"
+        "mcp",
+        "observability"
       ],
       "target_agents": [
         "hermes",
@@ -2316,7 +2321,7 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "high",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -2329,16 +2334,15 @@
       "category": "incident-response",
       "tags": [
         "incident",
-        "devops-cloud",
-        "mcp"
+        "sre",
+        "oncall"
       ],
       "target_agents": [
         "hermes",
-        "claude-code",
-        "cursor",
+        "grokbot",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "high",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -2357,11 +2361,11 @@
       "target_agents": [
         "hermes",
         "grokbot",
-        "generic"
+        "generic-mcp-agents"
       ],
       "risk_level": "high",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/devops-cloud/kubernetes/k8s-helm-chart-release.md"
     },
@@ -2377,11 +2381,13 @@
       ],
       "target_agents": [
         "hermes",
+        "grokbot",
+        "generic-mcp-agents",
         "generic"
       ],
       "risk_level": "high",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/devops-cloud/kubernetes/k8s-kubectl-rollout-debug.md"
     },
@@ -2392,8 +2398,8 @@
       "category": "kubernetes",
       "tags": [
         "kubernetes",
-        "devops-cloud",
-        "mcp"
+        "mcp",
+        "kubectl"
       ],
       "target_agents": [
         "hermes",
@@ -2401,7 +2407,7 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "high",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -2414,8 +2420,8 @@
       "category": "logging",
       "tags": [
         "logging",
-        "devops-cloud",
-        "mcp"
+        "loki",
+        "cloudwatch"
       ],
       "target_agents": [
         "hermes",
@@ -2423,7 +2429,7 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -2435,9 +2441,9 @@
       "domain": "devops-cloud",
       "category": "monitoring-observability",
       "tags": [
-        "monitoring",
-        "devops-cloud",
-        "mcp"
+        "observability",
+        "mcp",
+        "grafana"
       ],
       "target_agents": [
         "hermes",
@@ -2445,7 +2451,7 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "high",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -2457,9 +2463,9 @@
       "domain": "devops-cloud",
       "category": "monitoring-observability",
       "tags": [
-        "monitoring",
-        "devops-cloud",
-        "mcp"
+        "prometheus",
+        "grafana",
+        "alerts"
       ],
       "target_agents": [
         "hermes",
@@ -2467,7 +2473,7 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "high",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -2479,9 +2485,9 @@
       "domain": "devops-cloud",
       "category": "plattform-deploy",
       "tags": [
-        "plattform",
-        "devops-cloud",
-        "mcp"
+        "deploy",
+        "mcp",
+        "vercel"
       ],
       "target_agents": [
         "hermes",
@@ -2489,7 +2495,7 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "high",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -2501,9 +2507,9 @@
       "domain": "devops-cloud",
       "category": "plattform-deploy",
       "tags": [
-        "plattform",
-        "devops-cloud",
-        "mcp"
+        "deploy",
+        "vercel",
+        "production"
       ],
       "target_agents": [
         "hermes",
@@ -2511,7 +2517,7 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "high",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -5265,15 +5271,15 @@
       "domain": "security",
       "category": "appsec-sast",
       "tags": [
+        "sast",
         "appsec",
-        "security",
-        "mcp"
+        "semgrep"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
       ],
       "risk_level": "medium",
       "example_count": 2,
@@ -5288,14 +5294,12 @@
       "category": "compliance-nis2-dsgvo",
       "tags": [
         "compliance",
-        "security",
-        "skill"
+        "dsgvo",
+        "mcp"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "generic-mcp-agents"
       ],
       "risk_level": "medium",
       "example_count": 2,
@@ -5315,11 +5319,12 @@
       ],
       "target_agents": [
         "hermes",
+        "generic-mcp-agents",
         "generic"
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/security/compliance-nis2-dsgvo/email-postfix-dmarc-parse.md"
     },
@@ -5329,16 +5334,15 @@
       "domain": "security",
       "category": "forensik",
       "tags": [
-        "forensik",
-        "security"
+        "forensics",
+        "incident",
+        "authorized"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "generic-mcp-agents"
       ],
-      "risk_level": "medium",
+      "risk_level": "high",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -5351,14 +5355,11 @@
       "category": "osint",
       "tags": [
         "osint",
-        "security",
         "mcp"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "generic-mcp-agents"
       ],
       "risk_level": "medium",
       "example_count": 2,
@@ -5373,14 +5374,12 @@
       "category": "osint",
       "tags": [
         "osint",
-        "security",
-        "mcp"
+        "threat-intel"
       ],
       "target_agents": [
         "hermes",
         "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "generic-mcp-agents"
       ],
       "risk_level": "medium",
       "example_count": 2,
@@ -5395,15 +5394,15 @@
       "category": "pentest-recon",
       "tags": [
         "pentest",
-        "security"
+        "authorized",
+        "policy"
       ],
       "target_agents": [
         "hermes",
         "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "generic-mcp-agents"
       ],
-      "risk_level": "medium",
+      "risk_level": "high",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -5415,16 +5414,15 @@
       "domain": "security",
       "category": "reverse-engineering",
       "tags": [
-        "reverse",
-        "security"
+        "reverse-engineering",
+        "authorized",
+        "malware"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "generic-mcp-agents"
       ],
-      "risk_level": "medium",
+      "risk_level": "high",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -5437,16 +5435,14 @@
       "category": "secrets-management",
       "tags": [
         "secrets",
-        "security",
-        "praxisregel"
+        "vault",
+        "rotation"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "generic-mcp-agents"
       ],
-      "risk_level": "medium",
+      "risk_level": "high",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -5459,16 +5455,14 @@
       "category": "siem-soc",
       "tags": [
         "siem",
-        "security",
-        "mcp"
+        "mcp",
+        "soc"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "generic-mcp-agents"
       ],
-      "risk_level": "medium",
+      "risk_level": "high",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -5481,16 +5475,15 @@
       "category": "siem-soc",
       "tags": [
         "siem",
-        "security",
-        "mcp"
+        "soc",
+        "detection"
       ],
       "target_agents": [
         "hermes",
         "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "generic-mcp-agents"
       ],
-      "risk_level": "medium",
+      "risk_level": "high",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -5503,14 +5496,11 @@
       "category": "vuln-management",
       "tags": [
         "vuln",
-        "security",
         "mcp"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "generic-mcp-agents"
       ],
       "risk_level": "medium",
       "example_count": 2,
@@ -5525,14 +5515,13 @@
       "category": "vuln-management",
       "tags": [
         "vuln",
-        "security",
-        "mcp"
+        "cve",
+        "patching"
       ],
       "target_agents": [
         "hermes",
         "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "generic-mcp-agents"
       ],
       "risk_level": "medium",
       "example_count": 2,
@@ -5546,9 +5535,9 @@
       "domain": "software-entwicklung",
       "category": "backend-apis",
       "tags": [
-        "backend",
-        "software-entwicklung",
-        "mcpplattform"
+        "api",
+        "mcp",
+        "postgres"
       ],
       "target_agents": [
         "hermes",
@@ -5556,7 +5545,7 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -5568,9 +5557,9 @@
       "domain": "software-entwicklung",
       "category": "backend-apis",
       "tags": [
-        "backend",
-        "software-entwicklung",
-        "mcpplattform"
+        "api",
+        "openapi",
+        "backend"
       ],
       "target_agents": [
         "hermes",
@@ -5590,9 +5579,9 @@
       "domain": "software-entwicklung",
       "category": "code-review",
       "tags": [
-        "code",
-        "software-entwicklung",
-        "mcp"
+        "review",
+        "mcp",
+        "github"
       ],
       "target_agents": [
         "hermes",
@@ -5612,9 +5601,9 @@
       "domain": "software-entwicklung",
       "category": "code-review",
       "tags": [
-        "code",
-        "software-entwicklung",
-        "mcp"
+        "review",
+        "gh",
+        "quality"
       ],
       "target_agents": [
         "hermes",
@@ -5635,8 +5624,8 @@
       "category": "coding",
       "tags": [
         "coding",
-        "software-entwicklung",
-        "mcpplattform"
+        "mcp",
+        "skills"
       ],
       "target_agents": [
         "hermes",
@@ -5657,8 +5646,7 @@
       "category": "coding",
       "tags": [
         "coding",
-        "software-entwicklung",
-        "mcpplattform"
+        "implementation"
       ],
       "target_agents": [
         "hermes",
@@ -5678,9 +5666,9 @@
       "domain": "software-entwicklung",
       "category": "datenbanken-dev",
       "tags": [
-        "datenbanken",
-        "software-entwicklung",
-        "mcp"
+        "sql",
+        "mcp",
+        "postgres"
       ],
       "target_agents": [
         "hermes",
@@ -5688,7 +5676,7 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -5700,9 +5688,9 @@
       "domain": "software-entwicklung",
       "category": "datenbanken-dev",
       "tags": [
-        "datenbanken",
-        "software-entwicklung",
-        "mcp"
+        "sql",
+        "postgres",
+        "migrations"
       ],
       "target_agents": [
         "hermes",
@@ -5710,7 +5698,7 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -5723,8 +5711,8 @@
       "category": "design-to-code",
       "tags": [
         "design",
-        "software-entwicklung",
-        "mcp"
+        "frontend",
+        "playwright"
       ],
       "target_agents": [
         "hermes",
@@ -5745,8 +5733,8 @@
       "category": "frontend",
       "tags": [
         "frontend",
-        "software-entwicklung",
-        "mcp"
+        "mcp",
+        "playwright"
       ],
       "target_agents": [
         "hermes",
@@ -5766,9 +5754,9 @@
       "domain": "software-entwicklung",
       "category": "frontend",
       "tags": [
+        "react",
         "frontend",
-        "software-entwicklung",
-        "mcp"
+        "vite"
       ],
       "target_agents": [
         "hermes",
@@ -5788,9 +5776,9 @@
       "domain": "software-entwicklung",
       "category": "game-dev",
       "tags": [
-        "game",
-        "software-entwicklung",
-        "mcp"
+        "gamedev",
+        "unity",
+        "godot"
       ],
       "target_agents": [
         "hermes",
@@ -5811,8 +5799,8 @@
       "category": "git-github",
       "tags": [
         "git",
-        "software-entwicklung",
-        "mcp"
+        "github",
+        "gh"
       ],
       "target_agents": [
         "hermes",
@@ -5820,7 +5808,7 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -5833,8 +5821,8 @@
       "category": "mobile-apps",
       "tags": [
         "mobile",
-        "software-entwicklung",
-        "mcp"
+        "react-native",
+        "flutter"
       ],
       "target_agents": [
         "hermes",
@@ -5842,7 +5830,7 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
@@ -5855,8 +5843,7 @@
       "category": "refactoring",
       "tags": [
         "refactoring",
-        "software-entwicklung",
-        "skill"
+        "quality"
       ],
       "target_agents": [
         "hermes",
@@ -5876,9 +5863,9 @@
       "domain": "software-entwicklung",
       "category": "tech-docs",
       "tags": [
-        "tech",
-        "software-entwicklung",
-        "mcpplattform"
+        "docs",
+        "mcp",
+        "notion"
       ],
       "target_agents": [
         "hermes",
@@ -5898,9 +5885,9 @@
       "domain": "software-entwicklung",
       "category": "tech-docs",
       "tags": [
-        "tech",
-        "software-entwicklung",
-        "mcpplattform"
+        "docs",
+        "adr",
+        "readme"
       ],
       "target_agents": [
         "hermes",
@@ -5921,8 +5908,8 @@
       "category": "testing",
       "tags": [
         "testing",
-        "software-entwicklung",
-        "mcp"
+        "mcp",
+        "playwright"
       ],
       "target_agents": [
         "hermes",
@@ -5943,8 +5930,8 @@
       "category": "testing",
       "tags": [
         "testing",
-        "software-entwicklung",
-        "mcp"
+        "playwright",
+        "pytest"
       ],
       "target_agents": [
         "hermes",

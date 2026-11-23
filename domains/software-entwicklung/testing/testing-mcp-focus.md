@@ -5,8 +5,8 @@ domain: software-entwicklung
 category: testing
 tags:
   - testing
-  - software-entwicklung
   - mcp
+  - playwright
 target_agents:
   - hermes
   - claude-code
@@ -15,15 +15,19 @@ target_agents:
 required_tools:
   - name: Playwright MCP
     install: "https://github.com/microsoft/playwright-mcp"
-    version_notes: "40040 GitHub Stars"
+    version_notes: "Debug; CLI für CI"
   - name: Chrome DevTools MCP
     install: "https://github.com/ChromeDevTools/chrome-devtools-mcp"
-    version_notes: "58941 GitHub Stars"
+    version_notes: "Performance traces"
+  - name: playwright CLI
+    install: "npx playwright"
+    version_notes: "Verify step in skill"
 inputs:
-  - "Kontext/Briefing für Testing"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "App URL (staging)"
+  - "Skill TDD steps"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Skill↔MCP matrix"
+  - "Exported playwright spec"
 risk_level: low
 example_count: 3
 version: "1.0.0"
@@ -32,86 +36,115 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Unit-, Integrations- und E2E-Tests (inkl. Playwright) schreiben und ausführen.
+**Playwright MCP** für interaktives Debuggen; Skill verlangt **CLI-Verify** (`npx playwright test`) vor Merge — MCP nicht als einzige Testquelle.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Testing**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- UI-Flow explorieren, danach Spec generieren.
+- Performance-Spike mit Chrome DevTools MCP.
+
+**Wann nicht:** Reine API-Tests — pytest only.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Playwright MCP | MCP | Aus Recherche 2026-11-23 |
-| Chrome DevTools MCP | MCP | Aus Recherche 2026-11-23 |
-| Hermes-Skill test-driven-development | Skill | Aus Recherche 2026-11-23 |
+| Playwright MCP | Explore | Snapshots teuer |
+| playwright CLI | Verify | CI parity |
+| TDD Skill | Reihenfolge | red-green-refactor |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Testing (software-entwicklung/testing).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Tests schreiben lassen, lokal ausfuehren, erst dann Implementation verbreitern.
+Testing MCP/Skill focus (software-entwicklung/testing).
+
+Skill phases: explore (MCP optional) -> write spec file -> verify (CLI mandatory) -> commit.
+Limit Playwright MCP turns; prefer codegen export to tests/e2e/*.spec.ts then CLI.
+Chrome DevTools MCP only for perf/network diagnosis step, not default every test.
+MCP snapshot token cost: warn when task is extract-only HTML.
+Hermes TDD skill: failing test commit before implementation.
+Never mark DoD complete without npx playwright test exit 0 locally or CI link.
+Matrix: Step Explore | MCP browser; Step Verify | CLI only.
+Disable Playwright MCP during CI agent job if duplicate.
+Do not store credentials in MCP session prompts.
 ```
 
 ## Arbeitsablauf
 
-- Tests schreiben lassen, lokal ausfuehren, erst dann Implementation verbreitern.
+1. Skill-Matrix Explore vs Verify definieren.
+2. Optional MCP: navigate staging login (read-only data).
+3. Spec aus MCP/codegen in Repo schreiben.
+4. `npx playwright test` — Skill Verify.
+5. Bei Fail: trace `npx playwright show-trace`.
+6. Unit-Tests parallel `npm test`.
+7. PR mit Testplan.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] CLI playwright grün
+- [ ] MCP nur wo dokumentiert
+- [ ] Keine Secrets in Specs
 
 ## Sicherheit & Freigaben
 
-- Playwright MCP streamt grosse Snapshots – fuer reine Extraktion unnoetig teuer.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Staging-URLs only default.
+- MCP-Screenshots können PII — nicht öffentlich posten.
+
+## Fallstricke
+
+- Nur MCP — keine CI-Reproduzierbarkeit.
+- Riesige A11y-Snapshots — Kontext voll.
+- DevTools MCP auf Prod.
+- Spec aus veralteter UI.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Testing-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `testing` (Testdaten)
+- **Aufgabe:** Matrix Checkout-Flow.
+- **Input:** staging shop.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Testing. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+MCP explore cart; write spec; npx playwright test verify.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+tests/e2e/cart.spec.ts added
+npx playwright test → 3 passed
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Testing
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** MCP vermeiden bei API-only.
+- **Input:** REST service.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+pytest only skill; no Playwright MCP enabled.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```bash
+pytest -q
+# MCP count 0
+```
 
 ### Beispiel 3 (Praxisbeispiel)
 
-- **Aufgabe:** Fuer Extraktionsaufgaben den Kontextverbrauch von Playwright MCP mit einem Cloud-Browser vergleichen, der Markdown zurueckgibt.
-- **Input:** Typische URL-holen-und-X-extrahieren-Aufgaben laut Beitrag.
+- **Aufgabe:** Performance regression.
+- **Input:** langsame Dashboard-Ladezeit.
 - **Prompt:**
+
 ```text
-Microsoft Playwright MCP (Accessibility-Tree/Snapshots) vs. ScrapingAnt-Cloud-Browser-MCP.
+Chrome DevTools MCP trace one navigation; suggest test via CLI measureNavigationTiming.
 ```
+
 - **Erwartetes Ergebnis:**
-  Der Beitrag (Selbstpromotion von ScrapingAnt, r/mcp) behauptet typisch ca. 114.000 Tokens bei Playwright-MCP-Aufgaben gegenueber ca. 5.000-15.000 Tokens fuer Markdown/HTML/Text ohne gestreamten Accessibility-Tree. Playwright MCP wird dort selbst als besser fuer lokale UI-Tests der eigenen App beschrieben.
-- **Quelle:** https://www.reddit.com/r/mcp/comments/1spvkrz/microsoft_recommends_cli_over_mcp_for_playwright/
+
+```text
+LCP 4.2s flagged; add playwright performance assertion in spec
+```

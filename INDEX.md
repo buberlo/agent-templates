@@ -296,79 +296,79 @@ Automatisch generiert. **27** Domains, **198** Kategorien, **247** Templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `cicd-mcp-focus` | CI/CD: MCP/Skill-Fokus | hermes, claude-code, cursor… | low | 2 |
-| `coding-github-actions-ci-pipeline` | CI-Pipeline mit GitHub Actions | hermes, grokbot, generic | medium | 2 |
+| `cicd-mcp-focus` | CI/CD: MCP/Skill-Fokus | hermes, claude-code, cursor… | medium | 2 |
+| `coding-github-actions-ci-pipeline` | CI-Pipeline mit GitHub Actions | hermes, grokbot, claude-code… | medium | 2 |
 
 ### `devops-cloud/cloud-aws` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `cloud-aws-workflow` | Cloud: AWS | hermes, claude-code, cursor… | low | 2 |
+| `cloud-aws-workflow` | Cloud: AWS | hermes, claude-code, cursor… | high | 2 |
 
 ### `devops-cloud/cloud-azure` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `cloud-azure-workflow` | Cloud: Azure | hermes, claude-code, cursor… | low | 2 |
+| `cloud-azure-workflow` | Cloud: Azure | hermes, claude-code, cursor… | high | 2 |
 
 ### `devops-cloud/cloud-gcp` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `cloud-gcp-workflow` | Cloud: GCP | hermes, claude-code, cursor… | low | 2 |
+| `cloud-gcp-workflow` | Cloud: GCP | hermes, claude-code, cursor… | high | 2 |
 
 ### `devops-cloud/cloud-kosten` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `cloud-kosten-workflow` | Cloud-Kosten | hermes, claude-code, cursor… | low | 2 |
+| `cloud-kosten-workflow` | Cloud-Kosten | hermes, claude-code, cursor… | medium | 2 |
 
 ### `devops-cloud/docker-container` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `docker-container-workflow` | Docker und Container | hermes, claude-code, cursor… | low | 2 |
+| `docker-container-workflow` | Docker und Container | hermes, claude-code, cursor… | medium | 2 |
 
 ### `devops-cloud/iac-terraform` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `coding-terraform-aws-baseline` | AWS Baseline mit Terraform | hermes, generic | high | 2 |
+| `coding-terraform-aws-baseline` | AWS Baseline mit Terraform | hermes, claude-code, cursor… | high | 2 |
 
 ### `devops-cloud/incident-response` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `incident-response-mcp-focus` | Incident Response: MCP/Skill-Fokus | hermes, claude-code, cursor… | low | 2 |
-| `incident-response-workflow` | Incident Response | hermes, claude-code, cursor… | low | 2 |
+| `incident-response-mcp-focus` | Incident Response: MCP/Skill-Fokus | hermes, claude-code, cursor… | high | 2 |
+| `incident-response-workflow` | Incident Response | hermes, grokbot, generic-mcp-agents | high | 2 |
 
 ### `devops-cloud/kubernetes` (3)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `k8s-helm-chart-release` | Helm Chart installieren und upgraden | hermes, grokbot, generic | high | 2 |
-| `k8s-kubectl-rollout-debug` | Deployment Rollout und Debug mit kubectl | hermes, generic | high | 2 |
-| `kubernetes-mcp-focus` | Kubernetes: MCP/Skill-Fokus | hermes, claude-code, cursor… | low | 2 |
+| `k8s-helm-chart-release` | Helm Chart installieren und upgraden | hermes, grokbot, generic-mcp-agents | high | 2 |
+| `k8s-kubectl-rollout-debug` | Deployment Rollout und Debug mit kubectl | hermes, grokbot, generic-mcp-agents… | high | 2 |
+| `kubernetes-mcp-focus` | Kubernetes: MCP/Skill-Fokus | hermes, claude-code, cursor… | high | 2 |
 
 ### `devops-cloud/logging` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `logging-workflow` | Logging | hermes, claude-code, cursor… | low | 2 |
+| `logging-workflow` | Logging | hermes, claude-code, cursor… | medium | 2 |
 
 ### `devops-cloud/monitoring-observability` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `monitoring-observability-mcp-focus` | Monitoring und Observability: MCP/Skill-Fokus | hermes, claude-code, cursor… | low | 2 |
-| `monitoring-observability-workflow` | Monitoring und Observability | hermes, claude-code, cursor… | low | 2 |
+| `monitoring-observability-mcp-focus` | Monitoring und Observability: MCP/Skill-Fokus | hermes, claude-code, cursor… | high | 2 |
+| `monitoring-observability-workflow` | Monitoring und Observability | hermes, claude-code, cursor… | high | 2 |
 
 ### `devops-cloud/plattform-deploy` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `plattform-deploy-mcp-focus` | Platform Deploy: MCP/Skill-Fokus | hermes, claude-code, cursor… | low | 2 |
-| `plattform-deploy-workflow` | Platform Deploy | hermes, claude-code, cursor… | low | 2 |
+| `plattform-deploy-mcp-focus` | Platform Deploy: MCP/Skill-Fokus | hermes, claude-code, cursor… | high | 2 |
+| `plattform-deploy-workflow` | Platform Deploy | hermes, claude-code, cursor… | high | 2 |
 
 ## Domain: `finanzen` (9 Templates)
 
@@ -1056,59 +1056,59 @@ Automatisch generiert. **27** Domains, **198** Kategorien, **247** Templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `appsec-sast-workflow` | AppSec und SAST | hermes, grokbot, generic-mcp-agents… | medium | 2 |
+| `appsec-sast-workflow` | AppSec und SAST | hermes, claude-code, cursor… | medium | 2 |
 
 ### `security/compliance-nis2-dsgvo` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `compliance-nis2-dsgvo-mcp-focus` | Compliance, NIS2 und DSGVO: MCP/Skill-Fokus | hermes, grokbot, generic-mcp-agents… | medium | 2 |
-| `email-postfix-dmarc-parse` | DMARC-Reports auswerten | hermes, generic | low | 2 |
+| `compliance-nis2-dsgvo-mcp-focus` | Compliance, NIS2 und DSGVO: MCP/Skill-Fokus | hermes, generic-mcp-agents | medium | 2 |
+| `email-postfix-dmarc-parse` | DMARC-Reports auswerten | hermes, generic-mcp-agents, generic | low | 2 |
 
 ### `security/forensik` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `forensik-workflow` | Forensik (nur autorisiert) | hermes, grokbot, generic-mcp-agents… | medium | 2 |
+| `forensik-workflow` | Forensik (nur autorisiert) | hermes, generic-mcp-agents | high | 2 |
 
 ### `security/osint` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `osint-mcp-focus` | OSINT (offen zugängliche Quellen): MCP/Skill-Fokus | hermes, grokbot, generic-mcp-agents… | medium | 2 |
-| `osint-workflow` | OSINT (offen zugängliche Quellen) | hermes, grokbot, generic-mcp-agents… | medium | 2 |
+| `osint-mcp-focus` | OSINT (offen zugängliche Quellen): MCP/Skill-Fokus | hermes, generic-mcp-agents | medium | 2 |
+| `osint-workflow` | OSINT (offen zugängliche Quellen) | hermes, grokbot, generic-mcp-agents | medium | 2 |
 
 ### `security/pentest-recon` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `pentest-recon-workflow` | Pentest und Recon (nur autorisiert) | hermes, grokbot, generic-mcp-agents… | medium | 2 |
+| `pentest-recon-workflow` | Pentest und Recon (nur autorisiert) | hermes, grokbot, generic-mcp-agents | high | 2 |
 
 ### `security/reverse-engineering` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `reverse-engineering-workflow` | Reverse Engineering (nur autorisiert) | hermes, grokbot, generic-mcp-agents… | medium | 2 |
+| `reverse-engineering-workflow` | Reverse Engineering (nur autorisiert) | hermes, generic-mcp-agents | high | 2 |
 
 ### `security/secrets-management` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `secrets-management-workflow` | Secrets Management | hermes, grokbot, generic-mcp-agents… | medium | 2 |
+| `secrets-management-workflow` | Secrets Management | hermes, generic-mcp-agents | high | 2 |
 
 ### `security/siem-soc` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `siem-soc-mcp-focus` | SIEM und SOC: MCP/Skill-Fokus | hermes, grokbot, generic-mcp-agents… | medium | 2 |
-| `siem-soc-workflow` | SIEM und SOC | hermes, grokbot, generic-mcp-agents… | medium | 2 |
+| `siem-soc-mcp-focus` | SIEM und SOC: MCP/Skill-Fokus | hermes, generic-mcp-agents | high | 2 |
+| `siem-soc-workflow` | SIEM und SOC | hermes, grokbot, generic-mcp-agents | high | 2 |
 
 ### `security/vuln-management` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `vuln-management-mcp-focus` | Vulnerability Management: MCP/Skill-Fokus | hermes, grokbot, generic-mcp-agents… | medium | 2 |
-| `vuln-management-workflow` | Vulnerability Management | hermes, grokbot, generic-mcp-agents… | medium | 2 |
+| `vuln-management-mcp-focus` | Vulnerability Management: MCP/Skill-Fokus | hermes, generic-mcp-agents | medium | 2 |
+| `vuln-management-workflow` | Vulnerability Management | hermes, grokbot, generic-mcp-agents | medium | 2 |
 
 ## Domain: `software-entwicklung` (19 Templates)
 
@@ -1116,7 +1116,7 @@ Automatisch generiert. **27** Domains, **198** Kategorien, **247** Templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `backend-apis-mcp-focus` | Backend und APIs: MCP/Skill-Fokus | hermes, claude-code, cursor… | low | 2 |
+| `backend-apis-mcp-focus` | Backend und APIs: MCP/Skill-Fokus | hermes, claude-code, cursor… | medium | 2 |
 | `backend-apis-workflow` | Backend und APIs | hermes, claude-code, cursor… | low | 2 |
 
 ### `software-entwicklung/code-review` (2)
@@ -1137,8 +1137,8 @@ Automatisch generiert. **27** Domains, **198** Kategorien, **247** Templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `datenbanken-dev-mcp-focus` | Datenbanken (Entwicklung): MCP/Skill-Fokus | hermes, claude-code, cursor… | low | 2 |
-| `datenbanken-dev-workflow` | Datenbanken (Entwicklung) | hermes, claude-code, cursor… | low | 2 |
+| `datenbanken-dev-mcp-focus` | Datenbanken (Entwicklung): MCP/Skill-Fokus | hermes, claude-code, cursor… | medium | 2 |
+| `datenbanken-dev-workflow` | Datenbanken (Entwicklung) | hermes, claude-code, cursor… | medium | 2 |
 
 ### `software-entwicklung/design-to-code` (1)
 
@@ -1163,13 +1163,13 @@ Automatisch generiert. **27** Domains, **198** Kategorien, **247** Templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `git-github-workflow` | Git und GitHub | hermes, claude-code, cursor… | low | 2 |
+| `git-github-workflow` | Git und GitHub | hermes, claude-code, cursor… | medium | 2 |
 
 ### `software-entwicklung/mobile-apps` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `mobile-apps-workflow` | Mobile Apps | hermes, claude-code, cursor… | low | 2 |
+| `mobile-apps-workflow` | Mobile Apps | hermes, claude-code, cursor… | medium | 2 |
 
 ### `software-entwicklung/refactoring` (1)
 

@@ -4,27 +4,31 @@ title: "Backend und APIs: MCP/Skill-Fokus"
 domain: software-entwicklung
 category: backend-apis
 tags:
-  - backend
-  - software-entwicklung
-  - mcpplattform
+  - api
+  - mcp
+  - postgres
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: Context7
-    install: "https://github.com/upstash/context7"
-    version_notes: "65314 GitHub Stars"
-  - name: supabase MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/supabase"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
+  - name: postgres-mcp
+    install: "Read-only DB MCP if listed"
+    version_notes: "SELECT only default"
+  - name: GitHub Official MCP
+    install: "PR + OpenAPI in repo"
+    version_notes: "Code search"
+  - name: curl
+    install: "verify HTTP"
+    version_notes: "Skill verify step"
 inputs:
-  - "Kontext/Briefing für Backend und APIs"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "OpenAPI path in repo"
+  - "DB read scope"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "MCP matrix for API task"
+  - "Verified curl transcript"
+risk_level: medium
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
@@ -32,74 +36,98 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Services, APIs, Auth und serverseitige Logik.
+API-Entwicklung mit **GitHub MCP** (Spec im Repo) und optional **Postgres MCP** read-only — HTTP-Verify immer per curl/Tests im Skill.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Backend und APIs**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Agent soll Schema + Code + DB-Sample kombinieren.
+- Skill trennt DB-MCP read von HTTP verify.
+
+**Wann nicht:** Wenn kein DB — nur `backend-apis-workflow`.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Context7 | MCP / Plattform | Aus Recherche 2026-11-23 |
-| supabase MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| Sentry MCP | MCP | Aus Recherche 2026-11-23 |
+| GitHub MCP | Spec search | openapi.yaml |
+| Postgres MCP | Schema read | no writes |
+| curl | Verify | real HTTP |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Backend und APIs (software-entwicklung/backend-apis).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - API-Vertrag zuerst, dann Implementation und Tests.
+Backend APIs MCP/Skill focus (software-entwicklung/backend-apis).
+
+Skill: read spec (GitHub MCP) -> read schema (Postgres MCP SELECT only) -> implement locally -> verify curl/pytest.
+Postgres MCP: never INSERT/UPDATE/DELETE without explicit approval and migration path.
+GitHub MCP writes (PR) gated; draft diff only until approval.
+One database MCP; no duplicate SQL tools.
+OpenAPI from repo is source; MCP search for handlers matching path.
+If MCP DB unavailable, fall back to described schema in migration files.
+Verify step mandatory with curl exit 0 on happy path.
+Redact connection strings from chat.
+Matrix documents which MCP supplied each fact.
+Disable DB MCP in prod connection strings unless user supplies staging DSN name.
 ```
 
 ## Arbeitsablauf
 
-- API-Vertrag zuerst, dann Implementation und Tests.
+1. GitHub MCP: find openapi.yaml and route handlers.
+2. Postgres MCP: describe table columns (read).
+3. Implement change in workspace.
+4. pytest integration.
+5. curl verify Skill step.
+6. PR via gh after approval.
+7. Matrix archived in PR comment draft.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] HTTP verify dokumentiert
+- [ ] DB MCP read-only eingehalten
+- [ ] Spec und Code synchron
 
 ## Sicherheit & Freigaben
 
-- Destructive SQL durch DB-MCPs – Read-only-Mode bevorzugen.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Prod-DB per MCP verboten ohne Freigabe.
+- Tokens in curl nur env vars.
+
+## Fallstricke
+
+- MCP DB auf falsche DB — DSN prüfen.
+- GitHub MCP write PR ohne Tests.
+- Schema cache stale.
+- Zwei SQL MCPs konkurrieren.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Backend und APIs-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `backend-apis` (Testdaten)
+- **Aufgabe:** Order endpoint + schema check.
+- **Input:** table `orders`.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Backend und APIs. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+GitHub read openapi; postgres describe orders; implement; curl verify.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```bash
+curl -sf http://localhost:8080/v1/orders/1 -H "Authorization: Bearer test"
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Backend und APIs
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Block prod DSN.
+- **Input:** user pastes prod url.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Refuse postgres MCP prod; use migrations sql read only.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+MCP DB step skipped; schema from db/migrations/0003_orders.sql
+```

@@ -4,23 +4,27 @@ title: "Game Development"
 domain: software-entwicklung
 category: game-dev
 tags:
-  - game
-  - software-entwicklung
-  - mcp
+  - gamedev
+  - unity
+  - godot
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: unreal-engine MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/unreal-engine"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
+  - name: godot
+    install: "Godot 4 CLI"
+    version_notes: "godot --headless --quit-after 1"
+  - name: git
+    install: "LFS for assets if needed"
+    version_notes: "large binary policy"
 inputs:
-  - "Kontext/Briefing für Game Development"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Engine (Godot/Unity) und Szene"
+  - "Feature scope (gameplay/UI)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Scene/script changes"
+  - "Headless smoke or test scene"
 risk_level: low
 example_count: 2
 version: "1.0.0"
@@ -29,71 +33,99 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Unity, Unreal, Godot und spielnahe Pipelines, inkl. offizieller Engine-MCPs wo vorhanden.
+Gameplay- und UI-Logik in Godot/Unity umsetzen — **headless smoke**, Asset-Disziplin, Performance-Hinweise.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Game Development**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Mechanic prototype, Bug in GDScript/C#.
+- Export-Pipeline vorbereiten.
+
+**Wann nicht:** AAA-Asset-Produktion ohne Artist-Pipeline.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| unreal-engine MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| Godot CLI | CI smoke | headless |
+| git LFS | assets | wenn policy |
+| engine tests | GUT/NUnit | project |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Game Development (software-entwicklung/game-dev).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Asset- und Code-Aenderungen klein halten; nicht annehmen, dass der ganze Editor ferngesteuert ist.
+Game dev workflow (software-entwicklung/game-dev).
+
+Prefer data-driven parameters (Resource/ScriptableObject) over magic numbers.
+Physics and input in _physics_process vs _process appropriately.
+Profile expensive _process loops; avoid per-frame allocations.
+Scene isolation: minimal repro scene for bugs.
+Godot: godot --headless --path . --script res://tests/smoke.gd if project has.
+Unity: batchmode tests if user provides command.
+No copyrighted assets generated; placeholder shapes only.
+Multiplayer: defer without netcode spec.
+Document scene tree changes for designers.
+Version pin engine in export preset notes.
 ```
 
 ## Arbeitsablauf
 
-- Asset- und Code-Aenderungen klein halten; nicht annehmen, dass der ganze Editor ferngesteuert ist.
+1. Engine version und project.godot/ProjectSettings lesen.
+2. Szene/Script lokalisieren.
+3. Implementieren mit klarer Node-Hierarchie.
+4. Headless smoke oder Test-Szene.
+5. Profiler-Hinweis wenn FPS-issue.
+6. git commit ohne accidental large binaries.
+7. Export notes in README.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Smoke läuft headless oder Editor-Steps dokumentiert
+- [ ] Keine illegalen Assets
+- [ ] Input/Physics korrekt getrennt
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Online-Features mit Moderation nicht ohne Spec.
+
+## Fallstricke
+
+- Godot headless braucht Display tricks — project config.
+- Git ohne LFS — repo explode.
+- Singleton order race.
+- Unit vs integration in engine fuzzy.
+- Mobile perf on desktop only tested.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Game Development-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `game-dev` (Testdaten)
+- **Aufgabe:** Jump cooldown Godot.
+- **Input:** player.tscn.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Game Development. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Add 0.3s cooldown; export var; smoke test script.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```bash
+godot --headless --path . --script res://tests/player_jump.gd
+# OK
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Game Development
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** UI lag fix.
+- **Input:** inventory scroll.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Virtualize list or pool items; note profiler before/after targets.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Instancing pooled rows; target <2ms _process
+```

@@ -5,25 +5,26 @@ domain: software-entwicklung
 category: design-to-code
 tags:
   - design
-  - software-entwicklung
-  - mcp
+  - frontend
+  - playwright
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: figma MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/figma"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: Playwright MCP
-    install: "https://github.com/microsoft/playwright-mcp"
-    version_notes: "40040 GitHub Stars"
+  - name: playwright
+    install: "visual compare optional"
+    version_notes: "npx playwright test"
+  - name: figma-export
+    install: "tokens/screenshots user provides"
+    version_notes: "no token in repo"
 inputs:
-  - "Kontext/Briefing für Design to Code"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Figma frame export or spec"
+  - "Component library (shadcn/MUI)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "React/Vue components"
+  - "Visual regression test optional"
 risk_level: low
 example_count: 2
 version: "1.0.0"
@@ -32,72 +33,99 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Figma/Design-Systeme in lauffähigen Code oder Komponenten übersetzen.
+Designs in **zugängliche, responsive UI-Komponenten** übersetzen und mit Playwright-Screenshot-Tests gegen Staging abgleichen.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Design to Code**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Neue Landing-Section, Dashboard-Widget.
+- Design-Tokens sync.
+
+**Wann nicht:** Vollständiges Brand-Redesign ohne Design-Review.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| figma MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| Playwright MCP | MCP | Aus Recherche 2026-11-23 |
+| React/Vue | UI | project stack |
+| Tailwind/tokens | Styling | consistency |
+| playwright | Visual | toHaveScreenshot |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Design to Code (software-entwicklung/design-to-code).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Nur ausgewaehlte Frames, nicht ganze Files auf einmal in den Kontext laden.
+Design to code workflow (software-entwicklung/design-to-code).
+
+Match spacing, typography, color tokens from design spec; use rem not magic px except borders.
+Semantic HTML and aria labels for interactive controls.
+Responsive breakpoints: mobile-first; test at 375 and 1280 widths in playwright.
+No absolute positioning unless design requires; prefer flex/grid.
+Extract reusable components; avoid copy-paste sections.
+Assets: optimized images; provide width/height to avoid CLS.
+Compare: npx playwright test --grep visual when snapshots approved.
+Do not embed Figma API tokens in code.
+Dark mode if spec includes: use CSS variables.
+Keyboard focus visible styles required.
+Document deviations from design with reason (a11y, performance).
 ```
 
 ## Arbeitsablauf
 
-- Nur ausgewaehlte Frames, nicht ganze Files auf einmal in den Kontext laden.
+1. Spec/PNG/Tokens einlesen.
+2. Komponent-Hierarchie skizzieren.
+3. Implementieren im Designsystem.
+4. Story/page route lokal.
+5. `npm run dev` smoke.
+6. `npx playwright test tests/visual/hero.spec.ts`.
+7. PR mit Screenshots vor/nach.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] a11y: landmarks, labels
+- [ ] Responsive breakpoints getestet
+- [ ] Keine Design-Token-Secrets im Repo
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keine personenbezogenen Bilder in Fixtures ohne Rechte.
+
+## Fallstricke
+
+- Pixel-perfect auf allen Browsern unmöglich — Toleranz.
+- shadcn Override-Kaskade.
+- Fonts FOIT.
+- playwright snapshot auf animierten Elementen — flaky.
+- Fehlende focus styles.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Design to Code-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `design-to-code` (Testdaten)
+- **Aufgabe:** Hero section aus PNG.
+- **Input:** 1280w mockup.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Design to Code. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Build Hero.tsx; playwright screenshot test desktop+mobile.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```bash
+npx playwright test tests/visual/hero.spec.ts --project=chromium
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Design to Code
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Token sync.
+- **Input:** colors.json from design.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Map tokens to tailwind theme extend; document diff from Figma hex.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+tailwind.config.ts updated; primary=#1B4DFF per tokens.json
+```

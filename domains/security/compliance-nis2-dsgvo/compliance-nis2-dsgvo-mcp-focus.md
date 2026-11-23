@@ -5,25 +5,24 @@ domain: security
 category: compliance-nis2-dsgvo
 tags:
   - compliance
-  - security
-  - skill
+  - dsgvo
+  - mcp
 target_agents:
   - hermes
-  - grokbot
   - generic-mcp-agents
-  - generic
 required_tools:
-  - name: Anthropic document skills (docx, pptx, xlsx, pdf)
-    install: "https://github.com/anthropics/skills"
-    version_notes: "199219 GitHub Stars"
-  - name: Hermes-Skill microsoft-office
-    install: "https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/productivity/productivity-microsoft-office"
-    version_notes: "Teil des offiziellen Bundled-Katalogs."
+  - name: Notion/Google Docs MCP
+    install: "Policy docs read"
+    version_notes: "write gated"
+  - name: parsedmarc
+    install: "email-postfix-dmarc template"
+    version_notes: "technical control"
 inputs:
-  - "Kontext/Briefing für Compliance, NIS2 und DSGVO"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Control catalog reference"
+  - "Skill evidence steps"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Evidence mapping table"
+  - "MCP audit trail"
 risk_level: medium
 example_count: 2
 version: "1.0.0"
@@ -32,75 +31,98 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Anforderungen, TOMs, AVVs und Nachweise strukturieren (keine Rechtsberatung).
+Compliance-Nachweise: MCP liest **Policy-Dokumente**, technische Evidenz (z. B. DMARC) per CLI-Template — kein Rechtsrat.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Compliance, NIS2 und DSGVO**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: medium`).
+- NIS2/DSGVO Control-Mapping mit Evidenz-Links.
+- Agent sammelt Doc-Auszüge + `parsedmarc`-Report-Referenz.
+
+**Wann nicht:** Juristische Vertragsauslegung — an Legal verweisen.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Anthropic document skills (docx, pptx, x | Skill | Aus Recherche 2026-11-23 |
-| Hermes-Skill microsoft-office | Skill + CLI | Aus Recherche 2026-11-23 |
-| Notion MCP (hosted) | MCP | Aus Recherche 2026-11-23 |
+| Docs MCP | Policies | read |
+| parsedmarc | Mail control | see email template |
+| Skill verify | re-read | document match |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Compliance, NIS2 und DSGVO (security/compliance-nis2-dsgvo).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Ist-Zustand dokumentieren, Luecken als Fragen an Fachleute, Nachweise versionieren.
+Compliance MCP/Skill focus (security/compliance-nis2-dsgvo).
+
+Not legal advice; map controls to evidence artifacts only.
+Skill: list control id -> required evidence -> MCP doc fetch -> technical verify command -> approval for external write.
+GDPR: minimize personal data in summaries; reference processing records by id.
+NIS2: distinguish organizational vs technical measures in table columns.
+MCP read policy PDFs/Notion; quote short excerpts with citation, not full personal data inventories.
+DMARC evidence: point to email-postfix-dmarc-parse template commands, do not store full XML in wiki via MCP without redaction.
+External wiki MCP writes need COMPLIANCE_APPROVE.
+Verify step: re-fetch doc section after edit for hash or last-edited timestamp.
+No certification claims ("ISO done") without auditor doc reference.
 ```
 
 ## Arbeitsablauf
 
-- Ist-Zustand dokumentieren, Luecken als Fragen an Fachleute, Nachweise versionieren.
+1. Control-Liste vom Nutzer.
+2. MCP: Policy-Abschnitt lesen.
+3. Technische Evidenz: DMARC-Report-Pfad / Ticket.
+4. Mapping-Tabelle Control→Evidence.
+5. Skill VERIFY re-read policy.
+6. Freigabe für Wiki-Update.
+7. Audit-Log MCP calls.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Keine Rechtsberatung formuliert
+- [ ] Evidenz pro Control verknüpft
+- [ ] PII minimiert
 
 ## Sicherheit & Freigaben
 
-- Ein Agent ist kein Datenschutzbeauftragter und keine Kanzlei.
-- Keine Angriffs- oder Umgehungsanleitungen in diesen Templates.
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Compliance-Docs vertraulich.
+- Wiki write nur nach Freigabe.
+
+## Fallstricke
+
+- Agent „zertifiziert“ fälschlich.
+- Vollständige RoPA in Chat.
+- Policy MCP veraltet.
+- Technische Evidenz fehlt — nur Papier.
+- Cross-border transfer nicht geprüft.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Compliance, NIS2 und DSGVO-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `compliance-nis2-dsgvo` (Testdaten)
+- **Aufgabe:** Control A.5.1 Mail spoofing.
+- **Input:** ISO 27001 annex ref.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Compliance, NIS2 und DSGVO. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Map to DMARC weekly report evidence; cite policy section via MCP read only.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Control A.5.1 -> dmarc_w47.html + policy §4.2 DMARC enforcement
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Compliance, NIS2 und DSGVO
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Block wiki write.
+- **Input:** no COMPLIANCE_APPROVE.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Draft table only; no Notion MCP write.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Markdown table in chat; MCP write not invoked
+```

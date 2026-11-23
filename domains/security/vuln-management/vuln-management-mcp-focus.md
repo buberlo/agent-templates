@@ -5,25 +5,23 @@ domain: security
 category: vuln-management
 tags:
   - vuln
-  - security
   - mcp
 target_agents:
   - hermes
-  - grokbot
   - generic-mcp-agents
-  - generic
 required_tools:
-  - name: semgrep MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/semgrep"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: atlassian MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/atlassian"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
+  - name: GitHub Official MCP
+    install: "dependabot alerts read"
+    version_notes: "optional"
+  - name: trivy
+    install: "CLI verify"
+    version_notes: "not MCP-only"
 inputs:
-  - "Kontext/Briefing für Vulnerability Management"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Repo or image"
+  - "Skill scan-triage-ticket"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Triage table"
+  - "MCP vs CLI audit"
 risk_level: medium
 example_count: 2
 version: "1.0.0"
@@ -32,76 +30,103 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Bekannte Schwachstellen in eigenen Systemen inventarisieren, priorisieren und Patches nachverfolgen.
+Dependabot/GitHub Security MCP **lesen**, Triaging per Skill — Verifikation mit **trivy/osv CLI**, nicht nur MCP-Metadaten.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Vulnerability Management**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: medium`).
+- Agent mit GitHub vulnerability alerts.
+- Skill: MCP fetch -> CLI confirm -> ticket.
+
+**Wann nicht:** Air-gapped ohne GitHub.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| semgrep MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| atlassian MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| linear MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| GitHub MCP | Alerts | metadata |
+| trivy/osv | Verify | ground truth |
+| Skill | SLA | ticket template |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Vulnerability Management (security/vuln-management).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Befunde inventarisieren, priorisieren, Patch-Ticket, Nachscan.
+Vuln management MCP/Skill focus (security/vuln-management).
+
+GitHub MCP read dependabot alerts; never dismiss alert via MCP without DISMISS_APPROVE and justification text.
+Skill verify: run trivy or osv locally on same ref to confirm CVE still applies.
+MCP alert may be stale after upgrade — compare lockfile version.
+Ticket fields: CVE, package, fixed version, SLA tier, owner.
+Do not merge PR bump automatically without test note.
+One GitHub MCP; CLI scanner mandatory verify step.
+Summarize counts by severity; list top 10 overdue.
+If MCP and CLI disagree, trust CLI after lockfile parse and note drift.
+Include repo default branch sha in ticket for reproducibility of scan.
+Warn when alert applies to archived repo with no owner.
+Track dismissed alerts with expiry review date 90 days default suggestion.
+SBOM attach to ticket when user requests compliance pack.
+Do not auto-merge grouped alerts across unrelated packages without human sort.
+Flag transitive dependency depth when fix requires major bump.
 ```
 
 ## Arbeitsablauf
 
-- Befunde inventarisieren, priorisieren, Patch-Ticket, Nachscan.
+1. GitHub MCP list alerts for repo.
+2. Export CVE ids.
+3. `trivy fs .` or `osv-scanner`.
+4. Match/drift dokumentieren.
+5. Prioritäts-Tabelle.
+6. Ticket-Entwürfe.
+7. MCP/CLI audit footer.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] CLI verify für CRITICAL
+- [ ] Keine MCP dismiss ohne Freigabe
+- [ ] SLA auf jedem Ticket-Entwurf
 
 ## Sicherheit & Freigaben
 
-- Scanner-Output ist nicht automatisch vollstaendig.
-- Nur defensive, autorisierte Nutzung; keine Angriffsverfahren in dieser Sammlung.
-- Keine Angriffs- oder Umgehungsanleitungen in diesen Templates.
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Private repo alerts vertraulich.
+
+## Fallstricke
+
+- Dependabot false positive.
+- MCP rate limit incomplete list.
+- Dismiss ohne Fix.
+- Monorepo wrong path.
+- Image vs source scanner mismatch.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Vulnerability Management-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `vuln-management` (Testdaten)
+- **Aufgabe:** Alert GHSA confirm.
+- **Input:** lodash alert.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Vulnerability Management. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+MCP read alert; osv-scanner verify; ticket draft.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```bash
+osv-scanner -r .
+# GHSA-xxxx confirmed fixed in 4.17.21 proposal
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Vulnerability Management
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Stale alert.
+- **Input:** already patched package.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Show MCP vs lockfile drift; suggest dismiss with proof not auto dismiss.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+lockfile has patched version; dismiss needs DISMISS_APPROVE + reason fixed-in-1.2.3
+```

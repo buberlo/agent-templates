@@ -4,23 +4,26 @@ title: "Reverse Engineering (nur autorisiert)"
 domain: security
 category: reverse-engineering
 tags:
-  - reverse
-  - security
+  - reverse-engineering
+  - authorized
+  - malware
 target_agents:
   - hermes
-  - grokbot
   - generic-mcp-agents
-  - generic
 required_tools:
-  - name: terminal
-    install: "Shell des Agenten"
-    version_notes: "Domain-Default laut Recherche"
+  - name: authorization
+    install: "Ownership or contract"
+    version_notes: "Binary scope"
+  - name: isolated-lab
+    install: "Org mandated VM"
+    version_notes: "No host execution"
 inputs:
-  - "Kontext/Briefing für Reverse Engineering (nur autorisiert)"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Legal right to analyze artifact"
+  - "File hash and source"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: medium
+  - "Analysis plan template"
+  - "Safety gates checklist"
+risk_level: high
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
@@ -28,75 +31,104 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Nur Einordnung, keine RE-Verfahren, Key-Extraktion oder Exploit-Arbeit.
-
-> Keine RE-Anleitungen, keine Key-Extraktion, keine Umgehung von Schutzmechanismen.
+Reverse-Engineering **Planung und Compliance** — kein Disassemblieren, Patchieren oder Ausführen von Malware in Agent-Anleitungen.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Reverse Engineering (nur autorisiert)**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: medium`).
+- Eigene Binaries, lizenzierte Audits, Incident mit autorisiertem Sample.
+- Lab-Setup-Checkliste vor menschlicher Analyse.
+
+**Wann nicht:** Fremde Software ohne Lizenz/ROE; Crack/Keygen-Ziele.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Terminal/CLI | Ausführung | Domain-Default |
+| Isolated lab | Safety | air-gap policy |
+| Hash | Identity | sha256 |
+| Human analyst | RE execution | off-template |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Reverse Engineering (nur autorisiert) (security/reverse-engineering).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Ausserhalb des Umfangs dieser Recherche-Dateien.
+Reverse engineering framework ONLY (security/reverse-engineering).
+
+Do not provide disassembly walkthroughs, crack patches, license bypass, or malware unpacking steps for unauthorized binaries.
+Require proof of authorization: owned product, vendor contract, or law enforcement case id.
+Allowed: lab isolation checklist, snapshot before analysis, network isolation confirmation, YARA rule *placement* policy (org handles rules), report sections (static vs dynamic).
+Never run untrusted binaries on host; refer to org isolated VM with no outbound.
+If sample is malware, escalate to CERT/incident; do not detonate in shared agent environment.
+Respect DMCA/contract/EULA; refuse if scope illegal.
+Outputs stop at planning; operational RE by qualified analysts with org tooling.
+No public sharing of extracted strings containing secrets.
+Record analyst training certification ids when org requires them in plan header.
+Version control for lab images must be noted before first execution.
+Export controls and cryptography regulations may apply; flag dual-use uncertainty to legal.
+Snapshot hypervisor metadata and host firewall state in checklist without enabling new rules.
+Maintain separate evidence storage encryption keys from production KMS where possible.
+Schedule peer review of analysis plan before any human executes dynamic steps.
 ```
 
 ## Arbeitsablauf
 
-- Ausserhalb des Umfangs dieser Recherche-Dateien.
+1. Rechtsgrundlage dokumentieren.
+2. SHA256 des Artefakts notieren.
+3. Lab-Isolation Checkliste (VM snapshot, no USB, VLAN).
+4. Analyseplan-Überschriften: static, dynamic, memory — ohne Tool-Befehle.
+5. Menschlicher Analyst übernimmt.
+6. Findings in verschlüsseltem Report-Template.
+7. Artefakt-Safe-Storage verifizieren.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Authorization dokumentiert
+- [ ] Keine RE-Befehle im Agent-Output
+- [ ] Isolation-Checkliste vollständig
 
 ## Sicherheit & Freigaben
 
-- Keine Reverse-Engineering-Verfahren in dieser Datei.
-- Keine Angriffs- oder Umgehungsanleitungen in diesen Templates.
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- **high risk**; Malware nur im Org-Lab.
+- Keine Samples an öffentliche Modelle.
+
+## Fallstricke
+
+- „Nur schnell auf dem Laptop“ — Kontamination.
+- Shared VM Snapshots veraltet.
+- Strings leak secrets in chat.
+- Unauthorized game RE — rechtliches Risiko.
+- Dynamic analysis mit Netz — C2 ausgelöst.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Reverse Engineering (nur autorisiert)-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `reverse-engineering` (Testdaten)
+- **Aufgabe:** Eigene Firmware audit plan.
+- **Input:** signed contract AUDIT-12, hash `def456...`.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Reverse Engineering (nur autorisiert). Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Lab checklist and report outline; no disassembly steps.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Checklist: VM snapshot, no internet, case AUDIT-12
+Sections: static overview (human), findings table
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Reverse Engineering (nur autorisiert)
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Crack request abweisen.
+- **Input:** „bypass Adobe trial“.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Authorization gate.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Refused: no authorization; reverse-engineering for license bypass not supported
+```

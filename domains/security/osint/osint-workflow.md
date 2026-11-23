@@ -5,31 +5,24 @@ domain: security
 category: osint
 tags:
   - osint
-  - security
-  - mcp
+  - threat-intel
 target_agents:
   - hermes
   - grokbot
   - generic-mcp-agents
-  - generic
 required_tools:
-  - name: Brave Search MCP
-    install: "https://github.com/brave/brave-search-mcp-server"
-    version_notes: "1585 GitHub Stars"
-  - name: Exa MCP
-    install: "https://github.com/exa-labs/exa-mcp-server"
-    version_notes: "5264 GitHub Stars"
-  - name: Tavily MCP
-    install: "https://github.com/tavily-ai/tavily-mcp"
-    version_notes: "2497 GitHub Stars"
-  - name: Firecrawl MCP
-    install: "https://github.com/firecrawl/firecrawl-mcp-server"
-    version_notes: "7886 GitHub Stars"
+  - name: curl
+    install: "public HTTP only"
+    version_notes: "respect robots/ToS"
+  - name: whois
+    install: "RDAP/whois"
+    version_notes: "public registrations"
 inputs:
-  - "Kontext/Briefing für OSINT (offen zugängliche Quellen)"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Target scope (public org assets only)"
+  - "Purpose (vendor due diligence, brand monitoring)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Source-cited summary"
+  - "No intrusive scanning"
 risk_level: medium
 example_count: 2
 version: "1.0.0"
@@ -38,76 +31,100 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Öffentliche Informationen systematisch sammeln; keine illegalen Zugriffsmethoden.
+Informationen aus **öffentlich zugänglichen** Quellen sammeln — Due Diligence, Brand, CVE-Advisories — ohne Port-Scans oder Login-Umgehung.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **OSINT (offen zugängliche Quellen)**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: medium`).
+- Lieferanten-Check, Domain-Inventar aus öffentlichen Records.
+- Press/Advisory Monitoring.
+
+**Wann nicht:** Stalking, private Personen ohne Rechtsgrundlage.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Brave Search MCP | MCP | Aus Recherche 2026-11-23 |
-| Exa MCP | MCP | Aus Recherche 2026-11-23 |
-| Tavily MCP | MCP | Aus Recherche 2026-11-23 |
-| Firecrawl MCP | MCP | Aus Recherche 2026-11-23 |
+| RDAP/whois | Domain | public |
+| official advisories | CVE | vendor sites |
+| search | news | cite URLs |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for OSINT (offen zugängliche Quellen) (security/osint).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Fragestellung, nur oeffentliche Quellen, Herkunft dokumentieren.
+OSINT open sources only (security/osint).
+
+Use only publicly accessible data: whois/RDAP, company registries if user cites URL, press releases, vendor security pages, crt.sh certificate transparency.
+No port scanning, credential stuffing, social engineering, or logged-in scraping behind paywalls without authorization.
+Respect robots.txt for automated fetch; reasonable rate limits with curl -A identifiable agent.
+Cite every fact with URL and retrieval date UTC.
+Distinguish rumor vs confirmed; label confidence.
+No doxxing; minimize personal data; focus organizational assets user names.
+If scope is individual private person, refuse unless legal basis stated.
+Do not combine OSINT into harassment or discrimination guidance.
+Archive: user may save public pages; do not upload restricted docs to public LLM.
+Cross-check at least two sources for material claims when feasible.
 ```
 
 ## Arbeitsablauf
 
-- Fragestellung, nur oeffentliche Quellen, Herkunft dokumentieren.
+1. Zweck und Scope schriftlich bestätigen.
+2. Asset-Liste (Domains, öffentliche Produkte).
+3. `whois example.de` / RDAP JSON.
+4. Advisory-Seiten des Vendors lesen (curl -fsSL).
+5. crt.sh oder ähnlich für cert names wenn policy erlaubt.
+6. Zusammenfassung mit Quellen + Datum.
+7. Keine weiteren „deep“ Schritte ohne neues Template/Autorisierung.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Jede Behauptung mit URL+Datum
+- [ ] Keine intrusive Techniken
+- [ ] PII minimiert
 
 ## Sicherheit & Freigaben
 
-- Keine Zugangsumgehung, kein Social Engineering.
-- Keine Angriffs- oder Umgehungsanleitungen in diesen Templates.
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Nur legitimer Geschäftszweck.
+- Keine Fehlinformation bei Unsicherheit.
+
+## Fallstricke
+
+- whois privacy — unvollständig.
+- Veraltete News als aktuell.
+- crt.sh Wildcard-Noise.
+- ToS-Verstoß bei Mass-Fetch.
+- Verwechslung homonymer Firmen.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-OSINT (offen zugängliche Quellen)-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `osint` (Testdaten)
+- **Aufgabe:** Vendor domain due diligence.
+- **Input:** `vendor.example`.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für OSINT (offen zugängliche Quellen). Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+RDAP registration dates and nameservers; cite sources; no port scan.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```bash
+curl -fsSL "https://rdap.org/domain/vendor.example"
+# Summary with retrieval 2026-11-23 UTC
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in OSINT (offen zugängliche Quellen)
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** CVE advisory check.
+- **Input:** Product X 2.4.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Fetch vendor advisory page; list fixed versions; cite URL.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Advisory https://vendor.example/sec/2026-14 — upgrade to 2.4.3
+```

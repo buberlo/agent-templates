@@ -5,23 +5,27 @@ domain: devops-cloud
 category: docker-container
 tags:
   - docker
-  - devops-cloud
-  - cli
+  - container
+  - buildkit
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: Docker CLI (agent terminal)
-    install: "https://docs.docker.com/"
-    version_notes: "Docker selbst nicht als MCP-Star in dieser Liste gemessen."
+  - name: docker
+    install: "Docker Engine / Docker Desktop"
+    version_notes: "BuildKit default"
+  - name: dive
+    install: "https://github.com/wagoodman/dive"
+    version_notes: "Image-Layer-Analyse"
 inputs:
-  - "Kontext/Briefing für Docker und Container"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Dockerfile und Build-Kontext"
+  - "Registry (GHCR/ECR) und Tag-Policy"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Gebautes Image mit Digest"
+  - "Hardening-Notizen (non-root, SBOM optional)"
+risk_level: medium
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
@@ -29,72 +33,102 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Images, Compose, Registries und Laufzeitprobleme.
+Container-Images reproduzierbar bauen, scannen und für Registry-Push vorbereiten — ohne privileged Defaults.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Docker und Container**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Neues Dockerfile, Image zu groß, CVE-Triage nach Build.
+- Lokaler Parity-Test vor K8s-Deploy.
+
+**Wann nicht:** Vollständiges Registry-Management (siehe plattform-deploy).
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Docker CLI (agent terminal) | CLI | Aus Recherche 2026-11-23 |
+| docker buildx | Multi-arch Build | reproduzierbar |
+| trivy | Scan | CVE vor Push |
+| dive | Layer | Bloat finden |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Docker und Container (devops-cloud/docker-container).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Logs und docker inspect zuerst; keine Volume-Loeschungen ohne Auftrag.
+Container workflow (devops-cloud/docker-container).
+
+Use DOCKER_BUILDKIT=1 and docker buildx build when multi-platform requested.
+Never docker push without user approval and registry auth confirmed.
+Prefer non-root USER in Dockerfile; no secrets in ARG/ENV literals.
+Build: docker build -t <name>:<tag> -f Dockerfile . with --progress=plain for CI logs.
+Scan: trivy image <name>:<tag> --severity HIGH,CRITICAL before push recommendation.
+Inspect: docker inspect for User, Env, Cmd validation.
+Compose: docker compose config to validate merge; docker compose up only locally unless approved.
+No --privileged in run examples unless user mandates with risk callout.
+Document image digest after build: docker images --digests.
+Registry login via credential helper, never password in command line.
 ```
 
 ## Arbeitsablauf
 
-- Logs und docker inspect zuerst; keine Volume-Loeschungen ohne Auftrag.
+1. `docker version` und BuildKit-Status.
+2. `docker build -t app:dev -f Dockerfile .` mit plain progress.
+3. `docker run --rm app:dev <smoke-cmd>` lokal.
+4. `trivy image app:dev` oder `docker scout cves app:dev`.
+5. `dive app:dev` bei Größenproblemen.
+6. Tag für Registry: `docker tag app:dev ghcr.io/org/app:1.2.3`.
+7. `docker push` nur nach Freigabe und grünem Scan-Report.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Image läuft non-root wenn Policy verlangt
+- [ ] Keine CRITICAL offen oder Ausnahme dokumentiert
+- [ ] Digest notiert
 
 ## Sicherheit & Freigaben
 
-- Socket-Zugriff kann Host-weit sehr weitreichende Rechte bedeuten.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Registry-Credentials nicht in Dockerfile oder Chat.
+- Push zu Prod-Registry nur mit Freigabe.
+
+## Fallstricke
+
+- `latest`-Tag in Prod — immer versionieren.
+- Cache bust durch COPY . . zu früh — Layer größer als nötig.
+- amd64-only auf Apple Silicon ohne `--platform` — falsches Arch in CI.
+- Secrets in Build-Args — in History sichtbar.
+- compose override mit Prod-Endpoints — lokaler Leak.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Docker und Container-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `docker-container` (Testdaten)
+- **Aufgabe:** API-Image bauen und scannen.
+- **Input:** `services/api/Dockerfile`.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Docker und Container. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Build app:1.0.0, trivy HIGH/CRITICAL, document USER directive.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```bash
+docker build -t app:1.0.0 -f services/api/Dockerfile services/api
+trivy image app:1.0.0 --severity HIGH,CRITICAL
+docker inspect app:1.0.0 --format '{{.Config.User}}'
+# appuser
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Docker und Container
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Multi-arch für linux/arm64 und amd64.
+- **Input:** Release `2.0.0`.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+buildx for both platforms, output type=image, no push yet.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```bash
+docker buildx build --platform linux/amd64,linux/arm64 -t app:2.0.0 --load .
+```

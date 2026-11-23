@@ -5,26 +5,27 @@ domain: software-entwicklung
 category: git-github
 tags:
   - git
-  - software-entwicklung
-  - mcp
+  - github
+  - gh
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: GitHub Official MCP
-    install: "https://github.com/github/github-mcp-server"
-    version_notes: "34686 GitHub Stars"
-  - name: Hermes-Skill github / ClawHub Github
-    install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "ClawHub-Downloads Github (steipete): 174.624, 585 Registry-Stars (Leaderboard 23"
+  - name: gh
+    install: "https://cli.github.com"
+    version_notes: "gh auth login"
+  - name: git
+    install: "System"
+    version_notes: "2.40+"
 inputs:
-  - "Kontext/Briefing für Git und GitHub"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Repo, Branch, Issue/PR-Nummer"
+  - "Scope read vs write"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "PR/Issue-Update oder Diff-Zusammenfassung"
+  - "Gh-Befehlsprotokoll"
+risk_level: medium
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
@@ -32,73 +33,105 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Commits, Branches, PRs, Issues über gh CLI oder offiziellen GitHub-MCP.
+GitHub-Workflows mit **gh** und **git**: Branches, PRs, Reviews, Issues — Writes nur nach Freigabe.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Git und GitHub**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- PR erstellen, Review-Kommentare, Issue triagieren.
+- CI-Status vor Merge prüfen.
+
+**Wann nicht:** GitLab/Bitbucket (andere Templates).
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| GitHub Official MCP | MCP | Aus Recherche 2026-11-23 |
-| Hermes-Skill github / ClawHub Github | Skill + CLI | Aus Recherche 2026-11-23 |
+| gh | GitHub API | PR, issue, run |
+| git | Lokal | commit, diff |
+| GitHub MCP | optional | Read-only parallel |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Git und GitHub (software-entwicklung/git-github).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auth einmalig (gh auth login), dann PRs/Issues ueber das Skill. Community-Tipp: Read-only-URLs des GitHub-Servers nutz
+Git/GitHub workflow (software-entwicklung/git-github).
+
+Verify auth: gh auth status; repo: gh repo view --json nameWithOwner.
+Read: gh pr view, gh issue view, gh pr diff, gh pr checks.
+Branch: git fetch origin; git checkout -b feature/x from updated main.
+Commit only files user scoped; no drive-by formatting.
+PR create: gh pr create --title --body --draft unless user wants ready.
+Never gh pr merge without explicit MERGE_APPROVE.
+Never push --force to shared branches without user naming branch.
+Review: gh pr review --comment only with approval for approve/request-changes.
+Link issues: closing keyword in PR body only if user wants Fixes #n.
+Secrets: never gh secret set without approval.
+Rebase/merge policy: ask if unclear; default merge commit if org unknown.
+Document every gh command in order.
 ```
 
 ## Arbeitsablauf
 
-- Auth einmalig (gh auth login), dann PRs/Issues ueber das Skill. Community-Tipp: Read-only-URLs des GitHub-Servers nutzen.
+1. `gh auth status` und `git status`.
+2. `git fetch origin && git switch -c fix/123-issue main`.
+3. Änderungen commit: `git add <files> && git commit -m "fix: ..."`.
+4. `git push -u origin fix/123-issue`.
+5. `gh pr create --fill` oder mit Body-Template.
+6. `gh pr checks` warten.
+7. Nach MERGE_APPROVE: `gh pr merge 42 --squash`.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Checks grün oder Ausnahme dokumentiert
+- [ ] PR-Beschreibung mit Testplan
+- [ ] Kein Force-Push auf main
 
 ## Sicherheit & Freigaben
 
-- Fine-grained PAT nur auf noetige Repos. Kein Token in argv bei Grok-Bot-Command-MCPs.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- PAT nicht im Chat; fine-grained wo möglich.
+- Merge und secret writes mit Freigabe.
+
+## Fallstricke
+
+- gh auf falsches Repo (submodule) — cwd prüfen.
+- PR gegen veraltete main — erst rebase/fetch.
+- --fill committet geheime Dateien — git diff vor push.
+- gh pr merge ohne required checks — Branch protection.
+- Co-authored-by ohne Zustimmung.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Git und GitHub-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `git-github` (Testdaten)
+- **Aufgabe:** PR für Fix #77.
+- **Input:** Branch `fix/77-readme`.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Git und GitHub. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Push branch, draft PR, list checks; no merge.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```bash
+git push -u origin fix/77-readme
+gh pr create --draft --title "fix: readme typo" --body "Fixes #77"
+gh pr checks
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Git und GitHub
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Review-Kommentar only.
+- **Input:** PR 88.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+gh pr diff 88 summary; post review comment draft, do not submit approve.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```bash
+gh pr diff 88
+gh pr review 88 --comment --body "Consider extracting helper..."
+# draft only unless user confirms
+```

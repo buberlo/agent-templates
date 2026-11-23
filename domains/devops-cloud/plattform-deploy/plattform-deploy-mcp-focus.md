@@ -4,27 +4,31 @@ title: "Platform Deploy: MCP/Skill-Fokus"
 domain: devops-cloud
 category: plattform-deploy
 tags:
-  - plattform
-  - devops-cloud
+  - deploy
   - mcp
+  - vercel
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: vercel MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/vercel"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: netlify MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/netlify"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
+  - name: GitHub Official MCP
+    install: "Actions, deployments API"
+    version_notes: "Read deployments"
+  - name: Vercel MCP
+    install: "Marketplace / team MCP"
+    version_notes: "Verify write policy"
+  - name: gh
+    install: "workflow_dispatch"
+    version_notes: "When MCP write disabled"
 inputs:
-  - "Kontext/Briefing für Platform Deploy"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Preview vs prod skill gates"
+  - "Project/deployment IDs"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Deploy skill with MCP matrix"
+  - "Audit trail summary"
+risk_level: high
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
@@ -32,74 +36,98 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Vercel, Netlify, Railway, Cloudflare und ähnliche Deploy-Plattformen.
+Deploy-MCPs (GitHub Deployments, Vercel) in Skills mit **PROD_APPROVE**-Gate und CLI-Fallback wenn Writes in Policy aus sind.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Platform Deploy**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Agent nutzt Vercel/GitHub MCP für Releases.
+- Team dokumentiert MCP-minimierten Deploy-Skill.
+
+**Wann nicht:** Nur kubectl/helm — siehe `k8s-*` und `plattform-deploy-workflow`.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| vercel MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| netlify MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| railway MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| cloudflare MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| GitHub MCP | Deploy status | environments |
+| Vercel MCP | Preview/prod | team policy |
+| gh | Fallback | explicit CLI |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Platform Deploy (devops-cloud/plattform-deploy).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Preview-Deploys bevorzugt, Production nur nach Freigabe.
+Platform deploy MCP/Skill focus (devops-cloud/plattform-deploy).
+
+Skill steps: build verify (read) | preview deploy (write gated) | smoke | PROD_APPROVE | prod deploy | audit.
+GitHub MCP: list deployments for environment; never approve deployment protection rules.
+Vercel MCP: create preview deployment; prod promotion only step 5 after keyword.
+If MCP write tools disabled in client, use gh workflow run or vercel CLI in skill text.
+
+Single deploy MCP namespace; no duplicate hosting MCPs.
+Record deployment_url from MCP response redacting tokens.
+Rollback step must reference platform native command, not MCP delete guessing.
+Hermes/OpenClaw: mark deploy tools needs approval true.
+Post-deploy: MCP read deployment status until ready.
 ```
 
 ## Arbeitsablauf
 
-- Preview-Deploys bevorzugt, Production nur nach Freigabe.
+1. Skill laden; Deploy-MCP-Whitelist.
+2. GitHub MCP: letzte Deployment-Status production.
+3. Preview via MCP oder `vercel deploy` Skill-Schritt.
+4. Smoke URLs curl.
+5. Block bis PROD_APPROVE.
+6. Prod deploy MCP/gh; Deployment-ID speichern.
+7. Matrix und Audit ins Ticket.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Prod nur nach PROD_APPROVE
+- [ ] Deployment-ID + SHA
+- [ ] Rollback in Skill definiert
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- high risk Prod remote deploy.
+- MCP-Tokens scoped to project.
+
+## Fallstricke
+
+- Vercel MCP prod aus Versehen — Skill-Gate Pflicht.
+- GitHub MCP sieht Fork — falsche Environment.
+- Doppelter Deploy MCP Race.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Platform Deploy-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `plattform-deploy` (Testdaten)
+- **Aufgabe:** Skill mit MCP preview only.
+- **Input:** Projekt `web-shop`.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Platform Deploy. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Steps 1-4 read/preview; block step 5 until PROD_APPROVE TICKET-1.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Vercel MCP preview url issued
+Step 5 status: blocked
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Platform Deploy
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** GitHub deployment audit.
+- **Input:** Env `production`.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+GitHub MCP list deployments; map to sha; no promote.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+deployment id dpl_123 sha abc1234 status success
+```
