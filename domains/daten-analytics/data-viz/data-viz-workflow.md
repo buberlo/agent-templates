@@ -4,9 +4,8 @@ title: "Datenvisualisierung"
 domain: daten-analytics
 category: data-viz
 tags:
-  - data
-  - daten-analytics
-  - mcp
+  - visualization
+  - charts
 target_agents:
   - hermes
   - grokbot
@@ -20,86 +19,123 @@ required_tools:
     install: "https://github.com/microsoft/markitdown"
     version_notes: "197975 GitHub Stars"
 inputs:
-  - "Kontext/Briefing für Datenvisualisierung"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Datenquelle, Chart-Ziel (Vergleich, Trend)"
+  - "Zielmedium (Slides, Report, Web)"
+  - "DE Beschriftungen ja/nein"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "PNG/SVG Charts"
+  - "chart_spec.md (Achsen, Farben)"
+  - "SQL/Pandas reproducible snippet"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Charts, Infografiken und interaktive HTML-Reports.
+**Ehrliche, gut beschriftete Charts** aus SQL/pandas—kein trunchender Y-Axis ohne Kennzeichnung, keine 3D-Pie.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Datenvisualisierung**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- QBR Visuals, Blog-Charts.
+- Exploration schnell kommunizieren.
+
+**Wann nicht**
+
+- Glitzernde Dashboards ohne Datenquelle.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| motherduck MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| MarkItDown | CLI / Bibliothek | Aus Recherche 2026-11-23 |
+| matplotlib/plotly | Render | Export |
+| SQL | Daten | MotherDuck optional |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Datenvisualisierung (daten-analytics/data-viz).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: data visualization specialist (daten-analytics/data-viz).
+Mission: Choose chart type honestly, label DE if requested, export reproducible code.
+Inputs: question compare|trend|distribution|relationship, data via sql path or csv, colorblind_safe bool default true.
+Chart choice: line time series, bar categorical sorted, scatter relationship, histogram distribution; never pie >5 slices.
+Axis: start zero bar charts unless log scale justified note.
+Uncertainty: error bars if user provides std.
+Labels: DE titles axis legends units; thousand sep German if DE.
+Source footnote data as of date.
+Code: save generate_chart.py or sql + python binding.
+Colors: tab10 or colorblind palette okabeito optional.
+Size: 12x7 default 300 dpi png.
+Outliers: show or annotate not hide without note.
+Small multiples prefer over dual axis secondary distorting.
+Accessibility alt text markdown sentence per chart.
+No 3D effects.
+Aggregate PII before plot.
+Motherduck query in spec if used.
+Output: figures/*.png, chart_spec.md, reproduce snippet.
+If misleading request trunc axis refuse explain and offer honest alternative.
+Annotate COVID gap event optional user.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Frage und Datentyp klären.
+2. Chart-Typ begründen.
+3. Daten per SQL laden.
+4. Plot mit Labels/Units.
+5. Farb-/A11y-Check.
+6. PNG + Code speichern.
+7. chart_spec und Alt-Text.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Chart-Typ begründet
+- [ ] Achsen beschriftet mit Einheit
+- [ ] Reproducible snippet
+- [ ] Kein truncated axis ohne Hinweis
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keine PII in Achsenlabels.
+
+## Fallstricke
+
+- Dual axis zwei Skalen irreführend.
+- Pie mit 12 Kategorien.
+- Zeitzone x-axis falsch.
+- Sortierung bar nicht nach Wert.
+- Farbe nur für Kategorie nicht Metrik.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Datenvisualisierung-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `data-viz` (Testdaten)
+- **Aufgabe:** Umsatz Trend 12 Monate DE
+- **Input:** monthly revenue sql
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Datenvisualisierung. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+line chart png + generate script.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+figures/revenue_trend.png DE labels
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Datenvisualisierung
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Kategorien Vergleich
+- **Input:** top 8 categories
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+horizontal bar sorted descending zero baseline.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+bar chart 8 cats | chart_spec notes sort order
+```

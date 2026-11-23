@@ -1,12 +1,11 @@
 ---
 id: ml-training-workflow
-title: "ML-Training"
+title: "ML-Training (tabellarisch)"
 domain: daten-analytics
 category: ml-training
 tags:
-  - ml
-  - daten-analytics
-  - mcp
+  - machine-learning
+  - training
 target_agents:
   - hermes
   - grokbot
@@ -20,86 +19,125 @@ required_tools:
     install: "https://github.com/microsoft/markitdown"
     version_notes: "197975 GitHub Stars"
 inputs:
-  - "Kontext/Briefing für ML-Training"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Feature-Tabelle, Zielvariable"
+  - "Problemtyp (Klassifikation/Regression)"
+  - "Metrik (F1, RMSE), CV-Strategie"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "train.py oder Notebook"
+  - "Metrics-Report + Confusion/Residual"
+  - "Model artifact path + Feature-Importance"
+risk_level: medium
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Datensätze, Fine-Tuning-Vorbereitung, Trainingsjobs (z. B. Axolotl-Skill in Hermes).
+**Reproduzierbares tabellarisches ML**: Train/Val-Split, Baseline, einfache Modelle—kein Prod-Deploy ohne MLOps-Freigabe.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **ML-Training**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Churn/Lead-Scoring Prototyp.
+- Nach data-cleaning und EDA.
+
+**Wann nicht**
+
+- LLM Fine-Tuning (→ ki-ops).
+- Kleine n ohne Regularisierung übers Vertrauen.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| motherduck MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| MarkItDown | CLI / Bibliothek | Aus Recherche 2026-11-23 |
+| scikit-learn | Modelle | Standard |
+| motherduck | Features | Optional SQL |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for ML-Training (daten-analytics/ml-training).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: ML engineer tabular (daten-analytics/ml-training).
+Mission: Train baseline and improved model with proper CV, document leakage risks—no prod deploy.
+Inputs: target, features[], problem binary|multiclass|regression, metric primary, random_seed 42 default.
+Split: stratified if classification; time-based split if user says temporal—never random on time series without warning.
+Baseline: majority class or mean predictor metrics reported first.
+Preprocess: impute numeric median, categorical onehot with handle_unknown; pipeline sklearn ColumnTransformer.
+Models: start logistic/ ridge; then gradient boosting if user ok xgboost|histgb; no deep nets default.
+CV: kfold k=5 or time series split; report mean std metrics.
+Leakage check: drop columns future info user list; correlation target sneak scan flag >0.95.
+Class imbalance: class_weight balanced option note.
+Metrics: classification report confusion matrix; regression rmse mae r2.
+Feature importance: permutation or model native if tree.
+Artifact: joblib model.joblib metadata json features list training date hash data.
+No auto upload s3 production.
+PII features exclude unless approved.
+German summary metrics interpretation cautiously not causal.
+Output: train_report.md, metrics.json, model.joblib optional path.
+Data version hash input parquet sha256 in metadata.
+FREIGABE DEPLOY for serving endpoint.
+Experiment tracking mlflow optional mention placeholder not required.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Ziel, Features, Metrik fixieren.
+2. Leakage-Spalten entfernen.
+3. Baseline berechnen.
+4. Preprocessing-Pipeline.
+5. CV mit Hauptmodell.
+6. Metriken und Importance.
+7. Artefakt + Report ohne Deploy.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Baseline vs Modell verglichen
+- [ ] Split/CV dokumentiert
+- [ ] data hash in metadata
+- [ ] Kein Prod-Deploy
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- medium risk biased model decisions.
+- Sensible Features prüfen.
+
+## Fallstricke
+
+- Target-Leak in Feature.
+- Random split Zeitreihe.
+- Metrik auf imbalanced ohne F1.
+- Overfit großes GBM kleine n.
+- PII im Model artifact.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-ML-Training-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `ml-training` (Testdaten)
+- **Aufgabe:** Churn binary F1
+- **Input:** features_v2.parquet
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für ML-Training. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+baseline + logistic CV metrics.json.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+F1 baseline 0.31 model 0.52 | leakage check logged
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in ML-Training
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Regression RMSE
+- **Input:** time column present
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+time-based split not random.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+train_report notes temporal split | RMSE train vs val
+```

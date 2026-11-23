@@ -1,94 +1,133 @@
 ---
 id: social-buffer-schedule-campaign
+title: "Buffer Kampagnenplanung"
 domain: content-marketing
-title: "Kampagnenplanung mit Buffer API"
 category: social-media-strategie
 tags:
   - buffer
   - scheduling
-  - social
 target_agents:
+  - hermes
   - grokbot
+  - generic-mcp-agents
   - generic
 required_tools:
   - name: buffer
     install: "API: buffer.com"
-    version_notes: "Publish API; OAuth"
-  - name: canva
-    install: "optional Export"
-    version_notes: "Assets 1080²"
+    version_notes: "OAuth"
+  - name: ffmpeg
+    install: "apt ffmpeg"
+    version_notes: "trim"
 inputs:
-  - "Content-Kalender CSV"
+  - "Kalender CSV"
   - "Kanäle"
-  - "Zeitzone"
+  - "UTM"
 outputs:
-  - "Geplante Posts"
-  - "Export-IDs"
+  - "queue_report.csv"
+  - "validation.md"
 risk_level: medium
-version: "1.0.0"
-updated: "2026-11-23"
 example_count: 2
+version: "1.1.0"
+updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Social-Media-Posts zeitgesteuert über mehrere Kanäle aus einem Kalender veröffentlichen.
+Buffer CSV validieren und queuen—Draft bei medium risk.
 
 ## Wann nutzen
 
-- Produktlaunch, Event-Hype, Evergreen-Serien.
-- Nicht für Paid Ads (dafür Meta Ads Manager).
+- Klar umrissene social-media-strategie-Aufgabe mit Briefing.
+
+**Wann nicht**
+
+- Ohne Quellen/Briefing oder gegen Plattform-ToS.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Buffer API | Scheduling | Multi-Channel |
-| ffmpeg | Video trim | Unter 60 s Reels |
-| Link shortener | Tracking | UTM parametrisieren |
+| required_tools | Primär | Laut Frontmatter |
 
 ## System-Prompt / Instruktionen
 
 ```text
-Schedule posts via Buffer API from CSV calendar.
-Validate media dimensions per channel before upload.
-Attach UTMs to all outbound links.
-Queue for human review channel when risk_level medium topics.
+Role: Buffer scheduler (social-buffer-schedule-campaign).
+Validate media per channel; UTMs on all links.
+Default draft queue unless FREIGABE.
+ffmpeg probe video length reels <=60s.
+Document assumptions at top of deliverable.
+German/English per user; keep brand names original.
+No fabricated stats, logos, or testimonials.
+No publish/send/deploy without explicit approval phrase.
+Minimize PII in outputs.
+Log tool operations with timestamp Europe/Berlin.
+Prefer read-only before write.
+UWG/DSGVO context for DE marketing—not legal advice.
+If data missing, stop and list concrete questions.
+Deliver reproducible file paths in summary.
 ```
 
 ## Arbeitsablauf
 
-1. CSV validieren (Textlänge, Medienpfade).
-2. Medien uploaden; IDs merken.
-3. API Batch schedule.
-4. Vorschau-Links an Marketing.
-5. Nach Publish Metriken notieren.
+1. CSV validieren
+2. UTM global
+3. Medien prüfen
+4. Textlimits
+5. Buffer queue
+6. Report
+7. Read-back
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Alle Zeilen scheduled oder Fehler geloggt
-- [ ] UTM konsistent
-- [ ] Freigabe-Mail archived
+- [ ] Outputs erstellt
+- [ ] Freigaben eingehalten
+- [ ] Quellen/Annahmen geloggt
+- [ ] Kein Auto-Publish
 
 ## Sicherheit & Freigaben
 
-- OAuth-Token in Secret Store.
-- Keine vorzeitigen Leaks unter NDA-Produkte.
+- Credentials nur im Connector.
+- Send/Publish nur nach Freigabe.
+
+## Fallstricke
+
+- TZ Berlin
+- IG crop
+- Wrong profile
+- No https
+- API limit
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-_Siehe vorheriger Abschnitt; bei Migration ergänzt._
+- **Aufgabe:** 10 posts
+- **Input:** draft mode
+- **Prompt:**
+
+```text
+queue_report
+```
+
+- **Erwartetes Ergebnis:**
+
+```text
+all draft
+```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Validierung
-- **Input:** n/a
-- **Prompt:** `validate output`
-- **Erwartetes Ergebnis:** OK
+- **Aufgabe:** 90s video
+- **Input:** trim 58s
+- **Prompt:**
 
-## Beispiele (Legacy)
+```text
+error or trim
+```
 
-**Eingabe:** `launch_week.csv`, LinkedIn + X
-**Erwartetes Ergebnis:** 14 Posts geplant, IDs in `scheduled.json`
+- **Erwartetes Ergebnis:**
+
+```text
+logged
+```

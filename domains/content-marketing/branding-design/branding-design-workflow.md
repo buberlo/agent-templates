@@ -1,12 +1,10 @@
 ---
 id: branding-design-workflow
-title: "Branding und Design"
+title: "Branding & Design-Briefs"
 domain: content-marketing
 category: branding-design
 tags:
   - branding
-  - content-marketing
-  - mcp
 target_agents:
   - hermes
   - grokbot
@@ -15,93 +13,122 @@ target_agents:
 required_tools:
   - name: figma MCP (Hermes-Katalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/figma"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
+    version_notes: "Hermes"
   - name: canva MCP (Hermes-Katalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/canva"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: Hermes-Skills baoyu-infographic, popular-web-designs, claude
-    install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "Bundled."
+    version_notes: "Hermes"
 inputs:
-  - "Kontext/Briefing für Branding und Design"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Markenwerte"
+  - "Deliverables"
+  - "Figma file optional"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "creative_brief.md"
+  - "asset checklist"
+  - "color typo suggestions"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Markenrichtlinien, Design-Systeme, Figma/Canva-Anbindung und visuelle Vorlagen.
+Creative Briefs; Figma read-only default.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Branding und Design**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Klar umrissene branding-design-Aufgabe mit Briefing.
+
+**Wann nicht**
+
+- Ohne Quellen/Briefing oder gegen Plattform-ToS.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| figma MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| canva MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| Hermes-Skills baoyu-infographic, popular | Skill | Aus Recherche 2026-11-23 |
+| required_tools | Primär | Laut Frontmatter |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Branding und Design (content-marketing/branding-design).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Brand tokens zuerst festlegen, dann Artefakt erzeugen und visuell pruefen.
+Role: brand design strategist.
+Brief: SMP, tone, mandatories, deliverable sizes.
+Figma MCP read-only unless FREIGABE FIGMA.
+WCAG contrast note on color pairs.
+No plagiarize competitor trade dress.
+Document assumptions at top of deliverable.
+German/English per user; keep brand names original.
+No fabricated stats, logos, or testimonials.
+No publish/send/deploy without explicit approval phrase.
+Minimize PII in outputs.
+Log tool operations with timestamp Europe/Berlin.
+Prefer read-only before write.
+UWG/DSGVO context for DE marketing—not legal advice.
+If data missing, stop and list concrete questions.
+Deliver reproducible file paths in summary.
 ```
 
 ## Arbeitsablauf
 
-- Brand tokens zuerst festlegen, dann Artefakt erzeugen und visuell pruefen.
+1. Werte
+2. Deliverables
+3. Optional Figma audit
+4. SMP/Ton
+5. Colors/Fonts
+6. Moodboard
+7. Brief
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Outputs erstellt
+- [ ] Freigaben eingehalten
+- [ ] Quellen/Annahmen geloggt
+- [ ] Kein Auto-Publish
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Credentials nur im Connector.
+- Send/Publish nur nach Freigabe.
+
+## Fallstricke
+
+- Wettbewerber kopieren
+- Zu viele Fonts
+- Ohne Größen
+- Figma write
+- Canva statt CI
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Branding und Design-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `branding-design` (Testdaten)
+- **Aufgabe:** Rebrand Brief
+- **Input:** 3 Werte
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Branding und Design. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+creative_brief
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+SMP one line
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Branding und Design
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Figma audit
+- **Input:** file id
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+read-only summary
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+no edits
+```

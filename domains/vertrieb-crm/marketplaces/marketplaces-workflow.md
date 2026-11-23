@@ -1,105 +1,139 @@
 ---
 id: marketplaces-workflow
-title: "Weitere Marktplätze"
+title: "Marktplatz-übergreifend (eBay, Otto, Kaufland …)"
 domain: vertrieb-crm
 category: marketplaces
 tags:
-  - marketplaces
-  - vertrieb-crm
-  - mcp
+  - marketplace
+  - multichannel
 target_agents:
   - hermes
   - grokbot
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: attio MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/attio"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: close MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/close"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
+  - name: HasData/amazon-mcp
+    install: "https://github.com/HasData/amazon-mcp"
+    version_notes: "Stars hier nicht per API gezogen."
 inputs:
-  - "Kontext/Briefing für Weitere Marktplätze"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Marktplätze und Seller-Exports je Plattform"
+  - "SKU/ EAN Mapping-Tabelle"
+  - "Frage: Preisparität, Buybox, Listing-Status"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Paritätsmatrix (Preis, Verfügbarkeit, Gebühren grob)"
+  - "Listings mit Status-Fehlern"
+  - "Empfehlung welcher Kanal priorisiert wird (nur Analyse)"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Walmart, Trendyol, lokale Shopsysteme und Merchant-Center-Feeds.
+Mehrere **Dritt-Marktplätze** neben Amazon vergleichen: Listing-Status, Preisparität, Gebührennäherung—zentrale SKU-Wahrheit vorausgesetzt.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Weitere Marktplätze**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Expansion auf eBay/Otto/Kaufland mit Bestandsspiegelung planen.
+- Preisabweichung >X % zwischen Kanälen finden.
+- Feed-Fehler aus Marktplatz-Reports clustern.
+
+**Wann nicht**
+
+- Unbekannte Marktplatz-API ohne Dokumentation live ansteuern.
+- Gebotsmanipulation auf Auktionsplattformen.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| attio MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| close MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| Plattform-Exports | Ground truth | Vendor-CSV |
+| HasData/amazon-mcp | Amazon-Referenz | Optional Vergleich |
+| SKU-Map | Join-Key | Nutzerpflege |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Weitere Marktplätze (vertrieb-crm/marketplaces).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: marketplace parity analyst (vertrieb-crm/marketplaces).
+Mission: Compare listings across user-supplied marketplace exports—no unauthorized scraping of eBay/Otto sites.
+Inputs: marketplace list, SKU map file, tolerance % for price delta default 3.
+Per marketplace columns normalize: sku, ean, price, stock, status, fees_optional.
+Join on sku then ean fallback—log unjoined rows.
+Parity table: highlight where price diff > tolerance or stock 0 on one channel only.
+Fees: if user provides fee sheet, compute margin estimate disclaimer rough.
+Amazon row optional via MCP read-only for same EAN—label source.
+Status errors: inactive, suppressed, missing image—aggregate count by marketplace.
+Recommendations: prioritize channel by margin and stock—advisory only.
+German marketplaces: note VAT included price assumption.
+Output: parity_YYYY-MM-DD.csv, summary_de.md.
+No listing create/update API calls.
+Legal: respect each marketplace partner terms on data use.
+Feed schedules: note if export stale >24h.
+Promotional prices: compare base vs promo columns if present.
+Variant explosion: collapse to parent SKU when user map says so.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Marktplätze und Export-Format dokumentieren.
+2. SKU/EAN-Map validieren.
+3. Felder normalisieren und joinen.
+4. Preis- und Bestands-Parität berechnen.
+5. Status-Fehler aggregieren.
+6. Kurz-Empfehlung je SKU-Cluster.
+7. Report ohne Feed-Schreiben ausliefern.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Unjoined SKUs gezählt
+- [ ] Toleranz % dokumentiert
+- [ ] Keine Listing-API-Writes
+- [ ] Export-Alter je Quelle notiert
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Partner-API-Keys geschützt halten.
+- Wettbewerbsdaten nicht aus Login-Sessions scrapen.
+
+## Fallstricke
+
+- Promo-Preis mit Basispreis vergleichen.
+- EAN-Mehrdeutigkeit bei Bundles.
+- Zeitzone bei Tages-Exporten.
+- Amazon MCP Momentaufnahme vs. gestern Feed.
+- Gebühren ohne Versandkostenmodell.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Weitere Marktplätze-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `marketplaces` (Testdaten)
+- **Aufgabe:** Parität Amazon vs Kaufland
+- **Input:** zwei CSVs, MAP, 3% tolerance
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Weitere Marktplätze. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+parity csv + top 10 worst deltas.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+11 SKUs over 3% | example SKU-991 +7.2% Kaufland higher
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Weitere Marktplätze
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Unterdrückte Listings
+- **Input:** eBay export status column
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Count by status, list sku for suppressed.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+suppressed: 8 | missing image: 3 | sku list attached
+```

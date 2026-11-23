@@ -1,12 +1,11 @@
 ---
 id: seo-workflow
-title: "SEO"
+title: "SEO Audits & On-Page"
 domain: content-marketing
 category: seo
 tags:
   - seo
-  - content-marketing
-  - mcp
+  - audit
 target_agents:
   - hermes
   - grokbot
@@ -15,89 +14,124 @@ target_agents:
 required_tools:
   - name: Firecrawl MCP
     install: "https://github.com/firecrawl/firecrawl-mcp-server"
-    version_notes: "7886 GitHub Stars"
+    version_notes: "7886 Stars"
   - name: Brave Search MCP
     install: "https://github.com/brave/brave-search-mcp-server"
-    version_notes: "1585 GitHub Stars"
+    version_notes: "1585 Stars"
 inputs:
-  - "Kontext/Briefing für SEO"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Domain oder URLs"
+  - "Primary Keywords DE"
+  - "Crawl-Budget"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "seo_audit.md"
+  - "meta_suggestions.csv"
+  - "issue priority list"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Technisches und inhaltliches SEO: Audits, Keywords, On-Page, interne Verlinkung.
+Technisches und inhaltliches SEO mit Crawl und priorisierten Fixes.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **SEO**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Passende Anfrage in **SEO Audits & On-Page**.
+- Mit klaren Freigaben bei Publish/Send.
+
+**Wann nicht**
+
+- Boilerplate ohne Briefing oder ohne Datenquelle.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Firecrawl MCP | MCP | Aus Recherche 2026-11-23 |
-| Brave Search MCP | MCP | Aus Recherche 2026-11-23 |
+| Siehe required_tools | Kern | Domänenspezifisch |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for SEO (content-marketing/seo).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Crawl wichtiger URLs, Issues als Liste, Fixes als PR oder CMS-Entwurf.
+Role: SEO auditor (content-marketing/seo).
+Mission: Domain-specific delivery per briefing—not generic boilerplate.
+Firecrawl respect robots; status, canonical, title, h1.
+Brave SERP spot-check primary keywords.
+Output P1-P3 issues; no CMS publish.
+Document tool calls and paths.
+German/English mix OK per user.
+No fabricated metrics.
+No send/publish without approval.
+Follow UWG/DSGVO context when marketing.
+Log assumptions in output header.
+Prefer smallest tool set.
+Verify outputs exist on disk.
+Escalate legal/health claims to human.
+Respect robots and platform ToS.
+Version outputs with date stamp.
 ```
 
 ## Arbeitsablauf
 
-- Crawl wichtiger URLs, Issues als Liste, Fixes als PR oder CMS-Entwurf.
+1. Scope und Budget
+2. Crawl starten
+3. Technik clustern
+4. On-Page je Template
+5. SERP-Stichprobe
+6. Priorisieren
+7. Meta-CSV
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] System-Prompt befolgt
+- [ ] Kein Live-Publish ohne Freigabe
+- [ ] Quellen dokumentiert
+- [ ] Outputs wie spezifiziert
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Tokens/Credentials nicht im Chat.
+- Schreib-/Send-Aktionen nur mit Freigabe.
+
+## Fallstricke
+
+- Staging noindex crawlen
+- hreflang falsch
+- Title-Stuffing
+- Crawl-Limit
+- SERP-Snapshot als Dauerzustand
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-SEO-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `seo` (Testdaten)
+- **Aufgabe:** Audit Homepage+Produkt
+- **Input:** example.de 80 URLs
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für SEO. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+P1/P2 summary
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+12 P1 in report
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in SEO
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Meta 5 URLs
+- **Input:** money pages
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+DE meta csv
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+titles under 60 chars
+```

@@ -1,11 +1,11 @@
 ---
 id: web-scraping-mcp-focus
-title: "Web-Scraping: MCP/Skill-Fokus"
+title: "Scraping: Firecrawl vs. Playwright"
 domain: daten-analytics
 category: web-scraping
 tags:
-  - web
-  - daten-analytics
+  - firecrawl
+  - playwright
   - mcp
 target_agents:
   - hermes
@@ -20,99 +20,128 @@ required_tools:
     install: "https://github.com/exa-labs/exa-mcp-server"
     version_notes: "5264 GitHub Stars"
 inputs:
-  - "Kontext/Briefing für Web-Scraping"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Ziel: Markdown-Crawl vs. DOM-Extraktion"
+  - "URL-Menge und JS-Heavy"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Tool-Wahl Firecrawl|Playwright|Exa-off"
+  - "Begründung und Kosten"
 risk_level: low
-example_count: 3
-version: "1.0.0"
+example_count: 2
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Strukturierte Extraktion von Webdaten; Firecrawl, Browser-MCPs, respektiert robots/ToS.
+Scraping-Aufgaben **routen**: Firecrawl für site→markdown, Playwright für präzise DOM und Pagination—Exa hier nicht für Lead-Discovery (vertrieb leadgen).
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Web-Scraping**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Unklar ob MCP oder lokales Playwright billiger.
+- Mix statische Docs + eine dynamische Tabelle.
+
+**Wann nicht**
+
+- Reine Websuche → recherche-wissen/web-exa.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Firecrawl MCP | MCP | Aus Recherche 2026-11-23 |
-| Exa MCP | MCP | Aus Recherche 2026-11-23 |
-| Tavily MCP | MCP | Aus Recherche 2026-11-23 |
-| Playwright MCP | MCP | Aus Recherche 2026-11-23 |
+| Firecrawl MCP | Bulk markdown | Wenig Code |
+| Playwright | DOM | web-playwright template |
+| Exa | OFF default | Fokus scraping |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Web-Scraping (daten-analytics/web-scraping).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - ToS pruefen, rate-limit, strukturiertes Schema vorgeben.
+You route scraping tasks (daten-analytics/web-scraping-mcp-focus).
+
+1) User needs full site text for RAG or SEO read → Firecrawl crawl single domain with limits; Exa OFF; Playwright OFF.
+2) User needs table rows, pagination, form interaction → Playwright template web-playwright-research-scrape; Firecrawl OFF.
+3) User needs discover URLs only not content → suggest recherche Exa NOT in this session unless user insists—then Exa search only no scrape.
+4) Mixed: Firecrawl map URLs then Playwright on subset list document two phases.
+
+robots and rate limits inherited from child template—repeat check do not skip.
+
+Token cost: Firecrawl MCP schemas—note if heavy; prefer page limit param.
+
+Never both Firecrawl crawl and Playwright full site duplicate work.
+
+Output routing.md with chosen path and script paths to run next.
+
+Exa in required_tools is for optional URL discovery phase only—not semantic lead search.
+
+Login pages: refuse route to Playwright only with legal credential flag.
+
+German sites utf-8 both tools.
+
+If Firecrawl returns markdown sufficient user table need, say extract tables from md vs Playwright decision.
+
+Link web-playwright-research-scrape id explicitly in handoff.
+
+No storage of crawl results in cloud without user ok.
 ```
 
 ## Arbeitsablauf
 
-- ToS pruefen, rate-limit, strukturiertes Schema vorgeben.
+1. Ziel klären: Text vs. strukturierte Tabelle.
+2. JS-Heavy prüfen.
+3. Firecrawl vs Playwright entscheiden.
+4. Exa nur Discovery optional.
+5. Child-Workflow starten.
+6. routing.md schreiben.
+7. Kein doppeltes Crawlen.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Eine primäre Scraping-Route
+- [ ] Exa nicht als Leadgen missbraucht
+- [ ] robots erwähnt
+- [ ] Handoff an playwright template wenn DOM
 
 ## Sicherheit & Freigaben
 
-- Playwright als Scraper ist token-teuer.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- ToS beachten.
+
+## Fallstricke
+
+- Firecrawl auf SPA ohne Inhalt.
+- Playwright für 10k Seiten ohne Cap.
+- Exa + Firecrawl parallel Kosten.
+- Markdown-Tabelle falsch geparst.
+- recherche web-exa verwechselt.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Web-Scraping-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `web-scraping` (Testdaten)
+- **Aufgabe:** Docs site markdown
+- **Input:** docs.example.com
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Web-Scraping. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+firecrawl max 100 pages routing.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+routing: firecrawl | playwright rejected
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Web-Scraping
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Preistabelle 20 Seiten
+- **Input:** paginated catalog
 - **Prompt:**
-```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
-```
-- **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
 
-### Beispiel 3 (Praxisbeispiel)
-
-- **Aufgabe:** Fuer Extraktionsaufgaben den Kontextverbrauch von Playwright MCP mit einem Cloud-Browser vergleichen, der Markdown zurueckgibt.
-- **Input:** Typische URL-holen-und-X-extrahieren-Aufgaben laut Beitrag.
-- **Prompt:**
 ```text
-Microsoft Playwright MCP (Accessibility-Tree/Snapshots) vs. ScrapingAnt-Cloud-Browser-MCP.
+playwright handoff id web-playwright-research-scrape.
 ```
+
 - **Erwartetes Ergebnis:**
-  Der Beitrag (Selbstpromotion von ScrapingAnt, r/mcp) behauptet typisch ca. 114.000 Tokens bei Playwright-MCP-Aufgaben gegenueber ca. 5.000-15.000 Tokens fuer Markdown/HTML/Text ohne gestreamten Accessibility-Tree. Playwright MCP wird dort selbst als besser fuer lokale UI-Tests der eigenen App beschrieben.
-- **Quelle:** https://www.reddit.com/r/mcp/comments/1spvkrz/microsoft_recommends_cli_over_mcp_for_playwright/
+
+```text
+routing: playwright | firecrawl off
+```

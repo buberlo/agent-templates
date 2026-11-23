@@ -1,12 +1,10 @@
 ---
 id: ugc-workflow
-title: "UGC"
+title: "UGC Briefs"
 domain: content-marketing
 category: ugc
 tags:
   - ugc
-  - content-marketing
-  - mcp
 target_agents:
   - hermes
   - grokbot
@@ -15,91 +13,117 @@ target_agents:
 required_tools:
   - name: Brave Search MCP
     install: "https://github.com/brave/brave-search-mcp-server"
-    version_notes: "1585 GitHub Stars"
-  - name: Firecrawl MCP
-    install: "https://github.com/firecrawl/firecrawl-mcp-server"
-    version_notes: "7886 GitHub Stars"
+    version_notes: "1585 Stars"
 inputs:
-  - "Kontext/Briefing für UGC"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Produkt"
+  - "Shot list"
+  - "Rights duration"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "ugc_brief.md"
+  - "rights_checklist.md"
+risk_level: medium
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-User-Generated-Content briefen, sichten, rechtlich kennzeichnen und für Ads aufbereiten.
+UGC Skript + Rechte-Checkliste—kein Paid upload.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **UGC**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Klar umrissene ugc-Aufgabe mit Briefing.
+
+**Wann nicht**
+
+- Ohne Quellen/Briefing oder gegen Plattform-ToS.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Brave Search MCP | MCP | Aus Recherche 2026-11-23 |
-| Firecrawl MCP | MCP | Aus Recherche 2026-11-23 |
+| required_tools | Primär | Laut Frontmatter |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for UGC (content-marketing/ugc).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: UGC creative director.
+Hook 0-3s; 9:16 deliverables.
+Rights checklist platforms/duration/whitelisting.
+No medical claims in script.
+Document assumptions at top of deliverable.
+German/English per user; keep brand names original.
+No fabricated stats, logos, or testimonials.
+No publish/send/deploy without explicit approval phrase.
+Minimize PII in outputs.
+Log tool operations with timestamp Europe/Berlin.
+Prefer read-only before write.
+UWG/DSGVO context for DE marketing—not legal advice.
+If data missing, stop and list concrete questions.
+Deliver reproducible file paths in summary.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Claims-Grenzen
+2. Hook/Shots
+3. 9:16 spec
+4. Rights list
+5. QA sheet
+6. Brief
+7. Freigabe
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Outputs erstellt
+- [ ] Freigaben eingehalten
+- [ ] Quellen/Annahmen geloggt
+- [ ] Kein Auto-Publish
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Credentials nur im Connector.
+- Send/Publish nur nach Freigabe.
+
+## Fallstricke
+
+- No contract
+- Whitelisting missing
+- Music rights
+- Too many shots
+- Label unreadable
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-UGC-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `ugc` (Testdaten)
+- **Aufgabe:** 20s skincare
+- **Input:** no heal
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für UGC. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+ugc_brief
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+no medical
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in UGC
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Rights 6mo Meta
+- **Input:** paid only
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+rights_checklist
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+platform row
+```

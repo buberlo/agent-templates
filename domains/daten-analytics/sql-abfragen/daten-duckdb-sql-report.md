@@ -19,78 +19,124 @@ required_tools:
     install: "python3 + duckdb"
     version_notes: "Notebook optional"
 inputs:
-  - "Parquet/CSV Pfade"
-  - "Fragen/KPIs"
-  - "Filterzeitraum"
+  - "Parquet/CSV Pfade (read-only)"
+  - "Business-Fragen/KPIs und Filterzeitraum"
+  - "Parameter für Datum (von/bis)"
 outputs:
-  - "SQL-Datei"
+  - "Reproduzierbare .sql Datei"
   - "Ergebnis-CSV"
-  - "Kurzinterpretation"
+  - "Kurzinterpretation DE"
 risk_level: low
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 example_count: 2
 ---
 
 ## Zweck
 
-Große lokale Datensätze schnell per SQL analysieren ohne Warenehouse-Setup.
+Große lokale Dateien **schnell per SQL** analysieren—DuckDB in-process, ohne Warehouse-Setup.
 
 ## Wann nutzen
 
-- Log-Exports, Verkaufs-CSV, eine-offene-Frage.
-- Nicht für Echtzeit-Streaming (dafür Flink/ksqlDB).
+- Verkaufs-/Log-CSV, einmalige Management-Frage.
+- Parquet aus ETL-Staging.
+
+**Wann nicht**
+
+- Echtzeit-Streaming (Flink/ksqlDB).
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| DuckDB | OLAP engine | In-process, schnell |
-| pandas | optional | Ergebnis nachbearbeiten |
-| evidence | optional | Docs aus SQL |
+| DuckDB | OLAP | read_parquet/csv |
+| Python | Ausführung | Optional |
 
 ## System-Prompt / Instruktionen
 
 ```text
-Analyze data with DuckDB SQL; read-only on sources.
-Write reproducible .sql with parameterized date filters.
-Output CSV and plain-language summary in German.
-Never join in external PII without approval.
+Role: DuckDB analytics engineer (daten-analytics/daten-duckdb-sql-report).
+Mission: Answer business questions with reproducible SQL—read-only on source files.
+Inputs: file paths, date column name, range start end, KPI definitions user provides.
+Always: CREATE OR REPLACE TABLE staging AS SELECT * FROM read_parquet|read_csv with explicit options (header, delim).
+Parameterize dates: use duckdb variables or WHERE between $start and $end documented at top of sql file.
+Joins only on keys user confirms; log row counts pre post join.
+Aggregations: GROUP BY all non-aggregated select columns check.
+Null handling explicit COALESCE where metrics affected.
+PII columns drop or hash unless FREIGABE PII in output.
+Export: COPY (SELECT ...) TO 'result.csv' WITH HEADER.
+Explain: German plain summary 5 sentences max with caveats sampling timezone.
+Save query.sql with comment header purpose author date.
+Performance: avoid SELECT * in final; use LIMIT for exploration only labeled.
+Timezone: Europe/Berlin cast if timestamps UTC noted.
+No write back to source parquet.
+If multiple files glob pattern document in sql header.
+Validate sums tie footers optional cross-check user totals.
+DuckDB version features 1.1+ read_parquet hive partition optional.
+Do not mutate source paths ever.
+Motherduck cloud only if user credentials—default local file.
+Document rowcount and runtime in stdout log.
 ```
 
 ## Arbeitsablauf
 
-1. Schema inspizieren `DESCRIBE SELECT *`.
-2. SQL entwerfen; EXPLAIN prüfen.
-3. Ergebnis exportieren.
-4. Plausibilität (Summen, Nullen).
-5. Query + Ergebnis versionieren.
+1. Dateien und Schema samplen (`DESCRIBE`).
+2. Fragen in SQL-CTE-Struktur übersetzen.
+3. Datumfilter parametrisieren.
+4. Query ausführen, Rowcount loggen.
+5. `result.csv` exportieren.
+6. `query.sql` speichern.
+7. DE-Kurzinterpretation mit Caveats.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Query deterministisch
-- [ ] Laufzeit dokumentiert
-- [ ] Keine PII in Summary
+- [ ] query.sql reproduzierbar
+- [ ] Quellen read-only
+- [ ] Datumsparameter dokumentiert
+- [ ] PII minimiert
 
 ## Sicherheit & Freigaben
 
-- Daten lokal; keine Cloud-Uploads.
-- Aggregation statt Rohdaten in Tickets.
+- Keine externen PII-Joins ohne Freigabe.
+
+## Fallstricke
+
+- CSV-Typen falsch inferiert.
+- UTC vs lokal.
+- Viele Parquets ohne Partition-Filter.
+- JOIN ohne Duplikat-Explosion-Check.
+- Ergebnis ohne rowcount.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-_Siehe vorheriger Abschnitt; bei Migration ergänzt._
+- **Aufgabe:** Umsatz Q3 aus sales.parquet
+- **Input:** date_col order_date, Q3 2026
+- **Prompt:**
+
+```text
+query.sql + result.csv + 3 sentence summary DE.
+```
+
+- **Erwartetes Ergebnis:**
+
+```text
+SUM revenue matches user spot check | sql parameterized Q3
+```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Validierung
-- **Input:** n/a
-- **Prompt:** `validate output`
-- **Erwartetes Ergebnis:** OK
+- **Aufgabe:** Top 10 Kunden
+- **Input:** customers.csv orders.csv
+- **Prompt:**
 
-## Beispiele (Legacy)
+```text
+Join on customer_id, rowcount logged.
+```
 
-**Eingabe:** `sales_2026.parquet`, Umsatz nach Region Q3
-**Erwartetes Ergebnis:** `report_q3.csv`, 1-Seiten-Fazit
+- **Erwartetes Ergebnis:**
+
+```text
+join pre/post counts in log | 10 rows csv
+```
