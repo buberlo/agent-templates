@@ -1,103 +1,153 @@
 ---
 id: diagramme-whiteboard-workflow
-title: "Diagramme und Whiteboards"
 domain: office-dokumente
+title: "Diagramme und Whiteboards dokumentieren"
 category: diagramme-whiteboard
 tags:
-  - diagramme
-  - office-dokumente
-  - skill
+  - mermaid
+  - excalidraw
+  - diagrams
 target_agents:
-  - hermes
-  - grokbot
-  - generic-mcp-agents
+  - cursor
+  - claude-code
   - generic
 required_tools:
-  - name: Hermes-Skill architecture-diagram
-    install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "Bundled."
-  - name: miro MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/miro"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
+  - name: mermaid-cli
+    install: "npm: @mermaid-js/mermaid-cli"
+    version_notes: "mmdc SVG/PNG"
+  - name: draw.io
+    install: "https://github.com/jgraph/drawio-desktop or CLI export"
+    version_notes: "Optional"
 inputs:
-  - "Kontext/Briefing für Diagramme und Whiteboards"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Architektur- oder Prozessbeschreibung"
+  - "Zielformat (SVG, PNG, embed in MD)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Diagrammdateien"
+  - "Quelltext (mmd/drawio)"
 risk_level: low
-example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Architekturdiagramme, Excalidraw, Miro, Mermaid und Infografiken.
+**Prozess- und Architekturdiagramme** als versionierbare Quellen (Mermaid, draw.io) erzeugen und für Docs/PDF exportieren.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Diagramme und Whiteboards**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Workshop-Ergebnisse in Wiki-fähige Diagramme überführen.
+- CI-Docs mit eingebetteten SVGs.
+- Agent iteriert an Text-quelle statt Pixel.
+
+**Wann nicht**
+
+- UX-High-Fidelity in Figma.
+- GIS oder CAD (→ hardware/wissenschaft).
+- Live-Whiteboard-Sync ohne Export-Snapshot.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill architecture-diagram | Skill | Aus Recherche 2026-11-23 |
-| miro MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| Mermaid | Text-Diagramme | Git-diff-freundlich |
+| mmdc | Render | SVG für Pandoc |
+| draw.io | Komplexe Layouts | Optional |
+| Excalidraw | Skizzen | JSON-Export wenn vorhanden |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Diagramme und Whiteboards (office-dokumente/diagramme-whiteboard).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - /architecture-diagram oder vergleichbaren Slash-Command laut Hermes-Docs nutzen, HTML/SVG oeffnen.
+You create maintainable diagrams from user descriptions—prefer Mermaid for flow/sequence/C4 unless layout needs draw.io.
+
+Inputs: diagram type, nodes and edges list, style (light/dark), output paths (diagram.mmd, diagram.svg), language DE labels if requested.
+
+Mermaid rules:
+- Unique node ids; avoid reserved words; quote labels with special chars.
+- Max ~25 nodes per diagram—split into linked diagrams if larger.
+- Run mmdc -i diagram.mmd -o diagram.svg before claiming done.
+
+draw.io: only when user needs freeform; keep .drawio source in repo; export svg/png.
+
+Whiteboard import: if user pastes Excalidraw JSON, clean and export svg—do not trace screenshots unless no source.
+
+Accessibility: title/desc in svg metadata when embedding in docs.
+
+Approvals: publish diagrams with customer names requires user yes.
+
+Output: source file, rendered svg, render command log.
+
+Never invent infrastructure the user did not describe—use TBD nodes.
+
+Version filenames with v1 v2 when iterating major layout changes.
+
+Validate mermaid syntax with mmdc stderr empty.
+For C4 use official mermaid C4 blocks when applicable.
+Keep legend for color semantics when more than 3 colors.
 ```
 
 ## Arbeitsablauf
 
-- /architecture-diagram oder vergleichbaren Slash-Command laut Hermes-Docs nutzen, HTML/SVG oeffnen.
+1. Knoten/Kanten aus Briefing tabellarisch.
+2. Mermaid-Quelle schreiben.
+3. `mmdc` rendern; bei Fehler Syntax fixen.
+4. SVG in MD einbinden testen.
+5. Optional draw.io für Layout-Korrektur.
+6. Review mit Nutzer (Screenshot oder SVG).
+7. Quellen ins Repo committen.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] mmdc exit 0
+- [ ] Source in Repo versioniert
+- [ ] Lesbare Labels (DE/EN konsistent)
+- [ ] Große Diagramme aufgeteilt
+- [ ] Kundennamen nur mit Freigabe
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Interne Architektur nicht öffentlich posten ohne Freigabe.
+- Keine echten Hostnames in öffentlichen Demos.
+- Whiteboard-Screenshots können PII enthalten.
+
+## Fallstricke
+
+- Mermaid-Knoten mit Klammern ohne Quotes.
+- SVG riesig durch eingebettete Fonts.
+- draw.io ohne CLI-Export manuell vergessen.
+- Sequenzdiagramm mit falschem activate/deactivate.
+- Dark-Theme in Print-PDF unleserlich.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Diagramme und Whiteboards-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `diagramme-whiteboard` (Testdaten)
+- **Aufgabe:** Onboarding-Prozess Flowchart.
+- **Input:** 8 Schritte von Registrierung bis Go-Live.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Diagramme und Whiteboards. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Mermaid flowchart TD; render deploy_flow.svg; German labels.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+deploy_flow.mmd, deploy_flow.svg; mmdc log success.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Diagramme und Whiteboards
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Sequenz Auth-Service.
+- **Input:** 4 Akteure, 6 Messages.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Mermaid sequenceDiagram; export auth_seq.svg.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+auth_seq.mmd/svg; actors User, API, IdP, DB documented.
+```

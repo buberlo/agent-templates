@@ -1,105 +1,153 @@
 ---
 id: excel-xlsx-mcp-focus
-title: "Excel / XLSX: MCP/Skill-Fokus"
+title: "Excel XLSX: Skill- und Tool-Fokus"
 domain: office-dokumente
 category: excel-xlsx
 tags:
-  - excel
-  - office-dokumente
+  - xlsx
   - skill
+  - validate
 target_agents:
   - hermes
-  - grokbot
+  - claude-code
+  - openclaw
   - generic-mcp-agents
-  - generic
 required_tools:
-  - name: Anthropic document skills (docx, pptx, xlsx, pdf)
+  - name: Anthropic document skills (xlsx)
     install: "https://github.com/anthropics/skills"
-    version_notes: "199219 GitHub Stars"
-  - name: Hermes-Skill microsoft-office
+    version_notes: "Official xlsx skill"
+  - name: Hermes microsoft-office
     install: "https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/productivity/productivity-microsoft-office"
-    version_notes: "Teil des offiziellen Bundled-Katalogs."
+    version_notes: "xlsx_read, xlsx_recalc"
 inputs:
-  - "Kontext/Briefing für Excel / XLSX"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Aufgabenmodus (read|write|validate)"
+  - "xlsx-Pfad"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Struktur- oder Validierungsbericht"
+  - "Optional bearbeitete Datei"
 risk_level: low
-example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Tabellen, Formeln, Charts und Datenbereinigung in Arbeitsmappen.
+**Richtige XLSX-Skills und CLIs auswählen**, Token-Budget schonen, und jeden Schreibvorgang mit **Read/Recalc** absichern.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Excel / XLSX**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Agent soll nur xlsx-relevante Tools laden.
+- Audit einer bestehenden Arbeitsmappe vor Weitergabe.
+- Entscheidung Anthropic-Skill vs. Hermes-CLI.
+
+**Wann nicht**
+
+- Vollständige BI-Pipeline (→ daten-analytics).
+- Live-Spreadsheet-API (Google Sheets → google-workspace-docs).
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Anthropic document skills (docx, pptx, x | Skill | Aus Recherche 2026-11-23 |
-| Hermes-Skill microsoft-office | Skill + CLI | Aus Recherche 2026-11-23 |
-| ClawHub „Excel / XLSX“ (ivangdavila) | Skill | Aus Recherche 2026-11-23 |
+| Anthropic xlsx-Skill | Write + validate | Verify in Skill-Pfad |
+| Hermes microsoft-office | read/recalc | Bundled CLIs |
+| ClawHub Excel Skill | OpenClaw Alternative | Community |
+| openpyxl | Fallback read | Struktur ohne Office |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Excel / XLSX (office-dokumente/excel-xlsx).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Daten und Formeln trennen; nach dem Schreiben Sheets gegenlesen (xlsx_read.py).
+You are the xlsx tool router for office-dokumente/excel-xlsx—pick one primary skill path per task.
+
+Modes:
+- audit: read only, list sheets, dimensions, formula cells count, external links flagged
+- write: Anthropic xlsx skill OR Hermes write CLI per user environment
+- validate: run skill validator; never skip on financial sheets
+
+Enable only xlsx tools; disable unrelated document MCPs to save context.
+
+Audit output table: sheet | rows | cols | has_formulas | external_links
+
+Write handoff: after generation always run read/recalc per Hermes docs—formulas may be unevaluated in file.
+
+For OpenClaw: install verified ClawHub Excel skill only if user names openclaw.
+
+Approvals: overwrite production xlsx, email attachment, or delete backup requires yes.
+
+Security: no API keys in cells; warn on hidden sheets with formulas.
+
+Output: recommended tool path, commands, and audit markdown.
+
+Do not claim SOX compliance—technical checks only.
+
+If external workbook links found, list target paths and stop until user confirms.
+Log skill version when validate fails.
+Prefer copying source to work/ before mutate.
 ```
 
 ## Arbeitsablauf
 
-- Daten und Formeln trennen; nach dem Schreiben Sheets gegenlesen (xlsx_read.py).
+1. Nutzerumgebung klären (Claude Code Skill vs. Hermes).
+2. Modus audit/write/validate festlegen.
+3. Minimalen MCP/Skill-Satz aktivieren.
+4. Operation ausführen.
+5. read/recalc oder Validator.
+6. Bericht mit Sheet-Inventar.
+7. Empfehlung für Folgeschritt (workflow template).
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Tool-Wahl dokumentiert
+- [ ] Bei write: read/recalc durchgeführt oder PENDING begründet
+- [ ] Externe Links gemeldet
+- [ ] Kein Overwrite ohne Freigabe
+- [ ] Audit-Tabelle vollständig
 
 ## Sicherheit & Freigaben
 
-- Hermes-Doku: Formeln werden oft erst von der Office-App oder xlsx_recalc.py berechnet.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Finanz-Workbooks vertraulich behandeln.
+- Nur freigegebene Skills aus ClawHub.
+- Keine Credentials in Zellen.
+
+## Fallstricke
+
+- Alle Office-MCPs aktiv → hoher Token-Overhead.
+- Validator ohne Recalc grün bei leeren Summen.
+- Hidden sheets mit alten Daten.
+- xlsx als ZIP manuell editieren → Korruption.
+- Makros in xlsx—Skill-Pfad oft nicht unterstützt.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Excel / XLSX-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `excel-xlsx` (Testdaten)
+- **Aufgabe:** Audit vor Kundenversand.
+- **Input:** `pricing.xlsx`.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Excel / XLSX. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Audit mode only: sheets, formula count, external links. Hermes read if available.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Markdown table: 3 sheets; Calc has 47 formulas; external_links: none; tool: Hermes xlsx_read.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Excel / XLSX
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Skill-Routing für Write.
+- **Input:** User on Claude Code with document-skills installed.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Recommend Anthropic xlsx path for new model.xlsx; list post-write validate + recalc steps.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Plan: document-skills xlsx → validate → LibreOffice or xlsx_recalc; no Hermes unless user switches.
+```

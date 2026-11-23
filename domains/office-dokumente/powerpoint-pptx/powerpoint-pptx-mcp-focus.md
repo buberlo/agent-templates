@@ -1,118 +1,148 @@
 ---
 id: powerpoint-pptx-mcp-focus
-title: "PowerPoint / PPTX: MCP/Skill-Fokus"
+title: "PowerPoint PPTX: Skill-Fokus"
 domain: office-dokumente
 category: powerpoint-pptx
 tags:
-  - powerpoint
-  - office-dokumente
+  - pptx
   - skill
 target_agents:
   - hermes
-  - grokbot
+  - openclaw
   - generic-mcp-agents
-  - generic
 required_tools:
-  - name: Anthropic document skills (docx, pptx, xlsx, pdf)
+  - name: Anthropic document skills (pptx)
     install: "https://github.com/anthropics/skills"
-    version_notes: "199219 GitHub Stars"
-  - name: Hermes-Skill microsoft-office
+    version_notes: "Official"
+  - name: Hermes microsoft-office
     install: "https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/productivity/productivity-microsoft-office"
-    version_notes: "Teil des offiziellen Bundled-Katalogs."
+    version_notes: "pptx scripts"
 inputs:
-  - "Kontext/Briefing für PowerPoint / PPTX"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "pptx-Aufgabe"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Tool-Routing"
+  - "Verify-Checkliste"
 risk_level: low
-example_count: 3
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Folien und Decks programmatisch erzeugen, prüfen und als Bilder rendern.
+**PPTX-Skills** gezielt laden—Anthropic vs. Hermes vs. OpenClaw—mit Verify-Checkliste statt generischem Office-MCP-Bündel.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **PowerPoint / PPTX**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Agenten-Setup für Präsentations-Tasks.
+- Audit existierender .pptx vor Event.
+- Token-Budget für Document-Skills planen.
+
+**Wann nicht**
+
+- Vollständiges Deck aus Briefing (→ powerpoint-pptx-workflow).
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Anthropic document skills (docx, pptx, x | Skill | Aus Recherche 2026-11-23 |
-| Hermes-Skill microsoft-office | Skill + CLI | Aus Recherche 2026-11-23 |
-| ClawHub „Powerpoint / PPTX“ (ivangdavila | Skill | Aus Recherche 2026-11-23 |
+| Anthropic pptx | Write/validate | Offiziell |
+| Hermes microsoft-office | pptx read | Bundled |
+| ClawHub pptx skills | OpenClaw | Optional |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for PowerPoint / PPTX (office-dokumente/powerpoint-pptx).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Structured deck. Nach Build: validate.py, slide_text.py, soffice/pptx_render, Folienbilder lesen.
+You configure minimal tools for pptx tasks.
+
+Routing:
+- Claude Code with document-skills → Anthropic pptx primary
+- Hermes only environment → microsoft-office pptx CLIs
+- openclaw user → verified ClawHub skill if named
+
+Audit mode: slide count, title list, embedded media count, notes presence—read only.
+
+Never enable xlsx/docx MCPs unless user adds tasks same session.
+
+Verify checklist after any write:
+1) skill validator
+2) optional soffice pdf export
+3) thumbnail spot check slide 1 and last
+
+Approvals: overwrite template.pptx on share drive needs yes.
+
+Output: enabled tools list, verify checklist markdown, link to workflow template for builds.
+
+Do not promise pixel-perfect match to PowerPoint desktop.
+
+Warn when animations requested—python-pptx limitations.
+
+If encrypted pptx, stop until password from user secure channel.
+List embedded fonts licensing risk when customer brand fonts used.
 ```
 
 ## Arbeitsablauf
 
-- Structured deck. Nach Build: validate.py, slide_text.py, soffice/pptx_render, Folienbilder lesen.
-- Farben als FF0000 ohne #; Layout 10x5,625 Zoll beachten.
+1. Umgebung erkennen (Claude/Hermes/OpenClaw).
+2. Nur pptx-Tools aktivieren.
+3. audit oder build-Handoff klären.
+4. Verify-Checkliste ausgeben.
+5. Bei build → workflow-Template referenzieren.
+6. Token-Hinweis bei vielen MCPs.
+7. Log der gewählten Skill-Version.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Maximal pptx-relevante Tools aktiv
+- [ ] Verify-Checkliste geliefert
+- [ ] Build an workflow verwiesen
+- [ ] Kein Overwrite ohne Freigabe
+- [ ] Limitationen (Animation) genannt
 
 ## Sicherheit & Freigaben
 
-- validate.py braucht Python >=3.10. Falsche Zahlen in Callouts erkennt der XML-Checker nicht.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Decks mit Insider-Info nicht in öffentliche Skills loggen.
+- Freigabe vor Share-Link.
+- Keine API-Keys in Notizen.
+
+## Fallstricke
+
+- document-skills Plugin nur docx geladen.
+- ClawHub-Skill unverifiziert.
+- PDF-QA übersprungen.
+- Master-Slides kaputt nach python-pptx.
+- Große Medien ohne Kompression.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-PowerPoint / PPTX-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `powerpoint-pptx` (Testdaten)
+- **Aufgabe:** Claude Code Setup.
+- **Input:** User will edit investor.pptx.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für PowerPoint / PPTX. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Route tools for pptx audit + safe edits; minimal MCP; verify checklist.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Anthropic pptx + audit table; checklist 3 steps; no xlsx MCP.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in PowerPoint / PPTX
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Hermes-only Server.
+- **Input:** Build new deck.
 - **Prompt:**
-```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
-```
-- **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
 
-### Beispiel 3 (Praxisbeispiel)
-
-- **Aufgabe:** Ein kurzes Briefing-Deck mit der offiziellen Anthropic-pptx-Skill erzeugen und validieren.
-- **Input:** Tutorial-Briefing, das als PowerPoint ausgegeben werden sollte.
-- **Prompt:**
 ```text
-pptxgenjs 4.0.1, skills/pptx/scripts/office/validate.py, python-pptx zum Gegenlesen.
+Hermes path only; hand off to powerpoint-pptx-workflow with CLI names.
 ```
+
 - **Erwartetes Ergebnis:**
-  Datei briefing.pptx, Validator All validations PASSED. Gegenlesen ergab drei Folien im Format 10 x 5,625 Zoll (LAYOUT_16x9), inklusive Text und Speaker Notes. Hinweis des Autors: Hex-Farben ohne #, Koordinaten jenseits der Kante werden nicht geclippt.
-- **Quelle:** https://aifrontierpost.com/articles/anthropic-official-agent-skills-tutorial/
+
+```text
+Route: Hermes microsoft-office; workflow link; Claude skill not assumed.
+```

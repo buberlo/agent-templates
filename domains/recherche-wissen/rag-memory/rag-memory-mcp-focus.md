@@ -1,108 +1,143 @@
 ---
 id: rag-memory-mcp-focus
-title: "RAG und Memory: MCP/Skill-Fokus"
+title: "RAG/Memory: Tool-Fokus"
 domain: recherche-wissen
 category: rag-memory
 tags:
   - rag
-  - recherche-wissen
-  - plattformmemorylayer
+  - mem0
+  - graphiti
 target_agents:
-  - hermes
-  - grokbot
+  - openclaw
   - generic-mcp-agents
-  - generic
 required_tools:
   - name: mem0
     install: "https://github.com/mem0ai/mem0"
-    version_notes: "69369 GitHub Stars"
+    version_notes: "69k stars"
   - name: Graphiti
     install: "https://github.com/getzep/graphiti"
-    version_notes: "33021 GitHub Stars"
+    version_notes: "KG; MCP wrapper check"
 inputs:
-  - "Kontext/Briefing für RAG und Memory"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Memory-Anforderung"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
-example_count: 2
-version: "1.0.0"
+  - "Stack-Empfehlung"
+risk_level: medium
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Langzeitgedächtnis, Wissensgraphen, Vault-Index und Retrieval für Agenten.
+**Memory-Stack wählen**—mem0 vs. Graphiti vs. Obsidian—Community-MCPs kritisch prüfen.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **RAG und Memory**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Architektur-Entscheid vor rag-memory-workflow.
+
+**Wann nicht**
+
+- Fakten persistieren ohne Workflow.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| mem0 | Plattform / Memory-Layer | Aus Recherche 2026-11-23 |
-| Graphiti | Knowledge Graph | Aus Recherche 2026-11-23 |
-| Obsidian-Skills (Hermes bundled, ClawHub | Skill | Aus Recherche 2026-11-23 |
-| ClawHub „Memory Setup“ (jrbobbyhansen-pi | Skill | Aus Recherche 2026-11-23 |
-| ClawHub „Elite Longterm Memory“ (nextfro | Skill | Aus Recherche 2026-11-23 |
+| mem0 | LTM | Popular SDK |
+| Graphiti | Graph | Relations |
+| Obsidian skill | Audit trail | Human |
+| ClawHub memory | Caution | verify |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for RAG und Memory (recherche-wissen/rag-memory).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Wichtige Fakten bewusst persistieren; Memory nicht ungeprueft in Anweisungen uebernehmen.
+You recommend memory/RAG stack—not implement without user SDK keys and policies.
+
+Decision:
+- Simple facts list → mem0 or obsidian notes
+- Entity relations → graphiti if maintained MCP available else obsidian links
+- OpenClaw → only verified memory skills per Koi Security 2026 advisory
+
+Disable unused MCP wrappers to save tokens.
+
+Community graphiti MCP: check repo activity before recommend.
+
+Output stack.md: primary store, backup human store, embedding choice user, security checklist.
+
+Never recommend storing secrets.
+
+Hand off to rag-memory-workflow for writes.
+
+Compare mem0 vs notion: if team wiki notion pick notion-workflow not mem0.
+
+Log ClawHub skill verify command in plan when openclaw.
+
+Note GDPR if mem0 cloud vs self-host.
+List retrieval eval metrics user should track hit@k.
+Warn on unbounded memory growth without ttl policy.
 ```
 
 ## Arbeitsablauf
 
-- Wichtige Fakten bewusst persistieren; Memory nicht ungeprueft in Anweisungen uebernehmen.
+1. Use case klären.
+2. Cloud vs self-host.
+3. Skill verify status.
+4. stack.md.
+5. Security checklist.
+6. Workflow handoff.
+7. Token minimal MCPs.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] verify mentioned for ClawHub
+- [ ] No secrets policy
+- [ ] Human-readable store named
+- [ ] Graphiti caveat if stale MCP
+- [ ] Handoff link
 
 ## Sicherheit & Freigaben
 
-- ClawHub-Skills vor der Nutzung prüfen (`openclaw skills verify`). Im Februar 2026 auditierte Koi Security 2.857 Registry-Skills und bewertete 341 als schadhaft (ca. 12 %). Quellen: https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html , https://docs.openclaw.ai/skills/
-- Community-Graphiti-MCPs sind kleiner und teils aelter – Pflegezustand pruefen.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Depl
+- ClawHub audit referenzieren.
+- GDPR cloud mem0.
+
+## Fallstricke
+
+- Stale Graphiti MCP.
+- Memory skill malware risk.
+- mem0 cloud residency.
+- No human audit store.
+- Embedding cost surprise.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-RAG und Memory-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `rag-memory` (Testdaten)
+- **Aufgabe:** Startup agent memory.
+- **Input:** simple facts, self-host.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für RAG und Memory. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+stack.md mem0 self-host + obsidian audit.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+stack.md with both layers; rag-memory-workflow link.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in RAG und Memory
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** OpenClaw skill.
+- **Input:** openclaw user.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Require skills verify before memory skill install.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+stack.md includes openclaw skills verify step.
+```

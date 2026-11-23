@@ -1,106 +1,137 @@
 ---
 id: patente-mcp-focus
-title: "Patente: MCP/Skill-Fokus"
+title: "Patente: MCP-Routing"
 domain: recherche-wissen
 category: patente
 tags:
-  - patente
-  - recherche-wissen
+  - patents
   - mcp
 target_agents:
-  - hermes
-  - grokbot
   - generic-mcp-agents
-  - generic
 required_tools:
   - name: Brave Search MCP
     install: "https://github.com/brave/brave-search-mcp-server"
-    version_notes: "1585 GitHub Stars"
-  - name: Exa MCP
-    install: "https://github.com/exa-labs/exa-mcp-server"
-    version_notes: "5264 GitHub Stars"
+    version_notes: "Patent search"
+  - name: Firecrawl MCP
+    install: "https://github.com/firecrawl/firecrawl-mcp-server"
+    version_notes: "Register fetch"
 inputs:
-  - "Kontext/Briefing für Patente"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Patent task type"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
-example_count: 2
-version: "1.0.0"
+  - "MCP plan"
+risk_level: medium
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Patentrecherche und Anspruchsüberblick, soweit spezielle Datenquellen angebunden sind.
+**Search+Fetch MCPs** für Patentrecherche konfigurieren—minimal, register-fokussiert.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Patente**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Vor patente-workflow Agent-Setup.
+
+**Wann nicht**
+
+- Vollständige FTO-Analyse.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Brave Search MCP | MCP | Aus Recherche 2026-11-23 |
-| Exa MCP | MCP | Aus Recherche 2026-11-23 |
-| Firecrawl MCP | MCP | Aus Recherche 2026-11-23 |
+| Brave | Discovery | Queries |
+| Firecrawl | Register | Metadata |
+| Exa | Optional | Alternate |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Patente (recherche-wissen/patente).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+You configure MCPs for patent discovery tasks—brave + firecrawl default.
+
+Disable unrelated MCPs.
+
+Prefer official register urls in fetch list espacenet patent google patents uspto as user jurisdiction.
+
+No playwright unless register blocks firecrawl.
+
+Output plan: queries sample, fetch domains allowlist, handoff to patente-workflow.
+
+Legal disclaimer required in plan header.
+
+Max 10 fetches per session without user expansion.
+
+Do not enable payment APIs or unrelated finance MCPs.
+
+Log jurisdiction focus.
+
+If user lacks API keys stop with setup steps not scraped logins.
+
+Encourage counsel review in every plan footer.
+Sample query strings only no secret tech in examples.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Jurisdiction klären.
+2. MCP minimal.
+3. Allowlist domains.
+4. Sample queries.
+5. plan.md.
+6. Workflow link.
+7. Disclaimer.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Disclaimer
+- [ ] Allowlist
+- [ ] ≤2 search MCPs
+- [ ] Workflow handoff
+- [ ] No secret in sample queries
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Queries ohne Geheimnisse.
+
+## Fallstricke
+
+- Blog statt Register.
+- Too many MCPs.
+- Playwright default.
+- Wrong jurisdiction site.
+- Missing disclaimer.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Patente-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `patente` (Testdaten)
+- **Aufgabe:** EP MCP plan.
+- **Input:** jurisdiction EP.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Patente. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+MCP plan brave+firecrawl espacenet focus.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+plan.md allowlist espacenet; patente-workflow link.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Patente
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** US focus.
+- **Input:** US patents.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Add uspto google patents to allowlist.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+plan allowlist updated US sources.
+```

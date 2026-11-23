@@ -1,103 +1,153 @@
 ---
 id: news-monitoring-workflow
-title: "News-Monitoring"
 domain: recherche-wissen
+title: "News-Monitoring und Alerts"
 category: news-monitoring
 tags:
   - news
-  - recherche-wissen
-  - skill
+  - rss
+  - monitoring
 target_agents:
   - hermes
   - grokbot
-  - generic-mcp-agents
   - generic
 required_tools:
-  - name: Hermes-Skill competitor-news-monitor
-    install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "Bundled."
-  - name: ClawHub „News Summary“ (joargp)
-    install: "https://clawhubtrends.com/leaderboard.html"
-    version_notes: "40.766 Downloads, 129 Registry-Stars (ClawHub Leaderboard 23.11.2026)."
+  - name: Brave Search MCP
+    install: "https://github.com/brave/brave-search-mcp-server"
+    version_notes: "News queries"
+  - name: Firecrawl MCP
+    install: "https://github.com/firecrawl/firecrawl-mcp-server"
+    version_notes: "Article extract"
 inputs:
-  - "Kontext/Briefing für News-Monitoring"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Themen und Keywords"
+  - "Zeitfenster"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Digest MD"
+  - "Priorisierte Alerts"
 risk_level: low
-example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Unternehmen, Themen oder Wettbewerber laufend beobachten und zitierfähig zusammenfassen.
+**Themen überwachen**—RSS/News-Suche, Digest mit URLs, Severity für Alerts, keine Desinformation als Fakt.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **News-Monitoring**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Wettbewerber, Regulatorik, Sicherheitsadvisories.
+- Täglicher oder wöchentlicher Digest.
+- Vorstandsvorbereitung (informationsonly).
+
+**Wann nicht**
+
+- Insider-Handel auf News.
+- Automatischer Tweet/Post ohne Freigabe.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill competitor-news-monitor | Skill | Aus Recherche 2026-11-23 |
-| ClawHub „News Summary“ (joargp) | Skill | Aus Recherche 2026-11-23 |
+| Brave Search | News mode | Zeitnah |
+| Firecrawl | Artikel | Verify |
+| RSS/Atom CLI | Feeds | Optional local |
+| grounded-citations | Discipline | Sources |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for News-Monitoring (recherche-wissen/news-monitoring).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Watchlist, Frequenz, nur verlinkte Funde.
+You monitor news topics and produce digests with sourced bullets—not trading or legal advice.
+
+Inputs: watchlist topics[], keywords[], exclude terms[], window (24h|7d), output digest.md, alert_threshold (high for security|regulatory).
+
+Per topic:
+- Search news with time filter; dedupe same story from syndication.
+- Fetch firecrawl on primary source not aggregator when possible.
+- Classify: info|watch|alert with reason.
+
+Digest sections:
+- Executive highlights (max 5)
+- By topic with [url] date headline one-liner
+- Rumor/unverified section if only social sources—label clearly.
+
+Alerts: only high severity to alert.md—user defines channels; agent does not email/slack without approval.
+
+Exclude clickbait domains user lists.
+
+No fabricated events.
+
+Output: digest.md, alert.md optional, query_log.txt.
+
+Timezone Europe/Vienna for dates unless user sets UTC.
+
+Compare contradicting reports same event.
+
+Do not automate purchases or trades on news.
+Limit 25 items per digest unless user asks more.
 ```
 
 ## Arbeitsablauf
 
-- Watchlist, Frequenz, nur verlinkte Funde.
+1. Watchlist und Excludes laden.
+2. Pro Topic News-Suche.
+3. Dedupe URLs.
+4. Firecrawl Kernartikel.
+5. Severity labeln.
+6. digest.md schreiben.
+7. alert.md bei high; Freigabe vor Versand.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Jede Story mit URL und Datum
+- [ ] Gerüchte gekennzeichnet
+- [ ] Excludes respektiert
+- [ ] Kein Auto-Post
+- [ ] query_log vorhanden
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Kein Slack/Email ohne Freigabe.
+- Market-moving info vertraulich behandeln.
+
+## Fallstricke
+
+- Aggregator statt Primary.
+- Alte Story recycled.
+- Keyword false positive.
+- Duplicate Headlines.
+- Zeitzone falsch.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-News-Monitoring-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `news-monitoring` (Testdaten)
+- **Aufgabe:** 7-Tage CVE Digest.
+- **Input:** keywords CVE vendor produkt.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für News-Monitoring. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+digest.md; alert any critical CVSS>=9; firecrawl primary sources.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+digest.md; alert.md 0-n items; urls with dates.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in News-Monitoring
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Exclude rumor blog.
+- **Input:** exclude list domain tabloid.example.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Apply exclude; no entries from tabloid.example.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+digest has zero urls from excluded domain.
+```

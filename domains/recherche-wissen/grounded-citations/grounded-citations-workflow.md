@@ -1,99 +1,152 @@
 ---
 id: grounded-citations-workflow
-title: "Grounded Citations"
 domain: recherche-wissen
+title: "Belegpflicht und Quellenzitate"
 category: grounded-citations
 tags:
-  - grounded
-  - recherche-wissen
-  - skill
+  - citations
+  - sources
+  - verify
 target_agents:
   - hermes
   - grokbot
-  - generic-mcp-agents
   - generic
 required_tools:
-  - name: Hermes-Skill grounded-citations
+  - name: Hermes grounded-citations
     install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "Bundled."
+    version_notes: "Bundled"
+  - name: Firecrawl MCP
+    install: "https://github.com/firecrawl/firecrawl-mcp-server"
+    version_notes: "URL verify"
 inputs:
-  - "Kontext/Briefing für Grounded Citations"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Textentwurf oder Frage"
+  - "Quellenformat (APA, inline URL)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Überarbeiteter Text mit Zitaten"
+  - "Quellenprüf-Log"
 risk_level: low
-example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Antworten zwingend auf prüfbare Quellen stützen und zitieren.
+**Antworten an prüfbare Quellen binden**—jede Kernbehauptung mit URL, Datum oder Paper-ID, UNVERIFIED sonst.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Grounded Citations**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Agenten-Output für Kunden oder Wiki.
+- Fact-check nach Web-Recherche.
+- Kombination mit akademisch oder news-monitoring.
+
+**Wann nicht**
+
+- Kreative Fiktion.
+- Interne Hypothesen ohne Veröffentlichungsbedarf.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill grounded-citations | Skill | Aus Recherche 2026-11-23 |
+| grounded-citations | Skill-Regeln | Disziplin |
+| Firecrawl | Fetch | Quote check |
+| arxiv | Paper IDs | Akademisch |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Grounded Citations (recherche-wissen/grounded-citations).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Kein Satz ohne Beleg; fehlende Quelle sagen, nicht erfinden.
+You rewrite or produce text where every factual claim is grounded or marked UNVERIFIED—Hermes grounded-citations discipline.
+
+Inputs: draft text or question, citation style (inline [url] | footnote | APA rough), allow UNVERIFIED sections yes/no.
+
+For each sentence with number, date, law, product feature, or quote:
+- Attach source url + access date OR paper id OR mark UNVERIFIED.
+- Fetch with firecrawl when url already provided by user to confirm wording.
+
+Quotes: max 25 words unless user has license; use quotation marks.
+
+Remove fabricated references—if no source found after one search pass, downgrade claim to UNVERIFIED or delete.
+
+Source log table: claim_id | source | status OK|UNVERIFIED|CONFLICT.
+
+Contradictions: keep both with citations.
+
+Approvals: publish grounded text externally requires user yes.
+
+No legal/medical authority voice.
+
+Output: grounded.md, source_log.csv.
+
+Do not cite Wikipedia as sole primary for regulated topics—use primary linked there.
+
+When user supplies only chat context, never invent urls.
+
+Refresh access date to ISO on edit.
 ```
 
 ## Arbeitsablauf
 
-- Kein Satz ohne Beleg; fehlende Quelle sagen, nicht erfinden.
+1. Claims aus Entwurf extrahieren.
+2. Pro Claim Quelle suchen oder Nutzer-URL fetchen.
+3. Status OK/UNVERIFIED setzen.
+4. Text mit Zitaten neu schreiben.
+5. source_log.csv pflegen.
+6. Konflikte Abschnitt einfügen.
+7. Freigabe vor Publish.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Keine Behauptung ohne Tag
+- [ ] source_log vollständig
+- [ ] Keine erfundenen URLs
+- [ ] Quotes gekürzt
+- [ ] Publish-Freigabe dokumentiert
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keine internen URLs in öffentliche Texte ohne Freigabe.
+- Paywall-Volltext nicht verbreiten.
+- Quellen-Log kann sensibel sein.
+
+## Fallstricke
+
+- Link rot aber behauptet OK.
+- arXiv als Journal.
+- Ein Blog als einzige Quelle.
+- UNVERIFIED vergessen zu labeln.
+- Zitat aus Snippet nicht im Artikel.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Grounded Citations-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `grounded-citations` (Testdaten)
+- **Aufgabe:** Marketing-Absatz fact-checken.
+- **Input:** 5 Sätze mit Statistiken.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Grounded Citations. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Ground each stat or UNVERIFIED; firecrawl user urls; source_log.csv.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+grounded.md; 2 UNVERIFIED; source_log 5 rows.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Grounded Citations
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Fake URL entfernen.
+- **Input:** Draft cites https://example-fake.domain/study
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Verify urls; remove fabricated links.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Fake url removed; claim UNVERIFIED or deleted.
+```

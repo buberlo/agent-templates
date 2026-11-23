@@ -1,108 +1,153 @@
 ---
 id: excel-xlsx-workflow
-title: "Excel / XLSX"
 domain: office-dokumente
+title: "Excel-Arbeitsmappen erstellen und prüfen"
 category: excel-xlsx
 tags:
-  - excel
-  - office-dokumente
-  - skill
+  - xlsx
+  - openpyxl
+  - formulas
 target_agents:
   - hermes
-  - grokbot
-  - generic-mcp-agents
+  - claude-code
   - generic
 required_tools:
-  - name: Anthropic document skills (docx, pptx, xlsx, pdf)
+  - name: Anthropic document skills (xlsx)
     install: "https://github.com/anthropics/skills"
-    version_notes: "199219 GitHub Stars"
-  - name: Hermes-Skill microsoft-office
+    version_notes: "xlsx validate path"
+  - name: Hermes microsoft-office
     install: "https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/productivity/productivity-microsoft-office"
-    version_notes: "Teil des offiziellen Bundled-Katalogs."
-  - name: ClawHub „Excel / XLSX“ (ivangdavila)
-    install: "https://clawhubtrends.com/leaderboard.html"
-    version_notes: "65.403 Downloads, 259 Registry-Stars (ClawHub Leaderboard 23.11.2026)."
+    version_notes: "openpyxl / xlsx_recalc"
 inputs:
-  - "Kontext/Briefing für Excel / XLSX"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Datenquelle oder Spezifikation"
+  - "Sheet-Layout und Formeln"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Valide .xlsx"
+  - "Recalc- oder Read-Log"
 risk_level: low
-example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Tabellen, Formeln, Charts und Datenbereinigung in Arbeitsmappen.
+**Tabellen, Formeln und Charts** in XLSX zuverlässig erzeugen—Daten und Berechnungslogik trennen, Werte nach Recalc gegenlesen.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Excel / XLSX**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- KPI-Reports, Preislisten oder Datenbereinigung als Arbeitsmappe.
+- Agent schreibt Datei; Nutzer öffnet in Excel/LibreOffice zur Endkontrolle.
+- Kein Live-ERP-Connector nötig.
+
+**Wann nicht**
+
+- Echtzeit-DWH oder Millionenzeilen ohne dediziertes BI-Tool.
+- Makros/VBA-Produktion ohne Sandbox-Freigabe.
+- Finanzielles Reporting ohne 4-Augen (→ finanzen-Templates).
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Anthropic document skills (docx, pptx, x | Skill | Aus Recherche 2026-11-23 |
-| Hermes-Skill microsoft-office | Skill + CLI | Aus Recherche 2026-11-23 |
-| ClawHub „Excel / XLSX“ (ivangdavila) | Skill | Aus Recherche 2026-11-23 |
+| Anthropic xlsx-Skill | Schreiben + Validate | Offizieller Pfad |
+| Hermes xlsx CLIs | read/recalc | Formeln prüfen |
+| LibreOffice Calc | Optional Recalc | Wenn xlsx_recalc fehlt |
+| pandas | Daten-ETL | Vor dem Schreiben |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Excel / XLSX (office-dokumente/excel-xlsx).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Daten und Formeln trennen; nach dem Schreiben Sheets gegenlesen (xlsx_read.py).
+You build Excel .xlsx workbooks with clear separation: Data sheets vs Calculation sheets vs Presentation.
+
+Inputs: schema (sheet names, columns, types), formulas as explicit text (=SUM(Data!B2:B100)), chart spec optional, output path, locale (de-DE: semicolon formulas only if user opens in DE Excel—prefer comma in file for openpyxl unless user says DE Excel).
+
+Write rules:
+- Named ranges for formula inputs when >3 references.
+- No volatile INDIRECT unless user requests.
+- Format numbers as number not text (watch leading zeros in IDs).
+
+After write:
+- Run xlsx_read.py or skill read: dump calculated values if available.
+- Run xlsx_recalc.py or instruct user to open in Excel when formulas show None.
+- Spot-check 3 cells: total row, edge case, empty input.
+
+Charts: data range must match table size; no chart on blank headers.
+
+Approvals: email workbook, connect live APIs, or delete source data only with user yes.
+
+Never embed credentials in connection strings.
+
+Output: path, sheet list, formula cells sampled, recalc status (OK|PENDING_USER).
+
+Validate table boundaries: no merged cells in data region unless template requires.
+Document openpyxl vs skill path used.
+If CSV import sheet: freeze header row and apply autofilter.
+Watch Excel serial dates: convert ISO in pandas before write.
 ```
 
 ## Arbeitsablauf
 
-- Daten und Formeln trennen; nach dem Schreiben Sheets gegenlesen (xlsx_read.py).
+1. Daten in pandas normalisieren (Datum, Dezimal).
+2. Skill/CLI: Struktur Sheets `Data`, `Calc`, `Report` anlegen.
+3. Formeln eintragen; keine hartcodierten Summen in Report.
+4. `xlsx_read.py` oder Skill-Read: Stichprobe Werte.
+5. `xlsx_recalc.py` oder Calc-Öffnung anfordern wenn #NAME? droht.
+6. Validator/Skill-Check falls verfügbar.
+7. Pfad + Recalc-Status an Nutzer.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Formelzellen liefern erwartete Stichproben (oder PENDING_USER dokumentiert)
+- [ ] Keine Text-Zahlen in Summen-Spalten
+- [ ] Sheet-Namen und Bereiche wie Spezifikation
+- [ ] Kein Versand ohne Freigabe
+- [ ] Read/Recalc-Log vorhanden
 
 ## Sicherheit & Freigaben
 
-- Hermes-Doku: Formeln werden oft erst von der Office-App oder xlsx_recalc.py berechnet.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keine PII in Test-Workbooks im Repo.
+- Finanz-Sheets nur nach Freigabe versenden.
+- MCP/Skills minimal (office only).
+
+## Fallstricke
+
+- openpyxl speichert Formeln ohne berechneten Wert.
+- DE Excel trennt Argumente mit `;` beim Öffnen—Quelldatei konsistent halten.
+- Charts auf leeren Bereich → leere Grafik.
+- Große Dateien ohne Kompression langsam.
+- Filter verstecken Zeilen die Summen brauchen.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Excel / XLSX-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `excel-xlsx` (Testdaten)
+- **Aufgabe:** Umsatzreport Q4 aus CSV.
+- **Input:** `sales_q4.csv`, Report mit SUM und Pivot-light.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Excel / XLSX. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Build report.xlsx: Data sheet from CSV, Report with =SUM(Data!amount) and monthly subtotals. Recalc and read back total cell.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+report.xlsx; read log shows Report!B20 matches manual sum of CSV; recalc OK or PENDING_USER noted.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Excel / XLSX
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Fehlerhafte Formel vor Auslieferung stoppen.
+- **Input:** Spec verlangt =VLOOKUP aber Schlüsselspalte fehlt.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Pre-flight schema; abort if lookup key column missing in Data sheet.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+No xlsx written; error lists missing column product_id.
+```

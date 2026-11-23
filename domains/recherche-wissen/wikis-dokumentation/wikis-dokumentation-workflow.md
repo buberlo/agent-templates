@@ -1,107 +1,155 @@
 ---
 id: wikis-dokumentation-workflow
-title: "Wikis und Dokumentation"
 domain: recherche-wissen
+title: "Wiki-Dokumentation strukturieren"
 category: wikis-dokumentation
 tags:
-  - wikis
-  - recherche-wissen
-  - mcp
+  - wiki
+  - docs
+  - markdown
 target_agents:
-  - hermes
-  - grokbot
-  - generic-mcp-agents
+  - cursor
+  - claude-code
   - generic
 required_tools:
-  - name: deepwiki MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/deepwiki"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: Notion MCP (hosted)
-    install: "https://mcp.notion.com/mcp"
-    version_notes: "Im offiziellen Hermes-MCP-Katalog (optional-mcps/notion)."
-  - name: Obsidian-Skills (Hermes bundled, ClawHub steipete)
-    install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "381 GitHub Stars"
+  - name: git
+    install: "system"
+    version_notes: "Docs-as-code"
+  - name: markdownlint
+    install: "npm: markdownlint-cli"
+    version_notes: "Style"
 inputs:
-  - "Kontext/Briefing für Wikis und Dokumentation"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Thema und Zielgruppe"
+  - "Bestehende Docs"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Strukturierter Wiki-Tree"
+  - "MOC-Index"
 risk_level: low
-example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Interne Wikis, DeepWiki, Docs-Sites und Wissensräume pflegen und abfragen.
+**Technische Wikis** planen und schreiben—Informationsarchitektur, Markdown, Quellen, git-versioniert.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Wikis und Dokumentation**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Neues Produkt- oder Team-Wiki.
+- Altdocs konsolidieren.
+- Onboarding-Pfad.
+
+**Wann nicht**
+
+- Notion/Obsidian-spezifisch (eigene Templates).
+- API-Referenz nur aus Halluzination.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| deepwiki MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| Notion MCP (hosted) | MCP | Aus Recherche 2026-11-23 |
-| Obsidian-Skills (Hermes bundled, ClawHub | Skill | Aus Recherche 2026-11-23 |
+| git | Versionierung | Diffs |
+| markdownlint | Lint | Konsistenz |
+| mermaid | Diagramme | Wie diagramme-whiteboard |
+| ripgrep | Inventar | Bestand |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Wikis und Dokumentation (recherche-wissen/wikis-dokumentation).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Repo-Fragen ueber DeepWiki, interne Docs ueber Vault/Notion.
+You design and write technical wiki documentation in markdown under git.
+
+Inputs: audience (dev|ops|user), scope outline, existing paths to preserve, moc path docs/README.md.
+
+IA rules:
+- Max depth 3 in sidebar; index pages at each level.
+- One topic per file; crosslinks relative.
+- Every how-to ends with verification steps.
+- ADRs for decisions in docs/adr/ with date.
+
+Writing:
+- Imperative titles: "Configure X", not "Configuration of X".
+- Code blocks with language; pin versions in setup guides.
+- Link to official docs urls when stating facts; UNVERIFIED if not checked.
+
+Do not delete legacy without deprecation notice file.
+
+Lint: markdownlint on changed files if available.
+
+Approvals: publish to public git repo requires user yes.
+
+Output: file tree, MOC markdown, list of UNVERIFIED claims.
+
+Diagrams: mermaid sources co-located with page.
+
+German or English per user locale consistently per subtree.
+
+Include last-reviewed frontmatter date on runbooks.
+Avoid duplicating vendor docs—link out with summary.
 ```
 
 ## Arbeitsablauf
 
-- Repo-Fragen ueber DeepWiki, interne Docs ueber Vault/Notion.
+1. rg Inventar bestehender MD.
+2. IA-Entwurf MOC.
+3. Stubs für fehlende Seiten.
+4. Priorität 3 Kernseiten schreiben.
+5. mermaid wo nötig.
+6. markdownlint.
+7. git diff + Nutzer review.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] MOC verlinkt alle Seiten
+- [ ] How-tos haben Verify-Schritt
+- [ ] Keine ungeprüften Vendor-Fakten ohne URL
+- [ ] Lint clean oder Ausnahmen dokumentiert
+- [ ] Public publish freigegeben
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keine Secrets in docs.
+- Interne URLs in private repo only.
+- DSGVO in user docs.
+
+## Fallstricke
+
+- Wiki-Garten ohne MOC.
+- Tiefe Ordnerstrukturen.
+- Duplikat-Titel.
+- Veraltete Screenshots.
+- Broken relative links.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Wikis und Dokumentation-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `wikis-dokumentation` (Testdaten)
+- **Aufgabe:** Ops Runbook Root.
+- **Input:** 5 Services.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Wikis und Dokumentation. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+MOC + one runbook template per service stub; markdownlint.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+docs/README.md links 5 runbooks; stubs with verify sections.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Wikis und Dokumentation
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** ADR hinzufügen.
+- **Input:** Entscheidung Postgres vs MySQL.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+docs/adr/0007-database.md with context decision consequences.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+ADR file dated; status proposed; linked from MOC.
+```

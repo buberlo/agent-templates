@@ -1,119 +1,159 @@
 ---
 id: word-docx-mcp-focus
-title: "Word / DOCX: MCP/Skill-Fokus"
+title: "Word DOCX: MCP- und Skill-Fokus"
 domain: office-dokumente
 category: word-docx
 tags:
-  - word
-  - office-dokumente
-  - skill
+  - docx
+  - validate
+  - libreoffice
 target_agents:
   - hermes
-  - grokbot
+  - claude-code
+  - openclaw
   - generic-mcp-agents
-  - generic
 required_tools:
-  - name: Anthropic document skills (docx, pptx, xlsx, pdf)
+  - name: Anthropic document skills (docx)
     install: "https://github.com/anthropics/skills"
-    version_notes: "199219 GitHub Stars"
-  - name: Hermes-Skill microsoft-office
+    version_notes: "validate.py, npm docx"
+  - name: Hermes microsoft-office
     install: "https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/productivity/productivity-microsoft-office"
-    version_notes: "Teil des offiziellen Bundled-Katalogs."
+    version_notes: "python-docx CLIs"
+  - name: LibreOffice
+    install: "apt/brew: libreoffice"
+    version_notes: "soffice headless für PDF/PNG"
+  - name: pdftoppm
+    install: "poppler-utils"
+    version_notes: "Visuelle QA nach Render"
 inputs:
-  - "Kontext/Briefing für Word / DOCX"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Inhaltsbriefing oder Vorlagen-Pfad"
+  - "Layout-Vorgaben (A4, Tabellenbreiten)"
+  - "Freigabe vor Versand"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Valide .docx"
+  - "Optional PDF/PNG für Sichtprüfung"
 risk_level: low
-example_count: 3
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Berichte, Briefe und Vorlagen als .docx erzeugen und prüfen.
+**DOCX erzeugen und absichern** mit offiziellen docx-Skills: strukturiert schreiben, **validate.py**, PDF-Render und Bildprüfung—Layoutfehler (Tabellenbreiten) vor Auslieferung fangen.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Word / DOCX**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Berichte, Briefe oder Briefings sollen als .docx mit Corporate-Struktur entstehen.
+- Agent wählt zwischen Anthropic docx-Skill und Hermes microsoft-office.
+- Qualitätssicherung per Validator + visueller Render-Pipeline verlangt wird.
+
+**Wann nicht**
+
+- Serienbrief mit CSV-Datenquelle (→ dokumente-libreoffice-mail-merge).
+- Komplexe Vertrags-Track-Changes mit Anwälten in Word Desktop only.
+- Automatischer E-Mail-Versand des Dokuments ohne Freigabe-Workflow.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Anthropic document skills (docx, pptx, x | Skill | Aus Recherche 2026-11-23 |
-| Hermes-Skill microsoft-office | Skill + CLI | Aus Recherche 2026-11-23 |
-| MarkItDown | CLI / Bibliothek | Aus Recherche 2026-11-23 |
-| ClawHub „Word / DOCX“ (ivangdavila) | Skill | Aus Recherche 2026-11-23 |
+| Anthropic docx-Skill | Erzeugung + validate.py | Offizieller Verify-Pfad |
+| Hermes microsoft-office | python-docx Skripte | Ohne Microsoft Office |
+| LibreOffice soffice | PDF-Export | Visuelle QA |
+| pdftoppm | PNG aus PDF | Tabellen-Rand prüfen |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Word / DOCX (office-dokumente/word-docx).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Skill explizit laden. Nach dem Schreiben: validate.py / docx_validate.py, soffice nach PDF, pdftoppm, Bilder ansehen.
+You produce Word .docx files using Anthropic docx skill or Hermes microsoft-office CLIs—never raw ZIP hacking unless emergency and user approves.
+
+Inputs: content outline (title, H1 sections, lists, tables with column widths in DXA), page size (A4 default per skill docs), output path, whether to render PDF/PNG for QA.
+
+Structure:
+- One clear H1 per major section unless user template specifies else.
+- Tables: total table width must not exceed printable text width (A4 ~9026 DXA content area typical); sum of column DXA must match table width—tutorial case fixed 11520→9360 DXA when Context column clipped.
+
+After generation:
+- Run validate.py / docx_validate.py from skill; all checks PASS required before calling done.
+- soffice --headless --convert-to pdf output.docx
+- pdftoppm -png output.pdf qa/page
+- Inspect qa PNG for table overflow, heading orphans, footer page numbers.
+
+Edits: prefer regenerating sections over manual OOXML unless user demands track changes.
+
+Approvals: email, share drive, or delete drafts only after user confirms content and layout.
+
+Security: no credentials in document body; redact sample data.
+
+Output: docx path, validator summary (paragraph count), render paths, known layout warnings.
+
+Do not change contractual legal text without lawyer review flag from user.
+
+German typography: use proper quotes and hyphenation settings if template provides.
+Keep styles semantic (Heading1, List Paragraph) not ad-hoc bold runs.
+If Hermes path: run bundled read script and echo sheet/section inventory.
 ```
 
 ## Arbeitsablauf
 
-- Skill explizit laden. Nach dem Schreiben: validate.py / docx_validate.py, soffice nach PDF, pdftoppm, Bilder ansehen.
-- Tabellenbreiten (DXA) nicht ueber den Satzspiegel summieren.
+1. Briefing in Gliederung mit Tabellen-Spaltenbreiten (DXA) festhalten.
+2. docx-Skill oder `docx_write.py` ausführen → `output.docx`.
+3. `validate.py output.docx` — bei FAIL Ursache beheben und neu bauen.
+4. `soffice --headless --convert-to pdf output.docx`.
+5. `pdftoppm` erste Seite mit breiter Tabelle prüfen.
+6. Nutzer Freigabe für externe Weitergabe einholen.
+7. Artefakte und Validator-Output im Thread dokumentieren.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Validator: All validations PASSED
+- [ ] Tabellen sichtbar innerhalb Satzspiegel auf QA-PNG
+- [ ] Seitenformat A4 (oder dokumentierte Abweichung)
+- [ ] Kein Versand ohne Nutzerfreigabe
+- [ ] PDF/PNG-QA-Dateien bei layoutkritischen Tabellen
 
 ## Sicherheit & Freigaben
 
-- Default-Seitengröße A4 in der docx-Skill. Eine gruene Validation ist kein visueller Beweis.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- PII in Beispieltabellen nur mit synthetischen Daten.
+- Schreiben/Senden nur nach expliziter Freigabe.
+- Skills/MCP minimal halten (nur docx-Scope).
+
+## Fallstricke
+
+- Validator grün, aber Tabelle ragt visuell über den Rand (DXA-Summe).
+- Default US Letter in Skill, Nutzer erwartet A4.
+- LibreOffice-Render weicht minimal von Word ab—Kunden-Word-Stichprobe bei Verträgen.
+- python-docx ersetzt keine komplexen Vorlagen-Content-Controls.
+- Große eingebettete Bilder blähen Datei auf ohne Kompression.
 
 ## Grundbeispiele
 
-### Beispiel 1 (Beispieldaten)
+### Beispiel 1 (Praxisbeispiel)
 
-- **Aufgabe:** Standard-Word / DOCX-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `word-docx` (Testdaten)
+- **Aufgabe:** Briefing-DOCX wie im Anthropic-Tutorial erzeugen und validieren.
+- **Input:** Titel, zwei H1-Abschnitte, Listen, Preistabelle mit Spalten-DXA.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Word / DOCX. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Create briefing.docx per outline; run validate.py; render PDF and pdftoppm; fix table width if Context column clipped.
 ```
-- **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
-```
+
+- **Erwartetes Ergebnis:** `briefing.docx` (~10 KB), 25 Absätze, All validations PASSED; nach DXA-Korrektur sichtbare Context-Spalte.
+- **Quelle:** https://aifrontierpost.com/articles/anthropic-official-agent-skills-tutorial/
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Word / DOCX
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Hermes microsoft-office Pfad für internes Memo ohne Anthropic Plugin.
+- **Input:** Gliederung 3 Abschnitte, keine Tabelle.
 - **Prompt:**
-```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
-```
-- **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
 
-### Beispiel 3 (Praxisbeispiel)
-
-- **Aufgabe:** Mit Claude Code und der offiziellen Anthropic-docx-Skill ein Briefing-Dokument erzeugen und validieren.
-- **Input:** Inhaltliches Briefing (Titel, zwei H1, Listen, Preistabelle) im Tutorial des Autors.
-- **Prompt:**
 ```text
-Claude Code Plugin document-skills@anthropic-agent-skills, npm-Paket docx 9.15.3, skills/docx/scripts/office/validate.py, LibreOffice-Wrapper soffice.py, pdftoppm.
+Use Hermes docx CLI to write memo.docx; read back paragraph count; optional soffice pdf for archive.
 ```
+
 - **Erwartetes Ergebnis:**
-  Ausgabe briefing.docx mit 10.354 Bytes. Validator: 25 Absätze, All validations PASSED. Beim ersten PDF-Render lief die Tabelle über den rechten Rand (Spaltenbreiten summierten auf 11.520 DXA); nach Korrektur auf 9.360 DXA Gesamtbreite war die Context-Spalte sichtbar.
-- **Quelle:** https://aifrontierpost.com/articles/anthropic-official-agent-skills-tutorial/
+
+```text
+memo.docx present; read script reports ≥3 Heading1 sections; memo.pdf optional in out/.
+```

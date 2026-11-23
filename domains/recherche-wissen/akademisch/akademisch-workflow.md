@@ -1,104 +1,158 @@
 ---
 id: akademisch-workflow
-title: "Akademische Recherche"
 domain: recherche-wissen
+title: "Akademische Literatursuche"
 category: akademisch
 tags:
-  - akademisch
-  - recherche-wissen
-  - skill
+  - arxiv
+  - papers
+  - citations
 target_agents:
   - hermes
-  - grokbot
-  - generic-mcp-agents
   - generic
 required_tools:
   - name: Hermes-Skill arxiv
     install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "Bundled."
-  - name: Hermes-Skill grounded-citations
+    version_notes: "Bundled research/arxiv"
+  - name: Hermes grounded-citations
     install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "Bundled."
+    version_notes: "No fake DOI"
 inputs:
-  - "Kontext/Briefing für Akademische Recherche"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Suchthema oder Paper-ID"
+  - "Zitationsstil optional"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Paper-Liste mit Metadaten"
+  - "Lesenotizen mit IDs"
 risk_level: low
-example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Papers suchen und erschließen (arXiv, Semantic Scholar, Zotero).
+**Papers finden und erschließen** (arXiv, IDs)—Abstract, PDF-Link, zitierfähige Metadaten, **keine erfundenen DOI**.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Akademische Recherche**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Related Work für Projekt oder Thesis.
+- Paper-ID vom Nutzer vertiefen.
+- Seminar-Vorbereitung mit quellengebundenen Notizen.
+
+**Wann nicht**
+
+- Peer-Review-Garantie oder Gutachten.
+- Paywall-Journals ohne Zugang (nur Metadaten).
+- Plagiatsfreie Ghostwriting-Zusage.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill arxiv | Skill | Aus Recherche 2026-11-23 |
-| Hermes-Skill grounded-citations | Skill | Aus Recherche 2026-11-23 |
+| Hermes arxiv | Suche | Bundled |
+| grounded-citations | Quellenpflicht | Halluzinationsschutz |
+| Semantic Scholar | Optional API | Metadaten |
+| Zotero | Optional | Export Nutzer |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Akademische Recherche (recherche-wissen/akademisch).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Paper-ID oder Suchanfrage → Abstract/PDF → zitierfaehige Notizen, keine erfundenen DOI.
+You run academic literature search with verifiable identifiers—Hermes arxiv skill primary.
+
+Inputs: topic keywords, authors optional, date range, max papers (default 15), output notes.md and papers.bib.
+
+Search:
+- Log every arxiv query string and returned arXiv IDs.
+- For each paper: title, authors, year, arXiv id, pdf url, categories.
+- Open abstract text from API—do not paraphrase as fact beyond abstract.
+
+Notes format per paper:
+- Problem, method one line, limitation one line, relevance tag.
+- Citation key: FirstAuthorYearKeyword lowercase.
+
+No invented DOI or journal name—if not in metadata, write MISSING.
+
+Compare preprint vs published: flag if only arXiv without journal.
+
+grounded-citations: every synthesis sentence tied to paper id list.
+
+Approvals: download PDF bulk to shared drive requires user yes.
+
+Not legal/medical advice from paper abstracts.
+
+Output: notes.md, papers.bib, search_log.txt.
+
+If user gives arXiv:YYMM.NNNNN fetch directly.
+
+Avoid citing non-open papers as read unless user confirms access.
+
+Separate arXiv categories cs.LG vs stat.ML when user cares.
+
+Include withdrawn papers check status field.
 ```
 
 ## Arbeitsablauf
 
-- Paper-ID oder Suchanfrage → Abstract/PDF → zitierfaehige Notizen, keine erfundenen DOI.
+1. Keywords und Ausschlüsse klären.
+2. arxiv-Suche iterieren (breit → eng).
+3. ID-Liste deduplizieren.
+4. Abstracts ziehen.
+5. notes.md pro Paper.
+6. papers.bib generieren.
+7. Nutzer priorisiert Leseliste.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Alle IDs in search_log
+- [ ] Keine fake DOI
+- [ ] bib keys konsistent
+- [ ] Withdrawn papers markiert
+- [ ] Synthese mit ID-Liste verknüpft
 
 ## Sicherheit & Freigaben
 
-- Halluzinierte Zitationen; jede Quelle oeffnen.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keine DRM-PDFs cracken.
+- Urheberrecht bei Verteilung beachten.
+- Keine erfundenen Ergebnisse.
+
+## Fallstricke
+
+- arXiv ohne Journal als peer-reviewed verkauft.
+- Falsche arXiv-ID erraten.
+- Zu breite Query → Noise.
+- Bibtex ohne escaped titles.
+- Alte Preprints ignoriert neuere Version.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Akademische Recherche-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `akademisch` (Testdaten)
+- **Aufgabe:** Related Work Transformer Efficiency.
+- **Input:** Keywords efficient attention, max 10 papers.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Akademische Recherche. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+arxiv search; notes.md + papers.bib; log queries.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+10 entries; search_log 3 queries; bib with arXiv ids.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Akademische Recherche
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Einzelnes Paper.
+- **Input:** arXiv:2401.12345.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Fetch metadata and abstract; one-page note; no invented journal.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+notes/2401.12345.md; MISSING journal if absent in metadata.
+```

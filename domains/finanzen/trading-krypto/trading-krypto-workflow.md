@@ -1,113 +1,154 @@
 ---
 id: trading-krypto-workflow
-title: "Trading und Krypto"
 domain: finanzen
+title: "Trading- und Krypto-Read-Only"
 category: trading-krypto
 tags:
   - trading
-  - finanzen
-  - mcp
+  - crypto
+  - read-only
 target_agents:
   - hermes
-  - grokbot
-  - generic-mcp-agents
   - generic
 required_tools:
-  - name: robinhood MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/robinhood"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: twelve-data MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/twelve-data"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: ClawHub „Polymarket“ (joelchance)
-    install: "https://clawhubtrends.com/leaderboard.html"
-    version_notes: "172.358 Downloads, 112 Registry-Stars (ClawHub Leaderboard 23.11.2026)."
-  - name: ClawHub „Stock Analysis“ (udiedrichsen)
-    install: "https://clawhubtrends.com/leaderboard.html"
-    version_notes: "48.766 Downloads, 227 Registry-Stars (ClawHub Leaderboard 23.11.2026)."
+  - name: python
+    install: "pip: pandas"
+    version_notes: "Portfolio math"
 inputs:
-  - "Kontext/Briefing für Trading und Krypto"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Export CSV Börsen/Wallet"
+  - "Berichtszeitraum"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: medium
-example_count: 2
-version: "1.0.0"
+  - "portfolio_report.md"
+  - "UNKNOWN tax note"
+risk_level: high
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Marktdaten und Research (Twelve Data, Robinhood-Katalogeinträge); Trading nur mit klaren Limits.
+**Portfolio- und Trade-Exporte** auswerten—Performance, Exposure—**keine Trades, keine Orders**, keine Anlageberatung.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Trading und Krypto**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: medium`).
+- CSV von Börse/Wallet für Übersicht.
+- Risiko-Exposure Bucket.
+- Vorbereitung Steuerberater (Daten nur).
+
+**Wann nicht**
+
+- Automatisches Trading.
+- Hebel-Produktempfehlung.
+- Seed/Private Keys anfassen.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| robinhood MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| twelve-data MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| ClawHub „Polymarket“ (joelchance) | Skill | Aus Recherche 2026-11-23 |
-| ClawHub „Stock Analysis“ (udiedrichsen) | Skill | Aus Recherche 2026-11-23 |
+| pandas | Trades | PnL ESTIMATE |
+| ccxt | Optional read | Wenn user keys |
+| csv | Export | Universal |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Trading und Krypto (finanzen/trading-krypto).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Research und Daten ja; automatisches Handeln nur mit schriftlichen Limits und gesonderter Freigabe.
+You analyze trading/crypto exports read-only—no place order, no withdraw, no transfer.
+
+Inputs: trades.csv columns per user map, positions optional, output portfolio_report.md exposure.csv.
+
+Compute simple ESTIMATE PnL per user fifo or avg method stated—NOT tax truth.
+
+Never ask for private keys or store them.
+
+If api keys for read-only ccxt user supplies via env only.
+
+Exposure by asset percent of total mark-to-market using last price in csv only—no live price fetch unless user approves api.
+
+Disclaim investment advice and tax.
+
+Approvals: execute trade requires rejected always refer to exchange UI.
+
+High risk header mandatory.
+
+No leverage recommendation.
+
+Document assumptions in report.
+
+Mask wallet addresses show first6...last4.
+
+Handle staking rewards as separate row type if column labels.
+
+Note fx eurusd if quotes usd and display eur requested.
+
+Flag missing cost basis unknown lots.
+
+Separate spot vs derivative if column type exists.
+Do not simulate liquidations or margin calls as advice.
 ```
 
 ## Arbeitsablauf
 
-- Research und Daten ja; automatisches Handeln nur mit schriftlichen Limits und gesonderter Freigabe.
+1. CSV schema.
+2. Trades normalisieren.
+3. Positions aggregate.
+4. Exposure.csv.
+5. ESTIMATE PnL.
+6. portfolio_report.md disclaimers.
+7. Keine Order-APIs.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] No trade API calls
+- [ ] ESTIMATE labels
+- [ ] No keys stored
+- [ ] Investment disclaimer
+- [ ] Addresses masked
 
 ## Sicherheit & Freigaben
 
-- Warnmarkierte Skills. Markt-Skills koennen irrefuehren.
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Keine stillen Zahlungen, Trades oder Ueberweisungen.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- High risk.
+- No keys in chat.
+- No trade execution.
+
+## Fallstricke
+
+- PnL ohne Fees.
+- Wrong fifo.
+- Live price drift.
+- Phishing fake csv.
+- Tax misinterpreted.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Trading und Krypto-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `trading-krypto` (Testdaten)
+- **Aufgabe:** Kraken export Q4.
+- **Input:** trades.csv.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Trading und Krypto. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+portfolio_report exposure ESTIMATE fifo; read only.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+report with disclaimer; exposure by asset; no orders.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Trading und Krypto
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Buy order ablehnen.
+- **Input:** buy 1 btc now.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Reject order; analysis only.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Rejection message; no API trade.
+```

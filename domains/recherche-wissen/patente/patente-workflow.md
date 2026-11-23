@@ -1,109 +1,153 @@
 ---
 id: patente-workflow
-title: "Patente"
 domain: recherche-wissen
+title: "Patentrecherche Überblick"
 category: patente
 tags:
-  - patente
-  - recherche-wissen
-  - mcp
+  - patents
+  - search
+  - fto
 target_agents:
   - hermes
-  - grokbot
-  - generic-mcp-agents
   - generic
 required_tools:
   - name: Brave Search MCP
     install: "https://github.com/brave/brave-search-mcp-server"
-    version_notes: "1585 GitHub Stars"
-  - name: Exa MCP
-    install: "https://github.com/exa-labs/exa-mcp-server"
-    version_notes: "5264 GitHub Stars"
+    version_notes: "Patent databases"
   - name: Firecrawl MCP
     install: "https://github.com/firecrawl/firecrawl-mcp-server"
-    version_notes: "7886 GitHub Stars"
+    version_notes: "Espacenet etc."
 inputs:
-  - "Kontext/Briefing für Patente"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Technologiebeschreibung"
+  - "Jurisdiktionen"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
-example_count: 2
-version: "1.0.0"
+  - "Patent-Landschaftsbericht"
+  - "Offene FTO-Fragen"
+risk_level: medium
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Patentrecherche und Anspruchsüberblick, soweit spezielle Datenquellen angebunden sind.
+**Patentlandschaft skizzieren**—öffentliche Register durchsuchen, Anspruchsüberblick in Entwurfsqualität, **keine Rechtsberatung** oder FTO-Freigabe.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Patente**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Frühe Produktidee, vor Anwalt.
+- Konkurrenz-Patent-IDs sammeln.
+- IPC/CPC Keywords explorieren.
+
+**Wann nicht**
+
+- Freedom-to-operate Gutachten.
+- Anmeldung schreiben/einreichen.
+- Geheime Erfindung im öffentlichen Chat.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Brave Search MCP | MCP | Aus Recherche 2026-11-23 |
-| Exa MCP | MCP | Aus Recherche 2026-11-23 |
-| Firecrawl MCP | MCP | Aus Recherche 2026-11-23 |
+| Brave/Exa | Find patents | Discovery |
+| Firecrawl | Register pages | Metadata |
+| Espacenet/Google Patents | Links | Public |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Patente (recherche-wissen/patente).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+You draft patent landscape scans from public databases—not legal opinions or FTO clearance.
+
+Inputs: technology description, jurisdictions (EP|US|DE...), assignees optional, output landscape.md.
+
+Search:
+- Form queries with keywords + CPC if user supplies.
+- Collect publication numbers, titles, assignees, dates, links.
+- Do not quote full claims—summarize claim theme in plain language with UNREVIEWED label.
+
+For each patent: id | assignee | year | summary one line | url | status unknown unless page states.
+
+FTO section: list questions for patent counsel only—no yes/no clearance.
+
+Approvals: sharing landscape with external investors requires user yes.
+
+Confidential: do not paste unpublished invention details into search queries if user marks secret—use generic keywords.
+
+No download granted patents bulk beyond fair review.
+
+Output: landscape.md, counsel_questions.md.
+
+Disclaim legal advice in header.
+
+Mark family members if visible.
+
+Note if only abstract reviewed not full claims.
+Prioritize active status field when shown on register page.
+Distinguish application vs granted when metadata provides.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Tech in Suchbegriffe (nicht secret details).
+2. Register-Suchen pro Jurisdiction.
+3. Top 20 Treffer kurzieren.
+4. Firecrawl Metadaten.
+5. landscape.md.
+6. counsel_questions.md.
+7. Anwalt-Hinweis prominent.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Disclaimer legal advice
+- [ ] URLs zu Register
+- [ ] Keine FTO yes/no
+- [ ] Secret mode beachtet
+- [ ] Claims nur summary UNREVIEWED
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Erfindung geheim halten in Queries.
+- Externe Weitergabe freigeben.
+- Keine Anmeldedaten.
+
+## Fallstricke
+
+- Abstract ≠ Claims.
+- Falsche Patentfamilie.
+- Abgelaufenes Patent ignoriert.
+- US vs EP Nummern.
+- Machine translation Missverständnis.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Patente-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `patente` (Testdaten)
+- **Aufgabe:** EP Landschaft Batteriethema.
+- **Input:** Keyword solid-state, jurisdiction EP.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Patente. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+landscape.md top 15; counsel_questions.md; no FTO opinion.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+landscape with publication numbers; disclaimer; questions for counsel.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Patente
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Secret mode.
+- **Input:** confidential invention description.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Use generic keywords only; do not paste invention claims in queries.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Queries generic; note secret mode in header.
+```
