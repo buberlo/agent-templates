@@ -20,86 +20,130 @@ required_tools:
     install: "https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/media/media-youtube-content"
     version_notes: "Bundled-Katalog."
 inputs:
-  - "Kontext/Briefing für Lernkarten"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Quelltext (PDF, docx, YouTube-URL)"
+  - "Anki-Deck-Name und Sprache"
+  - "Kartenlimit pro Abschnitt"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "TSV/CSV für Anki-Import"
+  - "Qualitätsnotizen (Duplikate, zu breite Karten)"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Karteikarten (Anki-nah) aus Texten und Vorlesungen erzeugen.
+Aus Vorlesungen, Skripten oder Videos **konzise Lernkarten** (Anki-format) erzeugen—eine Frage pro Karte, mit **Quellenangabe**.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Lernkarten**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Prüfungsvorbereitung mit begrenztem Stoffkorpus.
+- Transkript oder docx liegt vor.
+- Export als Tab-getrennte Datei für Anki.
+
+**Wann nicht**
+
+- Rohmaterial ohne Urheberrechtsklärung.
+- Medizinrechtliche Merkhilfen ohne Fachreview.
+- Riesige PDFs ohne Chunking → Kontext-Overflow.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill microsoft-office | Skill + CLI | Aus Recherche 2026-11-23 |
-| Hermes-Skill youtube-content | Skill | Aus Recherche 2026-11-23 |
+| youtube-content | Transkript | Zeitstempel als Quelle |
+| microsoft-office | docx lesen | Vorlesungsskript |
+| TSV | Anki-Import | Standardformat |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Lernkarten (bildung/lernkarten).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+You create flashcards for bildung/lernkarten.
+
+Inputs: source (file path|youtube url), deck_name, language, max_cards, card_style (basic|cloze), source_tag_prefix.
+
+Rules:
+- One fact per card; question answerable without long context.
+- Cloze: max 2 deletions per card.
+- Back side: short answer + source (page, timestamp, or heading).
+- No copyrighted exam item banks copied verbatim.
+- Deduplicate near-identical cards; list removed_duplicates[].
+- After generation, sample 5 cards for leak (answer in question).
+
+Output: anki_import.tsv columns: Front, Back, Tags
+Tag format: source_tag_prefix::chapter
+
+If youtube: fetch transcript via skill; cite mm:ss.
+Deliver: anki_import.tsv, quality_notes.md, card_count.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Quelle laden (docx oder YouTube-Transkript).
+2. In Abschnitte chunken (max ~2k Wörter pro Pass).
+3. Pro Abschnitt Karten generieren bis `max_cards`.
+4. Duplikate entfernen; Cloze-Karten prüfen.
+5. `anki_import.tsv` schreiben (UTF-8, Tabs).
+6. `quality_notes.md` mit Stichprobe 5 Karten.
+7. Nutzer importiert in Anki; Agent sendet keine Cloud-Syncs.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Eine Karte = ein prüfbarer Fakt
+- [ ] Quelle auf Rückseite
+- [ ] Keine Antwort in Frage versteckt (Stichprobe)
+- [ ] TSV valide für Anki Desktop Import
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keine personenbezogenen Daten auf Kartenrückseiten.
+- YouTube nur öffentliche Videos mit Nutzerfreigabe.
+- Prüfungsleak: nur selbst formulierte Fragen.
+
+## Fallstricke
+
+- Karten zu lang → schlechte Retention.
+- Cloze zu komplex.
+- Falsche Zeitstempel bei Transkript-Sync.
+- Tag-Overflow in Anki.
+- Import-Kodierung falsch (Komma statt Tab).
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Lernkarten-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `lernkarten` (Testdaten)
+- **Aufgabe:** 30 Karten aus Vorlesung docx Kap. 2.
+- **Input:** `lecture2.docx`, DE, basic.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Lernkarten. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Max 30 cards, tag prefix BIO101::ch2, export anki_import.tsv.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+card_count: 30
+Sample front: "Was ist Mitose?"
+Sample back: "Zellteilung … — Quelle: Kap. 2 §Mitose"
+quality_notes: 2 duplicates removed
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Lernkarten
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** YouTube ohne URL.
+- **Input:** Nur Thema "Photosynthese".
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Make flashcards from YouTube.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Abbruch: source_url required for youtube path.
+Alternative: paste transcript text or provide docx.
+No TSV written.
+```

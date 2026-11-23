@@ -23,97 +23,147 @@ required_tools:
     install: "https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/media/media-youtube-content"
     version_notes: "Bundled-Katalog."
 inputs:
-  - "Kontext/Briefing für Kurse erstellen"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Thema, Zielgruppe, Dauer"
+  - "Lernziele (messbar)"
+  - "Quellen und Medien"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Curriculum-Outline"
+  - "Lektionen (docx/md)"
+  - "Folien (pptx)"
+  - "Übungen mit Musterlösung (intern)"
 risk_level: low
 example_count: 3
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Curriculum, Lektionen, Übungen und Materialien erzeugen.
+**Curriculum von messbaren Lernzielen bis zu Lektionen, Übungen und Folien**—mit Quellenpflicht und Office-Skills zur dateifertigen Auslieferung.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Kurse erstellen**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Neuer interner oder Kunden-Kurs (Workshop, E-Learning-Modul).
+- Lernziele und Dauer sind bekannt.
+- docx/pptx-Skills oder Hermes microsoft-office verfügbar.
+
+**Wann nicht**
+
+- Hochschul-Akreditierung ohne fachliche Freigabe.
+- Urheberrechtlich geschützte Drittquellen ohne Lizenz.
+- Prüfungsinhalte ohne Item-Review durch Fachexpert:in.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Anthropic document skills (docx, pptx, x | Skill | Aus Recherche 2026-11-23 |
-| Hermes-Skill microsoft-office | Skill + CLI | Aus Recherche 2026-11-23 |
-| Hermes-Skill youtube-content | Skill | Aus Recherche 2026-11-23 |
+| Anthropic pptx/docx | Präzise Office-Artefakte | Validatoren |
+| Hermes microsoft-office | Offline python-docx/pptx | Kein Office nötig |
+| youtube-content | Quellvideos → Outline | Transkript mit Quelle |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Kurse erstellen (bildung/kurse-erstellen).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Lernziele → Outline → Lektionen → Uebungen → Folien, Quellen zitieren.
+You build courses for bildung/kurse-erstellen.
+
+Inputs: topic, audience, duration_hours, modality (live|self_paced), language DE, source_urls[], bloom_level target.
+
+Pipeline:
+1) Write measurable learning objectives (3-6), each with verb from Bloom taxonomy.
+2) Curriculum outline: modules, lesson titles, time boxes, prerequisites.
+3) For each lesson: concept explanation, activity, formative check question, optional homework.
+4) Exercises: include instructor_solution separate file, not in student pack if assessment.
+5) Slides: one pptx deck per module, speaker notes, max 6 bullets per slide.
+6) Cite all external facts with source_urls; mark UNSOURCED if missing.
+7) Run office validate script on pptx when Anthropic skill available.
+
+Do not plagiarize courseware sites verbatim.
+Deliver: outline.md, lessons/*.md, slides/module-*.pptx paths, sources.bib.
 ```
 
 ## Arbeitsablauf
 
-- Lernziele → Outline → Lektionen → Uebungen → Folien, Quellen zitieren.
+1. Lernziele mit Nutzer abstimmen (SMART).
+2. `outline.md` mit Modulen und Zeiten.
+3. Lektionstexte pro Modul als Markdown.
+4. Übungen + `instructor_solutions.md` ablegen.
+5. pptx pro Modul erzeugen; `validate.py` wenn verfügbar.
+6. Quellenliste `sources.bib` vervollständigen.
+7. Paket `output/course-<topic>/` zur Review.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Jedes Lernziel einer Lektion/Übung zugeordnet
+- [ ] pptx validiert oder manuell gegengelesen
+- [ ] Quellen für externe Fakten
+- [ ] Assessments getrennt von Teilnehmermaterial
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keine personenbezogenen Beispieldaten ohne Einwilligung.
+- Vorschulpädagogik/Medizin: menschliche Fachexpertise Pflicht.
+- Publish in LMS nur nach Freigabe.
+
+## Fallstricke
+
+- Folien voller Text statt Unterricht.
+- Übungen ohne Lösbarkeitstest.
+- YouTube-Zusammenfassung ohne Zeitcode-Check.
+- pptx-Validator ignoriert → kaputte Layouts.
+- Lernziele nicht messbar.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Kurse erstellen-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `kurse-erstellen` (Testdaten)
+- **Aufgabe:** 2h Workshop „API-Grundlagen“.
+- **Input:** Entwickler Einsteiger, DE.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Kurse erstellen. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Create outline + 3 lessons + 10-slide deck with speaker notes, cite REST docs only from provided URLs.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Objectives: 4 (z. B. "REST-Verb benennen", "JSON-Fehler lesen")
+Files: outline.md, lessons/L1-L3.md, slides/module-1.pptx (10 slides)
+sources.bib: 2 URLs
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Kurse erstellen
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Fehlende Zielgruppe.
+- **Input:** Nur Thema "Kubernetes".
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Build full course package.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Abbruch: audience and duration_hours required.
+Nachfrage: Rolle (Dev/Ops)? Dauer? Prüfung ja/nein?
+Keine pptx erzeugt.
+```
 
 ### Beispiel 3 (Praxisbeispiel)
 
-- **Aufgabe:** Ein kurzes Briefing-Deck mit der offiziellen Anthropic-pptx-Skill erzeugen und validieren.
-- **Input:** Tutorial-Briefing, das als PowerPoint ausgegeben werden sollte.
+- **Aufgabe:** Kurzes Briefing-Deck mit Anthropic-pptx-Skill validieren.
+- **Input:** Tutorial-Briefing als PowerPoint.
 - **Prompt:**
+
 ```text
 pptxgenjs 4.0.1, skills/pptx/scripts/office/validate.py, python-pptx zum Gegenlesen.
 ```
+
 - **Erwartetes Ergebnis:**
-  Datei briefing.pptx, Validator All validations PASSED. Gegenlesen ergab drei Folien im Format 10 x 5,625 Zoll (LAYOUT_16x9), inklusive Text und Speaker Notes. Hinweis des Autors: Hex-Farben ohne #, Koordinaten jenseits der Kante werden nicht geclippt.
-- **Quelle:** https://aifrontierpost.com/articles/anthropic-official-agent-skills-tutorial/
+
+```text
+Datei briefing.pptx — Validator: All validations PASSED
+3 Folien 16x9, Text + Speaker Notes
+Quelle: https://aifrontierpost.com/articles/anthropic-official-agent-skills-tutorial/
+```

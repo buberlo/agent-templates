@@ -20,86 +20,126 @@ required_tools:
     install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
     version_notes: "Bundled."
 inputs:
-  - "Kontext/Briefing für Meetings und Transkription"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Transkript-Quelle (lokal vs. Fireflies)"
+  - "Erlaubte Datenabflüsse"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Tool-Entscheidungsbaum"
+  - "Minimales MCP/Skill-Set"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Meetings transkribieren, Decisions und Action Items extrahieren, Follow-ups entwerfen.
+**Transkriptions-Stack festlegen**: lokales Whisper vs. Fireflies MCP vs. Teams-Pipeline—Datenresidenz, Skills und MCP minimal halten.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Meetings und Transkription**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Compliance fragt nach Cloud vs. on-device ASR.
+- Agent soll nur Fireflies lesen, nicht erneut hochladen.
+- OpenClaw Whisper installieren und verifizieren.
+
+**Wann nicht**
+
+- Fertiges Audio bereits transcribed → direkt Action-Item-Extraktion.
+- Kein Fireflies-Konto und keine GPU/CPU-Zeit für Whisper.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| ClawHub / OpenClaw Skill Openai Whisper  | Skill | Aus Recherche 2026-11-23 |
-| Hermes-Skills meeting-action-items, team | Skill | Aus Recherche 2026-11-23 |
-| fireflies MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| OpenClaw Whisper | Lokal ASR | Kein Audio-Upload |
+| fireflies MCP | Vorhandene Transkripte | SaaS bereits im Einsatz |
+| meeting-action-items | Post-Processing | Struktur, keine ASR |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Meetings und Transkription (kommunikation/meetings-transkription).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Transkript → Entscheidungen, Owner, Deadlines, zitiert; Mails nur als Draft.
+You design meeting transcription tooling for kommunikation/meetings-transkription.
+
+Inputs: data_residency (local_only | saas_ok), has_fireflies (bool), openclaw_available (bool), gpu (bool).
+
+Decision tree:
+- local_only → openclaw whisper + ffmpeg; disable fireflies mcp
+- has_fireflies + saas_ok → fireflies MCP read only; whisper optional for gaps
+- teams_meeting_pipeline skill if recordings live in M365 and skill configured
+
+Document in meeting-tooling.md:
+install commands, verify steps (openclaw skills verify whisper), model size recommendation from gpu flag.
+Set never upload_without_approval default true.
+
+List disabled tools explicitly.
 ```
 
 ## Arbeitsablauf
 
-- Transkript → Entscheidungen, Owner, Deadlines, zitiert; Mails nur als Draft.
+1. Datenresidenz-Policy vom Nutzer (`local_only` / `saas_ok`).
+2. Verfügbarkeit prüfen: OpenClaw, Fireflies Token, Hermes Skills.
+3. Entscheidungsbaum in `meeting-tooling.md` schreiben.
+4. `openclaw skills verify` für Whisper-Skill.
+5. Fireflies MCP nur bei `saas_ok` aktivieren.
+6. Test: kurzer 30s Sample-Clip lokal ODER Fireflies get last transcript metadata.
+7. Nutzer sign-off auf Tooling-Doc.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Datenabfluss dokumentiert (lokal vs. SaaS)
+- [ ] Unbenutzte Upload-Tools deaktiviert
+- [ ] Verify-Schritt für ClawHub-Skill
+- [ ] Modellwahl begründet (CPU vs. GPU)
 
 ## Sicherheit & Freigaben
 
-- Aufzeichnungseinwilligung. Halluzinierte Beschluesse.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Aufzeichnungsrecht und Einwilligung außerhalb Tooling, aber im Doc verlinkt.
+- Fireflies-Exports nicht in öffentliche Tickets.
+- Whisper-Modelle aus vertrauenswürdiger Quelle.
+
+## Fallstricke
+
+- Fireflies + Whisper parallel → doppelte Kosten/Zeit.
+- Whisper large auf CPU → Stunden Laufzeit ohne Warnung.
+- Teams-Pipeline ohne OAuth → leere Runs.
+- MCP Upload-Tool vergessen zu disable bei local_only.
+- Veraltetes Whisper-Skill ohne VAD → schlechte Segmente.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Meetings und Transkription-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `meetings-transkription` (Testdaten)
+- **Aufgabe:** local_only Setup.
+- **Input:** `data_residency=local_only`, GPU nein.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Meetings und Transkription. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Choose tools for on-device transcription only, recommend whisper model for CPU.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+ASR: openclaw whisper base or small
+Disabled: fireflies mcp, any upload MCP
+Model note: small for CPU, expect ~2x realtime
+File: meeting-tooling.md
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Meetings und Transkription
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Fireflies-only read.
+- **Input:** `has_fireflies=true`, `saas_ok=true`.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Enable only fireflies MCP read; meeting-action-items for parsing.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Read: fireflies MCP get_transcript
+Post: hermes meeting-action-items
+Disabled: whisper install required false
+upload_without_approval: false (enforced)
+```

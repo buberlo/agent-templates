@@ -20,86 +20,125 @@ required_tools:
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/calendly"
     version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
 inputs:
-  - "Kontext/Briefing für Kalender und Scheduling"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Kalender-Backends (Google, Calendly, Outlook)"
+  - "Schreib-Rechte ja/nein"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Aktivierungsplan für Kalender-Tools"
+  - "Free/busy Smoke-Test"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Termine finden, halten, einladen; Calendly, Google Calendar, Outlook.
+**Kalender-Anbindungen sauber wählen**: gws vs. Calendly MCP vs. Grok Plugin—inkl. Schreib-Rechten, Zeitzonen-Defaults und minimalem MCP-Set.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Kalender und Scheduling**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Agent-Setup für Scheduling; mehrere Kalender-Optionen im Katalog.
+- Read-only Availability-Check vor Produktiv-Einladungen.
+- Dokumentation für Ops/Security (welche Tokens, welche Scopes).
+
+**Wann nicht**
+
+- Konkrete Meeting-Einladung mit Teilnehmern → `kalender-scheduling-workflow`.
+- Outlook ohne angebundenen MCP/Skill.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill google-workspace / gws CLI | Skill + CLI | Aus Recherche 2026-11-23 |
-| calendly MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| Grok Bot Google Calendar | Plugin | Aus Recherche 2026-11-23 |
+| gws calendar | Google Workspace | CLI + bundled Skill |
+| Calendly MCP | Externe Buchung | Hermes optional-mcps |
+| Grok Google Calendar | OAuth im Chat | Schnelltest Free/Busy |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Kalender und Scheduling (kommunikation/kalender-scheduling).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Freie Slots vorschlagen, Einladung erst nach Bestaetigung von Teilnehmern und Text.
+You configure calendar tooling for kommunikation/kalender-scheduling.
+
+Inputs: primary_backend (google | calendly | grok_plugin), write_allowed bool, default_tz, hermes mcp list, credentials location.
+
+Deliver calendar-tooling.md:
+- Chosen read tool and optional write tool (only if write_allowed)
+- Install: hermes mcp install calendly OR gws auth status command
+- Scopes documented (calendar.readonly vs calendar.events)
+- Smoke test: list next 2 events on primary calendar, titles only
+- Disable events.insert and calendly cancel if write_allowed=false
+
+Conflict policy: if multiple backends, designate single source of truth for creates.
+
+Never paste refresh tokens. Note Europe/Vienna as display default.
 ```
 
 ## Arbeitsablauf
 
-- Freie Slots vorschlagen, Einladung erst nach Bestaetigung von Teilnehmern und Text.
+1. Backends inventarisieren (Google primär? Calendly öffentlich?).
+2. Schreib-Recht policy klären (`write_allowed`).
+3. `hermes mcp install` bzw. `gws auth login` Status prüfen.
+4. Smoke-Test: nächste 2 Events listen (Titel, Start, TZ).
+5. Schreib-Tools aus Session entfernen wenn read-only.
+6. `output/calendar-tooling.md` mit Scopes und Befehlen.
+7. Nutzer bestätigt vor Scheduling-Workflow.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Source of truth für Creates benannt
+- [ ] Smoke-Test erfolgreich oder Fehler mit Remediation
+- [ ] Default-Zeitzone dokumentiert
+- [ ] Write-Tools gated
 
 ## Sicherheit & Freigaben
 
-- Zeitzonen (Europe/Vienna deklarieren). Doppelbuchungen bei mehreren Kalendern.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- OAuth nur über offizielle Flows.
+- Calendly API-Keys nicht in Git.
+- Grok-Plugin erbt Nutzerrechte—keine Eskalation.
+
+## Fallstricke
+
+- gws ohne Workspace-Admin → falsche Kalender-ID.
+- Calendly MCP aktiv, aber Google für Creates → doppelte Events.
+- Readonly-Scope, aber Workflow versucht insert → opaque 403.
+- TZ nicht gesetzt in gws Config.
+- Vergessene Calendly-Webhook vs. manuelle Slots.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Kalender und Scheduling-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `kalender-scheduling` (Testdaten)
+- **Aufgabe:** Read-only Google.
+- **Input:** `write_allowed=false`, gws.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Kalender und Scheduling. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Configure calendar tools read-only, smoke test next 2 events.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Read: gws calendar events.list
+Write: disabled
+Smoke: "Standup" 2026-11-24T09:00+01:00; "1:1" 2026-11-24T14:00+01:00
+File: output/calendar-tooling.md
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Kalender und Scheduling
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Calendly + Google schreiben.
+- **Input:** Public booking + internal calendar.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Document dual backend: Calendly for external, gws for internal creates.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Source of truth creates: gws (internal), Calendly links read-only in agent
+Calendly MCP: availability only
+Warning: do not events.insert on behalf of Calendly bookings
+```

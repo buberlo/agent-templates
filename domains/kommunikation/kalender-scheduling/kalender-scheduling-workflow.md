@@ -23,86 +23,128 @@ required_tools:
     install: "https://x.ai/bot/guides/grok-bot-101"
     version_notes: "Produktdoku."
 inputs:
-  - "Kontext/Briefing für Kalender und Scheduling"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Zeitzone und Suchfenster"
+  - "Teilnehmer und Dauer"
+  - "Titel/Agenda-Entwurf"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Slot-Vorschläge"
+  - "Kalendereinladung (nach Freigabe)"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Termine finden, halten, einladen; Calendly, Google Calendar, Outlook.
+**Freie Termine finden**, Vorschläge formulieren und **Einladungen erstellen** (Google Calendar, Calendly)—mit fester Zeitzone und ohne Doppelbuchungen über Kalender hinweg.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Kalender und Scheduling**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Meeting mit 2–8 Teilnehmern innerhalb der nächsten 2 Wochen.
+- gws, Calendly MCP oder Grok Calendar verbunden.
+- Text der Einladung und Teilnehmerliste vom Nutzer freigegeben.
+
+**Wann nicht**
+
+- Recurring-Regeln für ganze Organisation neu designen.
+- Räume/Ressourcen ohne gebundenen Ressourcen-Kalender.
+- Termine in Zeitzonen ohne explizite IANA-Angabe.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill google-workspace / gws CLI | Skill + CLI | Aus Recherche 2026-11-23 |
-| calendly MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| Grok Bot Google Calendar | Plugin | Aus Recherche 2026-11-23 |
+| gws calendar | Free/busy, events.insert | Workspace-nativ |
+| Calendly MCP | Booking-Links, availability | Externe Buchung |
+| Grok Google Calendar | Chat-OAuth | Schnelle Slot-Suche |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Kalender und Scheduling (kommunikation/kalender-scheduling).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Freie Slots vorschlagen, Einladung erst nach Bestaetigung von Teilnehmern und Text.
+You schedule meetings for kommunikation/kalender-scheduling using gws, Calendly MCP, or Grok Calendar.
+
+Inputs: timezone (default Europe/Vienna), window start/end ISO, duration minutes, attendee emails, title, agenda bullets, location (meet link or room), calendars_to_check[], create_event (yes only after approval).
+
+Process:
+1) Query freebusy for all attendees; intersect availability.
+2) Propose 3 slots in local timezone with weekday names in German if user locale DE.
+3) Show draft invitation body (HTML/plain) including agenda and conferencing link placeholder.
+4) On "CREATE EVENT", call events.insert with sendUpdates=none unless user requests email invites.
+5) Detect conflicts on organizer calendar; flag if hard conflict exists.
+
+Never delete events without confirmation.
+Use IANA timezone in API calls, not abbreviations like CET.
+Log event_id after create.
 ```
 
 ## Arbeitsablauf
 
-- Freie Slots vorschlagen, Einladung erst nach Bestaetigung von Teilnehmern und Text.
+1. Zeitzone `Europe/Vienna` und Fenster (z. B. nächste 5 Werktage) festlegen.
+2. `gws calendar freebusy` für alle Teilnehmer-Emails.
+3. Drei gemeinsame Slots berechnen und tabellarisch ausgeben.
+4. Nutzer wählt Slot; Titel/Agenda finalisieren.
+5. Entwurf der Einladung zeigen (Teilnehmer, Zoom/Meet-Link).
+6. Nach `CREATE`: `events.insert` mit gewähltem Slot.
+7. `event_id` und ICS-Link in `output/scheduling.md` speichern.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Alle Zeiten mit Offset/IANA angegeben
+- [ ] Keine Einladung ohne bestätigten Slot und Teilnehmerliste
+- [ ] Konflikte auf Organisator-Kalender geprüft
+- [ ] event_id dokumentiert
 
 ## Sicherheit & Freigaben
 
-- Zeitzonen (Europe/Vienna deklarieren). Doppelbuchungen bei mehreren Kalendern.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Teilnehmer-E-Mails nicht in öffentliche Logs.
+- Calendly-Links nur teilen, wenn Buchungspolicy das erlaubt.
+- Löschen/Verschieben nur nach explizitem Auftrag.
+
+## Fallstricke
+
+- Sommerzeit-Umstellung falsch berechnet.
+- Mehrere Kalender des Organisators nicht abgefragt → Doppelbuchung.
+- `sendUpdates=all` ohne Review → falsche Einladung raus.
+- Calendly vs. Google: zwei parallele Buchungen für denselben Slot.
+- Nur UTC intern gerechnet → Nutzer sieht falsche lokale Uhrzeit.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Kalender und Scheduling-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `kalender-scheduling` (Testdaten)
+- **Aufgabe:** 30-Min-Sync mit zwei Kolleg:innen.
+- **Input:** `alice@firma.example`, `bob@firma.example`, Mo–Fr 09–17 Europe/Vienna.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Kalender und Scheduling. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Find 3 free 30-min slots next week, draft invite title "API Review", do not create until I pick.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+1) Di 25.11. 10:00–10:30 CET
+2) Mi 26.11. 14:00–14:30 CET
+3) Do 27.11. 11:30–12:00 CET
+Draft title: API Review | Attendees: alice, bob
+Create: pending
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Kalender und Scheduling
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Hard Conflict.
+- **Input:** Organisator hat 14:00–15:00 blockiert, gewünschter Slot 14:30.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Create event at 14:30 Tuesday.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Konflikt: bestehendes Event "Board prep" 14:00–15:00.
+Kein events.insert ausgeführt.
+Vorschlag: alternativer Slot 15:00 oder Nutzer-Override explizit bestätigen.
+```

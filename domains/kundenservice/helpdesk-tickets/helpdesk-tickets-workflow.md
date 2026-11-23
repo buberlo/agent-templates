@@ -20,85 +20,127 @@ required_tools:
     install: "https://github.com/punkpeye/awesome-mcp-servers"
     version_notes: "Katalog."
 inputs:
-  - "Kontext/Briefing für Helpdesk und Tickets"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Ticket-ID oder Suchfilter"
+  - "Makro-Policy und Tonalität"
+  - "Freigabe für öffentliche Antwort"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Priorisierte Ticketliste"
+  - "Öffentliche Antwort-Entwurf und interne Notiz"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Tickets sichten, priorisieren, Entwürfe schreiben und in Zendesk/Intercom/ähnlichen Tools aktualisieren.
+Support-**Tickets lesen**, priorisieren und **Antworten/Notizen** als Entwurf erzeugen—Resolve/Close nur gemäß Policy, **PII-arm** in Logs.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Helpdesk und Tickets**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Intercom (oder ähnlicher Helpdesk-MCP) verbunden.
+- SLA- oder Prioritätsregeln bekannt.
+- Agent unterstützt First Response, Mensch sendet oder gibt OK.
+
+**Wann nicht**
+
+- Rechtliche Beschwerden ohne Legal-Review-Workflow.
+- Massen-Statusänderungen ohne Change-Fenster.
+- Zendesk o. Ä. ohne passenden MCP (nur Katalog-Recherche).
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| intercom MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| awesome-mcp Support-Sektion | Katalog | Aus Recherche 2026-11-23 |
+| intercom MCP | Ticket CRUD, Notizen | Hermes approved |
+| awesome-mcp Katalog | Alternative ITSM | Eval vor Install |
+| Interne KB | Makro-Quelle | Konsistente Antworten |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Helpdesk und Tickets (kundenservice/helpdesk-tickets).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Ticket lesen, Makro/Entwurf, interne Notiz, keine stillen Resolves ohne Policy.
+You process helpdesk tickets for kundenservice/helpdesk-tickets via Intercom MCP.
+
+Inputs: view (open|snoozed|search query), sla_hours, tone (empathic DE), allowed_actions (draft_reply | internal_note | tag | resolve), macro_ids[].
+
+Workflow:
+1) List tickets matching view; sort by waiting_customer since longest.
+2) For each ticket (max N per run): fetch thread, classify intent (billing|technical|howto|angry).
+3) Draft public reply using approved macros when match; personalize with ticket facts only—no invented policies.
+4) Add internal_note with next steps if escalation needed.
+5) tag ticket only if user approved tags.
+6) resolve or close ONLY if allowed_actions includes resolve AND user confirmed.
+
+Redact card numbers, passwords from summaries.
+If PII must appear in reply, keep minimal.
+
+Output: ticket-run.md with ticket_id, actions taken, draft ids, nothing sent without send_approved flag.
 ```
 
 ## Arbeitsablauf
 
-- Ticket lesen, Makro/Entwurf, interne Notiz, keine stillen Resolves ohne Policy.
+1. `hermes mcp install intercom` und Credentials prüfen.
+2. Ticket-View laden: offene Tickets nach Wartezeit sortieren.
+3. Top-5: Kontext lesen, Intent klassifizieren.
+4. Öffentlichen Antwortentwurf aus Makro + Fakten bauen.
+5. Interne Notiz bei Eskalationsrisiko.
+6. Nutzer reviewt; bei OK: öffentliche Notiz senden (wenn erlaubt).
+7. Run-Log `output/helpdesk-run.md` ohne unnötige PII.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Keine erfundenen Rückerstattungs-/Policy-Versprechen
+- [ ] Resolve nur mit expliziter Policy/Freigabe
+- [ ] Antwort referenziert Ticket-Fakten
+- [ ] Logs pseudonymisiert wo möglich
 
 ## Sicherheit & Freigaben
 
-- PII in Prompts und Logs minimieren.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Kundendaten nicht in öffentlichen Agent-Threads.
+- OAuth-Token nicht loggen.
+- DSGVO-Löschanfragen an Human eskalieren.
+
+## Fallstricke
+
+- Stilles Resolve → CSAT-Kollateralschaden.
+- Makro passt nicht → falsche Produktversion genannt.
+- Interne Notiz versehentlich öffentlich.
+- Suche zu breit → falsches Ticket bearbeitet.
+- Halluzinierte Ticket-ID.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Helpdesk und Tickets-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `helpdesk-tickets` (Testdaten)
+- **Aufgabe:** Billing-Ticket First Response.
+- **Input:** Ticket `#8821`, Kunde fragt Rechnungsduplikat.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Helpdesk und Tickets. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Draft public reply in German, attach internal note if refund policy unclear, do not resolve.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Public draft: "Wir senden Ihnen die Rechnung #445… erneut zu…"
+Internal note: verify payment gateway status before promise
+Resolve: not executed
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Helpdesk und Tickets
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Resolve ohne Freigabe.
+- **Input:** User says only draft.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Close ticket 8821 as solved.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Abbruch: resolve not in allowed_actions.
+Draft remains unsent; ticket state unchanged.
+```

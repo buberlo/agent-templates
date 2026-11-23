@@ -13,89 +13,133 @@ target_agents:
   - generic-mcp-agents
   - generic
 required_tools:
+  - name: Hermes-Skill imessage
+    install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
+    version_notes: "Bundled apple/imessage, macOS."
   - name: Hermes-Skill google-workspace / gws CLI
     install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "Bundled-Katalog."
+    version_notes: "Optional: Termin-Kontext aus Calendar."
 inputs:
-  - "Kontext/Briefing für iMessage und SMS"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Kontakt-Handle oder Chat"
+  - "Nachrichtenentwurf oder Leseauftrag"
+  - "Freigabe SEND ja/nein"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Konversationsauszug"
+  - "Gesendete oder vorgelegte SMS/iMessage"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Kurznachrichten über plattformnahe CLIs (z. B. Hermes imessage) oder SMS-APIs.
+**Kurznachrichten** über Hermes **imessage** (macOS/imsg CLI) lesen und **nur nach Freigabe** senden; SMS/iMessage-Log für Follow-ups dokumentieren.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **iMessage und SMS**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- macOS-Host mit Messages-Account und Hermes imessage-Skill.
+- Kurze Koordination (Verspätung, Termin, OTP-Hinweis ohne OTP selbst zu speichern).
+- Entwurf zuerst, Senden mit explizitem `SEND`.
+
+**Wann nicht**
+
+- Linux/Windows ohne macOS-Bridge → Skill wird übersprungen.
+- Massen-SMS/Marketing ohne Opt-in und Carrier-Policy.
+- MFA-Codes oder Passwörter per Chat versenden.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill google-workspace / gws CLI | Skill + CLI | Aus Recherche 2026-11-23 |
+| Hermes imessage | Lesen/Senden | Offizielles bundled Skill |
+| gws Calendar (optional) | Kontext | Terminzeit im Entwurf |
+| Markdown-Log | Audit | Handle redacted, Zeitstempel |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for iMessage und SMS (kommunikation/imessage-sms).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+You operate iMessage/SMS on macOS via Hermes imessage skill (imsg CLI). Read chats, draft short replies; send only on explicit "SEND <handle>".
+
+Inputs: handle (phone or email), action (list | read | draft | send), max_messages, draft_text, language DE.
+
+Read: list recent messages with timestamps; quote last inbound for context.
+Draft: <= 320 chars for SMS-safe; mark iMessage vs SMS if known.
+Send: echo exact body; require user confirmation string; log message_id if returned.
+
+Do not automate 2FA codes delivery to third parties.
+Redact handles in external summaries (show last 2 digits only).
+If not on darwin, stop and report platform_unsupported—do not fake send.
+
+Deliver: conversation-excerpt.md, draft block, send receipt or "draft only".
+
+Escalation: if send fails with authorization error, stop; do not retry with alternate handles.
+Timezone: stamp all excerpts in Europe/Vienna unless user specifies otherwise.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. `uname -s` — bei nicht-Darwin abbrechen mit klarer Meldung.
+2. Handle und Auftrag klären (lesen vs. senden).
+3. `imsg` über Skill: letzte N Nachrichten lesen.
+4. Antwortentwurf (kurz, klar, ohne Links wenn SMS-only vermutet).
+5. Nutzer prüft Text; bei OK: `SEND` mit Handle wiederholen.
+6. Nach Send: letzte Zeile aus Chat verifizieren.
+7. `output/imessage-log.md` mit Zeit, Aktion, redacted handle.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Plattform macOS bestätigt oder sauber abgebrochen
+- [ ] Gesendeter Text byte-identisch mit freigegebenem Entwurf
+- [ ] Keine Secrets im Log
+- [ ] Empfänger-Handle im internen Log dokumentiert
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Apple-ID und Geräte-Trust liegen beim Nutzer; Agent nutzt nur skill-exponierte CLI.
+- Keine Weiterleitung von Gesundheits- oder Finanz-PII in SMS ohne Einwilligung.
+- Senden gesperrt ohne zweites explizites Kommando.
+
+## Fallstricke
+
+- Grüne vs. blaue Blase (SMS vs. iMessage) ändert Zeichenlimit.
+- Falscher Handle → Nachricht an falschen Kontakt (Handle vor Send doppelt zeigen).
+- Skill auf Linux still skipped ohne Agent-Hinweis wenn Prompt schwach.
+- Automatische Links → Carrier-Splitting bei SMS.
+- Gruppenchats: Reply-Kontext leicht verloren.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-iMessage und SMS-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `imessage-sms` (Testdaten)
+- **Aufgabe:** Verspätung 15 Min melden.
+- **Input:** Handle `+43…901`, Draft DE.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für iMessage und SMS. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Draft SMS: "Bin in 15 Min da, sorry!" — show draft, wait for SEND.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Draft: Bin in 15 Min da, sorry!
+Status: draft_only (awaiting SEND +43***901)
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in iMessage und SMS
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Linux-Server.
+- **Input:** `uname` = Linux, imessage angefragt.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Send meeting link via iMessage.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Abbruch: platform_unsupported (imessage requires darwin).
+Alternative: E-Mail-Entwurf oder manuelles Senden vom Mac vorschlagen.
+```

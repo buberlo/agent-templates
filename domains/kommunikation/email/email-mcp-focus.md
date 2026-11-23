@@ -26,81 +26,122 @@ outputs:
   - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Posteingang triagieren, Entwürfe schreiben, mit Gmail/IMAP/Workspace-Tools arbeiten.
+**E-Mail-Stacks gezielt auswählen**: Hermes Triage + Himalaya (IMAP) oder **gws** / Gmail-MCP—Skills für Workflow, MCP für OAuth-Anbindung; Standard bleibt **Entwurf, kein Senden**.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **E-Mail**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Agent soll nur die passenden E-Mail-Tools aktivieren (include/exclude, Tool-Policy).
+- Mix aus Workspace (gws) und Drittanbieter-IMAP.
+- Dokumentation, welcher Pfad Gmail MCP vs. Himalaya ist.
+
+**Wann nicht**
+
+- Ein einzelnes, wiederkehrendes Triage-Szenario mit festen Queries → Template `email-gmail-mcp-triage`.
+- Kein eingerichtetes OAuth oder IMAP-Passwort-Handling.
+- Hochriskante Massenkommunikation.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skills email-inbox-triage und him | Skill + CLI | Aus Recherche 2026-11-23 |
-| Hermes-Skill google-workspace / gws CLI | Skill + CLI | Aus Recherche 2026-11-23 |
-| Grok Bot Gmail-Plugin | Plugin | Aus Recherche 2026-11-23 |
+| email-inbox-triage | Priorisierung, Entwürfe | Bundled Hermes-Workflow |
+| Himalaya / imap-smtp-email | IMAP/SMTP CLI | OpenClaw/ClawHub, kein Google-only |
+| gws CLI | Gmail, Calendar, Drive | Workspace-Inbox in einem CLI |
+| Grok Gmail-Plugin | Chat-gebundenes Lesen/Schreiben | Offizieller OAuth-Connector |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for E-Mail (kommunikation/email).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Hermes email-inbox-triage: priorisieren, sicher antworten. Himalaya wenn IMAP gewuenscht ist.
+You configure and use email tools for kommunikation/email: Hermes email-inbox-triage, himalaya CLI, gws, or Gmail MCP—pick the minimum set for the task.
+
+Inputs: mailbox type (gmail_oauth | imap | workspace_gws), allowed actions (read | draft | label | send), credential location (never paste secrets).
+
+Decision:
+- Gmail with MCP available → MCP search + create_draft.
+- Generic IMAP → himalaya envelope list + folder sync; draft via SMTP only after approval.
+- Workspace admin tasks → gws gmail users.messages.list.
+
+Always:
+1) List which tools you enable and why.
+2) Read before write; summarize in German if user writes German.
+3) create_draft / save to Drafts; send only on explicit "SEND message_id".
+
+Output: tool-choice.md (one page), command log redacted, artifact paths.
+Disable unused MCPs to reduce prompt injection surface.
+Verify: re-fetch draft or list folder after write.
 ```
 
 ## Arbeitsablauf
 
-- Hermes email-inbox-triage: priorisieren, sicher antworten. Himalaya wenn IMAP gewuenscht ist.
-- OpenClaw: Himalaya- und imap-smtp-email-Skills (ClawHub).
+1. Anforderung klären: Gmail-OAuth, IMAP oder gws.
+2. Hermes MCP-Filter setzen: nur `gmail` oder `himalaya` inkludieren.
+3. `gws gmail users.messages.list --user me --query "is:unread"` oder `himalaya envelope list`.
+4. Skill **email-inbox-triage** für Priorisierung und Entwurfstexte.
+5. Entwurf anlegen (MCP `create_draft` oder Himalaya Draft-Ordner).
+6. Ergebnisliste `output/email-session.md` mit Tool-Pfad dokumentieren.
+7. Send-Schritt nur nach Nutzerfreigabe mit Message-ID.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Aktivierte Tools dokumentiert und begründet
+- [ ] Keine Credentials in Chat oder Skill-Dateien
+- [ ] Mindestens ein verifizierter Lesezugriff (Message-Count oder Snippet)
+- [ ] Schreibaktionen nur als Entwurf oder mit Freigabe
 
 ## Sicherheit & Freigaben
 
-- Senden ohne Freigabe. PII in Logs.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- IMAP-App-Passwörter nur in Secret Store, nicht in argv.
+- Grok/OAuth-Tokens bleiben auf Connector-Backend.
+- PII in Agent-Logs minimieren; Himalaya-Logs rotieren.
+
+## Fallstricke
+
+- Skill und MCP parallel für dasselbe Konto → doppelte Aktionen.
+- Himalaya ohne TLS → Credentials im Klartext.
+- gws ohne richtiges `GOOGLE_APPLICATION_CREDENTIALS` → scheinbar leere Inbox.
+- OpenClaw-ClawHub-Skills ohne `skills verify` laden.
+- Senden aus Versehen, wenn MCP-Send-Tool nicht aus Policy entfernt.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-E-Mail-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `email` (Testdaten)
+- **Aufgabe:** IMAP-Firmenpostfach triagieren.
+- **Input:** Server `mail.firma.example`, Skill Himalaya aktiv.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für E-Mail. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Enable only himalaya + email-inbox-triage. List unread INBOX, classify, save reply drafts locally as .eml for review.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Tools: himalaya, email-inbox-triage (gmail MCP disabled)
+Unread: 17 | Drafts saved: output/drafts/re-28401.eml, re-28402.eml
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in E-Mail
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Workspace-Inbox lesen ohne Send-Tool.
+- **Input:** gws installiert, Policy: read+draft only.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+gws list 5 newest unread, summarize subjects in German, no send tools in session.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+1) Onboarding docs — Alice
+2) Invoice #8821 — finance@
+...
+Send tools: none bound this session
+```

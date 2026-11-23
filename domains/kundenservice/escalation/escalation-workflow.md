@@ -17,85 +17,128 @@ required_tools:
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/intercom"
     version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
 inputs:
-  - "Kontext/Briefing für Eskalation"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Ticket- oder Konversations-ID"
+  - "Eskalationsstufen-Matrix"
+  - "Benachrichtigungskanäle (Slack/E-Mail Entwurf)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Eskalationspaket"
+  - "Kundenstatus-Entwurf (sympathisch, ohne Versprechen)"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Schwere Fälle erkennen, intern weiterleiten und Status kommunizieren.
+**Schwere Support-Fälle** erkennen (Rechtsdrohung, Ausfall, VIP, Medien), **intern eskalieren** mit strukturiertem Paket und **Kundenkommunikation nur als Entwurf**.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Eskalation**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Keywords/SLA-Bruch triggern Eskalation (angry, legal, outage, exec).
+- Intercom o. ä. verbunden; Matrix definiert Stufe → Owner.
+- Kein Auto-Send an Kunde oder Legal ohne OK.
+
+**Wann nicht**
+
+- Routine-Ticket ohne Schwellenwert → helpdesk-tickets.
+- Drohung mit Gewalt → Mensch + ggf. Behörden, kein Bot-Triage allein.
+- Fehlende Eskalationsmatrix → zuerst Policy klären.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| intercom MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| intercom MCP | Ticket + History | Vollständiger Kontext |
+| Eskalations-Matrix MD | Routing | L2/Legal/Engineering |
+| Slack/E-Mail Entwurf | Intern extern getrennt | Kein Leak interner Notizen |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Eskalation (kundenservice/escalation).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+You escalate customer cases for kundenservice/escalation.
+
+Inputs: ticket_id, escalation_matrix path, severity hints, customer_visible_update (draft only).
+
+Steps:
+1) Load full conversation; score severity 1-4 (4=legal/media/safety).
+2) Map to matrix row: owner team, slack channel, due_hours.
+3) Build escalation_package: summary, timeline, revenue_at_risk, quoted customer messages, attachments list, suggested_root_cause (hypothesis labeled).
+4) Draft internal slack message with @owner; do not post without APPROVE_ESCALATE.
+5) Draft customer-facing message: empathic, no liability admission, next_contact_time.
+6) Tag ticket Escalated; assign if MCP allows and user approved.
+
+Never promise refunds/compensation unless matrix authorizes wording.
+Safety threats: stop automation, output HUMAN_REQUIRED safety banner.
+
+Deliver: escalation_package.json, customer_draft.txt, slack_draft.txt.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Matrix `config/escalation-matrix.yaml` laden.
+2. Ticket via Intercom MCP inkl. aller Teile lesen.
+3. Severity und Ziel-Team bestimmen.
+4. `escalation_package.json` mit Zitaten und Timeline.
+5. Slack-Entwurf an `#support-escalations` (nicht posten).
+6. Kunden-Status-Entwurf ohne Schuldeingeständnis.
+7. Nach `APPROVE_ESCALATE`: Tag + Assign; Sendeaktionen nur wenn freigegeben.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Severity mit Begründung und Zitaten
+- [ ] Richtiger Owner laut Matrix
+- [ ] Kundenentwurf ohne unautorisierte Zusagen
+- [ ] Safety: HUMAN_REQUIRED bei Bedrohung
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Legal-Threads nicht in Slack ohne #legal-private.
+- Keine internen RCA-Details in Kundenentwurf.
+- Medienanfragen an Comms eskalieren.
+
+## Fallstricke
+
+- Eskalation ohne vollständige History → falscher Kontext.
+- Kunde sieht interne Slack-Kopie.
+- Severity-Inflation → Team-Alert-Müdigkeit.
+- Auto-assign an falsches Team außer Feiertag.
+- Versprechen zur Frist ohne Engineering-OK.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Eskalation-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `escalation` (Testdaten)
+- **Aufgabe:** VIP-Ausfall, Severity 3.
+- **Input:** Ticket `#9902`, Matrix L2-Engineering.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Eskalation. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Build escalation package, draft customer message with 2h update pledge only if matrix allows.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Owner: oncall-engineering | Due: 2h
+Customer draft: "Wir priorisieren Ihren Fall… Update innerhalb 2 Stunden…"
+Slack draft: @oncall — summary + timeline (not posted)
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Eskalation
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Gewaltandrohung.
+- **Input:** Kundentext mit physischer Bedrohung.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Escalate and respond.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+HUMAN_REQUIRED — safety_threat_detected
+No customer auto-reply; ticket flagged for human + security playbook.
+No slack post executed.
+```
