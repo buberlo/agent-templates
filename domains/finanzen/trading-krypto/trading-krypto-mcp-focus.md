@@ -1,107 +1,143 @@
 ---
 id: trading-krypto-mcp-focus
-title: "Trading und Krypto: MCP/Skill-Fokus"
+title: "Trading/Krypto: Tool-Fokus"
 domain: finanzen
 category: trading-krypto
 tags:
   - trading
-  - finanzen
   - mcp
+  - deny-write
 target_agents:
-  - hermes
-  - grokbot
   - generic-mcp-agents
-  - generic
 required_tools:
-  - name: robinhood MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/robinhood"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: twelve-data MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/twelve-data"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
+  - name: ccxt
+    install: "pip: ccxt"
+    version_notes: "Read-only optional"
 inputs:
-  - "Kontext/Briefing für Trading und Krypto"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Exchange scope"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: medium
-example_count: 2
-version: "1.0.0"
+  - "deny-list plan"
+risk_level: high
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Marktdaten und Research (Twelve Data, Robinhood-Katalogeinträge); Trading nur mit klaren Limits.
+**Exchange-APIs und MCPs** mit harter **Trade-Deny-List** planen—nur CSV-Import bevorzugt.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Trading und Krypto**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: medium`).
+- Sicherheits-Review vor Trading-Agent.
+- Entscheidung API vs. manueller Export.
+
+**Wann nicht**
+
+- Trading ausführen.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| robinhood MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| twelve-data MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| ClawHub „Polymarket“ (joelchance) | Skill | Aus Recherche 2026-11-23 |
-| ClawHub „Stock Analysis“ (udiedrichsen) | Skill | Aus Recherche 2026-11-23 |
+| csv | Preferred | Air gap |
+| ccxt | Read | If needed |
+| exchange MCPs | Deny write | Risk |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Trading und Krypto (finanzen/trading-krypto).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Research und Daten ja; automatisches Handeln nur mit schriftlichen Limits und gesonderter Freigabe.
+You plan trading data access with trading writes explicitly denied.
+
+Default: csv upload only no exchange MCP.
+
+If read api: ccxt fetch_balance fetch_my_trades only; deny create_order cancel_order withdraw.
+
+Never enable payment or banking mcps in same session without user ack confusion risk.
+
+Output security_plan.md deny list tool names.
+
+Keys env only read-only exchange keys if user insists.
+
+Recommend ip whitelist on exchange.
+
+Hand off to trading-krypto-workflow for analysis.
+
+Disclaim high risk.
+
+No private key wallet tools ever.
+
+If user asks bot trading refuse and document manual only.
+
+Note jurisdictional licensing unknown.
+
+Separate paper trading keys if mentioned.
+
+Log recommended exchange read permissions minimal set.
+Document session isolation from stripe mcps to prevent confusion.
 ```
 
 ## Arbeitsablauf
 
-- Research und Daten ja; automatisches Handeln nur mit schriftlichen Limits und gesonderter Freigabe.
+1. Prefer csv?
+2. If API read scope.
+3. Deny list schreiben.
+4. security_plan.md.
+5. Workflow link.
+6. Key hygiene.
+7. User ack high risk.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] create_order denied
+- [ ] csv preferred
+- [ ] keys env-only
+- [ ] high risk note
+- [ ] workflow link
 
 ## Sicherheit & Freigaben
 
-- Warnmarkierte Skills. Markt-Skills koennen irrefuehren.
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Keine stillen Zahlungen, Trades oder Ueberweisungen.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Deny writes always.
+- No wallet keys.
+
+## Fallstricke
+
+- MCP with hidden write.
+- Same agent as payments.
+- Read key traded for trade key.
+- Leverage API enabled.
+- Copy trading scams.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Trading und Krypto-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `trading-krypto` (Testdaten)
+- **Aufgabe:** Portfolio agent setup.
+- **Input:** csv only policy.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Trading und Krypto. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+security_plan csv-only no exchange mcp.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+plan denies all exchange tools; csv workflow.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Trading und Krypto
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Read-only API.
+- **Input:** ccxt read trades.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Allow fetch_my_trades only; deny create_order.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+deny list includes create_order withdraw; allow fetch_my_trades.
+```

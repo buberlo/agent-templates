@@ -1,100 +1,155 @@
 ---
 id: obsidian-workflow
-title: "Obsidian"
 domain: office-dokumente
+title: "Obsidian-Vault Wissen pflegen"
 category: obsidian
 tags:
   - obsidian
-  - office-dokumente
-  - skill
+  - markdown
+  - wiki
 target_agents:
-  - hermes
-  - grokbot
-  - generic-mcp-agents
+  - cursor
+  - claude-code
   - generic
 required_tools:
-  - name: Obsidian-Skills (Hermes bundled, ClawHub steipete)
-    install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "381 GitHub Stars"
+  - name: git
+    install: "system"
+    version_notes: "Vault versioniert"
+  - name: ripgrep
+    install: "rg"
+    version_notes: "Vault-Suche"
 inputs:
-  - "Kontext/Briefing für Obsidian"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Vault-Pfad"
+  - "Note-Thema oder Link-Graph"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Neue/aktualisierte .md"
+  - "Backlinks-Übersicht"
 risk_level: low
-example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Lokale Vaults lesen, verlinken, notieren – oft als Memory-Layer.
+**Obsidian-Vaults** als lokale Markdown-Wikis pflegen—Notes, Wikilinks, Frontmatter—git-versioniert, ohne Cloud-Zwang.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Obsidian**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- PKM/Team-Wiki liegt als Ordner im Repo.
+- Agent arbeitet im IDE mit direktem Dateizugriff.
+- Offline-first, Sync separat (Syncthing/Git).
+
+**Wann nicht**
+
+- Zentrale Notion-DB mit Properties (→ notion-workflow).
+- Binary-only Attachments ohne LFS-Policy.
+- Automatisches Löschen ohne Git-History-Bewusstsein.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Obsidian-Skills (Hermes bundled, ClawHub | Skill | Aus Recherche 2026-11-23 |
+| ripgrep | Suche | Schnell im Vault |
+| git | Versionierung | Rollback |
+| obsidian linter | Optional | MD-Style |
+| pandoc | Export | Optional PDF |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Obsidian (office-dokumente/obsidian).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Neue Notizen mit Quellenangaben; bestehende Dateien nicht still ueberschreiben.
+You maintain an Obsidian vault as plain markdown files with [[wikilinks]] and YAML frontmatter.
+
+Inputs: vault root path, note title, content outline, tags list, link targets existing notes, template daily|meeting|concept.
+
+Conventions:
+- One note per concept; filename Title Case or kebab per user vault rules.
+- Frontmatter: title, tags, date, aliases optional.
+- Link only to existing notes or create stub with user approval for stubs.
+- Embeds ![[image.png]] only if files exist in attachments/.
+
+Before create: rg search title and aliases to avoid duplicates.
+
+Updates: surgical edit; preserve manual sections between HTML comments if user uses them.
+
+Git: stage only vault paths; commit message conventional; never force push.
+
+Approvals: delete note, rename breaking links, or publish vault subtree requires user yes.
+
+Output: file paths, new backlinks list (rg for [[note]]), suggested MOC updates.
+
+Do not run arbitrary community plugins unless user names them.
+
+Respect .obsidian config—do not commit secrets from plugins.
+
+For daily notes use YYYY-MM-DD.md when user pattern says so.
+
+Keep code blocks with language tags.
+Add see-also section with 2-3 wikilinks when helpful.
 ```
 
 ## Arbeitsablauf
 
-- Neue Notizen mit Quellenangaben; bestehende Dateien nicht still ueberschreiben.
+1. Vault-Struktur und Naming-Regel lesen.
+2. `rg` Duplikat-Suche.
+3. Note aus Template erzeugen.
+4. Wikilinks setzen; stubs melden.
+5. Optional MOC-Index aktualisieren.
+6. `git diff` zeigen.
+7. Commit nur nach Nutzer-Freigabe.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Kein ungewolltes Duplikat
+- [ ] Frontmatter valide YAML
+- [ ] Links zu existierenden Notes oder stub list
+- [ ] Kein force push
+- [ ] Pfadliste im Output
 
 ## Sicherheit & Freigaben
 
-- OpenClaw Loading-Order kann denselben Skill-Namen aus verschiedenen Wurzeln ueberschreiben. Quelle: https://docs.openclaw.ai/skills/
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Vault kann Secrets enthalten—nicht committen.
+- `.obsidian/plugins` API keys prüfen.
+- Löschen nur mit Freigabe.
+
+## Fallstricke
+
+- Case-sensitive Links auf Linux.
+- Rename ohne Backlink-Update.
+- Große Binaries in Git.
+- Templater-Syntax ohne Plugin.
+- Merge-Konflikte bei Sync.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Obsidian-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `obsidian` (Testdaten)
+- **Aufgabe:** Concept Note mit Backlinks.
+- **Input:** Vault `/wiki`, Thema „CAMT Import“.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Obsidian. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Create note CAMT Import; link to [[Buchhaltung]] and [[SEPA]]; rg dupes first.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+wiki/CAMT Import.md; links to existing notes; changelog paths.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Obsidian
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Daily Note.
+- **Input:** Date 2026-11-23, 3 bullets standup.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+2026-11-23.md daily template; no duplicate if exists—append instead.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+daily/2026-11-23.md created or appended; git diff shown.
+```

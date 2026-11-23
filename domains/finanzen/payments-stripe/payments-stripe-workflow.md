@@ -1,109 +1,150 @@
 ---
 id: payments-stripe-workflow
-title: "Payments (Stripe u. a.)"
 domain: finanzen
+title: "Stripe Auswertungen Read-Only"
 category: payments-stripe
 tags:
+  - stripe
   - payments
-  - finanzen
-  - toolkitmcpfaehig
+  - read-only
 target_agents:
   - hermes
-  - grokbot
   - generic-mcp-agents
-  - generic
 required_tools:
   - name: Stripe Agent Toolkit
     install: "https://github.com/Stripe/agent-toolkit"
-    version_notes: "2083 GitHub Stars"
-  - name: paypal MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/paypal"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: square MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/square"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
+    version_notes: "Official; Hermes optional-mcp stripe"
 inputs:
-  - "Kontext/Briefing für Payments (Stripe u. a.)"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Berichtszeitraum"
+  - "Metriken (MRR, refunds)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "stripe_report.md"
+  - "CSV-Exporte"
 risk_level: medium
-example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Zahlungsprovider, Kunden, Produkte und Abos über offizielle Toolkits/MCPs.
+**Stripe-Daten lesen**—Charges, Refunds, Subscriptions—Reports und CSV, **keine Refunds, keine neuen Charges** ohne Freigabe.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Payments (Stripe u. a.)**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: medium`).
+- Monatsumsatz, Churn, Dispute-Überblick.
+- Agent mit Stripe MCP Toolkit read scope.
+- Vorbereitung Finance-Review.
+
+**Wann nicht**
+
+- Zahlungen auslösen oder Preise ändern.
+- Kunden-Payment-Methods exponieren in Logs.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Stripe Agent Toolkit | Toolkit / MCP-faehig | Aus Recherche 2026-11-23 |
-| paypal MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| square MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| Stripe Agent Toolkit | API read | Official |
+| pandas | Aggregate | Reports |
+| Hermes stripe MCP | Optional | Catalog |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Payments (Stripe u. a.) (finanzen/payments-stripe).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Testdaten/Sandbox zuerst, Live nur mit explizitem Auftrag und Limits.
+You read Stripe data via official toolkit/MCP—write operations forbidden unless user types explicit WRITE APPROVED with operation list.
+
+Inputs: start_date end_date, metrics (revenue, refunds, disputes, subscriptions active count), output stripe_report.md, optional charges_sample.csv masked.
+
+Read paths only: list charges, balance transactions, refunds, subs count—paginate and respect rate limits.
+
+Mask customer email to first char***@domain in outputs.
+
+Never log secret api keys; assume env STRIPE_SECRET_KEY set locally.
+
+Disputes: status counts only no card numbers.
+
+MRR estimate: document method simple sum active price intervals—label ESTIMATE not accounting truth.
+
+Approvals: export csv to external email requires user yes.
+
+No refunds create, no payment intent create, no price update.
+
+Output summary tables and caveats on currency mix.
+
+If test mode vs live mismatch stop and ask.
+
+Document API calls count.
+
+Handle inclusive tax per stripe object fields when present.
+Separate test mode rows if mixed key error.
+Round EUR 2 decimals display.
+Include created_at timezone UTC in report header.
+Flag large refunds > threshold user sets default 1000 eur.
 ```
 
 ## Arbeitsablauf
 
-- Testdaten/Sandbox zuerst, Live nur mit explizitem Auftrag und Limits.
+1. test vs live key bestätigen.
+2. Zeitraum UTC festlegen.
+3. Paginierte Reads.
+4. Aggregate in pandas.
+5. stripe_report.md.
+6. Maskierte CSV optional.
+7. Keine Write-APIs.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Nur read calls geloggt
+- [ ] PII maskiert
+- [ ] test/live klar
+- [ ] ESTIMATE labels
+- [ ] Freigabe vor externem CSV
 
 ## Sicherheit & Freigaben
 
-- Refunds und Payouts sind irreversibel sichtbar.
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Keine stillen Zahlungen, Trades oder Ueberweisungen.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Secret key nicht im Chat.
+- Keine stillen Refunds.
+- PCI: keine Vollkartennummern.
+
+## Fallstricke
+
+- Testdaten in Live-Report.
+- Pagination unvollständig.
+- MRR naive Summe.
+- Fee net vs gross.
+- Timezone UTC vs local.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Payments (Stripe u. a.)-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `payments-stripe` (Testdaten)
+- **Aufgabe:** Oktober Revenue Report.
+- **Input:** 2026-10-01..31 live mode.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Payments (Stripe u. a.). Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+stripe_report.md revenue refunds disputes; read only; mask emails.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+report with totals; log only read endpoints; masked samples.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Payments (Stripe u. a.)
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Refund write ablehnen.
+- **Input:** User asks refund customer X.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Deny write without WRITE APPROVED; suggest manual dashboard steps only.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+No refund API call; denial message with manual steps.
+```

@@ -1,102 +1,155 @@
 ---
 id: budget-workflow
-title: "Budget"
 domain: finanzen
+title: "Budgetplanung und Abweichungen"
 category: budget
 tags:
   - budget
-  - finanzen
-  - toolkitmcpfaehig
+  - forecast
+  - variance
 target_agents:
   - hermes
-  - grokbot
-  - generic-mcp-agents
   - generic
 required_tools:
-  - name: Stripe Agent Toolkit
-    install: "https://github.com/Stripe/agent-toolkit"
-    version_notes: "2083 GitHub Stars"
+  - name: python
+    install: "pip: pandas"
+    version_notes: "Tabellen"
+  - name: LibreOffice Calc
+    install: "optional"
+    version_notes: "Review"
 inputs:
-  - "Kontext/Briefing für Budget"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Budget CSV und Ist"
+  - "Perioden"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: medium
-example_count: 2
-version: "1.0.0"
+  - "Variance-Report"
+  - "Kommentar-Vorschläge"
+risk_level: low
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Haushalts- und Projektbudgets führen und Abweichungen zeigen.
+**Budget vs. Ist** analysieren—Abweichungen pro Kostenstelle, keine automatischen Buchungen oder Zahlungen.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Budget**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: medium`).
+- Monats- oder Quartals-Review.
+- Projekt-Budget Tracking.
+- Vorbereitung Management-Meeting.
+
+**Wann nicht**
+
+- Steuerliche Abschlüsse.
+- Live-ERP-Schreibzugriff durch Agent.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Stripe Agent Toolkit | Toolkit / MCP-faehig | Aus Recherche 2026-11-23 |
+| pandas | Join/aggregate | Schnell |
+| Calc/Excel | Pivot | Review |
+| Stripe/Plaid | Optional read | Ist-Daten nur read |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Budget (finanzen/budget).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+You analyze budget vs actuals—read-only on financial sources unless user explicitly allows writes elsewhere.
+
+Inputs: budget.csv (account, period, amount), actuals.csv same schema, tolerance_pct (default 5), output variance.md and variance.csv.
+
+Normalize periods YYYY-MM; currency single EUR unless user notes FX.
+
+Compute variance absolute and percent per account and rolled up total.
+
+Flag accounts over tolerance RED; explain pattern hypotheses as SUGGESTION not fact.
+
+No automatic budget adjustments in ERP.
+
+If stripe/plaid read: summarize fees into actuals category only with user oauth—no payments.
+
+Charts optional matplotlib user asks.
+
+Approvals: share report with board requires user yes.
+
+No investment advice.
+
+Output tables sorted by largest absolute variance.
+
+Document formulas used.
+
+Exclude one-time items only if user marks column.
+
+Handle missing actuals as MISSING not zero unless policy says zero.
+
+Attach month label in file names variance_2026-11.csv.
+Round display 2 decimals keep internal precision.
+Separate capex opex if column provided.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. CSV schemas validieren.
+2. Perioden alignen.
+3. Join budget-actual.
+4. Variance berechnen.
+5. RED flags listen.
+6. variance.md narrative.
+7. Nutzer review in Calc.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Summen konsistent
+- [ ] Toleranz angewendet
+- [ ] Keine ERP writes
+- [ ] MISSING handling dokumentiert
+- [ ] Freigabe extern
 
 ## Sicherheit & Freigaben
 
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Keine stillen Zahlungen, Trades oder Ueberweisungen.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Finanzdaten vertraulich.
+- Read-only Banking.
+- Keine stillen Zahlungen.
+
+## Fallstricke
+
+- Fehlende Monate als 0.
+- Währungsmix.
+- Einmaleffekte verfälschen.
+- Falsche Kostenstelle mapping.
+- Stripe fees doppelt.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Budget-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `budget` (Testdaten)
+- **Aufgabe:** November Variance.
+- **Input:** budget_nov.csv actuals_nov.csv tolerance 5%.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Budget. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+variance.csv and variance.md; red flags >5%.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+variance files; red list accounts; totals match manual check.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Budget
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Missing actuals.
+- **Input:** actuals missing account 4100.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Mark MISSING not zero for 4100.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Row 4100 status MISSING in csv.
+```

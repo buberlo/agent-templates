@@ -1,102 +1,158 @@
 ---
 id: rechnungen-workflow
-title: "Rechnungen"
 domain: finanzen
+title: "Rechnungen und Zahlungsstatus"
 category: rechnungen
 tags:
-  - rechnungen
-  - finanzen
-  - toolkitmcpfaehig
+  - invoices
+  - stripe
+  - ar
 target_agents:
   - hermes
-  - grokbot
-  - generic-mcp-agents
   - generic
 required_tools:
   - name: Stripe Agent Toolkit
     install: "https://github.com/Stripe/agent-toolkit"
-    version_notes: "2083 GitHub Stars"
+    version_notes: "Read invoices"
+  - name: python
+    install: "pip: pandas"
+    version_notes: "OPOS merge"
 inputs:
-  - "Kontext/Briefing für Rechnungen"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Rechnungsliste oder Stripe"
+  - "Zahlungsstatus"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "OPOS-Übersicht"
+  - "Mahn-Vorschläge"
 risk_level: medium
-example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Rechnungen erzeugen, zuordnen und Zahlungsstatus verfolgen.
+**Rechnungen und offene Posten** zusammenführen—Status paid/open/overdue, Mahn-Vorschläge als Text, **keine Mahnungen versenden** ohne Freigabe.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Rechnungen**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: medium`).
+- AR-Überblick aus Stripe + interner Liste.
+- Vorbereitung Billing-Ops.
+- Abgleich mit camt053-Ergebnissen.
+
+**Wann nicht**
+
+- Rechtlich bindende Mahnung ohne Anwalt/Prozess.
+- Steuerrechnung inkl. USt-Beratung.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Stripe Agent Toolkit | Toolkit / MCP-faehig | Aus Recherche 2026-11-23 |
+| Stripe read | Invoices | Wenn genutzt |
+| pandas | OPOS | Merge |
+| docx/pdf | Entwurf | Optional Mahn-PDF separat |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Rechnungen (finanzen/rechnungen).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+You reconcile invoices and payment status read-only—no send invoice email or dunning send.
+
+Inputs: invoices.csv or stripe read range, payments optional, aging_buckets (30/60/90), output opos.md opos.csv.
+
+Map invoice id, customer, amount, due_date, status paid|open|partial.
+
+Overdue: due_date < today and open balance > 0.
+
+Aging bucket per open line.
+
+Stripe: read invoices and payment intents status—no create invoice.
+
+Mahn suggestions: template text per bucket SUGGESTION only—user legal approves before send.
+
+Mask customer PII in samples.
+
+Approvals: email dunning, mark invoice paid in ERP requires explicit.
+
+VAT fields pass through untransformed—no tax advice.
+
+Link camt053 matches when user provides match.csv id column.
+
+Output sorted by amount desc open.
+
+Document currency.
+
+Do not auto write off bad debt.
+
+Include invoice pdf links stripe hosted only in internal report not public.
+
+Note partial payments balance due column.
+
+German date format in customer-facing draft optional user flag.
+Round cents explicitly in csv.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Quellen einlesen.
+2. Status normalisieren.
+3. Aging berechnen.
+4. opos.csv.
+5. opos.md narrative.
+6. Mahn-ENTWÜRFE markieren.
+7. Freigabe vor Versand.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Kein invoice create/send
+- [ ] Aging korrekt
+- [ ] PII maskiert in Beispielen
+- [ ] Mahn nur SUGGESTION
+- [ ] Stripe nur read
 
 ## Sicherheit & Freigaben
 
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Keine stillen Zahlungen, Trades oder Ueberweisungen.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keine stillen Emails.
+- Finanzdaten geschützt.
+- Legal für Mahnungen.
+
+## Fallstricke
+
+- Partial payment ignoriert.
+- Timezone due midnight.
+- Stripe draft vs open.
+- Doppelte Rechnungs-ID.
+- Währung vermischt.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Rechnungen-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `rechnungen` (Testdaten)
+- **Aufgabe:** OPOS aus CSV.
+- **Input:** invoices.csv 50 rows.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Rechnungen. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+opos.csv aging; opos.md top 10 open by amount.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+aging buckets; no emails sent.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Rechnungen
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Mahn send ablehnen.
+- **Input:** send dunning now.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Output suggestion text only; no send.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+dunning_draft.txt SUGGESTION; no mail API.
+```

@@ -1,104 +1,156 @@
 ---
 id: formulare-workflow
-title: "Formulare"
 domain: office-dokumente
+title: "PDF- und Office-Formulare ausfüllen"
 category: formulare
 tags:
-  - formulare
-  - office-dokumente
-  - skill
+  - forms
+  - pdf
+  - validation
 target_agents:
   - hermes
-  - grokbot
-  - generic-mcp-agents
+  - claude-code
   - generic
 required_tools:
   - name: Hermes-Skill pdf
     install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "Bundled-Katalog."
-  - name: Anthropic document skills (docx, pptx, xlsx, pdf)
-    install: "https://github.com/anthropics/skills"
-    version_notes: "199219 GitHub Stars"
+    version_notes: "Form fill"
+  - name: pypdf
+    install: "pip: pypdf"
+    version_notes: "AcroForm fields"
 inputs:
-  - "Kontext/Briefing für Formulare"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Formular-PDF oder DOCX"
+  - "Feld-Werte (JSON/CSV)"
+  - "Freigabe vor Einreichung"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
-example_count: 2
-version: "1.0.0"
+  - "Ausgefülltes Formular"
+  - "Feld-Verifikationslog"
+risk_level: medium
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Formulare ausfüllen, Felder mappen und Daten zurückschreiben.
+**Behörden- und Vertragsformulare** programmatisch befüllen, Felder gegenlesen, visuell prüfen—**keine Einreichung** ohne Mensch.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Formulare**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Wiederkehrende PDF-AcroForms mit strukturierten Daten.
+- Batch aus CRM/CSV mit gleichem Layout.
+- Signatur und Versand in getrennten Schritten.
+
+**Wann nicht**
+
+- Formular ohne machine-readable fields (→ OCR).
+- Rechtsverbindliche Signatur (→ e-signatur).
+- Automatische Portal-Uploads ohne Freigabe.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill pdf | Skill | Aus Recherche 2026-11-23 |
-| Anthropic document skills (docx, pptx, x | Skill | Aus Recherche 2026-11-23 |
+| pypdf | AcroForm | Feldliste |
+| Hermes pdf | fill | Skill-Pfad |
+| pdftoppm | QA | Sichtprüfung |
+| DOCX path | Word forms | Nur wenn Felder existieren |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Formulare (office-dokumente/formulare).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Felder mappen, Entwurf speichern, Mensch reicht ein.
+You fill forms from structured data—never invent government IDs, tax numbers, or signatures.
+
+Inputs: form.pdf path, fields.json map, required fields list, output filled.pdf, flatten yes/no (default no until user approves—flatten can lock editing).
+
+Pre-flight:
+- List AcroForm fields via pypdf; compare keys to fields.json; abort on missing required.
+- Reject if signature field unless user provides qualified workflow outside agent.
+
+Fill:
+- Set values per type (text, checkbox, choice); dates ISO yyyy-mm-dd unless form spec says dd.mm.yyyy.
+- After fill, re-read all fields programmatically into verification.json.
+
+Visual:
+- Render page with fields to PNG; user spot-check.
+
+Batch: loop CSV rows; separate output per id; log row failures.
+
+Approvals: submit to authority portal, email, or flatten for archive requires explicit yes.
+
+Never check legal correctness of answers—only technical fill accuracy.
+
+Output: filled paths, verification.json diff zero, qa png path.
+
+If PDF encrypted, stop for password.
+Do not use random data in production forms—synthetic only in tests.
+
+Checkbox export values must match form spec list from pypdf.
+Watch multi-line address fields length limits.
 ```
 
 ## Arbeitsablauf
 
-- Felder mappen, Entwurf speichern, Mensch reicht ein.
+1. Feldinventar aus PDF extrahieren.
+2. JSON/CSV gegen Inventar mappen.
+3. Testzeile einfüllen.
+4. verification.json Gegenlesen.
+5. pdftoppm QA-Seite.
+6. Batch oder Einzeldatei.
+7. Nutzer-Freigabe vor Upload.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] verification.json = fields.json für alle Pflichtfelder
+- [ ] QA-PNG ohne leere Pflichtfelder sichtbar
+- [ ] Kein Portal-Submit durch Agent
+- [ ] Batch-Fehlerzeilen im Log
+- [ ] Keine erfundenen Ausweisnummern
 
 ## Sicherheit & Freigaben
 
-- Keine automatische Behoerden-Einreichung.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- PII nur in geschützten Pfaden.
+- Einreichung menschlich.
+- Keine qualifizierte Signatur durch Agent.
+
+## Fallstricke
+
+- Feldnamen case-sensitive.
+- Flatten zu früh → Korrektur unmöglich.
+- Checkbox export value ≠ Anzeige.
+- Mehrseitige Formulare: Felder auf Seite 2 übersehen.
+- XFA-PDFs nicht von pypdf unterstützt.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Formulare-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `formulare` (Testdaten)
+- **Aufgabe:** Antrag aus CRM-Export.
+- **Input:** `antrag.pdf`, `row.json` mit name, address, case_id.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Formulare. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Fill required fields; verify.json; qa png page 1; no submit.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+antrag_filled.pdf; verification diff empty; qa/antrag_p1.png.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Formulare
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Fehlendes Pflichtfeld.
+- **Input:** JSON ohne `case_id`.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Pre-flight abort if case_id missing.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+No output pdf; error lists missing case_id in required set.
+```

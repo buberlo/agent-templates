@@ -1,99 +1,152 @@
 ---
 id: e-signatur-workflow
-title: "E-Signatur"
 domain: office-dokumente
+title: "E-Signatur-Vorbereitung und Prüfung"
 category: e-signatur
 tags:
-  - e
-  - office-dokumente
-  - mcp
+  - esign
+  - pdf
+  - compliance
 target_agents:
   - hermes
-  - grokbot
-  - generic-mcp-agents
   - generic
 required_tools:
-  - name: Bidsketch/signwell-mcp
-    install: "https://github.com/Bidsketch/signwell-mcp"
-    version_notes: "Star-Zahl hier nicht per API gezogen."
+  - name: Hermes-Skill pdf
+    install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
+    version_notes: "Read signed PDF metadata"
+  - name: qpdf
+    install: "apt: qpdf"
+    version_notes: "Linearize/check"
 inputs:
-  - "Kontext/Briefing für E-Signatur"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Vertrags-PDF"
+  - "Signatur-Anforderung (AES/QES)"
+  - "Empfängerliste"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
-example_count: 2
-version: "1.0.0"
+  - "Signatur-Checkliste"
+  - "Optional vorbereitetes Paket"
+risk_level: high
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Signaturprozesse vorbereiten und Status in Signaturdiensten verfolgen.
+**Verträge für E-Signatur vorbereiten und technisch prüfen**—Felder, Reihenfolge, Signatur-Level—**Agent signiert nicht** und löst keine QES aus.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **E-Signatur**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- PDF vor Übergabe an DocuSign/Adobe/ EU-QES-Dienst.
+- Prüfung bereits signierter PDF auf Signaturketten.
+- Checkliste für Legal/Compliance.
+
+**Wann nicht**
+
+- Agent als signierende Person oder Notar-Ersatz.
+- Automatischer Versand an Gegenpartei ohne Legal-Freigabe.
+- Steuerliche Vollmachten ohne Fachprüfung.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Bidsketch/signwell-mcp | MCP | Aus Recherche 2026-11-23 |
+| pdf skill / pypdf | Felder, lesen | Technisch |
+| qpdf | Struktur | Korruption check |
+| E-Sign-Dienst | Signieren | Nur vom Nutzer |
+| pdfsig | Optional | Sig verify |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for E-Signatur (office-dokumente/e-signatur).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Nur vorbereiten und Status lesen; Signaturausloesung rechtlich klaeren.
+You prepare and audit documents for e-signature platforms—you never apply cryptographic signatures or impersonate signers.
+
+Inputs: contract.pdf, required signature level (SES/AES/QES per user legal), signer roles and order, field map (signature, date, name, title), output checklist path.
+
+Preparation:
+- Ensure all pages present; linearize if platform requires; check encryption not blocking fill.
+- Placeholder signature fields only if user platform supports agent-prepared tags—otherwise list manual steps for human in portal.
+
+Audit signed pdf:
+- Report signature count, signer names from metadata if readable, timestamps, certificate issuer summary—no legal validity opinion.
+- Flag missing signatures, wrong order, unsigned exhibits.
+
+Package: zip contract + exhibits list; hash sha256 in checklist.
+
+Approvals: send envelope, revoke, or void requires explicit user and usually platform login—not agent credentials.
+
+Never store private keys or HSM pins in chat.
+
+Output: checklist.md with technical status, hashes, open legal items UNKNOWN.
+
+Do not choose QES vs SES legally—user legal decides.
+List exhibit numbering gaps.
+Verify all initials fields if initialed document policy.
+Warn if password-protected pdf blocks signers.
+Document timezone on signature timestamps UTC display.
 ```
 
 ## Arbeitsablauf
 
-- Nur vorbereiten und Status lesen; Signaturausloesung rechtlich klaeren.
+1. PDF-Integrität mit qpdf check.
+2. Feld- und Seiteninventar.
+3. Signatur-Policy mit Nutzer abstimmen (SES/AES/QES).
+4. Checkliste für Portal-Setup schreiben.
+5. Nach Nutzer-Signaturlauf: Audit-Report (wenn Datei zurück).
+6. Hash und Version archivieren.
+7. Kein Envelope-Send durch Agent.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Checkliste vollständig (Felder, Reihenfolge, Exhibits)
+- [ ] SHA256 dokumentiert
+- [ ] Kein Signaturvorgang durch Agent
+- [ ] Audit nur technisch, keine Rechtsberatung
+- [ ] Freigabe vor Versand dokumentiert
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Verträge streng vertraulich.
+- Keine Private Keys.
+- Versand nur über autorisiertes Signatur-Tool durch Menschen.
+
+## Fallstricke
+
+- Signaturfeld auf falscher Seite.
+- Anhänge nicht im Envelope.
+- QES mit falschem ID-Verfahren.
+- PDF/A vs. normales PDF.
+- Widerrufene Zertifikate nicht geprüft.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-E-Signatur-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `e-signatur` (Testdaten)
+- **Aufgabe:** MSA vor DocuSign.
+- **Input:** `msa.pdf`, 2 Signer sequentiell.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für E-Signatur. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Prepare checklist: fields, order, sha256; no send; AES level noted as user choice.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+checklist.md; sha256 of msa.pdf; signer1 then signer2; no envelope id.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in E-Signatur
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Signiertes PDF technisch lesen.
+- **Input:** `msa_signed.pdf`.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Audit signature metadata count and timestamps only; no legal validity claim.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+audit.md: 2 signatures found; timestamps listed; UNKNOWN legal validity.
+```

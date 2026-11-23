@@ -1,104 +1,156 @@
 ---
 id: google-workspace-docs-workflow
-title: "Google Docs / Drive"
 domain: office-dokumente
+title: "Google Docs und Sheets bearbeiten"
 category: google-workspace-docs
 tags:
-  - google
-  - office-dokumente
-  - skillcli
+  - google-docs
+  - google-sheets
+  - workspace
 target_agents:
-  - hermes
   - grokbot
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: Hermes-Skill google-workspace / gws CLI
-    install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "Bundled-Katalog."
-  - name: Grok Bot Google-Connectoren
-    install: "https://x.ai/bot/guides/grok-bot-101"
-    version_notes: "Offizielle Produkt-Docs/Wiki."
+  - name: Google Docs MCP
+    install: "OAuth via Google connector"
+    version_notes: "Read/write docs"
+  - name: MarkItDown
+    install: "https://github.com/microsoft/markitdown"
+    version_notes: "Export snapshot"
 inputs:
-  - "Kontext/Briefing für Google Docs / Drive"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Doc/Sheet ID oder URL"
+  - "Änderungsauftrag"
+  - "Freigabe Schreibzugriff"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
-example_count: 2
-version: "1.0.0"
+  - "Aktualisiertes Dokument"
+  - "Änderungsprotokoll"
+risk_level: medium
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Docs, Sheets, Slides und Drive-Dateien über Workspace-CLI oder MCP.
+**Google Workspace-Dokumente** über MCP bearbeiten—lesen, strukturiert ändern, Änderungen protokollieren—mit OAuth, nicht mit Passwort im Chat.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Google Docs / Drive**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Team-Docs in Google Docs/Sheets bereits canonical.
+- Agent hat Google MCP mit Nutzer-OAuth.
+- Offline-DOCX nicht erforderlich.
+
+**Wann nicht**
+
+- Air-gapped ohne Google.
+- Massenmigration zu Microsoft 365 ohne Export-Spec.
+- Öffentliche Docs ohne Rechteprüfung.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill google-workspace / gws CLI | Skill + CLI | Aus Recherche 2026-11-23 |
-| Grok Bot Google-Connectoren | Plugin/Connector | Aus Recherche 2026-11-23 |
+| Google Docs MCP | Edit | Offizieller Connector |
+| Google Drive MCP | Discovery | Dateien finden |
+| MarkItDown | Snapshot | Backup vor Edit |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Google Docs / Drive (office-dokumente/google-workspace-docs).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Lesen und Entwuerfe bevorzugen; Senden nur nach Freigabe.
+You edit Google Docs/Sheets via MCP with user OAuth—never ask for Google password in chat.
+
+Inputs: document URL or id, change spec (section, table rows, cell range), mode read|suggest|apply, approval for apply.
+
+Before write:
+- Export read-only snapshot via MCP or MarkItDown to local backup path if user agrees.
+- List current heading structure or sheet names.
+
+Edits:
+- Docs: prefer paragraph-level or table operations; preserve unrelated content; track what changed in changelog.md.
+- Sheets: never overwrite entire sheet without backup; range-specific updates; formulas preserved unless user requests values-only.
+
+Comments mode: if user wants suggestions only, use comment APIs or output diff for human paste—do not apply.
+
+Sharing: never broaden sharing permissions unless explicit.
+
+Approvals: apply edits, share link, or delete requires yes.
+
+Output: changelog with timestamps, link to doc, sections touched.
+
+Rate limits: batch edits; sleep if API errors.
+
+Do not exfiltrate full doc to public paste sites.
+
+If MCP unavailable, stop with setup instructions—not scraped login.
+
+Redact PII in changelog excerpts.
+Confirm document id matches user intent before write.
+For Sheets: note if IMPORTRANGE external—do not break without user ok.
 ```
 
 ## Arbeitsablauf
 
-- Lesen und Entwuerfe bevorzugen; Senden nur nach Freigabe.
+1. Doc/Sheet ID aus URL parsen.
+2. OAuth MCP Verbindung bestätigen.
+3. Lesen: Outline oder Sheet-Inventar.
+4. Snapshot-Backup wenn freigegeben.
+5. Änderungen anwenden oder Diff liefern.
+6. changelog.md schreiben.
+7. Nutzer Link zur Prüfung.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Korrektes Dokument bearbeitet (ID match)
+- [ ] Changelog mit Abschnitten/Zellen
+- [ ] Keine Sharing-Änderung ohne Freigabe
+- [ ] Backup wenn vereinbart
+- [ ] Kein Passwort im Chat
 
 ## Sicherheit & Freigaben
 
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Grok-Bot-Plugins sind account-weit fuer alle Bots sichtbar.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- OAuth only; Tokens nicht loggen.
+- Schreiben nach Freigabe.
+- DSGVO bei PII in Docs.
+
+## Fallstricke
+
+- Falsches Tab in Sheet.
+- Suggest-Modus vergessen → direkte Änderung.
+- IMPORTRANGE bricht bei Löschen.
+- Concurrent edits von Menschen.
+- MCP Scope zu breit.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Google Docs / Drive-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `google-workspace-docs` (Testdaten)
+- **Aufgabe:** FAQ-Abschnitt in Doc aktualisieren.
+- **Input:** Doc URL, neuer Absatz unter „Support“.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Google Docs / Drive. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Read outline, backup snapshot, insert paragraph under Support heading; changelog only.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Doc updated; changelog: +1 paragraph Support; backup/faq_snapshot.md.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Google Docs / Drive
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Sheet-Zelle ohne Backup ablehnen.
+- **Input:** Änderung an ganze Sheet without backup flag.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Require backup=yes before overwriting range Budget!A1:Z500.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+No write; message: set backup=yes or narrow range.
+```

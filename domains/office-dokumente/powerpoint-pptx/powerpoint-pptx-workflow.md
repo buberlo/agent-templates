@@ -1,121 +1,157 @@
 ---
 id: powerpoint-pptx-workflow
-title: "PowerPoint / PPTX"
 domain: office-dokumente
+title: "PowerPoint-Präsentationen aus Briefing"
 category: powerpoint-pptx
 tags:
-  - powerpoint
-  - office-dokumente
-  - skill
+  - pptx
+  - slides
+  - deck
 target_agents:
   - hermes
-  - grokbot
-  - generic-mcp-agents
+  - claude-code
   - generic
 required_tools:
-  - name: Anthropic document skills (docx, pptx, xlsx, pdf)
+  - name: Anthropic document skills (pptx)
     install: "https://github.com/anthropics/skills"
-    version_notes: "199219 GitHub Stars"
-  - name: Hermes-Skill microsoft-office
+    version_notes: "pptx validate"
+  - name: Hermes microsoft-office
     install: "https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/productivity/productivity-microsoft-office"
-    version_notes: "Teil des offiziellen Bundled-Katalogs."
-  - name: ClawHub „Powerpoint / PPTX“ (ivangdavila)
-    install: "https://clawhubtrends.com/leaderboard.html"
-    version_notes: "41.155 Downloads, 122 Registry-Stars (ClawHub Leaderboard 23.11.2026)."
+    version_notes: "python-pptx"
+  - name: LibreOffice
+    install: "optional impress export"
+    version_notes: "PDF Deck review"
 inputs:
-  - "Kontext/Briefing für PowerPoint / PPTX"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Gliederung und Folienanzahl"
+  - "CI-Farben und Logo-Pfad"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "deck.pptx"
+  - "Optional deck.pdf"
 risk_level: low
-example_count: 3
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Folien und Decks programmatisch erzeugen, prüfen und als Bilder rendern.
+**Folien-Decks** aus Briefing strukturiert bauen—Titel, Inhalt, Sprechernotizen—mit Validator und PDF-Review.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **PowerPoint / PPTX**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Sales-Pitch, Status-Review, Workshop-Intro.
+- 10–40 Folien, konsistentes Layout.
+- Kein Animations-Heavy-Design nötig.
+
+**Wann nicht**
+
+- Broadcast Motion Graphics (→ medien).
+- Template mit komplexen Slide Masters ohne Vorlage-Datei.
+- Automatischer Upload zu SlideShare ohne Freigabe.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Anthropic document skills (docx, pptx, x | Skill | Aus Recherche 2026-11-23 |
-| Hermes-Skill microsoft-office | Skill + CLI | Aus Recherche 2026-11-23 |
-| ClawHub „Powerpoint / PPTX“ (ivangdavila | Skill | Aus Recherche 2026-11-23 |
+| Anthropic pptx-Skill | Erzeugung | Validate |
+| Hermes pptx CLI | Alternative | Offline |
+| LibreOffice Impress | PDF-Export | QA |
+| python-pptx | Layout-Checks | Programmatisch |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for PowerPoint / PPTX (office-dokumente/powerpoint-pptx).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Structured deck. Nach Build: validate.py, slide_text.py, soffice/pptx_render, Folienbilder lesen.
+You build pptx decks from an outline—one message per slide, readable font sizes, speaker notes when requested.
+
+Inputs: title, audience, outline (slide title + bullets max 5 per slide), brand colors hex optional, logo path, output deck.pptx, notes yes/no.
+
+Rules:
+- Title slide: event name, date, speaker.
+- Avoid walls of text; split overflow to new slides.
+- Charts only when data series provided—no invented metrics.
+- Alt text on images when accessibility flag set.
+
+After build: run pptx validate from skill if available; export PDF via soffice for visual pass.
+Check: no placeholder "Lorem", consistent heading sizes, footer page numbers if template includes.
+
+Speaker notes: expand bullets to sentences user can speak; do not duplicate slide text verbatim.
+
+Approvals: present externally, upload cloud, or email deck requires user yes.
+
+Output: pptx path, slide count, validation status, pdf qa path.
+
+Do not embed video files without codec check.
+Keep 16:9 layout unless 4:3 requested.
+
+If user supplies pptx template, clone masters—do not rebuild brand from scratch.
+
+Document slide count vs outline count mismatch.
+
+Use high-contrast text on brand backgrounds.
 ```
 
 ## Arbeitsablauf
 
-- Structured deck. Nach Build: validate.py, slide_text.py, soffice/pptx_render, Folienbilder lesen.
-- Farben als FF0000 ohne #; Layout 10x5,625 Zoll beachten.
+1. Outline in Folienliste mit harter Zeichenanzahl prüfen.
+2. Skill/CLI Deck generieren.
+3. Validator laufen.
+4. PDF-Export für visuelle QA.
+5. Stichprobe 3 Folien (Titel, Chart, Abschluss).
+6. Sprechernotizen gegenlesen.
+7. Freigabe für externe Nutzung einholen.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Folienanzahl = Outline
+- [ ] Validator OK oder Abweichungen dokumentiert
+- [ ] Keine erfundenen KPIs in Charts
+- [ ] PDF-QA bei Brand-Folien
+- [ ] Freigabe vor Versand
 
 ## Sicherheit & Freigaben
 
-- validate.py braucht Python >=3.10. Falsche Zahlen in Callouts erkennt der XML-Checker nicht.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Vertrauliche Strategie-Folien nicht öffentlich teilen.
+- Kundennamen nur mit Freigabe.
+- Skills minimal aktivieren.
+
+## Fallstricke
+
+- python-pptx ignoriert manche Master-Layouts.
+- Zu kleine Schrift in PDF-Review unsichtbar in Editor.
+- Logo PNG zu groß → langsame Datei.
+- Tabellen breiter als Slide.
+- Notizen mit vertraulichen Details bei öffentlicher PDF.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-PowerPoint / PPTX-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `powerpoint-pptx` (Testdaten)
+- **Aufgabe:** 12-Folien Status-Deck.
+- **Input:** Outline 12 Punkte, CI #003366.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für PowerPoint / PPTX. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Build status_nov.pptx from outline; speaker notes; validate; export status_nov.pdf.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+status_nov.pptx 12 slides; validation PASS; pdf for QA attached path.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in PowerPoint / PPTX
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Chart ohne Daten ablehnen.
+- **Input:** Outline verlangt Umsatz-Chart ohne CSV.
 - **Prompt:**
-```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
-```
-- **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
 
-### Beispiel 3 (Praxisbeispiel)
-
-- **Aufgabe:** Ein kurzes Briefing-Deck mit der offiziellen Anthropic-pptx-Skill erzeugen und validieren.
-- **Input:** Tutorial-Briefing, das als PowerPoint ausgegeben werden sollte.
-- **Prompt:**
 ```text
-pptxgenjs 4.0.1, skills/pptx/scripts/office/validate.py, python-pptx zum Gegenlesen.
+Stop and request data series before adding chart slide.
 ```
+
 - **Erwartetes Ergebnis:**
-  Datei briefing.pptx, Validator All validations PASSED. Gegenlesen ergab drei Folien im Format 10 x 5,625 Zoll (LAYOUT_16x9), inklusive Text und Speaker Notes. Hinweis des Autors: Hex-Farben ohne #, Koordinaten jenseits der Kante werden nicht geclippt.
-- **Quelle:** https://aifrontierpost.com/articles/anthropic-official-agent-skills-tutorial/
+
+```text
+No chart slide; deck without slide 7 or placeholder TEXT ONLY pending data.
+```

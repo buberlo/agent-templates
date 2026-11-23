@@ -1,104 +1,154 @@
 ---
 id: ocr-mcp-focus
-title: "OCR: MCP/Skill-Fokus"
+title: "OCR: Skill- und Tool-Fokus"
 domain: office-dokumente
 category: ocr
 tags:
   - ocr
-  - office-dokumente
-  - skill
+  - pdf-skill
+  - markitdown
 target_agents:
   - hermes
-  - grokbot
+  - openclaw
   - generic-mcp-agents
-  - generic
 required_tools:
   - name: Hermes-Skill pdf
     install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "Bundled-Katalog."
-  - name: Anthropic document skills (docx, pptx, xlsx, pdf)
+    version_notes: "OCR in pdf skill"
+  - name: Anthropic document skills (pdf)
     install: "https://github.com/anthropics/skills"
-    version_notes: "199219 GitHub Stars"
+    version_notes: "Verify render path"
+  - name: MarkItDown
+    install: "https://github.com/microsoft/markitdown"
+    version_notes: "Some formats to MD"
 inputs:
-  - "Kontext/Briefing für OCR"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Quelldateityp"
+  - "Vertraulichkeitsstufe"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
-example_count: 2
-version: "1.0.0"
+  - "Empfohlene OCR-Route"
+  - "Minimaler Tool-Satz"
+risk_level: medium
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Text aus Scans, Fotos und gescannten PDFs erkennen.
+**OCR-Werkzeugwahl** (Hermes pdf, Tesseract, MarkItDown) nach Datenschutz und Qualität—ohne unnötige MCP-Last.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **OCR**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Setup-Phase: welche Skills/MCPs für Scan-Posteingang aktivieren.
+- Entscheidung lokal vs. Cloud.
+- Kombination OCR + Markdown-Wiki-Export.
+
+**Wann nicht**
+
+- Vollständiger OCR-Batch (→ ocr-workflow).
+- Nur natives PDF lesen (→ pdf-mcp-focus).
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill pdf | Skill | Aus Recherche 2026-11-23 |
-| Anthropic document skills (docx, pptx, x | Skill | Aus Recherche 2026-11-23 |
-| MarkItDown | CLI / Bibliothek | Aus Recherche 2026-11-23 |
+| Hermes pdf | Primary OCR | Bundled |
+| Anthropic pdf | Verify | Render checks |
+| MarkItDown | MD export | Nach OCR |
+| tesseract | Air-gap | Kein MCP nötig |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for OCR (office-dokumente/ocr).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Scan → OCR → Gegenlesen am Bild, besonders Zahlen und Eigennamen.
+You route OCR requests to the smallest capable toolset.
+
+Decision tree:
+- Confidential / no cloud → tesseract or Hermes local pdf OCR only
+- Office PDF skill stack already loaded → Hermes or Anthropic pdf OCR before adding MarkItDown
+- Need wiki markdown → MarkItDown after text extraction, not as OCR substitute
+
+Disable unrelated MCPs (search, email) during OCR thread.
+
+For multi-hundred page batches: stream per file; do not load all MCP schemas at once.
+
+MarkItDown: good for born-digital office files; for image-only PDF warn user OCR required first.
+
+Anthropic path: include verify render when layout tables matter.
+
+Output routing memo: tools enabled, rationale, privacy class, next step template (ocr-workflow).
+
+Never recommend pasting API keys into MCP env in chat.
+
+OpenClaw: only verified skills from registry for OCR.
+
+If user asks accuracy guarantee: refuse; offer confidence sampling protocol instead.
+
+List disk space need for 300dpi rasterization multi-hundred pages.
+Note GPU optional for some engines—not assumed.
 ```
 
 ## Arbeitsablauf
 
-- Scan → OCR → Gegenlesen am Bild, besonders Zahlen und Eigennamen.
+1. Vertraulichkeit und Volumen erfassen.
+2. Prüfen ob Textlayer vorhanden (schneller pdf text extract).
+3. Toolbaum anwenden; MCP-Satz minimieren.
+4. Routing-Memo an Nutzer.
+5. Verweis auf ocr-workflow für Ausführung.
+6. Privacy-Hinweis bei Cloud-Option.
+7. Skills include/exclude Liste dokumentieren.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Tool-Wahl begründet (privacy, quality)
+- [ ] Kein überflüssiger MCP-Katalog geladen
+- [ ] MarkItDown nicht als OCR verkauft
+- [ ] Follow-up Template benannt
+- [ ] Keine Keys im Chat
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Cloud-OCR nur mit Vertrag und Freigabe.
+- Tokens nicht in MCP-Args.
+- PII-Scans nicht in Logs.
+
+## Fallstricke
+
+- MarkItDown auf Scan-PDF → leerer Text ohne OCR.
+- Alle PDF-MCPs aktiv → Context-Explosion.
+- Anthropic ohne Render bei Tabellen.
+- Tesseract ohne deu-Pack.
+- Batch ohne Disk-Quota.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-OCR-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `ocr` (Testdaten)
+- **Aufgabe:** Interne Scans, kein Cloud.
+- **Input:** 50 HR-Scans, confidential.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für OCR. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Route OCR: local only; minimal MCP set; point to ocr-workflow steps.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Route: Hermes pdf OCR + tesseract fallback; MCPs: none extra; memo cites privacy class confidential.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in OCR
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Wiki-Import aus Digital-PDF.
+- **Input:** `manual.pdf` born-digital.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+If native text, MarkItDown to md; else ocr-workflow first.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+NATIVE_TEXT → MarkItDown manual.md; no OCR engine started.
+```

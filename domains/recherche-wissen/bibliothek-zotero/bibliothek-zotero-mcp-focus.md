@@ -1,106 +1,140 @@
 ---
 id: bibliothek-zotero-mcp-focus
-title: "Literaturverwaltung: MCP/Skill-Fokus"
+title: "Bibliothek: Such-MCP mit Zotero"
 domain: recherche-wissen
 category: bibliothek-zotero
 tags:
-  - bibliothek
-  - recherche-wissen
+  - zotero
   - mcp
+  - search
 target_agents:
-  - hermes
-  - grokbot
   - generic-mcp-agents
-  - generic
+  - hermes
 required_tools:
   - name: Brave Search MCP
     install: "https://github.com/brave/brave-search-mcp-server"
-    version_notes: "1585 GitHub Stars"
-  - name: Exa MCP
-    install: "https://github.com/exa-labs/exa-mcp-server"
-    version_notes: "5264 GitHub Stars"
+    version_notes: "Metadata"
+  - name: Firecrawl MCP
+    install: "https://github.com/firecrawl/firecrawl-mcp-server"
+    version_notes: "Publisher pages"
 inputs:
-  - "Kontext/Briefing für Literaturverwaltung"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Recherche- vs. Zotero-Modus"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "MCP-Routing für Literatur"
 risk_level: low
-example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Zotero und vergleichbare Bibliotheken für Quellen, PDFs und Zitationen.
+**Search/Fetch-MCPs** für Literaturmetadaten routen—Zotero bleibt Zielsystem, MCPs nur Discovery.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Literaturverwaltung**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Setup vor bibliothek-zotero-workflow.
+- Entscheidung Brave vs. Exa für Paper-Suche.
+
+**Wann nicht**
+
+- Vollständiger Zotero-Sync ohne Connector.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Brave Search MCP | MCP | Aus Recherche 2026-11-23 |
-| Exa MCP | MCP | Aus Recherche 2026-11-23 |
-| Firecrawl MCP | MCP | Aus Recherche 2026-11-23 |
+| Brave/Exa | Find papers | Discovery |
+| Firecrawl | Publisher meta | Verify |
+| Zotero | Import target | User side |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Literaturverwaltung (recherche-wissen/bibliothek-zotero).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+You route literature tasks to search MCPs—not full zotero write unless user has zotero MCP connected.
+
+Mode discover: brave/exa + firecrawl on doi.org or publisher; output metadata json lines.
+
+Mode export: hand off to bibliothek-zotero-workflow for .bib creation.
+
+Enable only search + firecrawl; disable unrelated tools.
+
+Prefer doi.org links from crossref in search results.
+
+Log queries for each title.
+
+No pdf download mcp unless user names unpaywall legal use.
+
+Output routing.md with MCP list and next template.
+
+Never store scholar passwords.
+
+If exa and brave both available pick one unless comparison requested.
+
+Rate limit conscious batches for 50+ titles.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Modus discover vs export.
+2. MCP-Minimalset.
+3. Suchstrategie.
+4. Sample 1 DOI resolve.
+5. routing.md.
+6. Verweis workflow.
+7. Token-Hinweis.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Zotero als Ziel benannt
+- [ ] ≤2 Search MCPs
+- [ ] Kein PDF ohne Freigabe
+- [ ] Handoff dokumentiert
+- [ ] Queries geloggt
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- API keys safe.
+- No paywall breach.
+
+## Fallstricke
+
+- MCP overload.
+- Wrong paper homonym.
+- Publisher block firecrawl.
+- Metadata ohne year.
+- Zotero MCP assumed missing.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Literaturverwaltung-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `bibliothek-zotero` (Testdaten)
+- **Aufgabe:** Setup Literatur-Agent.
+- **Input:** Zotero desktop only.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Literaturverwaltung. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Route discover via brave+firecrawl; export via bibliothek-zotero-workflow.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+routing.md minimal MCPs; workflow link.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Literaturverwaltung
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** DOI sample.
+- **Input:** Title „Attention Is All You Need“.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Discover doi metadata json one line.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+metadata line with doi 10.48550/arXiv.1706.03762 or publisher doi.
+```

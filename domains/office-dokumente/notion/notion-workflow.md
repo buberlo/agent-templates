@@ -1,104 +1,155 @@
 ---
 id: notion-workflow
-title: "Notion"
 domain: office-dokumente
+title: "Notion-Seiten und Datenbanken pflegen"
 category: notion
 tags:
   - notion
-  - office-dokumente
-  - mcp
+  - wiki
+  - database
 target_agents:
-  - hermes
   - grokbot
   - generic-mcp-agents
-  - generic
+  - hermes
 required_tools:
-  - name: Notion MCP (hosted)
-    install: "https://mcp.notion.com/mcp"
-    version_notes: "Im offiziellen Hermes-MCP-Katalog (optional-mcps/notion)."
-  - name: ClawHub „Notion“ (steipete)
-    install: "https://clawhubtrends.com/leaderboard.html"
-    version_notes: "84.423 Downloads, 246 Registry-Stars (ClawHub Leaderboard 23.11.2026)."
+  - name: Notion MCP
+    install: "OAuth Notion integration"
+    version_notes: "create-pages, query-data-sources"
 inputs:
-  - "Kontext/Briefing für Notion"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Seiten-URL oder Datenbank-ID"
+  - "Inhalts- oder Filterauftrag"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
-example_count: 2
-version: "1.0.0"
+  - "Aktualisierte Notion-Seiten"
+  - "Query-Ergebnis als Markdown"
+risk_level: medium
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Seiten und Datenbanken in Notion suchen, anlegen und aktualisieren.
+**Notion-Wikis und Task-DBs** über MCP durchsuchen, Seiten erstellen/aktualisieren—Integration mit OAuth, Änderungen nachvollziehbar.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Notion**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Team-Wiki in Notion ist Source of Truth.
+- Agent soll Meeting Notes oder DB-Einträge anlegen.
+- Recherche-Ergebnisse strukturiert in Notion landen.
+
+**Wann nicht**
+
+- GDPR-kritische Daten ohne DPA mit Notion.
+- Vollständiger Ersatz für Obsidian/Git offline.
+- Löschen alter Seiten ohne Archiv-Policy.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Notion MCP (hosted) | MCP | Aus Recherche 2026-11-23 |
-| ClawHub „Notion“ (steipete) | Skill | Aus Recherche 2026-11-23 |
+| Notion MCP | CRUD | Offizieller Connector |
+| notion-search | Finden | Pages/DBs |
+| MarkItDown | Export | Backup optional |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Notion (office-dokumente/notion).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Claude-Code-Docs nennen Notion als kanonisches HTTP-MCP-Beispiel.
+You work in Notion via MCP—respect workspace permissions and parent page policies.
+
+Inputs: page url or database id, action (search|create|update|query), content markdown or property map, parent page for creates.
+
+Search: use notion-search with precise query; return titles, urls, last edited—not full body unless needed.
+
+Create:
+- Set clear title, icon optional user provides, properties per database schema—fetch schema before insert.
+- Markdown body blocks via MCP create-pages API patterns user connector supports.
+
+Update:
+- Patch only sections user names; include before/after summary in changelog.
+
+Query databases:
+- Filter per user criteria; export table markdown; max 50 rows unless pagination requested.
+
+Deletes: forbidden unless explicit delete flag and user types DELETE confirm.
+
+Approvals: publish to company wiki space, invite guests, or bulk update requires yes.
+
+Output: notion urls, changelog, query markdown tables.
+
+Never paste integration tokens in chat.
+
+If property type mismatch (select vs text), stop and show schema.
+
+Use private draft parent when user unsure destination.
+
+Link related pages with mentions when MCP supports.
+
+Keep DE/EN titles consistent per user style guide.
+Avoid duplicating pages—search first.
 ```
 
 ## Arbeitsablauf
 
-- Claude-Code-Docs nennen Notion als kanonisches HTTP-MCP-Beispiel.
-- Schreibende Aenderungen an geteilten DBs nur nach Freigabe.
+1. Ziel-Workspace und Parent klären.
+2. Bei DB: Schema abrufen.
+3. Search auf Duplikate.
+4. Create/Update ausführen.
+5. URL und Changelog zurück.
+6. Bei Query: Markdown-Tabelle.
+7. Freigabe bei company-wide Parent.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Korrekte Parent/DB
+- [ ] Schema-konforme Properties
+- [ ] Changelog vorhanden
+- [ ] Kein Löschen ohne DELETE confirm
+- [ ] URLs funktionsfähig
 
 ## Sicherheit & Freigaben
 
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Integration token nur OAuth.
+- Gastzugriff nicht erweitern.
+- HR-Daten nur in geschützten Spaces.
+
+## Fallstricke
+
+- Relation-Property ohne Ziel-ID.
+- Markdown-Block-Limits.
+- Duplikat-Seiten bei schlechter Search.
+- Zeitzone in Date-Properties.
+- API Rate limit bei Bulk.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Notion-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `notion` (Testdaten)
+- **Aufgabe:** Meeting Note unter Team-Parent.
+- **Input:** Parent URL, Titel, Bullet Notes MD.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Notion. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Search duplicates; create page under parent; return url and changelog.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+notion.so/.../Meeting-2026-11-23; changelog: created; no duplicate found.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Notion
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Tasks DB offene Items.
+- **Input:** DB id, Status=Open.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Query database filter Status Open; markdown table top 20.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+tasks_open.md table with Name, Assignee, Due columns.
+```

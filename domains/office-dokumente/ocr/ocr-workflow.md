@@ -1,107 +1,159 @@
 ---
 id: ocr-workflow
-title: "OCR"
 domain: office-dokumente
+title: "OCR für Scans und Bild-PDFs"
 category: ocr
 tags:
   - ocr
-  - office-dokumente
-  - skill
+  - tesseract
+  - pdf
 target_agents:
   - hermes
-  - grokbot
-  - generic-mcp-agents
+  - claude-code
   - generic
 required_tools:
   - name: Hermes-Skill pdf
     install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "Bundled-Katalog."
-  - name: Anthropic document skills (docx, pptx, xlsx, pdf)
-    install: "https://github.com/anthropics/skills"
-    version_notes: "199219 GitHub Stars"
+    version_notes: "Bundled OCR path"
+  - name: tesseract
+    install: "apt: tesseract-ocr tesseract-ocr-deu"
+    version_notes: "Fallback CLI"
   - name: MarkItDown
     install: "https://github.com/microsoft/markitdown"
-    version_notes: "197975 GitHub Stars"
+    version_notes: "Optional structure export"
 inputs:
-  - "Kontext/Briefing für OCR"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Scan-PDF oder Bilder"
+  - "Sprache (deu+eng)"
+  - "Freigabe für Drittanbieter-OCR"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
-example_count: 2
-version: "1.0.0"
+  - "Text pro Seite"
+  - "confidence-Warnungen"
+risk_level: medium
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Text aus Scans, Fotos und gescannten PDFs erkennen.
+**Text aus Scans** extrahieren mit Skill- oder Tesseract-Pfad, kritische Felder **am Bild gegenlesen**—besonders Zahlen und Namen.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **OCR**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Rechnungs- und Vertrags-Scans als durchsuchbaren Text.
+- Kein natives Textlayer im PDF.
+- Ergebnis ist Entwurf für Mensch oder ERP, nicht Auto-Buchung.
+
+**Wann nicht**
+
+- Handschrift ohne spezialisiertes Modell.
+- Rechtlich bindende Einreichung ohne Mensch.
+- Inhalte mit strengem Cloud-Verbot ohne lokales OCR.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill pdf | Skill | Aus Recherche 2026-11-23 |
-| Anthropic document skills (docx, pptx, x | Skill | Aus Recherche 2026-11-23 |
-| MarkItDown | CLI / Bibliothek | Aus Recherche 2026-11-23 |
+| Hermes pdf OCR | Integriert | Skill-Pfad |
+| tesseract | Lokal | Air-gapped |
+| pdftoppm | Rasterize | Vor Tesseract |
+| pdf-Skill | Verify | Gegenlesen Struktur |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for OCR (office-dokumente/ocr).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Scan → OCR → Gegenlesen am Bild, besonders Zahlen und Eigennamen.
+You OCR scanned PDFs and images for office use—not legal submission without human review.
+
+Inputs: file path, languages (deu+eng default), output format (txt per page, md, searchable pdf optional user tool), fields_of_interest list (amounts, dates, case numbers).
+
+Pipeline:
+- Detect text layer: if extractable text > threshold, skip OCR and report NATIVE_TEXT.
+- Else rasterize 300 DPI min for numbers; deskew if skill offers.
+
+OCR engines: prefer Hermes pdf skill OCR; fallback tesseract -l deu+eng; never send confidential scans to public APIs without contract.
+
+Per page output: text + average confidence if available; flag pages below threshold.
+
+Critical field pass: regex extract amounts/dates; compare visually to crop snippet user can open.
+
+Side-by-side: save page PNG crops for amount_lines when billing.
+
+Mark low-confidence digits with [?] in export—do not silently fix.
+
+Approvals: upload scans to cloud OCR, delete originals, or email results requires user yes.
+
+Output: combined.txt, page_confidence.csv, critical_field_table.md.
+
+Do not store PII in public issue trackers.
+
+Searchable PDF creation only if user provides tool and license.
+
+Log which engine per page for audit.
+Deskew and contrast normalize before tesseract when photos of paper.
 ```
 
 ## Arbeitsablauf
 
-- Scan → OCR → Gegenlesen am Bild, besonders Zahlen und Eigennamen.
+1. `pdfinfo` / pypdf: Textlayer prüfen.
+2. Bei Scan: Seiten zu PNG (300 DPI).
+3. OCR Skill oder `tesseract png stdout`.
+4. Confidence-Report pro Seite.
+5. Kritische Felder extrahieren + Crop speichern.
+6. Nutzer Stichprobe Betrag vs. Bild.
+7. Textdatei mit [?]-Markierungen liefern.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] NATIVE_TEXT vs OCR dokumentiert
+- [ ] Niedrig-Confidence-Seiten gelistet
+- [ ] Beträge/Datum stichprobenartig geprüft oder als OPEN markiert
+- [ ] Kein Cloud-OCR ohne Freigabe
+- [ ] Engine-Log vorhanden
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Vertrags- und Gesundheits-Scans vertraulich.
+- Keine öffentlichen OCR-APIs ohne Vertrag.
+- Einreichung nur nach menschlicher Freigabe.
+
+## Fallstricke
+
+- 72 DPI reicht nicht für Kommazahlen.
+- deu ohne englische Begriffe in Rechnungen.
+- Tabellen als Fließtext ohne Spalten.
+- Doppelte Seiten im Scan.
+- Such-PDF schlecht indexiert bei schiefem Raster.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-OCR-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `ocr` (Testdaten)
+- **Aufgabe:** Lieferantenrechnung Scan → Text.
+- **Input:** `invoice_scan.pdf` 2 Seiten, deu.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für OCR. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+OCR beide Seiten; extract total and invoice date; flag conf<85%; save page crops.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+invoice_scan.txt; critical_field_table: TOTAL 1.234,56 EUR date 2026-11-15; page2 conf warning if any.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in OCR
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Bereits Text-PDF.
+- **Input:** `digital.pdf` mit Selectable text.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Detect native text; if present skip OCR and extract fields only.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+NATIVE_TEXT; extracted fields from text layer; no tesseract run logged.
+```

@@ -1,102 +1,153 @@
 ---
 id: steuern-workflow
-title: "Steuern"
 domain: finanzen
+title: "Steuerdaten organisieren (keine Beratung)"
 category: steuern
 tags:
-  - steuern
-  - finanzen
-  - toolkitmcpfaehig
+  - tax
+  - org
+  - gobd
 target_agents:
   - hermes
-  - grokbot
-  - generic-mcp-agents
   - generic
 required_tools:
-  - name: Stripe Agent Toolkit
-    install: "https://github.com/Stripe/agent-toolkit"
-    version_notes: "2083 GitHub Stars"
+  - name: python
+    install: "pip: pandas"
+    version_notes: "Tabellen"
 inputs:
-  - "Kontext/Briefing für Steuern"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Belege-Liste"
+  - "Kategorien vom Steuerberater"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: medium
-example_count: 2
-version: "1.0.0"
+  - "Übergabe-Paket"
+  - "Offene Fragen"
+risk_level: high
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Belegsammlung und Vorbereitung; keine abschließende Steuerberatung.
+**Belege und Daten für Steuerberater** strukturieren—Checklisten, Sortierung, **keine Steuerberatung** oder Erklärungen.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Steuern**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: medium`).
+- Jahresabschluss-Vorbereitung.
+- Export-Listen für Kanzlei.
+- GoBD-konforme Ordnung vorbereiten.
+
+**Wann nicht**
+
+- USt-Voranmeldung inhaltlich berechnen ohne Steuerberater.
+- Rechtsauskunft Steuergesetze.
+- ELSTER-Übermittlung durch Agent.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Stripe Agent Toolkit | Toolkit / MCP-faehig | Aus Recherche 2026-11-23 |
+| pandas | Inventar | Listen |
+| DATEV export | Handoff | Siehe buchhaltung |
+| pdf skill | Read receipts | Metadaten |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Steuern (finanzen/steuern).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+You organize tax-related documents for handoff to Steuerberater—NOT tax advice or filing.
+
+Inputs: receipt index csv paths, categories map from Steuerberater, period FY, output handoff.md package_index.csv open_questions.md.
+
+Classify by category code only as user map—never invent tax law interpretation.
+
+Flag missing receipts for expenses listed without file.
+
+Hash files sha256 optional for GoBD audit trail user requests.
+
+No ELSTER submit no finanzamt communication.
+
+VAT id validation format only not validity with authority.
+
+Approvals: zip package to Kanzlei requires user secure channel.
+
+Disclaim: informational organization only seek Steuerberater for liability.
+
+German labels in output if user de.
+
+Do not delete source pdfs.
+
+List ambiguous transactions in open_questions for human.
+
+Separate business vs private if column provided—do not guess.
+
+Document folder structure vorgabe Kanzlei.
+
+Include belegdatum vs zahlungsdatum columns distinct.
+Note kleinunternehmer flag unknown unless user sets.
+Avoid suggesting illegal deductions always refer to counsel.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Index csv validieren.
+2. Kategorien mappen.
+3. Fehlende Belege listen.
+4. package_index.csv.
+5. handoff.md Checkliste.
+6. open_questions.md.
+7. Nutzer/Kanzlei Übergabe.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Disclaimer Steuerberatung
+- [ ] Keine ELSTER-Aktion
+- [ ] Offene Punkte liste
+- [ ] Kategorie nur per User-Map
+- [ ] Sichere Übergabe
 
 ## Sicherheit & Freigaben
 
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Keine stillen Zahlungen, Trades oder Ueberweisungen.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- High risk—nur Organisation.
+- Steuerberater für Inhalt.
+- GoBD Löschverbote.
+
+## Fallstricke
+
+- Agent als Steuerberater.
+- Falsche Kategorie erfunden.
+- Belegdatum vs Zahlung verwechselt.
+- Private Ausgaben gemischt.
+- Fehlende Belege nicht gemeldet.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Steuern-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `steuern` (Testdaten)
+- **Aufgabe:** Q3 Belegepaket.
+- **Input:** receipts_index.csv categories_stb.yaml.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Steuern. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+package_index.csv handoff.md open_questions; no tax advice.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+index sorted; disclaimer header; questions for unknown merchants.
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Steuern
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** USt berechnen ablehnen.
+- **Input:** calculate vat return.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Refuse calculation; list data gaps for Steuerberater only.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Refusal with disclaimer; open_questions data gaps.
+```
