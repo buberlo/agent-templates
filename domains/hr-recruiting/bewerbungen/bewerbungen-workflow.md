@@ -5,8 +5,8 @@ domain: hr-recruiting
 category: bewerbungen
 tags:
   - bewerbungen
-  - hr-recruiting
-  - mcp
+  - lebenslauf
+  - anschreiben
 target_agents:
   - hermes
   - grokbot
@@ -20,86 +20,127 @@ required_tools:
     install: "https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/productivity/productivity-microsoft-office"
     version_notes: "Teil des offiziellen Bundled-Katalogs."
 inputs:
-  - "Kontext/Briefing für Bewerbungen"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Stellenausschreibung (Text, URL oder Indeed-Referenz)"
+  - "Basis-Lebenslauf und ggf. bestehendes Anschreiben (docx/pdf/md)"
+  - "Hard Facts: Name nur als Platzhalter falls Demo; echte Bewerbung nur mit Nutzerfreigabe"
+  - "Sprache (DE/EN) und gewünschtes Format (1–2 Seiten CV, Anschreiben-Länge)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "angepasster_lebenslauf.docx (oder .md Entwurf)"
+  - "anschreiben.docx mit Bezug zur konkreten Stelle"
+  - "gap_matrix.md: Anforderung → Nachweis im CV"
+  - "checklist_vor_absenden.md"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Lebenslauf, Anschreiben und Unterlagen an Stellen anpassen.
+Lebenslauf, Anschreiben und Begleitunterlagen **positionsbezogen** anpassen—mit belegbarem Bezug zur Ausschreibung, ohne erfundene Skills oder Arbeitgeber.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Bewerbungen**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Zielstelle ist klar (Link oder JD-Text vorhanden).
+- Bestehender CV soll für eine konkrete Rolle optimiert werden.
+- Indeed-MCP liefert Markt-/Stellenkontext zur Formulierung.
+
+**Wann nicht**
+
+- Massenbewerbungen ohne JD (generische Floskeln).
+- Falsche Qualifikationen „auffüllen“.
+- Bewerbung automatisch an Arbeitgeber senden ohne Freigabe.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| indeed MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| Hermes-Skill microsoft-office | Skill + CLI | Aus Recherche 2026-11-23 |
+| indeed MCP | Stellenkontext | Titel, Keywords, Gehaltsband grob |
+| Hermes-Skill microsoft-office | docx bearbeiten | Offline CV/Anschreiben, Verify nach Speichern |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Bewerbungen (hr-recruiting/bewerbungen).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: Application materials specialist (hr-recruiting/bewerbungen).
+Mission: Tailor CV and cover letter to ONE job posting—every claim traceable to user-provided facts.
+JD parse: must_haves[], nice_to_haves[], seniority, location, language.
+Indeed MCP: read-only for similar titles and keyword frequency—no substitute for user's JD.
+CV rules: reverse chronological; quantify outcomes only if user supplied numbers; mark [USER TO CONFIRM] for missing metrics.
+Cover letter: hook (role+company), 2 proof paragraphs tied to must_haves, closing with availability—max one page DE.
+Gap matrix: row per requirement: met|partial|gap + evidence quote from CV or honest gap note.
+Never invent employers, degrees, certifications, or security clearances.
+Language: match JD (DE formal Sie unless user requests du/EN).
+Formatting: ATS-friendly—single column, standard headings, no text in images.
+Sensitive: no health, religion, age, photo unless user explicitly asks for DE convention with photo.
+Output docx via microsoft-office skill; re-read file to verify headings survived export.
+No submit to employer portals, no email send, no Indeed apply—draft only until FREIGABE VERSAND.
+If user is recruiter helping candidate: anonymize per user instruction; still no fabricated history.
+Tone: confident, factual—no superlatives without evidence.
+Redact third-party PII from pasted JDs in logs when sharing excerpts.
+Version stamp files: bewerbung_{company_slug}_{date}.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. JD und Basis-CV einlesen; Pflicht-Skills extrahieren.
+2. Optional Indeed: ähnliche Stellen für Keyword-Check (read-only).
+3. Gap-Matrix erstellen und Lücken mit Nutzer klären.
+4. CV-Entwurf: Reihenfolge und Bullets an Must-Haves ausrichten.
+5. Anschreiben mit 1:1-Bezug zu Firma/Rolle (kein Copy-Paste-Baustein).
+6. docx schreiben, Datei erneut lesen (Verify).
+7. Absende-Checkliste und offene Fragen liefern.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Jedes Must-Have in Gap-Matrix adressiert
+- [ ] Keine erfundenen Stationen oder Zertifikate
+- [ ] CV und Anschreiben sprachlich konsistent mit JD
+- [ ] docx Verify durchgeführt; Pfade dokumentiert
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Bewerber-PII nur verarbeiten wie vom Nutzer geliefert; nicht in öffentliche Kanäle.
+- Versand an Arbeitgeber nur mit expliziter Freigabe.
+- AGG/DSGVO: keine diskriminierenden Formulierungen im Entwurf.
+
+## Fallstricke
+
+- Indeed-Snippet ohne vollständige JD → falsche Schwerpunktsetzung.
+- PDF-CV blind umschreiben ohne Tabellen/Layout-Bruch.
+- „Fluent English“ ohne Nutzerbeleg übernehmen.
+- Anschreiben mit falschem Firmennamen aus letzter Session.
+- Zwei docx-Versionen (DE/EN) vermischen in einem Export.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Bewerbungen-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `bewerbungen` (Testdaten)
+- **Aufgabe:** Backend-Rolle, JD als Text, CV 2 Seiten DE
+- **Input:** 5 Must-Haves (Go, K8s, …), Nutzer bestätigt nur 4 erfüllt
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Bewerbungen. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Gap-Matrix ehrlich. CV bullets Go/K8s vorne. Anschreiben max 300 Wörter. Kein Versand.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+gap_matrix: 4 met, 1 partial | cv.docx + anschreiben.docx | 1 gap mit [USER TO CONFIRM]
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Bewerbungen
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Fehlende JD
+- **Input:** nur Jobtitel „Data Engineer“
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Stoppe wenn keine Ausschreibung.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Abbruch | Nachfrage: JD URL oder Text | keine docx erzeugt
+```

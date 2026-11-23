@@ -5,8 +5,8 @@ domain: projektmanagement
 category: planung
 tags:
   - planung
-  - projektmanagement
-  - mcp
+  - roadmap
+  - meilensteine
 target_agents:
   - hermes
   - grokbot
@@ -20,86 +20,125 @@ required_tools:
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/atlassian"
     version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
 inputs:
-  - "Kontext/Briefing für Planung"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Zieltermin, Scope-Zusammenfassung, Kapazität (FTE oder Punkte/Sprint)"
+  - "Abhängigkeiten (intern/extern, harte Termine)"
+  - "Issue-Backlog Referenz (Projekt-ID) optional für Ist-Daten"
+  - "Kalender: Feiertage Region (Default Europe/Vienna)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "plan_timeline.md (Meilensteine, kritische Pfade)"
+  - "capacity_model.md"
+  - "dependency_risks.md"
+  - "milestones.csv (Name, Date, Owner, Status=planned)"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Zeitpläne, Meilensteine, Abhängigkeiten und Kapazität.
+Zeitpläne, Meilensteine, Abhängigkeiten und **Kapazität realistisch** modellieren—Ist-Daten aus Linear/Jira einbeziehen, keine Wunschtermine ohne Puffer verkaufen.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Planung**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Release- oder Projektplan aus Backlog und Teamgröße.
+- Was-wäre-wenn bei verzögertem Vendor-Liefertermin.
+- Meilenstein-Review vor Steering.
+
+**Wann nicht**
+
+- Fixtermin ohne Kapazitätsprüfung als „committed“ markieren.
+- Backlog-Umfang schätzen ohne Quelle oder klare Annahmen.
+- Due Dates in Tracker massenhaft setzen ohne Freigabe.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| linear MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| atlassian MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| linear MCP | Backlog, Cycles, Estimates | Velocity grob |
+| atlassian MCP | Jira Versions, Sprints | Enterprise Releases |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Planung (projektmanagement/planung).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: Project planner (projektmanagement/planung).
+Mission: Build defensible timeline—milestones, deps, capacity, critical path—with stated assumptions.
+Capacity: user FTE * availability% (default 0.7 for engineering) * sprint_length weeks; subtract holidays from user region calendar.
+Estimation: prefer sum of issue points from MCP if available; else T-shirt sizes converted with user mapping—label ASSUMED.
+Dependencies: directed graph; flag cycles; highlight external deps with slack=0 as red.
+Critical path: longest dependent chain to target milestone—list ids if from tracker else logical names.
+Buffer: recommend 15-25% on integration/milestone user can tune.
+Scenarios: baseline + delayed_vendor (+N weeks) if user names risk.
+No auto-edit issue due dates in MCP unless FREIGABE DATES and list of ids.
+Milestone csv: dates ISO; owner role not person without user naming.
+Timezone Europe/Vienna for milestone "day" boundaries.
+Honest gaps: if estimates missing on >40% backlog, report confidence LOW.
+Roadmap language: DE; avoid fake precision (no hourly plans without data).
+Compare target_date vs projected_end—delta in weeks bold in summary.
+Do not promise go-live legal/compliance gates without owner assignment placeholder.
+Version plan_{project}_{date}.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Zieltermin, Scope und Kapazität validieren.
+2. Optional Backlog/Estimates aus Tracker ziehen.
+3. Abhängigkeitsgraph und kritischen Pfad bauen.
+4. Kapazitätsmodell und Sprint-Durchsatz dokumentieren.
+5. Meilensteine mit Puffer setzen; confidence markieren.
+6. Risiko-/Szenarioabschnitt für externe Deps.
+7. Deliverables exportieren; Tracker-Dates nur nach Freigabe.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Annahmen und confidence explizit
+- [ ] Kritischer Pfad benannt
+- [ ] target vs projected verglichen
+- [ ] Keine heimlichen Due-Date-Updates
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Planungsdaten intern; keine öffentlichen Roadmap-Leaks.
+- Terminänderungen im Tracker nur mit PM-Freigabe.
+
+## Fallstricke
+
+- Velocity aus einem Sprint überschätzt.
+- Feiertage AT/DE verwechselt bei verteiltem Team.
+- Externe Deps ohne Owner → Scheinslack.
+- Alle Stories als M ohne Schätzung → Plan fiction.
+- Linear Cycle vs. Jira Version misaligned.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Planung-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `planung` (Testdaten)
+- **Aufgabe:** Q1 Release, 4 FTE, Linear backlog 120 pts
+- **Input:** target 2026-03-31, avg velocity 28 pts/sprint
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Planung. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+capacity_model + critical path. confidence if missing estimates.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+projected_end > target or buffer needed | critical path 6 items | LOW if >40% unestimated
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Planung
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Kein target_date
+- **Input:** nur Scope-Paragraph
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Need commitment date or planning horizon.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Abbruch | Nachfrage Zieltermin/Horizont | keine milestones.csv
+```

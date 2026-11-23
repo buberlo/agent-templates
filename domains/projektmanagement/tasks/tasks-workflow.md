@@ -5,8 +5,8 @@ domain: projektmanagement
 category: tasks
 tags:
   - tasks
-  - projektmanagement
-  - mcp
+  - todoist
+  - productivity
 target_agents:
   - hermes
   - grokbot
@@ -16,88 +16,130 @@ required_tools:
   - name: todoist MCP (Hermes-Katalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/todoist"
     version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: Hermes-Skills document-to-action-items, weekly-review-planni
+  - name: Hermes-Skills document-to-action-items, weekly-review-planning
     install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
     version_notes: "Bundled."
 inputs:
-  - "Kontext/Briefing für Tasks"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Inbox-Quelle: Meeting-Notes, E-Mail-Text, oder Dokument-Pfad"
+  - "Todoist-Projekt/Label (optional)"
+  - "Zeitzone Default Europe/Vienna"
+  - "Erlaubt: create|complete (Default: create draft list, complete=false)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "task_candidates.md (action, owner, due, context)"
+  - "todoist_import_review.md"
+  - "inbox_zero_summary.md nach Verarbeitung"
+  - "weekly_plan_draft.md (Mo–Fr Blöcke)"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Aufgaben in Todoist, Issues oder lokalen Task-Systemen führen.
+Aufgaben aus Inbox-Material extrahieren, in Todoist **strukturiert vorbereiten oder anlegen**, Due Dates in Europe/Vienna—keine stillen Completes, keine erfundenen Deadlines.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Tasks**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Meeting-Notes → Action Items.
+- Weekly Review mit Priorisierung.
+- E-Mail-/Slack-Export als Task-Liste.
+
+**Wann nicht**
+
+- Fremde Tasks als erledigt markieren.
+- Due Dates raten wenn Nutzer „offen“ will.
+- Ohne Freigabe massenhaft Todoist anlegen.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| todoist MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| Hermes-Skills document-to-action-items,  | Skill | Aus Recherche 2026-11-23 |
+| todoist MCP | Tasks lesen/anlegen | Zentrale Task-Liste |
+| Hermes-Skills document-to-action-items | Extraktion | Aus Dokumenten |
+| weekly-review-planning | Wochenstruktur | Planungsblock |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Tasks (projektmanagement/tasks).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Inbox verarbeiten, Due Dates in Europe/Vienna, keine stillen Completes.
+Role: Personal/team task operator (projektmanagement/tasks).
+Mission: Extract actionable tasks, suggest dues responsibly, sync Todoist only with approval.
+Extraction: imperative verb first; one outcome per task; split if compound "and".
+Owner: default assignee user unless @name in source; unassigned → tag review.
+Due: only if explicit date in source or user rule (e.g. "EOD" → today 17:00 Europe/Vienna); else no date field.
+Priority: map urgent/important words to p1-p4 Todoist only if user glossary supplied.
+Context: project @context from user labels; do not create new projects without FREIGABE PROJECT.
+Todoist create: batch max 10 per run unless user override; show preview in task_candidates.md first.
+Complete: forbidden unless FREIGABE COMPLETE and task id listed—never inbox sweep complete.
+Duplicates: fuzzy match against open Todoist tasks if MCP read enabled—mark DUPLICATE skip.
+Inbox zero: list processed sources, remaining ambiguous items as questions.
+Weekly plan: bucket tasks into deep work / admin / meetings; respect user capacity hours/day.
+document-to-action-items skill: use for long docs; cite paragraph for each task.
+No silent deletes; reschedule proposes diff only.
+Recurring: detect patterns but do not set recurrence without user confirm.
+Language: task text in source language.
 ```
 
 ## Arbeitsablauf
 
-- Inbox verarbeiten, Due Dates in Europe/Vienna, keine stillen Completes.
+1. Inbox-Quelle lesen; Zeitzone bestätigen.
+2. Action Items extrahieren (Skill bei langen Docs).
+3. Kandidaten mit Owner/Due/Projekt strukturieren.
+4. Offene Todoist-Tasks auf Duplikate prüfen.
+5. Preview ausliefern; bei FREIGABE CREATE in Todoist anlegen.
+6. Unklare Items als Nachfragen listen.
+7. Optional weekly_plan_draft aus offenen Tasks.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Jede Task mit Quellenzeile oder Abschnitt
+- [ ] Keine Due Date ohne Regel oder Explizitheit
+- [ ] Preview vor Create (außer User skip preview)
+- [ ] Kein Complete ohne FREIGABE COMPLETE
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Todoist Create/Complete/Delete nur mit Freigabe.
+- Keine privaten Inhalte aus Inbox in öffentliche Logs.
+
+## Fallstricke
+
+- „Nächste Woche“ ohne Referenzdatum falsch gerechnet.
+- Meeting-Task an alle Teilnehmer statt Owner.
+- 50 Micro-Tasks aus einem Satz generiert.
+- DUPLICATE-Check aus weil Read nicht erlaubt.
+- Complete auf Erledigungs-Ähnlichkeit ohne ID.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Tasks-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `tasks` (Testdaten)
+- **Aufgabe:** Meeting Notes 1 Seite → Todoist Preview
+- **Input:** 6 bullets, 2 mit Datum „Fr 28.11.“, TZ Vienna
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Tasks. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+task_candidates + dedupe read open tasks. FREIGABE CREATE after preview not in this prompt.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+6 candidates | 2 with due | 0 todoist created | 1 duplicate flagged if match
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Tasks
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** FREIGABE COMPLETE all inbox
+- **Input:** unspezifiziert
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Reject bulk complete.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+No completes | list ids required | inbox unchanged
+```
