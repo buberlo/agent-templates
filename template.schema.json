@@ -7,6 +7,7 @@
   "required": [
     "id",
     "title",
+    "domain",
     "category",
     "tags",
     "target_agents",
@@ -14,6 +15,7 @@
     "inputs",
     "outputs",
     "risk_level",
+    "example_count",
     "version",
     "updated"
   ],
@@ -27,22 +29,41 @@
       "minLength": 3,
       "maxLength": 120
     },
-    "category": {
+    "domain": {
       "type": "string",
       "enum": [
-        "video-bearbeitung",
-        "audio",
-        "bild",
-        "dokumente-office",
-        "web-recherche",
-        "coding-devops",
-        "kubernetes-infra",
-        "it-support-remote",
-        "social-media",
-        "email-kommunikation",
-        "daten-analyse",
-        "finanzen-buchhaltung"
+        "medien",
+        "content-marketing",
+        "vertrieb-crm",
+        "kundenservice",
+        "kommunikation",
+        "office-dokumente",
+        "recherche-wissen",
+        "software-entwicklung",
+        "devops-cloud",
+        "it-betrieb-support",
+        "security",
+        "daten-analytics",
+        "ki-ops",
+        "automatisierung",
+        "finanzen",
+        "recht-verwaltung",
+        "hr-recruiting",
+        "projektmanagement",
+        "bildung",
+        "gesundheit-fitness",
+        "reisen-events",
+        "immobilien",
+        "persoenlich-lifestyle",
+        "gaming-modding",
+        "hardware-embedded",
+        "wissenschaft-engineering",
+        "agent-platforms"
       ]
+    },
+    "category": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{1,48}[a-z0-9]$"
     },
     "tags": {
       "type": "array",
@@ -60,7 +81,16 @@
       "uniqueItems": true,
       "items": {
         "type": "string",
-        "enum": ["hermes", "grokbot", "generic"]
+        "enum": [
+          "hermes",
+          "grokbot",
+          "openclaw",
+          "claude-code",
+          "codex",
+          "cursor",
+          "generic-mcp-agents",
+          "generic"
+        ]
       }
     },
     "required_tools": {
@@ -90,6 +120,11 @@
     "risk_level": {
       "type": "string",
       "enum": ["low", "medium", "high"]
+    },
+    "example_count": {
+      "type": "integer",
+      "minimum": 2,
+      "maximum": 3
     },
     "version": {
       "type": "string",

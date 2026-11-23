@@ -1,0 +1,5 @@
+research/agent-templates-research/
+*.tgz
+__pycache__/
+*.pyc
+.DS_Store

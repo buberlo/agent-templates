@@ -1,0 +1,136 @@
+# Quellen
+
+Stand: 23.11.2026 (Europe/Vienna). Alle unten stehenden URLs wurden in mindestens einer Kategorie-Datei als Beleg verwendet.
+
+Anzahl eindeutiger HTTP-Quellen: **111**
+
+Rohmaterialien sind nicht versioniert (siehe `.gitignore`).
+
+## URL-Liste
+
+- https://agentos.guide/hermes-agent-video-analysis
+- https://agentspulse.github.io/tutorials/claude-powerpoint-skill/
+- https://aifrontierpost.com/articles/anthropic-official-agent-skills-tutorial/
+- https://clawhubtrends.com/leaderboard.html
+- https://code.claude.com/docs/en/features-overview
+- https://code.claude.com/docs/en/mcp
+- https://code.claude.com/docs/en/skills/
+- https://docs.docker.com/
+- https://docs.mobilerun.ai/mcp-server
+- https://docs.openclaw.ai/
+- https://docs.openclaw.ai/clawhub
+- https://docs.openclaw.ai/cli/mcp/serve
+- https://docs.openclaw.ai/platforms/android/
+- https://docs.openclaw.ai/skills/
+- https://docs.openclaw.ai/tools/mcp
+- https://ffmpeg.org/
+- https://github.com/Bidsketch/signwell-mcp
+- https://github.com/ChromeDevTools/chrome-devtools-mcp
+- https://github.com/ComposioHQ/awesome-claude-skills
+- https://github.com/EynaExp/meshcentral-mcp
+- https://github.com/GoogleCloudPlatform/kubectl-ai
+- https://github.com/HasData/amazon-mcp
+- https://github.com/NousResearch/hermes-agent
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/atlassian
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/attio
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/betterstack
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/buildkite
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/calendly
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/canva
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/circleci
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/close
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/cloudflare
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/cloudinary
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/comfy-cloud
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/datadog
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/deepwiki
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/figma
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/fireflies
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/grafana
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/indeed
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/intercom
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/linear
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/miro
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/motherduck
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/neon
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/netlify
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/paypal
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/plaid
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/prisma-postgres
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/railway
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/robinhood
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/semgrep
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/square
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/strava
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/supabase
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/todoist
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/twelve-data
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/twilio-docs
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/unreal-engine
+- https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/vercel
+- https://github.com/Stripe/agent-toolkit
+- https://github.com/anthropics/claude-code
+- https://github.com/anthropics/skills
+- https://github.com/brave/brave-search-mcp-server
+- https://github.com/browserbase/mcp-server-browserbase
+- https://github.com/containers/kubernetes-mcp-server
+- https://github.com/droidrun/mobilerun
+- https://github.com/exa-labs/exa-mcp-server
+- https://github.com/firecrawl/firecrawl-mcp-server
+- https://github.com/forgemeshlabs/shopscout-mcp
+- https://github.com/getsentry/sentry-mcp
+- https://github.com/getzep/graphiti
+- https://github.com/github/github-mcp-server
+- https://github.com/hugoles/langfuse-mcp
+- https://github.com/mem0ai/mem0
+- https://github.com/microsoft/markitdown
+- https://github.com/microsoft/playwright-mcp
+- https://github.com/mobile-next/mobile-mcp
+- https://github.com/modelcontextprotocol/servers
+- https://github.com/n8n-io/n8n
+- https://github.com/openclaw/clawhub
+- https://github.com/openclaw/openclaw
+- https://github.com/punkpeye/awesome-mcp-servers
+- https://github.com/remotion-dev/skills
+- https://github.com/tavily-ai/tavily-mcp
+- https://github.com/tevonsb/homeassistant-mcp
+- https://github.com/upstash/context7
+- https://hermes-agent.nousresearch.com/docs/getting-started/quickstart
+- https://hermes-agent.nousresearch.com/docs/reference/skills-catalog
+- https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp
+- https://hermes-agent.nousresearch.com/docs/user-guide/features/skills
+- https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/media/media-youtube-content
+- https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/productivity/productivity-microsoft-office
+- https://learn.microsoft.com/en-us/azure/aks/aks-model-context-protocol-server
+- https://mcp.notion.com/mcp
+- https://ollama.com
+- https://playwright.dev/mcp/introduction
+- https://tailscale.com/docs/develop-with-ai
+- https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html
+- https://www.elegantsoftwaresolutions.com/blog/openclaw-skill-workshop-power-user-guide-2026-6-1
+- https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- https://www.paloaltonetworks.com/blog/security-operations/clawhavoc-ai-agent-skills-poisoning/
+- https://www.reddit.com/r/ClaudeAI/comments/1ryz7zp/i_measured_my_mcp_token_overhead_67k_tokens/
+- https://www.reddit.com/r/mcp/comments/1spvkrz/microsoft_recommends_cli_over_mcp_for_playwright/
+- https://www.terraform.io/
+- https://x.ai/bot/guides/grok-bot-101
+- https://x.com/AnylancerInc/status/2116384700449149180
+- https://x.com/JayQinQT/status/2120856724668133406
+- https://x.com/Naruto79z/status/2119108886477033981
+- https://x.com/loudernet/status/2119104655061823561
+- https://x.com/tooltierai/status/2122012506868584772
+
+## Wichtige Primärquellen (kurz)
+
+- Hermes Docs: https://hermes-agent.nousresearch.com/docs
+- Hermes Repo: https://github.com/NousResearch/hermes-agent (265.550 Stars, API 23.11.2026)
+- OpenClaw Docs: https://docs.openclaw.ai/
+- OpenClaw Repo: https://github.com/openclaw/openclaw (395.081 Stars, API 23.11.2026)
+- ClawHub: https://docs.openclaw.ai/clawhub und https://clawhubtrends.com/leaderboard.html
+- Claude Code MCP/Skills: https://code.claude.com/docs/en/mcp und https://code.claude.com/docs/en/skills/
+- Anthropic skills: https://github.com/anthropics/skills (199.219 Stars)
+- Grok Bot Wiki (Plugins/MCP): https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- Grok Bot 101: https://x.ai/bot/guides/grok-bot-101
+- awesome-mcp-servers: https://github.com/punkpeye/awesome-mcp-servers (98.405 Stars)
+- ClawHub-Audit Feb. 2026: https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html
+
