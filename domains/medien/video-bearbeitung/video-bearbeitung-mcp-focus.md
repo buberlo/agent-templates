@@ -1,108 +1,150 @@
 ---
 id: video-bearbeitung-mcp-focus
-title: "Video-Bearbeitung: MCP/Skill-Fokus"
 domain: medien
+title: "Video-Bearbeitung: FFmpeg-CLI vs. Skills"
 category: video-bearbeitung
 tags:
   - video
-  - medien
-  - cli
+  - ffmpeg
+  - mcp
+  - skills
 target_agents:
   - hermes
-  - grokbot
   - generic-mcp-agents
-  - generic
+  - cursor
 required_tools:
-  - name: FFmpeg (CLI, oft ohne eigenes MCP)
-    install: "https://ffmpeg.org/"
-    version_notes: "Nicht als einzelnes MCP-Star-Signal belegt."
+  - name: ffmpeg
+    install: "OS-Paket ffmpeg"
+    version_notes: "Primärer Pfad; MCP oft überflüssig"
   - name: Remotion Agent Skills
     install: "https://github.com/remotion-dev/skills"
-    version_notes: "7841 GitHub Stars"
+    version_notes: "Für Motion/Code-Videos statt Timeline-MCP"
+  - name: Hermes-Skill Video Frames
+    install: "ClawHub Video Frames (steipete) bei OpenClaw"
+    version_notes: "Frame-Extraktion; nur wenn nötig"
 inputs:
-  - "Kontext/Briefing für Video-Bearbeitung"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Video-Aufgabe (Schnitt, Konvertierung, Frames, Motion)"
+  - "Liste erlaubter Tools/MCPs"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Ausgeführte Befehle oder gerenderter Clip"
+  - "Empfehlung CLI vs. MCP mit Begründung"
 risk_level: low
-example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Schneiden, konvertieren, untertiteln und nachbearbeiten von Videodateien, typischerweise mit FFmpeg oder einer Agent-Timeline.
+Agenten wählen den **leichtesten belastbaren Pfad** für Video-Aufgaben: meist **FFmpeg im Terminal**, Skills für Remotion oder Frame-Extraktion—MCP nur, wenn echter Mehrwert gegenüber Token-Overhead besteht.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Video-Bearbeitung**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Aufgabe lässt sich als ein oder wenige FFmpeg-Befehle formulieren.
+- Motion Graphics oder datengetriebene Clips → Remotion Skills.
+- Einzelbilder aus Video für QA oder Thumbnail.
+
+**Wann nicht**
+
+- Komplexe Multi-Track-Timeline mit J-Cuts und Sounddesign in NLE.
+- MCP-Katalog soll ohne Aufgabenbezug „komplett“ geladen werden (Kontextkosten).
+- Live-OBS-Produktion.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| FFmpeg (CLI, oft ohne eigenes MCP) | CLI | Aus Recherche 2026-11-23 |
-| Remotion Agent Skills | Skill | Aus Recherche 2026-11-23 |
-| Hermes-Skill youtube-content | Skill | Aus Recherche 2026-11-23 |
-| ClawHub „Video Frames“ (steipete) | Skill | Aus Recherche 2026-11-23 |
+| ffmpeg / ffprobe | Schnitt, Encode, Metadaten | Kein MCP nötig; Hermes Video-Analyse setzt PATH voraus |
+| Remotion Skills | React-Video | Offizieller 2026-Pfad statt Legacy-MCP |
+| Video Frames Skill | Stills | OpenClaw/ClawHub; nur bei Bedarf |
+| youtube-content Skill | Transkript→Text | Wenn Ausgabe Text, nicht Re-Encode |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Video-Bearbeitung (medien/video-bearbeitung).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Schneide local.mp4 von Zeit A bis B, normalisiere Audio (loudnorm), schreibe h264+aac, pruefe mit ffprobe.
+You plan and execute video tasks with minimal tool surface area.
+
+Decision tree:
+1) If the user needs cut/transcode/normalize/subtitle mux → use ffmpeg/ffprobe via shell; do not spin up a video MCP for a single command.
+2) If the output is programmatic motion graphics or data-driven slides → use Remotion skills and TypeScript, not an NLE MCP.
+3) If the user needs still frames at timestamps → prefer ffmpeg -ss -frames:v 1; use Video Frames skill only if already in the agent policy.
+4) If the user needs transcript or chapters from YouTube → use youtube-content skill; do not re-download video unless requested.
+
+For any MCP: quote estimated token/schema overhead; prefer include/exclude filters (Hermes, OpenClaw policy).
+
+Always document: chosen path, rejected alternatives, commands run, output paths.
+
+Verify with ffprobe after encode. Seek approval before uploads, burn-in subs, or destructive overwrites.
+
+When unsure between copy and re-encode, probe codecs and explain tradeoff to the user in one paragraph.
+
+Include a one-line risk note if source is ProRes/DNx and target is web H.264 (generation loss expected).
+If user requests YouTube clip only as audio reference, separate text skill from file pipeline.
+Escalate to human editor when requested deliverable mentions color grade or multitrack mix.
+Prefer stream copy for mezzanine archives when user asks for lossless interim only.
+Log wall-clock time for ffmpeg jobs exceeding five minutes for capacity planning.
 ```
 
 ## Arbeitsablauf
 
-- Schneide local.mp4 von Zeit A bis B, normalisiere Audio (loudnorm), schreibe h264+aac, pruefe mit ffprobe.
-- Kein MCP, wenn ein einziges ffmpeg-Kommando reicht – spart Tokens.
+1. Aufgabe klassifizieren: Datei-Op vs. Generativ vs. Text aus Video.
+2. Tool-Policy prüfen: unnötige MCPs deaktivieren.
+3. `ffprobe` auf Eingabedatei; Schnittprofil festlegen.
+4. FFmpeg-Befehl ausführen oder Remotion-Render starten.
+5. Ausgabe mit `ffprobe` und ggf. Framegrab verifizieren.
+6. Kurzbericht: warum kein MCP / welches Skill genutzt.
+7. Bei Katalog-Pfaden: Link zu remotion-dev/skills oder ffmpeg.org notieren.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Geringstmögliche Tool-Menge aktiv
+- [ ] Befehle reproduzierbar dokumentiert
+- [ ] Kein MCP nur für `ffmpeg -version`
+- [ ] Output technisch geprüft
+- [ ] Freigaben bei Publish/Overwrite eingehalten
 
 ## Sicherheit & Freigaben
 
-- MCP-Toolschemas können den Kontext stark belasten, noch bevor die erste Frage kommt. In r/ClaudeAI berichtete ein Nutzer von 67.000 Token Overhead. Quelle: https://www.reddit.com/r/ClaudeAI/comments/1ryz7zp/i_measured_my_mcp_token_overhead_67k_tokens/
-- Viele FFmpeg-MCP-Wrapper sind klein/fragmentiert; in dieser Recherche kein klarer Star-Leader.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach 
+- MCP-Credentials nicht in argv; OAuth auf Connector-Backend (Grok-Bot-Wiki).
+- Video mit personenbezogenen Daten: Verarbeitung nur lokal wenn möglich.
+
+## Fallstricke
+
+- MCP-Schema-Overhead kann Zehntausende Tokens kosten—vorher messen/policy.
+- Fragmentierte FFmpeg-MCPs ohne klaren Maintainer—CLI bevorzugen.
+- Skills vs. MCP verwechseln: Skills sind Procedures, keine Socket-Verbindung.
+- Remotion ohne Skills → veraltete MCP-Namen in älteren Threads.
+- Frame-Skill vs. ffmpeg: Doppelarbeit kostet Zeit und Kontext.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Video-Bearbeitung-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `video-bearbeitung` (Testdaten)
+- **Aufgabe:** 30 s Teaser aus Webinar extrahieren.
+- **Input:** `webinar.mkv`, 01:12:00 total, Ausschnitt ab 00:45:10.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Video-Bearbeitung. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
-```
-- **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Use ffmpeg only: cut 30s from 00:45:10, 1080p H.264 faststart. Explain why no video MCP.
 ```
 
-### Beispiel 2 (Beispieldaten)
-
-- **Aufgabe:** Fehlerfall / Validierung in Video-Bearbeitung
-- **Input:** Unvollständige oder ungültige Eingabe
-- **Prompt:**
-```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
-```
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```bash
+ffmpeg -ss 00:45:10 -i webinar.mkv -t 30 -vf scale=-2:1080 -c:v libx264 -crf 22 -c:a aac -movflags +faststart teaser.mp4
+Rationale: single-pass transcode; MCP adds no capability.
+```
+
+### Beispiel 2 (Praxisbeispiel)
+
+- **Aufgabe:** MCP-Token-Overhead bewusst vermeiden.
+- **Input:** Policy erlaubt nur Terminal + ffmpeg.
+- **Prompt:**
+
+```text
+Plan webinar cut but load zero video MCPs; cite r/ClaudeAI MCP overhead discussion if user asks about MCP.
+```
+
+- **Erwartetes Ergebnis:**
+
+  Plan mit reinen Shell-Befehlen; Verweis https://www.reddit.com/r/ClaudeAI/comments/1ryz7zp/i_measured_my_mcp_token_overhead_67k_tokens/ ; kein MCP-Toolcall in der Ausführung.

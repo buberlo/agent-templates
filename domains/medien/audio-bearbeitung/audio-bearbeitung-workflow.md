@@ -1,104 +1,152 @@
 ---
 id: audio-bearbeitung-workflow
-title: "Audio-Bearbeitung"
 domain: medien
+title: "Audio schneiden, normalisieren und konvertieren"
 category: audio-bearbeitung
 tags:
   - audio
-  - medien
-  - cli
+  - ffmpeg
+  - normalize
 target_agents:
   - hermes
-  - grokbot
-  - generic-mcp-agents
   - generic
+  - cursor
 required_tools:
-  - name: FFmpeg (CLI, oft ohne eigenes MCP)
-    install: "https://ffmpeg.org/"
-    version_notes: "Nicht als einzelnes MCP-Star-Signal belegt."
-  - name: ClawHub / OpenClaw Skill Openai Whisper (steipete)
-    install: "https://clawhubtrends.com/leaderboard.html"
-    version_notes: "303 GitHub Stars"
+  - name: ffmpeg
+    install: "OS-Paket ffmpeg"
+    version_notes: "afilter, codec conversion"
+  - name: Whisper Skill
+    install: "ClawHub Openai Whisper optional"
+    version_notes: "Nur für Transkript nach Audio-Prep"
 inputs:
-  - "Kontext/Briefing für Audio-Bearbeitung"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Quellaudio (beliebiges Format)"
+  - "Ziel (Format, Lautheit, Schnitt)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Bearbeitete Audiodatei"
+  - "Optional Transkript"
 risk_level: low
-example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
+example_count: 2
 ---
 
 ## Zweck
 
-Schneiden, normalisieren, mischen und konvertieren von Audio mit FFmpeg, DAW-nahen CLIs oder MCP-Wrappern.
+Allgemeine **Audio-Postproduktion** mit FFmpeg: extrahieren, schneiden, loudnorm, Formatwechsel—optional Anschluss an Whisper für Transkript, ohne DAW-Pflicht.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Audio-Bearbeitung**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Sprachmemos, Sessions oder Extrakte aus Video sollen hörbar und einheitlich werden.
+- Batch-Konvertierung WAV→FLAC/MP3 mit gleichen Parametern.
+- Agent soll Befehlskette dokumentieren.
+
+**Wann nicht**
+
+- MIDI/virtuelle Instrumente mixen.
+- Autotune und Melodie-Korrektur auf Takes.
+- Surround-5.1-Mastering für Kino.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| FFmpeg (CLI, oft ohne eigenes MCP) | CLI | Aus Recherche 2026-11-23 |
-| ClawHub / OpenClaw Skill Openai Whisper  | Skill | Aus Recherche 2026-11-23 |
+| ffmpeg | Schnitt, Filter, Encode | Ein Werkzeug für die meisten Jobs |
+| ffprobe | Analyse | Codec, layout, duration |
+| Whisper Skill | Transkript | Optional zweiter Schritt |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Audio-Bearbeitung (medien/audio-bearbeitung).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Audio extrahieren, loudnorm, anschließend transkribieren.
+You edit and convert audio using ffmpeg/ffprobe as the primary toolchain.
+
+Inputs: source path, operations list (trim, denoise light, loudness target, format), output path, whether to preserve sample rate.
+
+Probe first: ffprobe -show_streams -show_format.
+
+Trim: use -ss after -i for sample-accurate on re-encode; -c copy only for simple container trims on codecs that support it.
+
+Loudness: two-pass loudnorm for speech; state integrated LUFS and true peak in summary.
+
+Convert: explicit codec (pcm_s16le wav, flac, libmp3lame q:a 2, aac b:a 192k).
+Resample only when required; prefer aresample=resampler=soxr at 48k for video handoff.
+
+Light denoise: afftdn nr<=15 for speech room tone; skip for music.
+
+Extract from video: -vn -map 0:a:0.
+
+After work, run volumedetect or loudnorm summary on output.
+
+Optional whisper: only on user's request after final WAV exists.
+
+No sending audio to unknown APIs. Document commands in order.
+
+If multiple inputs differ in sample rate, resample to a single rate before concat.
+Report input/output duration delta after trim; flag if >0.2 s unexplained.
+For phone recordings, apply optional highpass at 80 Hz only when hum is reported.
+Keep intermediate WAV until user confirms final codec; delete only after approval.
 ```
 
 ## Arbeitsablauf
 
-- Audio extrahieren, loudnorm, anschließend transkribieren.
+1. `ffprobe input` — Kanäle, Rate, Dauer.
+2. Aus Video: `ffmpeg -i clip.mp4 -vn -map 0:a:0 -c:a pcm_s16le audio.wav`.
+3. Schnitt: `ffmpeg -i audio.wav -ss 5 -to 120 -c copy trimmed.wav` oder re-encode bei MP3.
+4. loudnorm two-pass auf `trimmed.wav`.
+5. Export MP3/FLAC je Briefing.
+6. Optional Whisper auf WAV.
+7. Summary: Peak, LUFS, Pfad.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Ausgabeformat und -rate wie spezifiziert
+- [ ] Kein Clipping (true peak ≤ -1 dBTP wenn normalisiert)
+- [ ] Schnitt an richtigen Zeitmarken ±0,1 s
+- [ ] Befehlsprotokoll vollständig
 
 ## Sicherheit & Freigaben
 
-- STT/TTS-MCPs oft cloud- und kostenpflichtig; lokale Whisper-Skills schonen Daten.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Vertrauliche Gespräche lokal halten; Cloud-Transkription nur mit Freigabe.
+
+## Fallstricke
+
+- MP3-Schnitt mit `-c copy` an Frame-Grenzen unsauber.
+- Stereo zu Mono ohne `-ac 1` kann Phasen-Mono-Effekt ignorieren—`-pan` nur bewusst.
+- loudnorm auf Musik-Mix verfälscht Dynamik.
+- Mehrfaches Transcodieren MP3→AAC→MP3: Generationsverlust.
+- Whisper auf 8 kHz Telefon-Audio ohne Upsample.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Audio-Bearbeitung-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `audio-bearbeitung` (Testdaten)
+- **Aufgabe:** Audio aus Zoom-MP4, -24 LUFS grob normalisieren.
+- **Input:** `meeting.mp4`, 62 min.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Audio-Bearbeitung. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Extract audio to 48k wav, two-pass loudnorm -24 LUFS for archive, log commands.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```bash
+ffmpeg -i meeting.mp4 -vn -ar 48000 meeting.wav
+# loudnorm two-pass → meeting_norm.wav, integrated ≈ -24 LUFS
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Audio-Bearbeitung
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** 3 Voice-Memos zu einem FLAC.
+- **Input:** `memo1.m4a`, `memo2.m4a`, `memo3.m4a`.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Concat to single FLAC 48k stereo; resample each input first.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```
+concat_list.txt → combined.flac
+ffprobe: 1 stream, flac, 48000 Hz, stereo, duration sum ±0.1s
+```
