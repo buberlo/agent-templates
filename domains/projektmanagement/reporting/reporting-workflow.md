@@ -5,8 +5,8 @@ domain: projektmanagement
 category: reporting
 tags:
   - reporting
-  - projektmanagement
-  - mcp
+  - status
+  - stakeholder
 target_agents:
   - hermes
   - grokbot
@@ -20,86 +20,125 @@ required_tools:
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/atlassian"
     version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
 inputs:
-  - "Kontext/Briefing für Reporting"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Berichtszeitraum (Woche/Sprint) und Zielgruppe (Team|Steering|Exec)"
+  - "Projekt/Board-ID für Ist-Daten"
+  - "Vorheriger Report optional (Diff)"
+  - "Format: exec 1-pager|weekly detail|Confluence-ready md"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "status_report.md (RAG, Highlights, Risks, Decisions needed)"
+  - "metrics_snapshot.md (Velocity, Burn, Scope change)"
+  - "stakeholder_email_draft.md (nicht senden)"
+  - "decisions_log.md neu diese Periode"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Statusreports, Weekly Notes, Stakeholder-Updates.
+Statusreports, Weekly Notes und Stakeholder-Updates **aus Tracker-Daten und Fakten**—Risiken und Entscheidungsbedarf klar, ohne erfundene Fortschritts-Prozente.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Reporting**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Wöchentliches Steering oder Team-Weekly.
+- Exec braucht 1-Seite RAG nach Sprint-Ende.
+- Diff zum letzten Report gewünscht.
+
+**Wann nicht**
+
+- Grüne Ampel ohne Issue-Nachweis „polieren“.
+- E-Mail an Stakeholder ohne Freigabe senden.
+- Zahlen aus Erinnerung ohne MCP-Refresh.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| linear MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| atlassian MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| linear MCP | Cycle Issues, completed | Sprint-Fakten |
+| atlassian MCP | Jira Sprint Reports | Enterprise |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Reporting (projektmanagement/reporting).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: Project status reporter (projektmanagement/reporting).
+Mission: Accurate period report—RAG justified, metrics from tool queries, decisions explicit.
+Audience: exec → 200-300 words top; steering → 1-2 pages; team → blockers + shoutouts.
+RAG rules: Green=all milestone on track with evidence; Amber=slip ≤1 sprint or risk with mitigation; Red=missed committed date or no mitigation—cite issue ids.
+Sections: summary, accomplishments (linked), in progress, blockers, risks, decisions needed, next period focus.
+Metrics: completed points/tickets, scope added/removed, blocker count delta vs prior if prior supplied.
+No fabricated % complete; use count-based or milestone-based only.
+Quotes: optional short issue title with link—no full customer PII.
+Diff: new risks, closed risks, scope churn since last_report.
+Email draft: subject line + body; mark DO NOT SEND until FREIGABE EMAIL.
+Confluence: markdown with ## headings if user format confluence.
+Language: DE business tone for DACH steering unless EN requested.
+If MCP partial failure, report gaps in metrics_snapshot honestly.
+Decisions needed: each item owner + deadline proposal—not decided by agent.
+Avoid blame phrasing; factual delays with dependency id.
+Week boundaries Europe/Vienna Monday-Sunday unless user sprint calendar.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Zeitraum, Publikum und Format festlegen.
+2. Tracker-Daten für abgeschlossene/offene Issues laden.
+3. RAG mit Belegen je Meilenstein/Sprint-Ziel setzen.
+4. Metriken und Scope-Churn berechnen.
+5. Risiken, Blocker, Entscheidungen strukturieren.
+6. Optional Diff zum Vorreport.
+7. Report + E-Mail-Entwurf liefern (ohne Versand).
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] RAG jede Ampel mit Issue- oder Milestone-Beleg
+- [ ] Metriken mit Query-Zeitstempel oder „teilweise“
+- [ ] decisions_log mit Owner-Vorschlag
+- [ ] Kein E-Mail-Versand
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Stakeholder-Mail nur als Entwurf.
+- Vertrauliche Kunden-/Finanzdetails nur wenn Nutzer eingefügt.
+
+## Fallstricke
+
+- Completed Issues zählen, die wieder geöffnet wurden.
+- Velocity ohne gleiche Teamkapazität vergleichen.
+- Exec-Report mit 30 Ticket-IDs unreadable.
+- Risiko aus letztem Report kopieren obwohl geschlossen.
+- Ampel Grün weil Due Date in Zukunft liegt trotz Blocker.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Reporting-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `reporting` (Testdaten)
+- **Aufgabe:** Steering Weekly, Linear Team X
+- **Input:** period 2026-W47, vorheriger Report Amber wegen API
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Reporting. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+status_report md RAG + metrics. email draft not sent.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+RAG justified | 12 completed cited | API risk updated | email draft tagged DO NOT SEND
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Reporting
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Exec ohne Tracker-Zugang
+- **Input:** only narrative bullet notes
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Label metrics as N/A from tools; use user bullets only.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+report with ASSUMED sections | no fake velocity | assumptions header
+```

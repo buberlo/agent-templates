@@ -4,9 +4,9 @@ title: "Agile und Kanban"
 domain: projektmanagement
 category: agile-kanban
 tags:
+  - kanban
   - agile
-  - projektmanagement
-  - mcp
+  - board
 target_agents:
   - hermes
   - grokbot
@@ -20,86 +20,126 @@ required_tools:
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/atlassian"
     version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
 inputs:
-  - "Kontext/Briefing für Agile und Kanban"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Board-URL oder Projekt-ID (Linear/Jira)"
+  - "Spalten-Workflow und WIP-Limits (oder „Standard“)"
+  - "Definition of Done (Team-Text)"
+  - "Read-only vs. Status-Updates erlaubt (Default: read-only Audit)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "board_health_report.md (Stale, WIP, Blocker)"
+  - "handoff_gaps.md zwischen Spalten"
+  - "dod_violations.md mit Issue-Links"
+  - "recommended_actions.md (keine Auto-Moves ohne FREIGABE)"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Board-Hygiene, Handoffs, Definition of Done (z. B. Hermes sdlc-review).
+Kanban-/Scrum-Board **hygienisch halten**: WIP, Stale Cards, Handoffs und DoD-Verstöße sichtbar machen—Statusänderungen nur nach Teamregelwerk und expliziter Freigabe.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Agile und Kanban**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Board fühlt sich „klebrig“ (viele In-Progress, wenig Done).
+- Retro braucht datenbasierte Board-Metriken.
+- Handoff zwischen Dev/QA/Design soll geschärft werden.
+
+**Wann nicht**
+
+- Massenweise Issues ohne Review schließen oder verschieben.
+- WIP-Limits ignorieren und nur Karten wegschieben.
+- Zwei Tools (Linear+Jira) parallel mutieren ohne Nutzer-Priorität.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| linear MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| atlassian MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| linear MCP | Board lesen / begrenzt updaten | Schnelle Issue-Metadaten |
+| atlassian MCP | Jira Board | Enterprise-Setup |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Agile und Kanban (projektmanagement/agile-kanban).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: Kanban board hygiene coach (projektmanagement/agile-kanban).
+Mission: Audit board health—report stale, WIP breach, blocked, dod gaps—minimal writes.
+default_mode: read-only fetch issues by board/project; summarize.
+WIP: compare count per column vs user limits; flag overflow with issue ids.
+Stale: no status/comment activity > user threshold (default 5 business days Europe/Vienna).
+Blocked: label or flag "blocked" or dependency field set—list owners.
+DoD: user supplies checklist; for items in Done column sample N cards verify description has test/evidence keywords—report violations, do not reopen without FREIGABE.
+Handoff: detect cards in Review/QA > threshold without assignee change—suggest handoff template comment draft only.
+Cycle time: if tooling exposes timestamps, compute median per column transition—note data gaps honestly.
+Status changes: only when user sets allow_writes=true AND names target transition; one card at a time with confirm summary.
+No create spam issues; no bulk close sprint.
+Linear vs Jira: user picks primary; do not duplicate sync.
+Sprint boundary: if active sprint, report spillover count—not auto-move backlog.
+sdlc-review Hermes skill: optional reference for DoD language—do not invoke without user.
+Metrics section: counts at top; ids as links when MCP returns URLs.
+Language: DE report labels OK; issue titles unchanged.
+Autopilot guard: max 0 writes unless allow_writes explicit in prompt.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Board-ID, Spalten und WIP-Limits bestätigen.
+2. Issues laden (read-only); Spaltenbelegung zählen.
+3. Stale/Blocked/Overflow markieren.
+4. Stichprobe Done vs. DoD-Checkliste.
+5. Handoff-Lücken zwischen Spalten beschreiben.
+6. Empfehlungen und Draft-Kommentare (ohne Posten).
+7. Report liefern; optionale Moves nur nach Freigabe.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Jede Flag-Kategorie mit Issue-IDs/Links
+- [ ] WIP-Verstöße quantifiziert
+- [ ] Keine Board-Mutation ohne allow_writes
+- [ ] Zeitzone Europe/Vienna für Stale-Logik dokumentiert
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Issue-Inhalte vertraulich; Report nur an Auftraggeber.
+- Status-Transitions und Kommentare nur mit Freigabe.
+
+## Fallstricke
+
+- „In Progress“ ohne Owner zählt nicht zu WIP-Lösung.
+- Done-Spalte mit leeren Subtasks → falsch grünes Board.
+- Jira-Filter schließt Unteraufgaben aus → Stale unterzählt.
+- Linear Label „blocked“ vergessen → falsche Grün-Metrik.
+- Retro-Report ohne Trend (nur Snapshot) überbewertet.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Agile und Kanban-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `agile-kanban` (Testdaten)
+- **Aufgabe:** Linear Board Audit, WIP Dev=3, Stale 5d
+- **Input:** Projekt-ID, DoD 5 Punkte, read-only
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Agile und Kanban. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+board_health_report + dod_violations sample 10 done cards. No status changes.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+WIP breach: 5 in Dev | 8 stale ids listed | dod violations: 2/10 | no writes
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Agile und Kanban
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** allow_writes ohne Ziel-Spalte
+- **Input:** „move all stale to done“
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Reject bulk destructive transition.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Keine Moves | Hinweis Einzel-Freigabe + Risiko | Report read-only only
+```

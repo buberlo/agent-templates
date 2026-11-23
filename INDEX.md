@@ -55,14 +55,14 @@ Automatisch generiert. **27** Domains, **198** Kategorien, **247** Templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `browser-automation-mcp-focus` | Browser-Automation: MCP/Skill-Fokus | hermes, grokbot, generic-mcp-agents… | low | 3 |
-| `browser-automation-workflow` | Browser-Automation | hermes, grokbot, generic-mcp-agents… | low | 3 |
+| `browser-automation-mcp-focus` | Browser-Automation: MCP/Skill-Fokus | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `browser-automation-workflow` | Browser-Automation | hermes, grokbot, generic-mcp-agents… | medium | 3 |
 
 ### `automatisierung/cron-routines` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `cron-routines-workflow` | Cron und Routinen | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `cron-routines-workflow` | Cron und Routinen | hermes, grokbot, generic-mcp-agents… | medium | 2 |
 
 ### `automatisierung/desktop-automation` (1)
 
@@ -80,14 +80,14 @@ Automatisch generiert. **27** Domains, **198** Kategorien, **247** Templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `mobile-phone-control-mcp-focus` | Mobile- und Phone-Control: MCP/Skill-Fokus | hermes, grokbot, generic-mcp-agents… | low | 2 |
-| `mobile-phone-control-workflow` | Mobile- und Phone-Control | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `mobile-phone-control-mcp-focus` | Mobile- und Phone-Control: MCP/Skill-Fokus | hermes, grokbot, generic-mcp-agents… | medium | 2 |
+| `mobile-phone-control-workflow` | Mobile- und Phone-Control | hermes, grokbot, generic-mcp-agents… | high | 2 |
 
 ### `automatisierung/n8n-make-zapier` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `n8n-make-zapier-workflow` | n8n, Make, Zapier | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `n8n-make-zapier-workflow` | n8n, Make, Zapier | hermes, grokbot, generic-mcp-agents… | medium | 2 |
 
 ### `automatisierung/rpa` (1)
 
