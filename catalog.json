@@ -1,120 +1,2073 @@
 {
-  "generated_at": "2026-11-23T10:57:57Z",
+  "generated_at": "2026-11-23T11:24:56Z",
+  "domains": [
+    {
+      "slug": "agent-platforms",
+      "category_count": 7,
+      "template_count": 10,
+      "categories": [
+        {
+          "slug": "claude-code",
+          "template_count": 2
+        },
+        {
+          "slug": "codex",
+          "template_count": 1
+        },
+        {
+          "slug": "cursor",
+          "template_count": 1
+        },
+        {
+          "slug": "generic-mcp-agents",
+          "template_count": 2
+        },
+        {
+          "slug": "grokbot",
+          "template_count": 1
+        },
+        {
+          "slug": "hermes",
+          "template_count": 1
+        },
+        {
+          "slug": "openclaw",
+          "template_count": 2
+        }
+      ]
+    },
+    {
+      "slug": "automatisierung",
+      "category_count": 8,
+      "template_count": 10,
+      "categories": [
+        {
+          "slug": "browser-automation",
+          "template_count": 2
+        },
+        {
+          "slug": "cron-routines",
+          "template_count": 1
+        },
+        {
+          "slug": "desktop-automation",
+          "template_count": 1
+        },
+        {
+          "slug": "iot",
+          "template_count": 1
+        },
+        {
+          "slug": "mobile-phone-control",
+          "template_count": 2
+        },
+        {
+          "slug": "n8n-make-zapier",
+          "template_count": 1
+        },
+        {
+          "slug": "rpa",
+          "template_count": 1
+        },
+        {
+          "slug": "smart-home",
+          "template_count": 1
+        }
+      ]
+    },
+    {
+      "slug": "bildung",
+      "category_count": 5,
+      "template_count": 6,
+      "categories": [
+        {
+          "slug": "kurse-erstellen",
+          "template_count": 2
+        },
+        {
+          "slug": "lernkarten",
+          "template_count": 1
+        },
+        {
+          "slug": "nachhilfe-tutoring",
+          "template_count": 1
+        },
+        {
+          "slug": "sprachen",
+          "template_count": 1
+        },
+        {
+          "slug": "studium-forschung",
+          "template_count": 1
+        }
+      ]
+    },
+    {
+      "slug": "content-marketing",
+      "category_count": 17,
+      "template_count": 18,
+      "categories": [
+        {
+          "slug": "ads-performance",
+          "template_count": 1
+        },
+        {
+          "slug": "branding-design",
+          "template_count": 2
+        },
+        {
+          "slug": "content-strategie",
+          "template_count": 1
+        },
+        {
+          "slug": "copywriting",
+          "template_count": 1
+        },
+        {
+          "slug": "influencer",
+          "template_count": 1
+        },
+        {
+          "slug": "landingpages",
+          "template_count": 1
+        },
+        {
+          "slug": "newsletter",
+          "template_count": 1
+        },
+        {
+          "slug": "seo",
+          "template_count": 1
+        },
+        {
+          "slug": "social-facebook-meta",
+          "template_count": 1
+        },
+        {
+          "slug": "social-instagram",
+          "template_count": 1
+        },
+        {
+          "slug": "social-linkedin",
+          "template_count": 1
+        },
+        {
+          "slug": "social-media-strategie",
+          "template_count": 1
+        },
+        {
+          "slug": "social-reddit",
+          "template_count": 1
+        },
+        {
+          "slug": "social-tiktok",
+          "template_count": 1
+        },
+        {
+          "slug": "social-x-twitter",
+          "template_count": 1
+        },
+        {
+          "slug": "social-youtube",
+          "template_count": 1
+        },
+        {
+          "slug": "ugc",
+          "template_count": 1
+        }
+      ]
+    },
+    {
+      "slug": "daten-analytics",
+      "category_count": 8,
+      "template_count": 9,
+      "categories": [
+        {
+          "slug": "bi-dashboards",
+          "template_count": 1
+        },
+        {
+          "slug": "data-cleaning",
+          "template_count": 1
+        },
+        {
+          "slug": "data-viz",
+          "template_count": 1
+        },
+        {
+          "slug": "etl-pipelines",
+          "template_count": 1
+        },
+        {
+          "slug": "ml-training",
+          "template_count": 1
+        },
+        {
+          "slug": "spreadsheets-analyse",
+          "template_count": 1
+        },
+        {
+          "slug": "sql-abfragen",
+          "template_count": 1
+        },
+        {
+          "slug": "web-scraping",
+          "template_count": 2
+        }
+      ]
+    },
+    {
+      "slug": "devops-cloud",
+      "category_count": 12,
+      "template_count": 18,
+      "categories": [
+        {
+          "slug": "cicd",
+          "template_count": 2
+        },
+        {
+          "slug": "cloud-aws",
+          "template_count": 1
+        },
+        {
+          "slug": "cloud-azure",
+          "template_count": 1
+        },
+        {
+          "slug": "cloud-gcp",
+          "template_count": 1
+        },
+        {
+          "slug": "cloud-kosten",
+          "template_count": 1
+        },
+        {
+          "slug": "docker-container",
+          "template_count": 1
+        },
+        {
+          "slug": "iac-terraform",
+          "template_count": 1
+        },
+        {
+          "slug": "incident-response",
+          "template_count": 2
+        },
+        {
+          "slug": "kubernetes",
+          "template_count": 3
+        },
+        {
+          "slug": "logging",
+          "template_count": 1
+        },
+        {
+          "slug": "monitoring-observability",
+          "template_count": 2
+        },
+        {
+          "slug": "plattform-deploy",
+          "template_count": 2
+        }
+      ]
+    },
+    {
+      "slug": "finanzen",
+      "category_count": 7,
+      "template_count": 9,
+      "categories": [
+        {
+          "slug": "banking",
+          "template_count": 1
+        },
+        {
+          "slug": "buchhaltung",
+          "template_count": 1
+        },
+        {
+          "slug": "budget",
+          "template_count": 1
+        },
+        {
+          "slug": "payments-stripe",
+          "template_count": 2
+        },
+        {
+          "slug": "rechnungen",
+          "template_count": 1
+        },
+        {
+          "slug": "steuern",
+          "template_count": 1
+        },
+        {
+          "slug": "trading-krypto",
+          "template_count": 2
+        }
+      ]
+    },
+    {
+      "slug": "gaming-modding",
+      "category_count": 4,
+      "template_count": 4,
+      "categories": [
+        {
+          "slug": "game-modding",
+          "template_count": 1
+        },
+        {
+          "slug": "game-servers",
+          "template_count": 1
+        },
+        {
+          "slug": "spielbibliotheken",
+          "template_count": 1
+        },
+        {
+          "slug": "streaming-gaming",
+          "template_count": 1
+        }
+      ]
+    },
+    {
+      "slug": "gesundheit-fitness",
+      "category_count": 4,
+      "template_count": 4,
+      "categories": [
+        {
+          "slug": "ernaehrung",
+          "template_count": 1
+        },
+        {
+          "slug": "fitness-training",
+          "template_count": 1
+        },
+        {
+          "slug": "gesundheitsdaten-organisation",
+          "template_count": 1
+        },
+        {
+          "slug": "mental-health-organisation",
+          "template_count": 1
+        }
+      ]
+    },
+    {
+      "slug": "hardware-embedded",
+      "category_count": 4,
+      "template_count": 4,
+      "categories": [
+        {
+          "slug": "arduino-esp32",
+          "template_count": 1
+        },
+        {
+          "slug": "cad",
+          "template_count": 1
+        },
+        {
+          "slug": "dreid-druck",
+          "template_count": 1
+        },
+        {
+          "slug": "elektronik-diagnose",
+          "template_count": 1
+        }
+      ]
+    },
+    {
+      "slug": "hr-recruiting",
+      "category_count": 4,
+      "template_count": 4,
+      "categories": [
+        {
+          "slug": "bewerbungen",
+          "template_count": 1
+        },
+        {
+          "slug": "cv-screening",
+          "template_count": 1
+        },
+        {
+          "slug": "onboarding",
+          "template_count": 1
+        },
+        {
+          "slug": "stellenausschreibungen",
+          "template_count": 1
+        }
+      ]
+    },
+    {
+      "slug": "immobilien",
+      "category_count": 3,
+      "template_count": 3,
+      "categories": [
+        {
+          "slug": "exposes",
+          "template_count": 1
+        },
+        {
+          "slug": "immobilien-suche",
+          "template_count": 1
+        },
+        {
+          "slug": "verwaltung-weg",
+          "template_count": 1
+        }
+      ]
+    },
+    {
+      "slug": "it-betrieb-support",
+      "category_count": 10,
+      "template_count": 10,
+      "categories": [
+        {
+          "slug": "active-directory-entra",
+          "template_count": 1
+        },
+        {
+          "slug": "backup-restore",
+          "template_count": 1
+        },
+        {
+          "slug": "endpoint-mdm",
+          "template_count": 1
+        },
+        {
+          "slug": "google-workspace-admin",
+          "template_count": 1
+        },
+        {
+          "slug": "helpdesk-it",
+          "template_count": 1
+        },
+        {
+          "slug": "homelab",
+          "template_count": 1
+        },
+        {
+          "slug": "identitaet-sso",
+          "template_count": 1
+        },
+        {
+          "slug": "m365-admin",
+          "template_count": 1
+        },
+        {
+          "slug": "netzwerk",
+          "template_count": 1
+        },
+        {
+          "slug": "remote-support",
+          "template_count": 1
+        }
+      ]
+    },
+    {
+      "slug": "ki-ops",
+      "category_count": 9,
+      "template_count": 11,
+      "categories": [
+        {
+          "slug": "agent-orchestration",
+          "template_count": 1
+        },
+        {
+          "slug": "context-token-management",
+          "template_count": 2
+        },
+        {
+          "slug": "evals-benchmarks",
+          "template_count": 1
+        },
+        {
+          "slug": "fine-tuning",
+          "template_count": 1
+        },
+        {
+          "slug": "lokale-modelle-ollama",
+          "template_count": 1
+        },
+        {
+          "slug": "mcp-server-bau",
+          "template_count": 2
+        },
+        {
+          "slug": "model-routing",
+          "template_count": 1
+        },
+        {
+          "slug": "prompt-engineering",
+          "template_count": 1
+        },
+        {
+          "slug": "skills-authoring",
+          "template_count": 1
+        }
+      ]
+    },
+    {
+      "slug": "kommunikation",
+      "category_count": 6,
+      "template_count": 10,
+      "categories": [
+        {
+          "slug": "chat-messaging",
+          "template_count": 2
+        },
+        {
+          "slug": "email",
+          "template_count": 2
+        },
+        {
+          "slug": "imessage-sms",
+          "template_count": 1
+        },
+        {
+          "slug": "kalender-scheduling",
+          "template_count": 2
+        },
+        {
+          "slug": "meetings-transkription",
+          "template_count": 2
+        },
+        {
+          "slug": "telefon-voice-agents",
+          "template_count": 1
+        }
+      ]
+    },
+    {
+      "slug": "kundenservice",
+      "category_count": 5,
+      "template_count": 5,
+      "categories": [
+        {
+          "slug": "escalation",
+          "template_count": 1
+        },
+        {
+          "slug": "helpdesk-tickets",
+          "template_count": 1
+        },
+        {
+          "slug": "knowledge-base",
+          "template_count": 1
+        },
+        {
+          "slug": "live-chat-bots",
+          "template_count": 1
+        },
+        {
+          "slug": "qos-csat",
+          "template_count": 1
+        }
+      ]
+    },
+    {
+      "slug": "medien",
+      "category_count": 12,
+      "template_count": 16,
+      "categories": [
+        {
+          "slug": "animation-motion",
+          "template_count": 1
+        },
+        {
+          "slug": "audio-bearbeitung",
+          "template_count": 1
+        },
+        {
+          "slug": "bild-fotografie",
+          "template_count": 1
+        },
+        {
+          "slug": "bild-generierung",
+          "template_count": 2
+        },
+        {
+          "slug": "dreid-modellierung",
+          "template_count": 1
+        },
+        {
+          "slug": "musik",
+          "template_count": 1
+        },
+        {
+          "slug": "podcast",
+          "template_count": 2
+        },
+        {
+          "slug": "streaming-broadcast",
+          "template_count": 1
+        },
+        {
+          "slug": "untertitel-uebersetzung",
+          "template_count": 2
+        },
+        {
+          "slug": "video-bearbeitung",
+          "template_count": 2
+        },
+        {
+          "slug": "video-produktion-pipeline",
+          "template_count": 1
+        },
+        {
+          "slug": "youtube-content",
+          "template_count": 1
+        }
+      ]
+    },
+    {
+      "slug": "office-dokumente",
+      "category_count": 11,
+      "template_count": 16,
+      "categories": [
+        {
+          "slug": "diagramme-whiteboard",
+          "template_count": 1
+        },
+        {
+          "slug": "e-signatur",
+          "template_count": 1
+        },
+        {
+          "slug": "excel-xlsx",
+          "template_count": 2
+        },
+        {
+          "slug": "formulare",
+          "template_count": 1
+        },
+        {
+          "slug": "google-workspace-docs",
+          "template_count": 1
+        },
+        {
+          "slug": "notion",
+          "template_count": 1
+        },
+        {
+          "slug": "obsidian",
+          "template_count": 1
+        },
+        {
+          "slug": "ocr",
+          "template_count": 2
+        },
+        {
+          "slug": "pdf",
+          "template_count": 2
+        },
+        {
+          "slug": "powerpoint-pptx",
+          "template_count": 2
+        },
+        {
+          "slug": "word-docx",
+          "template_count": 2
+        }
+      ]
+    },
+    {
+      "slug": "persoenlich-lifestyle",
+      "category_count": 5,
+      "template_count": 5,
+      "categories": [
+        {
+          "slug": "einkauf",
+          "template_count": 1
+        },
+        {
+          "slug": "essen-rezepte",
+          "template_count": 1
+        },
+        {
+          "slug": "haushalt",
+          "template_count": 1
+        },
+        {
+          "slug": "produkte-vergleich",
+          "template_count": 1
+        },
+        {
+          "slug": "termine-persoenlich",
+          "template_count": 1
+        }
+      ]
+    },
+    {
+      "slug": "projektmanagement",
+      "category_count": 5,
+      "template_count": 5,
+      "categories": [
+        {
+          "slug": "agile-kanban",
+          "template_count": 1
+        },
+        {
+          "slug": "jira-linear",
+          "template_count": 1
+        },
+        {
+          "slug": "planung",
+          "template_count": 1
+        },
+        {
+          "slug": "reporting",
+          "template_count": 1
+        },
+        {
+          "slug": "tasks",
+          "template_count": 1
+        }
+      ]
+    },
+    {
+      "slug": "recherche-wissen",
+      "category_count": 8,
+      "template_count": 13,
+      "categories": [
+        {
+          "slug": "akademisch",
+          "template_count": 1
+        },
+        {
+          "slug": "bibliothek-zotero",
+          "template_count": 2
+        },
+        {
+          "slug": "grounded-citations",
+          "template_count": 1
+        },
+        {
+          "slug": "news-monitoring",
+          "template_count": 1
+        },
+        {
+          "slug": "patente",
+          "template_count": 2
+        },
+        {
+          "slug": "rag-memory",
+          "template_count": 2
+        },
+        {
+          "slug": "web-recherche",
+          "template_count": 2
+        },
+        {
+          "slug": "wikis-dokumentation",
+          "template_count": 2
+        }
+      ]
+    },
+    {
+      "slug": "recht-verwaltung",
+      "category_count": 3,
+      "template_count": 3,
+      "categories": [
+        {
+          "slug": "behoerden-formulare",
+          "template_count": 1
+        },
+        {
+          "slug": "datenschutz",
+          "template_count": 1
+        },
+        {
+          "slug": "vertraege",
+          "template_count": 1
+        }
+      ]
+    },
+    {
+      "slug": "reisen-events",
+      "category_count": 4,
+      "template_count": 4,
+      "categories": [
+        {
+          "slug": "event-planung",
+          "template_count": 1
+        },
+        {
+          "slug": "fluege-hotels",
+          "template_count": 1
+        },
+        {
+          "slug": "reiseplanung",
+          "template_count": 1
+        },
+        {
+          "slug": "tickets",
+          "template_count": 1
+        }
+      ]
+    },
+    {
+      "slug": "security",
+      "category_count": 9,
+      "template_count": 13,
+      "categories": [
+        {
+          "slug": "appsec-sast",
+          "template_count": 1
+        },
+        {
+          "slug": "compliance-nis2-dsgvo",
+          "template_count": 2
+        },
+        {
+          "slug": "forensik",
+          "template_count": 1
+        },
+        {
+          "slug": "osint",
+          "template_count": 2
+        },
+        {
+          "slug": "pentest-recon",
+          "template_count": 1
+        },
+        {
+          "slug": "reverse-engineering",
+          "template_count": 1
+        },
+        {
+          "slug": "secrets-management",
+          "template_count": 1
+        },
+        {
+          "slug": "siem-soc",
+          "template_count": 2
+        },
+        {
+          "slug": "vuln-management",
+          "template_count": 2
+        }
+      ]
+    },
+    {
+      "slug": "software-entwicklung",
+      "category_count": 12,
+      "template_count": 19,
+      "categories": [
+        {
+          "slug": "backend-apis",
+          "template_count": 2
+        },
+        {
+          "slug": "code-review",
+          "template_count": 2
+        },
+        {
+          "slug": "coding",
+          "template_count": 2
+        },
+        {
+          "slug": "datenbanken-dev",
+          "template_count": 2
+        },
+        {
+          "slug": "design-to-code",
+          "template_count": 1
+        },
+        {
+          "slug": "frontend",
+          "template_count": 2
+        },
+        {
+          "slug": "game-dev",
+          "template_count": 1
+        },
+        {
+          "slug": "git-github",
+          "template_count": 1
+        },
+        {
+          "slug": "mobile-apps",
+          "template_count": 1
+        },
+        {
+          "slug": "refactoring",
+          "template_count": 1
+        },
+        {
+          "slug": "tech-docs",
+          "template_count": 2
+        },
+        {
+          "slug": "testing",
+          "template_count": 2
+        }
+      ]
+    },
+    {
+      "slug": "vertrieb-crm",
+      "category_count": 11,
+      "template_count": 13,
+      "categories": [
+        {
+          "slug": "amazon",
+          "template_count": 1
+        },
+        {
+          "slug": "angebote-proposals",
+          "template_count": 1
+        },
+        {
+          "slug": "crm",
+          "template_count": 1
+        },
+        {
+          "slug": "e-commerce",
+          "template_count": 1
+        },
+        {
+          "slug": "etsy",
+          "template_count": 1
+        },
+        {
+          "slug": "kdp",
+          "template_count": 1
+        },
+        {
+          "slug": "leadgen",
+          "template_count": 2
+        },
+        {
+          "slug": "marketplaces",
+          "template_count": 1
+        },
+        {
+          "slug": "outreach",
+          "template_count": 2
+        },
+        {
+          "slug": "preis-monitoring",
+          "template_count": 1
+        },
+        {
+          "slug": "shopify",
+          "template_count": 1
+        }
+      ]
+    },
+    {
+      "slug": "wissenschaft-engineering",
+      "category_count": 5,
+      "template_count": 5,
+      "categories": [
+        {
+          "slug": "daten-experimente",
+          "template_count": 1
+        },
+        {
+          "slug": "lab-notes",
+          "template_count": 1
+        },
+        {
+          "slug": "paper-writing",
+          "template_count": 1
+        },
+        {
+          "slug": "simulation-numerics",
+          "template_count": 1
+        },
+        {
+          "slug": "tech-standards",
+          "template_count": 1
+        }
+      ]
+    }
+  ],
   "templates": [
     {
-      "id": "audio-ffmpeg-podcast-master",
-      "title": "Podcast mastering mit ffmpeg und loudnorm",
-      "category": "audio",
+      "id": "claude-code-mcp-focus",
+      "title": "Claude Code: MCP/Skill-Fokus",
+      "domain": "agent-platforms",
+      "category": "claude-code",
       "tags": [
-        "ffmpeg",
-        "loudness",
-        "podcast"
+        "claude",
+        "agent-platforms",
+        "cliagent"
+      ],
+      "target_agents": [
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 3,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/agent-platforms/claude-code/claude-code-mcp-focus.md"
+    },
+    {
+      "id": "claude-code-workflow",
+      "title": "Claude Code",
+      "domain": "agent-platforms",
+      "category": "claude-code",
+      "tags": [
+        "claude",
+        "agent-platforms",
+        "cliagent"
+      ],
+      "target_agents": [
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 3,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/agent-platforms/claude-code/claude-code-workflow.md"
+    },
+    {
+      "id": "codex-workflow",
+      "title": "Codex",
+      "domain": "agent-platforms",
+      "category": "codex",
+      "tags": [
+        "codex",
+        "agent-platforms",
+        "skill"
+      ],
+      "target_agents": [
+        "codex",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/agent-platforms/codex/codex-workflow.md"
+    },
+    {
+      "id": "cursor-workflow",
+      "title": "Cursor",
+      "domain": "agent-platforms",
+      "category": "cursor",
+      "tags": [
+        "cursor",
+        "agent-platforms",
+        "ideagent"
+      ],
+      "target_agents": [
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/agent-platforms/cursor/cursor-workflow.md"
+    },
+    {
+      "id": "generic-mcp-agents-mcp-focus",
+      "title": "Generische MCP-Agenten: MCP/Skill-Fokus",
+      "domain": "agent-platforms",
+      "category": "generic-mcp-agents",
+      "tags": [
+        "generic",
+        "agent-platforms",
+        "katalog"
       ],
       "target_agents": [
         "hermes",
         "grokbot",
+        "generic-mcp-agents",
         "generic"
       ],
       "risk_level": "low",
+      "example_count": 3,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "categories/audio/audio-ffmpeg-podcast-master.md"
+      "path": "domains/agent-platforms/generic-mcp-agents/generic-mcp-agents-mcp-focus.md"
     },
     {
-      "id": "audio-whisper-transcribe-diarize",
-      "title": "Audio transkribieren und Sprecher trennen",
-      "category": "audio",
+      "id": "generic-mcp-agents-workflow",
+      "title": "Generische MCP-Agenten",
+      "domain": "agent-platforms",
+      "category": "generic-mcp-agents",
       "tags": [
-        "whisper",
-        "transcription",
-        "diarization"
-      ],
-      "target_agents": [
-        "hermes",
-        "generic"
-      ],
-      "risk_level": "low",
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "categories/audio/audio-whisper-transcribe-diarize.md"
-    },
-    {
-      "id": "bild-comfyui-sdxl-workflow",
-      "title": "Bildgenerierung mit ComfyUI und SDXL",
-      "category": "bild",
-      "tags": [
-        "comfyui",
-        "sdxl",
-        "generative"
-      ],
-      "target_agents": [
-        "grokbot",
-        "generic"
-      ],
-      "risk_level": "medium",
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "categories/bild/bild-comfyui-sdxl-workflow.md"
-    },
-    {
-      "id": "bild-imagemagick-batch-resize",
-      "title": "Bilder stapelweise skalieren und optimieren",
-      "category": "bild",
-      "tags": [
-        "imagemagick",
-        "webp",
-        "batch"
-      ],
-      "target_agents": [
-        "hermes",
-        "generic"
-      ],
-      "risk_level": "low",
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "categories/bild/bild-imagemagick-batch-resize.md"
-    },
-    {
-      "id": "coding-github-actions-ci-pipeline",
-      "title": "CI-Pipeline mit GitHub Actions",
-      "category": "coding-devops",
-      "tags": [
-        "github-actions",
-        "ci",
-        "pytest"
+        "generic",
+        "agent-platforms",
+        "katalog"
       ],
       "target_agents": [
         "hermes",
         "grokbot",
+        "generic-mcp-agents",
         "generic"
       ],
-      "risk_level": "medium",
+      "risk_level": "low",
+      "example_count": 3,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "categories/coding-devops/coding-github-actions-ci-pipeline.md"
+      "path": "domains/agent-platforms/generic-mcp-agents/generic-mcp-agents-workflow.md"
     },
     {
-      "id": "coding-terraform-aws-baseline",
-      "title": "AWS Baseline mit Terraform",
-      "category": "coding-devops",
+      "id": "grokbot-workflow",
+      "title": "Grok Bot",
+      "domain": "agent-platforms",
+      "category": "grokbot",
       "tags": [
-        "terraform",
-        "aws",
-        "iac"
+        "grokbot",
+        "agent-platforms",
+        "produktconnector"
+      ],
+      "target_agents": [
+        "grokbot",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/agent-platforms/grokbot/grokbot-workflow.md"
+    },
+    {
+      "id": "hermes-workflow",
+      "title": "Hermes Agent (Nous Research)",
+      "domain": "agent-platforms",
+      "category": "hermes",
+      "tags": [
+        "hermes",
+        "agent-platforms",
+        "agentplattform"
       ],
       "target_agents": [
         "hermes",
-        "generic"
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/agent-platforms/hermes/hermes-workflow.md"
+    },
+    {
+      "id": "openclaw-mcp-focus",
+      "title": "OpenClaw: MCP/Skill-Fokus",
+      "domain": "agent-platforms",
+      "category": "openclaw",
+      "tags": [
+        "openclaw",
+        "agent-platforms",
+        "agentplattform"
+      ],
+      "target_agents": [
+        "openclaw",
+        "generic-mcp-agents"
       ],
       "risk_level": "high",
+      "example_count": 3,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "categories/coding-devops/coding-terraform-aws-baseline.md"
+      "path": "domains/agent-platforms/openclaw/openclaw-mcp-focus.md"
+    },
+    {
+      "id": "openclaw-workflow",
+      "title": "OpenClaw",
+      "domain": "agent-platforms",
+      "category": "openclaw",
+      "tags": [
+        "openclaw",
+        "agent-platforms",
+        "agentplattform"
+      ],
+      "target_agents": [
+        "openclaw",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "high",
+      "example_count": 3,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/agent-platforms/openclaw/openclaw-workflow.md"
+    },
+    {
+      "id": "browser-automation-mcp-focus",
+      "title": "Browser-Automation: MCP/Skill-Fokus",
+      "domain": "automatisierung",
+      "category": "browser-automation",
+      "tags": [
+        "browser",
+        "automatisierung",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 3,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/automatisierung/browser-automation/browser-automation-mcp-focus.md"
+    },
+    {
+      "id": "browser-automation-workflow",
+      "title": "Browser-Automation",
+      "domain": "automatisierung",
+      "category": "browser-automation",
+      "tags": [
+        "browser",
+        "automatisierung",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 3,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/automatisierung/browser-automation/browser-automation-workflow.md"
+    },
+    {
+      "id": "cron-routines-workflow",
+      "title": "Cron und Routinen",
+      "domain": "automatisierung",
+      "category": "cron-routines",
+      "tags": [
+        "cron",
+        "automatisierung",
+        "plattformfeature"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/automatisierung/cron-routines/cron-routines-workflow.md"
+    },
+    {
+      "id": "desktop-automation-workflow",
+      "title": "Desktop-Automation",
+      "domain": "automatisierung",
+      "category": "desktop-automation",
+      "tags": [
+        "desktop",
+        "automatisierung",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/automatisierung/desktop-automation/desktop-automation-workflow.md"
+    },
+    {
+      "id": "iot-workflow",
+      "title": "IoT",
+      "domain": "automatisierung",
+      "category": "iot",
+      "tags": [
+        "iot",
+        "automatisierung",
+        "plattformmcpkatalogeintrag"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/automatisierung/iot/iot-workflow.md"
+    },
+    {
+      "id": "mobile-phone-control-mcp-focus",
+      "title": "Mobile- und Phone-Control: MCP/Skill-Fokus",
+      "domain": "automatisierung",
+      "category": "mobile-phone-control",
+      "tags": [
+        "mobile",
+        "automatisierung",
+        "climcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/automatisierung/mobile-phone-control/mobile-phone-control-mcp-focus.md"
+    },
+    {
+      "id": "mobile-phone-control-workflow",
+      "title": "Mobile- und Phone-Control",
+      "domain": "automatisierung",
+      "category": "mobile-phone-control",
+      "tags": [
+        "mobile",
+        "automatisierung",
+        "climcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/automatisierung/mobile-phone-control/mobile-phone-control-workflow.md"
+    },
+    {
+      "id": "n8n-make-zapier-workflow",
+      "title": "n8n, Make, Zapier",
+      "domain": "automatisierung",
+      "category": "n8n-make-zapier",
+      "tags": [
+        "n8n",
+        "automatisierung",
+        "plattformmcpkatalogeintrag"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/automatisierung/n8n-make-zapier/n8n-make-zapier-workflow.md"
+    },
+    {
+      "id": "rpa-workflow",
+      "title": "RPA",
+      "domain": "automatisierung",
+      "category": "rpa",
+      "tags": [
+        "rpa",
+        "automatisierung",
+        "plattformmcpkatalogeintrag"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/automatisierung/rpa/rpa-workflow.md"
+    },
+    {
+      "id": "smart-home-workflow",
+      "title": "Smart Home",
+      "domain": "automatisierung",
+      "category": "smart-home",
+      "tags": [
+        "smart",
+        "automatisierung",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/automatisierung/smart-home/smart-home-workflow.md"
+    },
+    {
+      "id": "kurse-erstellen-mcp-focus",
+      "title": "Kurse erstellen: MCP/Skill-Fokus",
+      "domain": "bildung",
+      "category": "kurse-erstellen",
+      "tags": [
+        "kurse",
+        "bildung",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 3,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/bildung/kurse-erstellen/kurse-erstellen-mcp-focus.md"
+    },
+    {
+      "id": "kurse-erstellen-workflow",
+      "title": "Kurse erstellen",
+      "domain": "bildung",
+      "category": "kurse-erstellen",
+      "tags": [
+        "kurse",
+        "bildung",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 3,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/bildung/kurse-erstellen/kurse-erstellen-workflow.md"
+    },
+    {
+      "id": "lernkarten-workflow",
+      "title": "Lernkarten",
+      "domain": "bildung",
+      "category": "lernkarten",
+      "tags": [
+        "lernkarten",
+        "bildung",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/bildung/lernkarten/lernkarten-workflow.md"
+    },
+    {
+      "id": "nachhilfe-tutoring-workflow",
+      "title": "Nachhilfe und Tutoring",
+      "domain": "bildung",
+      "category": "nachhilfe-tutoring",
+      "tags": [
+        "nachhilfe",
+        "bildung",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/bildung/nachhilfe-tutoring/nachhilfe-tutoring-workflow.md"
+    },
+    {
+      "id": "sprachen-workflow",
+      "title": "Sprachen",
+      "domain": "bildung",
+      "category": "sprachen",
+      "tags": [
+        "sprachen",
+        "bildung",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/bildung/sprachen/sprachen-workflow.md"
+    },
+    {
+      "id": "studium-forschung-workflow",
+      "title": "Studium und Forschung",
+      "domain": "bildung",
+      "category": "studium-forschung",
+      "tags": [
+        "studium",
+        "bildung",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/bildung/studium-forschung/studium-forschung-workflow.md"
+    },
+    {
+      "id": "ads-performance-workflow",
+      "title": "Ads und Performance",
+      "domain": "content-marketing",
+      "category": "ads-performance",
+      "tags": [
+        "ads",
+        "content-marketing",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/content-marketing/ads-performance/ads-performance-workflow.md"
+    },
+    {
+      "id": "branding-design-mcp-focus",
+      "title": "Branding und Design: MCP/Skill-Fokus",
+      "domain": "content-marketing",
+      "category": "branding-design",
+      "tags": [
+        "branding",
+        "content-marketing",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/content-marketing/branding-design/branding-design-mcp-focus.md"
+    },
+    {
+      "id": "branding-design-workflow",
+      "title": "Branding und Design",
+      "domain": "content-marketing",
+      "category": "branding-design",
+      "tags": [
+        "branding",
+        "content-marketing",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/content-marketing/branding-design/branding-design-workflow.md"
+    },
+    {
+      "id": "content-strategie-workflow",
+      "title": "Content-Strategie",
+      "domain": "content-marketing",
+      "category": "content-strategie",
+      "tags": [
+        "content",
+        "content-marketing",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/content-marketing/content-strategie/content-strategie-workflow.md"
+    },
+    {
+      "id": "copywriting-workflow",
+      "title": "Copywriting",
+      "domain": "content-marketing",
+      "category": "copywriting",
+      "tags": [
+        "copywriting",
+        "content-marketing",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/content-marketing/copywriting/copywriting-workflow.md"
+    },
+    {
+      "id": "influencer-workflow",
+      "title": "Influencer",
+      "domain": "content-marketing",
+      "category": "influencer",
+      "tags": [
+        "influencer",
+        "content-marketing",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/content-marketing/influencer/influencer-workflow.md"
+    },
+    {
+      "id": "landingpages-workflow",
+      "title": "Landingpages",
+      "domain": "content-marketing",
+      "category": "landingpages",
+      "tags": [
+        "landingpages",
+        "content-marketing",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/content-marketing/landingpages/landingpages-workflow.md"
+    },
+    {
+      "id": "newsletter-workflow",
+      "title": "Newsletter",
+      "domain": "content-marketing",
+      "category": "newsletter",
+      "tags": [
+        "newsletter",
+        "content-marketing",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/content-marketing/newsletter/newsletter-workflow.md"
+    },
+    {
+      "id": "seo-workflow",
+      "title": "SEO",
+      "domain": "content-marketing",
+      "category": "seo",
+      "tags": [
+        "seo",
+        "content-marketing",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/content-marketing/seo/seo-workflow.md"
+    },
+    {
+      "id": "social-facebook-meta-workflow",
+      "title": "Social: Facebook / Meta",
+      "domain": "content-marketing",
+      "category": "social-facebook-meta",
+      "tags": [
+        "social",
+        "content-marketing",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/content-marketing/social-facebook-meta/social-facebook-meta-workflow.md"
+    },
+    {
+      "id": "social-instagram-workflow",
+      "title": "Social: Instagram",
+      "domain": "content-marketing",
+      "category": "social-instagram",
+      "tags": [
+        "social",
+        "content-marketing",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/content-marketing/social-instagram/social-instagram-workflow.md"
+    },
+    {
+      "id": "social-linkedin-workflow",
+      "title": "Social: LinkedIn",
+      "domain": "content-marketing",
+      "category": "social-linkedin",
+      "tags": [
+        "social",
+        "content-marketing",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/content-marketing/social-linkedin/social-linkedin-workflow.md"
+    },
+    {
+      "id": "social-buffer-schedule-campaign",
+      "title": "Kampagnenplanung mit Buffer API",
+      "domain": "content-marketing",
+      "category": "social-media-strategie",
+      "tags": [
+        "buffer",
+        "scheduling",
+        "social"
+      ],
+      "target_agents": [
+        "grokbot",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/content-marketing/social-media-strategie/social-buffer-schedule-campaign.md"
+    },
+    {
+      "id": "social-reddit-workflow",
+      "title": "Social: Reddit",
+      "domain": "content-marketing",
+      "category": "social-reddit",
+      "tags": [
+        "social",
+        "content-marketing",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/content-marketing/social-reddit/social-reddit-workflow.md"
+    },
+    {
+      "id": "social-ffmpeg-shorts-repurpose",
+      "title": "Longform zu Shorts mit ffmpeg",
+      "domain": "content-marketing",
+      "category": "social-tiktok",
+      "tags": [
+        "ffmpeg",
+        "shorts",
+        "repurpose"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/content-marketing/social-tiktok/social-ffmpeg-shorts-repurpose.md"
+    },
+    {
+      "id": "social-x-twitter-workflow",
+      "title": "Social: X / Twitter",
+      "domain": "content-marketing",
+      "category": "social-x-twitter",
+      "tags": [
+        "social",
+        "content-marketing",
+        "skillcli"
+      ],
+      "target_agents": [
+        "grokbot",
+        "hermes",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/content-marketing/social-x-twitter/social-x-twitter-workflow.md"
+    },
+    {
+      "id": "social-youtube-workflow",
+      "title": "Social: YouTube-Marketing",
+      "domain": "content-marketing",
+      "category": "social-youtube",
+      "tags": [
+        "social",
+        "content-marketing",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/content-marketing/social-youtube/social-youtube-workflow.md"
+    },
+    {
+      "id": "ugc-workflow",
+      "title": "UGC",
+      "domain": "content-marketing",
+      "category": "ugc",
+      "tags": [
+        "ugc",
+        "content-marketing",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/content-marketing/ugc/ugc-workflow.md"
+    },
+    {
+      "id": "bi-dashboards-workflow",
+      "title": "BI und Dashboards",
+      "domain": "daten-analytics",
+      "category": "bi-dashboards",
+      "tags": [
+        "bi",
+        "daten-analytics",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/daten-analytics/bi-dashboards/bi-dashboards-workflow.md"
+    },
+    {
+      "id": "data-cleaning-workflow",
+      "title": "Data Cleaning",
+      "domain": "daten-analytics",
+      "category": "data-cleaning",
+      "tags": [
+        "data",
+        "daten-analytics",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/daten-analytics/data-cleaning/data-cleaning-workflow.md"
+    },
+    {
+      "id": "data-viz-workflow",
+      "title": "Datenvisualisierung",
+      "domain": "daten-analytics",
+      "category": "data-viz",
+      "tags": [
+        "data",
+        "daten-analytics",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/daten-analytics/data-viz/data-viz-workflow.md"
+    },
+    {
+      "id": "etl-pipelines-workflow",
+      "title": "ETL-Pipelines",
+      "domain": "daten-analytics",
+      "category": "etl-pipelines",
+      "tags": [
+        "etl",
+        "daten-analytics",
+        "plattformmcpkatalogeintrag"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/daten-analytics/etl-pipelines/etl-pipelines-workflow.md"
+    },
+    {
+      "id": "ml-training-workflow",
+      "title": "ML-Training",
+      "domain": "daten-analytics",
+      "category": "ml-training",
+      "tags": [
+        "ml",
+        "daten-analytics",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/daten-analytics/ml-training/ml-training-workflow.md"
+    },
+    {
+      "id": "daten-python-pandas-eda",
+      "title": "Explorative Analyse mit pandas",
+      "domain": "daten-analytics",
+      "category": "spreadsheets-analyse",
+      "tags": [
+        "pandas",
+        "eda",
+        "jupyter"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/daten-analytics/spreadsheets-analyse/daten-python-pandas-eda.md"
     },
     {
       "id": "daten-duckdb-sql-report",
       "title": "Ad-hoc Reporting mit DuckDB",
-      "category": "daten-analyse",
+      "domain": "daten-analytics",
+      "category": "sql-abfragen",
       "tags": [
         "duckdb",
         "sql",
@@ -126,305 +2079,16 @@
         "generic"
       ],
       "risk_level": "low",
+      "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "categories/daten-analyse/daten-duckdb-sql-report.md"
-    },
-    {
-      "id": "daten-python-pandas-eda",
-      "title": "Explorative Analyse mit pandas",
-      "category": "daten-analyse",
-      "tags": [
-        "pandas",
-        "eda",
-        "jupyter"
-      ],
-      "target_agents": [
-        "hermes",
-        "generic"
-      ],
-      "risk_level": "low",
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "categories/daten-analyse/daten-python-pandas-eda.md"
-    },
-    {
-      "id": "dokumente-libreoffice-mail-merge",
-      "title": "Serienbrief mit LibreOffice und CSV",
-      "category": "dokumente-office",
-      "tags": [
-        "libreoffice",
-        "mail-merge",
-        "odt"
-      ],
-      "target_agents": [
-        "hermes",
-        "generic"
-      ],
-      "risk_level": "medium",
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "categories/dokumente-office/dokumente-libreoffice-mail-merge.md"
-    },
-    {
-      "id": "dokumente-pandoc-markdown-pdf",
-      "title": "Markdown in PDF mit Pandoc und Typst",
-      "category": "dokumente-office",
-      "tags": [
-        "pandoc",
-        "pdf",
-        "markdown"
-      ],
-      "target_agents": [
-        "hermes",
-        "generic"
-      ],
-      "risk_level": "low",
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "categories/dokumente-office/dokumente-pandoc-markdown-pdf.md"
-    },
-    {
-      "id": "email-gmail-mcp-triage",
-      "title": "Posteingang triagieren mit Gmail MCP",
-      "category": "email-kommunikation",
-      "tags": [
-        "gmail",
-        "mcp",
-        "triage"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic"
-      ],
-      "risk_level": "medium",
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "categories/email-kommunikation/email-gmail-mcp-triage.md"
-    },
-    {
-      "id": "email-postfix-dmarc-parse",
-      "title": "DMARC-Reports auswerten",
-      "category": "email-kommunikation",
-      "tags": [
-        "dmarc",
-        "postfix",
-        "email-security"
-      ],
-      "target_agents": [
-        "hermes",
-        "generic"
-      ],
-      "risk_level": "low",
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "categories/email-kommunikation/email-postfix-dmarc-parse.md"
-    },
-    {
-      "id": "finanzen-camt053-reconcile",
-      "title": "Bankabgleich mit CAMT.053",
-      "category": "finanzen-buchhaltung",
-      "tags": [
-        "camt053",
-        "reconciliation",
-        "banking"
-      ],
-      "target_agents": [
-        "hermes",
-        "generic"
-      ],
-      "risk_level": "medium",
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "categories/finanzen-buchhaltung/finanzen-camt053-reconcile.md"
-    },
-    {
-      "id": "finanzen-datev-export-csv",
-      "title": "DATEV-Export aus Buchungsliste",
-      "category": "finanzen-buchhaltung",
-      "tags": [
-        "datev",
-        "csv",
-        "export"
-      ],
-      "target_agents": [
-        "hermes",
-        "generic"
-      ],
-      "risk_level": "medium",
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "categories/finanzen-buchhaltung/finanzen-datev-export-csv.md"
-    },
-    {
-      "id": "it-ansible-patch-baseline",
-      "title": "Patch-Baseline mit Ansible",
-      "category": "it-support-remote",
-      "tags": [
-        "ansible",
-        "patching",
-        "baseline"
-      ],
-      "target_agents": [
-        "hermes",
-        "generic"
-      ],
-      "risk_level": "high",
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "categories/it-support-remote/it-ansible-patch-baseline.md"
-    },
-    {
-      "id": "it-meshcentral-remote-session",
-      "title": "Remote-Support mit MeshCentral",
-      "category": "it-support-remote",
-      "tags": [
-        "meshcentral",
-        "remote",
-        "support"
-      ],
-      "target_agents": [
-        "hermes",
-        "generic"
-      ],
-      "risk_level": "high",
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "categories/it-support-remote/it-meshcentral-remote-session.md"
-    },
-    {
-      "id": "k8s-helm-chart-release",
-      "title": "Helm Chart installieren und upgraden",
-      "category": "kubernetes-infra",
-      "tags": [
-        "helm",
-        "kubernetes",
-        "release"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic"
-      ],
-      "risk_level": "high",
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "categories/kubernetes-infra/k8s-helm-chart-release.md"
-    },
-    {
-      "id": "k8s-kubectl-rollout-debug",
-      "title": "Deployment Rollout und Debug mit kubectl",
-      "category": "kubernetes-infra",
-      "tags": [
-        "kubectl",
-        "rollout",
-        "debug"
-      ],
-      "target_agents": [
-        "hermes",
-        "generic"
-      ],
-      "risk_level": "high",
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "categories/kubernetes-infra/k8s-kubectl-rollout-debug.md"
-    },
-    {
-      "id": "social-buffer-schedule-campaign",
-      "title": "Kampagnenplanung mit Buffer API",
-      "category": "social-media",
-      "tags": [
-        "buffer",
-        "scheduling",
-        "social"
-      ],
-      "target_agents": [
-        "grokbot",
-        "generic"
-      ],
-      "risk_level": "medium",
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "categories/social-media/social-buffer-schedule-campaign.md"
-    },
-    {
-      "id": "social-ffmpeg-shorts-repurpose",
-      "title": "Longform zu Shorts mit ffmpeg",
-      "category": "social-media",
-      "tags": [
-        "ffmpeg",
-        "shorts",
-        "repurpose"
-      ],
-      "target_agents": [
-        "hermes",
-        "generic"
-      ],
-      "risk_level": "low",
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "categories/social-media/social-ffmpeg-shorts-repurpose.md"
-    },
-    {
-      "id": "video-ffmpeg-cut-transcode",
-      "title": "Video schneiden, transcodieren und Untertitel",
-      "category": "video-bearbeitung",
-      "tags": [
-        "ffmpeg",
-        "transcode",
-        "subtitles"
-      ],
-      "target_agents": [
-        "hermes",
-        "generic"
-      ],
-      "risk_level": "low",
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "categories/video-bearbeitung/video-ffmpeg-cut-transcode.md"
-    },
-    {
-      "id": "video-remotion-programmatic",
-      "title": "Programmatisches Video mit Remotion",
-      "category": "video-bearbeitung",
-      "tags": [
-        "remotion",
-        "react",
-        "render"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic"
-      ],
-      "risk_level": "medium",
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "categories/video-bearbeitung/video-remotion-programmatic.md"
-    },
-    {
-      "id": "web-exa-perplexity-briefing",
-      "title": "Recherche-Briefing mit Exa und Perplexity",
-      "category": "web-recherche",
-      "tags": [
-        "exa",
-        "perplexity",
-        "briefing"
-      ],
-      "target_agents": [
-        "grokbot",
-        "generic"
-      ],
-      "risk_level": "low",
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "categories/web-recherche/web-exa-perplexity-briefing.md"
+      "path": "domains/daten-analytics/sql-abfragen/daten-duckdb-sql-report.md"
     },
     {
       "id": "web-playwright-research-scrape",
       "title": "Strukturierte Web-Recherche mit Playwright",
-      "category": "web-recherche",
+      "domain": "daten-analytics",
+      "category": "web-scraping",
       "tags": [
         "playwright",
         "scraping",
@@ -436,9 +2100,4259 @@
         "generic"
       ],
       "risk_level": "medium",
+      "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "categories/web-recherche/web-playwright-research-scrape.md"
+      "path": "domains/daten-analytics/web-scraping/web-playwright-research-scrape.md"
+    },
+    {
+      "id": "web-scraping-mcp-focus",
+      "title": "Web-Scraping: MCP/Skill-Fokus",
+      "domain": "daten-analytics",
+      "category": "web-scraping",
+      "tags": [
+        "web",
+        "daten-analytics",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 3,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/daten-analytics/web-scraping/web-scraping-mcp-focus.md"
+    },
+    {
+      "id": "cicd-mcp-focus",
+      "title": "CI/CD: MCP/Skill-Fokus",
+      "domain": "devops-cloud",
+      "category": "cicd",
+      "tags": [
+        "cicd",
+        "devops-cloud",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/devops-cloud/cicd/cicd-mcp-focus.md"
+    },
+    {
+      "id": "coding-github-actions-ci-pipeline",
+      "title": "CI-Pipeline mit GitHub Actions",
+      "domain": "devops-cloud",
+      "category": "cicd",
+      "tags": [
+        "github-actions",
+        "ci",
+        "pytest"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/devops-cloud/cicd/coding-github-actions-ci-pipeline.md"
+    },
+    {
+      "id": "cloud-aws-workflow",
+      "title": "Cloud: AWS",
+      "domain": "devops-cloud",
+      "category": "cloud-aws",
+      "tags": [
+        "cloud",
+        "devops-cloud",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/devops-cloud/cloud-aws/cloud-aws-workflow.md"
+    },
+    {
+      "id": "cloud-azure-workflow",
+      "title": "Cloud: Azure",
+      "domain": "devops-cloud",
+      "category": "cloud-azure",
+      "tags": [
+        "cloud",
+        "devops-cloud",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/devops-cloud/cloud-azure/cloud-azure-workflow.md"
+    },
+    {
+      "id": "cloud-gcp-workflow",
+      "title": "Cloud: GCP",
+      "domain": "devops-cloud",
+      "category": "cloud-gcp",
+      "tags": [
+        "cloud",
+        "devops-cloud",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/devops-cloud/cloud-gcp/cloud-gcp-workflow.md"
+    },
+    {
+      "id": "cloud-kosten-workflow",
+      "title": "Cloud-Kosten",
+      "domain": "devops-cloud",
+      "category": "cloud-kosten",
+      "tags": [
+        "cloud",
+        "devops-cloud",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/devops-cloud/cloud-kosten/cloud-kosten-workflow.md"
+    },
+    {
+      "id": "docker-container-workflow",
+      "title": "Docker und Container",
+      "domain": "devops-cloud",
+      "category": "docker-container",
+      "tags": [
+        "docker",
+        "devops-cloud",
+        "cli"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/devops-cloud/docker-container/docker-container-workflow.md"
+    },
+    {
+      "id": "coding-terraform-aws-baseline",
+      "title": "AWS Baseline mit Terraform",
+      "domain": "devops-cloud",
+      "category": "iac-terraform",
+      "tags": [
+        "terraform",
+        "aws",
+        "iac"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "high",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/devops-cloud/iac-terraform/coding-terraform-aws-baseline.md"
+    },
+    {
+      "id": "incident-response-mcp-focus",
+      "title": "Incident Response: MCP/Skill-Fokus",
+      "domain": "devops-cloud",
+      "category": "incident-response",
+      "tags": [
+        "incident",
+        "devops-cloud",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/devops-cloud/incident-response/incident-response-mcp-focus.md"
+    },
+    {
+      "id": "incident-response-workflow",
+      "title": "Incident Response",
+      "domain": "devops-cloud",
+      "category": "incident-response",
+      "tags": [
+        "incident",
+        "devops-cloud",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/devops-cloud/incident-response/incident-response-workflow.md"
+    },
+    {
+      "id": "k8s-helm-chart-release",
+      "title": "Helm Chart installieren und upgraden",
+      "domain": "devops-cloud",
+      "category": "kubernetes",
+      "tags": [
+        "helm",
+        "kubernetes",
+        "release"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic"
+      ],
+      "risk_level": "high",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/devops-cloud/kubernetes/k8s-helm-chart-release.md"
+    },
+    {
+      "id": "k8s-kubectl-rollout-debug",
+      "title": "Deployment Rollout und Debug mit kubectl",
+      "domain": "devops-cloud",
+      "category": "kubernetes",
+      "tags": [
+        "kubectl",
+        "rollout",
+        "debug"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "high",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/devops-cloud/kubernetes/k8s-kubectl-rollout-debug.md"
+    },
+    {
+      "id": "kubernetes-mcp-focus",
+      "title": "Kubernetes: MCP/Skill-Fokus",
+      "domain": "devops-cloud",
+      "category": "kubernetes",
+      "tags": [
+        "kubernetes",
+        "devops-cloud",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/devops-cloud/kubernetes/kubernetes-mcp-focus.md"
+    },
+    {
+      "id": "logging-workflow",
+      "title": "Logging",
+      "domain": "devops-cloud",
+      "category": "logging",
+      "tags": [
+        "logging",
+        "devops-cloud",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/devops-cloud/logging/logging-workflow.md"
+    },
+    {
+      "id": "monitoring-observability-mcp-focus",
+      "title": "Monitoring und Observability: MCP/Skill-Fokus",
+      "domain": "devops-cloud",
+      "category": "monitoring-observability",
+      "tags": [
+        "monitoring",
+        "devops-cloud",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/devops-cloud/monitoring-observability/monitoring-observability-mcp-focus.md"
+    },
+    {
+      "id": "monitoring-observability-workflow",
+      "title": "Monitoring und Observability",
+      "domain": "devops-cloud",
+      "category": "monitoring-observability",
+      "tags": [
+        "monitoring",
+        "devops-cloud",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/devops-cloud/monitoring-observability/monitoring-observability-workflow.md"
+    },
+    {
+      "id": "plattform-deploy-mcp-focus",
+      "title": "Platform Deploy: MCP/Skill-Fokus",
+      "domain": "devops-cloud",
+      "category": "plattform-deploy",
+      "tags": [
+        "plattform",
+        "devops-cloud",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/devops-cloud/plattform-deploy/plattform-deploy-mcp-focus.md"
+    },
+    {
+      "id": "plattform-deploy-workflow",
+      "title": "Platform Deploy",
+      "domain": "devops-cloud",
+      "category": "plattform-deploy",
+      "tags": [
+        "plattform",
+        "devops-cloud",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/devops-cloud/plattform-deploy/plattform-deploy-workflow.md"
+    },
+    {
+      "id": "finanzen-camt053-reconcile",
+      "title": "Bankabgleich mit CAMT.053",
+      "domain": "finanzen",
+      "category": "banking",
+      "tags": [
+        "camt053",
+        "reconciliation",
+        "banking"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/finanzen/banking/finanzen-camt053-reconcile.md"
+    },
+    {
+      "id": "finanzen-datev-export-csv",
+      "title": "DATEV-Export aus Buchungsliste",
+      "domain": "finanzen",
+      "category": "buchhaltung",
+      "tags": [
+        "datev",
+        "csv",
+        "export"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/finanzen/buchhaltung/finanzen-datev-export-csv.md"
+    },
+    {
+      "id": "budget-workflow",
+      "title": "Budget",
+      "domain": "finanzen",
+      "category": "budget",
+      "tags": [
+        "budget",
+        "finanzen",
+        "toolkitmcpfaehig"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/finanzen/budget/budget-workflow.md"
+    },
+    {
+      "id": "payments-stripe-mcp-focus",
+      "title": "Payments (Stripe u. a.): MCP/Skill-Fokus",
+      "domain": "finanzen",
+      "category": "payments-stripe",
+      "tags": [
+        "payments",
+        "finanzen",
+        "toolkitmcpfaehig"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/finanzen/payments-stripe/payments-stripe-mcp-focus.md"
+    },
+    {
+      "id": "payments-stripe-workflow",
+      "title": "Payments (Stripe u. a.)",
+      "domain": "finanzen",
+      "category": "payments-stripe",
+      "tags": [
+        "payments",
+        "finanzen",
+        "toolkitmcpfaehig"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/finanzen/payments-stripe/payments-stripe-workflow.md"
+    },
+    {
+      "id": "rechnungen-workflow",
+      "title": "Rechnungen",
+      "domain": "finanzen",
+      "category": "rechnungen",
+      "tags": [
+        "rechnungen",
+        "finanzen",
+        "toolkitmcpfaehig"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/finanzen/rechnungen/rechnungen-workflow.md"
+    },
+    {
+      "id": "steuern-workflow",
+      "title": "Steuern",
+      "domain": "finanzen",
+      "category": "steuern",
+      "tags": [
+        "steuern",
+        "finanzen",
+        "toolkitmcpfaehig"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/finanzen/steuern/steuern-workflow.md"
+    },
+    {
+      "id": "trading-krypto-mcp-focus",
+      "title": "Trading und Krypto: MCP/Skill-Fokus",
+      "domain": "finanzen",
+      "category": "trading-krypto",
+      "tags": [
+        "trading",
+        "finanzen",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/finanzen/trading-krypto/trading-krypto-mcp-focus.md"
+    },
+    {
+      "id": "trading-krypto-workflow",
+      "title": "Trading und Krypto",
+      "domain": "finanzen",
+      "category": "trading-krypto",
+      "tags": [
+        "trading",
+        "finanzen",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/finanzen/trading-krypto/trading-krypto-workflow.md"
+    },
+    {
+      "id": "game-modding-workflow",
+      "title": "Game Modding",
+      "domain": "gaming-modding",
+      "category": "game-modding",
+      "tags": [
+        "game",
+        "gaming-modding",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/gaming-modding/game-modding/game-modding-workflow.md"
+    },
+    {
+      "id": "game-servers-workflow",
+      "title": "Game Server",
+      "domain": "gaming-modding",
+      "category": "game-servers",
+      "tags": [
+        "game",
+        "gaming-modding",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/gaming-modding/game-servers/game-servers-workflow.md"
+    },
+    {
+      "id": "spielbibliotheken-workflow",
+      "title": "Spielbibliotheken",
+      "domain": "gaming-modding",
+      "category": "spielbibliotheken",
+      "tags": [
+        "spielbibliotheken",
+        "gaming-modding",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/gaming-modding/spielbibliotheken/spielbibliotheken-workflow.md"
+    },
+    {
+      "id": "streaming-gaming-workflow",
+      "title": "Gaming-Streaming",
+      "domain": "gaming-modding",
+      "category": "streaming-gaming",
+      "tags": [
+        "streaming",
+        "gaming-modding",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/gaming-modding/streaming-gaming/streaming-gaming-workflow.md"
+    },
+    {
+      "id": "ernaehrung-workflow",
+      "title": "Ernährung",
+      "domain": "gesundheit-fitness",
+      "category": "ernaehrung",
+      "tags": [
+        "ernaehrung",
+        "gesundheit-fitness",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/gesundheit-fitness/ernaehrung/ernaehrung-workflow.md"
+    },
+    {
+      "id": "fitness-training-workflow",
+      "title": "Fitness und Training",
+      "domain": "gesundheit-fitness",
+      "category": "fitness-training",
+      "tags": [
+        "fitness",
+        "gesundheit-fitness",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/gesundheit-fitness/fitness-training/fitness-training-workflow.md"
+    },
+    {
+      "id": "gesundheitsdaten-organisation-workflow",
+      "title": "Gesundheitsdaten organisieren",
+      "domain": "gesundheit-fitness",
+      "category": "gesundheitsdaten-organisation",
+      "tags": [
+        "gesundheitsdaten",
+        "gesundheit-fitness",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/gesundheit-fitness/gesundheitsdaten-organisation/gesundheitsdaten-organisation-workflow.md"
+    },
+    {
+      "id": "mental-health-organisation-workflow",
+      "title": "Organisation rund um mentale Gesundheit",
+      "domain": "gesundheit-fitness",
+      "category": "mental-health-organisation",
+      "tags": [
+        "mental",
+        "gesundheit-fitness",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/gesundheit-fitness/mental-health-organisation/mental-health-organisation-workflow.md"
+    },
+    {
+      "id": "arduino-esp32-workflow",
+      "title": "Arduino und ESP32",
+      "domain": "hardware-embedded",
+      "category": "arduino-esp32",
+      "tags": [
+        "arduino",
+        "hardware-embedded"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/hardware-embedded/arduino-esp32/arduino-esp32-workflow.md"
+    },
+    {
+      "id": "cad-workflow",
+      "title": "CAD",
+      "domain": "hardware-embedded",
+      "category": "cad",
+      "tags": [
+        "cad",
+        "hardware-embedded"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/hardware-embedded/cad/cad-workflow.md"
+    },
+    {
+      "id": "dreid-druck-workflow",
+      "title": "3D-Druck",
+      "domain": "hardware-embedded",
+      "category": "dreid-druck",
+      "tags": [
+        "dreid",
+        "hardware-embedded"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/hardware-embedded/dreid-druck/dreid-druck-workflow.md"
+    },
+    {
+      "id": "elektronik-diagnose-workflow",
+      "title": "Elektronik-Diagnose",
+      "domain": "hardware-embedded",
+      "category": "elektronik-diagnose",
+      "tags": [
+        "elektronik",
+        "hardware-embedded"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/hardware-embedded/elektronik-diagnose/elektronik-diagnose-workflow.md"
+    },
+    {
+      "id": "bewerbungen-workflow",
+      "title": "Bewerbungen",
+      "domain": "hr-recruiting",
+      "category": "bewerbungen",
+      "tags": [
+        "bewerbungen",
+        "hr-recruiting",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/hr-recruiting/bewerbungen/bewerbungen-workflow.md"
+    },
+    {
+      "id": "cv-screening-workflow",
+      "title": "CV-Screening",
+      "domain": "hr-recruiting",
+      "category": "cv-screening",
+      "tags": [
+        "cv",
+        "hr-recruiting",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/hr-recruiting/cv-screening/cv-screening-workflow.md"
+    },
+    {
+      "id": "onboarding-workflow",
+      "title": "Onboarding",
+      "domain": "hr-recruiting",
+      "category": "onboarding",
+      "tags": [
+        "onboarding",
+        "hr-recruiting",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/hr-recruiting/onboarding/onboarding-workflow.md"
+    },
+    {
+      "id": "stellenausschreibungen-workflow",
+      "title": "Stellenausschreibungen",
+      "domain": "hr-recruiting",
+      "category": "stellenausschreibungen",
+      "tags": [
+        "stellenausschreibungen",
+        "hr-recruiting",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/hr-recruiting/stellenausschreibungen/stellenausschreibungen-workflow.md"
+    },
+    {
+      "id": "exposes-workflow",
+      "title": "Exposés",
+      "domain": "immobilien",
+      "category": "exposes",
+      "tags": [
+        "exposes",
+        "immobilien",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/immobilien/exposes/exposes-workflow.md"
+    },
+    {
+      "id": "immobilien-suche-workflow",
+      "title": "Immobiliensuche",
+      "domain": "immobilien",
+      "category": "immobilien-suche",
+      "tags": [
+        "immobilien",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/immobilien/immobilien-suche/immobilien-suche-workflow.md"
+    },
+    {
+      "id": "verwaltung-weg-workflow",
+      "title": "Verwaltung / WEG",
+      "domain": "immobilien",
+      "category": "verwaltung-weg",
+      "tags": [
+        "verwaltung",
+        "immobilien",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/immobilien/verwaltung-weg/verwaltung-weg-workflow.md"
+    },
+    {
+      "id": "active-directory-entra-workflow",
+      "title": "Active Directory / Entra",
+      "domain": "it-betrieb-support",
+      "category": "active-directory-entra",
+      "tags": [
+        "active",
+        "it-betrieb-support",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/it-betrieb-support/active-directory-entra/active-directory-entra-workflow.md"
+    },
+    {
+      "id": "backup-restore-workflow",
+      "title": "Backup und Restore",
+      "domain": "it-betrieb-support",
+      "category": "backup-restore",
+      "tags": [
+        "backup",
+        "it-betrieb-support",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/it-betrieb-support/backup-restore/backup-restore-workflow.md"
+    },
+    {
+      "id": "endpoint-mdm-workflow",
+      "title": "Endpoint und MDM",
+      "domain": "it-betrieb-support",
+      "category": "endpoint-mdm",
+      "tags": [
+        "endpoint",
+        "it-betrieb-support",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/it-betrieb-support/endpoint-mdm/endpoint-mdm-workflow.md"
+    },
+    {
+      "id": "google-workspace-admin-workflow",
+      "title": "Google-Workspace-Admin",
+      "domain": "it-betrieb-support",
+      "category": "google-workspace-admin",
+      "tags": [
+        "google",
+        "it-betrieb-support",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/it-betrieb-support/google-workspace-admin/google-workspace-admin-workflow.md"
+    },
+    {
+      "id": "it-ansible-patch-baseline",
+      "title": "Patch-Baseline mit Ansible",
+      "domain": "it-betrieb-support",
+      "category": "helpdesk-it",
+      "tags": [
+        "ansible",
+        "patching",
+        "baseline"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "high",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/it-betrieb-support/helpdesk-it/it-ansible-patch-baseline.md"
+    },
+    {
+      "id": "homelab-workflow",
+      "title": "Homelab",
+      "domain": "it-betrieb-support",
+      "category": "homelab",
+      "tags": [
+        "homelab",
+        "it-betrieb-support",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/it-betrieb-support/homelab/homelab-workflow.md"
+    },
+    {
+      "id": "identitaet-sso-workflow",
+      "title": "Identität und SSO",
+      "domain": "it-betrieb-support",
+      "category": "identitaet-sso",
+      "tags": [
+        "identitaet",
+        "it-betrieb-support",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/it-betrieb-support/identitaet-sso/identitaet-sso-workflow.md"
+    },
+    {
+      "id": "m365-admin-workflow",
+      "title": "Microsoft 365 Admin",
+      "domain": "it-betrieb-support",
+      "category": "m365-admin",
+      "tags": [
+        "m365",
+        "it-betrieb-support",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/it-betrieb-support/m365-admin/m365-admin-workflow.md"
+    },
+    {
+      "id": "netzwerk-workflow",
+      "title": "Netzwerk",
+      "domain": "it-betrieb-support",
+      "category": "netzwerk",
+      "tags": [
+        "netzwerk",
+        "it-betrieb-support",
+        "cli"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/it-betrieb-support/netzwerk/netzwerk-workflow.md"
+    },
+    {
+      "id": "it-meshcentral-remote-session",
+      "title": "Remote-Support mit MeshCentral",
+      "domain": "it-betrieb-support",
+      "category": "remote-support",
+      "tags": [
+        "meshcentral",
+        "remote",
+        "support"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "high",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/it-betrieb-support/remote-support/it-meshcentral-remote-session.md"
+    },
+    {
+      "id": "agent-orchestration-workflow",
+      "title": "Agent-Orchestrierung",
+      "domain": "ki-ops",
+      "category": "agent-orchestration",
+      "tags": [
+        "agent",
+        "ki-ops",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/ki-ops/agent-orchestration/agent-orchestration-workflow.md"
+    },
+    {
+      "id": "context-token-management-mcp-focus",
+      "title": "Context- und Token-Management: MCP/Skill-Fokus",
+      "domain": "ki-ops",
+      "category": "context-token-management",
+      "tags": [
+        "context",
+        "ki-ops",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 3,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/ki-ops/context-token-management/context-token-management-mcp-focus.md"
+    },
+    {
+      "id": "context-token-management-workflow",
+      "title": "Context- und Token-Management",
+      "domain": "ki-ops",
+      "category": "context-token-management",
+      "tags": [
+        "context",
+        "ki-ops",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 3,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/ki-ops/context-token-management/context-token-management-workflow.md"
+    },
+    {
+      "id": "evals-benchmarks-workflow",
+      "title": "Evals und Benchmarks",
+      "domain": "ki-ops",
+      "category": "evals-benchmarks",
+      "tags": [
+        "evals",
+        "ki-ops",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/ki-ops/evals-benchmarks/evals-benchmarks-workflow.md"
+    },
+    {
+      "id": "fine-tuning-workflow",
+      "title": "Fine-Tuning",
+      "domain": "ki-ops",
+      "category": "fine-tuning",
+      "tags": [
+        "fine",
+        "ki-ops",
+        "skilltoolchain"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/ki-ops/fine-tuning/fine-tuning-workflow.md"
+    },
+    {
+      "id": "lokale-modelle-ollama-workflow",
+      "title": "Lokale Modelle / Ollama",
+      "domain": "ki-ops",
+      "category": "lokale-modelle-ollama",
+      "tags": [
+        "lokale",
+        "ki-ops",
+        "cliruntime"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/ki-ops/lokale-modelle-ollama/lokale-modelle-ollama-workflow.md"
+    },
+    {
+      "id": "mcp-server-bau-mcp-focus",
+      "title": "MCP-Server bauen: MCP/Skill-Fokus",
+      "domain": "ki-ops",
+      "category": "mcp-server-bau",
+      "tags": [
+        "mcp",
+        "ki-ops",
+        "referenz"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 3,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/ki-ops/mcp-server-bau/mcp-server-bau-mcp-focus.md"
+    },
+    {
+      "id": "mcp-server-bau-workflow",
+      "title": "MCP-Server bauen",
+      "domain": "ki-ops",
+      "category": "mcp-server-bau",
+      "tags": [
+        "mcp",
+        "ki-ops",
+        "referenz"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 3,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/ki-ops/mcp-server-bau/mcp-server-bau-workflow.md"
+    },
+    {
+      "id": "model-routing-workflow",
+      "title": "Model Routing",
+      "domain": "ki-ops",
+      "category": "model-routing",
+      "tags": [
+        "model",
+        "ki-ops",
+        "plattformfeature"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/ki-ops/model-routing/model-routing-workflow.md"
+    },
+    {
+      "id": "prompt-engineering-workflow",
+      "title": "Prompt Engineering",
+      "domain": "ki-ops",
+      "category": "prompt-engineering",
+      "tags": [
+        "prompt",
+        "ki-ops",
+        "muster"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/ki-ops/prompt-engineering/prompt-engineering-workflow.md"
+    },
+    {
+      "id": "skills-authoring-workflow",
+      "title": "Skills authoring",
+      "domain": "ki-ops",
+      "category": "skills-authoring",
+      "tags": [
+        "skills",
+        "ki-ops",
+        "standardbeispiele"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/ki-ops/skills-authoring/skills-authoring-workflow.md"
+    },
+    {
+      "id": "chat-messaging-mcp-focus",
+      "title": "Chat und Messaging: MCP/Skill-Fokus",
+      "domain": "kommunikation",
+      "category": "chat-messaging",
+      "tags": [
+        "chat",
+        "kommunikation",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/kommunikation/chat-messaging/chat-messaging-mcp-focus.md"
+    },
+    {
+      "id": "chat-messaging-workflow",
+      "title": "Chat und Messaging",
+      "domain": "kommunikation",
+      "category": "chat-messaging",
+      "tags": [
+        "chat",
+        "kommunikation",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/kommunikation/chat-messaging/chat-messaging-workflow.md"
+    },
+    {
+      "id": "email-gmail-mcp-triage",
+      "title": "Posteingang triagieren mit Gmail MCP",
+      "domain": "kommunikation",
+      "category": "email",
+      "tags": [
+        "gmail",
+        "mcp",
+        "triage"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/kommunikation/email/email-gmail-mcp-triage.md"
+    },
+    {
+      "id": "email-mcp-focus",
+      "title": "E-Mail: MCP/Skill-Fokus",
+      "domain": "kommunikation",
+      "category": "email",
+      "tags": [
+        "email",
+        "kommunikation",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/kommunikation/email/email-mcp-focus.md"
+    },
+    {
+      "id": "imessage-sms-workflow",
+      "title": "iMessage und SMS",
+      "domain": "kommunikation",
+      "category": "imessage-sms",
+      "tags": [
+        "imessage",
+        "kommunikation",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/kommunikation/imessage-sms/imessage-sms-workflow.md"
+    },
+    {
+      "id": "kalender-scheduling-mcp-focus",
+      "title": "Kalender und Scheduling: MCP/Skill-Fokus",
+      "domain": "kommunikation",
+      "category": "kalender-scheduling",
+      "tags": [
+        "kalender",
+        "kommunikation",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/kommunikation/kalender-scheduling/kalender-scheduling-mcp-focus.md"
+    },
+    {
+      "id": "kalender-scheduling-workflow",
+      "title": "Kalender und Scheduling",
+      "domain": "kommunikation",
+      "category": "kalender-scheduling",
+      "tags": [
+        "kalender",
+        "kommunikation",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/kommunikation/kalender-scheduling/kalender-scheduling-workflow.md"
+    },
+    {
+      "id": "meetings-transkription-mcp-focus",
+      "title": "Meetings und Transkription: MCP/Skill-Fokus",
+      "domain": "kommunikation",
+      "category": "meetings-transkription",
+      "tags": [
+        "meetings",
+        "kommunikation",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/kommunikation/meetings-transkription/meetings-transkription-mcp-focus.md"
+    },
+    {
+      "id": "meetings-transkription-workflow",
+      "title": "Meetings und Transkription",
+      "domain": "kommunikation",
+      "category": "meetings-transkription",
+      "tags": [
+        "meetings",
+        "kommunikation",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/kommunikation/meetings-transkription/meetings-transkription-workflow.md"
+    },
+    {
+      "id": "telefon-voice-agents-workflow",
+      "title": "Telefon und Voice-Agents",
+      "domain": "kommunikation",
+      "category": "telefon-voice-agents",
+      "tags": [
+        "telefon",
+        "kommunikation",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/kommunikation/telefon-voice-agents/telefon-voice-agents-workflow.md"
+    },
+    {
+      "id": "escalation-workflow",
+      "title": "Eskalation",
+      "domain": "kundenservice",
+      "category": "escalation",
+      "tags": [
+        "escalation",
+        "kundenservice",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/kundenservice/escalation/escalation-workflow.md"
+    },
+    {
+      "id": "helpdesk-tickets-workflow",
+      "title": "Helpdesk und Tickets",
+      "domain": "kundenservice",
+      "category": "helpdesk-tickets",
+      "tags": [
+        "helpdesk",
+        "kundenservice",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/kundenservice/helpdesk-tickets/helpdesk-tickets-workflow.md"
+    },
+    {
+      "id": "knowledge-base-workflow",
+      "title": "Wissensdatenbank Support",
+      "domain": "kundenservice",
+      "category": "knowledge-base",
+      "tags": [
+        "knowledge",
+        "kundenservice",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/kundenservice/knowledge-base/knowledge-base-workflow.md"
+    },
+    {
+      "id": "live-chat-bots-workflow",
+      "title": "Live-Chat und Bots",
+      "domain": "kundenservice",
+      "category": "live-chat-bots",
+      "tags": [
+        "live",
+        "kundenservice",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/kundenservice/live-chat-bots/live-chat-bots-workflow.md"
+    },
+    {
+      "id": "qos-csat-workflow",
+      "title": "Qualität und CSAT",
+      "domain": "kundenservice",
+      "category": "qos-csat",
+      "tags": [
+        "qos",
+        "kundenservice",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/kundenservice/qos-csat/qos-csat-workflow.md"
+    },
+    {
+      "id": "animation-motion-workflow",
+      "title": "Animation und Motion",
+      "domain": "medien",
+      "category": "animation-motion",
+      "tags": [
+        "animation",
+        "medien",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/medien/animation-motion/animation-motion-workflow.md"
+    },
+    {
+      "id": "audio-bearbeitung-workflow",
+      "title": "Audio-Bearbeitung",
+      "domain": "medien",
+      "category": "audio-bearbeitung",
+      "tags": [
+        "audio",
+        "medien",
+        "cli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/medien/audio-bearbeitung/audio-bearbeitung-workflow.md"
+    },
+    {
+      "id": "bild-imagemagick-batch-resize",
+      "title": "Bilder stapelweise skalieren und optimieren",
+      "domain": "medien",
+      "category": "bild-fotografie",
+      "tags": [
+        "imagemagick",
+        "webp",
+        "batch"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/medien/bild-fotografie/bild-imagemagick-batch-resize.md"
+    },
+    {
+      "id": "bild-comfyui-sdxl-workflow",
+      "title": "Bildgenerierung mit ComfyUI und SDXL",
+      "domain": "medien",
+      "category": "bild-generierung",
+      "tags": [
+        "comfyui",
+        "sdxl",
+        "generative"
+      ],
+      "target_agents": [
+        "grokbot",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/medien/bild-generierung/bild-comfyui-sdxl-workflow.md"
+    },
+    {
+      "id": "bild-generierung-mcp-focus",
+      "title": "Bildgenerierung: MCP/Skill-Fokus",
+      "domain": "medien",
+      "category": "bild-generierung",
+      "tags": [
+        "bild",
+        "medien",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/medien/bild-generierung/bild-generierung-mcp-focus.md"
+    },
+    {
+      "id": "dreid-modellierung-workflow",
+      "title": "3D-Modellierung",
+      "domain": "medien",
+      "category": "dreid-modellierung",
+      "tags": [
+        "dreid",
+        "medien",
+        "cli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/medien/dreid-modellierung/dreid-modellierung-workflow.md"
+    },
+    {
+      "id": "musik-workflow",
+      "title": "Musik",
+      "domain": "medien",
+      "category": "musik",
+      "tags": [
+        "musik",
+        "medien",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/medien/musik/musik-workflow.md"
+    },
+    {
+      "id": "audio-ffmpeg-podcast-master",
+      "title": "Podcast mastering mit ffmpeg und loudnorm",
+      "domain": "medien",
+      "category": "podcast",
+      "tags": [
+        "ffmpeg",
+        "loudness",
+        "podcast"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/medien/podcast/audio-ffmpeg-podcast-master.md"
+    },
+    {
+      "id": "podcast-mcp-focus",
+      "title": "Podcast: MCP/Skill-Fokus",
+      "domain": "medien",
+      "category": "podcast",
+      "tags": [
+        "podcast",
+        "medien",
+        "cli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/medien/podcast/podcast-mcp-focus.md"
+    },
+    {
+      "id": "streaming-broadcast-workflow",
+      "title": "Streaming und Broadcast",
+      "domain": "medien",
+      "category": "streaming-broadcast",
+      "tags": [
+        "streaming",
+        "medien",
+        "cli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/medien/streaming-broadcast/streaming-broadcast-workflow.md"
+    },
+    {
+      "id": "audio-whisper-transcribe-diarize",
+      "title": "Audio transkribieren und Sprecher trennen",
+      "domain": "medien",
+      "category": "untertitel-uebersetzung",
+      "tags": [
+        "whisper",
+        "transcription",
+        "diarization"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/medien/untertitel-uebersetzung/audio-whisper-transcribe-diarize.md"
+    },
+    {
+      "id": "untertitel-uebersetzung-mcp-focus",
+      "title": "Untertitel und Übersetzung: MCP/Skill-Fokus",
+      "domain": "medien",
+      "category": "untertitel-uebersetzung",
+      "tags": [
+        "untertitel",
+        "medien",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/medien/untertitel-uebersetzung/untertitel-uebersetzung-mcp-focus.md"
+    },
+    {
+      "id": "video-bearbeitung-mcp-focus",
+      "title": "Video-Bearbeitung: MCP/Skill-Fokus",
+      "domain": "medien",
+      "category": "video-bearbeitung",
+      "tags": [
+        "video",
+        "medien",
+        "cli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/medien/video-bearbeitung/video-bearbeitung-mcp-focus.md"
+    },
+    {
+      "id": "video-ffmpeg-cut-transcode",
+      "title": "Video schneiden, transcodieren und Untertitel",
+      "domain": "medien",
+      "category": "video-bearbeitung",
+      "tags": [
+        "ffmpeg",
+        "transcode",
+        "subtitles"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/medien/video-bearbeitung/video-ffmpeg-cut-transcode.md"
+    },
+    {
+      "id": "video-remotion-programmatic",
+      "title": "Programmatisches Video mit Remotion",
+      "domain": "medien",
+      "category": "video-produktion-pipeline",
+      "tags": [
+        "remotion",
+        "react",
+        "render"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/medien/video-produktion-pipeline/video-remotion-programmatic.md"
+    },
+    {
+      "id": "youtube-content-workflow",
+      "title": "YouTube-Content",
+      "domain": "medien",
+      "category": "youtube-content",
+      "tags": [
+        "youtube",
+        "medien",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/medien/youtube-content/youtube-content-workflow.md"
+    },
+    {
+      "id": "diagramme-whiteboard-workflow",
+      "title": "Diagramme und Whiteboards",
+      "domain": "office-dokumente",
+      "category": "diagramme-whiteboard",
+      "tags": [
+        "diagramme",
+        "office-dokumente",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/office-dokumente/diagramme-whiteboard/diagramme-whiteboard-workflow.md"
+    },
+    {
+      "id": "e-signatur-workflow",
+      "title": "E-Signatur",
+      "domain": "office-dokumente",
+      "category": "e-signatur",
+      "tags": [
+        "e",
+        "office-dokumente",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/office-dokumente/e-signatur/e-signatur-workflow.md"
+    },
+    {
+      "id": "excel-xlsx-mcp-focus",
+      "title": "Excel / XLSX: MCP/Skill-Fokus",
+      "domain": "office-dokumente",
+      "category": "excel-xlsx",
+      "tags": [
+        "excel",
+        "office-dokumente",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/office-dokumente/excel-xlsx/excel-xlsx-mcp-focus.md"
+    },
+    {
+      "id": "excel-xlsx-workflow",
+      "title": "Excel / XLSX",
+      "domain": "office-dokumente",
+      "category": "excel-xlsx",
+      "tags": [
+        "excel",
+        "office-dokumente",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/office-dokumente/excel-xlsx/excel-xlsx-workflow.md"
+    },
+    {
+      "id": "formulare-workflow",
+      "title": "Formulare",
+      "domain": "office-dokumente",
+      "category": "formulare",
+      "tags": [
+        "formulare",
+        "office-dokumente",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/office-dokumente/formulare/formulare-workflow.md"
+    },
+    {
+      "id": "google-workspace-docs-workflow",
+      "title": "Google Docs / Drive",
+      "domain": "office-dokumente",
+      "category": "google-workspace-docs",
+      "tags": [
+        "google",
+        "office-dokumente",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/office-dokumente/google-workspace-docs/google-workspace-docs-workflow.md"
+    },
+    {
+      "id": "notion-workflow",
+      "title": "Notion",
+      "domain": "office-dokumente",
+      "category": "notion",
+      "tags": [
+        "notion",
+        "office-dokumente",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/office-dokumente/notion/notion-workflow.md"
+    },
+    {
+      "id": "obsidian-workflow",
+      "title": "Obsidian",
+      "domain": "office-dokumente",
+      "category": "obsidian",
+      "tags": [
+        "obsidian",
+        "office-dokumente",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/office-dokumente/obsidian/obsidian-workflow.md"
+    },
+    {
+      "id": "ocr-mcp-focus",
+      "title": "OCR: MCP/Skill-Fokus",
+      "domain": "office-dokumente",
+      "category": "ocr",
+      "tags": [
+        "ocr",
+        "office-dokumente",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/office-dokumente/ocr/ocr-mcp-focus.md"
+    },
+    {
+      "id": "ocr-workflow",
+      "title": "OCR",
+      "domain": "office-dokumente",
+      "category": "ocr",
+      "tags": [
+        "ocr",
+        "office-dokumente",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/office-dokumente/ocr/ocr-workflow.md"
+    },
+    {
+      "id": "dokumente-pandoc-markdown-pdf",
+      "title": "Markdown in PDF mit Pandoc und Typst",
+      "domain": "office-dokumente",
+      "category": "pdf",
+      "tags": [
+        "pandoc",
+        "pdf",
+        "markdown"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/office-dokumente/pdf/dokumente-pandoc-markdown-pdf.md"
+    },
+    {
+      "id": "pdf-mcp-focus",
+      "title": "PDF: MCP/Skill-Fokus",
+      "domain": "office-dokumente",
+      "category": "pdf",
+      "tags": [
+        "pdf",
+        "office-dokumente",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 3,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/office-dokumente/pdf/pdf-mcp-focus.md"
+    },
+    {
+      "id": "powerpoint-pptx-mcp-focus",
+      "title": "PowerPoint / PPTX: MCP/Skill-Fokus",
+      "domain": "office-dokumente",
+      "category": "powerpoint-pptx",
+      "tags": [
+        "powerpoint",
+        "office-dokumente",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 3,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/office-dokumente/powerpoint-pptx/powerpoint-pptx-mcp-focus.md"
+    },
+    {
+      "id": "powerpoint-pptx-workflow",
+      "title": "PowerPoint / PPTX",
+      "domain": "office-dokumente",
+      "category": "powerpoint-pptx",
+      "tags": [
+        "powerpoint",
+        "office-dokumente",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 3,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/office-dokumente/powerpoint-pptx/powerpoint-pptx-workflow.md"
+    },
+    {
+      "id": "dokumente-libreoffice-mail-merge",
+      "title": "Serienbrief mit LibreOffice und CSV",
+      "domain": "office-dokumente",
+      "category": "word-docx",
+      "tags": [
+        "libreoffice",
+        "mail-merge",
+        "odt"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/office-dokumente/word-docx/dokumente-libreoffice-mail-merge.md"
+    },
+    {
+      "id": "word-docx-mcp-focus",
+      "title": "Word / DOCX: MCP/Skill-Fokus",
+      "domain": "office-dokumente",
+      "category": "word-docx",
+      "tags": [
+        "word",
+        "office-dokumente",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 3,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/office-dokumente/word-docx/word-docx-mcp-focus.md"
+    },
+    {
+      "id": "einkauf-workflow",
+      "title": "Einkauf",
+      "domain": "persoenlich-lifestyle",
+      "category": "einkauf",
+      "tags": [
+        "einkauf",
+        "persoenlich-lifestyle",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/persoenlich-lifestyle/einkauf/einkauf-workflow.md"
+    },
+    {
+      "id": "essen-rezepte-workflow",
+      "title": "Essen und Rezepte",
+      "domain": "persoenlich-lifestyle",
+      "category": "essen-rezepte",
+      "tags": [
+        "essen",
+        "persoenlich-lifestyle",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/persoenlich-lifestyle/essen-rezepte/essen-rezepte-workflow.md"
+    },
+    {
+      "id": "haushalt-workflow",
+      "title": "Haushalt",
+      "domain": "persoenlich-lifestyle",
+      "category": "haushalt",
+      "tags": [
+        "haushalt",
+        "persoenlich-lifestyle",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/persoenlich-lifestyle/haushalt/haushalt-workflow.md"
+    },
+    {
+      "id": "produkte-vergleich-workflow",
+      "title": "Produktvergleich",
+      "domain": "persoenlich-lifestyle",
+      "category": "produkte-vergleich",
+      "tags": [
+        "produkte",
+        "persoenlich-lifestyle",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/persoenlich-lifestyle/produkte-vergleich/produkte-vergleich-workflow.md"
+    },
+    {
+      "id": "termine-persoenlich-workflow",
+      "title": "Persönliche Termine",
+      "domain": "persoenlich-lifestyle",
+      "category": "termine-persoenlich",
+      "tags": [
+        "termine",
+        "persoenlich-lifestyle",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/persoenlich-lifestyle/termine-persoenlich/termine-persoenlich-workflow.md"
+    },
+    {
+      "id": "agile-kanban-workflow",
+      "title": "Agile und Kanban",
+      "domain": "projektmanagement",
+      "category": "agile-kanban",
+      "tags": [
+        "agile",
+        "projektmanagement",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/projektmanagement/agile-kanban/agile-kanban-workflow.md"
+    },
+    {
+      "id": "jira-linear-workflow",
+      "title": "Jira, Linear und Tickets",
+      "domain": "projektmanagement",
+      "category": "jira-linear",
+      "tags": [
+        "jira",
+        "projektmanagement",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/projektmanagement/jira-linear/jira-linear-workflow.md"
+    },
+    {
+      "id": "planung-workflow",
+      "title": "Planung",
+      "domain": "projektmanagement",
+      "category": "planung",
+      "tags": [
+        "planung",
+        "projektmanagement",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/projektmanagement/planung/planung-workflow.md"
+    },
+    {
+      "id": "reporting-workflow",
+      "title": "Reporting",
+      "domain": "projektmanagement",
+      "category": "reporting",
+      "tags": [
+        "reporting",
+        "projektmanagement",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/projektmanagement/reporting/reporting-workflow.md"
+    },
+    {
+      "id": "tasks-workflow",
+      "title": "Tasks",
+      "domain": "projektmanagement",
+      "category": "tasks",
+      "tags": [
+        "tasks",
+        "projektmanagement",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/projektmanagement/tasks/tasks-workflow.md"
+    },
+    {
+      "id": "akademisch-workflow",
+      "title": "Akademische Recherche",
+      "domain": "recherche-wissen",
+      "category": "akademisch",
+      "tags": [
+        "akademisch",
+        "recherche-wissen",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/recherche-wissen/akademisch/akademisch-workflow.md"
+    },
+    {
+      "id": "bibliothek-zotero-mcp-focus",
+      "title": "Literaturverwaltung: MCP/Skill-Fokus",
+      "domain": "recherche-wissen",
+      "category": "bibliothek-zotero",
+      "tags": [
+        "bibliothek",
+        "recherche-wissen",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/recherche-wissen/bibliothek-zotero/bibliothek-zotero-mcp-focus.md"
+    },
+    {
+      "id": "bibliothek-zotero-workflow",
+      "title": "Literaturverwaltung",
+      "domain": "recherche-wissen",
+      "category": "bibliothek-zotero",
+      "tags": [
+        "bibliothek",
+        "recherche-wissen",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/recherche-wissen/bibliothek-zotero/bibliothek-zotero-workflow.md"
+    },
+    {
+      "id": "grounded-citations-workflow",
+      "title": "Grounded Citations",
+      "domain": "recherche-wissen",
+      "category": "grounded-citations",
+      "tags": [
+        "grounded",
+        "recherche-wissen",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/recherche-wissen/grounded-citations/grounded-citations-workflow.md"
+    },
+    {
+      "id": "news-monitoring-workflow",
+      "title": "News-Monitoring",
+      "domain": "recherche-wissen",
+      "category": "news-monitoring",
+      "tags": [
+        "news",
+        "recherche-wissen",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/recherche-wissen/news-monitoring/news-monitoring-workflow.md"
+    },
+    {
+      "id": "patente-mcp-focus",
+      "title": "Patente: MCP/Skill-Fokus",
+      "domain": "recherche-wissen",
+      "category": "patente",
+      "tags": [
+        "patente",
+        "recherche-wissen",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/recherche-wissen/patente/patente-mcp-focus.md"
+    },
+    {
+      "id": "patente-workflow",
+      "title": "Patente",
+      "domain": "recherche-wissen",
+      "category": "patente",
+      "tags": [
+        "patente",
+        "recherche-wissen",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/recherche-wissen/patente/patente-workflow.md"
+    },
+    {
+      "id": "rag-memory-mcp-focus",
+      "title": "RAG und Memory: MCP/Skill-Fokus",
+      "domain": "recherche-wissen",
+      "category": "rag-memory",
+      "tags": [
+        "rag",
+        "recherche-wissen",
+        "plattformmemorylayer"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/recherche-wissen/rag-memory/rag-memory-mcp-focus.md"
+    },
+    {
+      "id": "rag-memory-workflow",
+      "title": "RAG und Memory",
+      "domain": "recherche-wissen",
+      "category": "rag-memory",
+      "tags": [
+        "rag",
+        "recherche-wissen",
+        "plattformmemorylayer"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/recherche-wissen/rag-memory/rag-memory-workflow.md"
+    },
+    {
+      "id": "web-exa-perplexity-briefing",
+      "title": "Recherche-Briefing mit Exa und Perplexity",
+      "domain": "recherche-wissen",
+      "category": "web-recherche",
+      "tags": [
+        "exa",
+        "perplexity",
+        "briefing"
+      ],
+      "target_agents": [
+        "grokbot",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/recherche-wissen/web-recherche/web-exa-perplexity-briefing.md"
+    },
+    {
+      "id": "web-recherche-mcp-focus",
+      "title": "Web-Recherche: MCP/Skill-Fokus",
+      "domain": "recherche-wissen",
+      "category": "web-recherche",
+      "tags": [
+        "web",
+        "recherche-wissen",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/recherche-wissen/web-recherche/web-recherche-mcp-focus.md"
+    },
+    {
+      "id": "wikis-dokumentation-mcp-focus",
+      "title": "Wikis und Dokumentation: MCP/Skill-Fokus",
+      "domain": "recherche-wissen",
+      "category": "wikis-dokumentation",
+      "tags": [
+        "wikis",
+        "recherche-wissen",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/recherche-wissen/wikis-dokumentation/wikis-dokumentation-mcp-focus.md"
+    },
+    {
+      "id": "wikis-dokumentation-workflow",
+      "title": "Wikis und Dokumentation",
+      "domain": "recherche-wissen",
+      "category": "wikis-dokumentation",
+      "tags": [
+        "wikis",
+        "recherche-wissen",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/recherche-wissen/wikis-dokumentation/wikis-dokumentation-workflow.md"
+    },
+    {
+      "id": "behoerden-formulare-workflow",
+      "title": "Behörden und Formulare",
+      "domain": "recht-verwaltung",
+      "category": "behoerden-formulare",
+      "tags": [
+        "behoerden",
+        "recht-verwaltung",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/recht-verwaltung/behoerden-formulare/behoerden-formulare-workflow.md"
+    },
+    {
+      "id": "datenschutz-workflow",
+      "title": "Datenschutz",
+      "domain": "recht-verwaltung",
+      "category": "datenschutz",
+      "tags": [
+        "datenschutz",
+        "recht-verwaltung",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/recht-verwaltung/datenschutz/datenschutz-workflow.md"
+    },
+    {
+      "id": "vertraege-workflow",
+      "title": "Verträge",
+      "domain": "recht-verwaltung",
+      "category": "vertraege",
+      "tags": [
+        "vertraege",
+        "recht-verwaltung",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/recht-verwaltung/vertraege/vertraege-workflow.md"
+    },
+    {
+      "id": "event-planung-workflow",
+      "title": "Eventplanung",
+      "domain": "reisen-events",
+      "category": "event-planung",
+      "tags": [
+        "event",
+        "reisen-events",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/reisen-events/event-planung/event-planung-workflow.md"
+    },
+    {
+      "id": "fluege-hotels-workflow",
+      "title": "Flüge und Hotels",
+      "domain": "reisen-events",
+      "category": "fluege-hotels",
+      "tags": [
+        "fluege",
+        "reisen-events",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/reisen-events/fluege-hotels/fluege-hotels-workflow.md"
+    },
+    {
+      "id": "reiseplanung-workflow",
+      "title": "Reiseplanung",
+      "domain": "reisen-events",
+      "category": "reiseplanung",
+      "tags": [
+        "reiseplanung",
+        "reisen-events",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/reisen-events/reiseplanung/reiseplanung-workflow.md"
+    },
+    {
+      "id": "tickets-workflow",
+      "title": "Tickets",
+      "domain": "reisen-events",
+      "category": "tickets",
+      "tags": [
+        "tickets",
+        "reisen-events",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/reisen-events/tickets/tickets-workflow.md"
+    },
+    {
+      "id": "appsec-sast-workflow",
+      "title": "AppSec und SAST",
+      "domain": "security",
+      "category": "appsec-sast",
+      "tags": [
+        "appsec",
+        "security",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/security/appsec-sast/appsec-sast-workflow.md"
+    },
+    {
+      "id": "compliance-nis2-dsgvo-mcp-focus",
+      "title": "Compliance, NIS2 und DSGVO: MCP/Skill-Fokus",
+      "domain": "security",
+      "category": "compliance-nis2-dsgvo",
+      "tags": [
+        "compliance",
+        "security",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/security/compliance-nis2-dsgvo/compliance-nis2-dsgvo-mcp-focus.md"
+    },
+    {
+      "id": "email-postfix-dmarc-parse",
+      "title": "DMARC-Reports auswerten",
+      "domain": "security",
+      "category": "compliance-nis2-dsgvo",
+      "tags": [
+        "dmarc",
+        "postfix",
+        "email-security"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/security/compliance-nis2-dsgvo/email-postfix-dmarc-parse.md"
+    },
+    {
+      "id": "forensik-workflow",
+      "title": "Forensik (nur autorisiert)",
+      "domain": "security",
+      "category": "forensik",
+      "tags": [
+        "forensik",
+        "security"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/security/forensik/forensik-workflow.md"
+    },
+    {
+      "id": "osint-mcp-focus",
+      "title": "OSINT (offen zugängliche Quellen): MCP/Skill-Fokus",
+      "domain": "security",
+      "category": "osint",
+      "tags": [
+        "osint",
+        "security",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/security/osint/osint-mcp-focus.md"
+    },
+    {
+      "id": "osint-workflow",
+      "title": "OSINT (offen zugängliche Quellen)",
+      "domain": "security",
+      "category": "osint",
+      "tags": [
+        "osint",
+        "security",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/security/osint/osint-workflow.md"
+    },
+    {
+      "id": "pentest-recon-workflow",
+      "title": "Pentest und Recon (nur autorisiert)",
+      "domain": "security",
+      "category": "pentest-recon",
+      "tags": [
+        "pentest",
+        "security"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/security/pentest-recon/pentest-recon-workflow.md"
+    },
+    {
+      "id": "reverse-engineering-workflow",
+      "title": "Reverse Engineering (nur autorisiert)",
+      "domain": "security",
+      "category": "reverse-engineering",
+      "tags": [
+        "reverse",
+        "security"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/security/reverse-engineering/reverse-engineering-workflow.md"
+    },
+    {
+      "id": "secrets-management-workflow",
+      "title": "Secrets Management",
+      "domain": "security",
+      "category": "secrets-management",
+      "tags": [
+        "secrets",
+        "security",
+        "praxisregel"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/security/secrets-management/secrets-management-workflow.md"
+    },
+    {
+      "id": "siem-soc-mcp-focus",
+      "title": "SIEM und SOC: MCP/Skill-Fokus",
+      "domain": "security",
+      "category": "siem-soc",
+      "tags": [
+        "siem",
+        "security",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/security/siem-soc/siem-soc-mcp-focus.md"
+    },
+    {
+      "id": "siem-soc-workflow",
+      "title": "SIEM und SOC",
+      "domain": "security",
+      "category": "siem-soc",
+      "tags": [
+        "siem",
+        "security",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/security/siem-soc/siem-soc-workflow.md"
+    },
+    {
+      "id": "vuln-management-mcp-focus",
+      "title": "Vulnerability Management: MCP/Skill-Fokus",
+      "domain": "security",
+      "category": "vuln-management",
+      "tags": [
+        "vuln",
+        "security",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/security/vuln-management/vuln-management-mcp-focus.md"
+    },
+    {
+      "id": "vuln-management-workflow",
+      "title": "Vulnerability Management",
+      "domain": "security",
+      "category": "vuln-management",
+      "tags": [
+        "vuln",
+        "security",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/security/vuln-management/vuln-management-workflow.md"
+    },
+    {
+      "id": "backend-apis-mcp-focus",
+      "title": "Backend und APIs: MCP/Skill-Fokus",
+      "domain": "software-entwicklung",
+      "category": "backend-apis",
+      "tags": [
+        "backend",
+        "software-entwicklung",
+        "mcpplattform"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/software-entwicklung/backend-apis/backend-apis-mcp-focus.md"
+    },
+    {
+      "id": "backend-apis-workflow",
+      "title": "Backend und APIs",
+      "domain": "software-entwicklung",
+      "category": "backend-apis",
+      "tags": [
+        "backend",
+        "software-entwicklung",
+        "mcpplattform"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/software-entwicklung/backend-apis/backend-apis-workflow.md"
+    },
+    {
+      "id": "code-review-mcp-focus",
+      "title": "Code-Review: MCP/Skill-Fokus",
+      "domain": "software-entwicklung",
+      "category": "code-review",
+      "tags": [
+        "code",
+        "software-entwicklung",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/software-entwicklung/code-review/code-review-mcp-focus.md"
+    },
+    {
+      "id": "code-review-workflow",
+      "title": "Code-Review",
+      "domain": "software-entwicklung",
+      "category": "code-review",
+      "tags": [
+        "code",
+        "software-entwicklung",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/software-entwicklung/code-review/code-review-workflow.md"
+    },
+    {
+      "id": "coding-mcp-focus",
+      "title": "Coding: MCP/Skill-Fokus",
+      "domain": "software-entwicklung",
+      "category": "coding",
+      "tags": [
+        "coding",
+        "software-entwicklung",
+        "mcpplattform"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/software-entwicklung/coding/coding-mcp-focus.md"
+    },
+    {
+      "id": "coding-workflow",
+      "title": "Coding",
+      "domain": "software-entwicklung",
+      "category": "coding",
+      "tags": [
+        "coding",
+        "software-entwicklung",
+        "mcpplattform"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/software-entwicklung/coding/coding-workflow.md"
+    },
+    {
+      "id": "datenbanken-dev-mcp-focus",
+      "title": "Datenbanken (Entwicklung): MCP/Skill-Fokus",
+      "domain": "software-entwicklung",
+      "category": "datenbanken-dev",
+      "tags": [
+        "datenbanken",
+        "software-entwicklung",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/software-entwicklung/datenbanken-dev/datenbanken-dev-mcp-focus.md"
+    },
+    {
+      "id": "datenbanken-dev-workflow",
+      "title": "Datenbanken (Entwicklung)",
+      "domain": "software-entwicklung",
+      "category": "datenbanken-dev",
+      "tags": [
+        "datenbanken",
+        "software-entwicklung",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/software-entwicklung/datenbanken-dev/datenbanken-dev-workflow.md"
+    },
+    {
+      "id": "design-to-code-workflow",
+      "title": "Design to Code",
+      "domain": "software-entwicklung",
+      "category": "design-to-code",
+      "tags": [
+        "design",
+        "software-entwicklung",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/software-entwicklung/design-to-code/design-to-code-workflow.md"
+    },
+    {
+      "id": "frontend-mcp-focus",
+      "title": "Frontend: MCP/Skill-Fokus",
+      "domain": "software-entwicklung",
+      "category": "frontend",
+      "tags": [
+        "frontend",
+        "software-entwicklung",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/software-entwicklung/frontend/frontend-mcp-focus.md"
+    },
+    {
+      "id": "frontend-workflow",
+      "title": "Frontend",
+      "domain": "software-entwicklung",
+      "category": "frontend",
+      "tags": [
+        "frontend",
+        "software-entwicklung",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/software-entwicklung/frontend/frontend-workflow.md"
+    },
+    {
+      "id": "game-dev-workflow",
+      "title": "Game Development",
+      "domain": "software-entwicklung",
+      "category": "game-dev",
+      "tags": [
+        "game",
+        "software-entwicklung",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/software-entwicklung/game-dev/game-dev-workflow.md"
+    },
+    {
+      "id": "git-github-workflow",
+      "title": "Git und GitHub",
+      "domain": "software-entwicklung",
+      "category": "git-github",
+      "tags": [
+        "git",
+        "software-entwicklung",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/software-entwicklung/git-github/git-github-workflow.md"
+    },
+    {
+      "id": "mobile-apps-workflow",
+      "title": "Mobile Apps",
+      "domain": "software-entwicklung",
+      "category": "mobile-apps",
+      "tags": [
+        "mobile",
+        "software-entwicklung",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/software-entwicklung/mobile-apps/mobile-apps-workflow.md"
+    },
+    {
+      "id": "refactoring-workflow",
+      "title": "Refactoring",
+      "domain": "software-entwicklung",
+      "category": "refactoring",
+      "tags": [
+        "refactoring",
+        "software-entwicklung",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/software-entwicklung/refactoring/refactoring-workflow.md"
+    },
+    {
+      "id": "tech-docs-mcp-focus",
+      "title": "Technische Dokumentation: MCP/Skill-Fokus",
+      "domain": "software-entwicklung",
+      "category": "tech-docs",
+      "tags": [
+        "tech",
+        "software-entwicklung",
+        "mcpplattform"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/software-entwicklung/tech-docs/tech-docs-mcp-focus.md"
+    },
+    {
+      "id": "tech-docs-workflow",
+      "title": "Technische Dokumentation",
+      "domain": "software-entwicklung",
+      "category": "tech-docs",
+      "tags": [
+        "tech",
+        "software-entwicklung",
+        "mcpplattform"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/software-entwicklung/tech-docs/tech-docs-workflow.md"
+    },
+    {
+      "id": "testing-mcp-focus",
+      "title": "Testing: MCP/Skill-Fokus",
+      "domain": "software-entwicklung",
+      "category": "testing",
+      "tags": [
+        "testing",
+        "software-entwicklung",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 3,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/software-entwicklung/testing/testing-mcp-focus.md"
+    },
+    {
+      "id": "testing-workflow",
+      "title": "Testing",
+      "domain": "software-entwicklung",
+      "category": "testing",
+      "tags": [
+        "testing",
+        "software-entwicklung",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 3,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/software-entwicklung/testing/testing-workflow.md"
+    },
+    {
+      "id": "amazon-workflow",
+      "title": "Amazon",
+      "domain": "vertrieb-crm",
+      "category": "amazon",
+      "tags": [
+        "amazon",
+        "vertrieb-crm",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/vertrieb-crm/amazon/amazon-workflow.md"
+    },
+    {
+      "id": "angebote-proposals-workflow",
+      "title": "Angebote und Proposals",
+      "domain": "vertrieb-crm",
+      "category": "angebote-proposals",
+      "tags": [
+        "angebote",
+        "vertrieb-crm",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/vertrieb-crm/angebote-proposals/angebote-proposals-workflow.md"
+    },
+    {
+      "id": "crm-workflow",
+      "title": "CRM",
+      "domain": "vertrieb-crm",
+      "category": "crm",
+      "tags": [
+        "crm",
+        "vertrieb-crm",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/vertrieb-crm/crm/crm-workflow.md"
+    },
+    {
+      "id": "e-commerce-workflow",
+      "title": "E-Commerce allgemein",
+      "domain": "vertrieb-crm",
+      "category": "e-commerce",
+      "tags": [
+        "e",
+        "vertrieb-crm",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/vertrieb-crm/e-commerce/e-commerce-workflow.md"
+    },
+    {
+      "id": "etsy-workflow",
+      "title": "Etsy",
+      "domain": "vertrieb-crm",
+      "category": "etsy",
+      "tags": [
+        "etsy",
+        "vertrieb-crm",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/vertrieb-crm/etsy/etsy-workflow.md"
+    },
+    {
+      "id": "kdp-workflow",
+      "title": "KDP / Kindle Direct Publishing",
+      "domain": "vertrieb-crm",
+      "category": "kdp",
+      "tags": [
+        "kdp",
+        "vertrieb-crm",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/vertrieb-crm/kdp/kdp-workflow.md"
+    },
+    {
+      "id": "leadgen-mcp-focus",
+      "title": "Leadgenerierung: MCP/Skill-Fokus",
+      "domain": "vertrieb-crm",
+      "category": "leadgen",
+      "tags": [
+        "leadgen",
+        "vertrieb-crm",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/vertrieb-crm/leadgen/leadgen-mcp-focus.md"
+    },
+    {
+      "id": "leadgen-workflow",
+      "title": "Leadgenerierung",
+      "domain": "vertrieb-crm",
+      "category": "leadgen",
+      "tags": [
+        "leadgen",
+        "vertrieb-crm",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/vertrieb-crm/leadgen/leadgen-workflow.md"
+    },
+    {
+      "id": "marketplaces-workflow",
+      "title": "Weitere Marktplätze",
+      "domain": "vertrieb-crm",
+      "category": "marketplaces",
+      "tags": [
+        "marketplaces",
+        "vertrieb-crm",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/vertrieb-crm/marketplaces/marketplaces-workflow.md"
+    },
+    {
+      "id": "outreach-mcp-focus",
+      "title": "Outreach: MCP/Skill-Fokus",
+      "domain": "vertrieb-crm",
+      "category": "outreach",
+      "tags": [
+        "outreach",
+        "vertrieb-crm",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/vertrieb-crm/outreach/outreach-mcp-focus.md"
+    },
+    {
+      "id": "outreach-workflow",
+      "title": "Outreach",
+      "domain": "vertrieb-crm",
+      "category": "outreach",
+      "tags": [
+        "outreach",
+        "vertrieb-crm",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/vertrieb-crm/outreach/outreach-workflow.md"
+    },
+    {
+      "id": "preis-monitoring-workflow",
+      "title": "Preis-Monitoring",
+      "domain": "vertrieb-crm",
+      "category": "preis-monitoring",
+      "tags": [
+        "preis",
+        "vertrieb-crm",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/vertrieb-crm/preis-monitoring/preis-monitoring-workflow.md"
+    },
+    {
+      "id": "shopify-workflow",
+      "title": "Shopify",
+      "domain": "vertrieb-crm",
+      "category": "shopify",
+      "tags": [
+        "shopify",
+        "vertrieb-crm",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/vertrieb-crm/shopify/shopify-workflow.md"
+    },
+    {
+      "id": "daten-experimente-workflow",
+      "title": "Experimentdaten",
+      "domain": "wissenschaft-engineering",
+      "category": "daten-experimente",
+      "tags": [
+        "daten",
+        "wissenschaft-engineering",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/wissenschaft-engineering/daten-experimente/daten-experimente-workflow.md"
+    },
+    {
+      "id": "lab-notes-workflow",
+      "title": "Lab Notes",
+      "domain": "wissenschaft-engineering",
+      "category": "lab-notes",
+      "tags": [
+        "lab",
+        "wissenschaft-engineering",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/wissenschaft-engineering/lab-notes/lab-notes-workflow.md"
+    },
+    {
+      "id": "paper-writing-workflow",
+      "title": "Paper Writing",
+      "domain": "wissenschaft-engineering",
+      "category": "paper-writing",
+      "tags": [
+        "paper",
+        "wissenschaft-engineering",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/wissenschaft-engineering/paper-writing/paper-writing-workflow.md"
+    },
+    {
+      "id": "simulation-numerics-workflow",
+      "title": "Simulation und Numerik",
+      "domain": "wissenschaft-engineering",
+      "category": "simulation-numerics",
+      "tags": [
+        "simulation",
+        "wissenschaft-engineering",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/wissenschaft-engineering/simulation-numerics/simulation-numerics-workflow.md"
+    },
+    {
+      "id": "tech-standards-workflow",
+      "title": "Technische Standards",
+      "domain": "wissenschaft-engineering",
+      "category": "tech-standards",
+      "tags": [
+        "tech",
+        "wissenschaft-engineering",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/wissenschaft-engineering/tech-standards/tech-standards-workflow.md"
     }
   ]
 }

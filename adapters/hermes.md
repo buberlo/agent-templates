@@ -1,9 +1,9 @@
-# Hermes Agent — Template einbinden
+# Hermes Agent
 
-1. **Skill oder System-Prompt:** YAML-Frontmatter nicht übernehmen. Abschnitt **System-Prompt / Instruktionen** als Skill-Body (`SKILL.md`) oder Erweiterung der Hermes-Systemnachricht.
-2. **Tools:** `required_tools` in Hermes-Tool-Registry / MCP-Connectors mappen; `install` und `version_notes` vor Aktivierung prüfen.
-3. **Metadaten:** `id`, `version`, `risk_level` in Skill-Metadaten oder internes Manifest für Updates.
-4. **Freigaben:** Abschnitt **Sicherheit & Freigaben** als verbindliche Guardrails im Skill-Kopf (kurz, imperativ).
-5. **Validierung:** Repository-Root: `python3 scripts/validate_and_index.py` — nur validierte Templates deployen.
+1. Template aus `domains/<domain>/<category>/` wählen; Metadaten in `domains/<domain>/<category>/_category.md` und optional `domains/<domain>/_domain.md`.
+2. **Skill:** Abschnitt **System-Prompt / Instruktionen** + **Arbeitsablauf** als `SKILL.md`; Frontmatter nicht kopieren.
+3. **MCP:** `required_tools` und MCP-Tabelle in `_category.md` auf `optional-mcps/` mappen (`hermes mcp install <name>`, OAuth laut Setup-Karte).
+4. **Filter:** MCP include/exclude nutzen; Skills mit `platforms: [macos]` erscheinen unter Linux nicht — prüfen.
+5. **Risiko:** Bei `risk_level: high` Human-in-the-loop aus **Sicherheit & Freigaben** verbindlich machen.
 
-**Pfad-Konvention:** `categories/<category>/<id>.md` → Skill-Name: `<category>/<id>`.
+Plattform-Details: `domains/agent-platforms/hermes/_category.md`.

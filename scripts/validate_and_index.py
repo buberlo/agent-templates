@@ -7,8 +7,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SCHEMA_PATH = ROOT / "template.schema.json"
-CATEGORIES_DIR = ROOT / "categories"
-TEMPLATE_BASENAMES = {"TEMPLATE.md"}
+DOMAINS_DIR = ROOT / "domains"
+SKIP_NAMES = {"_category.md", "_domain.md", "TEMPLATE.md"}
 
 
 def split_frontmatter(text):
@@ -165,6 +165,11 @@ def validate_value(value, schema, path="$"):
                 datetime.strptime(value, "%Y-%m-%d")
             except ValueError:
                 errors.append(f"{path}: invalid date format (YYYY-MM-DD)")
+    if schema.get("type") == "integer" and isinstance(value, int):
+        if "minimum" in schema and value < schema["minimum"]:
+            errors.append(f"{path}: below minimum")
+        if "maximum" in schema and value > schema["maximum"]:
+            errors.append(f"{path}: above maximum")
     if schema.get("type") == "array" and isinstance(value, list):
         if "minItems" in schema and len(value) < schema["minItems"]:
             errors.append(f"{path}: array shorter than minItems")
@@ -190,8 +195,6 @@ def validate_value(value, schema, path="$"):
         for key, subschema in schema.get("properties", {}).items():
             if key in value:
                 errors.extend(validate_value(value[key], subschema, f"{path}.{key}"))
-            elif key in schema.get("required", []):
-                errors.append(f"{path}: missing required property '{key}'")
         for req in schema.get("required", []):
             if req not in value:
                 errors.append(f"{path}: missing required property '{req}'")
@@ -199,21 +202,24 @@ def validate_value(value, schema, path="$"):
 
 
 def validate_frontmatter(data, schema):
-    errors = validate_value(data, schema, "$")
-    ids = set()
-    if isinstance(data.get("id"), str):
-        if data["id"] in ids:
-            errors.append("duplicate id")
-        ids.add(data["id"])
-    return errors
+    return validate_value(data, schema, "$")
 
 
 def discover_templates():
-    files = sorted(CATEGORIES_DIR.glob("*/*.md"))
-    return [p for p in files if p.name not in TEMPLATE_BASENAMES]
+    files = sorted(DOMAINS_DIR.glob("*/*/*.md"))
+    return [p for p in files if p.name not in SKIP_NAMES and not p.name.startswith("_")]
 
 
-def required_body_sections(body):
+def discover_category_meta():
+    cats = set()
+    for p in DOMAINS_DIR.glob("*/*/_category.md"):
+        domain = p.parent.parent.name
+        category = p.parent.name
+        cats.add((domain, category))
+    return cats
+
+
+def required_body_sections():
     return [
         "## Zweck",
         "## Wann nutzen",
@@ -222,20 +228,35 @@ def required_body_sections(body):
         "## Arbeitsablauf",
         "## Qualitätskriterien / Definition of Done",
         "## Sicherheit & Freigaben",
-        "## Beispiele",
+        "## Grundbeispiele",
     ]
+
+
+def count_grundbeispiele(body):
+    if "## Grundbeispiele" not in body:
+        return 0
+    part = body.split("## Grundbeispiele", 1)[1]
+    return len(re.findall(r"^### Beispiel \d+", part, re.M))
 
 
 def main():
     schema = load_schema()
     templates = discover_templates()
     all_errors = []
-    catalog = {"generated_at": datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"), "templates": []}
+    catalog = {
+        "generated_at": datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "domains": [],
+        "templates": [],
+    }
     seen_ids = {}
+    category_tpl_count = {}
+    domains_seen = {}
 
     if not templates:
-        print("No templates found under categories/", file=sys.stderr)
+        print("No templates found under domains/", file=sys.stderr)
         return 1
+
+    expected_cats = discover_category_meta()
 
     for path in templates:
         rel = path.relative_to(ROOT)
@@ -250,34 +271,52 @@ def main():
             all_errors.append(f"{rel}: frontmatter parse error: {exc}")
             continue
         errs = validate_frontmatter(data, schema)
-        cat_folder = path.parent.name
+        dom_folder = path.parts[path.parts.index("domains") + 1]
+        cat_folder = path.parts[path.parts.index("domains") + 2]
+        if data.get("domain") and data["domain"] != dom_folder:
+            errs.append(f"domain mismatch folder {dom_folder}")
         if data.get("category") and data["category"] != cat_folder:
-            errs.append(f"{rel}: category '{data['category']}' != folder '{cat_folder}'")
+            errs.append(f"category mismatch folder {cat_folder}")
         tid = data.get("id")
         if tid:
             if tid in seen_ids:
-                errs.append(f"{rel}: duplicate id '{tid}' (also in {seen_ids[tid]})")
+                errs.append(f"duplicate id '{tid}' (also in {seen_ids[tid]})")
             else:
                 seen_ids[tid] = str(rel)
-        for section in required_body_sections(body):
+        for section in required_body_sections():
             if section not in body:
-                errs.append(f"{rel}: missing section {section}")
+                errs.append(f"missing section {section}")
+        ec = data.get("example_count")
+        found = count_grundbeispiele(body)
+        if isinstance(ec, int) and found < ec:
+            errs.append(f"Grundbeispiele: found {found}, example_count {ec}")
+        if isinstance(ec, int) and found < 2:
+            errs.append("fewer than 2 Grundbeispiele")
         if errs:
             all_errors.extend([f"{rel}: {e}" for e in errs])
         else:
+            key = (data["domain"], data["category"])
+            category_tpl_count[key] = category_tpl_count.get(key, 0) + 1
+            domains_seen[data["domain"]] = domains_seen.get(data["domain"], 0) + 1
             catalog["templates"].append(
                 {
                     "id": data["id"],
                     "title": data["title"],
+                    "domain": data["domain"],
                     "category": data["category"],
                     "tags": data["tags"],
                     "target_agents": data["target_agents"],
                     "risk_level": data["risk_level"],
+                    "example_count": data["example_count"],
                     "version": data["version"],
                     "updated": data["updated"],
                     "path": str(rel).replace("\\", "/"),
                 }
             )
+
+    for domain, category in sorted(expected_cats):
+        if (domain, category) not in category_tpl_count:
+            all_errors.append(f"domains/{domain}/{category}: no template files")
 
     if all_errors:
         print("Validation failed:", file=sys.stderr)
@@ -285,38 +324,53 @@ def main():
             print(f"  - {e}", file=sys.stderr)
         return 1
 
-    catalog["templates"].sort(key=lambda x: (x["category"], x["id"]))
+    catalog["templates"].sort(key=lambda x: (x["domain"], x["category"], x["id"]))
+    by_domain = {}
+    for t in catalog["templates"]:
+        by_domain.setdefault(t["domain"], {}).setdefault(t["category"], []).append(t)
+
+    for dom in sorted(by_domain.keys()):
+        cats = []
+        for cat in sorted(by_domain[dom].keys()):
+            cats.append({"slug": cat, "template_count": len(by_domain[dom][cat])})
+        catalog["domains"].append(
+            {"slug": dom, "category_count": len(cats), "template_count": sum(c["template_count"] for c in cats), "categories": cats}
+        )
+
     catalog_path = ROOT / "catalog.json"
     with catalog_path.open("w", encoding="utf-8") as f:
         json.dump(catalog, f, indent=2, ensure_ascii=False)
         f.write("\n")
 
-    by_cat = {}
-    for t in catalog["templates"]:
-        by_cat.setdefault(t["category"], []).append(t)
-
     lines = [
         "# Template-Index",
         "",
-        f"Automatisch generiert. Anzahl Templates: **{len(catalog['templates'])}**.",
+        f"Automatisch generiert. **{len(catalog['domains'])}** Domains, **{len(expected_cats)}** Kategorien, **{len(catalog['templates'])}** Templates.",
         "",
     ]
-    for cat in sorted(by_cat.keys()):
-        lines.append(f"## {cat}")
+    for dom in sorted(by_domain.keys()):
+        dcount = sum(len(v) for v in by_domain[dom].values())
+        lines.append(f"## Domain: `{dom}` ({dcount} Templates)")
         lines.append("")
-        lines.append("| id | title | agents | risk | version | updated |")
-        lines.append("|----|-------|--------|------|---------|---------|")
-        for t in by_cat[cat]:
-            agents = ", ".join(t["target_agents"])
-            lines.append(
-                f"| `{t['id']}` | {t['title']} | {agents} | {t['risk_level']} | {t['version']} | {t['updated']} |"
-            )
-        lines.append("")
+        for cat in sorted(by_domain[dom].keys()):
+            tpls = by_domain[dom][cat]
+            lines.append(f"### `{dom}/{cat}` ({len(tpls)})")
+            lines.append("")
+            lines.append("| id | title | agents | risk | examples |")
+            lines.append("|----|-------|--------|------|----------|")
+            for t in tpls:
+                agents = ", ".join(t["target_agents"][:3])
+                if len(t["target_agents"]) > 3:
+                    agents += "…"
+                lines.append(
+                    f"| `{t['id']}` | {t['title']} | {agents} | {t['risk_level']} | {t['example_count']} |"
+                )
+            lines.append("")
     index_path = ROOT / "INDEX.md"
     index_path.write_text("\n".join(lines), encoding="utf-8")
 
-    print(f"OK: {len(catalog['templates'])} templates validated.")
-    print(f"Wrote {index_path.relative_to(ROOT)} and {catalog_path.relative_to(ROOT)}.")
+    print(f"OK: {len(catalog['domains'])} domains, {len(expected_cats)} categories, {len(catalog['templates'])} templates.")
+    print(f"Wrote {index_path.name} and {catalog_path.name}.")
     return 0
 
 

@@ -1,64 +1,76 @@
 ---
-id: category-kurzname-v1
+id: kategorie-kurzname-v1
 title: "Kurztitel der Aufgabe"
-category: kategorie-ordnername
+domain: domain-slug
+category: kategorie-slug
 tags:
   - tag1
-  - tag2
 target_agents:
   - hermes
-  - grokbot
-  - generic
+  - generic-mcp-agents
 required_tools:
   - name: tool-name
-    install: "Paketmanager / URL / MCP-Namespace"
-    version_notes: "Optional: Mindestversion oder „latest“"
+    install: "Paket / URL / MCP"
+    version_notes: "Stand 2026-11-23"
 inputs:
-  - "Eingabe 1 (Datei, URL, Parameter)"
+  - "Eingabe 1"
 outputs:
   - "Lieferobjekt 1"
 risk_level: low
+example_count: 2
 version: "1.0.0"
-updated: "YYYY-MM-DD"
+updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Eine Zeile: Welches Ergebnis liefert dieser Workflow?
+…
 
 ## Wann nutzen
 
-- Auslöser / Anfragentyp
-- Abgrenzung: wann **nicht** nutzen
+…
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| … | … | … |
 
 ## System-Prompt / Instruktionen
 
 ```text
-(Kopierfertiger System- oder Skill-Text — Englisch/Deutsch nach Zielplattform.)
+…
 ```
 
 ## Arbeitsablauf
 
-1. Schritt
-2. Schritt
-3. Schritt
+1. …
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Kriterium 1
-- [ ] Kriterium 2
+- [ ] …
 
 ## Sicherheit & Freigaben
 
-- Freigaben, PII, Ratenlimits, Human-in-the-loop
+…
 
-## Beispiele
+## Grundbeispiele
 
-**Eingabe:** …  
-**Erwartetes Ergebnis:** …
+### Beispiel 1 (Beispieldaten)
+
+- **Aufgabe:** …
+- **Input:** …
+- **Prompt:**
+```text
+…
+```
+- **Erwartetes Ergebnis:** …
+
+### Beispiel 2 (Beispieldaten)
+
+- **Aufgabe:** …
+- **Input:** …
+- **Prompt:**
+```text
+…
+```
+- **Erwartetes Ergebnis:** …

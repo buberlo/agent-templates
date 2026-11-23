@@ -1,26 +1,13 @@
-# Generischer System-Prompt-Export
+# Generische MCP-Agenten
 
-1. Datei `categories/<category>/<template>.md` öffnen.
-2. Frontmatter als strukturierte Metadaten (JSON/YAML) für ein beliebiges Agent-Framework exportieren:
-   - Felder: `id`, `title`, `category`, `tags`, `required_tools`, `risk_level`, `version`.
-3. **System-Prompt zusammenstellen** (empfohlenes Layout):
+1. Metadaten aus YAML-Frontmatter + Pfad `domains/<domain>/<category>/`.
+2. Kanonischer Prompt-Bau:
+   - ROLE → Zweck
+   - TOOLS → `required_tools` + `_category.md` MCP-Tabelle
+   - WORKFLOW → Arbeitsablauf
+   - EXAMPLES → Grundbeispiele
+   - SAFETY → Sicherheit & Freigaben
+3. Maschinenlesbar: Root-`catalog.json`, MCP: `mcp/catalog.json`.
+4. Vor Deploy: `python3 scripts/validate_and_index.py`.
 
-```text
-[ROLE]
-<title> — <Zweck in einem Satz>
-
-[TOOLS]
-<Liste aus required_tools: name + wann nutzen>
-
-[WORKFLOW]
-<Arbeitsablauf nummeriert>
-
-[QUALITY]
-<Qualitätskriterien / DoD>
-
-[SAFETY]
-<Sicherheit & Freigaben>
-```
-
-4. Abschnitt **System-Prompt / Instruktionen** bleibt die kanonische Kurzfassung für Copy-Paste.
-5. Vor Produktion: `python3 scripts/validate_and_index.py` und `catalog.json` als Maschinenlesbare Übersicht nutzen.
+Siehe `domains/agent-platforms/generic-mcp-agents/_category.md`.

@@ -1,59 +1,59 @@
 # agent-templates
 
-Private Template-Datenbank für KI-Agent-Setups (**Hermes Agent**, **Grok Bot**, Claude/Codex-ähnliche und generische Agents). Jedes Template beschreibt **welche Tools für welche Aufgabe** — inklusive kopierfertiger System-Prompts, Workflows und Freigaben.
+Private **Template-Datenbank** für KI-Agenten (Hermes, Grok Bot, OpenClaw, Claude Code, Codex, Cursor, generische MCP-Agenten): **welche Tools für welche Aufgabe**, mit Workflows, MCP-Katalog, Grundbeispielen und Freigaben.
 
-## Zweck
+Recherche-Stand: **23.11.2026** (siehe `research/SOURCES.md`; Roharchiv nicht versioniert).
 
-- Schnelles Onboarding neuer Kunden-Bots ohne Prompt-Chaos
-- Einheitliche Qualitäts- und Sicherheitskriterien (`risk_level`, Freigaben)
-- Maschinenlesbarer Katalog für CI und interne Portale
+## Umfang (Phase 2)
+
+| Kennzahl | Wert |
+|----------|------|
+| Domains | 27 |
+| Kategorien | 198 (`_category.md` je Kategorie) |
+| Templates | 247 (≥1 pro Kategorie, 2+ wo Recherche reich) |
+| MCP-Einträge | 91 (`mcp/catalog.json`) |
 
 ## Struktur
 
 ```text
-categories/<kategorie>/<id>.md   # Ein Template pro Datei (YAML-Frontmatter + Markdown-Body)
-adapters/                        # Hinweise: Hermes, Grok Bot, generischer Export
-TEMPLATE.md                      # Leere Vorlage
-template.schema.json             # JSON Schema für Frontmatter
-scripts/validate_and_index.py    # Validierung + INDEX.md + catalog.json
-INDEX.md, catalog.json           # generiert — nicht von Hand editieren
-.github/workflows/               # CI-Validierung
+domains/<domain>/_domain.md
+domains/<domain>/<category>/_category.md   # Tool-Stack, MCP-Tabelle, Fallstricke, Quellen
+domains/<domain>/<category>/*.md             # Ausführbare Templates (YAML + Body)
+mcp/catalog.json, mcp/README.md
+adapters/                                    # Einbindung pro Agenten-Plattform
+scripts/validate_and_index.py                # Validierung + INDEX.md + catalog.json
+scripts/build_from_research.py               # Regenerierung aus Recherche-Archiv (lokal)
+TEMPLATE.md, template.schema.json
+INDEX.md, catalog.json                       # generiert
+research/SOURCES.md                          # bereinigte Quellenliste
 ```
 
-### Kategorien
+## Template-Anatomie
 
-| Ordner | Thema |
-|--------|--------|
-| `video-bearbeitung` | Schnitt, Transcode, Remotion |
-| `audio` | Transkription, Podcast-Mastering |
-| `bild` | Batch, Generative Pipelines |
-| `dokumente-office` | Pandoc, LibreOffice |
-| `web-recherche` | Browser-Research, Briefings |
-| `coding-devops` | CI, IaC |
-| `kubernetes-infra` | kubectl, Helm |
-| `it-support-remote` | MeshCentral, Patch-Baseline |
-| `social-media` | Planung, Shorts-Repurpose |
-| `email-kommunikation` | MCP-Triage, DMARC |
-| `daten-analyse` | DuckDB, Pandas EDA |
-| `finanzen-buchhaltung` | CAMT, DATEV-CSV |
+- **Frontmatter:** `id`, `title`, `domain`, `category`, `tags`, `target_agents`, `required_tools`, `inputs`, `outputs`, `risk_level`, `example_count` (2–3), `version`, `updated`
+- **Body:** Zweck, Wann nutzen, Tool-Stack, System-Prompt, Arbeitsablauf, Qualitätskriterien, Sicherheit, **Grundbeispiele** (je Beispiel: Aufgabe, Input, Prompt, Ergebnis; Labels `Beispieldaten` oder `Praxisbeispiel` + URL)
 
-## Neues Template anlegen
+Kategorie-Metadaten liegen in `_category.md` (nicht im Template-Frontmatter duplizieren).
 
-1. `TEMPLATE.md` nach `categories/<kategorie>/<id>.md` kopieren (`id`: Kleinbuchstaben, Bindestriche).
-2. `category` im Frontmatter **muss** dem Ordnernamen entsprechen.
-3. Alle Body-Abschnitte ausfüllen (siehe `TEMPLATE.md`).
-4. Validierung lokal ausführen (siehe unten).
-5. `INDEX.md` und `catalog.json` mit committen.
+## Neues Template
 
-## Nutzung mit Agents
+1. `TEMPLATE.md` nach `domains/<domain>/<category>/<id>.md` kopieren.
+2. `domain` / `category` müssen zum Ordner passen.
+3. Inhalt an `_category.md` und Recherche koppeln — keine unbelegten Tool-Claims.
+4. `python3 scripts/validate_and_index.py` → `INDEX.md` / `catalog.json` committen.
 
-| Plattform | Anleitung |
-|-----------|-----------|
-| Hermes Agent | [adapters/hermes.md](adapters/hermes.md) — Skill/System-Prompt aus **System-Prompt / Instruktionen** |
-| Grok Bot | [adapters/grokbot.md](adapters/grokbot.md) — Bot-Bio + Skill |
-| Generisch | [adapters/generic.md](adapters/generic.md) — Export-Layout + `catalog.json` |
+## Agenten-Adapter
 
-`target_agents` im Frontmatter zeigt, für welche Plattform das Template gedacht ist.
+| Plattform | Datei |
+|-----------|--------|
+| Hermes | [adapters/hermes.md](adapters/hermes.md) |
+| Grok Bot | [adapters/grokbot.md](adapters/grokbot.md) |
+| OpenClaw | [adapters/openclaw.md](adapters/openclaw.md) |
+| Claude Code | [adapters/claude-code.md](adapters/claude-code.md) |
+| Cursor | [adapters/cursor.md](adapters/cursor.md) |
+| Generisch | [adapters/generic.md](adapters/generic.md) |
+
+Agent-Plattform-Setups: `domains/agent-platforms/<plattform>/`.
 
 ## Validierung
 
@@ -61,12 +61,17 @@ INDEX.md, catalog.json           # generiert — nicht von Hand editieren
 python3 scripts/validate_and_index.py
 ```
 
-Bei Erfolg: Aktualisierung von `INDEX.md` und `catalog.json`. Bei Fehlern: Exit-Code 1 mit Liste der Abweichungen (Schema, fehlende Sektionen, Kategorie ≠ Ordner).
+Prüft Schema, Pfad-Konsistenz, Pflichtsektionen, `example_count` vs. **Grundbeispiele**, mindestens ein Template pro Kategorie. CI: `.github/workflows/validate-templates.yml`.
 
-GitHub Actions führt denselben Befehl bei Push und Pull Request aus.
+## Regenerierung aus Recherche
 
-## Lizenz & Daten
+Lokal Archiv nach `research/agent-templates-research/` entpacken (nicht committen), dann:
 
-Keine Secrets, keine Kundendaten in Templates. Beispiele sind fiktiv.
+```bash
+python3 scripts/build_from_research.py
+python3 scripts/validate_and_index.py
+```
 
-Siehe [CONTRIBUTING.md](CONTRIBUTING.md) für Kurzregeln zu PRs und Stil.
+## Datenschutz
+
+Keine Secrets, keine Kundendaten. [CONTRIBUTING.md](CONTRIBUTING.md).
