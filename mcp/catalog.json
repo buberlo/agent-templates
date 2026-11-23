@@ -1,0 +1,1296 @@
+{
+  "generated_at": "2026-11-23",
+  "count": 91,
+  "servers": [
+    {
+      "name": "OpenClaw Android App (Companion)",
+      "url": "https://docs.openclaw.ai/platforms/android/",
+      "type": "Companion-App",
+      "stars": 395081,
+      "categories": [
+        "automatisierung/mobile-phone-control"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "OpenClaw MCP serve / ACP",
+      "url": "https://docs.openclaw.ai/cli/mcp/serve",
+      "type": "Bruecke",
+      "stars": 395081,
+      "categories": [
+        "agent-platforms/codex"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "OpenClaw Skill Workshop",
+      "url": "https://docs.openclaw.ai/skills/",
+      "type": "Plattform-Feature",
+      "stars": 395081,
+      "categories": [
+        "ki-ops/skills-authoring"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Hermes Agent",
+      "url": "https://github.com/NousResearch/hermes-agent",
+      "type": "Agent-Plattform",
+      "stars": 265550,
+      "categories": [
+        "agent-platforms/hermes"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "n8n",
+      "url": "https://github.com/n8n-io/n8n",
+      "type": "Plattform + MCP-Katalogeintrag",
+      "stars": 211894,
+      "categories": [
+        "automatisierung/iot",
+        "automatisierung/n8n-make-zapier",
+        "automatisierung/rpa",
+        "daten-analytics/etl-pipelines"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Agent Skills progressive disclosure",
+      "url": "https://code.claude.com/docs/en/skills/",
+      "type": "Muster",
+      "stars": 199219,
+      "categories": [
+        "ki-ops/prompt-engineering"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Anthropic document skills (docx, pptx, xlsx, pdf)",
+      "url": "https://github.com/anthropics/skills",
+      "type": "Skill",
+      "stars": 199219,
+      "categories": [
+        "agent-platforms/claude-code",
+        "bildung/kurse-erstellen",
+        "ki-ops/skills-authoring",
+        "office-dokumente/excel-xlsx",
+        "office-dokumente/formulare",
+        "office-dokumente/ocr",
+        "office-dokumente/pdf",
+        "office-dokumente/powerpoint-pptx",
+        "office-dokumente/word-docx",
+        "recht-verwaltung/behoerden-formulare",
+        "recht-verwaltung/datenschutz",
+        "recht-verwaltung/vertraege",
+        "security/compliance-nis2-dsgvo"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "MarkItDown",
+      "url": "https://github.com/microsoft/markitdown",
+      "type": "CLI / Bibliothek",
+      "stars": 197975,
+      "categories": [
+        "daten-analytics/bi-dashboards",
+        "daten-analytics/data-cleaning",
+        "daten-analytics/data-viz",
+        "daten-analytics/ml-training",
+        "daten-analytics/spreadsheets-analyse",
+        "medien/bild-fotografie",
+        "office-dokumente/ocr",
+        "office-dokumente/pdf",
+        "office-dokumente/word-docx",
+        "software-entwicklung/tech-docs"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Claude Code",
+      "url": "https://github.com/anthropics/claude-code",
+      "type": "CLI-Agent",
+      "stars": 156765,
+      "categories": [
+        "agent-platforms/claude-code"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "punkpeye/awesome-mcp-servers",
+      "url": "https://github.com/punkpeye/awesome-mcp-servers",
+      "type": "Katalog",
+      "stars": 98405,
+      "categories": [
+        "agent-platforms/generic-mcp-agents",
+        "kundenservice/helpdesk-tickets"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "modelcontextprotocol/servers",
+      "url": "https://github.com/modelcontextprotocol/servers",
+      "type": "Referenz",
+      "stars": 92179,
+      "categories": [
+        "agent-platforms/generic-mcp-agents",
+        "ki-ops/mcp-server-bau"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "mcp-builder (in awesome-claude-skills beschrieben)",
+      "url": "https://github.com/ComposioHQ/awesome-claude-skills",
+      "type": "Skill",
+      "stars": 80108,
+      "categories": [
+        "ki-ops/mcp-server-bau"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "mem0",
+      "url": "https://github.com/mem0ai/mem0",
+      "type": "Plattform / Memory-Layer",
+      "stars": 69369,
+      "categories": [
+        "recherche-wissen/rag-memory"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Context7",
+      "url": "https://github.com/upstash/context7",
+      "type": "MCP / Plattform",
+      "stars": 65314,
+      "categories": [
+        "agent-platforms/claude-code",
+        "ki-ops/context-token-management",
+        "software-entwicklung/backend-apis",
+        "software-entwicklung/coding",
+        "software-entwicklung/tech-docs"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Chrome DevTools MCP",
+      "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+      "type": "MCP",
+      "stars": 58941,
+      "categories": [
+        "automatisierung/browser-automation",
+        "software-entwicklung/frontend",
+        "software-entwicklung/testing"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Playwright MCP",
+      "url": "https://github.com/microsoft/playwright-mcp",
+      "type": "MCP",
+      "stars": 40040,
+      "categories": [
+        "agent-platforms/claude-code",
+        "automatisierung/browser-automation",
+        "automatisierung/iot",
+        "automatisierung/rpa",
+        "daten-analytics/web-scraping",
+        "ki-ops/context-token-management",
+        "recherche-wissen/web-recherche",
+        "software-entwicklung/design-to-code",
+        "software-entwicklung/frontend",
+        "software-entwicklung/testing"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "GitHub Official MCP",
+      "url": "https://github.com/github/github-mcp-server",
+      "type": "MCP",
+      "stars": 34686,
+      "categories": [
+        "agent-platforms/claude-code",
+        "devops-cloud/cicd",
+        "devops-cloud/cloud-aws",
+        "devops-cloud/cloud-gcp",
+        "devops-cloud/cloud-kosten",
+        "devops-cloud/logging",
+        "software-entwicklung/code-review",
+        "software-entwicklung/coding",
+        "software-entwicklung/git-github"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Graphiti",
+      "url": "https://github.com/getzep/graphiti",
+      "type": "Knowledge Graph",
+      "stars": 33021,
+      "categories": [
+        "recherche-wissen/rag-memory"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Mobile MCP",
+      "url": "https://github.com/mobile-next/mobile-mcp",
+      "type": "MCP",
+      "stars": 10819,
+      "categories": [
+        "automatisierung/mobile-phone-control",
+        "software-entwicklung/mobile-apps"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Mobilerun (ehem. DroidRun)",
+      "url": "https://github.com/droidrun/mobilerun",
+      "type": "CLI + MCP",
+      "stars": 10100,
+      "categories": [
+        "automatisierung/mobile-phone-control",
+        "software-entwicklung/mobile-apps"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "ClawHub",
+      "url": "https://github.com/openclaw/clawhub",
+      "type": "Registry",
+      "stars": 9559,
+      "categories": [
+        "agent-platforms/openclaw"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Firecrawl MCP",
+      "url": "https://github.com/firecrawl/firecrawl-mcp-server",
+      "type": "MCP",
+      "stars": 7886,
+      "categories": [
+        "automatisierung/browser-automation",
+        "content-marketing/ads-performance",
+        "content-marketing/content-strategie",
+        "content-marketing/influencer",
+        "content-marketing/landingpages",
+        "content-marketing/newsletter",
+        "content-marketing/seo",
+        "content-marketing/social-facebook-meta",
+        "content-marketing/social-instagram",
+        "content-marketing/social-linkedin",
+        "content-marketing/social-media-strategie",
+        "content-marketing/social-reddit",
+        "content-marketing/social-tiktok",
+        "content-marketing/social-youtube",
+        "content-marketing/ugc",
+        "daten-analytics/web-scraping",
+        "recherche-wissen/bibliothek-zotero",
+        "recherche-wissen/patente",
+        "recherche-wissen/web-recherche",
+        "security/osint"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Remotion Agent Skills",
+      "url": "https://github.com/remotion-dev/skills",
+      "type": "Skill",
+      "stars": 7841,
+      "categories": [
+        "medien/animation-motion",
+        "medien/video-bearbeitung",
+        "medien/video-produktion-pipeline"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "kubectl-ai",
+      "url": "https://github.com/GoogleCloudPlatform/kubectl-ai",
+      "type": "CLI-Agent",
+      "stars": 7606,
+      "categories": [
+        "devops-cloud/kubernetes"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Exa MCP",
+      "url": "https://github.com/exa-labs/exa-mcp-server",
+      "type": "MCP",
+      "stars": 5264,
+      "categories": [
+        "daten-analytics/web-scraping",
+        "recherche-wissen/bibliothek-zotero",
+        "recherche-wissen/patente",
+        "recherche-wissen/web-recherche",
+        "security/osint",
+        "vertrieb-crm/leadgen"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Browserbase MCP",
+      "url": "https://github.com/browserbase/mcp-server-browserbase",
+      "type": "MCP",
+      "stars": 3397,
+      "categories": [
+        "automatisierung/browser-automation"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Tavily MCP",
+      "url": "https://github.com/tavily-ai/tavily-mcp",
+      "type": "MCP",
+      "stars": 2497,
+      "categories": [
+        "daten-analytics/web-scraping",
+        "recherche-wissen/web-recherche",
+        "security/osint"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "kubernetes-mcp-server (containers)",
+      "url": "https://github.com/containers/kubernetes-mcp-server",
+      "type": "MCP",
+      "stars": 2274,
+      "categories": [
+        "devops-cloud/kubernetes"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Stripe Agent Toolkit",
+      "url": "https://github.com/Stripe/agent-toolkit",
+      "type": "Toolkit / MCP-faehig",
+      "stars": 2083,
+      "categories": [
+        "finanzen/buchhaltung",
+        "finanzen/budget",
+        "finanzen/payments-stripe",
+        "finanzen/rechnungen",
+        "finanzen/steuern"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Brave Search MCP",
+      "url": "https://github.com/brave/brave-search-mcp-server",
+      "type": "MCP",
+      "stars": 1585,
+      "categories": [
+        "content-marketing/ads-performance",
+        "content-marketing/content-strategie",
+        "content-marketing/influencer",
+        "content-marketing/landingpages",
+        "content-marketing/newsletter",
+        "content-marketing/seo",
+        "content-marketing/social-facebook-meta",
+        "content-marketing/social-instagram",
+        "content-marketing/social-linkedin",
+        "content-marketing/social-media-strategie",
+        "content-marketing/social-reddit",
+        "content-marketing/social-tiktok",
+        "content-marketing/social-youtube",
+        "content-marketing/ugc",
+        "immobilien/exposes",
+        "immobilien/immobilien-suche",
+        "immobilien/verwaltung-weg",
+        "recherche-wissen/bibliothek-zotero",
+        "recherche-wissen/patente",
+        "recherche-wissen/web-recherche",
+        "reisen-events/event-planung",
+        "reisen-events/fluege-hotels",
+        "reisen-events/reiseplanung",
+        "reisen-events/tickets",
+        "security/osint",
+        "vertrieb-crm/leadgen"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Sentry MCP",
+      "url": "https://github.com/getsentry/sentry-mcp",
+      "type": "MCP",
+      "stars": 973,
+      "categories": [
+        "devops-cloud/cloud-aws",
+        "devops-cloud/cloud-gcp",
+        "devops-cloud/cloud-kosten",
+        "devops-cloud/incident-response",
+        "devops-cloud/logging",
+        "devops-cloud/monitoring-observability",
+        "security/siem-soc",
+        "software-entwicklung/backend-apis"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "AKS / Azure Kubernetes MCP",
+      "url": "https://learn.microsoft.com/en-us/azure/aks/aks-model-context-protocol-server",
+      "type": "MCP",
+      "stars": 62,
+      "categories": [
+        "devops-cloud/cloud-azure",
+        "devops-cloud/kubernetes"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Tailscale (Netzwerkpfad)",
+      "url": "https://tailscale.com/docs/develop-with-ai",
+      "type": "Netzwerk / Docs",
+      "stars": 5,
+      "categories": [
+        "it-betrieb-support/remote-support"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "meshcentral-mcp (EynaExp)",
+      "url": "https://github.com/EynaExp/meshcentral-mcp",
+      "type": "MCP",
+      "stars": 5,
+      "categories": [
+        "it-betrieb-support/remote-support"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Axolotl (in Hermes-Skills-Doku als Slash-Beispiel)",
+      "url": "https://hermes-agent.nousresearch.com/docs/user-guide/features/skills",
+      "type": "Skill / Toolchain",
+      "stars": null,
+      "categories": [
+        "ki-ops/fine-tuning"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Bidsketch/signwell-mcp",
+      "url": "https://github.com/Bidsketch/signwell-mcp",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "office-dokumente/e-signatur"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "ClawHub „Playwright MCP“ (spiceman161)",
+      "url": "https://clawhubtrends.com/leaderboard.html",
+      "type": "Skill",
+      "stars": null,
+      "categories": [
+        "automatisierung/browser-automation",
+        "automatisierung/cron-routines",
+        "automatisierung/desktop-automation",
+        "content-marketing/social-x-twitter",
+        "devops-cloud/incident-response",
+        "finanzen/trading-krypto",
+        "kommunikation/chat-messaging",
+        "kommunikation/meetings-transkription",
+        "kommunikation/telefon-voice-agents",
+        "medien/audio-bearbeitung",
+        "medien/bild-generierung",
+        "medien/podcast",
+        "medien/untertitel-uebersetzung",
+        "medien/video-bearbeitung",
+        "medien/youtube-content",
+        "office-dokumente/excel-xlsx",
+        "office-dokumente/notion",
+        "office-dokumente/pdf",
+        "office-dokumente/powerpoint-pptx",
+        "office-dokumente/word-docx",
+        "recherche-wissen/news-monitoring",
+        "recherche-wissen/rag-memory",
+        "recherche-wissen/web-recherche"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Cursor + MCP/Skills",
+      "url": "https://x.ai/bot/guides/grok-bot-101",
+      "type": "IDE-Agent",
+      "stars": null,
+      "categories": [
+        "agent-platforms/cursor",
+        "agent-platforms/grokbot",
+        "kommunikation/kalender-scheduling",
+        "office-dokumente/google-workspace-docs"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Docker CLI (agent terminal)",
+      "url": "https://docs.docker.com/",
+      "type": "CLI",
+      "stars": null,
+      "categories": [
+        "devops-cloud/docker-container"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "FFmpeg (CLI, oft ohne eigenes MCP)",
+      "url": "https://ffmpeg.org/",
+      "type": "CLI",
+      "stars": null,
+      "categories": [
+        "medien/audio-bearbeitung",
+        "medien/bild-fotografie",
+        "medien/dreid-modellierung",
+        "medien/podcast",
+        "medien/streaming-broadcast",
+        "medien/untertitel-uebersetzung",
+        "medien/video-bearbeitung",
+        "medien/video-produktion-pipeline"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Grok Bot Plugins / Custom MCP",
+      "url": "https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp",
+      "type": "Produkt-Connector",
+      "stars": null,
+      "categories": [
+        "agent-platforms/grokbot",
+        "it-betrieb-support/m365-admin",
+        "kommunikation/chat-messaging",
+        "kommunikation/email",
+        "security/secrets-management"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "HasData/amazon-mcp",
+      "url": "https://github.com/HasData/amazon-mcp",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "vertrieb-crm/amazon"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Hermes Cron (Feature)",
+      "url": "https://hermes-agent.nousresearch.com/docs/getting-started/quickstart",
+      "type": "Plattform-Feature",
+      "stars": null,
+      "categories": [
+        "automatisierung/cron-routines",
+        "it-betrieb-support/netzwerk",
+        "ki-ops/model-routing"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Hermes-Skill codex",
+      "url": "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog",
+      "type": "Skill",
+      "stars": null,
+      "categories": [
+        "agent-platforms/codex",
+        "automatisierung/desktop-automation",
+        "content-marketing/branding-design",
+        "content-marketing/copywriting",
+        "content-marketing/social-x-twitter",
+        "it-betrieb-support/active-directory-entra",
+        "it-betrieb-support/backup-restore",
+        "it-betrieb-support/endpoint-mdm",
+        "it-betrieb-support/google-workspace-admin",
+        "it-betrieb-support/helpdesk-it",
+        "it-betrieb-support/homelab",
+        "it-betrieb-support/identitaet-sso",
+        "ki-ops/agent-orchestration",
+        "kommunikation/chat-messaging",
+        "kommunikation/email",
+        "kommunikation/imessage-sms",
+        "kommunikation/kalender-scheduling",
+        "kommunikation/meetings-transkription",
+        "medien/animation-motion",
+        "medien/musik",
+        "office-dokumente/diagramme-whiteboard",
+        "office-dokumente/formulare",
+        "office-dokumente/google-workspace-docs",
+        "office-dokumente/obsidian",
+        "office-dokumente/ocr",
+        "office-dokumente/pdf",
+        "persoenlich-lifestyle/einkauf",
+        "persoenlich-lifestyle/essen-rezepte",
+        "persoenlich-lifestyle/haushalt",
+        "persoenlich-lifestyle/produkte-vergleich",
+        "persoenlich-lifestyle/termine-persoenlich",
+        "projektmanagement/tasks",
+        "recherche-wissen/akademisch",
+        "recherche-wissen/grounded-citations",
+        "recherche-wissen/news-monitoring",
+        "recherche-wissen/rag-memory",
+        "recherche-wissen/wikis-dokumentation",
+        "security/appsec-sast",
+        "software-entwicklung/code-review",
+        "software-entwicklung/coding",
+        "software-entwicklung/git-github",
+        "software-entwicklung/refactoring",
+        "software-entwicklung/testing",
+        "vertrieb-crm/outreach",
+        "wissenschaft-engineering/daten-experimente",
+        "wissenschaft-engineering/lab-notes",
+        "wissenschaft-engineering/paper-writing",
+        "wissenschaft-engineering/simulation-numerics",
+        "wissenschaft-engineering/tech-standards"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Hermes-Skill microsoft-office",
+      "url": "https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/productivity/productivity-microsoft-office",
+      "type": "Skill + CLI",
+      "stars": null,
+      "categories": [
+        "bildung/kurse-erstellen",
+        "bildung/lernkarten",
+        "bildung/nachhilfe-tutoring",
+        "bildung/sprachen",
+        "bildung/studium-forschung",
+        "content-marketing/copywriting",
+        "hr-recruiting/bewerbungen",
+        "hr-recruiting/cv-screening",
+        "hr-recruiting/onboarding",
+        "hr-recruiting/stellenausschreibungen",
+        "immobilien/exposes",
+        "immobilien/immobilien-suche",
+        "immobilien/verwaltung-weg",
+        "it-betrieb-support/m365-admin",
+        "office-dokumente/excel-xlsx",
+        "office-dokumente/powerpoint-pptx",
+        "office-dokumente/word-docx",
+        "security/compliance-nis2-dsgvo"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Hermes-Skill youtube-content",
+      "url": "https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/media/media-youtube-content",
+      "type": "Skill",
+      "stars": null,
+      "categories": [
+        "bildung/kurse-erstellen",
+        "bildung/lernkarten",
+        "bildung/nachhilfe-tutoring",
+        "bildung/sprachen",
+        "bildung/studium-forschung",
+        "medien/podcast",
+        "medien/untertitel-uebersetzung",
+        "medien/video-bearbeitung",
+        "medien/youtube-content"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Notion MCP (hosted)",
+      "url": "https://mcp.notion.com/mcp",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "office-dokumente/notion",
+        "recherche-wissen/wikis-dokumentation",
+        "security/compliance-nis2-dsgvo"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Nous-approved MCP-Katalog",
+      "url": "https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp",
+      "type": "Katalog",
+      "stars": null,
+      "categories": [
+        "agent-platforms/hermes",
+        "ki-ops/context-token-management"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Ollama (lokal, typisch per CLI statt MCP)",
+      "url": "https://ollama.com",
+      "type": "CLI / Runtime",
+      "stars": null,
+      "categories": [
+        "ki-ops/lokale-modelle-ollama"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "OpenClaw",
+      "url": "https://github.com/openclaw/openclaw",
+      "type": "Agent-Plattform",
+      "stars": null,
+      "categories": [
+        "agent-platforms/openclaw"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "Terraform/OpenTofu CLI",
+      "url": "https://www.terraform.io/",
+      "type": "CLI",
+      "stars": null,
+      "categories": [
+        "devops-cloud/iac-terraform"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "atlassian MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/atlassian",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "projektmanagement/agile-kanban",
+        "projektmanagement/jira-linear",
+        "projektmanagement/planung",
+        "projektmanagement/reporting",
+        "security/vuln-management"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "attio MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/attio",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "vertrieb-crm/angebote-proposals",
+        "vertrieb-crm/crm",
+        "vertrieb-crm/e-commerce",
+        "vertrieb-crm/etsy",
+        "vertrieb-crm/kdp",
+        "vertrieb-crm/leadgen",
+        "vertrieb-crm/marketplaces",
+        "vertrieb-crm/outreach",
+        "vertrieb-crm/preis-monitoring"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "betterstack MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/betterstack",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "devops-cloud/monitoring-observability"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "buildkite MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/buildkite",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "devops-cloud/cicd"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "calendly MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/calendly",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "kommunikation/kalender-scheduling",
+        "reisen-events/event-planung",
+        "reisen-events/fluege-hotels",
+        "reisen-events/reiseplanung",
+        "reisen-events/tickets"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "canva MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/canva",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "content-marketing/branding-design",
+        "software-entwicklung/frontend"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "circleci MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/circleci",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "devops-cloud/cicd"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "close MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/close",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "vertrieb-crm/angebote-proposals",
+        "vertrieb-crm/crm",
+        "vertrieb-crm/e-commerce",
+        "vertrieb-crm/etsy",
+        "vertrieb-crm/kdp",
+        "vertrieb-crm/leadgen",
+        "vertrieb-crm/marketplaces",
+        "vertrieb-crm/preis-monitoring"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "cloudflare MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/cloudflare",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "devops-cloud/plattform-deploy"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "cloudinary MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/cloudinary",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "medien/bild-generierung"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "comfy-cloud MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/comfy-cloud",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "medien/bild-generierung"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "datadog MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/datadog",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "devops-cloud/incident-response",
+        "devops-cloud/monitoring-observability",
+        "security/siem-soc"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "deepwiki MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/deepwiki",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "recherche-wissen/wikis-dokumentation",
+        "software-entwicklung/tech-docs"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "figma MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/figma",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "content-marketing/branding-design",
+        "software-entwicklung/design-to-code",
+        "software-entwicklung/frontend"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "fireflies MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/fireflies",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "kommunikation/meetings-transkription"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "forgemeshlabs/shopscout-mcp",
+      "url": "https://github.com/forgemeshlabs/shopscout-mcp",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "vertrieb-crm/shopify"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "grafana MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/grafana",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "devops-cloud/monitoring-observability",
+        "security/siem-soc"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "homeassistant-mcp (tevonsb)",
+      "url": "https://github.com/tevonsb/homeassistant-mcp",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "automatisierung/smart-home",
+        "it-betrieb-support/homelab"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "hugoles/langfuse-mcp (Community)",
+      "url": "https://github.com/hugoles/langfuse-mcp",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "ki-ops/evals-benchmarks"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "indeed MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/indeed",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "hr-recruiting/bewerbungen",
+        "hr-recruiting/cv-screening",
+        "hr-recruiting/onboarding",
+        "hr-recruiting/stellenausschreibungen"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "intercom MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/intercom",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "kundenservice/escalation",
+        "kundenservice/helpdesk-tickets",
+        "kundenservice/knowledge-base",
+        "kundenservice/live-chat-bots",
+        "kundenservice/qos-csat"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "linear MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/linear",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "projektmanagement/agile-kanban",
+        "projektmanagement/jira-linear",
+        "projektmanagement/planung",
+        "projektmanagement/reporting",
+        "security/vuln-management"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "miro MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/miro",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "office-dokumente/diagramme-whiteboard"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "motherduck MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/motherduck",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "daten-analytics/bi-dashboards",
+        "daten-analytics/data-cleaning",
+        "daten-analytics/data-viz",
+        "daten-analytics/etl-pipelines",
+        "daten-analytics/ml-training",
+        "daten-analytics/spreadsheets-analyse",
+        "daten-analytics/sql-abfragen"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "neon MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/neon",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "software-entwicklung/datenbanken-dev"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "netlify MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/netlify",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "devops-cloud/plattform-deploy"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "paypal MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/paypal",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "finanzen/payments-stripe"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "plaid MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/plaid",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "finanzen/banking"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "prisma-postgres MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/prisma-postgres",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "software-entwicklung/datenbanken-dev"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "railway MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/railway",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "devops-cloud/plattform-deploy"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "robinhood MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/robinhood",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "finanzen/trading-krypto"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "semgrep MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/semgrep",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "security/appsec-sast",
+        "security/vuln-management",
+        "software-entwicklung/code-review"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "square MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/square",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "finanzen/payments-stripe"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "strava MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/strava",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "gesundheit-fitness/ernaehrung",
+        "gesundheit-fitness/fitness-training",
+        "gesundheit-fitness/gesundheitsdaten-organisation",
+        "gesundheit-fitness/mental-health-organisation"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "supabase MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/supabase",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "daten-analytics/sql-abfragen",
+        "software-entwicklung/backend-apis",
+        "software-entwicklung/datenbanken-dev"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "todoist MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/todoist",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "projektmanagement/tasks"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "twelve-data MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/twelve-data",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "finanzen/trading-krypto"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "twilio-docs MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/twilio-docs",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "kommunikation/telefon-voice-agents"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "unreal-engine MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/unreal-engine",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "gaming-modding/game-modding",
+        "gaming-modding/game-servers",
+        "gaming-modding/spielbibliotheken",
+        "gaming-modding/streaming-gaming",
+        "software-entwicklung/game-dev"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    },
+    {
+      "name": "vercel MCP (Hermes-Katalog)",
+      "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/vercel",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "devops-cloud/plattform-deploy"
+      ],
+      "auth": "varies",
+      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+    }
+  ]
+}
