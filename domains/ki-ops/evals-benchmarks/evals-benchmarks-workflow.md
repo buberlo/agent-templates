@@ -6,94 +6,126 @@ category: evals-benchmarks
 tags:
   - evals
   - ki-ops
-  - mcp
+  - quality
 target_agents:
   - hermes
   - grokbot
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: hugoles/langfuse-mcp (Community)
-    install: "https://github.com/hugoles/langfuse-mcp"
-    version_notes: "Stars hier nicht per API gezogen."
+  - name: Hermes evals / defineEval
+    install: "https://hermes-agent.nousresearch.com/docs/"
+    version_notes: "Wenn Agent-SDK im Projekt"
+  - name: pytest / harness
+    install: "pip: deepeval optional"
+    version_notes: "Lokal reproduzierbar"
 inputs:
-  - "Kontext/Briefing für Evals und Benchmarks"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Skill/Agent unter Test"
+  - "Golden cases (input, expected rubric)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Eval suite Definition"
+  - "Pass/Fail Report"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Qualität von Agenten und Modellen messen, Regressionen erkennen.
+Agenten und Skills **mesbar** verbessern: Golden Tasks, Rubriken, Regression vor Release — nicht nur subjektives „fühlt sich gut an“.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Evals und Benchmarks**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Vor Promotion Branch → main.
+- Nach Prompt- oder MCP-Änderung.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| hugoles/langfuse-mcp (Community) | MCP | Aus Recherche 2026-11-23 |
+| Golden dataset | Fixture | Stabil |
+| Rubric scores | Judging | LLM oder human |
+| CI job | Gate | Block merge |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Evals und Benchmarks (ki-ops/evals-benchmarks).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Goldens anlegen, nach Prompt/Skill-Aenderungen regressen.
+Role: eval engineer (ki-ops/evals-benchmarks).
+Mission: Define repeatable cases with rubrics—not single happy path demo.
+
+Case format: id task input_files expected_rubric dimensions correctness safety tokens_used optional.
+Rubric each dimension 0-1 weight sum 1; pass threshold 0.85 unless safety dimension must be 1.0.
+Safety cases: must refuse illegal delete payment; score fail if executed.
+Determinism: pin model temperature 0 for eval runs document model id date.
+Metrics: pass rate latency p95 cost per case from logs.
+Regression: new case for every production bug ticket id link.
+Human eval: sample 10% weekly inter-rater note.
+Synthetic data only label Beispieldaten; no customer pii in repo.
+Automate: shell runner agent-sdk bdk eval run or pytest marker @agent.
+Flaky: max 2 retries document flake rate separate from fail.
+Baseline: store main branch scores compare pr delta warn >5% drop.
+Output eval_report.md table case_id score notes.
+No eval without version bump on skill or prompt being tested.
 ```
 
 ## Arbeitsablauf
 
-- Goldens anlegen, nach Prompt/Skill-Aenderungen regressen.
+1. Unter-Test-Artefakt und Version pinnen.
+2. 5–15 Golden Cases aus realen Tickets anonymisiert.
+3. Rubrik pro Dimension schreiben.
+4. Harness lokal ausführen.
+5. Scores mit Baseline vergleichen.
+6. Flakes markieren und fixen oder quarantinen.
+7. CI-Gate dokumentieren.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] ≥5 Cases inkl. Safety-Negative
+- [ ] Rubrik gewichtet dokumentiert
+- [ ] Reproduzierbarer Run-Befehl
+- [ ] Baseline-Vergleich
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keine Prod-Daten in Fixtures.
+
+## Fallstricke
+
+- Nur Happy-Path → Prod-Bug bleibt ungetestet.
+- LLM-as-judge ohne Rubric → Drift.
+- Flaky als Pass gezählt.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Evals und Benchmarks-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `evals-benchmarks` (Testdaten)
+- **Aufgabe:** CRM skill regression
+- **Input:** 8 cases draft note only
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Evals und Benchmarks. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+eval suite rubric accuracy refusal write without token.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+cases/*.yaml | pass 7/8 | fail documented case id
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Evals und Benchmarks
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Ship without eval
+- **Input:** urgent Friday
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Skip eval merge now.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+minimum smoke eval recommended | risk note in report
+```

@@ -6,97 +6,128 @@ category: identitaet-sso
 tags:
   - identitaet
   - it-betrieb-support
-  - skillcli
+  - sso
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: Hermes-Skill google-workspace / gws CLI
-    install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "Bundled-Katalog."
+  - name: IdP (Entra/Okta/Keycloak)
+    install: "Admin read + SAML/OIDC docs"
+    version_notes: "Metadaten XML"
 inputs:
-  - "Kontext/Briefing für Identität und SSO"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "App, IdP, Fehlersymptom (login loop, claims)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "SAML/OIDC Checkliste"
+  - "Claim-Mapping-Draft"
+risk_level: high
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-SSO, IdP, App-Registrierungen und Zugriffsreviews.
+**SSO und Identität** debuggen und entwerfen: SAML/OIDC-Metadaten, Claim-Mapping, Zertifikats-Rotation — keine Produktions-Secrets im Ticket.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Identität und SSO**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Neue SaaS-App anbinden.
+- Login-Loop nach IdP-Änderung.
+
+**Wann nicht**
+
+- Kerndienst-IdP-Umbau ohne CAB und Wartungsfenster.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill google-workspace / gws CLI | Skill + CLI | Aus Recherche 2026-11-23 |
+| SAML tracer | Debug | Browser extension |
+| openssl | Certs | Expiry |
+| IdP logs | Auth | correlation id |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Identität und SSO (it-betrieb-support/identitaet-sso).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: sso engineer (it-betrieb-support/identitaet-sso).
+Risk HIGH changing production IdP signing certs or global claim rules.
+
+Read: sp entity id acs url audience issuer clock skew cert expiry nameid format attribute mapping table both sides.
+SAML checklist: metadata url fetch https redirect binding assertion signed assertions encrypted optional document.
+OIDC: client id redirect uris scopes authorization code only no implicit deprecated pkce if public client.
+Login loop causes: stale session cookie mismatch redirect uri wrong cert expired clock skew attribute missing required claim.
+Test: use idp test user in lower environment app registration staging tile first.
+Claim mapping draft: source attribute transform regex static value risk note if regex wrong breaks prod.
+Cert rotation: overlap old and new signing cert 7 days monitor auth failures spike.
+Okta entra keycloak patterns document vendor steps no vendor-specific api write without FREIGABE SSO CHANGE.
+SCIM provisioning optional separate ticket read scim logs group push errors.
+MFA: required at idp before sso to sensitive apps do not disable mfa to fix sso misconfig.
+Secrets: client secret rotate procedure doc never paste secret in chat use vault reference id.
+Audit: correlate auth log id from idp and sp timestamp user upn.
+Forbidden: disable signing cert validation pass through all assertions vulnerability.
+Handoff ad template for hybrid users if on-prem sync issue active-directory-entra-workflow.
+Post change smoke: login test incognito three users role admin user guest if applicable.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Fehlerbild und App-Id erfassen.
+2. SP/IdP Metadaten und Certs lesen.
+3. Claim-Tabelle beidseitig vergleichen.
+4. Fix als Draft (Redirect, Claim, Cert).
+5. Staging-App testen.
+6. Prod mit `FREIGABE SSO CHANGE` und Fenster.
+7. Auth-Logs und Smoke dokumentieren.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Cert-Expiry >30d oder Rotation geplant
+- [ ] Redirect URIs exakt match
+- [ ] Staging-Smoke vor Prod
 
 ## Sicherheit & Freigaben
 
-- Remote nur mit Einwilligung und sichtbarer Sitzung.
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Signing certs und secrets hochsensibel.
+- Kein MFA-Aus für „schnellen Fix“.
+
+## Fallstricke
+
+- NameID-Format wechsel → alle SPs brechen.
+- Regex-Claim frisst alles.
+- Cert-Rotation ohne Overlap.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Identität und SSO-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `identitaet-sso` (Testdaten)
+- **Aufgabe:** SaaS login loop
+- **Input:** Azure SAML app
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Identität und SSO. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Compare ACS redirect cert expiry claim department mapping.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+mismatch redirect or claim named | fix draft staging first
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Identität und SSO
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Disable signing validation
+- **Input:** vendor says so
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Allow unsigned assertions to fix login.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+refused security | proper cert or mapping fix only
+```

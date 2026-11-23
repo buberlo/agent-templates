@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T11:24:56Z",
+  "generated_at": "2026-11-23T11:42:38Z",
   "domains": [
     {
       "slug": "agent-platforms",
@@ -1198,7 +1198,8 @@
       "tags": [
         "browser",
         "automatisierung",
-        "mcp"
+        "mcp",
+        "playwright"
       ],
       "target_agents": [
         "hermes",
@@ -1207,8 +1208,8 @@
         "generic"
       ],
       "risk_level": "low",
-      "example_count": 3,
-      "version": "1.0.0",
+      "example_count": 2,
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/automatisierung/browser-automation/browser-automation-mcp-focus.md"
     },
@@ -1220,7 +1221,7 @@
       "tags": [
         "browser",
         "automatisierung",
-        "mcp"
+        "playwright"
       ],
       "target_agents": [
         "hermes",
@@ -1228,9 +1229,9 @@
         "generic-mcp-agents",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 3,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/automatisierung/browser-automation/browser-automation-workflow.md"
     },
@@ -1242,7 +1243,7 @@
       "tags": [
         "cron",
         "automatisierung",
-        "plattformfeature"
+        "scheduling"
       ],
       "target_agents": [
         "hermes",
@@ -1250,9 +1251,9 @@
         "generic-mcp-agents",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/automatisierung/cron-routines/cron-routines-workflow.md"
     },
@@ -1272,9 +1273,9 @@
         "generic-mcp-agents",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/automatisierung/desktop-automation/desktop-automation-workflow.md"
     },
@@ -1286,7 +1287,7 @@
       "tags": [
         "iot",
         "automatisierung",
-        "plattformmcpkatalogeintrag"
+        "mqtt"
       ],
       "target_agents": [
         "hermes",
@@ -1294,9 +1295,9 @@
         "generic-mcp-agents",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/automatisierung/iot/iot-workflow.md"
     },
@@ -1308,7 +1309,7 @@
       "tags": [
         "mobile",
         "automatisierung",
-        "climcp"
+        "mobile-mcp"
       ],
       "target_agents": [
         "hermes",
@@ -1316,9 +1317,9 @@
         "generic-mcp-agents",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/automatisierung/mobile-phone-control/mobile-phone-control-mcp-focus.md"
     },
@@ -1330,7 +1331,7 @@
       "tags": [
         "mobile",
         "automatisierung",
-        "climcp"
+        "mobile-mcp"
       ],
       "target_agents": [
         "hermes",
@@ -1338,9 +1339,9 @@
         "generic-mcp-agents",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "high",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/automatisierung/mobile-phone-control/mobile-phone-control-workflow.md"
     },
@@ -1352,7 +1353,7 @@
       "tags": [
         "n8n",
         "automatisierung",
-        "plattformmcpkatalogeintrag"
+        "iPaaS"
       ],
       "target_agents": [
         "hermes",
@@ -1360,9 +1361,9 @@
         "generic-mcp-agents",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/automatisierung/n8n-make-zapier/n8n-make-zapier-workflow.md"
     },
@@ -1382,9 +1383,9 @@
         "generic-mcp-agents",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "high",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/automatisierung/rpa/rpa-workflow.md"
     },
@@ -1396,7 +1397,7 @@
       "tags": [
         "smart",
         "automatisierung",
-        "mcp"
+        "homeassistant"
       ],
       "target_agents": [
         "hermes",
@@ -1404,9 +1405,9 @@
         "generic-mcp-agents",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/automatisierung/smart-home/smart-home-workflow.md"
     },
@@ -3126,13 +3127,13 @@
     },
     {
       "id": "active-directory-entra-workflow",
-      "title": "Active Directory / Entra",
+      "title": "Active Directory und Entra ID",
       "domain": "it-betrieb-support",
       "category": "active-directory-entra",
       "tags": [
         "active",
         "it-betrieb-support",
-        "skillcli"
+        "entra"
       ],
       "target_agents": [
         "hermes",
@@ -3140,9 +3141,9 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "high",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/it-betrieb-support/active-directory-entra/active-directory-entra-workflow.md"
     },
@@ -3153,8 +3154,7 @@
       "category": "backup-restore",
       "tags": [
         "backup",
-        "it-betrieb-support",
-        "skillcli"
+        "it-betrieb-support"
       ],
       "target_agents": [
         "hermes",
@@ -3162,9 +3162,9 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "high",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/it-betrieb-support/backup-restore/backup-restore-workflow.md"
     },
@@ -3176,7 +3176,7 @@
       "tags": [
         "endpoint",
         "it-betrieb-support",
-        "skillcli"
+        "mdm"
       ],
       "target_agents": [
         "hermes",
@@ -3184,9 +3184,9 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "high",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/it-betrieb-support/endpoint-mdm/endpoint-mdm-workflow.md"
     },
@@ -3198,7 +3198,7 @@
       "tags": [
         "google",
         "it-betrieb-support",
-        "skillcli"
+        "workspace"
       ],
       "target_agents": [
         "hermes",
@@ -3206,9 +3206,9 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "high",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/it-betrieb-support/google-workspace-admin/google-workspace-admin-workflow.md"
     },
@@ -3220,7 +3220,8 @@
       "tags": [
         "ansible",
         "patching",
-        "baseline"
+        "baseline",
+        "kubectl"
       ],
       "target_agents": [
         "hermes",
@@ -3228,7 +3229,7 @@
       ],
       "risk_level": "high",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/it-betrieb-support/helpdesk-it/it-ansible-patch-baseline.md"
     },
@@ -3240,7 +3241,7 @@
       "tags": [
         "homelab",
         "it-betrieb-support",
-        "mcp"
+        "kubectl"
       ],
       "target_agents": [
         "hermes",
@@ -3248,9 +3249,9 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/it-betrieb-support/homelab/homelab-workflow.md"
     },
@@ -3262,7 +3263,7 @@
       "tags": [
         "identitaet",
         "it-betrieb-support",
-        "skillcli"
+        "sso"
       ],
       "target_agents": [
         "hermes",
@@ -3270,9 +3271,9 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "high",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/it-betrieb-support/identitaet-sso/identitaet-sso-workflow.md"
     },
@@ -3284,7 +3285,7 @@
       "tags": [
         "m365",
         "it-betrieb-support",
-        "skillcli"
+        "exchange"
       ],
       "target_agents": [
         "hermes",
@@ -3292,9 +3293,9 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "high",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/it-betrieb-support/m365-admin/m365-admin-workflow.md"
     },
@@ -3306,7 +3307,7 @@
       "tags": [
         "netzwerk",
         "it-betrieb-support",
-        "cli"
+        "skillcli"
       ],
       "target_agents": [
         "hermes",
@@ -3314,9 +3315,9 @@
         "cursor",
         "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/it-betrieb-support/netzwerk/netzwerk-workflow.md"
     },
@@ -3336,7 +3337,7 @@
       ],
       "risk_level": "high",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/it-betrieb-support/remote-support/it-meshcentral-remote-session.md"
     },
@@ -3346,9 +3347,31 @@
       "domain": "ki-ops",
       "category": "agent-orchestration",
       "tags": [
-        "agent",
+        "agents",
         "ki-ops",
-        "skill"
+        "orchestration"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/ki-ops/agent-orchestration/agent-orchestration-workflow.md"
+    },
+    {
+      "id": "context-token-management-mcp-focus",
+      "title": "Kontext- und Token-Management: MCP/Skill-Fokus",
+      "domain": "ki-ops",
+      "category": "context-token-management",
+      "tags": [
+        "context",
+        "ki-ops",
+        "mcp"
       ],
       "target_agents": [
         "hermes",
@@ -3358,41 +3381,19 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "domains/ki-ops/agent-orchestration/agent-orchestration-workflow.md"
-    },
-    {
-      "id": "context-token-management-mcp-focus",
-      "title": "Context- und Token-Management: MCP/Skill-Fokus",
-      "domain": "ki-ops",
-      "category": "context-token-management",
-      "tags": [
-        "context",
-        "ki-ops",
-        "mcp"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 3,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/ki-ops/context-token-management/context-token-management-mcp-focus.md"
     },
     {
       "id": "context-token-management-workflow",
-      "title": "Context- und Token-Management",
+      "title": "Kontext- und Token-Management",
       "domain": "ki-ops",
       "category": "context-token-management",
       "tags": [
         "context",
         "ki-ops",
-        "mcp"
+        "tokens"
       ],
       "target_agents": [
         "hermes",
@@ -3401,8 +3402,8 @@
         "generic"
       ],
       "risk_level": "low",
-      "example_count": 3,
-      "version": "1.0.0",
+      "example_count": 2,
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/ki-ops/context-token-management/context-token-management-workflow.md"
     },
@@ -3414,7 +3415,7 @@
       "tags": [
         "evals",
         "ki-ops",
-        "mcp"
+        "quality"
       ],
       "target_agents": [
         "hermes",
@@ -3424,7 +3425,7 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/ki-ops/evals-benchmarks/evals-benchmarks-workflow.md"
     },
@@ -3434,9 +3435,9 @@
       "domain": "ki-ops",
       "category": "fine-tuning",
       "tags": [
-        "fine",
+        "finetuning",
         "ki-ops",
-        "skilltoolchain"
+        "training"
       ],
       "target_agents": [
         "hermes",
@@ -3444,21 +3445,21 @@
         "generic-mcp-agents",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "high",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/ki-ops/fine-tuning/fine-tuning-workflow.md"
     },
     {
       "id": "lokale-modelle-ollama-workflow",
-      "title": "Lokale Modelle / Ollama",
+      "title": "Lokale Modelle (Ollama)",
       "domain": "ki-ops",
       "category": "lokale-modelle-ollama",
       "tags": [
-        "lokale",
+        "ollama",
         "ki-ops",
-        "cliruntime"
+        "local"
       ],
       "target_agents": [
         "hermes",
@@ -3468,7 +3469,7 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/ki-ops/lokale-modelle-ollama/lokale-modelle-ollama-workflow.md"
     },
@@ -3489,8 +3490,8 @@
         "generic"
       ],
       "risk_level": "low",
-      "example_count": 3,
-      "version": "1.0.0",
+      "example_count": 2,
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/ki-ops/mcp-server-bau/mcp-server-bau-mcp-focus.md"
     },
@@ -3510,21 +3511,21 @@
         "generic-mcp-agents",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 3,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/ki-ops/mcp-server-bau/mcp-server-bau-workflow.md"
     },
     {
       "id": "model-routing-workflow",
-      "title": "Model Routing",
+      "title": "Model-Routing",
       "domain": "ki-ops",
       "category": "model-routing",
       "tags": [
-        "model",
+        "routing",
         "ki-ops",
-        "plattformfeature"
+        "models"
       ],
       "target_agents": [
         "hermes",
@@ -3534,19 +3535,19 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/ki-ops/model-routing/model-routing-workflow.md"
     },
     {
       "id": "prompt-engineering-workflow",
-      "title": "Prompt Engineering",
+      "title": "Prompt-Engineering",
       "domain": "ki-ops",
       "category": "prompt-engineering",
       "tags": [
         "prompt",
         "ki-ops",
-        "muster"
+        "instructions"
       ],
       "target_agents": [
         "hermes",
@@ -3556,19 +3557,19 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/ki-ops/prompt-engineering/prompt-engineering-workflow.md"
     },
     {
       "id": "skills-authoring-workflow",
-      "title": "Skills authoring",
+      "title": "Skills authorisieren",
       "domain": "ki-ops",
       "category": "skills-authoring",
       "tags": [
         "skills",
         "ki-ops",
-        "standardbeispiele"
+        "authoring"
       ],
       "target_agents": [
         "hermes",
@@ -3578,7 +3579,7 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/ki-ops/skills-authoring/skills-authoring-workflow.md"
     },

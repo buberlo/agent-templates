@@ -1,106 +1,131 @@
 ---
 id: skills-authoring-workflow
-title: "Skills authoring"
+title: "Skills authorisieren"
 domain: ki-ops
 category: skills-authoring
 tags:
   - skills
   - ki-ops
-  - standardbeispiele
+  - authoring
 target_agents:
   - hermes
   - grokbot
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: Agent Skills Standard / Anthropic skills repo
-    install: "https://github.com/anthropics/skills"
-    version_notes: "199219 GitHub Stars"
-  - name: OpenClaw Skill Workshop
-    install: "https://docs.openclaw.ai/skills/"
-    version_notes: "395081 GitHub Stars"
+  - name: SKILL.md convention
+    install: "https://code.claude.com/docs/en/features-overview"
+    version_notes: "Progressive disclosure"
+  - name: Hermes / OpenClaw skills
+    install: "skills install verify"
+    version_notes: "Verify vor Prod"
 inputs:
-  - "Kontext/Briefing für Skills authoring"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Skill-Zweck und Trigger-Phrasen"
+  - "Verknüpfte MCPs (minimal)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "SKILL.md"
+  - "Verify-Schritte"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-SKILL.md nach Agent-Skills-Standard schreiben, testen und veröffentlichen.
+**Skills als schlanke Workflows** verpacken: SKILL.md mit klarem Wann/Was, progressive disclosure, Verify vor Schreibaktionen — MCP nicht duplizieren.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Skills authoring**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Team wiederverwendet denselben Agent-Ablauf.
+- OpenClaw/Hermes Skill-Katalog.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Agent Skills Standard / Anthropic skills | Standard + Beispiele | Aus Recherche 2026-11-23 |
-| OpenClaw Skill Workshop | Plattform-Feature | Aus Recherche 2026-11-23 |
+| SKILL.md | Anweisung | Kein Code-Zwang |
+| MCP | Tools | Getrennt |
+| skills verify | Trust | OpenClaw |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Skills authoring (ki-ops/skills-authoring).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Kurze description (OpenClaw rechnet ca. 24 Tokens plus Felder je Skill). Body erst laden wenn noetig.
+Role: skill author (ki-ops/skills-authoring).
+Mission: Write SKILL.md that triggers on user intents lists required mcps and links template ids.
+
+Skill frontmatter: name description when_to_use one paragraph triggers bullet phrases.
+Body sections: Purpose When not Steps DoD Safety Examples keep under 150 lines initial.
+Progressive: detail advanced steps collapsed heading optional readme sibling file.
+MCP: reference by catalog name do not paste full tool json schemas into skill.
+Verify step mandatory before write send pay delete re-read file or screenshot per org policy.
+Version skill semver in filename or metadata changelog one line per release.
+Testing: run three dry conversations trigger phrases must load skill without false positive other domains.
+Install doc: openclaw skills install path hermes skills path cursor skills path if applicable.
+Security: no api keys in skill; env var names only.
+Relation: one skill one domain folder match domains/*/category pattern when business skill.
+Anti duplicate: if identical to existing skill merge not fork.
+Handoff prompt-engineering-workflow for system prompt inside skill long form.
+Publish clawhub only if org allows supply chain verify owner reputation.
 ```
 
 ## Arbeitsablauf
 
-- Kurze description (OpenClaw rechnet ca. 24 Tokens plus Felder je Skill). Body erst laden wenn noetig.
-- Workshop: create → evaluate → apply, nie still auf SKILL.md schreiben lassen.
+1. Trigger-Phrasen und Nicht-Ziele definieren.
+2. SKILL.md Struktur anlegen.
+3. MCP-Liste minimal verknüpfen.
+4. Verify-Schritt für Writes einbauen.
+5. Drei Trigger-Tests dialogisch.
+6. `skills verify` wenn OpenClaw.
+7. Version und Changelog committen.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Klare Trigger ohne Overmatch
+- [ ] Verify vor Schreibaktionen
+- [ ] Keine Secrets im Skill
+- [ ] MCP-Liste minimal
 
 ## Sicherheit & Freigaben
 
-- ClawHub-Skills vor der Nutzung prüfen (`openclaw skills verify`). Im Februar 2026 auditierte Koi Security 2.857 Registry-Skills und bewertete 341 als schadhaft (ca. 12 %). Quellen: https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html , https://docs.openclaw.ai/skills/
-- Hermes-Skills mit platforms: [macos] werden unter Linux still übersprungen. Quelle: https://x.com/JayQinQT/status/2120856724668133406
-- Zu lange Descriptions sprengen das Skills-Prompt-Budget.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in a
+- ClawHub-Skills vor Prod verifizieren.
+
+## Fallstricke
+
+- Skill ersetzt MCP-Doku → Tools fehlen.
+- Zu breite Trigger → falsche Skill-Aktivierung.
+- Riesige Skill-Datei → Token-Last bei jedem Turn.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Skills authoring-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `skills-authoring` (Testdaten)
+- **Aufgabe:** n8n Draft Skill
+- **Input:** trigger "n8n workflow"
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Skills authoring. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+SKILL.md links n8n-make-zapier-workflow verify before activate.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+skill file | 3 trigger tests pass | mcp n8n only
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Skills authoring
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** API key in skill
+- **Input:** stripe_sk_live in example
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Paste real key so agent works.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+reject | STRIPE_API_KEY env name only
+```

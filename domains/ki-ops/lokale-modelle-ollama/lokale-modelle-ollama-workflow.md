@@ -1,99 +1,130 @@
 ---
 id: lokale-modelle-ollama-workflow
-title: "Lokale Modelle / Ollama"
+title: "Lokale Modelle (Ollama)"
 domain: ki-ops
 category: lokale-modelle-ollama
 tags:
-  - lokale
+  - ollama
   - ki-ops
-  - cliruntime
+  - local
 target_agents:
   - hermes
   - grokbot
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: Ollama (lokal, typisch per CLI statt MCP)
-    install: "https://ollama.com"
-    version_notes: "Popularitaet von Ollama selbst hier nicht neu per API gemessen."
+  - name: Ollama
+    install: "https://ollama.com/download"
+    version_notes: "GPU/RAM beachten"
 inputs:
-  - "Kontext/Briefing für Lokale Modelle / Ollama"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Hardware (RAM/VRAM), Modellwahl"
+  - "Prompt/Skill zum Test"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Modell-Install- und Testprotokoll"
+  - "Quantisierungs-Empfehlung"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Lokale LLMs betreiben, quantisieren, Kontext und Persistenz konfigurieren.
+**Lokale LLMs** mit Ollama betreiben: Modellwahl, Quantisierung, Smoke-Test — Offline und datensouverän, ohne unrealistiche Hardware-Versprechen.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Lokale Modelle / Ollama**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Prototyping ohne Cloud-Kosten.
+- Strikte Datenresidenz.
+
+**Wann nicht**
+
+- Wenn 70B+ auf 8GB RAM erwartet wird.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Ollama (lokal, typisch per CLI statt MCP | CLI / Runtime | Aus Recherche 2026-11-23 |
+| ollama pull/run | Runtime | Einfach |
+| Modelfile | Custom | System prompt pin |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Lokale Modelle / Ollama (ki-ops/lokale-modelle-ollama).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Hardware passend waehlen, Kontextlimit und Persistenz setzen, Qualitaet mit eigener Pruefung messen.
+Role: local model operator (ki-ops/lokale-modelle-ollama).
+Mission: Match model size to hardware; document pull run api smoke.
+
+Check hardware: free -h nvidia-smi if gpu; suggest model params table 7b 13b 70b rough vram.
+Install: curl -fsSL https://ollama.com/install.sh | sh user env verify ollama --version.
+Pull: ollama pull llama3.2:3b for smoke not 70b on laptop without warning.
+Run interactive: ollama run modelname --verbose once capture tokens per sec.
+API: curl http://localhost:11434/api/generate -d '{"model":"llama3.2:3b","prompt":"ping","stream":false}'
+Modelfile: FROM base SYSTEM """ pinned instructions """ PARAMETER temperature 0.2
+Quant: q4_K_M tradeoff note for German quality if user asks de tasks.
+Concurrent: one heavy model typical consumer gpu—no parallel 70b.
+Update: ollama pull to refresh; document model digest date.
+Integration hermes cursor: base url localhost openai compatible note if supported client.
+Fallback cloud: if local fails quality gate say so with eval snippet not hide.
+Uninstall: ollama rm modelname free disk document.
+Security: bind 11434 localhost only warn if exposed lan.
 ```
 
 ## Arbeitsablauf
 
-- Hardware passend waehlen, Kontextlimit und Persistenz setzen, Qualitaet mit eigener Pruefung messen.
+1. RAM/VRAM erfassen.
+2. Passendes Modell empfehlen (Größe + Quant).
+3. `ollama pull` und `ollama run` Smoke.
+4. API-Curl-Test.
+5. Optional Modelfile mit System-Pin.
+6. Qualitäts-Snippet vs. Cloud-Bedarf ehrlich.
+7. Bind-Adresse und Firewall prüfen.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Modell passt zur Hardware
+- [ ] API-Smoke erfolgreich
+- [ ] Nicht 0.0.0.0 ohne Warnung
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Ollama-API nicht öffentlich binden.
+
+## Fallstricke
+
+- 70B auf CPU → unbenutzbar langsam.
+- Altes Modell ohne `pull` → veraltete Weights.
+- Offenes 11434 → LAN-Leak.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Lokale Modelle / Ollama-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `lokale-modelle-ollama` (Testdaten)
+- **Aufgabe:** Laptop 16GB RAM
+- **Input:** deutsche Zusammenfassung
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Lokale Modelle / Ollama. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Recommend ollama model and smoke test api.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+llama3.2:3b or mistral 7b q4 | curl generate ok
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Lokale Modelle / Ollama
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Expose API LAN
+- **Input:** OLLAMA_HOST=0.0.0.0
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Share model with coworkers on wifi.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+warn authentication absent | suggest vpn or reverse proxy auth
+```

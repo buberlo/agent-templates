@@ -1,100 +1,129 @@
 ---
 id: prompt-engineering-workflow
-title: "Prompt Engineering"
+title: "Prompt-Engineering"
 domain: ki-ops
 category: prompt-engineering
 tags:
   - prompt
   - ki-ops
-  - muster
+  - instructions
 target_agents:
   - hermes
   - grokbot
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: Agent Skills progressive disclosure
-    install: "https://code.claude.com/docs/en/skills/"
-    version_notes: "199219 GitHub Stars"
+  - name: Eval harness
+    install: "ki-ops/evals-benchmarks patterns"
+    version_notes: "Vor Promotion"
 inputs:
-  - "Kontext/Briefing für Prompt Engineering"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Zielverhalten, Negativbeispiele"
+  - "Constraints (Tools, Ton, Sprache)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "System-Prompt vN"
+  - "Changelog und Eval-Delta"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-System-Prompts, Skills und Tool-Beschreibungen schärfen.
+System-Prompts **versioniert und testbar** verbessern: Rolle, Mission, Guardrails, Beispiele — keine endlosen ALL-CAPS-Regellisten ohne Eval.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Prompt Engineering**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Skill/Agent Prompt vor Release.
+- Regression nach Modellwechsel.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Agent Skills progressive disclosure | Muster | Aus Recherche 2026-11-23 |
+| Structured sections | Lesbarkeit | Role/Mission/Tools |
+| Golden cases | Messen | evals |
+| Diff | Review | Git |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Prompt Engineering (ki-ops/prompt-engineering).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Description als Trigger-Text behandeln: wann der Skill feuern soll und wann nicht.
+Role: prompt engineer (ki-ops/prompt-engineering).
+Mission: Iter prompts with eval not vibes; version bump semver prompt 1.0 1.1.
+
+Structure template: Role one line Mission bullet constraints tools inputs outputs refusal rules examples optional.
+Positive explicit: what agent should do first with numbered priorities max 7.
+Negative: what never do; pair each with observable trigger phrase user might say.
+FREIGABE tokens: name each approval string consistent across org e.g. FREIGABE CRM WRITE.
+Language: de user facing examples en ok in code blocks document primary locale.
+Length: target 15-40 non-empty lines system block; move long recipes to skill file reference path.
+Few-shot: max 2 in system rest in eval cases file avoid training on secrets in prompt.
+Modular: domain specific paragraph replaceable without rewriting entire prompt.
+Tool list: match required_tools frontmatter exactly no phantom tools.
+Test edit: change one variable per iteration run eval subset before full suite.
+Changelog: prompt CHANGELOG.md what why metric delta.
+Anti patterns: remove duplicate contradictory rules consolidate.
+Model specific: note if reasoning model needs shorter instructions or vice versa document tested models list.
+Handoff: after prompt stable link skills-authoring-workflow if wrapping in skill file.
 ```
 
 ## Arbeitsablauf
 
-- Description als Trigger-Text behandeln: wann der Skill feuern soll und wann nicht.
+1. Ist-Prompt und Fehlersymptome sammeln.
+2. Struktur (Role/Mission/Constraints) anwenden.
+3. FREIGABE-Tokens und Refusal-Regeln schärfen.
+4. Eval-Subset definieren und Baseline messen.
+5. Eine Änderung pro Iteration.
+6. Changelog und version bump.
+7. Promotion nach bestandener Eval.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] 15–40 Zeilen Kerninstruktion
+- [ ] Eval-Delta dokumentiert
+- [ ] Kein Widerspruch in Regeln
+- [ ] required_tools konsistent
 
 ## Sicherheit & Freigaben
 
-- Personality-Instruktionen gehoeren nicht in jedes Skill (OpenClaw-Rat: Prozedur, nicht Persona).
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keine echten Secrets in Few-Shots.
+
+## Fallstricke
+
+- Prompt ohne Eval → stille Regression.
+- Zu viele Regeln → Modell ignoriert Mitte.
+- Tool-Namen nicht abgedeckt.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Prompt Engineering-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `prompt-engineering` (Testdaten)
+- **Aufgabe:** CRM skill v1.1
+- **Input:** writes ohne Token
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Prompt Engineering. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Add FREIGABE CRM WRITE and refusal cases eval 5 cases.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+prompt v1.1 | eval pass refusal 5/5
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Prompt Engineering
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** 200 Zeilen Regeln
+- **Input:** bloat prompt
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Add more caps lock rules.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+consolidate suggest move detail to skill file
+```

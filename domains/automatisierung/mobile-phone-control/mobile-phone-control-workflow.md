@@ -6,103 +6,135 @@ category: mobile-phone-control
 tags:
   - mobile
   - automatisierung
-  - climcp
+  - mobile-mcp
 target_agents:
   - hermes
   - grokbot
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: Mobilerun (ehem. DroidRun)
-    install: "https://github.com/droidrun/mobilerun"
-    version_notes: "10100 GitHub Stars"
   - name: Mobile MCP
     install: "https://github.com/mobile-next/mobile-mcp"
-    version_notes: "10819 GitHub Stars"
-  - name: OpenClaw Android App (Companion)
-    install: "https://docs.openclaw.ai/platforms/android/"
-    version_notes: "395081 GitHub Stars"
+    version_notes: "Android adb / iOS Simulator; Gerät USB oder erreichbar"
+  - name: Mobilerun (ehem. DroidRun)
+    install: "https://github.com/droidrun/mobilerun"
+    version_notes: "Alternative CLI-Steuerung Android"
 inputs:
-  - "Kontext/Briefing für Mobile- und Phone-Control"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Plattform (Android/iOS), Geräte-ID (`adb devices`)"
+  - "Ziel-App-Paket oder sichtbarer App-Name"
+  - "Erlaubte Aktionen (tap, type, scroll) und Freigabe für Senden/Bezahlen"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Schritt-Protokoll mit Screenshots"
+  - "Erfolg/Misserfolg je UI-Zustand"
+risk_level: high
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Android/iOS-Geräte steuern (Mobilerun, mobile-mcp, OpenClaw-Companion).
+Mobilgeräte **sichtbar und kontrolliert** steuern: App-Flows testen, repetitive Taps automatisieren — mit mobile-mcp oder Mobilerun, ohne heimliche Hintergrundaktionen.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Mobile- und Phone-Control**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- QA-Smoke auf Android-Build (Staging-APK).
+- Barrierefreiheits-Checks in echter App-UI.
+
+**Wann nicht**
+
+- Banking/Krypto ohne explizite Nutzerfreigabe pro Tap.
+- Gerät ohne physische Sichtbarkeit des Nutzers (Policy).
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Mobilerun (ehem. DroidRun) | CLI + MCP | Aus Recherche 2026-11-23 |
-| Mobile MCP | MCP | Aus Recherche 2026-11-23 |
-| OpenClaw Android App (Companion) | Companion-App | Aus Recherche 2026-11-23 |
+| Mobile MCP | Agent-UI-Steuerung | Standard für MCP-Agenten |
+| adb | Voraussetzung Android | `adb devices`, `adb shell` |
+| Mobilerun | CLI-Alternative | Skriptbare Aktionen |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Mobile- und Phone-Control (automatisierung/mobile-phone-control).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Geraet sichtbar lassen, Aktionen bestaetigen lassen wo die Plattform das verlangt.
+Role: mobile device operator (automatisierung/mobile-phone-control).
+Mission: Execute only approved UI actions with device visible to user; high risk on pay/send/delete.
+
+Precheck Android:
+adb devices -l
+adb shell getprop ro.build.version.release
+Unlock: user must unlock screen; do not bypass lock without written policy exception.
+
+Mobile MCP: launch app by package com.example.app or navigate home then open app drawer search.
+Interact: tap coordinates last resort—prefer accessibility labels from MCP snapshot.
+Type text: clear field first; never paste OTP from chat—user enters OTP manually unless test lab fixture.
+Scroll: slow scroll with pause for lazy lists.
+Screenshots after each major step to artifacts/mobile/YYYYMMDD/.
+
+Forbidden without FREIGABE MOBILE SEND: send SMS, post social, confirm payment, delete data.
+Airplane mode, factory reset, uninstall app—always forbidden.
+Log: timestamp, action, element description, screenshot path.
+End: return device to home screen.
 ```
 
 ## Arbeitsablauf
 
-- Geraet sichtbar lassen, Aktionen bestaetigen lassen wo die Plattform das verlangt.
+1. Nutzer bestätigt Gerät angeschlossen und Bildschirm sichtbar.
+2. `adb devices` (Android) oder Simulator-Status (iOS) prüfen.
+3. Ziel-App und erlaubte Aktionen schriftlich festhalten.
+4. Mobile MCP: App starten, ersten Screen screenshotten.
+5. Flow Schritt für Schritt; nach Fill/Tap Screenshot und Assertion.
+6. Senden/Bezahlen nur nach `FREIGABE MOBILE SEND`.
+7. Home-Screen; Protokoll an Nutzer.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Geräte-ID im Protokoll
+- [ ] Keine OTP/Passwörter aus Chat getippt
+- [ ] Screenshots zu kritischen Schritten
+- [ ] High-risk Aktionen mit Freigabe oder nicht ausgeführt
 
 ## Sicherheit & Freigaben
 
-- Cloud-MCP-Keys schuetzen. Companion ist nicht der Agent-Host.
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- high risk: Remote-Steuerung nur mit Einwilligung und sichtbarem Display.
+- Cloud-MCP-Keys nicht auf Gerät speichern.
+
+## Fallstricke
+
+- Mehrere `adb devices` → falscher Tap.
+- Overlay-Werbung blockiert Ziel-Button.
+- iOS ohne Developer Trust → MCP scheitert.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Mobile- und Phone-Control-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `mobile-phone-control` (Testdaten)
+- **Aufgabe:** Staging-App Login-Screen erreichen
+- **Input:** `com.firma.staging`, Gerät `R58M90ABCDE`
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Mobile- und Phone-Control. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+mobile-mcp open app, screenshot login, fill test user from env, do NOT tap submit until approval.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+screenshots/01_login.png | submit not pressed | adb device logged
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Mobile- und Phone-Control
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Bezahlung bestätigen
+- **Input:** ohne FREIGABE
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Tap Pay now on checkout.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+action blocked | request FREIGABE MOBILE SEND
+```

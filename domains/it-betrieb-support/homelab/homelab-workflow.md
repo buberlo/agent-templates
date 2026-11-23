@@ -6,99 +6,136 @@ category: homelab
 tags:
   - homelab
   - it-betrieb-support
-  - mcp
+  - kubectl
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
+  - name: kubectl
+    install: "apt/curl: kubectl"
+    version_notes: "k3s/microk8s homelab"
+  - name: Docker Compose
+    install: "docker compose"
+    version_notes: "Nicht-k8s Stacks"
   - name: homeassistant-mcp (tevonsb)
     install: "https://github.com/tevonsb/homeassistant-mcp"
-    version_notes: "Star-Zahl in dieser Recherche nicht per API gezogen."
-  - name: Obsidian-Skills (Hermes bundled, ClawHub steipete)
-    install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "381 GitHub Stars"
+    version_notes: "Optional Dokumentation"
 inputs:
-  - "Kontext/Briefing für Homelab"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Inventar (Hosts, VMs, k8s ja/nein)"
+  - "Änderungswunsch und Rollback"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Runbook-Abschnitt"
+  - "kubectl/docker smoke nach Änderung"
+risk_level: medium
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Selbst gehostete Labs: Proxmox, Docker, Home-Server, Dokumentation der eigenen Infrastruktur.
+**Homelab dokumentieren und sicher ändern**: Proxmox/Docker/k3s — Inventar zuerst, kleine Schritte, `kubectl`/`docker` Smoke nach jedem Eingriff.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Homelab**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- k3s-Dienst updaten, neuer Namespace, Backup-Strategie.
+- Doku in Obsidian/HA für eigene Infrastruktur.
+
+**Wann nicht**
+
+- Produktions-IT ohne Change-Prozess (andere Templates).
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| homeassistant-mcp (tevonsb) | MCP | Aus Recherche 2026-11-23 |
-| Obsidian-Skills (Hermes bundled, ClawHub | Skill | Aus Recherche 2026-11-23 |
+| kubectl | k3s/k8s | Workloads prüfen |
+| docker compose | Stacks | Nicht jeder Dienst in k8s |
+| Obsidian-Skills | Doku | Runbooks |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Homelab (it-betrieb-support/homelab).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Inventar und Runbooks zuerst, Aenderungen klein und reversibel.
+Role: homelab operator (it-betrieb-support/homelab).
+Mission: Inventory before change; reversibel; document every command in runbook snippet.
+
+Inventory table: hostname role ip services version last_backup_date.
+kubectl context: kubectl config current-context must match homelab not work prod—abort if wrong.
+Baseline: kubectl get nodes; kubectl get pods -A | grep -v Running warn.
+k3s install note common path /usr/local/bin/kubectl kubeconfig /etc/rancher/k3s/k3s.yaml readonly doc.
+Change pattern: backup config yaml git commit tag before apply kubectl apply -f manifest dry-run client -o yaml.
+Rollout watch: kubectl rollout status deploy/name -n homelab --timeout 120s
+Logs on fail: kubectl logs deploy/name -n homelab --tail=50
+Docker parallel stacks: docker compose -f stack.yml config validate; compose up -d one service only.
+Networking: document vlan reverse proxy traefik ports host not 0.0.0.0 without firewall note.
+Secrets: sealed-secrets or sops age homelab still no keys in git.
+Updates: apt upgrade host then uncordon k8s if was cordoned document sequence.
+Remote access: tailscale wireguard preferred no port forward 22 public.
+FREIGABE HOMELAB PROD if homelab feeds family critical service else medium risk default.
+Obsidian mcp only documents entities not production writes without user.
+Destroy: never kubectl delete namespace all without typed confirm phrase user provides.
 ```
 
 ## Arbeitsablauf
 
-- Inventar und Runbooks zuerst, Aenderungen klein und reversibel.
+1. Inventar und Backups prüfen.
+2. `kubectl config current-context` und `get nodes`.
+3. Änderung als kleines Manifest/Compose-Diff.
+4. Backup/Commit vor Apply.
+5. `kubectl apply` oder `compose up`; `rollout status`.
+6. Smoke (HTTP, HA Entity, Pod Ready).
+7. Runbook-Abschnitt aktualisieren.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Richtiger kube-context dokumentiert
+- [ ] Rollback-Schritt notiert
+- [ ] Pods/Services healthy
+- [ ] Keine Secrets im Git
 
 ## Sicherheit & Freigaben
 
-- Remote nur mit Einwilligung und sichtbarer Sitzung.
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Homelab-Exposure ins Internet vermeiden oder absichern.
+- Remote nur mit bewusster VPN-Lösung.
+
+## Fallstricke
+
+- Falscher kube-context → Work-Cluster getroffen.
+- Kein Backup vor `helm upgrade`.
+- Ein Node down → ganzer k3s-Stack unklar.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Homelab-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `homelab` (Testdaten)
+- **Aufgabe:** Deploy nginx in homelab ns
+- **Input:** manifest deployment.yaml
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Homelab. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+verify context homelab apply rollout status curl smoke.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+deploy/nginx ready | curl 200 | runbook updated
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Homelab
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Context prod
+- **Input:** kubeconfig misclick
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Apply homelab manifest now.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+abort wrong context | show current-context
+```

@@ -13,104 +13,135 @@ target_agents:
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: modelcontextprotocol/servers (Referenzserver)
+  - name: MCP TypeScript/Python SDK
+    install: "https://github.com/modelcontextprotocol/sdk"
+    version_notes: "stdio transport default"
+  - name: modelcontextprotocol/servers
     install: "https://github.com/modelcontextprotocol/servers"
-    version_notes: "92179 GitHub Stars"
-  - name: mcp-builder (in awesome-claude-skills beschrieben)
-    install: "https://github.com/ComposioHQ/awesome-claude-skills"
-    version_notes: "80108 GitHub Stars"
+    version_notes: "Referenzmuster"
 inputs:
-  - "Kontext/Briefing für MCP-Server bauen"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "API oder Datenquelle, gewünschte Tools"
+  - "Auth-Muster (env, OAuth)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "MCP-Server Repo-Skeleton"
+  - "mcp.json Client-Config"
+  - "Tool-Schema-Review"
+risk_level: medium
 example_count: 3
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Eigene MCP-Server designen, implementieren und an Clients anbinden.
+**Eigenen MCP-Server** bauen: stdio, klare Tool-Schemas, Secrets aus argv fernhalten — an modelcontextprotocol/servers orientiert.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **MCP-Server bauen**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Interne API soll agentenfähig werden.
+- Wrapper um CLI mit strukturierten Tools.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| modelcontextprotocol/servers (Referenzse | Referenz | Aus Recherche 2026-11-23 |
-| mcp-builder (in awesome-claude-skills be | Skill | Aus Recherche 2026-11-23 |
+| @modelcontextprotocol/sdk | Implementierung | Offiziell |
+| Referenzserver | Muster | filesystem, fetch |
+| mcp-inspector | Debug | Lokal testen |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for MCP-Server bauen (ki-ops/mcp-server-bau).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Enger Tool-Schnitt, gute Beschreibungen, Least Privilege, Tests, dann Katalog/Review (Nous merged MCPs nur per PR).
+Role: MCP server engineer (ki-ops/mcp-server-bau).
+Mission: Ship minimal read-only server first; no secrets in argv or tool descriptions.
+
+Scaffold ts: npm create from sdk sample or clone pattern from servers repo fetch filesystem.
+Tools: one tool one responsibility; json schema input strict additionalProperties false.
+stdio only unless user needs sse document threat model for remote.
+Auth: read API_KEY from env in server bootstrap never from mcp client config args list.
+Logging: stderr only; never log secrets or full responses with pii.
+Errors: mcp spec structured error messages user-facing safe.
+Version: semver server package; pin in client mcp.json command npx package@version.
+Testing: mcp-inspector or claude desktop config local before hermes publish.
+Rate limit: exponential backoff on upstream http 429 in tool impl.
+Timeouts: axios fetch 30s default document override.
+Write tools: suffix _write require confirmation string param user_ack boolean default false.
+README: install run env vars table no real keys.
+Publish: optional npm; internal git url for enterprise.
+Compliance: grok wiki rule no credentials in command argv for custom mcps cite in readme.
+Handoff security review before prod connector deploy.
 ```
 
 ## Arbeitsablauf
 
-- Enger Tool-Schnitt, gute Beschreibungen, Least Privilege, Tests, dann Katalog/Review (Nous merged MCPs nur per PR).
+1. Datenquelle und read/write-Klassen listen.
+2. Tools als JSON-Schema skizzieren.
+3. SDK-Skeleton (TS/Python) anlegen.
+4. Erste read-only Tools implementieren.
+5. Lokaler Test mit Inspector/Client-Config.
+6. Write-Tools mit user_ack absichern.
+7. README und env-Var-Doku ohne Secrets.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] stdio server startet in Client
+- [ ] Keine Secrets in argv
+- [ ] Tool-Schemas validieren
+- [ ] Inspector-/Smoke-Test protokolliert
 
 ## Sicherheit & Freigaben
 
-- Zu viele Tools, zu lange Schemas (Token-Overhead). Ungepruefte Community-Server.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Prod-Connector erst nach Security-Review.
+- OAuth nur über unterstützten Flow.
+
+## Fallstricke
+
+- Riesige Tool-Descriptions → Token-Overhead.
+- Generisches `execute` Tool → Prompt-Injection.
+- Stderr voller PII.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-MCP-Server bauen-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `mcp-server-bau` (Testdaten)
+- **Aufgabe:** Tickets read-only
+- **Input:** REST /tickets
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für MCP-Server bauen. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+MCP tools list_tickets get_ticket env TICKET_API_KEY.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+server starts | two tools | mcp.json snippet
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in MCP-Server bauen
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Passwort in config
+- **Input:** args -p secret123
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Quick mcp.json command line password.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+reject argv secret | use env var pattern
+```
 
 ### Beispiel 3 (Praxisbeispiel)
 
-- **Aufgabe:** Messen, wie viele Tokens bereits geladene MCP-Server verbrauchen, bevor eine Frage gestellt wird.
-- **Input:** Der bestehende MCP-Stack des Autors in Claude. Die genaue Serverliste im First Post konnte in dieser Recherche nicht vollstaendig geladen werden (Reddit-Seite weitgehend ohne Beitragstext).
+- **Aufgabe:** mcp-builder skill
+- **Input:** awesome-claude-skills
 - **Prompt:**
+
 ```text
-Mehrere gleichzeitig aktivierte MCP-Server in einem Claude-Setup.
+Follow community skill checklist for new server.
 ```
-- **Erwartetes Ergebnis:**
-  Threadtitel und Suche geben die Messung mit 67.000 Tokens Overhead an, bevor die erste Frage eingegeben wurde.
-- **Quelle:** https://www.reddit.com/r/ClaudeAI/comments/1ryz7zp/i_measured_my_mcp_token_overhead_67k_tokens/
+
+- **Erwartetes Ergebnis:** README checklist themes: schemas, auth, testing; Quelle awesome-claude-skills.

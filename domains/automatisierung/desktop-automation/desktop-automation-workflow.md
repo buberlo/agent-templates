@@ -13,93 +13,98 @@ target_agents:
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: Hermes-Skill computer-use
-    install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "Bundled."
-  - name: ClawHub „Desktop Control“ (matagul)
-    install: "https://clawhubtrends.com/leaderboard.html"
-    version_notes: "53.032 Downloads, 335 Registry-Stars (ClawHub Leaderboard 23.11.2026)."
+  - name: OS automation
+    install: "xdotool / AppleScript / PowerShell UIA"
+    version_notes: "Sichtbarer Desktop"
 inputs:
-  - "Kontext/Briefing für Desktop-Automation"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "OS und Ziel-App"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Skript und Protokoll"
+risk_level: medium
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Computer-Use, OS-Automation, kontrollierte GUI-Steuerung.
+Desktop-Makros **sichtbar und protokolliert** — xdotool, osascript, pwsh — ohne Passwörter aus Chat.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Desktop-Automation**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Wiederkehrende GUI-Schritte am Arbeitsplatz.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill computer-use | Skill | Aus Recherche 2026-11-23 |
-| ClawHub „Desktop Control“ (matagul) | Skill | Aus Recherche 2026-11-23 |
+| xdotool | Linux X11 | Fenster/Keys |
+| osascript | macOS | AppleScript |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Desktop-Automation (automatisierung/desktop-automation).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Kleine, beobachtbare GUI-Schritte; bei Unklarheit stoppen.
+Role: desktop automation author (automatisierung/desktop-automation).
+Mission: User-visible desktop only; delays 200-500ms; Wayland xdotool warning.
+No passwords via synthesized keys.
+Confirm before Alt+F4 Delete Format.
+Handoff browser to browser-automation-workflow.
 ```
 
 ## Arbeitsablauf
 
-- Kleine, beobachtbare GUI-Schritte; bei Unklarheit stoppen.
+1. OS und Apptitel erfassen.
+2. Schritte bestätigen.
+3. Skript mit Delays.
+4. Dry-Run mit Nutzer.
+5. Logging aktivieren.
+6. Skript ablegen ohne Secrets.
+7. Abbruch-Anleitung.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Auf Ziel-OS getestet
+- [ ] Keine Passwörter im Skript
 
 ## Sicherheit & Freigaben
 
-- ClawHub-Skills vor der Nutzung prüfen (`openclaw skills verify`). Im Februar 2026 auditierte Koi Security 2.857 Registry-Skills und bewertete 341 als schadhaft (ca. 12 %). Quellen: https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html , https://docs.openclaw.ai/skills/
-- Desktop-Control hat weitreichende Rechte.
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter 
+- Nutzer muss zuschauen.
+
+## Fallstricke
+
+- Falsches Fenster fokussiert.
+- Wayland + xdotool scheitert.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Desktop-Automation-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `desktop-automation` (Testdaten)
+- **Aufgabe:** Writer PDF export
+- **Input:** Ubuntu X11
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Desktop-Automation. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+xdotool activate Writer export pdf.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+PDF exists user watched
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Desktop-Automation
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Wayland
+- **Input:** Fedora
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+xdotool click form.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+warn wayland limitation
+```

@@ -7,6 +7,7 @@ tags:
   - browser
   - automatisierung
   - mcp
+  - playwright
 target_agents:
   - hermes
   - grokbot
@@ -15,106 +16,127 @@ target_agents:
 required_tools:
   - name: Playwright MCP
     install: "https://github.com/microsoft/playwright-mcp"
-    version_notes: "40040 GitHub Stars"
+    version_notes: "npx @playwright/mcp@latest"
   - name: Chrome DevTools MCP
     install: "https://github.com/ChromeDevTools/chrome-devtools-mcp"
-    version_notes: "58941 GitHub Stars"
+    version_notes: "Nur bei Debug nach Fehlschlag"
 inputs:
-  - "Kontext/Briefing für Browser-Automation"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Welche MCPs sind im Client aktiv (include/exclude)"
+  - "Aufgabenklasse: interact | debug | read-only"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "MCP-Auswahl und Begründung"
+  - "Minimales Tool-Set für die Session"
 risk_level: low
-example_count: 3
-version: "1.0.0"
+example_count: 2
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Playwright MCP, Chrome DevTools MCP, Cloud-Browser; Tokenkosten beachten.
+**MCP- und Skill-Routing** für Browser-Aufgaben: Playwright vs. DevTools vs. Lesemcp — Tokenbudget und Tool-Policy vor der ersten Navigation festlegen.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Browser-Automation**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Agent startet mit vielen MCPs → Browser-Tools gezielt reduzieren.
+- Nutzer fragt „welchen Browser-MCP?“ vor einer größeren Session.
+
+**Wann nicht**
+
+- Wenn Aufgabe bereits als Playwright-CLI-Testspec beschrieben ist (direkt `browser-automation-workflow`).
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Playwright MCP | MCP | Aus Recherche 2026-11-23 |
-| Chrome DevTools MCP | MCP | Aus Recherche 2026-11-23 |
-| Firecrawl MCP | MCP | Aus Recherche 2026-11-23 |
-| Browserbase MCP | MCP | Aus Recherche 2026-11-23 |
-| ClawHub „Playwright MCP“ (spiceman161) | Skill | Aus Recherche 2026-11-23 |
+| Playwright MCP | Interaktion | UI der eigenen App |
+| Chrome DevTools MCP | Diagnose | Netzwerk/Console |
+| ClawHub Playwright Skill | Wrapper | Progressive disclosure |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Browser-Automation (automatisierung/browser-automation).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - UI der eigenen App: Playwright oder DevTools. Offene Webseite nur lesen: Search/Firecrawl. Login-Sessions klar trennen
+Role: browser MCP router (automatisierung/browser-automation-mcp-focus).
+Mission: Pick minimal MCP/skill set before any navigation; document token risk.
+
+Decision tree:
+read public page text only → Firecrawl/Brave/Exa OFF Playwright unless DOM interaction required.
+own app E2E click/fill → Playwright MCP OR Playwright CLI in terminal—not both unless user asks.
+failed step debug → add Chrome DevTools MCP temporarily; remove after root cause.
+
+Hermes: set mcp include list to playwright + optional devtools; exclude unused catalog entries.
+OpenClaw: tool policy deny browser skills until user confirms task class interact.
+Grok: plugin OAuth handles auth—no tokens in prompts.
+
+Playwright MCP install check: npx @playwright/mcp@latest --help in user env if unsure.
+Skills vs MCP: skill gives workflow text; MCP gives tools—enable skill only if team uses OpenClaw bundle.
+
+Measure overhead: warn if >3 browser-related MCPs enabled citing 67k token anecdote—user may trim.
+Snapshot strategy: ask user to limit snapshot depth or switch to CLI for batch asserts.
+Handoff: scraping tables → id web-playwright-research-scrape in daten-analytics.
+Handoff: CI pipeline → software-entwicklung/testing-workflow.
+
+Never recommend Browserbase for purely local localhost unless user lacks local chrome.
+Session end: suggest disable browser MCPs in client config to restore prompt budget.
+Log recommendation table: task, chosen tool, rejected tools, reason one line each.
 ```
 
 ## Arbeitsablauf
 
-- UI der eigenen App: Playwright oder DevTools. Offene Webseite nur lesen: Search/Firecrawl. Login-Sessions klar trennen.
+1. Aufgabenklasse klassifizieren (interact / debug / read).
+2. Aktive MCP-Liste vom Nutzer oder Client-Config erfassen.
+3. Entscheidungsbaum anwenden; Überkill-Tools abwählen.
+4. Install-Zeile und include/exclude für Hermes/OpenClaw notieren.
+5. Bei interact → Verweis auf `browser-automation-workflow` mit konkretem ersten Schritt.
+6. Nach Session: Empfehlung zum Deaktivieren schwerer MCPs.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Begründete Tool-Auswahl (max. 2 Browser-MCPs gleichzeitig)
+- [ ] Read-only nicht über Playwright-Snapshots gelöst ohne Warnung
+- [ ] Handoff-IDs bei Scraping/CI genannt
 
 ## Sicherheit & Freigaben
 
-- MCP-Toolschemas können den Kontext stark belasten, noch bevor die erste Frage kommt. In r/ClaudeAI berichtete ein Nutzer von 67.000 Token Overhead. Quelle: https://www.reddit.com/r/ClaudeAI/comments/1ryz7zp/i_measured_my_mcp_token_overhead_67k_tokens/
-- Snapshot-Schwemme. Community-Alternativen werben mit kleineren Payloads – unabhaengig benchmerken.
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur n
+- OAuth und Session-States nicht in Skill-Dateien duplizieren.
+- Nur freigegebene MCPs aktivieren.
+
+## Fallstricke
+
+- Alle Browser-MCPs parallel → Prompt voll vor Aufgabe.
+- DevTools dauerhaft an → noch mehr Kontextlast.
+- Skill ohne verifizierten Owner (ClawHub Warnung).
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Browser-Automation-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `browser-automation` (Testdaten)
+- **Aufgabe:** Staging-Checkout klicken
+- **Input:** interact, Hermes
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Browser-Automation. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Enable Playwright MCP only; exclude Firecrawl. First step navigate staging URL.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+routing: playwright on | firecrawl off | next: open browser-automation-workflow
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Browser-Automation
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Blog-Artikel nur zusammenfassen
+- **Input:** read-only
 - **Prompt:**
-```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
-```
-- **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
 
-### Beispiel 3 (Praxisbeispiel)
-
-- **Aufgabe:** Fuer Extraktionsaufgaben den Kontextverbrauch von Playwright MCP mit einem Cloud-Browser vergleichen, der Markdown zurueckgibt.
-- **Input:** Typische URL-holen-und-X-extrahieren-Aufgaben laut Beitrag.
-- **Prompt:**
 ```text
-Microsoft Playwright MCP (Accessibility-Tree/Snapshots) vs. ScrapingAnt-Cloud-Browser-MCP.
+Reject Playwright MCP; suggest search or scrape template.
 ```
+
 - **Erwartetes Ergebnis:**
-  Der Beitrag (Selbstpromotion von ScrapingAnt, r/mcp) behauptet typisch ca. 114.000 Tokens bei Playwright-MCP-Aufgaben gegenueber ca. 5.000-15.000 Tokens fuer Markdown/HTML/Text ohne gestreamten Accessibility-Tree. Playwright MCP wird dort selbst als besser fuer lokale UI-Tests der eigenen App beschrieben.
-- **Quelle:** https://www.reddit.com/r/mcp/comments/1spvkrz/microsoft_recommends_cli_over_mcp_for_playwright/
+
+```text
+no browser MCP | handoff daten-analytics/web-scraping or brave search
+```

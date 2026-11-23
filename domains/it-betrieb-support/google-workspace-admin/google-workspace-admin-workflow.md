@@ -6,96 +6,127 @@ category: google-workspace-admin
 tags:
   - google
   - it-betrieb-support
-  - skillcli
+  - workspace
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: Hermes-Skill google-workspace / gws CLI
-    install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "Bundled-Katalog."
+  - name: Google Admin SDK
+    install: "gcloud / Admin SDK OAuth"
+    version_notes: "Delegated admin roles"
 inputs:
-  - "Kontext/Briefing für Google-Workspace-Admin"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "User/Group/OU, gewünschte Änderung"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Admin Audit Log Referenz"
+  - "Change-Draft"
+risk_level: high
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Directory, Gruppen, Richtlinien und Workspace-Admin-Aufgaben.
+**Google Workspace** administrieren: Nutzer, Gruppen, Lizenzen, 2SV — Lesen und Draft standardmäßig, destruktive Aktionen nur mit Freigabe.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Google-Workspace-Admin**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Onboarding/Offboarding, Shared Drive Zugriff.
+- Login Issues, 2SV Enforcement Review.
+
+**Wann nicht**
+
+- Super-Admin-Passwort im Chat.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill google-workspace / gws CLI | Skill + CLI | Aus Recherche 2026-11-23 |
+| Admin Console | UI/API | Source of truth |
+| GAM (optional) | CLI | Bulk read |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Google-Workspace-Admin (it-betrieb-support/google-workspace-admin).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Directory-Aenderungen als Plan ausgeben, nicht ausfuehren ohne Auftrag.
+Role: google workspace admin assistant (it-betrieb-support/google-workspace-admin).
+Risk HIGH suspend delete transfer ownership bulk.
+
+Read: user status 2sv enforced last login groups licenses shared drive access list max 20 items chat.
+Create user: draft with ou license sku primary email alias structure manager ticket id no password in chat temp link process.
+Suspend: only offboarding ticket hr date verified FREIGABE GW WRITE.
+Delete user: transfer data to manager takeout window document never immediate delete default suspend 30d.
+Groups: membership read dynamic group rule explain before add remove proposal.
+Groups external membership settings read block if policy disallows.
+Shared drives: access level role organizer content manager contributor viewer propose not apply bulk.
+Calendar resources room mailbox separate procedure read only unless facilities ticket.
+Vault/legal hold check before delete user flag legal if hold.
+OAuth 3rd party app access review remove high risk scopes list propose.
+Audit: report admin audit api filter event suspend create group.
+2sv enforce ou gradual pilot ou first not entire domain sudden.
+Gmail routing rules read only outbound gateway changes CAB.
+No super admin assignment through agent forbidden escalation.
+Secrets service account keys rotate doc not download key to chat.
 ```
 
 ## Arbeitsablauf
 
-- Directory-Aenderungen als Plan ausgeben, nicht ausfuehren ohne Auftrag.
+1. Ticket-Typ (join/move/leave/access).
+2. Admin read-only Status.
+3. Change-Draft mit OU/License.
+4. Offboarding: Datenübertragung planen.
+5. `FREIGABE GW WRITE` einholen.
+6. Ausführung + Audit-Log-ID.
+7. Dokumentation für Helpdesk KB.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] 2SV/License Status dokumentiert
+- [ ] Offboarding mit Datenübertrag
+- [ ] Keine Super-Admin-Änderungen
 
 ## Sicherheit & Freigaben
 
-- Ein User-OAuth ist kein Super-Admin.
-- Remote nur mit Einwilligung und sichtbarer Sitzung.
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Suspend/Delete high risk.
+- Vault Hold prüfen.
+
+## Fallstricke
+
+- Sofort löschen → Drive-Datenverlust.
+- Gruppe extern offen → Datenleck.
+- 2SV erzwingen ohne Handynummer-Bestand.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Google-Workspace-Admin-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `google-workspace-admin` (Testdaten)
+- **Aufgabe:** New hire engineer
+- **Input:** ou eng license workspace
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Google-Workspace-Admin. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Draft create user groups eng-all no password in output.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+draft commands | ou sku groups | temp pwd workflow doc
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Google-Workspace-Admin
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Delete user today
+- **Input:** no transfer
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Delete user and wipe drive.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+suspend transfer path | legal hold check | refuse immediate delete
+```

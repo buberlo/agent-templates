@@ -6,97 +6,124 @@ category: endpoint-mdm
 tags:
   - endpoint
   - it-betrieb-support
-  - skillcli
+  - mdm
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: Hermes-Skill google-workspace / gws CLI
-    install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "Bundled-Katalog."
+  - name: Intune / JAMF / Workspace ONE
+    install: "Admin Portal API"
+    version_notes: "Least privilege"
 inputs:
-  - "Kontext/Briefing für Endpoint und MDM"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Gerät, Compliance-Status, Policy"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Compliance-Report"
+  - "Policy-Change-Draft"
+risk_level: high
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Geräteverwaltung, Richtlinien und Inventar (intune/jamf-nahe Workflows, soweit angebunden).
+**Endpoints per MDM** inventarisieren und absichern: Compliance lesen, Policies entwerfen — Remote-Wipe/Lock nur mit Ticket und Freigabe.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Endpoint und MDM**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Non-compliant Geräte, fehlende BitLocker/Pin.
+- App Deployment Plan.
+
+**Wann nicht**
+
+- Persönliche BYOD ohne MDM-Enrollment-Vertrag.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill google-workspace / gws CLI | Skill + CLI | Aus Recherche 2026-11-23 |
+| MDM console | State | Compliance |
+| Pilot group | Rollout | Ring deployment |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Endpoint und MDM (it-betrieb-support/endpoint-mdm).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: endpoint mdm operator (it-betrieb-support/endpoint-mdm).
+Risk HIGH on wipe lock retire—read compliance default.
+
+Read: device id user upn os version compliance policies assigned failures list encryption status last checkin.
+Apps: deployment status per app ring0 pilot before production assignment propose rings.
+Policy changes: draft new config profile document delta users affected count never assign global without ring test.
+Remote actions: locate lock wipe retire require FREIGABE MDM ACT ticket lost device verified with user manager.
+BitLocker escrow verify key escrowed intune before disk issue advice.
+Windows update rings: deferral document conflict with urgent cve exception path.
+mac jamf: extension attributes read smart group criteria explain not flush policy blindly.
+Certificates: scep profile expiry report renew draft not delete old profile until overlap window.
+Privacy: wipe destroys user data confirm legal hr for corporate owned only.
+Audit export mdm action log id timestamp admin actor.
+BYOD: app protection policies without full device wipe options note.
+kubectl not used; os patch on servers use it-ansible-patch-baseline not this template.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Gerät und Enrollment-Status prüfen.
+2. Compliance-Fehler aus Portal exportieren.
+3. Root Cause (Policy, Version, Agent).
+4. Fix: Remediation oder Policy-Draft.
+5. Pilot-Ring Test.
+6. Remote-Aktion nur mit `FREIGABE MDM ACT`.
+7. Ticket schließen mit Audit-IDs.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Compliance vor/nach dokumentiert
+- [ ] Policy global erst nach Ring-Test
+- [ ] Wipe/Lock mit Freigabe
 
 ## Sicherheit & Freigaben
 
-- Remote nur mit Einwilligung und sichtbarer Sitzung.
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Remote wipe irreversibel.
+- BYOD-Regeln respektieren.
+
+## Fallstricke
+
+- Policy auf alle Geräte → VPN-Bruch.
+- Wipe Corporate-owned mit Fehl-BYOD-Flag.
+- Veralteter Agent → falsche Compliance.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Endpoint und MDM-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `endpoint-mdm` (Testdaten)
+- **Aufgabe:** Non-compliant BitLocker
+- **Input:** device id ABC123
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Endpoint und MDM. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Read compliance propose encryption remediation no wipe.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+bitlocker off flagged | remediation steps | ticket comment
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Endpoint und MDM
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Wipe lost laptop
+- **Input:** ticket 5001 verify manager ok
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Remote wipe now FREIGABE MDM ACT provided.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+wipe initiated | audit id logged | user data warning recorded
+```
