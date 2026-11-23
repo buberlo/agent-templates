@@ -20,97 +20,124 @@ required_tools:
     install: "https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/productivity/productivity-microsoft-office"
     version_notes: "Teil des offiziellen Bundled-Katalogs."
 inputs:
-  - "Kontext/Briefing für Kurse erstellen"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Gewünschte Ausgabeformate"
+  - "Validator-Verfügbarkeit"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Skill-Auswahl und Tooling-Doc"
+  - "Probe-pptx Smoke-Test"
 risk_level: low
-example_count: 3
-version: "1.0.0"
+example_count: 2
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Curriculum, Lektionen, Übungen und Materialien erzeugen.
+**Office/Skill-Stack für Kursmaterial wählen**: Anthropic document skills vs. Hermes microsoft-office vs. YouTube-Quellen—inkl. Validatoren und Verify-Schritten.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Kurse erstellen**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Agent-Setup für Kursproduktion; Unsicherheit welcher Skill pptx erzeugt.
+- CI-artiger Validate-Schritt vor LMS-Upload.
+- Minimales Toolset gegen Prompt-Leaks.
+
+**Wann nicht**
+
+- Konkretes Curriculum schreiben → `kurse-erstellen-workflow`.
+- Kein Python/LibreOffice für PDF-Render verfügbar und PDF gefordert.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Anthropic document skills (docx, pptx, x | Skill | Aus Recherche 2026-11-23 |
-| Hermes-Skill microsoft-office | Skill + CLI | Aus Recherche 2026-11-23 |
-| Hermes-Skill youtube-content | Skill | Aus Recherche 2026-11-23 |
+| Anthropic pptx/docx | Validierung | validate.py |
+| Hermes microsoft-office | Offline Generierung | Bundled |
+| youtube-content | Primärquellen | Transkript-Import |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Kurse erstellen (bildung/kurse-erstellen).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Lernziele → Outline → Lektionen → Uebungen → Folien, Quellen zitieren.
+You configure course authoring tools for bildung/kurse-erstellen.
+
+Inputs: outputs_needed (pptx|docx|pdf|xlsx), host (claude_skills|hermes), run_validate bool.
+
+Produce course-authoring-tooling.md:
+- Primary generator per format with install path
+- Validate commands: python skills/pptx/scripts/office/validate.py file.pptx OR hermes skill verify equivalent
+- youtube-content: when to use fetch_transcript vs user-provided PDF
+- Disable unused document MCPs
+
+Require post-write verify: re-read file listing slide count or docx paragraph count.
+Note: pptx hex colors without # per Anthropic skill docs; warn on off-slide coordinates.
+
+Deliver smoke test: 1-slide pptx title "Tooling OK" and validation result line.
 ```
 
 ## Arbeitsablauf
 
-- Lernziele → Outline → Lektionen → Uebungen → Folien, Quellen zitieren.
+1. Benötigte Formate notieren.
+2. Anthropic vs. Hermes-Pluginfähigkeit prüfen.
+3. `course-authoring-tooling.md` schreiben.
+4. Mini-pptx erzeugen (1 Folie).
+5. Validator ausführen falls vorhanden.
+6. YouTube-Skill nur aktivieren wenn Video-Quellen.
+7. Nutzer bestätigt Stack vor Kurserstellung.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Ein Primary-Tool pro Ausgabeformat
+- [ ] Validate- oder Read-back-Schritt dokumentiert
+- [ ] Smoke-pptx erfolgreich oder Fehler mit Fix
+- [ ] Unnötige Skills deaktiviert
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Skripte aus vertrauenswürdigen Repos (anthropics/skills, Hermes bundled).
+- Keine Makros in generierten Office-Dateien.
+- Externe YouTube-URLs nur mit Nutzerliste.
+
+## Fallstricke
+
+- Zwei pptx-Generatoren → inkonsistente Layouts.
+- PDF via LibreOffice fehlt auf Host.
+- Validator nicht im PATH.
+- youtube venv nicht vorbereitet.
+- Große Skills → Kontext-Overflow.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Kurse erstellen-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `kurse-erstellen` (Testdaten)
+- **Aufgabe:** Nur Hermes pptx.
+- **Input:** `outputs_needed=pptx`, hermes host.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Kurse erstellen. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Document tooling and run 1-slide smoke test with validate if available.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Primary: hermes microsoft-office → python-pptx
+Smoke: tooling-smoke.pptx (1 slide)
+Validate: SKIPPED (anthropic path not installed) | paragraphs counted via read-back
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Kurse erstellen
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Anthropic validate Pfad.
+- **Input:** claude_skills, run_validate true.
 - **Prompt:**
-```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
-```
-- **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
 
-### Beispiel 3 (Praxisbeispiel)
-
-- **Aufgabe:** Ein kurzes Briefing-Deck mit der offiziellen Anthropic-pptx-Skill erzeugen und validieren.
-- **Input:** Tutorial-Briefing, das als PowerPoint ausgegeben werden sollte.
-- **Prompt:**
 ```text
-pptxgenjs 4.0.1, skills/pptx/scripts/office/validate.py, python-pptx zum Gegenlesen.
+Configure anthropic pptx skill with validate.py command in tooling doc.
 ```
+
 - **Erwartetes Ergebnis:**
-  Datei briefing.pptx, Validator All validations PASSED. Gegenlesen ergab drei Folien im Format 10 x 5,625 Zoll (LAYOUT_16x9), inklusive Text und Speaker Notes. Hinweis des Autors: Hex-Farben ohne #, Koordinaten jenseits der Kante werden nicht geclippt.
-- **Quelle:** https://aifrontierpost.com/articles/anthropic-official-agent-skills-tutorial/
+
+```text
+Validate cmd: python skills/pptx/scripts/office/validate.py <file.pptx>
+Smoke: tooling-smoke.pptx → All validations PASSED
+File: course-authoring-tooling.md
+```

@@ -20,86 +20,126 @@ required_tools:
     install: "https://clawhubtrends.com/leaderboard.html"
     version_notes: "72.476 Downloads, 8 Registry-Stars (ClawHub Leaderboard 23.11.2026)."
 inputs:
-  - "Kontext/Briefing für Telefon und Voice-Agents"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Call-Script und Ziel (Inbound/Outbound)"
+  - "Einwilligung und Aufzeichnungsregeln"
+  - "Freigabe für Dial/Deploy"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Call-Plan und TwiML/Flow-Skizze"
+  - "Transkript oder Call-Summary"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Outbound/Inbound-Calls über Voice-Agent-Plattformen, Transkripte und Nachbearbeitung.
+**Voice-Agent-Flows** planen (Twilio/ElevenLabs/OpenClaw Phone Call), **Anrufe nur nach Freigabe** starten und Gesprächsergebnis strukturiert dokumentieren.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Telefon und Voice-Agents**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Outbound-Erinnerung oder Inbound-IVR-Prototyp mit klarem Script.
+- Twilio-Docs MCP und verifizierter Phone-Call-Skill verfügbar.
+- Rechtliche Hinweise (Recording, TCPA/DSGVO) vom Nutzer bestätigt.
+
+**Wann nicht**
+
+- Notrufe, Suizidprävention, medizinische Hotlines ohne Mensch.
+- Cold-Calling ohne Opt-in.
+- Ungeprüfte ClawHub Call-Skills in Produktion.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| twilio-docs MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| ClawHub „Agent Phone Call“ (mrsz) | Skill | Aus Recherche 2026-11-23 |
+| twilio-docs MCP | API/TwiML Referenz | Sichere Snippets |
+| Agent Phone Call (OpenClaw) | Dial-Workflow | ClawHub, vor verify |
+| Transkript/Notizen | Post-Call | QA und CRM |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Telefon und Voice-Agents (kommunikation/telefon-voice-agents).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Anrufinhalte und Einwilligung klaeren; Aufzeichnungsregeln beachten.
+You plan and assist voice agent calls for kommunikation/telefon-voice-agents.
+
+Inputs: direction (inbound|outbound), purpose, callee_e164 (redact in logs), script bullets, recording_allowed, max_duration_sec, provider (twilio|other).
+
+Before any dial:
+- Confirm recording_disclosure text if recording_allowed
+- Confirm user typed APPROVE_DIAL with callee last-4 digits
+
+Use twilio-docs MCP for TwiML patterns only; do not expose account_sid in chat.
+Design: greeting, intent, 2 FAQ branches, human handoff phrase, voicemail fallback.
+
+After call (if transcript provided): summary, sentiment, promised_followups[], compliance_flags[].
+
+Never initiate chargeable calls without APPROVE_DIAL.
+ClawHub skills: remind verify before use.
 ```
 
 ## Arbeitsablauf
 
-- Anrufinhalte und Einwilligung klaeren; Aufzeichnungsregeln beachten.
+1. Script und Compliance (Recording, Opt-in) dokumentieren.
+2. `openclaw skills verify` für Agent Phone Call.
+3. TwiML/Flow-Skizze via twilio-docs MCP referenzieren.
+4. Dry-Run: Script als Dialog lesen, Dauer schätzen.
+5. Nutzer: `APPROVE_DIAL` + letzte 4 Ziffern.
+6. Call ausführen (Skill/Provider); Max-Dauer überwachen.
+7. Transkript/Summary in `output/call-YYYYMMDD.md` ablegen.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] APPROVE_DIAL protokolliert
+- [ ] Recording-Hinweis im Script wenn recording_allowed
+- [ ] Kein Dial ohne Freigabe
+- [ ] Post-Call-Summary mit nächsten Schritten
 
 ## Sicherheit & Freigaben
 
-- ClawHub-Skills vor der Nutzung prüfen (`openclaw skills verify`). Im Februar 2026 auditierte Koi Security 2.857 Registry-Skills und bewertete 341 als schadhaft (ca. 12 %). Quellen: https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html , https://docs.openclaw.ai/skills/
-- Warnmarkierte ClawHub-Skills nicht ungeprueft laden.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach 
+- ClawHub-Skills verify vor Einsatz (Registry-Risiken).
+- Twilio-Credentials in Secrets, nicht in Prompts.
+- PII aus Call-Logs bei CRM-Export minimieren.
+
+## Fallstricke
+
+- Latenz → Nutzer spricht doppelt, Bot unterbricht.
+- ASR versteht Namen falsch → falsche Buchung.
+- Outbound ohne lokale Telefonmarketing-Regeln.
+- TwiML Loop ohne Exit → Kosten.
+- Skill postet als User ohne Anruf-Freigabe.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Telefon und Voice-Agents-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `telefon-voice-agents` (Testdaten)
+- **Aufgabe:** Termin-Erinnerung Outbound.
+- **Input:** Script 4 Sätze, recording no, callee +43***4567.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Telefon und Voice-Agents. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Draft call flow and TwiML outline; wait for APPROVE_DIAL before dial.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Flow: greet → confirm appointment Wed 10:00 → press 1 confirm / 2 reschedule → handoff
+Dial: not started (awaiting APPROVE_DIAL)
+TwiML: outline in output/call-plan.md
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Telefon und Voice-Agents
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Dial ohne Freigabe.
+- **Input:** Sofort anrufen verlangt.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Call customer now about invoice.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Abbruch: APPROVE_DIAL fehlt.
+Script-Entwurf erstellt; kein Dial, keine Twilio API write.
+```

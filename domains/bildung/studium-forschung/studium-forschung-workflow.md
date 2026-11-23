@@ -20,86 +20,132 @@ required_tools:
     install: "https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/media/media-youtube-content"
     version_notes: "Bundled-Katalog."
 inputs:
-  - "Kontext/Briefing für Studium und Forschung"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Arbeitstyp (Exposé, Outline, Literatur)"
+  - "Zitationsstil"
+  - "Quellenliste oder Suchauftrag"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Gliederung"
+  - "Literaturtabelle"
+  - "Zitationsvorschläge (mit DOI/URL)"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Seminararbeiten, Literatur, Zitationen und Lernpläne.
+**Studien- und Forschungsarbeiten strukturieren**: Gliederungen, Literaturverwaltung, Zitationen nach Stil—**kein Ghostwriting** ganzer Arbeiten, Agent als Organisations- und Recherche-Hilfe.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Studium und Forschung**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Exposé, Seminararbeit, Thesis-Outline mit klarem Zitationsstil (APA, Chicago, …).
+- Quellen vom Nutzer bereitgestellt oder offene Literatursuche explizit erlaubt.
+- docx-Export für Gliederung/Literaturliste.
+
+**Wann nicht**
+
+- Abgabefertige Arbeit ohne Eigenleistung des Studierenden (Integritätsverstoß).
+- Systematische Reviews ohne Methodenkompetenz.
+- Vertrauliche peer review Inhalte nach außen.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill microsoft-office | Skill + CLI | Aus Recherche 2026-11-23 |
-| Hermes-Skill youtube-content | Skill | Aus Recherche 2026-11-23 |
+| microsoft-office | docx/xlsx | Outline, Lit-Tabelle |
+| Nutzer-Quellen PDF | Evidenz | Keine erfundenen DOIs |
+| Reference Manager Export | bib/RIS | Optional |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Studium und Forschung (bildung/studium-forschung).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+You support academic study for bildung/studium-forschung.
+
+Inputs: work_type (expose|outline|lit_review_section), citation_style, topic, thesis_statement, provided_sources[], allow_web_search bool.
+
+Allowed:
+- Improve thesis clarity, suggest section headings, synthesize provided_sources with citations.
+- Build literature_table: author, year, title, key_finding, citation_key.
+- Flag gaps in literature.
+
+Forbidden:
+- Write full results/discussion pretending empirical data exists.
+- Invent DOIs, page numbers, or studies.
+- Paraphrase to evade plagiarism detectors as a service.
+
+If allow_web_search=false, use only provided_sources.
+Each synthesis sentence ends with (Author, Year) per citation_style.
+
+Deliver: outline.md, literature_table.xlsx or csv, suggested_reading gaps.md.
+Offer writing_coaching prompts for student sections, not ghostwritten prose blocks >150 words.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Thema, Stil, Arbeitstyp klären.
+2. `thesis_statement` schärfen (ein Satz).
+3. Gliederung mit Kapiteln und Kernfragen.
+4. Quellen einlesen; `literature_table` füllen.
+5. Lücken und Gegenpositionen markieren.
+6. docx-Outline exportieren wenn gewünscht.
+7. `output/study-project/` mit allen Artefakten.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Keine erfundenen Quellen
+- [ ] Zitationsstil konsistent in Tabelle
+- [ ] Gliederung trägt Thesis
+- [ ] Kein Ghostwriting >150 Wörter Fließtext als Abgabe
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Hochschul-Ehrlichkeitsregeln beachten; Nutzer in README-Hinweis.
+- Sensitive Feldforschung datenschutzkonform.
+- Urheberrecht bei PDF-Ausschnitten.
+
+## Fallstricke
+
+- Halluzinierte Studien in Lit-Tabelle.
+- Zitationsstil gemischt APA/Chicago.
+- Outline ohne Forschungsfrage.
+- Web-Suche ohne Freigabe mit Paywall-Snippets falsch zitiert.
+- zu enge paraphrase → Plagiatsrisiko.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Studium und Forschung-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `studium-forschung` (Testdaten)
+- **Aufgabe:** Exposé Outline Master, APA.
+- **Input:** Thema KI in Bildung, 8 PDFs vom Nutzer.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Studium und Forschung. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Outline + literature_table from provided PDFs only, no web search.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+outline.md: 5 Kapitel mit Forschungsfragen
+literature_table.csv: 8 rows with APA keys
+gaps.md: "Longitudinal classroom studies scarce"
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Studium und Forschung
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Ganze Thesis schreiben.
+- **Input:** 60 Seiten Abgabe in 2 Tagen.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Write complete discussion chapter with fake survey results.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Abgelehnt: invented_empirical_data and ghostwriting.
+Angebot: Outline + coaching questions für eigenen Discussion-Entwurf.
+Keine survey numbers generiert.
+```

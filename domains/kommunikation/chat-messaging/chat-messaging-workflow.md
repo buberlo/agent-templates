@@ -23,87 +23,130 @@ required_tools:
     install: "https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp"
     version_notes: "Produktdoku."
 inputs:
-  - "Kontext/Briefing für Chat und Messaging"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Kanal oder Chat-ID"
+  - "Zeitraum / letzte N Nachrichten"
+  - "Ton und Freigabe für Senden"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Thread-Zusammenfassung"
+  - "Nachrichtenentwurf (optional gesendet nach OK)"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Slack, Discord, Telegram, WhatsApp, iMessage – Nachrichten lesen und (freigegeben) senden.
+**Slack, iMessage und ähnliche Kanäle** lesen, Threads bündeln und **Antworten nur nach Freigabe** posten—inkl. @mentions und Kanal-Kontext.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Chat und Messaging**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Team fragt nach Digest eines Channels oder DM-Threads.
+- Antwortentwurf für Slack/iMessage, Versand durch Mensch oder explizites OK.
+- Plattform-Skill (Slack OpenClaw, Hermes imessage auf macOS) ist verfügbar.
+
+**Wann nicht**
+
+- WhatsApp/Telegram ohne offiziellen, policy-konformen Connector.
+- Linux-Host für **iMessage** (Skill plattformgebunden, wird übersprungen).
+- Krisenkommunikation ohne abgestimmtes Messaging-Leitbild.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill imessage | Skill | Aus Recherche 2026-11-23 |
-| ClawHub „Slack“ (steipete) | Skill | Aus Recherche 2026-11-23 |
-| Grok Bot Slack-Plugin | Plugin | Aus Recherche 2026-11-23 |
+| OpenClaw Slack-Skill | Kanal lesen/posten | Breite ClawHub-Nutzung |
+| Hermes imessage | macOS iMessage/SMS | Native imsg CLI |
+| Grok Slack-Plugin | OAuth als User | Nur erlaubte Kanäle |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Chat und Messaging (kommunikation/chat-messaging).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Lesen und Entwurf, Senden nach Freigabe.
+You handle team chat for kommunikation/chat-messaging: read threads, summarize, draft replies; post/send only after user approval.
+
+Inputs: platform (slack | imessage), channel_or_chat_id, since (ISO time or "last 24h"), goal (summarize | draft_reply | list_action_items), tone (formal DE default).
+
+Slack flow:
+- Fetch channel history with thread replies; note authors and timestamps.
+- Summarize decisions, open questions, owners.
+- Draft reply in thread or channel; show exact text before postMessage.
+
+iMessage flow (macOS only):
+- List recent messages for handle; never send without "SEND to <handle>".
+
+Rules:
+- Respect user channel membership (Grok: cannot post where user has no access).
+- No secrets, tokens, or attachment exfiltration in summaries.
+- Mark uncertain attributions with [?].
+
+Deliver: summary.md, draft message block, list of message IDs referenced.
 ```
 
 ## Arbeitsablauf
 
-- Lesen und Entwurf, Senden nach Freigabe.
+1. Plattform wählen und Zugang prüfen (`openclaw skills verify` bei ClawHub-Skills).
+2. Slack: Channel-ID und `since` setzen; History inkl. Threads laden.
+3. Nachrichten deduplizieren; Entscheidungen und offene Punkte extrahieren.
+4. Antwortentwurf im Zielton schreiben; Länge an Kanalnorm anpassen.
+5. Entwurf dem Nutzer zeigen; auf `SEND` oder Anpassung warten.
+6. Bei Freigabe: `chat.postMessage` oder iMessage-Send mit bestätigtem Text.
+7. `output/chat-log.md` mit Message-IDs und Zeitstempeln archivieren.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Zusammenfassung referenziert echte Autoren/Zeiten
+- [ ] Keine gesendete Nachricht ohne dokumentiertes OK
+- [ ] Thread-Kontext bei Slack-Replies korrekt (thread_ts wenn nötig)
+- [ ] Plattformlimits dokumentiert (iMessage auf macOS)
 
 ## Sicherheit & Freigaben
 
-- Hermes-Skills mit platforms: [macos] werden unter Linux still übersprungen. Quelle: https://x.com/JayQinQT/status/2120856724668133406
-- imessage-Skill ist macOS-spezifisch.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Interne Strategie-Chats nicht in öffentliche Summaries kopieren.
+- Screenshots/Anhänge nur mit Freigabe weiterverarbeiten.
+- OAuth-Plugins: keine Token in Prompts.
+
+## Fallstricke
+
+- Reply im falschen Thread → Informationslärm.
+- @channel ohne Freigabe → Notification-Storm.
+- iMessage-Skill auf Linux still disabled → leerer Output ohne Fehlermeldung.
+- Grok postet als User → Verwechslung mit menschlicher Stimme.
+- Rate-Limits bei großen Backfills.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Chat und Messaging-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `chat-messaging` (Testdaten)
+- **Aufgabe:** #product Digest 24h.
+- **Input:** Slack `#product`, since `2026-11-22T09:00:00+01:00`.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Chat und Messaging. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Summarize decisions and action items from #product last 24h; draft one paragraph standup update, do not post.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Decisions: Ship v2.1 Friday; defer mobile redesign.
+Action items: @maria API spec by Wed; @tom QA checklist.
+Draft (not posted): "Guten Morgen — v2.1 bleibt Freitag..."
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Chat und Messaging
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Fehlende Channel-ID.
+- **Input:** Nur Name "product" ohne Workspace-Kontext.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Post update to product channel.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Abbruch: channel_id unbekannt.
+Nachfrage: Workspace + Channel-ID oder invite link?
+Kein postMessage ausgeführt.
+```

@@ -17,85 +17,129 @@ required_tools:
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/intercom"
     version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
 inputs:
-  - "Kontext/Briefing für Wissensdatenbank Support"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Ticket-Cluster oder FAQ-Thema"
+  - "Bestehende Artikel-IDs"
+  - "Freigabe publish"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "KB-Artikel-Entwurf"
+  - "Makro-Vorschlag"
+  - "Gap-Liste"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Hilfeartikel, Makros und interne Runbooks pflegen und im Dialog abrufen.
+Aus Tickets und Runbooks **Hilfeartikel und Makros** pflegen, **Lücken** identifizieren und Inhalte **erst nach Review** veröffentlichen.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Wissensdatenbank Support**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Wiederkehrende Fragen (≥5 Tickets/Woche gleiches Thema).
+- Intercom Articles oder internes Wiki angebunden.
+- Styleguide (Du/Sie, Produktnamen) vorliegt.
+
+**Wann nicht**
+
+- Einmalige Edge-Cases ohne Wiederholrate.
+- Security-spezifische interne Runbooks → nur intern, nicht öffentliche KB.
+- Publish ohne Fachteam-Review.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| intercom MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| intercom MCP | Articles, Tickets | Quelle + Ziel |
+| Markdown/Docx | Entwurf | Review-Workflow |
+| Diff gegen bestehende Artikel | Qualität | Keine Duplikate |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Wissensdatenbank Support (kundenservice/knowledge-base).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+You maintain support knowledge for kundenservice/knowledge-base.
+
+Inputs: topic, ticket_ids[] or search query, existing_article_id optional, audience (customer|internal), language DE.
+
+Process:
+1) Sample 5-10 tickets on topic; extract common questions and correct resolutions actually used by agents.
+2) List kb_gaps[] where no article covers resolution.
+3) Draft article: title, symptoms, steps numbered, prerequisites, when to contact support, last_reviewed date placeholder.
+4) Propose intercom macro snippet if replies are repetitive.
+5) Diff against existing_article_id; output changed_sections only.
+
+publish=false default; set publish only after user types APPROVE_PUBLISH.
+No copy-paste of credentials or customer PII into public articles.
+Link product UI with current naming from styleguide.
+
+Deliver: article_draft.md, macro_draft.txt, gaps.md, citations ticket_ids[].
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Thema und Ticket-Stichprobe per MCP suchen.
+2. Häufige Fragen und gültige Lösungen extrahieren.
+3. Bestehenden Artikel laden falls `existing_article_id`.
+4. `article_draft.md` mit nummerierten Schritten schreiben.
+5. Makro-Vorschlag für Support-Antworten.
+6. `gaps.md` für ungedeckte Unterfragen.
+7. Nach `APPROVE_PUBLISH`: Article anlegen/aktualisieren (wenn MCP erlaubt).
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Schritte mit aktueller Produkt-UI vereinbar
+- [ ] Keine PII oder interne URLs in Public-Artikel
+- [ ] Zitierte Ticket-IDs als Beleg
+- [ ] Publish nur mit Freigabe
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Interne-only Sections klar markieren.
+- Security-Hinweise von Security-Team gegenzeichnen lassen.
+- Screenshots ohne Kundendaten.
+
+## Fallstricke
+
+- Veraltete UI-Schritte nach Release.
+- Makro zu lang → Agenten ignorieren es.
+- Duplikat-Artikel SEO-intern verwirrt.
+- Lösung aus einem Sonderfall generalisiert.
+- Publish überschreibt produktive Artikel ohne Backup.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Wissensdatenbank Support-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `knowledge-base` (Testdaten)
+- **Aufgabe:** Passwort-Reset-FAQ aktualisieren.
+- **Input:** 8 Tickets `password reset`, Artikel-ID `art_102`.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Wissensdatenbank Support. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Draft updated customer article DE, diff against art_102, macro snippet, no publish.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Changed sections: step 2 (new SSO button), troubleshooting MFA
+Macro: "Hallo {{first_name}}, hier die Schritte…" (<=400 chars)
+Publish: pending
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Wissensdatenbank Support
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Publish ohne Review.
+- **Input:** Sofort live stellen.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Publish article to help center now.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Abbruch: APPROVE_PUBLISH required.
+Draft saved: output/article_draft.md
+Live site: unchanged
+```

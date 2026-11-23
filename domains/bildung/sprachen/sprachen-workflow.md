@@ -20,86 +20,132 @@ required_tools:
     install: "https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/media/media-youtube-content"
     version_notes: "Bundled-Katalog."
 inputs:
-  - "Kontext/Briefing für Sprachen"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Ausgangs- und Zielsprache"
+  - "Text oder Audiostream"
+  - "Register (du/Sie, formal/informell)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Übersetzung oder korrigierter Text"
+  - "Grammatik-Erläuterungen"
+  - "Mini-Übungsdialog"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Sprachlernen, Übersetzen, Korrekturen und Übungsdialoge.
+**Sprachenlernen, Übersetzen und Korrekturen** mit Register-Vorgaben, Fehlerkategorisierung und kurzen Übungsdialogen—keine Zertifizierung als Ersatz für Prüfer:in.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Sprachen**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Übersetzung oder Fehleranalyse eines Nutzertextes (DE↔EN o. ä.).
+- Sprachniveau (A2–C1) angegeben.
+- Tonalität (business, casual) bekannt.
+
+**Wann nicht**
+
+- Beglaubigte Übersetzungen.
+- Rechtliche/vertragliche Texte ohne Fachübersetzer:in.
+- Identitätsbetrug bei Sprachprüfungen.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill microsoft-office | Skill + CLI | Aus Recherche 2026-11-23 |
-| Hermes-Skill youtube-content | Skill | Aus Recherche 2026-11-23 |
+| LLM + explizite Regeln | Übersetzung/Korrektur | Kern |
+| microsoft-office | Glossar docx | Terminologie |
+| youtube-content | Immersion-Clips | Optional mit Transkript |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Sprachen (bildung/sprachen).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+You teach and translate languages for bildung/sprachen.
+
+Inputs: source_lang, target_lang, text, task (translate|correct|dialog_drill), cefr_level, register, glossary path optional.
+
+Translate:
+- Prefer sense-for-sense; flag untranslatable idioms with explanation in target_lang.
+- Use glossary terms exactly when file provided.
+
+Correct:
+- Mark errors with category (grammar|word_choice|register|spelling).
+- Provide corrected sentence and one-sentence rule DE if user UI DE.
+
+Dialog drill:
+- 6-turn mini dialog at cefr_level; bold new vocabulary; no toxic content.
+
+Do not claim certified translation.
+For exams: if user requests answer key for live test, refuse.
+
+Output: result.md with sections per task; table of corrections if correct mode.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Sprachen, Niveau, Register festlegen.
+2. Optional Glossar `glossary.docx` laden.
+3. Aufgabe ausführen (translate/correct/drill).
+4. Fehler in Tabelle mit Kategorie.
+5. Bei Übersetzung: Rückfrage bei Mehrdeutigkeit markieren.
+6. Mini-Dialog wenn `dialog_drill` gewünscht.
+7. `output/lang-session.md` archivieren.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Register konsistent
+- [ ] Glossar-Begriffe eingehalten
+- [ ] Korrekturen mit Kategorie
+- [ ] Keine Zertifizierungsbehauptung
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Sensible Inhalte in Eingabetext nicht extern loggen.
+- Bei Minderjährigen angemessene Inhalte.
+- Hate speech in Korrekturen nicht verstärken.
+
+## Fallstricke
+
+- Falsche Geschlechts-/Numeruskongruenz übersehen.
+- Sie/du vermischt.
+- Fachterminologie ohne Glossar erfunden.
+- Idiom wörtlich übersetzt.
+- CEFR-Niveau zu schwer → Überforderung.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Sprachen-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `sprachen` (Testdaten)
+- **Aufgabe:** EN→DE Business-Mail Korrektur.
+- **Input:** B1, register formal Sie.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Sprachen. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Correct this email in German business register, table of errors.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+| # | Original | Fix | Category |
+| 1 | "ich wollte fragen" | "ich möchte Sie fragen" | register |
+Corrected body: Sehr geehrte Frau Müller, …
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Sprachen
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Zertifizierte Übersetzung.
+- **Input:** Vertrag EN→DE beglaubigt.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Provide sworn translation for court.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Abgelehnt: certified_translation_not_offered.
+Hinweis: qualifizierte beeidete Dolmetscher:in anfragen.
+Optional: Rohentwurf nur als Lernhilfe mit Disclaimer möglich nach Freigabe.
+```
