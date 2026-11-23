@@ -24,36 +24,36 @@ required_tools:
     version_notes: "Loki queries"
 inputs:
   - "Zeitfenster UTC, Service/Label"
-  - "Fehlermuster oder Trace-ID"
+  - "Fehlermuster or Trace-ID"
 outputs:
-  - "Log-Auszug mit Korrelation"
-  - "Query-Snippets für Dashboard"
+  - "Log extract with correlation"
+  - "Query-Snippets for dashboard"
 risk_level: medium
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-Zentrale und Pod-Logs durchsuchen, Fehler korrelieren und **wiederverwendbare Queries** liefern — ohne Rohdaten-Massenexport.
+Browse central and pod logs, correlate errors, and deliver reusable queries—without raw data bulk export.
 
-## Wann nutzen
+## When to use
 
 - Incident-Triage, neue Fehlermeldung in Monitoring.
 - Logging-Pipeline-Validierung nach Deploy.
 
-**Wann nicht:** Langzeit-Archiv ohne Legal Hold Klärung.
+**When not to use:** Long-term archive without legal hold clarification.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Rationale |
 |------|-------|------------|
 | logcli | Loki | LogQL |
 | aws logs | CloudWatch | filter-log-events |
 | stern | K8s | Live multi-pod |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Logging workflow (devops-cloud/logging).
@@ -72,40 +72,40 @@ Do not change retention or delete log groups without approval.
 Stern: stern -n prod deploy/api --since 30m for burst incidents.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. Zeitfenster und Service/Labels klären.
-2. Quelle wählen: Loki vs. CloudWatch vs. kubectl.
-3. `logcli labels` oder Log-Group-Liste validieren.
-4. Query ausführen; erste 50 Zeilen analysieren.
+1. Clarify time windows and service/labels.
+2. Choose Source: Loki vs. CloudWatch vs. kubectl.
+3. `logcli labels` or Log-Group-Liste validieren.
+4. Run; analyze first 50 lines.
 5. Trace-ID verfolgen; zweite Query cross-service.
 6. Dashboard-Panel-Query als Snippet exportieren.
 7. PII-redigierten Auszug ins Ticket.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
-- [ ] Zeitfenster und Quelle dokumentiert
+- [ ] Time window and source documented
 - [ ] Query wiederverwendbar
-- [ ] Keine Roh-PII im Chat
+- [ ] No Roh-PII im Chat
 
-## Sicherheit & Freigaben
+## Security
 
-- Prod-Logs können Kundendaten enthalten — Minimierung.
-- Log-Group-Löschung nur mit Freigabe.
+Prod logs may contain customer data — minimize.
+- Log group deletion only with approval.
 
-## Fallstricke
+## Pitfalls
 
-- Unbounded query — Loki/CloudWatch Kosten und Timeout.
+Unbounded query — Loki/CloudWatch costs and timeout.
 - Falsche TZ in --start-time — leere Ergebnisse.
-- JSON-Logs ohne json parser — Regex irreführend.
+- JSON logs without json parser - Regex misleading.
 - nur ERROR-Level — Root in vorherigem INFO.
-- kubectl logs ohne --previous bei CrashLoop.
+- kubectl logs without --previous bei CrashLoop.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Loki Fehler letzte Stunde.
+- **Task:** Loki Fehler letzte Stunde.
 - **Input:** App `checkout`, trace `abc-123`.
 - **Prompt:**
 
@@ -113,15 +113,15 @@ Stern: stern -n prod deploy/api --since 30m for burst incidents.
 LogQL for errors and trace abc-123; limit 100 lines.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 logcli query '{app="checkout"} |= "abc-123" | json | level="error"' --since=1h --limit=100
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** CloudWatch Filter.
+- **Task:** CloudWatch Filter.
 - **Input:** Group `/ecs/api`, Muster `OutOfMemory`.
 - **Prompt:**
 
@@ -129,7 +129,7 @@ logcli query '{app="checkout"} |= "abc-123" | json | level="error"' --since=1h -
 filter-log-events last 2h; redact account ids.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 aws logs filter-log-events --log-group-name /ecs/api \

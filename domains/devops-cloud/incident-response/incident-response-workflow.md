@@ -23,7 +23,7 @@ required_tools:
     version_notes: "Ack/notes"
 inputs:
   - "Incident-ID, Severity, betroffener Service"
-  - "Symptom-Zeitfenster und Dashboards"
+  - "Symptom time windows and dashboards"
 outputs:
   - "Incident-Timeline"
   - "Mitigation + Follow-up-Tickets"
@@ -33,26 +33,26 @@ version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-Strukturierte **Incident Response**: stabilisieren, kommunizieren, root cause später — mit dokumentierten kubectl/gh-Schritten.
+Structured **Incident Response**: stabilize, communicate, root cause later — with documented kubectl/gh steps.
 
-## Wann nutzen
+## When to use
 
-- Sev1/Sev2: Ausfall oder massive Latenz in Prod.
+- Sev1/Sev2: Ausfall or massive Latenz in Prod.
 - Post-incident: Timeline rekonstruieren.
 
-**Wann nicht:** Pentest oder Forensik (security-Domain).
+**When not to use:** Pentest or Forensik (security-Domain).
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Rationale |
 |------|-------|------------|
 | kubectl | K8s mitigation | rollouts, scale |
-| gh | Deploy-Korrelation | letzte grüne Runs |
+| gh | Deploy correlation | last green runs |
 | Statuspage | Kommun | optional manuell |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Incident response workflow (devops-cloud/incident-response).
@@ -71,40 +71,40 @@ After stable: open follow-ups for root cause; no premature "fixed forever".
 Pager/Slack secrets not in transcript.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. Severity und Betroffenheit festhalten; Kanal/Bridge-Link.
-2. `kubectl -n <ns> get pods,deploy` und Events letzte 30 min.
+1. Record severity and concern; Channel/Bridge-Link.
+2. `kubectl -n <ns> get pods,deploy` and events last 30 min.
 3. Deploy-Korrelation: `gh run list --branch main --limit 5`.
-4. Mitigation vorschlagen; nach Freigabe z. B. `kubectl rollout undo`.
+4. Mitigation vorschlagen; nach approval e.g. `kubectl rollout undo`.
 5. Monitoring-Fenster beobachten; Status-Update-Entwurf.
-6. Timeline im Ticket fortführen.
-7. Postmortem-Action-Items mit Owner.
+6. Continue timeline in the ticket.
+7. Post-mortem action items with owner.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
-- [ ] Service wieder innerhalb SLO oder begründete Degradation
-- [ ] Timeline mit UTC und Befehlen
-- [ ] Keine ungenehmigten destruktiven Aktionen
+- [ ] Service back within SLO or justified degradation
+Timeline with UTC and commands
+- [ ] No ungenehmigten destruktiven Aktionen
 
-## Sicherheit & Freigaben
+## Security
 
-- Prod-Mitigation: high risk; IC/On-Call-Freigabe.
-- Kundendaten nicht in öffentlichen Incident-Threads.
+- Prod-Mitigation: high risk; IC/On-Call-approval.
+And then, in fact, they are public.
 
-## Fallstricke
+## Pitfalls
 
-- Rollback ohne Traffic-Shift bei DB-Migration — Daten inkonsistent.
-- Zu früh „resolved“ — Flapping kehrt zurück.
-- Parallele Helden-Fixes ohne Koordination — mehr Schaden.
+- Rollback without Traffic-Shift bei DB-Migration — Daten inkonsistent.
+- Too early "resolved" - Flapping returns.
+- Parallele Helden-Fixes without Koordination — mehr Schaden.
 - gh/Kubectl aus falscher Umgebung — falscher Cluster.
-- Postmortem ohne Zeitkompensation — Lessons gehen verloren.
+- Postmortem without Zeitkompensation — Lessons gehen verloren.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** API 500 nach Deploy; Rollback.
+- **Task:** API 500 nach Deploy; Rollback.
 - **Input:** Sev1, NS `prod`, Deploy `api` 14:32 UTC.
 - **Prompt:**
 
@@ -112,7 +112,7 @@ Pager/Slack secrets not in transcript.
 Correlate gh run with spike; propose kubectl rollout undo; draft status line only.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 gh run list --workflow=deploy.yml --limit 3
@@ -120,9 +120,9 @@ kubectl -n prod rollout undo deploy/api
 # Timeline entry + customer draft "Investigating errors..."
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Nicht Deploy — DB Connection Exhaustion.
+- **Task:** Not Deploy — DB Connection Exhaustion.
 - **Input:** Hikari pool maxed, no recent deploy.
 - **Prompt:**
 
@@ -130,7 +130,7 @@ kubectl -n prod rollout undo deploy/api
 Read pods and events; suggest scale replicas not rollback; document hypothesis.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 kubectl -n prod get pods -l app=api

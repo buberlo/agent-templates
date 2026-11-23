@@ -1,43 +1,43 @@
 # Claude Code
 
 - **Domain:** `agent-platforms`
-- **Kategorie:** `claude-code`
-- **Stand:** 2026-11-23
+- **Category:** `claude-code`
+- **As of:** 2026-11-23
 
-## Kurzbeschreibung
+## Summary
 
-Skills, MCP, Slash-Commands, Delegation und offizielle Anthropic-Dokument-Skills.
+Skills, MCP, slash commands, delegation, and official Anthropic document skills.
 
-## Empfohlener Tool-Stack
+## Recommended tool stack
 
-- eingebaute Repo-Tools + Skills + MCP ueber claude mcp add
-- document-skills fuer Office
+- Built-in repo tools + skills + MCP via `claude mcp add`
+- document-skills for Office
 
-## MCP-Server und Skills
+## MCP servers and skills
 
-| Name | Typ | URL | Einsatz | Installation | Popularitaet | Quelle | Unverified? |
+| Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| Claude Code | CLI-Agent | https://github.com/anthropics/claude-code | Terminal-Coding-Agent, Skills, MCP, Slash-Commands. | Offizielle Install-Docs; claude mcp add --transport http <name> <url>. | 156.765 Stars | https://code.claude.com/docs/en/mcp | nein (so belegt) |
-| Anthropic document skills (docx, pptx, xlsx, pdf) | Skill | https://github.com/anthropics/skills | Offizielle Agent-Skills zum Erzeugen/Pruefen von Office- und PDF-Dateien; Verify-Schritt (validate.py, Render zu PDF/PNG) ist Teil der Anleitung. | Claude Code: /plugin marketplace add anthropics/skills und /plugin install document-skills@anthropic-agent-skills. | 199.219 Stars | https://aifrontierpost.com/articles/anthropic-official-agent-skills-tutorial/ | nein (so belegt) |
-| GitHub Official MCP | MCP | https://github.com/github/github-mcp-server | Repos, Issues, PRs, Code Search, Actions. | Remote z. B. claude mcp add --transport http github https://api.githubcopilot.com/mcp/ mit PAT-Header (Claude-Code-Docs) oder lokaler Server aus dem Repo. | 34.686 Stars | https://code.claude.com/docs/en/mcp | nein (so belegt) |
-| Context7 | MCP / Plattform | https://github.com/upstash/context7 | Aktuelle, versionsspezifische Bibliotheksdokumentation in den Agent-Kontext holen. | Paket @upstash/context7-mcp bzw. Docs im Repo. | 65.314 Stars | https://github.com/upstash/context7 | nein (so belegt) |
-| Playwright MCP | MCP | https://github.com/microsoft/playwright-mcp | Lokale Browser-Automation ueber Accessibility-Snapshots, UI-Tests und Interaktion mit Web-Apps. | npx @playwright/mcp@latest (offizielle Docs/Repo). | 40.040 Stars | https://playwright.dev/mcp/introduction | nein (so belegt) |
+| Claude Code | CLI agent | https://github.com/anthropics/claude-code | Terminal coding agent, skills, MCP, slash commands. | Official install docs; `claude mcp add --transport http <name> <url>`. | 156,765 stars | https://code.claude.com/docs/en/mcp | no (as documented) |
+| Anthropic document skills (docx, pptx, xlsx, pdf) | Skill | https://github.com/anthropics/skills | Official agent skills to create and verify Office and PDF files; verify step (validate.py, render to PDF/PNG) is part of the guide. | Claude Code: `/plugin marketplace add anthropics/skills` and `/plugin install document-skills@anthropic-agent-skills`. | 199,219 stars | https://aifrontierpost.com/articles/anthropic-official-agent-skills-tutorial/ | no (as documented) |
+| GitHub Official MCP | MCP | https://github.com/github/github-mcp-server | Repos, issues, PRs, code search, Actions. | Remote e.g. `claude mcp add --transport http github https://api.githubcopilot.com/mcp/` with PAT header (Claude Code docs) or local server from the repo. | 34,686 stars | https://code.claude.com/docs/en/mcp | no (as documented) |
+| Context7 | MCP / platform | https://github.com/upstash/context7 | Pull current, version-specific library docs into agent context. | Package `@upstash/context7-mcp` or docs in the repo. | 65,314 stars | https://github.com/upstash/context7 | no (as documented) |
+| Playwright MCP | MCP | https://github.com/microsoft/playwright-mcp | Local browser automation via accessibility snapshots, UI tests, and interaction with web apps. | `npx @playwright/mcp@latest` (official docs/repo). | 40,040 stars | https://playwright.dev/mcp/introduction | no (as documented) |
 
-## Typische Workflows
+## Typical workflows
 
-- Skill liegt in ~/.claude/skills oder Projekt-.claude/skills bzw. Plugin-Marketplace.
-- MCP nur wenn sonst Daten aus anderen Tools kopiert wuerden (offizielle Empfehlungslogik).
+- Skill lives in `~/.claude/skills` or project `.claude/skills` or the plugin marketplace.
+- Add MCP only when you would otherwise copy data from other tools (official guidance).
 
-## Fallstricke
+## Pitfalls
 
-- MCP-Toolschemas können den Kontext stark belasten, noch bevor die erste Frage kommt. In r/ClaudeAI berichtete ein Nutzer von 67.000 Token Overhead. Quelle: https://www.reddit.com/r/ClaudeAI/comments/1ryz7zp/i_measured_my_mcp_token_overhead_67k_tokens/
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- MCP-Server mit externem Content: Prompt-Injection-Risiko (Claude-Code-Docs-Warnung).
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- MCP tool schemas can heavily burden context before the first question. In r/ClaudeAI one user reported 67,000 tokens of overhead. Source: https://www.reddit.com/r/ClaudeAI/comments/1ryz7zp/i_measured_my_mcp_token_overhead_67k_tokens/
+- Skills are workflows/instructions (progressive disclosure); MCPs are connections and tools. Combine both; do not confuse them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
+- MCP servers with external content: prompt-injection risk (Claude Code docs warning).
+- Enable only the MCPs/skills the task needs. Hermes filters via include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
+- Do not put tokens or passwords in chat, skill files, or custom MCP command arguments. Grok Bot wiki: OAuth tokens stay on the connector backend; command servers must not put credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- Write, send, pay, deploy, and delete only after explicit approval; good document skills require a verify step (re-read file, render PDF/PNG).
 
-## Quellen
+## Sources
 
 - https://code.claude.com/docs/en/mcp
 - https://code.claude.com/docs/en/skills/

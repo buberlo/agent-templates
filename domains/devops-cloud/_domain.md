@@ -1,26 +1,26 @@
-# DevOps und Cloud
+# DevOps and Cloud
 
-**Domain-Slug:** `devops-cloud`
-**Kategorien:** 12
-**Stand:** 2026-11-23
+**Domain slug:** `devops-cloud`
+**Categories:** 12
+**As of:** 2026-11-23
 
-## Übersicht
+## Overview
 
-Templates und Kategorie-Metadaten für **DevOps und Cloud** — abgeleitet aus der Recherche vom 2026-11-23.
+Templates and category metadata for **DevOps and Cloud** — derived from research dated 2026-11-23.
 
-## Kategorien
+## Categories
 
-| Kategorie | Slug | Templates |
+| Category | Slug | Templates |
 |-----------|------|-----------|
 | CI/CD | `cicd` | 2 |
 | Cloud: AWS | `cloud-aws` | 1 |
 | Cloud: Azure | `cloud-azure` | 1 |
 | Cloud: GCP | `cloud-gcp` | 1 |
-| Cloud-Kosten | `cloud-kosten` | 1 |
-| Docker und Container | `docker-container` | 1 |
+| Cloud costs | `cloud-costs` | 1 |
+| Docker and containers | `docker-container` | 1 |
 | IaC / Terraform | `iac-terraform` | 1 |
-| Incident Response | `incident-response` | 2 |
+| Incident response | `incident-response` | 2 |
 | Kubernetes | `kubernetes` | 3 |
 | Logging | `logging` | 1 |
-| Monitoring und Observability | `monitoring-observability` | 2 |
-| Platform Deploy | `plattform-deploy` | 2 |
+| Monitoring and observability | `monitoring-observability` | 2 |
+| Platform deploy | `platform-deploy` | 2 |

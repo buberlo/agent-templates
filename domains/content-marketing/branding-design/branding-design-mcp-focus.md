@@ -12,10 +12,10 @@ target_agents:
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: figma MCP (Hermes-Katalog)
+  - name: figma MCP (Hermes-catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/figma"
     version_notes: "Hermes"
-  - name: canva MCP (Hermes-Katalog)
+  - name: canva MCP (Hermes-catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/canva"
     version_notes: "Hermes"
 inputs:
@@ -30,25 +30,25 @@ version: "1.1.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
 Route design tasks to one MCP path.
 
-## Wann nutzen
+## When to use
 
-- Klar umrissene branding-design-Aufgabe mit Briefing.
+Clearly intersected branding and design task with briefing.
 
-**Wann nicht**
+**When not to use**
 
-- Ohne Quellen/Briefing oder gegen Plattform-ToS.
+- Without sources/briefing or against platform ToS.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Rationale |
 |------|-------|------------|
-| required_tools | Primär | Laut Frontmatter |
+Exe--thesheets-of-the-'''''''''''''''''''''''''''' all'' Plus''
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Role: branding tool router.
@@ -68,29 +68,29 @@ If data missing, stop and list concrete questions.
 Deliver reproducible file paths in summary.
 ```
 
-## Arbeitsablauf
+## Workflow
 
 1. Klassifizieren
 2. Ein MCP
-3. Ergebnis
+3. result
 4. Sequenz optional
 5. Skills wenn MCP off
 6. Routing doc
 7. Verweis Haupt-Workflow
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
 - [ ] Outputs erstellt
-- [ ] Freigaben eingehalten
+- [ ] user approvaln eingehalten
 - [ ] Quellen/Annahmen geloggt
 - [ ] Kein Auto-Publish
 
-## Sicherheit & Freigaben
+## Security
 
 - Credentials nur im Connector.
-- Send/Publish nur nach Freigabe.
+in- off-line,
 
-## Fallstricke
+## Pitfalls
 
 - Token overflow
 - Font mismatch
@@ -98,11 +98,11 @@ Deliver reproducible file paths in summary.
 - Doppel MCP
 - Export falsche px
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Figma audit
+- **Task:** Figma audit
 - **Input:** file
 - **Prompt:**
 
@@ -110,15 +110,15 @@ Deliver reproducible file paths in summary.
 figma on
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 routing says figma
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Canva 1080
+- **Task:** Canva 1080
 - **Input:** colors paste
 - **Prompt:**
 
@@ -126,7 +126,7 @@ routing says figma
 canva on
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 figma off

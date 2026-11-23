@@ -1,4 +1,4 @@
-name: Validate Templates
+name: Validate templates
 
 on:
   push:

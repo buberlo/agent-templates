@@ -13,21 +13,21 @@ target_agents:
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: indeed MCP (Hermes-Katalog)
+  - name: indeed MCP (Hermes catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/indeed"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
+    version_notes: "Nous-approved optional-mcps-catalog entry (listing 2026-11-23)."
   - name: Hermes-Skill microsoft-office
     install: "https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/productivity/productivity-microsoft-office"
-    version_notes: "Teil des offiziellen Bundled-Katalogs."
+    version_notes: "Part of the official bundled catalog."
 inputs:
-  - "Startdatum, Rolle, Team, Standort (Remote/Hybrid/Office)"
-  - "Tech-Stack für Account-Provisioning (nur Namen, keine Secrets)"
-  - "Vorlagen: bestehende Onboarding-Checkliste oder „neu“"
-  - "Buddy/Manager-Namen für Willkommensmail-Entwurf"
+  - "Start date, role, team, location (remote/hybrid/office)"
+  - "Tech stack for account provisioning (only names, no secrets)"
+  - "Templates: existing onboarding checklist or "new"
+  - "Buddy/manager names for welcome email draft"
 outputs:
   - "onboarding_checklist.xlsx (Owner, Due, Status-Spalte leer)"
-  - "willkommen_paket.md (Tag 1–30 Meilensteine)"
-  - "account_provisioning_draft.md (Tickets/Tasks, keine Live-API)"
+  - "welcome_pack.md (day 1–30 milestones)"
+  - "account_provisioning_draft.md (Tickets/tasks, no live API)"
   - "first_week_agenda.docx"
 risk_level: low
 example_count: 2
@@ -35,30 +35,30 @@ version: "1.1.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-Checklisten, Willkommensunterlagen, erste Wochenagenda und **Account-/Equipment-Tasks als Entwurf**—damit HR und Team denselben Plan haben, ohne Systeme still automatisch anzulegen.
+Checklists, welcome packs, first-week agendas and **draft account/equipment tasks** – so that HR and the team are working from the same plan, without systems being created automatically behind the scenes.
 
-## Wann nutzen
+## When to use
 
-- Neuer Hire mit festem Startdatum.
-- Rollout eines standardisierten Onboarding für eine Jobfamilie.
-- Remote-Onboarding mit expliziten IT-/Compliance-Schritten.
+- New hire with a fixed start date.
+- Rollout of standardised onboarding for a job family.
+- Remote onboarding with explicit IT/compliance steps.
 
-**Wann nicht**
+**When not to use**
 
-- Accounts in IdP/Email ohne IT-Freigabe anlegen.
-- Vertrags- oder Gehaltsdetails erfinden.
-- Onboarding ohne klare Rolle/Startdatum starten.
+- Create accounts in IdP/email without IT approval.
+- Making up contract or salary details.
+- Starting onboarding without a clear role/start date.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Rationale |
 |------|-------|------------|
-| Hermes-Skill microsoft-office | xlsx/docx | Checkliste und Agenda |
-| indeed MCP | optional | Rolle/Titel-Kontext für Standardaufgaben |
+| Hermes skill Microsoft Office | xlsx/docx | Checklist and agenda |
+| indeed MCP | optional | Role/title context for standard tasks |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Role: Employee onboarding planner (hr-recruiting/onboarding).
@@ -70,7 +70,7 @@ Willkommen: tone warm professional; DE Sie; include buddy and manager names only
 Account draft: list systems as ticket titles—never call APIs to create users.
 Compliance: flag mandatory trainings (DS, security) with deadline before prod access if user template says so.
 Remote: shipping address task only if user provided—no guessing home addresses.
-Equipment: laptop/monitor/phone as checkboxes—not order without FREIGABE IT BESTELLUNG.
+Equipment: laptop/monitor/phone as checkboxes – do not order without IT ORDER APPROVAL.
 indeed MCP: optional role family tasks (e.g. sales vs engineer)—user may override.
 No passwords, no invite links generated—placeholders [IT CREATES].
 First week agenda: time blocks, links as [CONFLUENCE URL] if unknown.
@@ -80,67 +80,67 @@ Offboarding collision: do not reuse ex-employee seat without note "confirm licen
 Version: onboarding_{role_slug}_{start_date}.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. Startdatum, Rolle und Remote-Modus klären.
-2. Vorlage wählen oder Standard-Phasen (Pre-boarding, Woche 1, 30 Tage) aufbauen.
-3. Tasks mit Owner-Rollen und Fälligkeiten befüllen.
-4. Willkommenspaket und Woche-1-Agenda texten.
-5. IT-/Account-Liste als Ticket-Entwurf formatieren.
-6. xlsx/docx schreiben und Verify.
-7. Offene Abhängigkeiten (fehlende Buddy-Zuweisung etc.) listen.
+1. Clarify the start date, role and remote working mode.
+2. Select a template or create standard phases (pre-boarding, week 1, 30 days).
+3. Populate tasks with owner roles and due dates.
+4. Write the welcome pack and Week 1 agenda.
+5. Format the IT/account list as a draft ticket.
+6. Write xlsx/docx and verify.
+7. List open dependencies (missing buddy assignment, etc.).
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
-- [ ] Alle Tasks haben Owner und Due (relativ oder absolut)
-- [ ] Keine Live-Account-Erstellung dokumentiert
-- [ ] Compliance-Trainings vor Produktivzugang markiert (wenn relevant)
-- [ ] Dateien per Re-Read verifiziert
+- [ ] All tasks have owners and due dates (relative or absolute)
+- [ ] No live account creation documented
+- [ ] Compliance training marked before access to the live environment (if relevant)
+- [ ] Files per Re-Read verifiziert
 
-## Sicherheit & Freigaben
+## Security
 
-- Keine Zugangsdaten in Checklisten.
-- IT-Bestellungen und Mail-Versand nur mit Freigabe.
-- Personaldaten minimal in geteilten xlsx (Initialen/ID wenn möglich).
+- No access data in checklists.
+- IT orders and sending of emails only with approval.
+- Minimal personal data in shared xlsx files (initials/ID if possible).
 
-## Fallstricke
+## Pitfalls
 
-- Startdatum verschoben → alle Dues falsch (Version neu rechnen).
-- Generische IT-Liste ohne Rollen-Tools (z. B. fehlende IDE-Lizenz).
-- Buddy nicht genannt → Agenda mit Platzhalter vergessen.
-- Woche-1 voll mit Meetings ohne Deep-Work für Tech-Rollen.
-- Doppelte Tasks aus alter Vorlage (Vertrag + Vertrag).
+- Start date postponed → all dues are incorrect (recalculate version).
+- Generic IT list without role tools (e.g., missing IDE licence).
+- Buddy not mentioned → Agenda with placeholder forgotten.
+- Week 1 full of meetings without deep work for tech roles.
+- Duplicate tasks from the old template (contract + contract).
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Software Engineer, Start in 14 Tagen, Remote DE
-- **Input:** Stack GitHub, Slack, Jira; Manager „P. Muster“
+- **Task:** Software Engineer, Start in 14 Tagen, Remote DE
+- **Input:** Stack GitHub, Slack, Jira; manager "P. Muster"
 - **Prompt:**
 
 ```text
 T-7 HR, T0 laptop ship task, compliance before repo access. xlsx + week1 docx.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 checklist 25+ rows | security training before git | no API calls | verify ok
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Startdatum fehlt
-- **Input:** nur Rolle „Marketing Manager“
+- **Task:** Start date is missing
+- **Input:** Only the "Marketing Manager" role
 - **Prompt:**
 
 ```text
 Need start_date to schedule dues.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
-Abbruch | Nachfrage Startdatum und Remote/OOffice | keine xlsx
+Cancellation | Request for start date and remote/office working | No XLSX
 ```

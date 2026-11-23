@@ -1,8 +1,8 @@
 # OpenClaw
 
-1. Skills aus Workspace oder ClawHub: **immer** `openclaw skills verify` vor Produktion (ClawHub-Malware-Berichte ~12 % betroffene Skills in Audits 2026).
-2. **Skill Workshop:** Vorschläge in `PROPOSAL.md`, Apply nur nach Menschen-Review.
-3. **MCP:** `mcp.servers` + Tool-Policy; Prompt-Budget (`maxSkillsPromptChars`).
-4. Template → Skill-Body ohne YAML; Gateway bleibt auf dem Host (Android = Companion).
+1. Skills from workspace or ClawHub: always run `openclaw skills verify` before production (ClawHub malware reports ~12% affected skills in 2026 audits).
+2. **Skill workshop:** proposals in `PROPOSAL.md`; apply only after human review.
+3. **MCP:** `mcp.servers` + tool policy; prompt budget (`maxSkillsPromptChars`).
+4. Template → skill body without YAML; gateway stays on the host (Android = companion).
 
-Siehe `domains/agent-platforms/openclaw/_category.md`.
+See `domains/agent-platforms/openclaw/_category.md`.

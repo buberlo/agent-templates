@@ -31,25 +31,25 @@ version: "1.1.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-ffmpeg vertical shorts mit loudnorm—nur eigene Rechte.
+ffmpeg vertical shorts with loudnorm—own rights only.
 
-## Wann nutzen
+## When to use
 
-- Klar umrissene social-tiktok-Aufgabe mit Briefing.
+- Clearly outlined social-tiktok task with briefing.
 
-**Wann nicht**
+**When not to use**
 
-- Ohne Quellen/Briefing oder gegen Plattform-ToS.
+- Without sources/briefing or against platform-ToS.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Rationale |
 |------|-------|------------|
-| required_tools | Primär | Laut Frontmatter |
+| required tools | Primary | According to Frontmatter |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Role: shorts repurposer (social-ffmpeg-shorts-repurpose).
@@ -68,7 +68,7 @@ If data missing, stop and list concrete questions.
 Deliver reproducible file paths in summary.
 ```
 
-## Arbeitsablauf
+## Workflow
 
 1. Rechte
 2. Segmente
@@ -78,19 +78,19 @@ Deliver reproducible file paths in summary.
 6. Thumbnail
 7. ffprobe QC
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
 - [ ] Outputs erstellt
-- [ ] Freigaben eingehalten
+- [ ] user approvaln eingehalten
 - [ ] Quellen/Annahmen geloggt
 - [ ] Kein Auto-Publish
 
-## Sicherheit & Freigaben
+## Security
 
 - Credentials nur im Connector.
-- Send/Publish nur nach Freigabe.
+- Send/Publish only after release.
 
-## Fallstricke
+## Pitfalls
 
 - Center crop
 - No loudnorm pass2
@@ -98,11 +98,11 @@ Deliver reproducible file paths in summary.
 - >60s
 - Wrong keyframes
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** 3 clips
+- **Task:** 3 clips
 - **Input:** segments
 - **Prompt:**
 
@@ -110,15 +110,15 @@ Deliver reproducible file paths in summary.
 manifest csv
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 1920 height
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** burn subs
+- **Task:** burn subs
 - **Input:** srt file
 - **Prompt:**
 
@@ -126,7 +126,7 @@ manifest csv
 safe margin
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 subs in log

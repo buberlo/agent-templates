@@ -1,37 +1,37 @@
 # SEO
 
 - **Domain:** `content-marketing`
-- **Kategorie:** `seo`
-- **Stand:** 2026-11-23
+- **Category:** `seo`
+- **As of:** 2026-11-23
 
-## Kurzbeschreibung
+## Summary
 
-Technisches und inhaltliches SEO: Audits, Keywords, On-Page, interne Verlinkung.
+Technical and content SEO: audits, keywords, on-page, internal linking.
 
-## Empfohlener Tool-Stack
+## Recommended tool stack
 
 - Crawler + autorisierte Search-Console-Zugaenge
 - Drittskills auf X waren oft Werbung – pruefen
 
-## MCP-Server und Skills
+## MCP servers and skills
 
-| Name | Typ | URL | Einsatz | Installation | Popularitaet | Quelle | Unverified? |
+| Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| Firecrawl MCP | MCP | https://github.com/firecrawl/firecrawl-mcp-server | Websuche, Scraping und Crawling als Kontext fuer Agenten. | Offizielles MCP-Repo, typisch npx oder hosted laut README. | 7.886 Stars; Upstream 207.417 Stars | https://github.com/firecrawl/firecrawl-mcp-server | nein (so belegt) |
-| Brave Search MCP | MCP | https://github.com/brave/brave-search-mcp-server | Websuche ueber Brave Search API. | Offizielles Brave-Repo. | 1.585 Stars | https://github.com/brave/brave-search-mcp-server | nein (so belegt) |
+| Firecrawl MCP | MCP | https://github.com/firecrawl/firecrawl-mcp-server |Web search, scraping and crawling as context for agents.| Official MCP repo, typically npx or hosted according to README. | 7.886 Stars; Upstream 207.417 Stars | https://github.com/firecrawl/firecrawl-mcp-server | no (as cited) |
+| Brave Search MCP | MCP | https://github.com/brave/brave-search-mcp-server | Websuche ueber Brave Search API. | Offizielles Brave-Repo. | 1.585 Stars | https://github.com/brave/brave-search-mcp-server | no (as cited) |
 
-## Typische Workflows
+## Typical workflows
 
-- Crawl wichtiger URLs, Issues als Liste, Fixes als PR oder CMS-Entwurf.
+- Crawl important URLs, issues as a list, fixes as a PR or CMS draft.
 
-## Fallstricke
+## Pitfalls
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Skills are workflows/instructions (progressive disclosure), MCP are connections and tools. Combine the two, not confuse them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
+Activate only the MCPs/Skills that the task needs. Hermes filters per include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp
+- Do not write tokens or passwords in chat, skill files or command arguments of custom MCPs. Grok-bot-wiki: OAuth tokens remain on the connector backend; In the fore can see for or for fore and for the other. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- write, send, payend, de output and delete only after only after explicit approval; good document skills require a Verify step (read the file again, render PDF/PNG).
 
-## Quellen
+## Sources
 
 - https://github.com/firecrawl/firecrawl-mcp-server
 - https://x.com/Naruto79z/status/2119108886477033981

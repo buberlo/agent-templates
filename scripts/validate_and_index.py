@@ -2,13 +2,45 @@
 import json
 import re
 import sys
-from datetime import UTC, datetime
+from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SCHEMA_PATH = ROOT / "template.schema.json"
 DOMAINS_DIR = ROOT / "domains"
 SKIP_NAMES = {"_category.md", "_domain.md", "TEMPLATE.md"}
+
+GERMAN_UMLAUT = re.compile(r"[äöüÄÖÜß]")
+LEGACY_GERMAN_HEADINGS = re.compile(
+    r"^##\s+(Zweck|Wann nutzen|Tool-Stack|Arbeitsablauf|Fallstricke|Grundbeispiele|"
+    r"Qualitätskriterien|Sicherheit & Freigaben|System-Prompt / Instruktionen|"
+    r"Kurzbeschreibung|Übersicht|Empfohlener Tool-Stack|Quellen)\b",
+    re.M,
+)
+GERMAN_HEADING_MARKERS = re.compile(
+    r"\b(Zweck|Wann nutzen|Arbeitsablauf|Fallstricke|Grundbeispiele|Beispiel|Beispieldaten|"
+    r"Praxisbeispiel|Qualitätskriterien|Kurzbeschreibung|Übersicht|Begründung|Einsatz|"
+    r"Popularität|Freigaben)\b",
+    re.I,
+)
+GERMAN_PATH_MARKERS = re.compile(
+    r"(ä|ö|ü|ß|finanzen|automatisierung|bildung|daten-analytics|gesundheit-fitness|immobilien|"
+    r"it-betrieb|(?<![a-z-])ki-ops(?![a-z-])|kommunikation|kundenservice|(?:^|/)medien/|office-dokumente|persoenlich|"
+    r"projektmanagement|recherche-wissen|recht-verwaltung|reisen-events|wissenschaft-engineering|"
+    r"software-entwicklung|vertrieb-crm|ernaehrung|buchhaltung|rechnungen|steuern|behoerden|"
+    r"vertraege|fluege|reiseplanung|spielbibliotheken|untertitel|bearbeitung|bild-generierung|"
+    r"dreid-|elektronik-diagnose|exposes|verwaltung-weg|identitaet-sso|lokale-modelle|"
+    r"mcp-server-bau|meetings-transkription|sql-abfragen|spreadsheets-analyse|content-strategie|"
+    r"plattform-deploy|cloud-kosten)",
+    re.I,
+)
+GERMAN_MARKER_WORDS = re.compile(
+    r"\b(Zweck|Arbeitsablauf|Grundbeispiele|Beispieldaten|Praxisbeispiel|Lieferobjekt|"
+    r"Eingabe|Freigabe|Kurzbeschreibung|Implementierung|Reiseplanung|Nutzer|Dateien|"
+    r"Katalog|Begründung|Fallstricke|Qualitätskriterien|Sicherheit|wurde|können|koennen|"
+    r"Keine|keine|nicht|für|fuer)\b",
+    re.I,
+)
 
 
 def split_frontmatter(text):
@@ -221,21 +253,21 @@ def discover_category_meta():
 
 def required_body_sections():
     return [
-        "## Zweck",
-        "## Wann nutzen",
-        "## Tool-Stack",
-        "## System-Prompt / Instruktionen",
-        "## Arbeitsablauf",
-        "## Qualitätskriterien / Definition of Done",
-        "## Sicherheit & Freigaben",
-        "## Fallstricke",
-        "## Grundbeispiele",
+        "## Purpose",
+        "## When to use",
+        "## Tool stack",
+        "## System prompt",
+        "## Workflow",
+        "## Definition of done",
+        "## Security",
+        "## Pitfalls",
+        "## Basic examples",
     ]
 
 
 def extract_system_prompt_block(body):
     m = re.search(
-        r"## System-Prompt / Instruktionen\s+```(?:text)?\s*\n(.*?)```",
+        r"## System prompt\s+```(?:text)?\s*\n(.*?)```",
         body,
         re.S,
     )
@@ -249,7 +281,7 @@ def quality_content_checks(body):
     if re.search(r"\{slug\}|\{title\}|\{domain\}|\{category\}", body):
         errors.append("unrendered placeholder token in body")
     if re.search(r"Standard-.+-Aufgabe", body):
-        errors.append("boilerplate Standard-*-Aufgabe")
+        errors.append("boilerplate Standard-*-Aufgabe marker")
     if "output/{slug}-demo" in body or (
         "Artefakt: output/" in body and "{slug}" in body
     ):
@@ -263,26 +295,90 @@ def quality_content_checks(body):
         errors.append("missing fenced system prompt block")
     elif len([ln for ln in sp.splitlines() if ln.strip()]) < 10:
         errors.append("system prompt fewer than 10 non-empty lines")
-    wf = body.split("## Arbeitsablauf", 1)
+    wf = body.split("## Workflow", 1)
     if len(wf) > 1:
         wf_part = wf[1].split("##", 1)[0]
         steps = re.findall(r"^\d+\.\s+", wf_part, re.M)
         if len(steps) < 5:
-            errors.append("Arbeitsablauf fewer than 5 numbered steps")
-    pit = body.split("## Fallstricke", 1)
+            errors.append("Workflow section has fewer than 5 numbered steps")
+    pit = body.split("## Pitfalls", 1)
     if len(pit) > 1:
         pit_part = pit[1].split("##", 1)[0]
         bullets = re.findall(r"^\s*[-*]\s+", pit_part, re.M)
         if len(bullets) < 3:
-            errors.append("Fallstricke fewer than 3 bullet items")
+            errors.append("Pitfalls section has fewer than 3 bullet items")
     return errors
 
 
-def count_grundbeispiele(body):
-    if "## Grundbeispiele" not in body:
+def count_basic_examples(body):
+    if "## Basic examples" not in body:
         return 0
-    part = body.split("## Grundbeispiele", 1)[1]
-    return len(re.findall(r"^### Beispiel \d+", part, re.M))
+    part = body.split("## Basic examples", 1)[1]
+    return len(re.findall(r"^### Example \d+", part, re.M))
+
+
+def text_has_german(text: str) -> bool:
+    if not text or not text.strip():
+        return False
+    if GERMAN_UMLAUT.search(text):
+        return True
+    if LEGACY_GERMAN_HEADINGS.search(text):
+        return True
+    return bool(GERMAN_MARKER_WORDS.search(text))
+
+
+def path_has_legacy_german(rel: str) -> bool:
+    parts = Path(rel).parts
+    if "domains" not in parts:
+        return False
+    i = parts.index("domains")
+    for seg in parts[i + 1 :]:
+        if GERMAN_UMLAUT.search(seg):
+            return True
+        if GERMAN_PATH_MARKERS.search(seg) and not re.fullmatch(r"3d-[a-z0-9-]+", seg):
+            return True
+    return False
+
+
+def language_gate(rel: str, fm_text: str | None, data: dict | None, body: str, full_text: str):
+    errors = []
+    if path_has_legacy_german(rel):
+        errors.append("language gate: German or legacy slug in file path")
+    if fm_text and text_has_german(fm_text):
+        errors.append("language gate: German text in frontmatter")
+    if data:
+        for field in ("domain", "category", "id", "title"):
+            val = data.get(field)
+            if isinstance(val, str) and text_has_german(val):
+                errors.append(f"language gate: German in frontmatter {field}")
+        for field in ("tags", "inputs", "outputs"):
+            for val in data.get(field) or []:
+                if isinstance(val, str) and text_has_german(val):
+                    errors.append(f"language gate: German in frontmatter {field}")
+        for tool in data.get("required_tools") or []:
+            if isinstance(tool, dict):
+                for key in ("name", "install", "version_notes"):
+                    val = tool.get(key)
+                    if isinstance(val, str) and text_has_german(val):
+                        errors.append(f"language gate: German in required_tools.{key}")
+    if LEGACY_GERMAN_HEADINGS.search(body):
+        errors.append("language gate: legacy German section heading in body")
+    for line in body.splitlines():
+        if line.startswith("##") and text_has_german(line):
+            errors.append(f"language gate: German section heading {line.strip()!r}")
+    if text_has_german(body):
+        errors.append("language gate: German text in body")
+    return errors
+
+
+def catalog_generated_at(templates: list[dict]) -> str:
+    dates = [t["updated"] for t in templates if t.get("updated")]
+    if not dates:
+        return "1970-01-01T00:00:00Z"
+    latest = max(dates)
+    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", latest):
+        return f"{latest}T00:00:00Z"
+    return latest
 
 
 def main():
@@ -290,19 +386,27 @@ def main():
     templates = discover_templates()
     all_errors = []
     catalog = {
-        "generated_at": datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "generated_at": None,
         "domains": [],
         "templates": [],
     }
     seen_ids = {}
-    category_tpl_count = {}
-    domains_seen = {}
+    expected_cats = discover_category_meta()
 
     if not templates:
         print("No templates found under domains/", file=sys.stderr)
         return 1
 
-    expected_cats = discover_category_meta()
+    validated_templates = []
+
+    for path in sorted(DOMAINS_DIR.rglob("*.md")):
+        if path.name not in ("_domain.md", "_category.md"):
+            continue
+        rel = path.relative_to(ROOT)
+        text = path.read_text(encoding="utf-8")
+        lang_errs = language_gate(str(rel), None, None, text, text)
+        if lang_errs:
+            all_errors.extend([f"{rel}: {e}" for e in lang_errs])
 
     for path in templates:
         rel = path.relative_to(ROOT)
@@ -317,6 +421,8 @@ def main():
             all_errors.append(f"{rel}: frontmatter parse error: {exc}")
             continue
         errs = validate_frontmatter(data, schema)
+        errs.extend(language_gate(str(rel), fm_text, data, body, text))
+
         dom_folder = path.parts[path.parts.index("domains") + 1]
         cat_folder = path.parts[path.parts.index("domains") + 2]
         if data.get("domain") and data["domain"] != dom_folder:
@@ -333,33 +439,16 @@ def main():
             if section not in body:
                 errs.append(f"missing section {section}")
         ec = data.get("example_count")
-        found = count_grundbeispiele(body)
+        found = count_basic_examples(body)
         if isinstance(ec, int) and found < ec:
-            errs.append(f"Grundbeispiele: found {found}, example_count {ec}")
+            errs.append(f"Basic examples: found {found}, example_count {ec}")
         if isinstance(ec, int) and found < 2:
-            errs.append("fewer than 2 Grundbeispiele")
+            errs.append("fewer than 2 Basic examples")
         errs.extend(quality_content_checks(body))
         if errs:
             all_errors.extend([f"{rel}: {e}" for e in errs])
         else:
-            key = (data["domain"], data["category"])
-            category_tpl_count[key] = category_tpl_count.get(key, 0) + 1
-            domains_seen[data["domain"]] = domains_seen.get(data["domain"], 0) + 1
-            catalog["templates"].append(
-                {
-                    "id": data["id"],
-                    "title": data["title"],
-                    "domain": data["domain"],
-                    "category": data["category"],
-                    "tags": data["tags"],
-                    "target_agents": data["target_agents"],
-                    "risk_level": data["risk_level"],
-                    "example_count": data["example_count"],
-                    "version": data["version"],
-                    "updated": data["updated"],
-                    "path": str(rel).replace("\\", "/"),
-                }
-            )
+            validated_templates.append((data, str(rel).replace("\\", "/")))
 
     for domain, category in sorted(expected_cats):
         cat_dir = DOMAINS_DIR / domain / category
@@ -377,7 +466,26 @@ def main():
             print(f"  - {e}", file=sys.stderr)
         return 1
 
+    for data, relpath in validated_templates:
+        catalog["templates"].append(
+            {
+                "id": data["id"],
+                "title": data["title"],
+                "domain": data["domain"],
+                "category": data["category"],
+                "tags": data["tags"],
+                "target_agents": data["target_agents"],
+                "risk_level": data["risk_level"],
+                "example_count": data["example_count"],
+                "version": data["version"],
+                "updated": data["updated"],
+                "path": relpath,
+            }
+        )
+
     catalog["templates"].sort(key=lambda x: (x["domain"], x["category"], x["id"]))
+    catalog["generated_at"] = catalog_generated_at(catalog["templates"])
+
     by_domain = {}
     for t in catalog["templates"]:
         by_domain.setdefault(t["domain"], {}).setdefault(t["category"], []).append(t)
@@ -387,7 +495,12 @@ def main():
         for cat in sorted(by_domain[dom].keys()):
             cats.append({"slug": cat, "template_count": len(by_domain[dom][cat])})
         catalog["domains"].append(
-            {"slug": dom, "category_count": len(cats), "template_count": sum(c["template_count"] for c in cats), "categories": cats}
+            {
+                "slug": dom,
+                "category_count": len(cats),
+                "template_count": sum(c["template_count"] for c in cats),
+                "categories": cats,
+            }
         )
 
     catalog_path = ROOT / "catalog.json"
@@ -396,14 +509,14 @@ def main():
         f.write("\n")
 
     lines = [
-        "# Template-Index",
+        "# Template index",
         "",
-        f"Automatisch generiert. **{len(catalog['domains'])}** Domains, **{len(expected_cats)}** Kategorien, **{len(catalog['templates'])}** Templates.",
+        f"Auto-generated. **{len(catalog['domains'])}** domains, **{len(expected_cats)}** categories, **{len(catalog['templates'])}** templates.",
         "",
     ]
     for dom in sorted(by_domain.keys()):
         dcount = sum(len(v) for v in by_domain[dom].values())
-        lines.append(f"## Domain: `{dom}` ({dcount} Templates)")
+        lines.append(f"## Domain: `{dom}` ({dcount} templates)")
         lines.append("")
         for cat in sorted(by_domain[dom].keys()):
             tpls = by_domain[dom][cat]
@@ -422,7 +535,9 @@ def main():
     index_path = ROOT / "INDEX.md"
     index_path.write_text("\n".join(lines), encoding="utf-8")
 
-    print(f"OK: {len(catalog['domains'])} domains, {len(expected_cats)} categories, {len(catalog['templates'])} templates.")
+    print(
+        f"OK: {len(catalog['domains'])} domains, {len(expected_cats)} categories, {len(catalog['templates'])} templates."
+    )
     print(f"Wrote {index_path.name} and {catalog_path.name}.")
     return 0
 

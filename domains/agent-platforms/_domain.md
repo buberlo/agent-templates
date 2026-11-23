@@ -1,21 +1,21 @@
-# Agent-Plattformen
+# Agent platforms
 
-**Domain-Slug:** `agent-platforms`
-**Kategorien:** 7
-**Stand:** 2026-11-23
+**Domain slug:** `agent-platforms`
+**Categories:** 7
+**As of:** 2026-11-23
 
-## Übersicht
+## Overview
 
-Templates und Kategorie-Metadaten für **Agent-Plattformen** — abgeleitet aus der Recherche vom 2026-11-23.
+Templates and category metadata for **agent platforms** — derived from research dated 2026-11-23.
 
-## Kategorien
+## Categories
 
-| Kategorie | Slug | Templates |
+| Category | Slug | Templates |
 |-----------|------|-----------|
 | Claude Code | `claude-code` | 2 |
 | Codex | `codex` | 1 |
 | Cursor | `cursor` | 1 |
-| Generische MCP-Agenten | `generic-mcp-agents` | 2 |
+| Generic MCP agents | `generic-mcp-agents` | 2 |
 | Grok Bot | `grokbot` | 1 |
 | Hermes Agent (Nous Research) | `hermes` | 1 |
 | OpenClaw | `openclaw` | 2 |

@@ -32,26 +32,26 @@ version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-Secrets **inventarisieren, rotieren und lagern** — Vault/SOPS/GitHub Secrets — niemals Klartext-Secrets in Repos oder Chats.
+Secrets **invent, rotate and store** — Vault/SOPS/GitHub Secrets — never plaintext secrets in repos or chats.
 
-## Wann nutzen
+## When to use
 
 - Rotation nach Incident, neuer Integrations-Key.
 - Audit: wo liegen Secrets.
 
-**Wann nicht:** Secrets aus Repo in Chat extrahieren zur „Analyse“.
+**When not:** Extract secrets from Repo in Chat for “analysis”.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Justification |
 |------|-------|------------|
 | vault | Store | dynamic secrets |
 | sops | Git | encrypted files |
 | gh | CI metadata | `gh secret list` |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Secrets management workflow (security/secrets-management).
@@ -68,40 +68,40 @@ Document who approved rotation with ticket id.
 No secret values in commit messages or PR titles.
 ```
 
-## Arbeitsablauf
+## Workflow
 
 1. Inventory: `gh secret list`, `vault kv list secret/` (paths only).
 2. Rotation-Ticket anlegen.
 3. Neuen Secret in Vault erzeugen — Wert nur in Vault UI/secure channel.
 4. Consumer-Apps konfigurieren (dual-key window).
-5. Alten Secret revoke nach Bestätigung.
-6. `gitleaks detect` auf Repo für Leaks.
-7. Audit-Log-Eintrag mit Ticket.
+5. Old Secret revoke after confirmation.
+6. `gitleaks detect` on repo for leaks.
+7. Audit log entry with ticket.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
 - [ ] Kein Secret-Wert im Chat/PR
-- [ ] Rotation dokumentiert mit Ticket
-- [ ] Leak-Scan ausgeführt oder geplant
+-[ ] Rotation documented with ticket
+- [ ] Leak scan executed or planned
 
-## Sicherheit & Freigaben
+## Security
 
 - **high risk** bei Prod-Secrets.
-- Break-glass nur mit Zwei-Personen-Regel.
+- Break-glass only with two-person rule.
 
-## Fallstricke
+## Pitfalls
 
 - vault kv get in Chat kopiert.
-- Rotation ohne Consumer-Update — Ausfall.
+- Rotation without Consumer-Update — Ausfall.
 - sops age key auf Laptop verloren.
-- gh secret set überschreibt still.
+- GH Secret Set silently overwrites.
 - Historischer Git-Leak bleibt nach Rotation.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Inventory GitHub Actions.
+- **Task:** Inventory GitHub Actions.
 - **Input:** org repo api.
 - **Prompt:**
 
@@ -109,16 +109,16 @@ No secret values in commit messages or PR titles.
 gh secret list names only; suggest rotation schedule; no values.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 gh secret list
 # PROD_DATABASE_URL (updated 2026-01-12) — rotate Q1 ticket
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** SOPS file add key path.
+- **Task:** SOPS file add key path.
 - **Input:** secrets.enc.yaml.
 - **Prompt:**
 
@@ -126,7 +126,7 @@ gh secret list
 Document sops edit workflow; never decrypt to chat.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 sops secrets.enc.yaml   # local edit only

@@ -1,40 +1,40 @@
 # Social: Reddit
 
 - **Domain:** `content-marketing`
-- **Kategorie:** `social-reddit`
-- **Stand:** 2026-11-23
+- **Category:** `social-reddit`
+- **As of:** 2026-11-23
 
-## Kurzbeschreibung
+## Summary
 
-Recherche in Subreddits, Entwurf von Posts; Veröffentlichung mit Vorsicht vor Automatisierungsregeln.
+Research in subreddits, draft posts; Publication with caution against automation rules.
 
-## Empfohlener Tool-Stack
+## Recommended tool stack
 
 - Schreibende Skills + Humanizer
-- Suche/Crawl fuer Fakten
-- Kanal-APIs nur mit Freigabe zum Veroeffentlichen
+Search/crawl for facts
+Channel APIs only with release
 
-## MCP-Server und Skills
+## MCP servers and skills
 
-| Name | Typ | URL | Einsatz | Installation | Popularitaet | Quelle | Unverified? |
+| Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| Brave Search MCP | MCP | https://github.com/brave/brave-search-mcp-server | Websuche ueber Brave Search API. | Offizielles Brave-Repo. | 1.585 Stars | https://github.com/brave/brave-search-mcp-server | nein (so belegt) |
-| Firecrawl MCP | MCP | https://github.com/firecrawl/firecrawl-mcp-server | Websuche, Scraping und Crawling als Kontext fuer Agenten. | Offizielles MCP-Repo, typisch npx oder hosted laut README. | 7.886 Stars; Upstream 207.417 Stars | https://github.com/firecrawl/firecrawl-mcp-server | nein (so belegt) |
+| Brave Search MCP | MCP | https://github.com/brave/brave-search-mcp-server | Websuche ueber Brave Search API. | Offizielles Brave-Repo. | 1.585 Stars | https://github.com/brave/brave-search-mcp-server | no (as cited) |
+It is PN or F instant air treats the associative associative associative associative associative associative associative associative associative associative associative associative associative associative. Upstream 207.417 Stars | https://github.com/firecrawl/firecrawl-mcp?serverprefeeds or
 
-## Typische Workflows
+## Typical workflows
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+- Set task, allowed tools and definition of done.
+- First read/research, Herde, then draft, then release analysesЯn for effective steps.
+- Reread the output (file, URL, ticket) and state the source.
 
-## Fallstricke
+## Pitfalls
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+In-the instant of the arts and, in--c- financing, are in-nc-ing to -ishen-. It is not a time 401. Sources: https://code.claude.com/docs/en/features-overview , https://github.n.com/ComposioSV.HQ/awDL-claude-verse-skills
+AnΗ-------------------------------------------------------------------------------------------------------------------------------------------------------------------up---------,--------- Explorer--------------------------------------------,------------------------- Hermes filters per include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp
+n2.0.2.0.2.0.2.0.2.0.2.0.2.0.2.0.2.0.2.0.2.0.2.0.2.0.2.2.0.2.0.2.0.2.2.0.2.0.2.0.2.0.2. Grok bot wiki: OAmuth tokens remain on the connector backend; Command servers must not contain credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- Write, send, pay, deploy and delete only after explicit approval; good document skills require a Verify step (re-read file, render PDF/PNG).
 
-## Quellen
+## Sources
 
 - https://github.com/brave/brave-search-mcp-server
 - https://github.com/firecrawl/firecrawl-mcp-server

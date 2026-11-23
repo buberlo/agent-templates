@@ -1,36 +1,37 @@
 # Cursor
 
 - **Domain:** `agent-platforms`
-- **Kategorie:** `cursor`
-- **Stand:** 2026-11-23
+- **Category:** `cursor`
+- **As of:** 2026-11-23
 
-## Kurzbeschreibung
+## Summary
 
-IDE-Agent, MCP-Plugins, Skills; Grok-Bot teilt das Plugin-Modell.
+IDE agent, MCP plugins, skills; Grok-Bot shares the plugin model.
 
-## Empfohlener Tool-Stack
+## Recommended tool stack
 
 - Cursor-MCP-Config, Skills, dieselben Plugin-Muster wie Grok Bot laut offizieller Bot-101-Aussage
 
-## MCP-Server und Skills
+## MCP Server and Skills
 
-| Name | Typ | URL | Einsatz | Installation | Popularitaet | Quelle | Unverified? |
+| Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| Cursor + MCP/Skills | IDE-Agent | https://x.ai/bot/guides/grok-bot-101 | Grok Bot 101: Grok Bot unterstuetzt dieselben MCP-Server, Plugins und Skills wie Cursor. | Cursor-Settings / mcp.json; Plugins analog Connect Apps im Bot-Kosmos. | Produktdoku (keine Cursor-Star-Zahl in dieser Recherche). | https://x.ai/bot/guides/grok-bot-101 | nein (so belegt) |
 
-## Typische Workflows
+| Cursor + MCP/Skills | IDE-Agent | https://x.ai/bot/guides/grok-bot-101 |Grok Bot 101: Grok Bot supports the same MCP servers, plugins, and skills as Cursor.| Cursor-Settings / mcp.json; Plugins analog Connect Apps im Bot-Kosmos. | Produktdoku (no Cursor-Star-Zahl in dieser Recherche). | https://x.ai/bot/guides/grok-bot-101 | no (as cited) |
 
-- Projektlokale MCP-Config versionieren (ohne Secrets), Skills im Repo fuer das Team.
+## Typical workflows
 
-## Fallstricke
+- Version local MCP-Config (without secrets), skills in the repo for the team.
 
-- Team-Allowlists koennen MCPs blocken. Secrets nicht in mcp.json committen.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+## Pitfalls
 
-## Quellen
+- Team Allowlists can block MCPs. Secrets do not commit in mcp.json.
+- Skills are workflows/instructions (progressive disclosure), MCP are connections and tools. Combine the two, not confuse them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
+Activate only the MCPs/Skills that the task needs. Hermes filters per include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp
+- Do not write tokens or passwords in chat, skill files or command arguments of custom MCPs. Grok bot wiki: OAuth tokens remain on the connector backend; Command servers must not contain credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- Write, send, pay, deploy and delete only after explicit approval; good document skills require a Verify step (re-read file, render PDF/PNG).
+
+## Sources
 
 - https://x.ai/bot/guides/grok-bot-101
 - https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp

@@ -1,41 +1,38 @@
-# Gaming-Streaming
+# Gaming streaming
 
 - **Domain:** `gaming-modding`
-- **Kategorie:** `streaming-gaming`
-- **Stand:** 2026-11-23
+- **Category:** `streaming-gaming`
+- **As of:** 2026-11-23
 
-## Kurzbeschreibung
+## Summary
 
-Streaming-Setups, Overlays und Clip-Workflows.
+Streaming setups, overlays, and clip workflows.
 
-## Empfohlener Tool-Stack
+## Recommended tool stack
 
-- Nur legale, eigene/erlaubte Inhalte, keine Piraterie-Tools
+- Legal owned/permitted content only; no piracy tools
 
-## MCP-Server und Skills
+## MCP servers and skills
 
-| Name | Typ | URL | Einsatz | Installation | Popularitaet | Quelle | Unverified? |
+| Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| unreal-engine MCP (Hermes-Katalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/unreal-engine | Unreal Engine aus dem Nous-Katalog, falls relevant. | hermes mcp install unreal-engine | Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | nein (so belegt) |
+| unreal-engine MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/unreal-engine | Unreal Engine from the Nous catalog when relevant. | hermes mcp install unreal-engine | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
 
-## Typische Workflows
+## Typical workflows
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+- Define scope, allowed tools, and definition of done.
+- Read and research first, then draft, then approval before impactful steps.
+- Review output (file, URL, ticket) and cite sources.
 
-## Fallstricke
+## Pitfalls
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Do not put tokens or passwords in chat, skill files, or custom MCP command argv. Grok Bot wiki: OAuth tokens stay on the connector backend; command servers must not embed credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- No silent payments, trades, or transfers.
+- Skills are workflows/instructions (progressive disclosure); MCPs are connections and tools. Combine both; do not conflate them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
+- Enable only the MCPs/skills the task needs. Hermes filters via include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
+- Write, send, pay, deploy, and delete only after explicit approval; good document skills require a verify step (re-read file, render PDF/PNG).
 
-## Quellen
+## Sources
 
 - https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp
 - https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/unreal-engine
-- https://github.com/punkpeye/awesome-mcp-servers
-- https://hermes-agent.nousresearch.com/docs/reference/skills-catalog
-- https://docs.openclaw.ai/skills/
-- https://github.com/NousResearch/hermes-agent

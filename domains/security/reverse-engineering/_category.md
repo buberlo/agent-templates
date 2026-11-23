@@ -1,37 +1,37 @@
-# Reverse Engineering (nur autorisiert)
+# Reverse engineering (authorized only)
 
 - **Domain:** `security`
-- **Kategorie:** `reverse-engineering`
-- **Stand:** 2026-11-23
+- **Category:** `reverse-engineering`
+- **As of:** 2026-11-23
 
-## Kurzbeschreibung
+## Summary
 
-Nur Einordnung, keine RE-Verfahren, Key-Extraktion oder Exploit-Arbeit.
+Nur Einordnung, no RE-Verfahren, Key-Extraktion or Exploit-Arbeit.
 
-> Keine RE-Anleitungen, keine Key-Extraktion, keine Umgehung von Schutzmechanismen.
+> No RE-Anleitungen, no Key-Extraktion, no Umgehung von Schutzmechanismen.
 
-## Empfohlener Tool-Stack
+## Recommended tool stack
 
-- Nicht Gegenstand dieser Sammlung
+- Not subject of this collection
 
-## MCP-Server und Skills
+## MCP servers and skills
 
-_In dieser Recherche wurde kein spezifischer, ausreichend belegter Tool-Eintrag fuer die Kategorie festgehalten. Siehe Domain-Stack und Quellenkataloge._
+In this search, no specific, sufficiently occupied tool entry for the category was recorded. See domain stack and source catalogues.  
 
-## Typische Workflows
+## Typical workflows
 
-- Ausserhalb des Umfangs dieser Recherche-Dateien.
+- Ausserhalb des Umfangs dieser Recherche-Files.
 
-## Fallstricke
+## Pitfalls
 
-- Keine Reverse-Engineering-Verfahren in dieser Datei.
-- Keine Angriffs- oder Umgehungsanleitungen in diesen Templates.
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- No Reverse-Engineering-Verfahren in dieser Datei.
+- No Angriffs- or Umgehungsanleitungen in diesen Templates.
+- Do not put tokens or passwords in chat, skill files, or custom MCP command arguments. Grok Bot wiki: OAuth tokens stay on the connector backend; command servers must not pass credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- Skills are workflows/instructions (progressive disclosure); MCP servers are connections and tools. Combine both; do not conflate them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
+- Enable only the MCPs/skills the task needs. Hermes filters via include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
+- Write, send, pay, deploy, and delete only after explicit approval; good document skills require a verify step (re-read the file, render PDF/PNG).
 
-## Quellen
+## Sources
 
 - https://github.com/punkpeye/awesome-mcp-servers
 - https://hermes-agent.nousresearch.com/docs/reference/skills-catalog

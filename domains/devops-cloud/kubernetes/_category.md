@@ -1,41 +1,41 @@
 # Kubernetes
 
 - **Domain:** `devops-cloud`
-- **Kategorie:** `kubernetes`
-- **Stand:** 2026-11-23
+- **Category:** `kubernetes`
+- **As of:** 2026-11-23
 
-## Kurzbeschreibung
+## Summary
 
-Cluster inspizieren und (berechtigt) steuern über kubectl, spezialisierte MCPs oder Skills.
+Cluster inspection and (authorized) control via kubectl, specialized MCPs or skills.
 
-## Empfohlener Tool-Stack
+## Recommended tool stack
 
-- Read-only MCP oder kubectl zuerst
-- Azure: AKS-MCP mit access-level readonly
+- Read-only MCP or kubectl zuerst
+Azure: AKS-MCP with access-level readonly
 - kubectl-ai als CLI-Agent
 
-## MCP-Server und Skills
+## MCP servers and skills
 
-| Name | Typ | URL | Einsatz | Installation | Popularitaet | Quelle | Unverified? |
+| Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| kubernetes-mcp-server (containers) | MCP | https://github.com/containers/kubernetes-mcp-server | MCP-Server fuer Kubernetes und OpenShift. | Siehe Repo (typisch Binary/stdio, kubeconfig). | 2.274 Stars | https://github.com/containers/kubernetes-mcp-server | nein (so belegt) |
-| AKS / Azure Kubernetes MCP | MCP | https://learn.microsoft.com/en-us/azure/aks/aks-model-context-protocol-server | Offizielle Microsoft-Dokumentation: unified tools call_kubectl und call_az, Access-Level readonly (Default), readwrite, admin. Erbt Azure/K8s-RBAC. | Ueber VS-Code/AKS-Extension oder mcp.json mit --access-level. | Azure/mcp-kubernetes 62 Stars (kleineres Repo; Docs sind die Primaerquelle). | https://learn.microsoft.com/en-us/azure/aks/aks-model-context-protocol-server | nein (so belegt) |
-| kubectl-ai | CLI-Agent | https://github.com/GoogleCloudPlatform/kubectl-ai | KI-gestuetzte Kubernetes-Assistenten-CLI von Google. | Siehe Repo-README. | 7.606 Stars | https://github.com/GoogleCloudPlatform/kubectl-ai | nein (so belegt) |
+| kubernetes-mcp-server (containers) | MCP | https://github.com/containers/kubernetes-mcp-server | MCP server for Kubernetes and OpenShift. | See repo (typically binary/stdio, kubeconfig). | 2.274 Stars | https://github.com/containers/kubernetes-mcp-server | no (as documented) |
+| AKS / Azure Kubernetes MCP | MCP | https://learn.microsoft.com/en-us/azure/aks/aks-model-context-protocol-server | Official Microsoft docs: unified tools call_kubectl and call_az; access levels readonly (default), readwrite, admin. Inherits Azure/K8s RBAC. | Via VS Code/AKS extension or mcp.json with --access-level. | Azure/mcp-kubernetes 62 Stars (smaller repo; docs are primary source). | https://learn.microsoft.com/en-us/azure/aks/aks-model-context-protocol-server | no (as documented) |
+| kubectl-ai | CLI agent | https://github.com/GoogleCloudPlatform/kubectl-ai | Google AI-assisted Kubernetes assistant CLI. | See repo README. | 7.606 Stars | https://github.com/GoogleCloudPlatform/kubectl-ai | no (as documented) |
 
-## Typische Workflows
+## Typical workflows
 
-- Immer zuerst: Kontext, Namespace, Read-only Diagnose. AKS-Docs-Beispiel: Why are pods pending in this cluster?
-- Access-Level nur erhoehen, wenn noetig und freigegeben.
+- Always first: context, namespace, read-only diagnosis. AKS-Docs example: Why are pods pending in this cluster?
+- only increase-level access if necessary and released.
 
-## Fallstricke
+## Pitfalls
 
 - Falscher kubeconfig-Kontext. MCP erbt RBAC. Admin-Level ist Produktionsrisiko.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Skills are workflows/instructions (progressive disclosure); MCP servers are connections and tools. Combine both; do not conflate them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
+- Enable only the MCPs/skills the task needs. Hermes filters via include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
+- Do not put tokens or passwords in chat, skill files, or custom MCP command arguments. Grok Bot wiki: OAuth tokens stay on the connector backend; command servers must not pass credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- Write, send, pay, deploy, and delete only after explicit approval; good document skills require a verify step (re-read the file, render PDF/PNG).
 
-## Quellen
+## Sources
 
 - https://github.com/containers/kubernetes-mcp-server
 - https://learn.microsoft.com/en-us/azure/aks/aks-model-context-protocol-server

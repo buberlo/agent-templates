@@ -1,6 +1,6 @@
 ---
 id: arduino-esp32-workflow
-title: "Arduino und ESP32"
+title: "Arduino and ESP32"
 domain: hardware-embedded
 category: arduino-esp32
 tags:
@@ -13,37 +13,38 @@ target_agents:
   - generic
 required_tools:
   - name: terminal
-    install: "Shell des Agenten"
-    version_notes: "Domain-Default laut Recherche"
+    install: "Agent shell"
+    version_notes: "Domain default per research"
 inputs:
-  - "Kontext/Briefing für Arduino und ESP32"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Context/briefing for Arduino and ESP32"
+  - "Files, URLs, or IDs per task"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Documented result (file, report or ticket-update)"
 risk_level: low
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
 
-Arduino- und ESP32-Sketches entwickeln, Pinouts dokumentieren und Flash-/Seriell-Workflows begleiten.
+## Purpose
 
-## Wann nutzen
+Arduino- and ESP32-sketches entwickeln, Pinouts dokumentieren and Flash-/Seriell-Workflows begleiten.
 
-- Neues Sensor-/Actuator-Projekt mit Board-Variante und Bibliotheken planen.
-- Upload-Fehler oder Seriell-Monitor-Logs debuggen.
-- Nicht für großflächige OTA-Rollouts ohne Staging.
+## When to use
 
-## Tool-Stack
+- Neues Sensor-/Actuator-Projekt with Board-Variante and Bibliotheken planen.
+- Upload-Fehler or Seriell-Monitor-Logs debuggen.
+- Not for grossflachige OTA-Rollouts without Staging.
 
-| Tool | Rolle | Begründung |
+## Tool stack
+
+| Tool | Role | Rationale |
 |------|-------|------------|
-| Lokale Entwicklungsumgebung | Build & Flash | arduino-cli, idf.py, openocd, slicer-CLIs laut Projekt — nur mit freigegebenen Pfaden. |
-| Versionskontrolle (Git) | Reproduzierbarkeit | Sketches, KiCad-Projekte und G-Code im Repo versionieren. |
+| Lokale Entwicklungsumgebung | Build & Flash | arduino-cli, idf.py, openocd, slicer-CLIs per Projekt — only with freigegebenen Pfaden. |
+| Versionskontrolle (Git) | Reproduzierbarkeit | sketches, KiCad-Projekte and G-Code in Repo versionieren. |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Role: Arduino and ESP32 firmware assistant (hardware-embedded/arduino-esp32).
@@ -63,54 +64,54 @@ No cryptocurrency or botnet firmware patterns.
 End with build/flash command summary and open hardware questions.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. Board, Framework und Sensorliste vom Nutzer erfassen.
-2. Pinout-Tabelle und Schaltplan-Verweis.
-3. Sketch-Entwurf mit modularen .h/.cpp wenn sinnvoll.
+1. Board, Framework and Sensorliste from user erfassen.
+2. Pinout-Tabelle and Schaltplan-referral.
+3. Sketch-Entwurf with modularen .h/.cpp when sinnvoll.
 4. Build-Befehle dokumentieren.
 5. Flash-Checkliste (Port, Treiber, Boot-Modus).
 6. Seriell-Log-Interpretation an Nutzerlieferung.
-7. Nach Freigabe: Flash nur wenn Nutzer explizit ausführt.
+7. Nach approval: Flash only when user explizit ausfuhrt.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
-- [ ] Pinout vollständig oder UNKNOWN
-- [ ] Keine Secrets im Repo
-- [ ] Flash mit Freigabe
-- [ ] Baud und Board in Doku
+- [ ] Pinout vollstandig or UNKNOWN
+- [ ] No Secrets in Repo
+- [ ] Flash with approval
+- [ ] Baud and Board in Doku
 
-## Sicherheit & Freigaben
+## Security
 
-- Keine Anleitungen für gefährliche Hochspannung oder defekte Netzteile ohne Fachperson.
-- Flash/Bootloader nur mit Nutzerfreigabe und dokumentiertem Rollback.
-- Seriennummern und Standortdaten in Logs minimieren.
+- No Anleitungen for gefahrliche high voltage or defekte power supplies without qualified person.
+- Flash/Bootloader only with Nutzerfreigabe and dokumentiertem Rollback.
+- Seriennummern and Standortdaten in Logs minimieren.
 
-## Fallstricke
+## Pitfalls
 
-- GPIO34–39 input-only auf ESP32.
-- Brownout bei WiFi start ohne Kapazität.
+- GPIO34–39 input-only on ESP32.
+- Brownout when WiFi start without Kapazitat.
 - Falscher USB-Chip Treiber (CP2102 vs CH340).
-- Deep sleep ohne RTC GPIO Wake definiert.
+- Deep sleep without RTC GPIO Wake definiert.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** BME280 I2C ESP32
+- **Task:** BME280 I2C ESP32
 - **Input:** ESP32 DevKit, SDA 21, SCL 22, Adafruit lib
 - **Prompt:**
 ```text
-Sketch mit init check, Celsius log alle 5s nicht-blockierend.
+Sketch with init check, Celsius log alle 5s not-blockierend.
 ```
-- **Erwartetes Ergebnis:** main.cpp + pinout.md; arduino-cli compile Befehl; keine Upload ohne OK.
-### Beispiel 2 (Beispieldaten)
+- **Expected result:** main.cpp + pinout.md; arduino-cli compile Befehl; no Upload without OK.
+### Example 2 (Example data)
 
-- **Aufgabe:** Upload Fehler troubleshooting
+- **Task:** Upload Fehler troubleshooting
 - **Input:** esptool fatal error Invalid head of packet
 - **Prompt:**
 ```text
 Diagnosebaum Treiber, Kabel, Boot-Button, Baud reduzieren.
 ```
-- **Erwartetes Ergebnis:** Checkliste 8 Schritte; Rollback letzte funktionierende commit sha.
+- **Expected result:** Checkliste 8 Schritte; Rollback letzte funktionierende commit sha.
 

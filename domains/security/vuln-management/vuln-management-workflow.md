@@ -30,26 +30,26 @@ version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-Schwachstellen aus Scannern konsolidieren, nach **Risiko und SLA** priorisieren und Remediation-Tasks erzeugen — kein blindes Patch-Friday.
+Consolidate vulnerabilities from scanners, prioritize them by **risk and SLA** and generate remediation tasks — no blind patch Friday.
 
-## Wann nutzen
+## When to use
 
-- Wöchentliche VM-Zyklus, nach Pentest-Report (authorized).
+- Weekly VM cycle, according to Pentest report (authorized).
 - Container-Image-Release-Gate.
 
-**Wann nicht:** Exploit-Entwicklung.
+**When not:** Exploit development.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Justification |
 |------|-------|------------|
 | trivy | images/fs | CVE |
 | osv-scanner | deps | lockfile |
 | ticket system | track | SLA |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Vulnerability management workflow (security/vuln-management).
@@ -67,40 +67,40 @@ Track ticket id per vuln cluster not per duplicate CVE line.
 SBOM export optional CycloneDX for compliance evidence.
 ```
 
-## Arbeitsablauf
+## Workflow
 
 1. Scope-Assets liste (images, repos).
 2. `trivy image ghcr.io/org/app:tag`.
-3. `osv-scanner -r .` für Monorepo.
+3. `osv-scanner -r.` for Monorepo.
 4. Merge findings; dedupe.
-5. Priorität nach SLA-Matrix.
-6. Ticket pro Cluster mit Fix-Vorschlag.
+5. Priority according to SLA matrix.
+6. Ticket per cluster with fixed proposal.
 7. Re-scan nach Patch zur Verifikation.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
 - [ ] Scanner-Befehle dokumentiert
 - [ ] SLA-Tier pro Finding
 - [ ] Re-scan Plan
 
-## Sicherheit & Freigaben
+## Security
 
 - Scan-Reports vertraulich.
 - Prod-Patching nach Change-Fenster.
 
-## Fallstricke
+## Pitfalls
 
-- Nur CVSS, keine Exposure.
+- Nur CVSS, no Exposure.
 - Base image fix vergessen.
-- 500 gleiche CVE Zeilen — Gruppierung nötig.
-- Won't-fix ohne Expiry.
+- 500 identical CVE lines — grouping required.
+- Won't-fix without Expiry.
 - Scanner version stale CVE db.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Image scan release gate.
+- **Task:** Image scan release gate.
 - **Input:** `app:1.5.0`.
 - **Prompt:**
 
@@ -108,16 +108,16 @@ SBOM export optional CycloneDX for compliance evidence.
 trivy HIGH/CRITICAL; block release if critical unfixed.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 trivy image app:1.5.0 --severity HIGH,CRITICAL
 # 0 CRITICAL -> pass gate
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** npm osv backlog.
+- **Task:** npm osv backlog.
 - **Input:** 12 highs overdue.
 - **Prompt:**
 
@@ -125,7 +125,7 @@ trivy image app:1.5.0 --severity HIGH,CRITICAL
 osv-scanner; group by package; SLA sort.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 osv-scanner -r .

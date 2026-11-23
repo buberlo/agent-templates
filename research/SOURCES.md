@@ -1,12 +1,12 @@
-# Quellen
+# Sources
 
-Stand: 23.11.2026 (Europe/Vienna). Alle unten stehenden URLs wurden in mindestens einer Kategorie-Datei als Beleg verwendet.
+As of: 2026-11-23 (Europe/Vienna). Each URL below was cited in at least one category file.
 
-Anzahl eindeutiger HTTP-Quellen: **111**
+Unique HTTP sources: **111**
 
-Rohmaterialien sind nicht versioniert (siehe `.gitignore`).
+Raw research dumps are not versioned (see `.gitignore`).
 
-## URL-Liste
+## URL list
 
 - https://agentos.guide/hermes-agent-video-analysis
 - https://agentspulse.github.io/tutorials/claude-powerpoint-skill/
@@ -120,14 +120,14 @@ Rohmaterialien sind nicht versioniert (siehe `.gitignore`).
 - https://x.com/loudernet/status/2119104655061823561
 - https://x.com/tooltierai/status/2122012506868584772
 
-## Wichtige Primärquellen (kurz)
+Important primary sources (short)
 
 - Hermes Docs: https://hermes-agent.nousresearch.com/docs
 - Hermes Repo: https://github.com/NousResearch/hermes-agent (265.550 Stars, API 23.11.2026)
 - OpenClaw Docs: https://docs.openclaw.ai/
 - OpenClaw Repo: https://github.com/openclaw/openclaw (395.081 Stars, API 23.11.2026)
-- ClawHub: https://docs.openclaw.ai/clawhub und https://clawhubtrends.com/leaderboard.html
-- Claude Code MCP/Skills: https://code.claude.com/docs/en/mcp und https://code.claude.com/docs/en/skills/
+- ClawHub: https://docs.openclaw.ai/clawhub and https://clawhubtrends.com/leaderboard.html
+- Claude Code MCP/Skills: https://code.claude.com/docs/en/mcp and https://code.claude.com/docs/en/skills/
 - Anthropic skills: https://github.com/anthropics/skills (199.219 Stars)
 - Grok Bot Wiki (Plugins/MCP): https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
 - Grok Bot 101: https://x.ai/bot/guides/grok-bot-101

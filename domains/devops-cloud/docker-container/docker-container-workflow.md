@@ -1,6 +1,6 @@
 ---
 id: docker-container-workflow
-title: "Docker und Container"
+title: "Docker Container Workflow"
 domain: devops-cloud
 category: docker-container
 tags:
@@ -20,10 +20,10 @@ required_tools:
     install: "https://github.com/wagoodman/dive"
     version_notes: "Image-Layer-Analyse"
 inputs:
-  - "Dockerfile und Build-Kontext"
-  - "Registry (GHCR/ECR) und Tag-Policy"
+  - "Dockerfile and build context"
+  - "Registry (GHCR/ECR) and Tag Policy"
 outputs:
-  - "Gebautes Image mit Digest"
+  - "Builded Image with Digest"
   - "Hardening-Notizen (non-root, SBOM optional)"
 risk_level: medium
 example_count: 2
@@ -31,26 +31,26 @@ version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-Container-Images reproduzierbar bauen, scannen und für Registry-Push vorbereiten — ohne privileged Defaults.
+Reproducible build, scan and prepare container images for registry push – without privileged defaults.
 
-## Wann nutzen
+## When to use
 
-- Neues Dockerfile, Image zu groß, CVE-Triage nach Build.
+- New Dockerfile, image too big, CVE triage after build.
 - Lokaler Parity-Test vor K8s-Deploy.
 
-**Wann nicht:** Vollständiges Registry-Management (siehe plattform-deploy).
+**When not:** Full registry management (see plattform-deploy).
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Justification |
 |------|-------|------------|
 | docker buildx | Multi-arch Build | reproduzierbar |
 | trivy | Scan | CVE vor Push |
 | dive | Layer | Bloat finden |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Container workflow (devops-cloud/docker-container).
@@ -67,40 +67,40 @@ Document image digest after build: docker images --digests.
 Registry login via credential helper, never password in command line.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. `docker version` und BuildKit-Status.
-2. `docker build -t app:dev -f Dockerfile .` mit plain progress.
+1. `docker version` and BuildKit status.
+2. `docker build -t app:dev -f Dockerfile .` with plain progress.
 3. `docker run --rm app:dev <smoke-cmd>` lokal.
-4. `trivy image app:dev` oder `docker scout cves app:dev`.
-5. `dive app:dev` bei Größenproblemen.
-6. Tag für Registry: `docker tag app:dev ghcr.io/org/app:1.2.3`.
-7. `docker push` nur nach Freigabe und grünem Scan-Report.
+4. `trivy image app:dev` or `docker scout cves app:dev`.
+5. `dive app:dev` for size problems.
+6. Tag for Registry: `docker tag app:dev ghcr.io/org/app:1.2.3`.
+7. `docker push` only after release and green scan report.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done / Definition of Done
 
-- [ ] Image läuft non-root wenn Policy verlangt
-- [ ] Keine CRITICAL offen oder Ausnahme dokumentiert
+- [ ] Image runs non-root when policy is required
+- [ ] No CRITICAL offen or Ausnahme dokumentiert
 - [ ] Digest notiert
 
-## Sicherheit & Freigaben
+## Security
 
-- Registry-Credentials nicht in Dockerfile oder Chat.
-- Push zu Prod-Registry nur mit Freigabe.
+- Registry credentials not in Dockerfile or Chat.
+- Push to Prod-Registry only with release.
 
-## Fallstricke
+## Pitfalls
 
 - `latest`-Tag in Prod — immer versionieren.
-- Cache bust durch COPY . . zu früh — Layer größer als nötig.
-- amd64-only auf Apple Silicon ohne `--platform` — falsches Arch in CI.
+- Cache busts through COPY . . too early — layer larger than necessary.
+- amd64-only auf Apple Silicon without `--platform` — falsches Arch in CI.
 - Secrets in Build-Args — in History sichtbar.
-- compose override mit Prod-Endpoints — lokaler Leak.
+- compose override with Prod endpoints — local leak.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** API-Image bauen und scannen.
+- **Task:** Build and scan API image.
 - **Input:** `services/api/Dockerfile`.
 - **Prompt:**
 
@@ -108,7 +108,7 @@ Registry login via credential helper, never password in command line.
 Build app:1.0.0, trivy HIGH/CRITICAL, document USER directive.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 docker build -t app:1.0.0 -f services/api/Dockerfile services/api
@@ -117,9 +117,9 @@ docker inspect app:1.0.0 --format '{{.Config.User}}'
 # appuser
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Multi-arch für linux/arm64 und amd64.
+- **Task:** Multi-arch for linux/arm64 and amd64.
 - **Input:** Release `2.0.0`.
 - **Prompt:**
 
@@ -127,7 +127,7 @@ docker inspect app:1.0.0 --format '{{.Config.User}}'
 buildx for both platforms, output type=image, no push yet.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 docker buildx build --platform linux/amd64,linux/arm64 -t app:2.0.0 --load .

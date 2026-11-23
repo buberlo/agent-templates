@@ -27,25 +27,25 @@ version: "1.1.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-YouTube Metadata Entwürfe—Nutzer postet manuell.
+YouTube Metadata designs—users post manually.
 
-## Wann nutzen
+## When to use
 
-- Klar umrissene social-youtube-Aufgabe mit Briefing.
+- Clearly outlined social YouTube task with briefing.
 
-**Wann nicht**
+**When not to use**
 
-- Ohne Quellen/Briefing oder gegen Plattform-ToS.
+- Without sources/briefing or against platform ToS.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Rationale |
 |------|-------|------------|
-| required_tools | Primär | Laut Frontmatter |
+| required tools | Primary | According to Frontmatter |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Role: social-youtube editor (content-marketing/social-youtube).
@@ -64,7 +64,7 @@ If data missing, stop and list concrete questions.
 Deliver reproducible file paths in summary.
 ```
 
-## Arbeitsablauf
+## Workflow
 
 1. Brief
 2. Hook
@@ -74,31 +74,31 @@ Deliver reproducible file paths in summary.
 6. Alt/hashtags
 7. Draft export
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
 - [ ] Outputs erstellt
-- [ ] Freigaben eingehalten
+- [ ] user approvaln eingehalten
 - [ ] Quellen/Annahmen geloggt
 - [ ] Kein Auto-Publish
 
-## Sicherheit & Freigaben
+## Security
 
 - Credentials nur im Connector.
-- Send/Publish nur nach Freigabe.
+- Send/Publish only after release.
 
-## Fallstricke
+## Pitfalls
 
 - Auto-post
-- Link ohne Kontext
+- Link without Kontext
 - Regeln ignoriert
 - Hashtag spam
 - Sensational lies
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Post Launch
+- **Task:** Post Launch
 - **Input:** ICP B2B
 - **Prompt:**
 
@@ -106,15 +106,15 @@ Deliver reproducible file paths in summary.
 DE hook+CTA
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 draft only
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Second format
+- **Task:** Second format
 - **Input:** thread or carousel
 - **Prompt:**
 
@@ -122,7 +122,7 @@ draft only
 outline
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 char counts ok

@@ -28,25 +28,25 @@ version: "1.1.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-Newsletter-Entwürfe mit UTM und Unsub-Platzhalter—kein Send.
+Newsletter drafts with UTM and Unsub placeholders—no Send.
 
-## Wann nutzen
+## When to use
 
-- Klar umrissene newsletter-Aufgabe mit Briefing.
+- Clearly defined newsletter task with briefing.
 
-**Wann nicht**
+**When not to use**
 
-- Ohne Quellen/Briefing oder gegen Plattform-ToS.
+- Without sources/briefing or against platform-ToS.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Rationale |
 |------|-------|------------|
-| required_tools | Primär | Laut Frontmatter |
+| required tools | Primary | According to Frontmatter |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Role: newsletter editor.
@@ -66,41 +66,41 @@ If data missing, stop and list concrete questions.
 Deliver reproducible file paths in summary.
 ```
 
-## Arbeitsablauf
+## Workflow
 
 1. Theme
 2. Subject/Preview
-3. Blöcke+UTM
+3. Blocks+UTM
 4. HTML skeleton
 5. Plain text
 6. Segment-Hinweis
-7. Freigabe
+7. Release
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
 - [ ] Outputs erstellt
-- [ ] Freigaben eingehalten
+- [ ] user approvaln eingehalten
 - [ ] Quellen/Annahmen geloggt
 - [ ] Kein Auto-Publish
 
-## Sicherheit & Freigaben
+## Security
 
 - Credentials nur im Connector.
-- Send/Publish nur nach Freigabe.
+- Send/Publish only after release.
 
-## Fallstricke
+## Pitfalls
 
 - Preview leer
-- Link ohne https
+- Link without https
 - Sie/du mix
 - Bild-only
 - Falsche Liste
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Issue KW48
+- **Task:** Issue KW48
 - **Input:** 3 links
 - **Prompt:**
 
@@ -108,15 +108,15 @@ Deliver reproducible file paths in summary.
 DE Sie utm
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 [ESP_UNSUB] present
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Plain text
+- **Task:** Plain text
 - **Input:** tech segment
 - **Prompt:**
 
@@ -124,7 +124,7 @@ DE Sie utm
 full urls
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 no images

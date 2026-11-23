@@ -1,6 +1,6 @@
 ---
 id: osint-mcp-focus
-title: "OSINT (offen zugängliche Quellen): MCP/Skill-Fokus"
+title: "OSINT (open sources): MCP/Skill Focus"
 domain: security
 category: osint
 tags:
@@ -28,26 +28,26 @@ version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-OSINT per **MCP Fetch/Search** mit Skill-Pflicht: **doppelte Quelle**, keine verdeckten Login-MCPs, gleiche Policy wie `osint-workflow`.
+OSINT per **MCP Fetch/Search** with skill obligation: **double source**, no hidden login MCPs, same policy as `osint-workflow`.
 
-## Wann nutzen
+## When to use
 
-- Agent mit Web-MCP für öffentliche Quellen.
+- Agent with web MCP for public sources.
 - Skill erzwingt Zitationsformat.
 
-**Wann nicht:** Wenn Web-MCP authentifizierte Bereiche ohne ROE erreicht.
+**When not:** When Web-MCP reaches authenticated areas without ROE.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Justification |
 |------|-------|------------|
 | Fetch MCP | Pages | public |
 | Skill | Citations | URL+date |
 | RDAP CLI | Verify | domain facts |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 OSINT MCP/Skill focus (security/osint).
@@ -64,38 +64,38 @@ Disable high-risk MCPs (port scan plugins) entirely for this skill.
 Human review before external sharing of OSINT brief.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. Scope bestätigen.
-2. MCP fetch Quelle A (vendor advisory).
-3. MCP fetch Quelle B (independent news/registry).
+1. confirm scope.
+MCP fetch Source A (vendor advisory).
+MCP fetch Source B (independent news/registry).
 4. CLI RDAP cross-check wenn Domain.
-5. Brief mit Footnotes.
+5. Letter with footnotes.
 6. MCP audit log.
-7. Kein weiterer Schritt bei Widerspruch ohne Klärung.
+7. No further step in contradiction without clarification.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
-- [ ] ≥2 unabhängige Quellen für Kernfakten
-- [ ] MCP audit vollständig
-- [ ] Keine Policy-Verstöße
+- [ ] ≥2 independent sources of core facts
+- [ ] MCP audit completely
+[ ] No policy violations
 
-## Sicherheit & Freigaben
+## Security
 
-- Keine Umgehung von Paywalls/Logins.
+- No Umgehung von Paywalls/Logins.
 
-## Fallstricke
+## Pitfalls
 
 - MCP halluziniert URL — verify HTTP status.
-- Eine Quelle reicht nicht.
+One source is not enough.
 - Injection in fetched HTML.
 - Alte Cache-Snapshot MCP.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Vendor breach news check.
+- **Task:** Vendor breach news check.
 - **Input:** Vendor V.
 - **Prompt:**
 
@@ -103,15 +103,15 @@ Human review before external sharing of OSINT brief.
 Two-source MCP fetch; cite; refuse if only rumor blog.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 [1] vendor status page [2] press wire; confidence medium
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Paywall hit.
+- **Task:** Paywall hit.
 - **Input:** financial times article.
 - **Prompt:**
 
@@ -119,7 +119,7 @@ Two-source MCP fetch; cite; refuse if only rumor blog.
 Stop at paywall; suggest manual analyst review.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 Fetch 402/paywall; no bypass; manual step noted

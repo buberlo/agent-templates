@@ -1,38 +1,38 @@
 # Social: X / Twitter
 
 - **Domain:** `content-marketing`
-- **Kategorie:** `social-x-twitter`
-- **Stand:** 2026-11-23
+- **Category:** `social-x-twitter`
+- **As of:** 2026-11-23
 
-## Kurzbeschreibung
+## Summary
 
-Recherche, Entwürfe, Threads und Veröffentlichung über xurl, X-MCP oder ähnliche CLIs.
+tersers.
 
-## Empfohlener Tool-Stack
+## Recommended tool stack
 
-- xurl-Skill (Hermes) oder offizielle X-APIs der jeweiligen Plattform
+even besides, disturbingly, then------------------------------------------
 - Humanizer gegen KI-Ton
 
-## MCP-Server und Skills
+## MCP servers and skills
 
-| Name | Typ | URL | Einsatz | Installation | Popularitaet | Quelle | Unverified? |
+| Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| Hermes-Skill xurl | Skill + CLI | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | X/Twitter ueber die xurl-CLI: Suche, Posten, DM, Medien. | Bundled social-media/xurl. | Bundled-Katalog. | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | nein (so belegt) |
-| ClawHub „Humanizer“ (biostartechnology) | Skill | https://clawhubtrends.com/leaderboard.html | Texte weniger schablonig machen; auch in Hermes bundled humanizer. | openclaw skills install (Owner biostartechnology) und openclaw skills verify. | 105.439 Downloads, 601 Registry-Stars (ClawHub Leaderboard 23.11.2026). | https://clawhubtrends.com/leaderboard.html | nein (so belegt) |
+| Hermes-Skill xurl | Skill + CLI | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog |X/Twitter about the X-CLI: Search, Post, DM, Media.| Bundled social-media/xurl. | Bundled catalog. | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | no (as cited) |
+| ClawHub „Humanizer“ (biostartechnology) | Skill | https://clawhubtrends.com/leaderboard.html | Texte weniger schablonig machen; auch in Hermes bundled humanizer. |openclaw skills install (Owner biostartechnology) and openclaw skills verify.| 105.439 Downloads, 601 Registry-Stars (ClawHub Leaderboard 23.11.2026). | https://clawhubtrends.com/leaderboard.html | no (as cited) |
 
-## Typische Workflows
+## Typical workflows
 
-- Recherche, Entwurf zeigen, erst nach Freigabe posten.
+- Research, show draft, post only after release.
 
-## Fallstricke
+## Pitfalls
 
-- Automatisches Posten ohne Gate verletzt oft den gewuenschten Prozess und Plattformregeln.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Automatic posting without gate often violates the desired process and platform rules.
+- Skills are workflows/instructions (progressive disclosure), MCP are connections and tools. Combine the two, not confuse them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
+The be on the other side,' destinations, the other people, the mate. Hermes filters per include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp.
+- Do not write tokens or passwords in chat, skill files or command arguments of custom MCPs. - the grounds: OAuth-toking host on the connectorITY Heights Committed to Consume Com Zwischenzeits ( rulely) Source https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+ed, mail, paid, deployed and deleted only after explicit approval, good document skills require a Verify step (re-read file, render PDF/PNG).
 
-## Quellen
+## Sources
 
 - https://hermes-agent.nousresearch.com/docs/reference/skills-catalog
 - https://clawhubtrends.com/leaderboard.html

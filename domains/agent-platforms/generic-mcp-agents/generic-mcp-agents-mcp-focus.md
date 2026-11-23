@@ -1,12 +1,12 @@
 ---
 id: generic-mcp-agents-mcp-focus
-title: "Generische MCP-Agenten: MCP/Skill-Fokus"
+title: "Generic MCP agents: MCP and skill focus"
 domain: agent-platforms
 category: generic-mcp-agents
 tags:
   - generic
   - agent-platforms
-  - katalog
+  - catalog
 target_agents:
   - hermes
   - grokbot
@@ -15,13 +15,13 @@ target_agents:
 required_tools:
   - name: punkpeye/awesome-mcp-servers
     install: "https://github.com/punkpeye/awesome-mcp-servers"
-    version_notes: "Nur Directory"
+    version_notes: "Directory only"
   - name: modelcontextprotocol/servers
     install: "https://github.com/modelcontextprotocol/servers"
-    version_notes: "Referenz-Server für Protocol-Tests"
+    version_notes: "Reference server for protocol tests"
 inputs:
-  - "Geplante MCP-Liste mit Transport"
-  - "Skill-Markdown mit Tool-Zuordnung"
+  - "Planned MCP list with transport"
+  - "Skill markdown with tool assignment"
 outputs:
   - "MCP minimization report"
   - "Skill-MCP mapping table"
@@ -31,106 +31,109 @@ version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-**MCP/Skill-Fokus** für beliebige Agent-Plattformen: Welcher Server deckt welche Datenquelle ab, welcher Skill-Schritt ruft welches Tool auf, wo sitzen Verify-Render und Freigaben — unter Beachtung von Schema-Overhead, Grok-Transportregeln, Hermes-Platform-Filtern und ClawHub-Verify.
+**MCP/Skill Focus** for any agent platform: which server covers which data source, which skill step calls which tool, where Verify renders and shares sit — following schema overhead, Grok transport rules, Hermes Platform filters and ClawHub Verify.
 
-## Wann nutzen
+## When to use
 
-- Du optimierst einen überladenen MCP-Stack (Symptom: langsame Starts, schlechte Antworten).
-- Team dokumentiert Skill↔MCP-Matrix für Onboarding.
-- **Wann nicht:** Wenn noch kein Skill existiert — zuerst Ablauf schreiben, dann MCP. Wenn du Reference-Server direkt in Produktion ohne Hardening nutzt.
+- You optimize an overloaded MCP stack (symptom: slow starts, bad responses).
+- Team documents Skill↔MCP matrix for onboarding.
 
-## Tool-Stack
+###### When not to use
 
-| Tool | Rolle | Begründung |
-|------|-------|------------|
-| awesome-mcp-servers | Shortlist | Einträge → Quell-Repos |
-| modelcontextprotocol/servers | Lernen | Protocol, nicht Prod |
+- If there is no skill yet — write sequence first, then MCP. If you use Reference Server directly in production without hardening.
+
+## Tool stack
+
+| Tool | Role | Rationale |
+|------|-------|-----------|
+| awesome-mcp-servers | Shortlist | Entries | Source repos |
+| modelcontextprotocol/servers | Learning | Protocol, not Prod |
 | Skill-Dokument | Orchestrierung | Steps, verify, gates |
 | Plattform-MCP-CLI | Umsetzung | claude mcp / hermes mcp / openclaw mcp / Cursor settings |
 | Tool allowlists | Safety | Read default |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
-MCP/Skill-Fokus für generische Agenten. Erstelle Tabelle: SkillStep | MCP | Tool | Read/Write | Freigabe.
+MCP/Skill Focus for Generic Agents. Create table: SkillStep | MCP | Tool | Read/Write | Sharing.
 Jede Datenquelle maximal ein MCP; Duplikate zusammenlegen.
 Messe impliziten Overhead: wenige breite Server oft besser als viele spezialisierte.
-Schema-Token-Problem: entferne ungenutzte MCPs vor großen Tasks (Referenz ~67k Overhead).
-Skills tragen Verify für Dokumente (validate, render, re-read) — MCP write ersetzt das nicht.
+Schema token problem: remove unused MCPs from large tasks (reference ~67k overhead).
+Skills carry Verify for documents (validate, render, re-read) — MCP write replaces the not.
 ClawHub: verify (~12 % Malware Feb 2026) wenn Registry-Skills OpenClaw/Gateway tangieren.
-Grok: Custom MCP HTTPS oder Box-Command; argv ohne Secrets.
-Hermes: Skill platforms-Tag prüfen.
+Grok: Custom MCP HTTPS or Box-Command; argv without Secrets.
+Hermes: Check Skill platforms tag.
 OpenClaw: Tool-Policy pro MCP-Tool.
-Cursor/Claude: mcp.json ohne PAT; Injection auf MCP content.
+Cursor/Claude: mcp.json without PAT; Injection auf MCP content.
 Reference servers nur in Dev-Sandbox.
-Abschluss: minimization report (vorher/nachher MCP count, geschätzter Tool count).
-Write tools: Needs approval auf allen Plattformen wo verfügbar.
+Completion: minimization report (before/after MCP count, estimated tool count).
+Write tools: Needs approval on all platforms where available.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. Inventar: alle MCPs, Tool-Anzahl schätzen.
-2. Skill-Dokument öffnen oder anlegen (Schritte nummeriert).
-3. Pro Skill-Schritt MCP-Tool zuordnen oder „lokal“ markieren.
-4. Duplikate und ungenutzte Server entfernen.
-5. Transport-Regeln prüfen (Grok HTTPS/Box, kein Laptop-localhost).
-6. Registry-Skills in Kette auf verify-Status prüfen.
+1. Inventory: estimate all MCPs, tool number.
+2. Open or create a skill document (steps numbered).
+3. Pro Skill-Schritt MCP-Tool zuordnen or „lokal“ markieren.
+4. Remove duplicates and unused servers.
+5. Check transport rules (Grok HTTPS/Box, no laptop localhost).
+6. Check registry skills in chain for verify status.
 7. Read-only Smoke pro verbleibendem MCP.
 8. Matrix ins Repo committen; Secrets redacted.
 9. Pilot-Task; Retrospektive im minimization report.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
-- [ ] Skill-MCP-Matrix vollständig für den Task
-- [ ] MCP-Anzahl reduziert oder begründet
-- [ ] Verify-Render in Skill für Dokument-Schritte
+-[ ] skill MCP matrix completely for the task
+- [ ] MCP number reduced or justified
+- [ ] Verify render in Skill for document steps
 - [ ] Plattform-Transport-Regeln eingehalten
-- [ ] Keine Secrets in Matrix/Config
+- [ ] No Secrets in Matrix/Config
 - [ ] ClawHub/Registry in Kette verifiziert falls verwendet
 
-## Sicherheit & Freigaben
+## Security
 
 - MCP-Content untrusted; Write-Gates im Skill verankert.
 - Registry-verify bei ClawHub-Pfad.
-- Reference-server nicht ungehärtet in Prod.
+- Reference server not unhardened in Prod.
 
-## Fallstricke
+## Pitfalls
 
-- **67k Overhead:** Matrix hilft nicht, wenn 10 MCPs bleiben — kürzen.
-- **Zwei MCPs, eine Quelle:** Doppeltes Schema, widersprüchliche Tools.
-- **Skill ohne Tool-Spalte:** Agent wählt falsches MCP-Tool.
+- **67k Overhead:** Matrix does not help if 10 MCPs remain — shorten.
+- **Two MCPs, one source:** Double schema, conflicting tools.
+- **Skill without tool column:** Agent chooses wrong MCP tool.
 - **Verify nur in MCP:** Office braucht Skill-Script + Render.
-- **ClawHub ~12 %:** Skill aus Registry in Matrix ohne verify-Zeile.
-- **Grok argv secrets:** In Matrix als Command-MCP notiert mit Key im Arg — verboten.
+- **ClawHub ~12 %:** Skill aus Registry in Matrix without verify-Zeile.
+- **Grok argv secrets:** In Matrix as Command-MCP noted with Key in Arg — prohibited.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Praxisbeispiel)
+### Example 1 (Real-world example)
 
-- **Aufgabe:** Overhead reduzieren
-- **Input:** 8 MCPs, 120 Tools geschätzt
+- **Task:** Overhead reduzieren
+- **Input:** 8 MCPs, 120 tools estimated
 - **Prompt:**
 ```text
-Matrix bauen, auf 3 MCPs konsolidieren, Tool count neu schätzen.
+Build matrix, consolidate on 3 MCPs, re-estimate tool count.
 ```
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 ```text
 Vorher: 8 MCPs / ~120 tools
 Nachher: 3 MCPs / ~45 tools
 minimization report committed (secrets redacted)
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Document-Schritt in Matrix
+- **Task:** Document-Schritt in Matrix
 - **Input:** Skill step 5 „deliver pptx“
 - **Prompt:**
 ```text
-Zeige MCP nur für export wenn nötig; validate+render in Skill step 6–7.
+Show MCP only for export if necessary; validate+render in Skill step 6–7.
 ```
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 ```text
 | 5 | (local skill) | write deck | write | user |
 | 6 | (local skill) | validate.py | read | auto |
@@ -138,15 +141,14 @@ Zeige MCP nur für export wenn nötig; validate+render in Skill step 6–7.
 Kein MCP in steps 6–7
 ```
 
-### Beispiel 3 (Beispieldaten)
+### Example 3 (Example data)
 
-- **Aufgabe:** Grok Box-Command Zeile
+- **Task:** Grok Box-Command Zeile
 - **Input:** Custom MCP via npx auf Bot-Box
-- **Prompt:**
-```text
-Matrix-Eintrag: Command MCP ohne API_KEY in argv, nur env auf Box.
+- **Prompt:**```text
+Matrix-Eintrag: Command MCP without API_KEY in argv, nur env auf Box.
 ```
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 ```text
 Command: npx @acme/mcp-server
 Env: ACME_KEY (Box secret store)

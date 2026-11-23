@@ -28,26 +28,26 @@ version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-Dependabot/GitHub Security MCP **lesen**, Triaging per Skill — Verifikation mit **trivy/osv CLI**, nicht nur MCP-Metadaten.
+Dependabot/GitHub Security MCP **read**, triaging per skill — verification with **trivy/osv CLI**, not just MCP metadata.
 
-## Wann nutzen
+## When to use
 
-- Agent mit GitHub vulnerability alerts.
+- Agent with GitHub vulnerability alerts.
 - Skill: MCP fetch -> CLI confirm -> ticket.
 
-**Wann nicht:** Air-gapped ohne GitHub.
+**When not:** Air-gapped without GitHub.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Justification |
 |------|-------|------------|
 | GitHub MCP | Alerts | metadata |
 | trivy/osv | Verify | ground truth |
 | Skill | SLA | ticket template |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Vuln management MCP/Skill focus (security/vuln-management).
@@ -68,39 +68,39 @@ Do not auto-merge grouped alerts across unrelated packages without human sort.
 Flag transitive dependency depth when fix requires major bump.
 ```
 
-## Arbeitsablauf
+## Workflow
 
 1. GitHub MCP list alerts for repo.
 2. Export CVE ids.
 3. `trivy fs .` or `osv-scanner`.
 4. Match/drift dokumentieren.
-5. Prioritäts-Tabelle.
-6. Ticket-Entwürfe.
+5. Priority table.
+6. Draft tickets.
 7. MCP/CLI audit footer.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
-- [ ] CLI verify für CRITICAL
-- [ ] Keine MCP dismiss ohne Freigabe
+- [ ] CLI verify for CRITICAL
+- [ ] No MCP dismiss without release
 - [ ] SLA auf jedem Ticket-Entwurf
 
-## Sicherheit & Freigaben
+## Security
 
 - Private repo alerts vertraulich.
 
-## Fallstricke
+## Pitfalls
 
 - Dependabot false positive.
 - MCP rate limit incomplete list.
-- Dismiss ohne Fix.
+- Dismiss without Fix.
 - Monorepo wrong path.
 - Image vs source scanner mismatch.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Alert GHSA confirm.
+- **Task:** Alert GHSA confirm.
 - **Input:** lodash alert.
 - **Prompt:**
 
@@ -108,16 +108,16 @@ Flag transitive dependency depth when fix requires major bump.
 MCP read alert; osv-scanner verify; ticket draft.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 osv-scanner -r .
 # GHSA-xxxx confirmed fixed in 4.17.21 proposal
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Stale alert.
+- **Task:** Stale alert.
 - **Input:** already patched package.
 - **Prompt:**
 
@@ -125,7 +125,7 @@ osv-scanner -r .
 Show MCP vs lockfile drift; suggest dismiss with proof not auto dismiss.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 lockfile has patched version; dismiss needs DISMISS_APPROVE + reason fixed-in-1.2.3

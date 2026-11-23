@@ -1,39 +1,40 @@
-# Generische MCP-Agenten
+# Generic MCP agents
 
 - **Domain:** `agent-platforms`
-- **Kategorie:** `generic-mcp-agents`
-- **Stand:** 2026-11-23
+- **Category:** `generic-mcp-agents`
+- **As of:** 2026-11-23
 
-## Kurzbeschreibung
+## Summary
 
-Gemeinsames Muster: MCP für Zugriff, Tools für Aktionen, Skills für Abläufe.
+Common pattern: MCP for access, tools for actions, skills for operations.
 
-## Empfohlener Tool-Stack
+## Recommended tool stack
 
-- MCP fuer Zugang, Tools fuer Aktionen, Skills fuer Verhalten
+- MCP for access, tools for actions, skills for behavior
 - Kuratierte Listen: awesome-mcp-servers, Referenzserver
 
-## MCP-Server und Skills
+## MCP Server and Skills
 
-| Name | Typ | URL | Einsatz | Installation | Popularitaet | Quelle | Unverified? |
+| Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| punkpeye/awesome-mcp-servers | Katalog | https://github.com/punkpeye/awesome-mcp-servers | Grosse kuratierte Liste, zuletzt aktiv Nov 2026, Web-Directory glama.ai. | Nur als Directory nutzen, nicht als Server installieren. | 98.405 Stars | https://github.com/punkpeye/awesome-mcp-servers | nein (so belegt) |
-| modelcontextprotocol/servers | Referenz | https://github.com/modelcontextprotocol/servers | Referenzimplementierungen. | Repo. | 92.179 Stars | https://github.com/modelcontextprotocol/servers | nein (so belegt) |
 
-## Typische Workflows
+| punkpeye/awesome-mcp-servers | catalog | https://github.com/punkpeye/awesome-mcp-servers | Grosse kuratierte Liste, zuletzt aktiv Nov 2026, Web-Directory glama.ai. |Only use as a directory, not install as a server.| 98.405 Stars | https://github.com/punkpeye/awesome-mcp-servers | no (as cited) |
+| modelcontextprotocol/servers | Referenz | https://github.com/modelcontextprotocol/servers | Referenzimplementierungen. | Repo. | 92.179 Stars | https://github.com/modelcontextprotocol/servers | no (as cited) |
 
-- Wenige Server, Filter, Read-only defaults, Skills fuer den Ablauf, menschliche Gates fuer Writes.
+## Typical workflows
 
-## Fallstricke
+- Few servers, filters, read-only defaults, skills for the process, human gates for writes.
 
-- MCP-Toolschemas können den Kontext stark belasten, noch bevor die erste Frage kommt. In r/ClaudeAI berichtete ein Nutzer von 67.000 Token Overhead. Quelle: https://www.reddit.com/r/ClaudeAI/comments/1ryz7zp/i_measured_my_mcp_token_overhead_67k_tokens/
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- ClawHub-Skills vor der Nutzung prüfen (`openclaw skills verify`). Im Februar 2026 auditierte Koi Security 2.857 Registry-Skills und bewertete 341 als schadhaft (ca. 12 %). Quellen: https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html , https://docs.openclaw.ai/skills/
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+## Pitfalls
 
-## Quellen
+- MCP tool schemas can put a lot of stress on the context even before the first question comes up. In r/ClaudeAI, a user reported 67,000 token overhead. Source: https://www.reddit.com/r/ClaudeAI/comments/1ryz7zp/i measured my mcp token overhead 67k tokens/
+- Skills are workflows/instructions (progressive disclosure), MCP are connections and tools. Combine the two, not confuse them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
+- Do not write tokens or passwords in chat, skill files or command arguments of custom MCPs. Grok bot wiki: OAuth tokens remain on the connector backend; Command servers must not contain credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- Check ClawHub skills before use (`openclaw skills verify`). In February 2026, Koi Security audited 2,857 registry skills and rated 341 as defective (about 12%). Sources: https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html
+Activate only the MCPs/Skills that the task needs. Hermes filters per include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp
+- Write, send, pay, deploy and delete only after explicit approval; good document skills require a Verify step (re-read file, render PDF/PNG).
+
+## Sources
 
 - https://github.com/punkpeye/awesome-mcp-servers
 - https://github.com/modelcontextprotocol/servers

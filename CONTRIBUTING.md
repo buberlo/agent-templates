@@ -1,10 +1,10 @@
-# Beitragen
+# Contributing
 
-1. Branch von `main`, Änderungen in `domains/` oder Schema/Script.
-2. Pro logischer Änderung ein Template oder ein Schema-Update — keine Misch-PRs mit unrelated Inhalt.
-3. Immer `python3 scripts/validate_and_index.py` ausführen und generierte `INDEX.md` / `catalog.json` committen.
-4. **Sprache:** Deutsche Fließtexte in README und Template-Beschreibungen; technische IDs und System-Prompts Englisch oder zweisprachig wo sinnvoll.
-5. Keine API-Keys, Kundennamen oder echten personenbezogenen Daten in Beispielen.
-6. `risk_level` ehrlich setzen; bei `high` klare Human-in-the-loop-Schritte dokumentieren.
+1. Branch from `main`; keep changes focused (templates, schema, or scripts).
+2. Run `python3 scripts/validate_and_index.py` and commit generated `INDEX.md` and `catalog.json`.
+3. **Language:** English only in paths, frontmatter, section headings, repo docs, and template bodies.
+4. No API keys, customer names, or real personal data in examples. Use `example.com` style placeholders; label fabricated example data.
+5. Set `risk_level` honestly; for `high`, document clear human-in-the-loop steps.
+6. Real-world examples must include a **Source** URL; do not invent citations or numbers.
 
-Review-Fokus: Tool-Stack plausibel und aktuell, DoD prüfbar, Prompt kopierfertig.
+Review focus: tool stack is plausible and current, definition of done is testable, system prompt is copy-ready.

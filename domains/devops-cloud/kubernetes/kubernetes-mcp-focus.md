@@ -1,6 +1,6 @@
 ---
 id: kubernetes-mcp-focus
-title: "Kubernetes: MCP/Skill-Fokus"
+title: "Kubernetes: MCP/Skill focus"
 domain: devops-cloud
 category: kubernetes
 tags:
@@ -23,8 +23,8 @@ required_tools:
     install: "Microsoft AKS MCP docs"
     version_notes: "--access-level readonly"
 inputs:
-  - "Cluster-Kontext und Namespace"
-  - "Skill mit diagnose/mitigate Schritten"
+  - "Cluster context and namespace"
+  - "Skill with diagnosis/mitigate steps"
 outputs:
   - "Skill↔MCP-Matrix"
   - "Diagnosebericht"
@@ -34,26 +34,26 @@ version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-Kubernetes über **MCP** und **kubectl** kombinieren: Skill definiert access-level, Freigaben und wann CLI statt MCP.
+Combine Kubernetes via **MCP** and **kubectl**: Skill defines access-level, approvaln and when CLI instead of MCP.
 
-## Wann nutzen
+## When to use
 
-- Cursor/Hermes mit kubernetes-mcp-server oder AKS MCP.
+Cursor/Hermes with kubernetes-mcp-server or AKS MCP.
 - Team-Doku: welcher Skill-Schritt ruft `call_kubectl` vs. natives `kubectl logs`.
 
-**Wann nicht:** Wenn nur Helm/kubectl-Releases — siehe `k8s-*` Templates.
+**When not to use:** If only Helm/kubectl releases — see `k8s-*` templates.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Rationale |
 |------|-------|------------|
 | kubernetes-mcp-server | MCP | Pod/Deploy describe |
-| kubectl | Ergänzung | logs, port-forward |
-| kubectl-ai | optional | Natürliche Sprache→kubectl |
+| kubectl | supplement | logs, port-forward |
+| kubectl-ai | optional | natural language→kubectl |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Kubernetes MCP/Skill focus (devops-cloud/kubernetes).
@@ -71,39 +71,39 @@ After mitigation skill step: kubectl rollout status as verify (CLI).
 Document whether each command ran via MCP or shell.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. kubecontext prüfen: `kubectl config current-context`.
+Check kubecontext: `kubectl config current-context`.
 2. Skill-Matrix anlegen (Diagnose/Mitigate/Verify).
 3. MCP: Namespaces, Deployments, Events lesen.
-4. Logs per kubectl wenn MCP truncated.
+4. Logs per kubectl if MCP truncated.
 5. Mitigation-Vorschlag; Gate bis APPROVE.
-6. Nach Freigabe: rollout undo oder apply patch — kanal dokumentieren.
+6. Nach approval: rollout undo or apply patch — kanal dokumentieren.
 7. Verify: rollout status + MCP pod ready.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
-- [ ] access-level in Skill und MCP-Config übereinstimmend
+- [ ] access-level in Skill and MCP-Config
 - [ ] MCP vs. CLI je Schritt markiert
-- [ ] Kein Admin-MCP in Prod ohne Ausnahmeprotokoll
+- [ ] Kein Admin-MCP in Prod without Ausnahmeprotokoll
 
-## Sicherheit & Freigaben
+## Security
 
 - high risk auf Prod-Clustern.
-- Kubeconfig nicht in Chat; MCP über sicheren Transport.
+- Kubeconfig not in chat; MCP about safe transport.
 
-## Fallstricke
+## Pitfalls
 
 - Falscher Context trotz MCP — menschliche Verifikation Pflicht.
 - Admin access-level Default — Produktionsrisiko.
-- MCP ohne --previous logs — Crash-Loops unsichtbar.
+- MCP without --previous logs — Crash-Loops unsichtbar.
 - Zwei K8s-MCPs doppelte Tools.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Readonly Skill für Pending Pods.
+- **Task:** Readonly Skill for Pending Pods.
 - **Input:** Cluster staging, ns `app`.
 - **Prompt:**
 
@@ -111,7 +111,7 @@ Document whether each command ran via MCP or shell.
 Matrix MCP describe + kubectl events; no writes.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 MCP: list pods; describe pod/payment-xxx
@@ -119,9 +119,9 @@ CLI: kubectl get events -n app --sort-by=.lastTimestamp
 Cause: Insufficient cpu
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Escalation nach APPROVE für rollout undo.
+and**Excalation to APPROVE for rollout undo.
 - **Input:** Deploy `payment` broken.
 - **Prompt:**
 
@@ -129,7 +129,7 @@ Cause: Insufficient cpu
 Skill step 5 after APPROVE: kubectl rollout undo; MCP verify pods ready.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 kubectl -n app rollout undo deploy/payment

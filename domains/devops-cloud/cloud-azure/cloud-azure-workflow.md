@@ -17,40 +17,39 @@ required_tools:
     install: "https://learn.microsoft.com/cli/azure/install-azure-cli"
     version_notes: "az login / az login --use-device-code"
   - name: kubelogin
-    install: "optional für AKS"
-    version_notes: "AAD-RBAC zu kubeconfig"
+    install: "https://github.com/Azure/kubelogin"
+    version_notes: "AKS AAD-enabled clusters"
 inputs:
-  - "Subscription-ID oder Name"
+  - "Subscription-ID or Name"
   - "Ressourcengruppe / AKS-Cluster"
 outputs:
   - "Azure CLI Protokoll"
-  - "Empfehlung oder ARM/Bicep-Hinweis"
+  - "Empfehlung or ARM/Bicep-Hinweis"
 risk_level: high
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
 ---
+## Purpose
 
-## Zweck
+Inspect Azure resources with **az** read-first; AKS diagnosis and policy checks without tacit Prod mutation.
 
-Azure-Ressourcen mit **az** read-first inspizieren; AKS-Diagnose und Policy-Checks ohne stillschweigende Prod-Mutation.
+## When to use
 
-## Wann nutzen
+- AKS/RG-Inventory, NSG-Review, Subscription-Rollen.
+- Preparation of Bicep modules with validated `az` findings.
 
-- AKS/RG-Inventar, NSG-Review, Subscription-Rollen.
-- Vorbereitung Bicep-Module mit validierten `az`-Befunden.
+**When not:** Large subscription migrations without architect sign-off.
 
-**Wann nicht:** Große Subscription-Migrationen ohne Architekten-Sign-off.
+## Tool stack
 
-## Tool-Stack
-
-| Tool | Rolle | Begründung |
+| Tool | Role | Justification |
 |------|-------|------------|
 | az | Management | account, aks, monitor |
 | kubectl | AKS | nach `az aks get-credentials` |
 | AKS MCP | optional | readonly call_kubectl laut MS-Docs |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Azure cloud workflow (devops-cloud/cloud-azure).
@@ -70,40 +69,40 @@ Document region (location) on every resource summary.
 Export sensitive outputs (kubeconfigs) never into chat body.
 ```
 
-## Arbeitsablauf
+## Workflow
 
 1. `az login` Status: `az account show`.
 2. Subscription setzen: `az account set --subscription "<name-or-id>"`.
 3. RG/Cluster: `az group list` / `az aks list -o table`.
 4. Detail: `az aks show -g <rg> -n <cluster> --query "{kubernetesVersion:KubernetesVersion,nodeCount:agentPoolProfiles[0].count}"`.
-5. Optional kube: `az aks get-credentials -g <rg> -n <cluster> --overwrite-existing` nach Freigabe.
+5. Optional kube: `az aks get-credentials -g <rg> -n <cluster> --overwrite-existing` after release.
 6. `kubectl get nodes` read-only Diagnose.
-7. Änderungen nur als Bicep/Runbook-Vorschlag.
+7. Changes only as a Bicep/Runbook proposal.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done / Definition of Done
 
-- [ ] Subscription und Tenant in Summary
-- [ ] Keine ungenehmigten Mutations-Befehle
-- [ ] AKS-Version und Node-Health dokumentiert
+Subscription and Tenant in Summary
+- [ ] No ungenehmigten Mutations-Befehle
+- [ ] AKS version and Node-Health documented
 
-## Sicherheit & Freigaben
+## Security
 
 - Prod-Subscription Write: `risk_level: high`, Change-Ticket.
-- Kubeconfig-Inhalt nicht in Tickets posten.
-- AKS MCP access-level `readonly` bis Freigabe für readwrite.
+- Do not post Kubeconfig content in tickets.
+- AKS MCP access-level `readonly` until release for readwrite.
 
-## Fallstricke
+## Pitfalls
 
 - Falsche Subscription nach `az login` — stiller Zugriff auf falsche RG.
-- `--admin` kubeconfig ohne RBAC — Überprivileg.
-- AAD-Token abgelaufen mitten in Skript — erneutes `az aks get-credentials` nötig.
-- Policy Deny auf RG — Plan scheitert, nicht nur CLI.
+- `--admin` kubeconfig without RBAC — Overprivilege.
+- AAD token expired in the middle of script — renewed `az aks get-credentials` required.
+- Policy Deny on RG — Plan fails, not just CLI.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** AKS-Cluster-Überblick.
+- **Task:** AKS cluster overview.
 - **Input:** RG `rg-platform`, Cluster `aks-prod-01`.
 - **Prompt:**
 
@@ -111,16 +110,16 @@ Export sensitive outputs (kubeconfigs) never into chat body.
 az show cluster version and node pool count; read-only.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 az aks show -g rg-platform -n aks-prod-01 \
   --query "{k8s:kubernetesVersion,pools:agentPoolProfiles[].{name:name,count:count}}" -o json
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** NSG-Regel „Any/Any“ finden.
+- **Task:** NSG-Regel „Any/Any“ finden.
 - **Input:** NSG `nsg-web`.
 - **Prompt:**
 
@@ -128,7 +127,7 @@ az aks show -g rg-platform -n aks-prod-01 \
 List inbound rules with source * and destination port *; read-only.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 az network nsg rule list -g rg-platform --nsg-name nsg-web -o table

@@ -1,38 +1,38 @@
-# Branding und Design
+# Branding and Design
 
 - **Domain:** `content-marketing`
-- **Kategorie:** `branding-design`
-- **Stand:** 2026-11-23
+- **Category:** `branding-design`
+- **As of:** 2026-11-23
 
-## Kurzbeschreibung
+## Summary
 
-Markenrichtlinien, Design-Systeme, Figma/Canva-Anbindung und visuelle Vorlagen.
+Brand guidelines, design systems, Figma/Canva connection and visual templates.
 
-## Empfohlener Tool-Stack
+## Recommended tool stack
 
-- Figma- und Canva-MCPs
-- Infographic- und Design-Skills
+Figma and Canva MCPs
+Infographic and design skills
 
-## MCP-Server und Skills
+## MCP servers and skills
 
-| Name | Typ | URL | Einsatz | Installation | Popularitaet | Quelle | Unverified? |
+| Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| figma MCP (Hermes-Katalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/figma | Figma aus dem Nous-Katalog. | hermes mcp install figma | Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | nein (so belegt) |
-| canva MCP (Hermes-Katalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/canva | Canva aus dem Nous-Katalog. | hermes mcp install canva | Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | nein (so belegt) |
-| Hermes-Skills baoyu-infographic, popular-web-designs, claude-design | Skill | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | Infografiken, HTML-Design-Systeme, einmalige HTML-Artefakte. | Bundled creative/. | Bundled. | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | nein (so belegt) |
+| figma MCP (Hermes-catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/figma | Figma aus dem Nous-catalog. | hermes mcp install figma | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
+| canva MCP (Hermes-catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/canva | Canva aus dem Nous-catalog. | hermes mcp install canva | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
+| Hermes-Skills baoyu-infographic, popular-web-designs, claude-design | Skill | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | Infografiken, HTML-Design-Systeme, einmalige HTML-Artefakte. | Bundled creative/. | Bundled. | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | no (as cited) |
 
-## Typische Workflows
+## Typical workflows
 
-- Brand tokens zuerst festlegen, dann Artefakt erzeugen und visuell pruefen.
+- Set brand tokens first, then create artifact and visually test.
 
-## Fallstricke
+## Pitfalls
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+It is then possible to provide the following information: alive, combining the two, not the same. Sources: https://code.claude.com/docs/en/features-overview , https://github.uni/com...
+- Only activate the MCPs/Skills the task needs. PLEASE I W (yourselves) 05: . . . Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mp.
+- Do not write tokens or passwords in chat, skill files or command-patterns of custom-MCPs. Grok bot wiki: OAuth tokens remain on the connector backend; Command-servers may not contain the credentials in the field. Source: https://www.grokbotwiki importer.com/guides/grok-bot-plugins-mcp
+- Write, send, pay, deploy and delete only after explicit approval; good document skills require a Ver concerned stepon (Reread File, render PDF/PNG).
 
-## Quellen
+## Sources
 
 - https://hermes-agent.nousresearch.com/docs/reference/skills-catalog
 - https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp

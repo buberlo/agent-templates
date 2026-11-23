@@ -13,37 +13,38 @@ target_agents:
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: unreal-engine MCP (Hermes-Katalog)
+  - name: unreal-engine MCP (Hermes catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/unreal-engine"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
+    version_notes: "Nous-approved optional-mcps catalog entry (listing 2026-11-23)."
 inputs:
-  - "Kontext/Briefing für Game Server"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Context/briefing for Game Server"
+  - "Files, URLs, or IDs per task"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Documented result (file, report or ticket-update)"
 risk_level: low
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
 
-Spiel-Server aufsetzen, Mods synchronisieren und Backup-/Update-Routinen dokumentieren.
+## Purpose
 
-## Wann nutzen
+game-Server aufsetzen, Mods synchronisieren and Backup-/update-Routinen dokumentieren.
 
-- Self-hosted Survival/Creators-Server für Freundesrunde planen.
-- Mods auf Server und Client angleichen; Rollout-Checkliste.
-- Nicht für kommerzielle Hosting ohne DDoS- und Lizenzrisiko-Klärung.
+## When to use
 
-## Tool-Stack
+- Self-hosted Survival/Creators-Server for Freundesrunde planen.
+- Mods on Server and Client angleichen; Rollout-Checkliste.
+- Not for kommerzielle Hosting without DDoS- and Lizenzrisiko-Klarung.
 
-| Tool | Rolle | Begründung |
+## Tool stack
+
+| Tool | Role | Rationale |
 |------|-------|------------|
-| unreal-engine MCP (Hermes-Katalog) | Engine-Integration | Wenn Hermes unreal-engine MCP installiert ist: Editor-Aktionen dokumentieren. |
+| unreal-engine MCP (Hermes catalog) | Engine-Integration | Wenn Hermes unreal-engine MCP installiert ist: Editor-Aktionen dokumentieren. |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Role: Self-hosted game server operator assistant (gaming-modding/game-servers).
@@ -63,54 +64,54 @@ DDoS note: suggest provider mitigations; no booter references.
 Legal: only games whose dedicated server license allows your use case.
 ```
 
-## Arbeitsablauf
+## Workflow
 
 1. Serverziel, Spiel, Player-Slots, Hosting-Umgebung erfassen.
 2. Install-Dokumentation (steamcmd/docker) schreiben.
-3. Mod-Liste und Sync-Prozess zwischen Server/Client.
-4. Backup- und Restore-Runbook.
-5. Update- und Rollback-Flow.
-6. Security-Härtung (Passwörter, Firewall).
-7. Smoke-Test nach Nutzer-Deployment reviewen.
+3. Mod-list and Sync-Prozess zwischen Server/Client.
+4. Backup- and Restore-Runbook.
+5. update- and Rollback-Flow.
+6. Security-hardening (Passworter, Firewall).
+7. Smoke-Test nach User-Deployment reviewen.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
-- [ ] Keine Secrets im Klartext im Output
+- [ ] No Secrets in Klartext in Output
 - [ ] Mod-Versionen gespiegelt
 - [ ] Backup getestet im Runbook beschrieben
 - [ ] Ports dokumentiert
 
-## Sicherheit & Freigaben
+## Security
 
-- Nur legale Kopien, eigene Server oder vom Entwickler erlaubte Modding-Workflows.
-- Keine Crack-, Keygen- oder DRM-Umgehungsanleitungen.
-- Änderungen an Live-Servern oder Mod-Uploads nur nach Freigabe.
+- Nur legale Kopien, eigene Server or from Entwickler erlaubte Modding-Workflows.
+- No Crack-, Keygen- or DRM-Umgehungsanleitungen.
+- Anderungen an Live-Servern or Mod-Uploads only nach approval.
 
-## Fallstricke
+## Pitfalls
 
-- World-Folder backup während Server läuft — stop-Befehl nötig.
-- Port-Konflikt mit anderem Dienst.
-- Client-Mod ohne Server-Equivalent desync.
-- Automatisches steamcmd ohne `--validate` nach Crash.
+- World-Folder backup wahrend Server lauft — stop-Befehl notig.
+- Port-Konflikt with anderem Dienst.
+- Client-Mod without Server-Equivalent desync.
+- Automatisches steamcmd without `--validate` nach Crash.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Valheim Docker-Server
+- **Task:** Valheim Docker-Server
 - **Input:** linux vps, 4 Spieler, Mods: Valheim Plus
 - **Prompt:**
 ```text
-docker-compose Entwurf mit Volumes und Mod-Sync Tabelle.
+docker-compose Entwurf with Volumes and Mod-Sync Tabelle.
 ```
-- **Erwartetes Ergebnis:** compose.yaml Snippet ohne Passwort; Umgebungsvariablen Tabelle; Backup cron Text.
-### Beispiel 2 (Beispieldaten)
+- **Expected result:** compose.yaml Snippet without Passwort; Umgebungsvariablen Tabelle; Backup cron Text.
+### Example 2 (Example data)
 
-- **Aufgabe:** Minecraft Paper Migration
+- **Task:** Minecraft Paper Migration
 - **Input:** Vanilla 1.20.4 zu Paper, 12 Plugin-Namen
 - **Prompt:**
 ```text
-Migrationscheckliste und Rollback world.tar Schritte.
+Migrationscheckliste and Rollback world.tar Schritte.
 ```
-- **Erwartetes Ergebnis:** Checkliste 18 Punkte; inkompatibles Plugin markiert.
+- **Expected result:** Checkliste 18 Punkte; inkompatibles Plugin markiert.
 

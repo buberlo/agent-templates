@@ -1,40 +1,40 @@
 # Social: LinkedIn
 
 - **Domain:** `content-marketing`
-- **Kategorie:** `social-linkedin`
-- **Stand:** 2026-11-23
+- **Category:** `social-linkedin`
+- **As of:** 2026-11-23
 
-## Kurzbeschreibung
+## Summary
 
-LinkedIn-Posts, Kommentare und Lead-nahe Inhalte, oft über Browser oder inoffizielle Integrationen.
+LinkedIn posts, comments and lead-oriented content, often via browsers or unidentifiable connections.
 
-## Empfohlener Tool-Stack
+## Recommended tool stack
 
 - Schreibende Skills + Humanizer
-- Suche/Crawl fuer Fakten
-- Kanal-APIs nur mit Freigabe zum Veroeffentlichen
+Search/crawl for facts
+Channel APIs only with release
 
-## MCP-Server und Skills
+## MCP servers and skills
 
-| Name | Typ | URL | Einsatz | Installation | Popularitaet | Quelle | Unverified? |
+| Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| Brave Search MCP | MCP | https://github.com/brave/brave-search-mcp-server | Websuche ueber Brave Search API. | Offizielles Brave-Repo. | 1.585 Stars | https://github.com/brave/brave-search-mcp-server | nein (so belegt) |
-| Firecrawl MCP | MCP | https://github.com/firecrawl/firecrawl-mcp-server | Websuche, Scraping und Crawling als Kontext fuer Agenten. | Offizielles MCP-Repo, typisch npx oder hosted laut README. | 7.886 Stars; Upstream 207.417 Stars | https://github.com/firecrawl/firecrawl-mcp-server | nein (so belegt) |
+| Brave Search MCP | MCP | https://github.com/brave/brave-search-mcp-server | Websuche ueber Brave Search API. | Offizielles Brave-Repo. | 1.585 Stars | https://github.com/brave/brave-search-mcp-server | no (as cited) |
+| Firecrawl MCP | MCP | https://github.com/firecrawlwer-mc/firecrawl-mcp-server |AS, for the purposes of the “searcher” the traders the | Official MCP repo, typically npx or hosted according to README. | 7.886 Stars; Upstream 207.417 Stars | https://github.com/firecrawl/firecrawl-mcp-server | no (as cited) |
 
-## Typische Workflows
+## Typical workflows
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+- Set task, allowed tools and definition of done.
+- First read/research, then draft, then release for effective steps.
+- Retrieve output (file, URL, ticket) and specify source.
 
-## Fallstricke
+## Pitfalls
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Skills are workflows/instructions (progressive disclosure), MCP are connections and tools. Combine the two, not confuse them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
+- Only activate the MCPs/Skills that the task needs. Hermes filters per include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp
+- Do not write tokens or passwords in chat, skill files or command arguments of custom MCPs. Grok bot wiki: OAuth to known tokens that remain on, on the connector backend;allyal Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- Writing, sending, paymentd, deploy introduction from and delestion onlys after explicit clearance - good document skills require a Verify step (re-read file, render PDF/PNG).
 
-## Quellen
+## Sources
 
 - https://github.com/brave/brave-search-mcp-server
 - https://github.com/firecrawl/firecrawl-mcp-server

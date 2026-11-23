@@ -1,38 +1,38 @@
 # Incident Response
 
 - **Domain:** `devops-cloud`
-- **Kategorie:** `incident-response`
-- **Stand:** 2026-11-23
+- **Category:** `incident-response`
+- **As of:** 2026-11-23
 
-## Kurzbeschreibung
+## Summary
 
-Incidents triagieren, Timeline bauen, Runbooks abarbeiten (ohne Offensiv-Schritte).
+Incidents triagieren, Timeline bauen, Runbooks abarbeiten (without Offensiv-Schritte).
 
-## Empfohlener Tool-Stack
+## Recommended tool stack
 
 - Monitoring-MCPs + Runbook + Chat
 - Nur dokumentierte, autorisierte Schritte
 
-## MCP-Server und Skills
+## MCP servers and skills
 
-| Name | Typ | URL | Einsatz | Installation | Popularitaet | Quelle | Unverified? |
+| Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| Sentry MCP | MCP | https://github.com/getsentry/sentry-mcp | Produktionsfehler, Issues und Kontext fuer Coding-Agenten. | Offizielles getsentry/sentry-mcp Repo. | 973 Stars | https://github.com/getsentry/sentry-mcp | nein (so belegt) |
-| datadog MCP (Hermes-Katalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/datadog | Observability-Kontext. | hermes mcp install datadog | Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | nein (so belegt) |
-| ClawHub „Slack“ (steipete) | Skill | https://clawhubtrends.com/leaderboard.html | Slack-Anbindung als Skill. | openclaw skills install (Owner steipete) und openclaw skills verify. | 42.838 Downloads, 140 Registry-Stars (ClawHub Leaderboard 23.11.2026). | https://clawhubtrends.com/leaderboard.html | nein (so belegt) |
+| Sentry MCP | MCP | https://github.com/getsentry/sentry-mcp | Production errors, issues, and context for coding agents. | Offizielles getsentry/sentry-mcp Repo. | 973 Stars | https://github.com/getsentry/sentry-mcp | no (as documented) |
+| datadog MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/datadog | Observability-Kontext. | hermes mcp install datadog | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as documented) |
+| ClawHub „Slack“ (steipete) | Skill | https://clawhubtrends.com/leaderboard.html | Slack integration as a skill. | openclaw skills install (Owner steipete) and openclaw skills verify. | 42.838 Downloads, 140 Registry-Stars (ClawHub Leaderboard 2026-11-23). | https://clawhubtrends.com/leaderboard.html | no (as documented) |
 
-## Typische Workflows
+## Typical workflows
 
-- Timeline, Impact, Mitigationsvorschlag, menschliche Freigabe vor Changes.
+Timeline,reds, impacts civilians, human release before changes.
 
-## Fallstricke
+## Pitfalls
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Skills are workflows/instructions (progressive disclosure); MCP servers are connections and tools. Combine both; do not conflate them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
+- Enable only the MCPs/skills the task needs. Hermes filters via include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
+- Do not put tokens or passwords in chat, skill files, or custom MCP command arguments. Grok Bot wiki: OAuth tokens stay on the connector backend; command servers must not pass credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- Write, send, pay, deploy, and delete only after explicit approval; good document skills require a verify step (re-read the file, render PDF/PNG).
 
-## Quellen
+## Sources
 
 - https://github.com/getsentry/sentry-mcp
 - https://clawhubtrends.com/leaderboard.html

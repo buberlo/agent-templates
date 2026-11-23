@@ -1,8 +1,8 @@
 ---
-id: kategorie-kurzname-v1
-title: "Kurztitel der Aufgabe"
+id: category-short-name-v1
+title: "Short task title"
 domain: domain-slug
-category: kategorie-slug
+category: category-slug
 tags:
   - tag1
 target_agents:
@@ -10,67 +10,75 @@ target_agents:
   - generic-mcp-agents
 required_tools:
   - name: tool-name
-    install: "Paket / URL / MCP"
-    version_notes: "Stand 2026-11-23"
+    install: "Package / URL / MCP"
+    version_notes: "As of 2026-11-23"
 inputs:
-  - "Eingabe 1"
+  - "Input 1"
 outputs:
-  - "Lieferobjekt 1"
+  - "Deliverable 1"
 risk_level: low
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
 …
 
-## Wann nutzen
+## When to use
 
 …
 
-## Tool-Stack
+### When not to use
 
-| Tool | Rolle | Begründung |
-|------|-------|------------|
+…
 
-## System-Prompt / Instruktionen
+## Tool stack
+
+| Tool | Role | Rationale |
+|------|------|-----------|
+
+## System prompt
 
 ```text
 …
 ```
 
-## Arbeitsablauf
+## Workflow
 
 1. …
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
 - [ ] …
 
-## Sicherheit & Freigaben
+## Security
 
 …
 
-## Grundbeispiele
+## Pitfalls
 
-### Beispiel 1 (Beispieldaten)
+- …
 
-- **Aufgabe:** …
+## Basic examples
+
+### Example 1 (Example data)
+
+- **Task:** …
 - **Input:** …
 - **Prompt:**
 ```text
 …
 ```
-- **Erwartetes Ergebnis:** …
+- **Expected result:** …
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** …
+- **Task:** …
 - **Input:** …
 - **Prompt:**
 ```text
 …
 ```
-- **Erwartetes Ergebnis:** …
+- **Expected result:** …

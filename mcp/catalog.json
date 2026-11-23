@@ -1,39 +1,39 @@
 {
-  "generated_at": "2026-11-23",
+  "generated_at": "2026-11-23T00:00:00Z",
   "count": 91,
   "servers": [
     {
       "name": "OpenClaw Android App (Companion)",
       "url": "https://docs.openclaw.ai/platforms/android/",
-      "type": "Companion-App",
+      "type": "Companion app",
       "stars": 395081,
       "categories": [
-        "automatisierung/mobile-phone-control"
+        "automation/mobile-phone-control"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "OpenClaw MCP serve / ACP",
       "url": "https://docs.openclaw.ai/cli/mcp/serve",
-      "type": "Bruecke",
+      "type": "Bridge",
       "stars": 395081,
       "categories": [
         "agent-platforms/codex"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "OpenClaw Skill Workshop",
       "url": "https://docs.openclaw.ai/skills/",
-      "type": "Plattform-Feature",
+      "type": "Platform feature",
       "stars": 395081,
       "categories": [
-        "ki-ops/skills-authoring"
+        "ai-ops/skills-authoring"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Hermes Agent",
@@ -44,7 +44,7 @@
         "agent-platforms/hermes"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "n8n",
@@ -52,13 +52,13 @@
       "type": "Plattform + MCP-Katalogeintrag",
       "stars": 211894,
       "categories": [
-        "automatisierung/iot",
-        "automatisierung/n8n-make-zapier",
-        "automatisierung/rpa",
-        "daten-analytics/etl-pipelines"
+        "automation/iot",
+        "automation/n8n-make-zapier",
+        "automation/rpa",
+        "data-analytics/etl-pipelines"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Agent Skills progressive disclosure",
@@ -66,10 +66,10 @@
       "type": "Muster",
       "stars": 199219,
       "categories": [
-        "ki-ops/prompt-engineering"
+        "ai-ops/prompt-engineering"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Anthropic document skills (docx, pptx, xlsx, pdf)",
@@ -78,21 +78,21 @@
       "stars": 199219,
       "categories": [
         "agent-platforms/claude-code",
-        "bildung/kurse-erstellen",
-        "ki-ops/skills-authoring",
-        "office-dokumente/excel-xlsx",
-        "office-dokumente/formulare",
-        "office-dokumente/ocr",
-        "office-dokumente/pdf",
-        "office-dokumente/powerpoint-pptx",
-        "office-dokumente/word-docx",
-        "recht-verwaltung/behoerden-formulare",
-        "recht-verwaltung/datenschutz",
-        "recht-verwaltung/vertraege",
-        "security/compliance-nis2-dsgvo"
+        "education/course-creation",
+        "ai-ops/skills-authoring",
+        "office-documents/excel-xlsx",
+        "office-documents/formulare",
+        "office-documents/ocr",
+        "office-documents/pdf",
+        "office-documents/powerpoint-pptx",
+        "office-documents/word-docx",
+        "legal-admin/government-forms",
+        "legal-admin/privacy-compliance",
+        "legal-admin/contracts",
+        "security/compliance-nis2-gdpr"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "MarkItDown",
@@ -100,19 +100,19 @@
       "type": "CLI / Bibliothek",
       "stars": 197975,
       "categories": [
-        "daten-analytics/bi-dashboards",
-        "daten-analytics/data-cleaning",
-        "daten-analytics/data-viz",
-        "daten-analytics/ml-training",
-        "daten-analytics/spreadsheets-analyse",
-        "medien/bild-fotografie",
-        "office-dokumente/ocr",
-        "office-dokumente/pdf",
-        "office-dokumente/word-docx",
-        "software-entwicklung/tech-docs"
+        "data-analytics/bi-dashboards",
+        "data-analytics/data-cleaning",
+        "data-analytics/data-viz",
+        "data-analytics/ml-training",
+        "data-analytics/spreadsheets-analysis",
+        "media/photo-imaging",
+        "office-documents/ocr",
+        "office-documents/pdf",
+        "office-documents/word-docx",
+        "software-development/tech-docs"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Claude Code",
@@ -123,7 +123,7 @@
         "agent-platforms/claude-code"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "punkpeye/awesome-mcp-servers",
@@ -132,10 +132,10 @@
       "stars": 98405,
       "categories": [
         "agent-platforms/generic-mcp-agents",
-        "kundenservice/helpdesk-tickets"
+        "customer-service/helpdesk-tickets"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "modelcontextprotocol/servers",
@@ -144,10 +144,10 @@
       "stars": 92179,
       "categories": [
         "agent-platforms/generic-mcp-agents",
-        "ki-ops/mcp-server-bau"
+        "ai-ops/mcp-server-build"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "mcp-builder (in awesome-claude-skills beschrieben)",
@@ -155,10 +155,10 @@
       "type": "Skill",
       "stars": 80108,
       "categories": [
-        "ki-ops/mcp-server-bau"
+        "ai-ops/mcp-server-build"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "mem0",
@@ -166,10 +166,10 @@
       "type": "Plattform / Memory-Layer",
       "stars": 69369,
       "categories": [
-        "recherche-wissen/rag-memory"
+        "research-knowledge/rag-memory"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Context7",
@@ -178,13 +178,13 @@
       "stars": 65314,
       "categories": [
         "agent-platforms/claude-code",
-        "ki-ops/context-token-management",
-        "software-entwicklung/backend-apis",
-        "software-entwicklung/coding",
-        "software-entwicklung/tech-docs"
+        "ai-ops/context-token-management",
+        "software-development/backend-apis",
+        "software-development/coding",
+        "software-development/tech-docs"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Chrome DevTools MCP",
@@ -192,12 +192,12 @@
       "type": "MCP",
       "stars": 58941,
       "categories": [
-        "automatisierung/browser-automation",
-        "software-entwicklung/frontend",
-        "software-entwicklung/testing"
+        "automation/browser-automation",
+        "software-development/frontend",
+        "software-development/testing"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Playwright MCP",
@@ -206,18 +206,18 @@
       "stars": 40040,
       "categories": [
         "agent-platforms/claude-code",
-        "automatisierung/browser-automation",
-        "automatisierung/iot",
-        "automatisierung/rpa",
-        "daten-analytics/web-scraping",
-        "ki-ops/context-token-management",
-        "recherche-wissen/web-recherche",
-        "software-entwicklung/design-to-code",
-        "software-entwicklung/frontend",
-        "software-entwicklung/testing"
+        "automation/browser-automation",
+        "automation/iot",
+        "automation/rpa",
+        "data-analytics/web-scraping",
+        "ai-ops/context-token-management",
+        "research-knowledge/web-research",
+        "software-development/design-to-code",
+        "software-development/frontend",
+        "software-development/testing"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "GitHub Official MCP",
@@ -229,14 +229,14 @@
         "devops-cloud/cicd",
         "devops-cloud/cloud-aws",
         "devops-cloud/cloud-gcp",
-        "devops-cloud/cloud-kosten",
+        "devops-cloud/cloud-costs",
         "devops-cloud/logging",
-        "software-entwicklung/code-review",
-        "software-entwicklung/coding",
-        "software-entwicklung/git-github"
+        "software-development/code-review",
+        "software-development/coding",
+        "software-development/git-github"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Graphiti",
@@ -244,10 +244,10 @@
       "type": "Knowledge Graph",
       "stars": 33021,
       "categories": [
-        "recherche-wissen/rag-memory"
+        "research-knowledge/rag-memory"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Mobile MCP",
@@ -255,11 +255,11 @@
       "type": "MCP",
       "stars": 10819,
       "categories": [
-        "automatisierung/mobile-phone-control",
-        "software-entwicklung/mobile-apps"
+        "automation/mobile-phone-control",
+        "software-development/mobile-apps"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Mobilerun (ehem. DroidRun)",
@@ -267,11 +267,11 @@
       "type": "CLI + MCP",
       "stars": 10100,
       "categories": [
-        "automatisierung/mobile-phone-control",
-        "software-entwicklung/mobile-apps"
+        "automation/mobile-phone-control",
+        "software-development/mobile-apps"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "ClawHub",
@@ -282,7 +282,7 @@
         "agent-platforms/openclaw"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Firecrawl MCP",
@@ -290,11 +290,11 @@
       "type": "MCP",
       "stars": 7886,
       "categories": [
-        "automatisierung/browser-automation",
+        "automation/browser-automation",
         "content-marketing/ads-performance",
-        "content-marketing/content-strategie",
+        "content-marketing/content-strategy",
         "content-marketing/influencer",
-        "content-marketing/landingpages",
+        "content-marketing/landing-pages",
         "content-marketing/newsletter",
         "content-marketing/seo",
         "content-marketing/social-facebook-meta",
@@ -305,14 +305,14 @@
         "content-marketing/social-tiktok",
         "content-marketing/social-youtube",
         "content-marketing/ugc",
-        "daten-analytics/web-scraping",
-        "recherche-wissen/bibliothek-zotero",
-        "recherche-wissen/patente",
-        "recherche-wissen/web-recherche",
+        "data-analytics/web-scraping",
+        "research-knowledge/library-zotero",
+        "research-knowledge/patents",
+        "research-knowledge/web-research",
         "security/osint"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Remotion Agent Skills",
@@ -320,12 +320,12 @@
       "type": "Skill",
       "stars": 7841,
       "categories": [
-        "medien/animation-motion",
-        "medien/video-bearbeitung",
-        "medien/video-produktion-pipeline"
+        "media/animation-motion",
+        "media/video-editing",
+        "media/video-produktion-pipeline"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "kubectl-ai",
@@ -336,7 +336,7 @@
         "devops-cloud/kubernetes"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Exa MCP",
@@ -344,15 +344,15 @@
       "type": "MCP",
       "stars": 5264,
       "categories": [
-        "daten-analytics/web-scraping",
-        "recherche-wissen/bibliothek-zotero",
-        "recherche-wissen/patente",
-        "recherche-wissen/web-recherche",
+        "data-analytics/web-scraping",
+        "research-knowledge/library-zotero",
+        "research-knowledge/patents",
+        "research-knowledge/web-research",
         "security/osint",
-        "vertrieb-crm/leadgen"
+        "sales-crm/leadgen"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Browserbase MCP",
@@ -360,10 +360,10 @@
       "type": "MCP",
       "stars": 3397,
       "categories": [
-        "automatisierung/browser-automation"
+        "automation/browser-automation"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Tavily MCP",
@@ -371,12 +371,12 @@
       "type": "MCP",
       "stars": 2497,
       "categories": [
-        "daten-analytics/web-scraping",
-        "recherche-wissen/web-recherche",
+        "data-analytics/web-scraping",
+        "research-knowledge/web-research",
         "security/osint"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "kubernetes-mcp-server (containers)",
@@ -387,7 +387,7 @@
         "devops-cloud/kubernetes"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Stripe Agent Toolkit",
@@ -395,14 +395,14 @@
       "type": "Toolkit / MCP-faehig",
       "stars": 2083,
       "categories": [
-        "finanzen/buchhaltung",
-        "finanzen/budget",
-        "finanzen/payments-stripe",
-        "finanzen/rechnungen",
-        "finanzen/steuern"
+        "finance/accounting",
+        "finance/budget",
+        "finance/payments-stripe",
+        "finance/invoicing",
+        "finance/taxes"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Brave Search MCP",
@@ -411,9 +411,9 @@
       "stars": 1585,
       "categories": [
         "content-marketing/ads-performance",
-        "content-marketing/content-strategie",
+        "content-marketing/content-strategy",
         "content-marketing/influencer",
-        "content-marketing/landingpages",
+        "content-marketing/landing-pages",
         "content-marketing/newsletter",
         "content-marketing/seo",
         "content-marketing/social-facebook-meta",
@@ -424,21 +424,21 @@
         "content-marketing/social-tiktok",
         "content-marketing/social-youtube",
         "content-marketing/ugc",
-        "immobilien/exposes",
-        "immobilien/immobilien-suche",
-        "immobilien/verwaltung-weg",
-        "recherche-wissen/bibliothek-zotero",
-        "recherche-wissen/patente",
-        "recherche-wissen/web-recherche",
-        "reisen-events/event-planung",
-        "reisen-events/fluege-hotels",
-        "reisen-events/reiseplanung",
-        "reisen-events/tickets",
+        "real-estate/property-listings",
+        "real-estate/property-search",
+        "real-estate/hoa-management",
+        "research-knowledge/library-zotero",
+        "research-knowledge/patents",
+        "research-knowledge/web-research",
+        "travel-events/event-planning",
+        "travel-events/flights-hotels",
+        "travel-events/trip-planning",
+        "travel-events/tickets",
         "security/osint",
-        "vertrieb-crm/leadgen"
+        "sales-crm/leadgen"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Sentry MCP",
@@ -448,15 +448,15 @@
       "categories": [
         "devops-cloud/cloud-aws",
         "devops-cloud/cloud-gcp",
-        "devops-cloud/cloud-kosten",
+        "devops-cloud/cloud-costs",
         "devops-cloud/incident-response",
         "devops-cloud/logging",
         "devops-cloud/monitoring-observability",
         "security/siem-soc",
-        "software-entwicklung/backend-apis"
+        "software-development/backend-apis"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "AKS / Azure Kubernetes MCP",
@@ -468,7 +468,7 @@
         "devops-cloud/kubernetes"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Tailscale (Netzwerkpfad)",
@@ -476,10 +476,10 @@
       "type": "Netzwerk / Docs",
       "stars": 5,
       "categories": [
-        "it-betrieb-support/remote-support"
+        "it-operations-support/remote-support"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "meshcentral-mcp (EynaExp)",
@@ -487,10 +487,10 @@
       "type": "MCP",
       "stars": 5,
       "categories": [
-        "it-betrieb-support/remote-support"
+        "it-operations-support/remote-support"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Axolotl (in Hermes-Skills-Doku als Slash-Beispiel)",
@@ -498,10 +498,10 @@
       "type": "Skill / Toolchain",
       "stars": null,
       "categories": [
-        "ki-ops/fine-tuning"
+        "ai-ops/fine-tuning"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Bidsketch/signwell-mcp",
@@ -509,10 +509,10 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "office-dokumente/e-signatur"
+        "office-documents/e-signatur"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "ClawHub „Playwright MCP“ (spiceman161)",
@@ -520,32 +520,32 @@
       "type": "Skill",
       "stars": null,
       "categories": [
-        "automatisierung/browser-automation",
-        "automatisierung/cron-routines",
-        "automatisierung/desktop-automation",
+        "automation/browser-automation",
+        "automation/cron-routines",
+        "automation/desktop-automation",
         "content-marketing/social-x-twitter",
         "devops-cloud/incident-response",
-        "finanzen/trading-krypto",
-        "kommunikation/chat-messaging",
-        "kommunikation/meetings-transkription",
-        "kommunikation/telefon-voice-agents",
-        "medien/audio-bearbeitung",
-        "medien/bild-generierung",
-        "medien/podcast",
-        "medien/untertitel-uebersetzung",
-        "medien/video-bearbeitung",
-        "medien/youtube-content",
-        "office-dokumente/excel-xlsx",
-        "office-dokumente/notion",
-        "office-dokumente/pdf",
-        "office-dokumente/powerpoint-pptx",
-        "office-dokumente/word-docx",
-        "recherche-wissen/news-monitoring",
-        "recherche-wissen/rag-memory",
-        "recherche-wissen/web-recherche"
+        "finance/trading-krypto",
+        "communication/chat-messaging",
+        "communication/meeting-transcription",
+        "communication/phone-voice-agents",
+        "media/audio-editing",
+        "media/image-generation",
+        "media/podcast",
+        "media/subtitles-translation",
+        "media/video-editing",
+        "media/youtube-content",
+        "office-documents/excel-xlsx",
+        "office-documents/notion",
+        "office-documents/pdf",
+        "office-documents/powerpoint-pptx",
+        "office-documents/word-docx",
+        "research-knowledge/news-monitoring",
+        "research-knowledge/rag-memory",
+        "research-knowledge/web-research"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Cursor + MCP/Skills",
@@ -555,11 +555,11 @@
       "categories": [
         "agent-platforms/cursor",
         "agent-platforms/grokbot",
-        "kommunikation/kalender-scheduling",
-        "office-dokumente/google-workspace-docs"
+        "communication/calendar-scheduling",
+        "office-documents/google-workspace-docs"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Docker CLI (agent terminal)",
@@ -570,7 +570,7 @@
         "devops-cloud/docker-container"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "FFmpeg (CLI, oft ohne eigenes MCP)",
@@ -578,17 +578,17 @@
       "type": "CLI",
       "stars": null,
       "categories": [
-        "medien/audio-bearbeitung",
-        "medien/bild-fotografie",
-        "medien/dreid-modellierung",
-        "medien/podcast",
-        "medien/streaming-broadcast",
-        "medien/untertitel-uebersetzung",
-        "medien/video-bearbeitung",
-        "medien/video-produktion-pipeline"
+        "media/audio-editing",
+        "media/photo-imaging",
+        "media/3d-modeling",
+        "media/podcast",
+        "media/streaming-broadcast",
+        "media/subtitles-translation",
+        "media/video-editing",
+        "media/video-produktion-pipeline"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Grok Bot Plugins / Custom MCP",
@@ -597,13 +597,13 @@
       "stars": null,
       "categories": [
         "agent-platforms/grokbot",
-        "it-betrieb-support/m365-admin",
-        "kommunikation/chat-messaging",
-        "kommunikation/email",
+        "it-operations-support/m365-admin",
+        "communication/chat-messaging",
+        "communication/email",
         "security/secrets-management"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "HasData/amazon-mcp",
@@ -611,23 +611,23 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "vertrieb-crm/amazon"
+        "sales-crm/amazon"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Hermes Cron (Feature)",
       "url": "https://hermes-agent.nousresearch.com/docs/getting-started/quickstart",
-      "type": "Plattform-Feature",
+      "type": "Platform feature",
       "stars": null,
       "categories": [
-        "automatisierung/cron-routines",
-        "it-betrieb-support/netzwerk",
-        "ki-ops/model-routing"
+        "automation/cron-routines",
+        "it-operations-support/netzwerk",
+        "ai-ops/model-routing"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Hermes-Skill codex",
@@ -636,57 +636,57 @@
       "stars": null,
       "categories": [
         "agent-platforms/codex",
-        "automatisierung/desktop-automation",
+        "automation/desktop-automation",
         "content-marketing/branding-design",
         "content-marketing/copywriting",
         "content-marketing/social-x-twitter",
-        "it-betrieb-support/active-directory-entra",
-        "it-betrieb-support/backup-restore",
-        "it-betrieb-support/endpoint-mdm",
-        "it-betrieb-support/google-workspace-admin",
-        "it-betrieb-support/helpdesk-it",
-        "it-betrieb-support/homelab",
-        "it-betrieb-support/identitaet-sso",
-        "ki-ops/agent-orchestration",
-        "kommunikation/chat-messaging",
-        "kommunikation/email",
-        "kommunikation/imessage-sms",
-        "kommunikation/kalender-scheduling",
-        "kommunikation/meetings-transkription",
-        "medien/animation-motion",
-        "medien/musik",
-        "office-dokumente/diagramme-whiteboard",
-        "office-dokumente/formulare",
-        "office-dokumente/google-workspace-docs",
-        "office-dokumente/obsidian",
-        "office-dokumente/ocr",
-        "office-dokumente/pdf",
-        "persoenlich-lifestyle/einkauf",
-        "persoenlich-lifestyle/essen-rezepte",
-        "persoenlich-lifestyle/haushalt",
-        "persoenlich-lifestyle/produkte-vergleich",
-        "persoenlich-lifestyle/termine-persoenlich",
-        "projektmanagement/tasks",
-        "recherche-wissen/akademisch",
-        "recherche-wissen/grounded-citations",
-        "recherche-wissen/news-monitoring",
-        "recherche-wissen/rag-memory",
-        "recherche-wissen/wikis-dokumentation",
+        "it-operations-support/active-directory-entra",
+        "it-operations-support/backup-restore",
+        "it-operations-support/endpoint-mdm",
+        "it-operations-support/google-workspace-admin",
+        "it-operations-support/helpdesk-it",
+        "it-operations-support/homelab",
+        "it-operations-support/identity-sso",
+        "ai-ops/agent-orchestration",
+        "communication/chat-messaging",
+        "communication/email",
+        "communication/imessage-sms",
+        "communication/calendar-scheduling",
+        "communication/meeting-transcription",
+        "media/animation-motion",
+        "media/musik",
+        "office-documents/diagramme-whiteboard",
+        "office-documents/formulare",
+        "office-documents/google-workspace-docs",
+        "office-documents/obsidian",
+        "office-documents/ocr",
+        "office-documents/pdf",
+        "personal-lifestyle/shopping",
+        "personal-lifestyle/food-recipes",
+        "personal-lifestyle/household",
+        "personal-lifestyle/product-comparison",
+        "personal-lifestyle/personal-appointments",
+        "project-management/tasks",
+        "research-knowledge/academic",
+        "research-knowledge/grounded-citations",
+        "research-knowledge/news-monitoring",
+        "research-knowledge/rag-memory",
+        "research-knowledge/wikis-documentation",
         "security/appsec-sast",
-        "software-entwicklung/code-review",
-        "software-entwicklung/coding",
-        "software-entwicklung/git-github",
-        "software-entwicklung/refactoring",
-        "software-entwicklung/testing",
-        "vertrieb-crm/outreach",
-        "wissenschaft-engineering/daten-experimente",
-        "wissenschaft-engineering/lab-notes",
-        "wissenschaft-engineering/paper-writing",
-        "wissenschaft-engineering/simulation-numerics",
-        "wissenschaft-engineering/tech-standards"
+        "software-development/code-review",
+        "software-development/coding",
+        "software-development/git-github",
+        "software-development/refactoring",
+        "software-development/testing",
+        "sales-crm/outreach",
+        "science-engineering/data-experiments",
+        "science-engineering/lab-notes",
+        "science-engineering/paper-writing",
+        "science-engineering/simulation-numerics",
+        "science-engineering/tech-standards"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Hermes-Skill microsoft-office",
@@ -694,27 +694,27 @@
       "type": "Skill + CLI",
       "stars": null,
       "categories": [
-        "bildung/kurse-erstellen",
-        "bildung/lernkarten",
-        "bildung/nachhilfe-tutoring",
-        "bildung/sprachen",
-        "bildung/studium-forschung",
+        "education/course-creation",
+        "education/flashcards",
+        "education/nachhilfe-tutoring",
+        "education/languages",
+        "education/study-research",
         "content-marketing/copywriting",
-        "hr-recruiting/bewerbungen",
+        "hr-recruiting/job-applications",
         "hr-recruiting/cv-screening",
         "hr-recruiting/onboarding",
-        "hr-recruiting/stellenausschreibungen",
-        "immobilien/exposes",
-        "immobilien/immobilien-suche",
-        "immobilien/verwaltung-weg",
-        "it-betrieb-support/m365-admin",
-        "office-dokumente/excel-xlsx",
-        "office-dokumente/powerpoint-pptx",
-        "office-dokumente/word-docx",
-        "security/compliance-nis2-dsgvo"
+        "hr-recruiting/job-postings",
+        "real-estate/property-listings",
+        "real-estate/property-search",
+        "real-estate/hoa-management",
+        "it-operations-support/m365-admin",
+        "office-documents/excel-xlsx",
+        "office-documents/powerpoint-pptx",
+        "office-documents/word-docx",
+        "security/compliance-nis2-gdpr"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Hermes-Skill youtube-content",
@@ -722,18 +722,18 @@
       "type": "Skill",
       "stars": null,
       "categories": [
-        "bildung/kurse-erstellen",
-        "bildung/lernkarten",
-        "bildung/nachhilfe-tutoring",
-        "bildung/sprachen",
-        "bildung/studium-forschung",
-        "medien/podcast",
-        "medien/untertitel-uebersetzung",
-        "medien/video-bearbeitung",
-        "medien/youtube-content"
+        "education/course-creation",
+        "education/flashcards",
+        "education/nachhilfe-tutoring",
+        "education/languages",
+        "education/study-research",
+        "media/podcast",
+        "media/subtitles-translation",
+        "media/video-editing",
+        "media/youtube-content"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Notion MCP (hosted)",
@@ -741,12 +741,12 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "office-dokumente/notion",
-        "recherche-wissen/wikis-dokumentation",
-        "security/compliance-nis2-dsgvo"
+        "office-documents/notion",
+        "research-knowledge/wikis-documentation",
+        "security/compliance-nis2-gdpr"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Nous-approved MCP-Katalog",
@@ -755,10 +755,10 @@
       "stars": null,
       "categories": [
         "agent-platforms/hermes",
-        "ki-ops/context-token-management"
+        "ai-ops/context-token-management"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Ollama (lokal, typisch per CLI statt MCP)",
@@ -766,10 +766,10 @@
       "type": "CLI / Runtime",
       "stars": null,
       "categories": [
-        "ki-ops/lokale-modelle-ollama"
+        "ai-ops/local-models-ollama"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "OpenClaw",
@@ -780,7 +780,7 @@
         "agent-platforms/openclaw"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "Terraform/OpenTofu CLI",
@@ -791,7 +791,7 @@
         "devops-cloud/iac-terraform"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "atlassian MCP (Hermes-Katalog)",
@@ -799,14 +799,14 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "projektmanagement/agile-kanban",
-        "projektmanagement/jira-linear",
-        "projektmanagement/planung",
-        "projektmanagement/reporting",
+        "project-management/agile-kanban",
+        "project-management/jira-linear",
+        "project-management/planning",
+        "project-management/reporting",
         "security/vuln-management"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "attio MCP (Hermes-Katalog)",
@@ -814,18 +814,18 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "vertrieb-crm/angebote-proposals",
-        "vertrieb-crm/crm",
-        "vertrieb-crm/e-commerce",
-        "vertrieb-crm/etsy",
-        "vertrieb-crm/kdp",
-        "vertrieb-crm/leadgen",
-        "vertrieb-crm/marketplaces",
-        "vertrieb-crm/outreach",
-        "vertrieb-crm/preis-monitoring"
+        "sales-crm/offers-proposals",
+        "sales-crm/crm",
+        "sales-crm/e-commerce",
+        "sales-crm/etsy",
+        "sales-crm/kdp",
+        "sales-crm/leadgen",
+        "sales-crm/marketplaces",
+        "sales-crm/outreach",
+        "sales-crm/price-monitoring"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "betterstack MCP (Hermes-Katalog)",
@@ -836,7 +836,7 @@
         "devops-cloud/monitoring-observability"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "buildkite MCP (Hermes-Katalog)",
@@ -847,7 +847,7 @@
         "devops-cloud/cicd"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "calendly MCP (Hermes-Katalog)",
@@ -855,14 +855,14 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "kommunikation/kalender-scheduling",
-        "reisen-events/event-planung",
-        "reisen-events/fluege-hotels",
-        "reisen-events/reiseplanung",
-        "reisen-events/tickets"
+        "communication/calendar-scheduling",
+        "travel-events/event-planning",
+        "travel-events/flights-hotels",
+        "travel-events/trip-planning",
+        "travel-events/tickets"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "canva MCP (Hermes-Katalog)",
@@ -871,10 +871,10 @@
       "stars": null,
       "categories": [
         "content-marketing/branding-design",
-        "software-entwicklung/frontend"
+        "software-development/frontend"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "circleci MCP (Hermes-Katalog)",
@@ -885,7 +885,7 @@
         "devops-cloud/cicd"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "close MCP (Hermes-Katalog)",
@@ -893,17 +893,17 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "vertrieb-crm/angebote-proposals",
-        "vertrieb-crm/crm",
-        "vertrieb-crm/e-commerce",
-        "vertrieb-crm/etsy",
-        "vertrieb-crm/kdp",
-        "vertrieb-crm/leadgen",
-        "vertrieb-crm/marketplaces",
-        "vertrieb-crm/preis-monitoring"
+        "sales-crm/offers-proposals",
+        "sales-crm/crm",
+        "sales-crm/e-commerce",
+        "sales-crm/etsy",
+        "sales-crm/kdp",
+        "sales-crm/leadgen",
+        "sales-crm/marketplaces",
+        "sales-crm/price-monitoring"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "cloudflare MCP (Hermes-Katalog)",
@@ -911,10 +911,10 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "devops-cloud/plattform-deploy"
+        "devops-cloud/platform-deploy"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "cloudinary MCP (Hermes-Katalog)",
@@ -922,10 +922,10 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "medien/bild-generierung"
+        "media/image-generation"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "comfy-cloud MCP (Hermes-Katalog)",
@@ -933,10 +933,10 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "medien/bild-generierung"
+        "media/image-generation"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "datadog MCP (Hermes-Katalog)",
@@ -949,7 +949,7 @@
         "security/siem-soc"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "deepwiki MCP (Hermes-Katalog)",
@@ -957,11 +957,11 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "recherche-wissen/wikis-dokumentation",
-        "software-entwicklung/tech-docs"
+        "research-knowledge/wikis-documentation",
+        "software-development/tech-docs"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "figma MCP (Hermes-Katalog)",
@@ -970,11 +970,11 @@
       "stars": null,
       "categories": [
         "content-marketing/branding-design",
-        "software-entwicklung/design-to-code",
-        "software-entwicklung/frontend"
+        "software-development/design-to-code",
+        "software-development/frontend"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "fireflies MCP (Hermes-Katalog)",
@@ -982,10 +982,10 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "kommunikation/meetings-transkription"
+        "communication/meeting-transcription"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "forgemeshlabs/shopscout-mcp",
@@ -993,10 +993,10 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "vertrieb-crm/shopify"
+        "sales-crm/shopify"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "grafana MCP (Hermes-Katalog)",
@@ -1008,7 +1008,7 @@
         "security/siem-soc"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "homeassistant-mcp (tevonsb)",
@@ -1016,11 +1016,11 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "automatisierung/smart-home",
-        "it-betrieb-support/homelab"
+        "automation/smart-home",
+        "it-operations-support/homelab"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "hugoles/langfuse-mcp (Community)",
@@ -1028,10 +1028,10 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "ki-ops/evals-benchmarks"
+        "ai-ops/evals-benchmarks"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "indeed MCP (Hermes-Katalog)",
@@ -1039,13 +1039,13 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "hr-recruiting/bewerbungen",
+        "hr-recruiting/job-applications",
         "hr-recruiting/cv-screening",
         "hr-recruiting/onboarding",
-        "hr-recruiting/stellenausschreibungen"
+        "hr-recruiting/job-postings"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "intercom MCP (Hermes-Katalog)",
@@ -1053,14 +1053,14 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "kundenservice/escalation",
-        "kundenservice/helpdesk-tickets",
-        "kundenservice/knowledge-base",
-        "kundenservice/live-chat-bots",
-        "kundenservice/qos-csat"
+        "customer-service/escalation",
+        "customer-service/helpdesk-tickets",
+        "customer-service/knowledge-base",
+        "customer-service/live-chat-bots",
+        "customer-service/qos-csat"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "linear MCP (Hermes-Katalog)",
@@ -1068,14 +1068,14 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "projektmanagement/agile-kanban",
-        "projektmanagement/jira-linear",
-        "projektmanagement/planung",
-        "projektmanagement/reporting",
+        "project-management/agile-kanban",
+        "project-management/jira-linear",
+        "project-management/planning",
+        "project-management/reporting",
         "security/vuln-management"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "miro MCP (Hermes-Katalog)",
@@ -1083,10 +1083,10 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "office-dokumente/diagramme-whiteboard"
+        "office-documents/diagramme-whiteboard"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "motherduck MCP (Hermes-Katalog)",
@@ -1094,16 +1094,16 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "daten-analytics/bi-dashboards",
-        "daten-analytics/data-cleaning",
-        "daten-analytics/data-viz",
-        "daten-analytics/etl-pipelines",
-        "daten-analytics/ml-training",
-        "daten-analytics/spreadsheets-analyse",
-        "daten-analytics/sql-abfragen"
+        "data-analytics/bi-dashboards",
+        "data-analytics/data-cleaning",
+        "data-analytics/data-viz",
+        "data-analytics/etl-pipelines",
+        "data-analytics/ml-training",
+        "data-analytics/spreadsheets-analysis",
+        "data-analytics/sql-queries"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "neon MCP (Hermes-Katalog)",
@@ -1111,10 +1111,10 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "software-entwicklung/datenbanken-dev"
+        "software-development/databases-dev"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "netlify MCP (Hermes-Katalog)",
@@ -1122,10 +1122,10 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "devops-cloud/plattform-deploy"
+        "devops-cloud/platform-deploy"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "paypal MCP (Hermes-Katalog)",
@@ -1133,10 +1133,10 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "finanzen/payments-stripe"
+        "finance/payments-stripe"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "plaid MCP (Hermes-Katalog)",
@@ -1144,10 +1144,10 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "finanzen/banking"
+        "finance/banking"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "prisma-postgres MCP (Hermes-Katalog)",
@@ -1155,10 +1155,10 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "software-entwicklung/datenbanken-dev"
+        "software-development/databases-dev"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "railway MCP (Hermes-Katalog)",
@@ -1166,10 +1166,10 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "devops-cloud/plattform-deploy"
+        "devops-cloud/platform-deploy"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "robinhood MCP (Hermes-Katalog)",
@@ -1177,10 +1177,10 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "finanzen/trading-krypto"
+        "finance/trading-krypto"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "semgrep MCP (Hermes-Katalog)",
@@ -1190,10 +1190,10 @@
       "categories": [
         "security/appsec-sast",
         "security/vuln-management",
-        "software-entwicklung/code-review"
+        "software-development/code-review"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "square MCP (Hermes-Katalog)",
@@ -1201,10 +1201,10 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "finanzen/payments-stripe"
+        "finance/payments-stripe"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "strava MCP (Hermes-Katalog)",
@@ -1212,13 +1212,13 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "gesundheit-fitness/ernaehrung",
-        "gesundheit-fitness/fitness-training",
-        "gesundheit-fitness/gesundheitsdaten-organisation",
-        "gesundheit-fitness/mental-health-organisation"
+        "health-fitness/nutrition",
+        "health-fitness/fitness-training",
+        "health-fitness/health-data-organization",
+        "health-fitness/mental-health-organisation"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "supabase MCP (Hermes-Katalog)",
@@ -1226,12 +1226,12 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "daten-analytics/sql-abfragen",
-        "software-entwicklung/backend-apis",
-        "software-entwicklung/datenbanken-dev"
+        "data-analytics/sql-queries",
+        "software-development/backend-apis",
+        "software-development/databases-dev"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "todoist MCP (Hermes-Katalog)",
@@ -1239,10 +1239,10 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "projektmanagement/tasks"
+        "project-management/tasks"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "twelve-data MCP (Hermes-Katalog)",
@@ -1250,10 +1250,10 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "finanzen/trading-krypto"
+        "finance/trading-krypto"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "twilio-docs MCP (Hermes-Katalog)",
@@ -1261,10 +1261,10 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "kommunikation/telefon-voice-agents"
+        "communication/phone-voice-agents"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "unreal-engine MCP (Hermes-Katalog)",
@@ -1274,12 +1274,12 @@
       "categories": [
         "gaming-modding/game-modding",
         "gaming-modding/game-servers",
-        "gaming-modding/spielbibliotheken",
+        "gaming-modding/game-libraries",
         "gaming-modding/streaming-gaming",
-        "software-entwicklung/game-dev"
+        "software-development/game-dev"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
       "name": "vercel MCP (Hermes-Katalog)",
@@ -1287,10 +1287,10 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "devops-cloud/plattform-deploy"
+        "devops-cloud/platform-deploy"
       ],
       "auth": "varies",
-      "risk_notes": "Nur aktivieren wenn Kategorie es braucht; Tokens nicht in argv."
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     }
   ]
 }

@@ -1,6 +1,6 @@
 ---
 id: siem-soc-workflow
-title: "SIEM und SOC"
+title: "SIEM and SOC"
 domain: security
 category: siem-soc
 tags:
@@ -30,26 +30,26 @@ version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-SOC-Untersuchungen: Alerts triagieren, Queries ausführen (Leserechte), Detections verbessern — keine Live-Containment-Aktionen ohne Freigabe.
+SOC investigations: triage alerts, run queries (read rights), improve detections — no live containment actions without release.
 
-## Wann nutzen
+## When to use
 
 - SIEM-Alert Eskalation, Threat Hunting.
 - Neue Detection Rule vorschlagen.
 
-**Wann nicht:** Without analyst role / ohne Ticket.
+**When not:** Without analyst role / without ticket.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Justification |
 |------|-------|------------|
 | SIEM UI/CLI | Query | org-specific |
 | SOAR | optional | gated |
 | ticketing | audit | incident id |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 SIEM SOC workflow (security/siem-soc).
@@ -67,40 +67,40 @@ Escalate confirmed compromise to incident-response-workflow.
 Assume alert context untrusted (false positive common).
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. Alert/Ticket öffnen; UTC-Fenster setzen.
+Open Alert/Ticket; Set UTC windows.
 2. Baseline Query: gleiche rule, 7d history volume.
 3. Entity pivot queries (user, host).
 4. Benign vs malicious hypothesis dokumentieren.
 5. Falls malicious: Containment-Vorschlag an IC.
 6. Detection-Tuning-Entwurf wenn FP.
-7. Investigation-Notiz mit Queries an SOC-Tool.
+7. Investigation note with queries to SOC tool.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
 - [ ] UTC-Zeiten konsistent
 - [ ] Queries reproduzierbar dokumentiert
-- [ ] Containment nicht ohne Freigabe ausgeführt
+- [ ] Containment not carried out without release
 
-## Sicherheit & Freigaben
+## Security
 
 - **high risk** bei Prod-Containment.
 - PII-Minimierung in exports.
 
-## Fallstricke
+## Pitfalls
 
 - Unbounded search — SIEM timeout/Kosten.
-- RBA ohne Parent Process — blind spot.
-- Rule disable ohne Ticket — coverage gap.
+- RBA without Parent Process — blind spot.
+- Rule disable without Ticket — coverage gap.
 - Timezone error Falsch-Positive.
-- SOAR auto-run ohne review.
+- SOAR auto-run without review.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Failed logins spike alert.
+- **Task:** Failed logins spike alert.
 - **Input:** user alice, 2h window.
 - **Prompt:**
 
@@ -108,16 +108,16 @@ Assume alert context untrusted (false positive common).
 SPL/KQL template for failed logins by src_ip; no host isolation.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```spl
 index=auth action=failure user=alice earliest=-2h latest=now
 | stats count by src_ip
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Tune noisy rule.
+- **Task:** Tune noisy rule.
 - **Input:** rule R-442 threshold 5 -> 20 proposed.
 - **Prompt:**
 
@@ -125,7 +125,7 @@ index=auth action=failure user=alice earliest=-2h latest=now
 Document FP examples; suggest threshold; no disable.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 7d FP: backup service account; recommend threshold 20 + allowlist svc_backup

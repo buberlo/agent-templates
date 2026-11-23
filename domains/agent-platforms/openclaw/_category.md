@@ -1,44 +1,45 @@
 # OpenClaw
 
 - **Domain:** `agent-platforms`
-- **Kategorie:** `openclaw`
-- **Stand:** 2026-11-23
+- **Category:** `opencla w
+- **As of:** 2026-11-23
 
-## Kurzbeschreibung
+## Summary
 
 Gateway, ClawHub, Skill Workshop, MCP, Android-Companion, Skill-Verify.
 
-## Empfohlener Tool-Stack
+## Recommended tool stack
 
 - Gateway auf dem Computer
-- Skills aus Workspace/ClawHub mit Verify
+Skills from Workspace/ClawHub with Verify
 - MCP unter mcp.servers + Tool-Policy
-- Companion-Apps nicht als Host missverstehen
+- Do not misunderstand companion apps as hosts
 
-## MCP-Server und Skills
+## MCP Server and Skills
 
-| Name | Typ | URL | Einsatz | Installation | Popularitaet | Quelle | Unverified? |
+| Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| OpenClaw | Agent-Plattform | https://github.com/openclaw/openclaw | Self-hosted Gateway, Skills, Plugins, MCP, Kanaele, Android-Companion. | Docs auf docs.openclaw.ai; CLI openclaw skills\|mcp\|plugins. | 395.081 Stars (API 23.11.2026). | https://docs.openclaw.ai/ | nein (so belegt) |
-| ClawHub | Registry | https://github.com/openclaw/clawhub | Oeffentliche Skill- und Plugin-Registry, Semver, Downloads, Security-Scan-Summaries, openclaw skills verify. | openclaw skills install @owner/skill, openclaw plugins install clawhub:<pkg>, optional npm i -g clawhub zum Publizieren. | 9.559 Stars; Site clawhub.ai / docs. | https://docs.openclaw.ai/clawhub | nein (so belegt) |
 
-## Typische Workflows
+| OpenClaw | Agent-Plattform | https://github.com/openclaw/openclaw | Self-hosted Gateway, Skills, Plugins, MCP, Kanaele, Android-Companion. | Docs auf docs.openclaw.ai; CLI openclaw skills\|mcp\|plugins. | 395.081 Stars (API 23.11.2026). | https://docs.openclaw.ai/ | no (as cited) |
+| ClawHub | Registry | https://github.com/openclaw/clawhub |Public Skill and Plugin Registry, Semver, Downloads, Security Scan Summaries, openclaw skills verify.| openclaw skills install @owner/skill, openclaw plugins install clawhub:<pkg>, optional npm i -g clawhub zum Publizieren. | 9.559 Stars; Site clawhub.ai / docs. | https://docs.openclaw.ai/clawhub | no (as cited) |
 
-- Skill Workshop fuer neue Prozeduren (Proposal review). MCP add in Settings oder CLI. Android per QR an bestehendes Gateway koppeln.
+## Typical workflows
+
+- Skill Workshop for new procedures (proposal review). MCP add in Settings or CLI. Connect Android via QR to an existing gateway.
 - Prompt-Budget: OpenClaw kuerzt Skill-Beschreibungen, wenn skills.limits.maxSkillsPromptChars greift.
 
-## Fallstricke
+## Pitfalls
 
-- ClawHub-Skills vor der Nutzung prüfen (`openclaw skills verify`). Im Februar 2026 auditierte Koi Security 2.857 Registry-Skills und bewertete 341 als schadhaft (ca. 12 %). Quellen: https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html , https://docs.openclaw.ai/skills/
+- Check ClawHub skills before use (`openclaw skills verify`). In February 2026, Koi Security audited 2,857 registry skills and rated 341 as defective (about 12%). Sources: https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html
 - Loading-Order kann Workspace-Skills ueber Bundled legen.
-- Aeltere .clawdhub-Metadaten werden nicht mehr gelesen (Rename auf .clawhub).
-- Leaderboard-Eintraege mit Warnmarkierung und extrem wenigen Registry-Stars trotz hoher Downloads besonders kritisch sehen.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Older .clawdhub metadata is no longer read (rename on .clawhub).
+- Leaderboard entries with warning marking and extremely few registry stars are particularly critical despite high downloads.
+- Skills are workflows/instructions (progressive disclosure), MCP are connections and tools. Combine the two, not confuse them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
+Activate only the MCPs/Skills that the task needs. Hermes filters per include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp
+- Do not write tokens or passwords in chat, skill files or command arguments of custom MCPs. Grok bot wiki: OAuth tokens remain on the connector backend; Command servers must not contain credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- Write, send, pay, deploy and delete only after explicit approval; good document skills require a Verify step (re-read file, render PDF/PNG).
 
-## Quellen
+## Sources
 
 - https://docs.openclaw.ai/
 - https://docs.openclaw.ai/skills/

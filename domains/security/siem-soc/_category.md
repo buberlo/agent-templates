@@ -1,40 +1,40 @@
-# SIEM und SOC
+# SIEM and SOC
 
 - **Domain:** `security`
-- **Kategorie:** `siem-soc`
-- **Stand:** 2026-11-23
+- **Category:** `siem-soc`
+- **As of:** 2026-11-23
 
-## Kurzbeschreibung
+## Summary
 
-Alerts triagieren, Korrelation und Playbooks in SIEM/SOAR-Umgebungen (defensiv).
+Alerts triage, correlation and playbooks in SIEM/SOAR environments (defensive).
 
-## Empfohlener Tool-Stack
+## Recommended tool stack
 
-- Bestehende SIEM-APIs/MCPs der Org, Read-first, Playbooks
+- Existing SIEM APIs/MCPs of the Org, Read-first, Playbooks
 
-## MCP-Server und Skills
+## MCP servers and skills
 
-| Name | Typ | URL | Einsatz | Installation | Popularitaet | Quelle | Unverified? |
+| Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| datadog MCP (Hermes-Katalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/datadog | Observability-Kontext, soweit berechtigt. | hermes mcp install datadog | Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | nein (so belegt) |
-| Sentry MCP | MCP | https://github.com/getsentry/sentry-mcp | Produktionsfehler, Issues und Kontext fuer Coding-Agenten. | Offizielles getsentry/sentry-mcp Repo. | 973 Stars | https://github.com/getsentry/sentry-mcp | nein (so belegt) |
-| grafana MCP (Hermes-Katalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/grafana | Dashboards/Alerts lesen. | hermes mcp install grafana | Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | nein (so belegt) |
+| datadog MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/datadog | Observability-Kontext, soweit berechtigt. | hermes mcp install datadog | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
+| Sentry MCP | MCP | https://github.com/getsentry/sentry-mcp |Production errors, issues and context for coding agents.| Offizielles getsentry/sentry-mcp Repo. | 973 Stars | https://github.com/getsentry/sentry-mcp | no (as cited) |
+| grafana MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/grafana | Dashboards/Alerts lesen. | hermes mcp install grafana | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
 
-## Typische Workflows
+## Typical workflows
 
-- Alert → Kontext sammeln → dokumentierte Mitigationsvorschlaege. Keine Offensivmassnahmen.
+- Alert → Kontext sammeln → dokumentierte Mitigationsvorschlaege. No Offensivmassnahmen.
 
-## Fallstricke
+## Pitfalls
 
 - Write-Zugriff auf Detection-Rules ist hochsensibel.
 - Nur defensive, autorisierte Nutzung.
-- Keine Angriffs- oder Umgehungsanleitungen in diesen Templates.
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- No Angriffs- or Umgehungsanleitungen in diesen Templates.
+- Do not put tokens or passwords in chat, skill files, or custom MCP command arguments. Grok Bot wiki: OAuth tokens stay on the connector backend; command servers must not pass credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- Skills are workflows/instructions (progressive disclosure); MCP servers are connections and tools. Combine both; do not conflate them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
+- Enable only the MCPs/skills the task needs. Hermes filters via include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
+- Write, send, pay, deploy, and delete only after explicit approval; good document skills require a verify step (re-read the file, render PDF/PNG).
 
-## Quellen
+## Sources
 
 - https://github.com/getsentry/sentry-mcp
 - https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp

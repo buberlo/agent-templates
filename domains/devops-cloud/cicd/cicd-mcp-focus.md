@@ -1,6 +1,6 @@
 ---
 id: cicd-mcp-focus
-title: "CI/CD: MCP/Skill-Fokus"
+title: "CI/CD: MCP/Skill focus"
 domain: devops-cloud
 category: cicd
 tags:
@@ -18,39 +18,39 @@ required_tools:
     version_notes: "Actions, PRs, Workflow-Runs"
   - name: gh
     install: "https://cli.github.com"
-    version_notes: "Ergänzung wenn MCP read-only reicht"
+    version_notes: "Supplement when MCP read-only is enough"
 inputs:
-  - "Repo und fehlgeschlagene Workflow-Run-ID"
-  - "Skill-Schritte für Lint/Test/Deploy"
+  - "Repo and failed workflow run ID"
+  - "Skill steps for lint/test/deploy"
 outputs:
-  - "Skill↔MCP-Matrix für CI"
-  - "Root-Cause-Notiz mit Log-Auszug"
+  - "Skill↔MCP matrix for CI"
+  - "Root-cause note with log excerpt"
 risk_level: medium
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-CI/CD-Aufgaben über **GitHub MCP** und **gh** orchestrieren: Failed Runs lesen, Logs analysieren, Fixes als PR — Writes nur nach Freigabe.
+Orchestrate CI/CD via **GitHub MCP** and **gh**: read failed runs, analyze logs, fixes as PR—writes only after approval.
 
-## Wann nutzen
+## When to use
 
-- Agent soll Actions-Logs und PR-Kontext ohne manuelles UI.
-- Team dokumentiert, welcher Skill-Schritt welches MCP-Tool nutzt.
+- Agent should read Actions logs and PR context without manual UI.
+- Team documents which skill step uses which MCP tool.
 
-**Wann nicht:** Wenn nur lokaler `act`-Test nötig ist ohne Remote — dann `coding-github-actions-ci-pipeline`.
+**When not to use:** When only local `act` test without remote—use `coding-github-actions-ci-pipeline`.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Rationale |
 |------|-------|------------|
-| GitHub Official MCP | Runs, PRs | Strukturierte API |
-| gh CLI | Logs/Fallback | `gh run view --log-failed` |
-| Skill-CI | Ablauf | Repro, Fix, Verify |
+| GitHub Official MCP | Runs, PRs | Structured API |
+| gh CLI | Logs/fallback | `gh run view --log-failed` |
+| Skill-CI | Flow | Repro, fix, verify |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 MCP/Skill focus for CI/CD (devops-cloud/cicd).
@@ -69,40 +69,40 @@ Document which tool answered each question (MCP vs gh).
 One MCP for GitHub; do not duplicate with third-party GitHub mirrors.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. Skill-Matrix: Schritt → MCP-Tool / gh-Kommando.
-2. MCP: Workflow-Liste und letzte Runs auf `main` und PR-Branch.
-3. Fehl-Run-ID notieren; parallel `gh run view <id> --json conclusion,jobs`.
-4. Log-Auszug (Fehlerblock) ins Ticket; Secrets redigieren.
-5. Lokalen Repro-Befehl aus Workflow extrahieren.
-6. Fix-Entwurf als Diff; MCP/Skill Write nur nach Freigabe.
-7. Nach Push: Run beobachten; Matrix aktualisieren.
+1. Skill matrix: step → MCP tool / gh command.
+2. MCP: workflow list and latest runs on `main` and PR branch.
+3. Note failed run ID; in parallel `gh run view <id> --json conclusion,jobs`.
+4. Log excerpt (error block) into ticket; redact secrets.
+5. Extract local repro command from workflow.
+6. Fix draft as diff; MCP/skill write only after approval.
+7. After push: watch run; update matrix.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
-- [ ] Failed Run mit Job+Step identifiziert
-- [ ] Skill↔MCP-Matrix für den Task vollständig
-- [ ] Keine Secrets in Chat oder PR-Beschreibung
+- [ ] Failed run with job+step identified
+- [ ] Skill↔MCP matrix complete for task
+- [ ] No secrets in chat or PR description
 
-## Sicherheit & Freigaben
+## Security
 
-- Pipeline-Secrets nie in den Chat spiegeln.
-- Write-Tools (PR merge, workflow_dispatch) nur mit Freigabe.
-- Fine-grained PAT auf nötige Repos beschränken.
+- Never mirror pipeline secrets into chat.
+- Write tools (PR merge, workflow_dispatch) only with approval.
+- Limit fine-grained PAT to needed repos.
 
-## Fallstricke
+## Pitfalls
 
-- MCP-Log-Größe truncated — gh CLI als Fallback.
-- Zwei GitHub-MCPs parallel — doppelte Tool-Schemas, langsamer Agent.
-- `workflow_dispatch` aus Agent ohne Policy — versehentlicher Prod-Deploy.
-- Fork-PR-Kontext: MCP sieht andere Permissions als Maintainer-Branch.
+- MCP log size truncated—gh CLI as fallback.
+- Two GitHub MCPs in parallel—duplicate tool schemas, slower agent.
+- `workflow_dispatch` from agent without policy—accidental prod deploy.
+- Fork PR context: MCP sees different permissions than maintainer branch.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Letzten roten CI-Run auf PR #88 analysieren.
+- **Task:** Letzten roten CI-Run auf PR #88 analysieren.
 - **Input:** Repo `acme/api`, Run `20112233`.
 - **Prompt:**
 
@@ -110,16 +110,16 @@ One MCP for GitHub; do not duplicate with third-party GitHub mirrors.
 Use GitHub MCP read tools for run 20112233; supplement with gh log-failed; no writes.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 Matrix: step2=search_workflow_runs, step3=gh run view --log-failed
 Root cause: pytest collection error in tests/integration/
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Skill definieren für „grün vor Merge“.
+- **Task:** Define skill for “green before merge”.
 - **Input:** Branch protection verlangt `ci / test`.
 - **Prompt:**
 
@@ -127,7 +127,7 @@ Root cause: pytest collection error in tests/integration/
 Write 5-step skill mapping MCP reads and local verify; approval before gh pr merge.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 Skill steps 1-4 read-only; step5 merge blocked until user types APPROVE

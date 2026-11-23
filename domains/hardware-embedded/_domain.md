@@ -1,18 +1,18 @@
-# Hardware und Embedded
+# Hardware and embedded
 
-**Domain-Slug:** `hardware-embedded`
-**Kategorien:** 4
-**Stand:** 2026-11-23
+**Domain slug:** `hardware-embedded`
+**Categories:** 4
+**As of:** 2026-11-23
 
-## Übersicht
+## Overview
 
-Templates und Kategorie-Metadaten für **Hardware und Embedded** — abgeleitet aus der Recherche vom 2026-11-23.
+Templates and category metadata for **Hardware and embedded** — derived from research on 2026-11-23.
 
-## Kategorien
+## Categories
 
-| Kategorie | Slug | Templates |
+| Category | Slug | Templates |
 |-----------|------|-----------|
-| Arduino und ESP32 | `arduino-esp32` | 1 |
+| Arduino and ESP32 | `arduino-esp32` | 1 |
 | CAD | `cad` | 1 |
-| 3D-Druck | `dreid-druck` | 1 |
-| Elektronik-Diagnose | `elektronik-diagnose` | 1 |
+| 3D printing | `3d-printing` | 1 |
+| Electronics diagnostics | `electronics-diagnostics` | 1 |

@@ -11,10 +11,10 @@ target_agents:
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: figma MCP (Hermes-Katalog)
+  - name: figma MCP (Hermes-catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/figma"
     version_notes: "Hermes"
-  - name: canva MCP (Hermes-Katalog)
+  - name: canva MCP (Hermes-catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/canva"
     version_notes: "Hermes"
 inputs:
@@ -31,30 +31,30 @@ version: "1.1.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
 Creative Briefs; Figma read-only default.
 
-## Wann nutzen
+## When to use
 
-- Klar umrissene branding-design-Aufgabe mit Briefing.
+- Clearly defined branding design task with briefing.
 
-**Wann nicht**
+**When not to use**
 
-- Ohne Quellen/Briefing oder gegen Plattform-ToS.
+- Without sources/lettering or against platform-ToS.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Rationale |
 |------|-------|------------|
-| required_tools | Primär | Laut Frontmatter |
+. . . . .
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Role: brand design strategist.
 Brief: SMP, tone, mandatories, deliverable sizes.
-Figma MCP read-only unless FREIGABE FIGMA.
+Figma MCP read-only unless FREEDOM
 WCAG contrast note on color pairs.
 No plagiarize competitor trade dress.
 Document assumptions at top of deliverable.
@@ -69,7 +69,7 @@ If data missing, stop and list concrete questions.
 Deliver reproducible file paths in summary.
 ```
 
-## Arbeitsablauf
+## Workflow
 
 1. Werte
 2. Deliverables
@@ -79,31 +79,31 @@ Deliver reproducible file paths in summary.
 6. Moodboard
 7. Brief
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
 - [ ] Outputs erstellt
-- [ ] Freigaben eingehalten
+- [ ] user approvaln eingehalten
 - [ ] Quellen/Annahmen geloggt
 - [ ] Kein Auto-Publish
 
-## Sicherheit & Freigaben
+## Security
 
 - Credentials nur im Connector.
-- Send/Publish nur nach Freigabe.
+-O passing-off/Pa, after release.
 
-## Fallstricke
+## Pitfalls
 
 - Wettbewerber kopieren
 - Zu viele Fonts
-- Ohne Größen
+Without sizes
 - Figma write
 - Canva statt CI
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Rebrand Brief
+- **Task:** Rebrand Brief
 - **Input:** 3 Werte
 - **Prompt:**
 
@@ -111,15 +111,15 @@ Deliver reproducible file paths in summary.
 creative_brief
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 SMP one line
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Figma audit
+- **Task:** Figma audit
 - **Input:** file id
 - **Prompt:**
 
@@ -127,7 +127,7 @@ SMP one line
 read-only summary
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 no edits

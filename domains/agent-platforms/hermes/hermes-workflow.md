@@ -6,126 +6,129 @@ category: hermes
 tags:
   - hermes
   - agent-platforms
-  - agentplattform
+  - agent-platform
 target_agents:
   - hermes
   - generic-mcp-agents
 required_tools:
   - name: Hermes Agent
     install: "https://github.com/NousResearch/hermes-agent"
-    version_notes: "265550 GitHub Stars; Quickstart Desktop oder CLI"
-  - name: Nous-approved MCP-Katalog
+    version_notes: "265550 GitHub Stars; Quickstart Desktop or CLI"
+  - name: Nous-approved MCP-catalog
     install: "https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp"
-    version_notes: "66 optional-mcps; standardmäßig deaktiviert; hermes mcp install"
+    version_notes: "66 optional mcps; deactivated by default"; Hermes MP Install
 inputs:
-  - "Aufgabenbriefing mit gewünschtem Ergebnis und Risikostufe"
+  - "Task briefing with desired result and risk level"
   - "Optional: Repo-Pfad, Ticket-IDs, URLs"
 outputs:
-  - "Nachvollziehbares Ergebnis (Datei, Zusammenfassung oder Ticket-Update)"
-  - "Protokoll aktivierter MCPs/Skills und Delegationsschritte"
+  - "Nachvollziehbares result (Datei, Zusammenfassung or Ticket-Update)"
+  - "Protocol of activated MCPs/Skills and Delegation Steps"
 risk_level: low
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-Hermes als lokal konfigurierbare Agent-Plattform nutzen: Skills steuern Verhalten, der Nous-MCP-Katalog liefert Datenquellen, optional delegierst du Coding-Schleifen an Claude Code oder Codex, ohne jedes Mal einen unkontrollierten Tool-Zoo zu laden.
+Use Hermes as a locally configurable agent platform: Skills control behavior, the Nous MCP catalogue provides data sources, optionally delegate coding loops to Claude Code or Codex without loading an uncontrolled tool zoo each time.
 
-## Wann nutzen
+## When to use
 
-- Du brauchst einen **Least-Privilege**-Start (wenige MCPs) und willst erst bei Bedarf erweitern (`hermes mcp install`, Skills aus Katalog).
-- Aufgaben passen zu Slash-Commands oder Skills wie `/github`, Research- oder Dokumentations-Flows.
-- **Wann nicht:** Wenn du ClawHub-Community-Skills ohne Nous-Review brauchst (OpenClaw ist der Registry-Fokus). Wenn die Aufgabe eine reine macOS-Only-Skill-Platform braucht und du auf Linux arbeitest — `platforms: [macos]` wird still übersprungen.
+- You need a **least privilege** start (few MCPs) and only want to expand if necessary (`hermes mcp install`, skills from catalogue).
+- Aufgaben passen zu Slash-Commands or Skills wie `/github`, Research- or Dokumentations-Flows.
 
-## Tool-Stack
+#### When not to use
 
-| Tool | Rolle | Begründung |
-|------|-------|------------|
+- If you need ClawHub community skills without Nous review (OpenClaw is the registry focus). If the task needs a pure macOS-only-skill platform and you work on Linux — `platforms: [macos] is quietly skipped.
+
+## Tool stack
+
+| Tool | Role | Rationale |
+|------|-------|-----------|
 | Hermes Agent | Orchestrator | Skills, Memory, Cron, Tool Gateway, Delegation |
-| Nous-approved MCP-Katalog | Kuratierter Zugang | Nur PR-gemergte `optional-mcps/`; Secrets über Install-Karte |
+| Nous-approved MCP catalogue | Curated access | Only PR-merged `optional-mcps/`; Secrets about Install Card |
 | Skills (~/.hermes/skills) | Ablauf & progressive disclosure | Getrennt von MCP-Verbindungen |
-| Optionale Delegation | Coding-Runtime | Codex/Claude Code nur für die Implementierungsschleife |
+| Optional Delegation | Coding Runtime | Codex/Claude Code only for the implementation loop |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
-Du arbeitest auf Hermes (Nous Research). Minimiere aktive MCPs: nur installieren, was die Aufgabe braucht.
-Skills liefern Prozedur, MCP liefert Daten/Aktionen — nicht verwechseln.
-Vor Schreib-, Send-, Deploy- oder Löschaktionen: explizite Nutzerfreigabe einholen.
+You work on Hermes (Nous Research). Minimize active MCPs: only install what the task needs.
+Skills liefern Prozedur, MCP liefert Daten/Aktionen — not verwechseln.
+Before write, send, deploy or delete actions: obtain explicit user sharing.
 Bei Dokument-Outputs: erzeugen → validate (falls Skill) → Render (PDF/PNG) → Datei erneut lesen.
-Skills mit platforms-Filter prüfen; unter Linux werden macOS-only Skills übersprungen.
-Tokens nie in Chat, Skill-Dateien oder MCP-Command-argv.
-Jeden Tool-Call in einer kurzen Zeile protokollieren (Tool, Zweck, Ergebnis-Status).
-Wenn Coding nötig: Delegation an Codex/Claude Code, Review im Hermes-Thread abschließen.
-Bei Sync-Konflikten: lokale Löschungen respektieren; Restore nur mit hermes skills reset --restore.
-Include/exclude für MCP und Skills nutzen, statt alles eingeschaltet zu lassen.
+Check skills with platforms filters; Under Linux, macOS-only skills are skipped.
+Tokens nie in Chat, Skill-Files or MCP-Command-argv.
+Log each tool call in a short line (tool, purpose, result status).
+If coding is required: Delegation to Codex/Claude Code, complete review in the Hermes thread.
+For sync conflicts: respect local deletions; Restore only with Hermes skills reset --restore.
+Include/exclude for MCP and Skills nutzen, statt alles eingeschaltet zu lassen.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. `hermes setup` oder Portal öffnen; Ist-Zustand der MCPs mit `hermes mcp` prüfen (Default: aus).
-2. Aufgabe in Briefing, Risiko und gewünschtes Artefakt zerlegen.
-3. Nur passende Skills installieren (`hermes skills install`) und MCPs aus dem Nous-Katalog hinzufügen.
-4. Include/exclude so setzen, dass Prompt-Budget und Berechtigungen minimal bleiben.
-5. Agent-Thread starten; Slash-Command oder Skill-Trigger wählen.
-6. Ergebnis prüfen; bei Dokumenten Verify-Render-Pfad der Skill-Doku folgen.
-7. Optional Coding an Delegation abgeben; Änderungen im Orchestrator reviewen.
-8. Artefakt und Tool-Log für Reproduzierbarkeit ablegen.
+1. `hermes setup` or portal open; Check the actual state of the MCPs with `hermes mcp` (default: off).
+2. Decompose task into briefing, risk and desired artifact.
+3. Only install appropriate skills (hermes skills install) and add MCPs from the Nous catalogue.
+4. Include/exclude so that prompt budget and permissions remain minimal.
+5. Start the agent thread; Select slash command or skill trigger.
+6. Check the result; for documents, follow the Verify render path of the skill document.
+7. submit optional coding to delegation; Review changes in the Orchestrator.
+8. File artifact and tool log for reproducibility.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
-- [ ] Nur für die Aufgabe nötige MCPs/Skills waren aktiv (nachvollziehbar gelistet)
-- [ ] Keine Schreib-/Sendeaktion ohne dokumentierte Freigabe
-- [ ] Ergebnis entspricht Briefing; bei Office/PDF: Validator oder visueller Render geprüft
-- [ ] Platforms-Filter geprüft (kein still fehlender macOS-Skill unter Linux)
-- [ ] Delegation (falls genutzt) im Hermes-Thread abgeschlossen, nicht nur im Sub-Agent
+- [ ] Only MCPs/Skills required for the task were active (traceable listed)
+- [ ] No write/send action without documented release
+- [ ] Result corresponds to briefing; for Office/PDF: validator or visual render checked
+- [ ] Platforms filter tested (no silently missing macOS skill on Linux)
+- [ ] Delegation (if used) completed in the Hermes thread, not only in the sub-agent
 
-## Sicherheit & Freigaben
+## Security
 
-- MCP-Einträge kommen bevorzugt aus dem Nous-Katalog; Custom-Server nur nach Review.
-- Secrets über Hermes-Install-Karten/OAuth, nie in Prompts oder argv.
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe.
-- Document-Skills: nach Erzeugen validate und visuell rendern (Verify-Schritt).
+- MCP entries preferably come from the Nous catalogue; Custom server only after review.
+- Secrets about Hermes install cards/OAuth, never in prompts or argv.
+- Write, send, pay, deploy and delete only after explicit approval.
+- Document skills: after generating validate and visually render (verify step).
 
-## Fallstricke
+## Pitfalls
 
-- **Platforms-Filter:** Skills mit `platforms: [macos]` laufen unter Linux ohne Fehlermeldung nicht — Aufgabe wirkt „kaputt“. Quelle: Community-Bericht in Hermes-Kategorie-Recherche.
-- **Skill-Sync:** Sync überschreibt lokale Löschungen nicht blind; versehentlich gelöschte Skills brauchen `hermes skills reset --restore`.
-- **MCP-Flut:** Zu viele gleichzeitige MCPs blähen Tool-Schemas und Kontext auf (siehe auch 67k-Token-Messung bei anderen Clients).
-- **Skill vs. MCP:** Nur MCP zu aktivieren reicht nicht, wenn der Ablauf in einer Skill-Anleitung steckt.
-- **Delegation ohne Review:** Codex/Claude Code mit Schreibrecht ohne Rückkopplung erzeugt widersprüchliche Commits.
+- **Platforms filter:** Skills with `platforms: [macos]` do not run on Linux without error message — The task is “broken”. Source: Community report in Hermes Category Research.
+**Skill sync:** Sync does not blindly overwrite local deletions; Accidentally deleted skills need hermes skills reset --restore.
+**MCP flood:** Too many concurrent MCPs inflate tool schemes and context (see also 67k token measurement on other clients).
+- **Skill vs. MCP:** Just activating MCP is not enough if the process is in a skill manual.
+- **Delegation without review:** Codex/Claude Code with writing right without feedback generates contradictory commits.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** GitHub-Issue triagieren mit minimalem MCP-Set
-- **Input:** Issue-URL `https://github.com/org/repo/issues/42`, Kurzbriefing „Labels und Kommentar-Entwurf“
+- **Task:** GitHub Issue triage with minimal MCP set
+- **Input:** Issue URL `https://github.com/org/repo/issues/42`, short briefing “labels and draft comments”
 - **Prompt:**
 ```text
-Installiere nur github-MCP aus dem Nous-Katalog. Lies Issue #42, schlage Labels vor.
-Keinen Kommentar posten ohne meine Freigabe. Protokolliere jeden MCP-Call.
+Installiere nur github-MCP aus dem Nous-catalog. Lies Issue #42, schlage Labels vor.
+Do not post a comment without my release. Log every MCP call.
 ```
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 ```text
-Issue-Titel + Body-Zusammenfassung (3 Sätze)
+Issue title + body summary (3 sentences)
 Label-Vorschlag: bug, needs-triage
-Entwurf-Kommentar in Markdown (nicht gepostet)
+Entwurf-Kommentar in Markdown (not gepostet)
 Log: github.get_issue OK, github.list_labels OK
 ```
 
-### Beispiel 2 (Praxisbeispiel)
+### Example 2 (Real-world example)
 
-- **Aufgabe:** Hermes-Skill mit macOS-Platform unter Linux einsetzen
-- **Input:** Skill aus Browse-Liste mit `platforms: [macos]` für Desktop-Automation
+- **Task:** Use Hermes skill with macOS platform under Linux
+- **Input:** Skill from browse list with `platforms: [macos]` for desktop automation
 - **Prompt:**
 ```text
-Führe den macos-only Skill für Calendar-Export aus.
+Execute the macos-only Skill for Calendar export.
 ```
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 ```text
-Skill wird nicht geladen (still übersprungen).
-Agent meldet: kein passender Skill für diese Plattform — Alternative: manueller Export oder Linux-kompatiblen Skill wählen.
+Skill is not loaded (silently skipped).
+Agent reports: no suitable skill for this platform — Alternative: choose manual export or Linux-compatible skill.
 ```

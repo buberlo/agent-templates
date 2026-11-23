@@ -6,7 +6,7 @@ category: grokbot
 tags:
   - grokbot
   - agent-platforms
-  - produktconnector
+  - product-connector
 target_agents:
   - grokbot
   - generic-mcp-agents
@@ -16,117 +16,119 @@ required_tools:
     version_notes: "Connect Apps, Custom MCP HTTPS/Command; Wiki 0.75.x–0.77.x"
   - name: Grok Bot 101
     install: "https://x.ai/bot/guides/grok-bot-101"
-    version_notes: "Gleiches Plugin-MCP-Modell wie Cursor"
+    version_notes: "Same plugin MCP model as Cursor"
 inputs:
-  - "Task-Beschreibung und gewünschte Tools"
-  - "Bei Custom MCP: öffentliche HTTPS-URL oder Command auf der Bot-Box"
+  - "Task description and desired tools"
+  - "For Custom MCP: public HTTPS URL or command on the bot box"
 outputs:
-  - "Ergebnis im Bot-Thread mit dokumentierten Tool-Policies"
-  - "Liste blockierter/erlaubter Tools"
+  - "Result in the bot thread with documented tool policies"
+  - "List of blocked and allowed tools"
 risk_level: low
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-Grok Bot mit **Connect Apps** (kuratierte Plugins) oder **Custom MCP** betreiben: OAuth bleibt auf dem Connector-Backend, der Bot sieht keine Roh-Tokens. Custom-Server nur als öffentliches HTTPS oder als Command-Prozess auf dem Bot-Computer — nicht als localhost auf dem Laptop des Nutzers.
+Running Grok Bot with **Connect Apps** (curated plugins) or **Custom MCP**: OAuth remains on the connector backend, the bot does not see raw tokens. Custom server only as public HTTPS or as command-process on the bot-computer, not as localhost on the user's laptop.
 
-## Wann nutzen
+## When to use
 
-- Aufgaben brauchen verbundene SaaS-Dienste über Connect Apps mit festen Tool-Policies (Always allow / Needs approval / Blocked).
-- Du betreibst MCP-Logik auf der **Bot-Box** (npx/uvx) und akzeptierst, dass Shared-Bot-Teams Command und Args lesen können.
-- **Wann nicht:** Wenn du einen MCP nur auf `127.0.0.1` am Entwicklerrechner hast (ohne öffentliches HTTPS oder Box-Command). Wenn du mehr als ~200 Skills aktivieren willst (Skill-Ceiling seit Wiki 0.71.2). Wenn Secrets sicher in Headern stecken müssen — Wiki nennt keinen verlässlichen Secret-Header-Weg für Custom MCP.
+Tasks require connected SaaS services via Connect Apps with fixed tool policies (Always allow / Needs approval / Blocked).
+- You run MCP logic on the **bot box** (npx/uvx) and accept that shared bot teams can read Command and Args.
 
-## Tool-Stack
+#### When not to use
 
-| Tool | Rolle | Begründung |
-|------|-------|------------|
-| Connect Apps | Katalog-Plugins | OAuth auf Backend, Bot ohne Token |
-| Custom MCP (HTTPS) | Remote-Server | Streamable HTTP/SSE, öffentlich erreichbar |
-| Custom MCP (Command) | Box-Runtime | npx/uvx auf Bot-Maschine; argv ohne Secrets |
-| @-Attach | Kontext | Skills/Plugins an Task hängen |
+- If you only have an MCP on `127.0.0.1` on the developer computer (without public HTTPS or Box Command). If you want to activate more than ~200 skills (Skill-Ceiling since Wiki 0.71.2). When secrets need to be safe in headers — Wiki does not mention a reliable secret header path for Custom MCP.
+
+## Tool stack
+
+| Tool | Role | Rationale |
+|------|-------|-----------|
+| Connect Apps | catalog-Plugins |OAuth auf Backend, Bot without Token|
+| Custom MCP (HTTPS) | Remote Server | Streamable HTTP/SSE, publicly available |
+| Custom MCP (Command) | Box-Runtime |npx/uvx auf Bot-Maschine; argv without Secrets|
+| @-Attach | Context | Skills/Plugins on Task |
 | Tool Policies | Risikosteuerung | Granular pro Tool (ab 0.70.2/1.2.3) |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
-Du arbeitest als Grok Bot mit Plugins und MCP. Nutze Connect Apps für Standard-Integrationen.
-Custom MCP nur: öffentliches HTTPS oder Command auf der Bot-Box — nie Laptop-localhost, nie VPN-only ohne Reachability.
-Keine Tokens, API-Keys oder Passwörter in Chat, Skill-Texten oder Command-Argumenten.
-OAuth liegt auf dem Connector-Backend; fordere niemals Roh-Credentials vom Nutzer an.
-Vor destruktiven Tools (write, send, delete, pay): Policy „Needs approval“ oder explizite Freigabe.
-Einzelne Tools blocken, wenn die Aufgabe sie nicht braucht — weniger Schema-Noise.
-Skill-Ceiling 200 beachten: nur relevante Skills @-attachieren.
-Bei fehlendem Connector: Arbeit auf der Box (CLI/Dateien), nicht fingieren, ein privates MCP sei verbunden.
-Shared Bot: alle Command-Zeilen als für Team-Leser sichtbar behandeln.
-Nach Dokument-Erzeugung: Verify (Lesen/Render) wie in Document-Skills üblich.
+Du arbeitest als Grok Bot with Plugins and MCP. Nutze Connect Apps for Standard-Integrationen.
+Custom MCP only: public HTTPS or Command on the bot box — never laptop localhost, never VPN-only without reachability.
+No tokens, API keys or passwords in chat, skill texts or command arguments.
+OAuth liegt auf dem Connector-Backend; fordere niemals Roh-Credentials vom User an.
+Before destructive tools (write, send, delete, pay): Policy “Needs approval” or explicit release.
+Block individual tools when the task needs them — less schema noise.
+Skill-Ceiling 200 observe: nur relevante Skills @-attachieren.
+If the connector is missing: work on the box (CLI/Files), do not start, a private MCP is connected.
+Shared Bot: alle Command-Zeilen als for Team-Leser sichtbar behandeln.
+After Document Creation: Verify (read/render) as usual in Document Skills.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. Connect Apps öffnen; Plugin wählen und Auth-Frist einhalten.
-2. Task formulieren; passende Skills mit @ anhängen (unter 200-Skill-Decke bleiben).
-3. Fehlende Integration: Custom MCP planen — HTTPS-Endpoint oder Box-Command, niemals lokaler Laptop-Host.
-4. Tool-Policies setzen: kritische Tools auf Needs approval oder Blocked.
+Open Connect Apps; Select plugin and comply with the auth deadline.
+Formulate the task; Apply appropriate skills with @ (stay under 200 skill ceiling).
+3. Fehlende Integration: Custom MCP planen — HTTPS-Endpoint or Box-Command, niemals lokaler Laptop-Host.
+4. Tool-Policies setzen: kritische Tools auf Needs approval or Blocked.
 5. Bot-Task starten; Ausgaben protokollieren.
-6. Vor Send/Write: Freigabe abwarten oder Policy-Dialog nutzen.
-7. Bei Command-MCP: argv auf Secrets prüfen (Umgebungsvariablen auf Box, nicht in Args).
-8. Ergebnis und Policy-Liste für Audit kurz dokumentieren.
+6. Before Send/Write: Wait for approval or use policy dialogue.
+7. For Command-MCP: check argv for secrets (environment variables on Box, not Args).
+8. Briefly document results and policy list for audit.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
-- [ ] Kein Custom MCP auf unerreichbarem localhost/VPN-only ohne dokumentierte Box-Alternative
-- [ ] Tool-Policies passen zum Risiko (Writes nicht „Always allow“ ohne Grund)
-- [ ] Keine Credentials in argv, Chat oder Skill-Dateien
-- [ ] Nur angehängte Skills/Tools, die die Aufgabe braucht
+- [ ] Kein Custom MCP auf unerreichbarem localhost/VPN-only without dokumentierte Box-Alternative
+- [ ] Tool policies match the risk (writes not “Always allow” without reason)
+- [ ] No Credentials in argv, Chat or Skill-Files
+- [ ] Only attached skills/tools that the task needs
 - [ ] Dokument-Artefakte verifiziert (Lesen/Render)
 
-## Sicherheit & Freigaben
+## Security
 
-- Connect Apps: Tokens nur auf Connector-Backend; Bot fordert keine Secrets in Klartext.
-- Command-Server auf Shared Bots: Team kann Befehlszeile lesen — keine Keys in Args.
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach Freigabe oder Policy.
+- Connect Apps: Tokens nur auf Connector-Backend; Bot fordert no Secrets in Klartext.
+- Command-Server auf Shared Bots: Team kann Befehlszeile lesen — no Keys in Args.
+- Write, send, pay, deploy and delete only after approval or policy.
 
-## Fallstricke
+## Pitfalls
 
-- **localhost-MCP:** User-Laptop-MCP ist für den Bot unsichtbar — stattdessen HTTPS oder Box-Command.
-- **argv-Secrets:** Wiki verbietet Credentials in Command-Argumenten; Env auf der Box nutzen.
-- **Skill-Ceiling 200:** Zu viele aktive Skills führen zu Verwirrung oder Abbruch — gezielt @-attachieren.
-- **Shared-Bot-Sichtbarkeit:** Interne URLs oder Tokens in Command-Zeilen sind für Mitglieder lesbar.
-- **Marketing-Threads:** Virale „N GitHub MCP“-Listen auf X ungeprüft übernehmen — nur Wiki/Connect Apps vertrauen.
+**localhost MCP:** User laptop MCP is invisible to the bot — instead HTTPS or Box Command.
+- **argv-Secrets:** Wiki bans credentials in command arguments; Use Env on the box.
+- **Skill-Ceiling 200:** Too many active skills lead to confusion or abort — targeted @-attach.
+**Shared bot visibility:** Internal URLs or tokens in command lines are readable by members.
+- **Marketing threads:** Apply viral “N GitHub MCP” lists on X unchecked — trust only Wiki/Connect apps.
 - **Kein Secret-Header:** Custom MCP hat laut Wiki keinen sicheren Header-Geheimnis-Weg — Design entsprechend anpassen.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Linear-Tickets lesen über Connect App
-- **Input:** Connect App „Linear“ verbunden; Task „Offene Bugs der Woche listen“
+- **Task:** Linear tickets read via Connect App
+**Input:** Connect app “Linear” connected; Task “Listen to Open Bugs of the Week”
 - **Prompt:**
 ```text
-@linear Nutze nur Lese-Tools. Keine Statusänderungen. Ausgabe als Markdown-Tabelle (ID, Titel, Status).
+@linear Use only reading tools. No status changes. Output as a markdown table (ID, title, status).
 ```
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 ```text
 | ID | Titel | Status |
 | LIN-101 | Login timeout | In Progress |
 | LIN-104 | Footer link 404 | Todo |
-(5 Zeilen, keine PATCH/POST ausgeführt)
+(5 lines, no PATCH/POST executed)
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Falscher Custom MCP (localhost auf Entwicklerrechner)
-- **Input:** Nutzer schlägt `http://127.0.0.1:3847/mcp` auf dem MacBook vor
-- **Prompt:**
-```text
+- **Task:** Falscher Custom MCP (localhost auf Entwicklerrechner)
+- **Input:** User suggests `http://127.0.0.1:3847/mcp` on MacBook
+- **Prompt:**```text
 Verbinde meinen lokalen MCP unter localhost:3847.
 ```
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 ```text
-Abbruch mit Begründung: Bot erreicht Laptop-localhost nicht.
-Vorschlag: MCP auf Bot-Box als npx-Command starten ODER öffentliches HTTPS mit Auth am Server.
+Abort with reason: Bot reaches laptop-localhost not.
+Suggestion: Start MCP on bot box as npx command OR public HTTPS with Auth on the server.
 Kein Versuch, Token in argv zu setzen.
 ```
