@@ -228,8 +228,54 @@ def required_body_sections():
         "## Arbeitsablauf",
         "## Qualitätskriterien / Definition of Done",
         "## Sicherheit & Freigaben",
+        "## Fallstricke",
         "## Grundbeispiele",
     ]
+
+
+def extract_system_prompt_block(body):
+    m = re.search(
+        r"## System-Prompt / Instruktionen\s+```(?:text)?\s*\n(.*?)```",
+        body,
+        re.S,
+    )
+    if not m:
+        return None
+    return m.group(1)
+
+
+def quality_content_checks(body):
+    errors = []
+    if re.search(r"\{slug\}|\{title\}|\{domain\}|\{category\}", body):
+        errors.append("unrendered placeholder token in body")
+    if re.search(r"Standard-.+-Aufgabe", body):
+        errors.append("boilerplate Standard-*-Aufgabe")
+    if "output/{slug}-demo" in body or (
+        "Artefakt: output/" in body and "{slug}" in body
+    ):
+        errors.append("boilerplate demo output path")
+    if re.search(r"Status: OK\s*\nArtefakt:", body):
+        errors.append("boilerplate Status: OK / Artefakt")
+    if re.search(r"You are a specialist for \w+ \(", body):
+        errors.append("generic one-line system prompt opener")
+    sp = extract_system_prompt_block(body)
+    if sp is None:
+        errors.append("missing fenced system prompt block")
+    elif len([ln for ln in sp.splitlines() if ln.strip()]) < 10:
+        errors.append("system prompt fewer than 10 non-empty lines")
+    wf = body.split("## Arbeitsablauf", 1)
+    if len(wf) > 1:
+        wf_part = wf[1].split("##", 1)[0]
+        steps = re.findall(r"^\d+\.\s+", wf_part, re.M)
+        if len(steps) < 5:
+            errors.append("Arbeitsablauf fewer than 5 numbered steps")
+    pit = body.split("## Fallstricke", 1)
+    if len(pit) > 1:
+        pit_part = pit[1].split("##", 1)[0]
+        bullets = re.findall(r"^\s*[-*]\s+", pit_part, re.M)
+        if len(bullets) < 3:
+            errors.append("Fallstricke fewer than 3 bullet items")
+    return errors
 
 
 def count_grundbeispiele(body):
@@ -292,6 +338,7 @@ def main():
             errs.append(f"Grundbeispiele: found {found}, example_count {ec}")
         if isinstance(ec, int) and found < 2:
             errs.append("fewer than 2 Grundbeispiele")
+        errs.extend(quality_content_checks(body))
         if errs:
             all_errors.extend([f"{rel}: {e}" for e in errs])
         else:
@@ -315,7 +362,13 @@ def main():
             )
 
     for domain, category in sorted(expected_cats):
-        if (domain, category) not in category_tpl_count:
+        cat_dir = DOMAINS_DIR / domain / category
+        tpl_files = [
+            p
+            for p in cat_dir.glob("*.md")
+            if p.name not in SKIP_NAMES and not p.name.startswith("_")
+        ]
+        if not tpl_files:
             all_errors.append(f"domains/{domain}/{category}: no template files")
 
     if all_errors:
