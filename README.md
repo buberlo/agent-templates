@@ -4,7 +4,7 @@ Private **Template-Datenbank** für KI-Agenten (Hermes, Grok Bot, OpenClaw, Clau
 
 Recherche-Stand: **23.11.2026** (siehe `research/SOURCES.md`; Roharchiv nicht versioniert).
 
-## Umfang (Phase 2)
+## Umfang
 
 | Kennzahl | Wert |
 |----------|------|
@@ -21,8 +21,7 @@ domains/<domain>/<category>/_category.md   # Tool-Stack, MCP-Tabelle, Fallstrick
 domains/<domain>/<category>/*.md             # Ausführbare Templates (YAML + Body)
 mcp/catalog.json, mcp/README.md
 adapters/                                    # Einbindung pro Agenten-Plattform
-scripts/validate_and_index.py                # Validierung + INDEX.md + catalog.json
-scripts/build_from_research.py               # Regenerierung aus Recherche-Archiv (lokal)
+scripts/validate_and_index.py                # Validierung + INDEX.md + catalog.json (+ Qualitäts-Gates Phase 3)
 TEMPLATE.md, template.schema.json
 INDEX.md, catalog.json                       # generiert
 research/SOURCES.md                          # bereinigte Quellenliste
@@ -31,7 +30,7 @@ research/SOURCES.md                          # bereinigte Quellenliste
 ## Template-Anatomie
 
 - **Frontmatter:** `id`, `title`, `domain`, `category`, `tags`, `target_agents`, `required_tools`, `inputs`, `outputs`, `risk_level`, `example_count` (2–3), `version`, `updated`
-- **Body:** Zweck, Wann nutzen, Tool-Stack, System-Prompt, Arbeitsablauf, Qualitätskriterien, Sicherheit, **Grundbeispiele** (je Beispiel: Aufgabe, Input, Prompt, Ergebnis; Labels `Beispieldaten` oder `Praxisbeispiel` + URL)
+- **Body:** Zweck, Wann nutzen (inkl. Wann nicht), Tool-Stack, System-Prompt (15–40 Zeilen), Arbeitsablauf (5–10 Schritte), Qualitätskriterien, Sicherheit, **Fallstricke**, **Grundbeispiele** (konkrete Beispiele; `Beispieldaten` oder `Praxisbeispiel` + URL)
 
 Kategorie-Metadaten liegen in `_category.md` (nicht im Template-Frontmatter duplizieren).
 
@@ -61,16 +60,9 @@ Agent-Plattform-Setups: `domains/agent-platforms/<plattform>/`.
 python3 scripts/validate_and_index.py
 ```
 
-Prüft Schema, Pfad-Konsistenz, Pflichtsektionen, `example_count` vs. **Grundbeispiele**, mindestens ein Template pro Kategorie. CI: `.github/workflows/validate-templates.yml`.
+Prüft Schema, Pflichtsektionen (inkl. **Fallstricke**), `example_count`, Anti-Boilerplate (kein `{slug}`, keine Kurz-Prompts &lt;10 Zeilen, min. 5 Workflow-Schritte). CI: `.github/workflows/validate-templates.yml`.
 
-## Regenerierung aus Recherche
-
-Lokal Archiv nach `research/agent-templates-research/` entpacken (nicht committen), dann:
-
-```bash
-python3 scripts/build_from_research.py
-python3 scripts/validate_and_index.py
-```
+Templates werden **manuell** gepflegt (kein Massen-Generator). Recherchearchiv nur lokal zur Einordnung.
 
 ## Datenschutz
 
