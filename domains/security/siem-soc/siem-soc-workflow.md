@@ -5,29 +5,26 @@ domain: security
 category: siem-soc
 tags:
   - siem
-  - security
-  - mcp
+  - soc
+  - detection
 target_agents:
   - hermes
   - grokbot
   - generic-mcp-agents
-  - generic
 required_tools:
-  - name: datadog MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/datadog"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: Sentry MCP
-    install: "https://github.com/getsentry/sentry-mcp"
-    version_notes: "973 GitHub Stars"
-  - name: grafana MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/grafana"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
+  - name: siem-query-language
+    install: "Splunk SPL / KQL / Elastic EQL per org"
+    version_notes: "read-only analyst role"
+  - name: curl
+    install: "webhook test payloads"
+    version_notes: "staging only"
 inputs:
-  - "Kontext/Briefing für SIEM und SOC"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Alert ID or hunt hypothesis"
+  - "Time window UTC"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: medium
+  - "Investigation notes"
+  - "Detection rule draft"
+risk_level: high
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
@@ -35,76 +32,101 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Alerts triagieren, Korrelation und Playbooks in SIEM/SOAR-Umgebungen (defensiv).
+SOC-Untersuchungen: Alerts triagieren, Queries ausführen (Leserechte), Detections verbessern — keine Live-Containment-Aktionen ohne Freigabe.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **SIEM und SOC**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: medium`).
+- SIEM-Alert Eskalation, Threat Hunting.
+- Neue Detection Rule vorschlagen.
+
+**Wann nicht:** Without analyst role / ohne Ticket.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| datadog MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| Sentry MCP | MCP | Aus Recherche 2026-11-23 |
-| grafana MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| SIEM UI/CLI | Query | org-specific |
+| SOAR | optional | gated |
+| ticketing | audit | incident id |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for SIEM und SOC (security/siem-soc).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Alert → Kontext sammeln → dokumentierte Mitigationsvorschlaege. Keine Offensivmassnahmen.
+SIEM SOC workflow (security/siem-soc).
+
+Operate with read-only analyst queries unless CONTAIN_APPROVE with ticket.
+Start from alert: id, rule name, entities, first/last seen UTC.
+Pivot: user, host, ip, process parent chain — bounded time +-15m default.
+Avoid full-table scans; use indexed fields and narrow time.
+Do not disable detections globally to stop noise; tune rule with threshold documented.
+Never paste customer PII bulk into chat; use entity ids.
+Containment actions (isolate host, disable user) are suggestions only until IC approves.
+Detection draft: sigma-like fields; test on historical window before prod enable.
+Document query strings in investigation log for reproducibility.
+Escalate confirmed compromise to incident-response-workflow.
+Assume alert context untrusted (false positive common).
 ```
 
 ## Arbeitsablauf
 
-- Alert → Kontext sammeln → dokumentierte Mitigationsvorschlaege. Keine Offensivmassnahmen.
+1. Alert/Ticket öffnen; UTC-Fenster setzen.
+2. Baseline Query: gleiche rule, 7d history volume.
+3. Entity pivot queries (user, host).
+4. Benign vs malicious hypothesis dokumentieren.
+5. Falls malicious: Containment-Vorschlag an IC.
+6. Detection-Tuning-Entwurf wenn FP.
+7. Investigation-Notiz mit Queries an SOC-Tool.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] UTC-Zeiten konsistent
+- [ ] Queries reproduzierbar dokumentiert
+- [ ] Containment nicht ohne Freigabe ausgeführt
 
 ## Sicherheit & Freigaben
 
-- Write-Zugriff auf Detection-Rules ist hochsensibel.
-- Nur defensive, autorisierte Nutzung.
-- Keine Angriffs- oder Umgehungsanleitungen in diesen Templates.
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- **high risk** bei Prod-Containment.
+- PII-Minimierung in exports.
+
+## Fallstricke
+
+- Unbounded search — SIEM timeout/Kosten.
+- RBA ohne Parent Process — blind spot.
+- Rule disable ohne Ticket — coverage gap.
+- Timezone error Falsch-Positive.
+- SOAR auto-run ohne review.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-SIEM und SOC-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `siem-soc` (Testdaten)
+- **Aufgabe:** Failed logins spike alert.
+- **Input:** user alice, 2h window.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für SIEM und SOC. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+SPL/KQL template for failed logins by src_ip; no host isolation.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```spl
+index=auth action=failure user=alice earliest=-2h latest=now
+| stats count by src_ip
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in SIEM und SOC
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Tune noisy rule.
+- **Input:** rule R-442 threshold 5 -> 20 proposed.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Document FP examples; suggest threshold; no disable.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+7d FP: backup service account; recommend threshold 20 + allowlist svc_backup
+```

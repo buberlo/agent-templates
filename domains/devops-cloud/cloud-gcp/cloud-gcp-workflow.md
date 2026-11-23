@@ -4,27 +4,28 @@ title: "Cloud: GCP"
 domain: devops-cloud
 category: cloud-gcp
 tags:
+  - gcp
   - cloud
-  - devops-cloud
-  - mcp
+  - gcloud
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: GitHub Official MCP
-    install: "https://github.com/github/github-mcp-server"
-    version_notes: "34686 GitHub Stars"
-  - name: Sentry MCP
-    install: "https://github.com/getsentry/sentry-mcp"
-    version_notes: "973 GitHub Stars"
+  - name: gcloud
+    install: "Google Cloud SDK"
+    version_notes: "gcloud auth login / application-default login"
+  - name: gke-gcloud-auth-plugin
+    install: "GKE kube auth plugin"
+    version_notes: "Pflicht für moderne GKE kubeconfig"
 inputs:
-  - "Kontext/Briefing für Cloud: GCP"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Projekt-ID und Region"
+  - "GKE-Cluster oder Compute-Ressource"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "gcloud-Protokoll"
+  - "Empfehlung / Terraform-google-Modul-Hinweis"
+risk_level: high
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
@@ -32,74 +33,103 @@ updated: "2026-11-23"
 
 ## Zweck
 
-GCP/GKE-Ressourcen, inkl. verwalteter MCP-Endpunkte wo angeboten.
+GCP-Projekte mit **gcloud** inventarisieren, GKE read-only prüfen und Änderungen nur über IaC oder freigegebene `gcloud`-Mutationspfade.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Cloud: GCP**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- GKE-Version, Node-Pool-Status, IAM-Bindings lesen.
+- Fehlersuche nach fehlgeschlagenem Deploy auf Cloud Run/GKE.
+
+**Wann nicht:** Org-Policy-Änderungen ohne Cloud-Admin.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| GitHub Official MCP | MCP | Aus Recherche 2026-11-23 |
-| Sentry MCP | MCP | Aus Recherche 2026-11-23 |
+| gcloud | CLI | config, container, iam |
+| kubectl | GKE | nach get-credentials |
+| terraform-google | optional | Modulvorschläge |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Cloud: GCP (devops-cloud/cloud-gcp).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+GCP cloud workflow (devops-cloud/cloud-gcp).
+
+Verify project: gcloud config get-value project and gcloud auth list.
+Read-only: gcloud compute instances list, gcloud container clusters list, gcloud iam roles describe.
+GKE access: gcloud container clusters get-credentials with approval only.
+
+No gcloud compute instances delete, gcloud projects delete, iam policy set without approval.
+Use --format=json for parsing; filter with --filter.
+For billing export issues, read bucket permissions only, do not mutate.
+Workload Identity: describe service accounts; never create keys in chat.
+
+Log every command with project and region flags.
+Respect VPC-SC and org constraints; paste Permission denied for escalation.
+Prefer regional flags: --region europe-west3.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. `gcloud auth list` und `gcloud config set project <id>`.
+2. `gcloud container clusters list --region <r>`.
+3. Cluster: `gcloud container clusters describe <name> --region <r> --format="value(currentMasterVersion,status)"`.
+4. Nach Freigabe: `gcloud container clusters get-credentials <name> --region <r>`.
+5. `kubectl get nodes` und `kubectl get pods -A | head`.
+6. IAM read: `gcloud projects get-iam-policy <id> --format=json` (Ausschnitt).
+7. Mutationen als Terraform-Vorschlag, nicht direkt ausführen.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Projekt-ID in jeder Antwort
+- [ ] GKE Master/Node-Version dokumentiert
+- [ ] Keine Service-Account-Keys erzeugt
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Prod-Projekt: high risk; Deletes verboten ohne Ticket.
+- IAM `roles/owner` nicht als Default-Vorschlag.
+- Audit-Logs nicht massenexportieren in öffentliche Threads.
+
+## Fallstricke
+
+- Vergessener `gke-gcloud-auth-plugin` — kubectl auth scheitert.
+- Zonen vs. Region bei GKE — falsche Flag-Kombination.
+- Default VPC-Annahmen — Shared VPC braucht Host-Projekt-Kontext.
+- Quotas — Create schlägt fehl, List funktioniert; Quota separat prüfen.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Cloud: GCP-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `cloud-gcp` (Testdaten)
+- **Aufgabe:** GKE-Cluster-Status europe-west3.
+- **Input:** Cluster `prod-gke`, Projekt `acme-prod`.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Cloud: GCP. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Describe cluster version and node count; read-only gcloud only.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```bash
+gcloud container clusters describe prod-gke --region europe-west3 \
+  --format="yaml(currentMasterVersion,currentNodeCount,status)"
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Cloud: GCP
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Fehlende Workload-Identity-Binding erkennen.
+- **Input:** KSA `default/api` kann GCS nicht lesen.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Read IAM policy binding for GSA; suggest fix text only, no iam policy set.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```bash
+gcloud iam service-accounts get-iam-policy api-sa@acme-prod.iam.gserviceaccount.com
+# Missing workloadIdentityUser binding documented in ticket
+```

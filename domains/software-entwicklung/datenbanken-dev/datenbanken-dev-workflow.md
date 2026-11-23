@@ -4,30 +4,28 @@ title: "Datenbanken (Entwicklung)"
 domain: software-entwicklung
 category: datenbanken-dev
 tags:
-  - datenbanken
-  - software-entwicklung
-  - mcp
+  - sql
+  - postgres
+  - migrations
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: supabase MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/supabase"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: neon MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/neon"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: prisma-postgres MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/prisma-postgres"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
+  - name: psql
+    install: "PostgreSQL client"
+    version_notes: "dev DB only"
+  - name: migrate tool
+    install: "flyway/liquibase/alembic per project"
+    version_notes: "versioned migrations"
 inputs:
-  - "Kontext/Briefing für Datenbanken (Entwicklung)"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Schema-Änderung oder Query-Optimierung"
+  - "Migration tool im Repo"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Migration file + rollback"
+  - "EXPLAIN output"
+risk_level: medium
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
@@ -35,73 +33,103 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Schema, Migrations, Queries für App-Datenbanken (Postgres, Supabase, Neon).
+Dev-Datenbanken: versionierte **Migrationen**, sichere Queries, Index-Tuning mit EXPLAIN — kein Prod-DROP ohne Gate.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Datenbanken (Entwicklung)**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Neue Tabellen/Spalten, Index, langsame Query.
+- Lokale Seed-Daten.
+
+**Wann nicht:** Prod-Restore/Backup (devops).
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| supabase MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| neon MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| prisma-postgres MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| alembic/flyway | Migrations | up/down |
+| psql | Ad-hoc | dev only |
+| pg_dump | schema only | review |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Datenbanken (Entwicklung) (software-entwicklung/datenbanken-dev).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Schema lesen, Migration als Review-Diff vorschlagen, nicht still apply.
+Database dev workflow (software-entwicklung/datenbanken-dev).
+
+Migrations forward and backward required for schema change.
+Never DROP TABLE COLUMN in prod suggestion without expand-contract pattern note.
+Use transactions in migration scripts where tool allows.
+Indexes: CREATE INDEX CONCURRENTLY note for prod doc even if dev blocking ok.
+EXPLAIN (ANALYZE, BUFFERS) on staging-like data volume when tuning.
+No plaintext passwords; use env DATABASE_URL.
+Foreign keys and ON DELETE behavior explicit.
+Seed scripts idempotent.
+Naming: snake_case tables; singular migration timestamp prefix.
+After migration: run application integration tests.
+No manual prod psql unless user supplies PROD_APPROVE.
 ```
 
 ## Arbeitsablauf
 
-- Schema lesen, Migration als Review-Diff vorschlagen, nicht still apply.
+1. Tool erkennen: `alembic` / `flyway` / Prisma migrate.
+2. Migration generieren mit up+down.
+3. Lokal anwenden: `alembic upgrade head`.
+4. Tests laufen.
+5. Slow query: `psql -c "EXPLAIN ANALYZE SELECT ..."`.
+6. Index-Migration separat wenn concurrent nötig.
+7. PR mit Migrations-Review-Hinweis.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Down-Migration vorhanden oder begründet
+- [ ] Tests grün
+- [ ] EXPLAIN bei Perf-Tasks
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Prod-URL nicht in Dev-Skripten hardcoden.
+- PII nicht in Seeds.
+
+## Fallstricke
+
+- Migration ohne Lock-Zeit-Denken — Big table freeze.
+- Nullable fehlt bei Backfill.
+- Unique Index vor Duplikat-Cleanup.
+- ORM auto migration silently diverges.
+- CROSS JOIN accidental.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Datenbanken (Entwicklung)-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `datenbanken-dev` (Testdaten)
+- **Aufgabe:** Spalte `status` hinzufügen.
+- **Input:** Postgres alembic.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Datenbanken (Entwicklung). Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Add nullable status with default; upgrade+downgrade; pytest.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```bash
+alembic upgrade head
+pytest tests/db/
+alembic downgrade -1
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Datenbanken (Entwicklung)
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Index für user_id FK.
+- **Input:** slow list query.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+EXPLAIN ANALYZE; propose index migration; note CONCURRENTLY for prod.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```sql
+EXPLAIN ANALYZE SELECT * FROM orders WHERE user_id = $1;
+-- Seq Scan → CREATE INDEX idx_orders_user_id ON orders(user_id);
+```

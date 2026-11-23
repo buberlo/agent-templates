@@ -5,26 +5,27 @@ domain: software-entwicklung
 category: mobile-apps
 tags:
   - mobile
-  - software-entwicklung
-  - mcp
+  - react-native
+  - flutter
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: Mobile MCP
-    install: "https://github.com/mobile-next/mobile-mcp"
-    version_notes: "10819 GitHub Stars"
-  - name: Mobilerun (ehem. DroidRun)
-    install: "https://github.com/droidrun/mobilerun"
-    version_notes: "10100 GitHub Stars"
+  - name: react-native / flutter
+    install: "project toolchain"
+    version_notes: "npx react-native run-android"
+  - name: xcodebuild
+    install: "iOS optional"
+    version_notes: "Mac only"
 inputs:
-  - "Kontext/Briefing für Mobile Apps"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Platform (iOS/Android/both)"
+  - "Feature + store policy notes"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Buildable app changes"
+  - "Device/simulator steps"
+risk_level: medium
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
@@ -32,73 +33,102 @@ updated: "2026-11-23"
 
 ## Zweck
 
-iOS/Android-Entwicklung, Device-Tests über Mobile-MCP oder Simulatoren.
+Mobile Features in **React Native/Flutter**: Permissions, Deeplinks, Store-Richtlinien, Simulator-Smoke.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Mobile Apps**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Neuer Screen, Push-Vorbereitung, Offline-Cache.
+- Crash-Fix aus Stacktrace.
+
+**Wann nicht:** Store-Release ohne Review-Account Freigabe.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Mobile MCP | MCP | Aus Recherche 2026-11-23 |
-| Mobilerun (ehem. DroidRun) | CLI + MCP | Aus Recherche 2026-11-23 |
+| Metro/flutter test | unit/widget | fast |
+| simulators | smoke | platform SDK |
+| fastlane | optional CI | user gated |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Mobile Apps (software-entwicklung/mobile-apps).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - UI-Flows auf Simulator/Geraet ausfuehren, Screenshots/UI-State zurueckgeben, dann Code aendern.
+Mobile apps workflow (software-entwicklung/mobile-apps).
+
+Request permissions at runtime with rationale strings; Info.plist/AndroidManifest entries listed.
+Safe area and notches handled; no hardcoded status bar padding.
+Networking: certificate pinning only if project already uses; do not add casually.
+Secure storage for tokens (Keychain/Keystore abstractions).
+Deep links tested on cold start and warm.
+react-native: npx react-native run-android --variant debug; ios if mac available.
+flutter: flutter test && flutter analyze.
+No tracking SDK without privacy manifest notes.
+Offline: queue mutations with idempotency keys when spec says.
+Accessibility: TalkBack/VoiceOver labels on icons.
+Bundle id and signing not modified without explicit ask.
 ```
 
 ## Arbeitsablauf
 
-- UI-Flows auf Simulator/Geraet ausfuehren, Screenshots/UI-State zurueckgeben, dann Code aendern.
+1. Stack erkennen (RN/Flutter).
+2. Feature branch.
+3. Implement screens + navigation.
+4. `npm test` / `flutter test`.
+5. Simulator run steps dokumentieren.
+6. Manifest permissions diff review.
+7. Release notes draft without submitting store.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] analyze/lint clean
+- [ ] Permissions dokumentiert
+- [ ] Simulator smoke steps
 
 ## Sicherheit & Freigaben
 
-- USB-Debugging und Zustimmungen. Cloud-MCP-Keys nicht in git.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keine API keys im JS bundle.
+- Store upload nur mit Freigabe.
+
+## Fallstricke
+
+- iOS build ohne Mac — klar kommunizieren.
+- Hermes vs JSC mismatch.
+- Gradle version pin conflicts.
+- Push cert expiry.
+- 16KB page size Android future.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Mobile Apps-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `mobile-apps` (Testdaten)
+- **Aufgabe:** RN login screen.
+- **Input:** Android debug.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Mobile Apps. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Secure token storage; jest test; document run-android.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```bash
+npm test -- Login.test.tsx
+npx react-native run-android --variant debug
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Mobile Apps
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Flutter widget test.
+- **Input:** cart badge.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Widget test count; flutter analyze clean.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```bash
+flutter test test/cart_badge_test.dart
+flutter analyze
+```

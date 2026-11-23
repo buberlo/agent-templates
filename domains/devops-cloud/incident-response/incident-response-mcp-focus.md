@@ -5,26 +5,30 @@ domain: devops-cloud
 category: incident-response
 tags:
   - incident
-  - devops-cloud
   - mcp
+  - observability
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
+  - name: GitHub Official MCP
+    install: "Runs, Deploys"
+    version_notes: "Read during incident"
   - name: Sentry MCP
     install: "https://github.com/getsentry/sentry-mcp"
-    version_notes: "973 GitHub Stars"
-  - name: datadog MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/datadog"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
+    version_notes: "Error spikes"
+  - name: kubernetes-mcp-server
+    install: "https://github.com/containers/kubernetes-mcp-server"
+    version_notes: "readonly default"
 inputs:
-  - "Kontext/Briefing für Incident Response"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Incident bridge context"
+  - "Maps: Skill step → MCP tool"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Minimized MCP set for incident"
+  - "Correlation notes"
+risk_level: high
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
@@ -32,73 +36,100 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Incidents triagieren, Timeline bauen, Runbooks abarbeiten (ohne Offensiv-Schritte).
+Unter Incident-Zeitdruck nur **notwendige MCPs** aktiv lassen: GitHub Runs, Sentry-Spikes, Kubernetes readonly — Skill steuert Freigaben.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Incident Response**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Agent unterstützt Incident Commander mit Lesen/Korrelation.
+- Team will Incident-Skill mit MCP-Matrix pflegen.
+
+**Wann nicht:** Erste Hilfe ohne Skill — erst `incident-response-workflow`.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Sentry MCP | MCP | Aus Recherche 2026-11-23 |
-| datadog MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| ClawHub „Slack“ (steipete) | Skill | Aus Recherche 2026-11-23 |
+| Sentry MCP | Errors | Release + fingerprint |
+| GitHub MCP | Deploys | Run ↔ commit |
+| K8s MCP | Pods | readonly diagnose |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Incident Response (devops-cloud/incident-response).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Timeline, Impact, Mitigationsvorschlag, menschliche Freigabe vor Changes.
+Incident MCP/Skill focus (devops-cloud/incident-response).
+
+Minimize MCP count: three servers max during active incident.
+Skill gates: correlate (read) -> propose mitigation -> await APPROVE -> execute kubectl/gh write tools.
+Sentry MCP: fetch issue stats for release version user names; no PII paste.
+GitHub MCP: list workflow runs around incident start timestamp.
+Kubernetes MCP: access-level readonly; never admin without IC sign-off.
+
+Disable unrelated MCPs (Notion, email send) for session duration.
+Document tool provenance in timeline bullets.
+MCP write tools off by default in Cursor/Hermes policy.
+If MCP auth fails, fall back to gh/kubectl CLI in skill without disabling incident bridge.
+Post-incident: restore normal MCP profile.
 ```
 
 ## Arbeitsablauf
 
-- Timeline, Impact, Mitigationsvorschlag, menschliche Freigabe vor Changes.
+1. Incident-Skill laden; MCP-Whitelist anwenden.
+2. Matrix: correlate deploy | correlate errors | pod status.
+3. Sentry + GitHub MCP parallel reads; Zeitfenster UTC.
+4. K8s MCP describe failing workload.
+5. Vorschlag ins Bridge-Dokument; keine Auto-Mitigation.
+6. Nach APPROVE: Skill-Schritt mit kubectl/gh (nicht MCP write unless configured).
+7. Post-incident: Matrix und MCP-Liste zurücksetzen.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] ≤3 MCPs aktiv während Incident
+- [ ] Korrelation Deploy↔Error dokumentiert
+- [ ] Writes nur nach explizitem APPROVE
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- high risk in Prod; IC-Freigabe für Writes.
+- Sentry/K8s-Daten können PII enthalten — redigieren.
+
+## Fallstricke
+
+- Alle MCPs an — langsamer Agent, falsche Tool-Wahl.
+- Sentry MCP Rate Limits unter Last.
+- K8s MCP mit admin aus Versehen — Gefahr.
+- GitHub MCP ohne Zeitfilter — zu viele Runs.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Incident Response-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `incident-response` (Testdaten)
+- **Aufgabe:** MCP-Minimierung bei Sev1.
+- **Input:** 12 MCPs aktiv, Incident API down.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Incident Response. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Whitelist Sentry, GitHub, k8s readonly; map skill steps; disable others.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Active: sentry-mcp, github-mcp, kubernetes-mcp (readonly)
+Steps 1-3 read-only; step 4 blocked until APPROVE
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Incident Response
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Deploy-Korrelation zu Sentry Release.
+- **Input:** Release `api@2.4.0`, spike 15:10 UTC.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Use MCPs only to link gh run id to sentry issue count; timeline bullet.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Run 20155678 finished 15:08 UTC; Sentry events +340% for release api@2.4.0
+```

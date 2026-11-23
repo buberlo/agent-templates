@@ -5,29 +5,29 @@ domain: devops-cloud
 category: incident-response
 tags:
   - incident
-  - devops-cloud
-  - mcp
+  - sre
+  - oncall
 target_agents:
   - hermes
-  - claude-code
-  - cursor
+  - grokbot
   - generic-mcp-agents
 required_tools:
-  - name: Sentry MCP
-    install: "https://github.com/getsentry/sentry-mcp"
-    version_notes: "973 GitHub Stars"
-  - name: datadog MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/datadog"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: ClawHub „Slack“ (steipete)
-    install: "https://clawhubtrends.com/leaderboard.html"
-    version_notes: "42.838 Downloads, 140 Registry-Stars (ClawHub Leaderboard 23.11.2026)."
+  - name: kubectl
+    install: "kubeconfig on-call scope"
+    version_notes: "Read-first, write gated"
+  - name: gh
+    install: "Incident channel + Actions"
+    version_notes: "Run logs"
+  - name: pagerduty-cli
+    install: "optional"
+    version_notes: "Ack/notes"
 inputs:
-  - "Kontext/Briefing für Incident Response"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Incident-ID, Severity, betroffener Service"
+  - "Symptom-Zeitfenster und Dashboards"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Incident-Timeline"
+  - "Mitigation + Follow-up-Tickets"
+risk_level: high
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
@@ -35,73 +35,105 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Incidents triagieren, Timeline bauen, Runbooks abarbeiten (ohne Offensiv-Schritte).
+Strukturierte **Incident Response**: stabilisieren, kommunizieren, root cause später — mit dokumentierten kubectl/gh-Schritten.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Incident Response**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Sev1/Sev2: Ausfall oder massive Latenz in Prod.
+- Post-incident: Timeline rekonstruieren.
+
+**Wann nicht:** Pentest oder Forensik (security-Domain).
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Sentry MCP | MCP | Aus Recherche 2026-11-23 |
-| datadog MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| ClawHub „Slack“ (steipete) | Skill | Aus Recherche 2026-11-23 |
+| kubectl | K8s mitigation | rollouts, scale |
+| gh | Deploy-Korrelation | letzte grüne Runs |
+| Statuspage | Kommun | optional manuell |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Incident Response (devops-cloud/incident-response).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Timeline, Impact, Mitigationsvorschlag, menschliche Freigabe vor Changes.
+Incident response workflow (devops-cloud/incident-response).
+
+Follow stabilize, communicate, investigate, remediate, postmortem — no blame.
+First: confirm incident scope, severity, incident commander if user names one.
+Read-only triage: metrics links, kubectl get pods, gh run list for deploy correlation.
+Mitigation options ranked by reversibility: scale up, feature flag off, rollback, traffic shift.
+Never delete data stores or databases during incident without explicit IC approval.
+Document timeline entries with UTC timestamps as user provides them.
+
+Every mitigation command must be echoed before execution; prod writes gated.
+Customer comms: draft only, no send without approval.
+Capture: what changed in last 60 minutes (deploy, config, traffic).
+After stable: open follow-ups for root cause; no premature "fixed forever".
+Pager/Slack secrets not in transcript.
 ```
 
 ## Arbeitsablauf
 
-- Timeline, Impact, Mitigationsvorschlag, menschliche Freigabe vor Changes.
+1. Severity und Betroffenheit festhalten; Kanal/Bridge-Link.
+2. `kubectl -n <ns> get pods,deploy` und Events letzte 30 min.
+3. Deploy-Korrelation: `gh run list --branch main --limit 5`.
+4. Mitigation vorschlagen; nach Freigabe z. B. `kubectl rollout undo`.
+5. Monitoring-Fenster beobachten; Status-Update-Entwurf.
+6. Timeline im Ticket fortführen.
+7. Postmortem-Action-Items mit Owner.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Service wieder innerhalb SLO oder begründete Degradation
+- [ ] Timeline mit UTC und Befehlen
+- [ ] Keine ungenehmigten destruktiven Aktionen
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Prod-Mitigation: high risk; IC/On-Call-Freigabe.
+- Kundendaten nicht in öffentlichen Incident-Threads.
+
+## Fallstricke
+
+- Rollback ohne Traffic-Shift bei DB-Migration — Daten inkonsistent.
+- Zu früh „resolved“ — Flapping kehrt zurück.
+- Parallele Helden-Fixes ohne Koordination — mehr Schaden.
+- gh/Kubectl aus falscher Umgebung — falscher Cluster.
+- Postmortem ohne Zeitkompensation — Lessons gehen verloren.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Incident Response-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `incident-response` (Testdaten)
+- **Aufgabe:** API 500 nach Deploy; Rollback.
+- **Input:** Sev1, NS `prod`, Deploy `api` 14:32 UTC.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Incident Response. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Correlate gh run with spike; propose kubectl rollout undo; draft status line only.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```bash
+gh run list --workflow=deploy.yml --limit 3
+kubectl -n prod rollout undo deploy/api
+# Timeline entry + customer draft "Investigating errors..."
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Incident Response
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Nicht Deploy — DB Connection Exhaustion.
+- **Input:** Hikari pool maxed, no recent deploy.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Read pods and events; suggest scale replicas not rollback; document hypothesis.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```bash
+kubectl -n prod get pods -l app=api
+kubectl -n prod top pods
+# Recommend scale deploy/api --replicas=8 after approval
+```

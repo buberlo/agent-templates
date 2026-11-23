@@ -4,24 +4,28 @@ title: "Cloud: Azure"
 domain: devops-cloud
 category: cloud-azure
 tags:
+  - azure
   - cloud
-  - devops-cloud
-  - mcp
+  - az-cli
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: AKS / Azure Kubernetes MCP
-    install: "https://learn.microsoft.com/en-us/azure/aks/aks-model-context-protocol-server"
-    version_notes: "62 GitHub Stars"
+  - name: az
+    install: "https://learn.microsoft.com/cli/azure/install-azure-cli"
+    version_notes: "az login / az login --use-device-code"
+  - name: kubelogin
+    install: "optional für AKS"
+    version_notes: "AAD-RBAC zu kubeconfig"
 inputs:
-  - "Kontext/Briefing für Cloud: Azure"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Subscription-ID oder Name"
+  - "Ressourcengruppe / AKS-Cluster"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Azure CLI Protokoll"
+  - "Empfehlung oder ARM/Bicep-Hinweis"
+risk_level: high
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
@@ -29,72 +33,104 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Azure/AKS-Operationen über offizielle MCP-Server und Azure CLI.
+Azure-Ressourcen mit **az** read-first inspizieren; AKS-Diagnose und Policy-Checks ohne stillschweigende Prod-Mutation.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Cloud: Azure**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- AKS/RG-Inventar, NSG-Review, Subscription-Rollen.
+- Vorbereitung Bicep-Module mit validierten `az`-Befunden.
+
+**Wann nicht:** Große Subscription-Migrationen ohne Architekten-Sign-off.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| AKS / Azure Kubernetes MCP | MCP | Aus Recherche 2026-11-23 |
+| az | Management | account, aks, monitor |
+| kubectl | AKS | nach `az aks get-credentials` |
+| AKS MCP | optional | readonly call_kubectl laut MS-Docs |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Cloud: Azure (devops-cloud/cloud-azure).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Docs listen Troubleshooting, Health, CRUD je nach Access-Level.
+Azure cloud workflow (devops-cloud/cloud-azure).
+
+Verify: az account show --output json; confirm subscription and user.
+Read-only default: az resource list, az aks show, az network nsg rule list.
+AKS credentials: az aks get-credentials only with approval; prefer --admin false.
+Namespace context: kubectl config current-context after kube integration.
+
+No az group delete, az vm deallocate, az role assignment create without approval.
+Use --query JMESPath for tables; idempotent read scripts.
+For RBAC: az role assignment list --scope /subscriptions/<id>.
+Cost: az consumption usage list when permitted; note API limitations.
+Entra/MFA issues: stop and report auth error, do not loop device login in chat.
+
+Document region (location) on every resource summary.
+Export sensitive outputs (kubeconfigs) never into chat body.
 ```
 
 ## Arbeitsablauf
 
-- Docs listen Troubleshooting, Health, CRUD je nach Access-Level.
+1. `az login` Status: `az account show`.
+2. Subscription setzen: `az account set --subscription "<name-or-id>"`.
+3. RG/Cluster: `az group list` / `az aks list -o table`.
+4. Detail: `az aks show -g <rg> -n <cluster> --query "{kubernetesVersion:KubernetesVersion,nodeCount:agentPoolProfiles[0].count}"`.
+5. Optional kube: `az aks get-credentials -g <rg> -n <cluster> --overwrite-existing` nach Freigabe.
+6. `kubectl get nodes` read-only Diagnose.
+7. Änderungen nur als Bicep/Runbook-Vorschlag.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Subscription und Tenant in Summary
+- [ ] Keine ungenehmigten Mutations-Befehle
+- [ ] AKS-Version und Node-Health dokumentiert
 
 ## Sicherheit & Freigaben
 
-- --access-level admin nur bewusst. Auth-Env-Vars nicht loggen.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Prod-Subscription Write: `risk_level: high`, Change-Ticket.
+- Kubeconfig-Inhalt nicht in Tickets posten.
+- AKS MCP access-level `readonly` bis Freigabe für readwrite.
+
+## Fallstricke
+
+- Falsche Subscription nach `az login` — stiller Zugriff auf falsche RG.
+- `--admin` kubeconfig ohne RBAC — Überprivileg.
+- AAD-Token abgelaufen mitten in Skript — erneutes `az aks get-credentials` nötig.
+- Policy Deny auf RG — Plan scheitert, nicht nur CLI.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Cloud: Azure-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `cloud-azure` (Testdaten)
+- **Aufgabe:** AKS-Cluster-Überblick.
+- **Input:** RG `rg-platform`, Cluster `aks-prod-01`.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Cloud: Azure. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+az show cluster version and node pool count; read-only.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```bash
+az aks show -g rg-platform -n aks-prod-01 \
+  --query "{k8s:kubernetesVersion,pools:agentPoolProfiles[].{name:name,count:count}}" -o json
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Cloud: Azure
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** NSG-Regel „Any/Any“ finden.
+- **Input:** NSG `nsg-web`.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+List inbound rules with source * and destination port *; read-only.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```bash
+az network nsg rule list -g rg-platform --nsg-name nsg-web -o table
+# Flag rule Allow-RDP-Internet for remediation ticket
+```

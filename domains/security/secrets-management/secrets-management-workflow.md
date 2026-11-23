@@ -5,23 +5,28 @@ domain: security
 category: secrets-management
 tags:
   - secrets
-  - security
-  - praxisregel
+  - vault
+  - rotation
 target_agents:
   - hermes
-  - grokbot
   - generic-mcp-agents
-  - generic
 required_tools:
-  - name: Policy: keine Secrets im Prompt
-    install: "https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp"
-    version_notes: "n/a"
+  - name: vault-cli
+    install: "HashiCorp Vault"
+    version_notes: "kv read; no root token in chat"
+  - name: sops
+    install: "Mozilla SOPS"
+    version_notes: "git-encrypted secrets"
+  - name: gh
+    install: "gh secret list"
+    version_notes: "Actions secrets metadata"
 inputs:
-  - "Kontext/Briefing für Secrets Management"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Secret name / path (not value)"
+  - "Rotation policy"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: medium
+  - "Rotation runbook steps"
+  - "Inventory without values"
+risk_level: high
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
@@ -29,72 +34,101 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Geheimnisse erkennen, rotieren, aus Chats fernhalten und in Vaults halten.
+Secrets **inventarisieren, rotieren und lagern** — Vault/SOPS/GitHub Secrets — niemals Klartext-Secrets in Repos oder Chats.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Secrets Management**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: medium`).
+- Rotation nach Incident, neuer Integrations-Key.
+- Audit: wo liegen Secrets.
+
+**Wann nicht:** Secrets aus Repo in Chat extrahieren zur „Analyse“.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Policy: keine Secrets im Prompt | Praxisregel | Aus Recherche 2026-11-23 |
+| vault | Store | dynamic secrets |
+| sops | Git | encrypted files |
+| gh | CI metadata | `gh secret list` |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Secrets Management (security/secrets-management).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Leak gefunden → rotieren, aus Git entfernen, Scanner in CI.
+Secrets management workflow (security/secrets-management).
+
+Never print secret values; only names, paths, rotation dates, and metadata.
+vault kv metadata get secret/path — not kv get unless user in secure break-glass with approval.
+sops: edit encrypted files; verify with sops -d only in secure session, never paste decrypted output to chat.
+gh secret list — names only; gh secret set only after ROTATION_APPROVE.
+Rotation: generate new, dual-run consumers, revoke old, audit log entry.
+Detect secrets in git history: recommend trufflehog/gitleaks scan commands, do not paste findings tokens.
+Prefer workload identity over long-lived keys.
+Emergency revoke checklist: cloud provider key disable, vault lease revoke, session invalidate.
+Document who approved rotation with ticket id.
+No secret values in commit messages or PR titles.
 ```
 
 ## Arbeitsablauf
 
-- Leak gefunden → rotieren, aus Git entfernen, Scanner in CI.
+1. Inventory: `gh secret list`, `vault kv list secret/` (paths only).
+2. Rotation-Ticket anlegen.
+3. Neuen Secret in Vault erzeugen — Wert nur in Vault UI/secure channel.
+4. Consumer-Apps konfigurieren (dual-key window).
+5. Alten Secret revoke nach Bestätigung.
+6. `gitleaks detect` auf Repo für Leaks.
+7. Audit-Log-Eintrag mit Ticket.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Kein Secret-Wert im Chat/PR
+- [ ] Rotation dokumentiert mit Ticket
+- [ ] Leak-Scan ausgeführt oder geplant
 
 ## Sicherheit & Freigaben
 
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Keine Angriffs- oder Umgehungsanleitungen in diesen Templates.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- **high risk** bei Prod-Secrets.
+- Break-glass nur mit Zwei-Personen-Regel.
+
+## Fallstricke
+
+- vault kv get in Chat kopiert.
+- Rotation ohne Consumer-Update — Ausfall.
+- sops age key auf Laptop verloren.
+- gh secret set überschreibt still.
+- Historischer Git-Leak bleibt nach Rotation.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Secrets Management-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `secrets-management` (Testdaten)
+- **Aufgabe:** Inventory GitHub Actions.
+- **Input:** org repo api.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Secrets Management. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+gh secret list names only; suggest rotation schedule; no values.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```bash
+gh secret list
+# PROD_DATABASE_URL (updated 2026-01-12) — rotate Q1 ticket
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Secrets Management
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** SOPS file add key path.
+- **Input:** secrets.enc.yaml.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Document sops edit workflow; never decrypt to chat.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```bash
+sops secrets.enc.yaml   # local edit only
+sops -e secrets.enc.yaml | head -5   # still encrypted in output
+```

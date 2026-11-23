@@ -5,26 +5,30 @@ domain: devops-cloud
 category: kubernetes
 tags:
   - kubernetes
-  - devops-cloud
   - mcp
+  - kubectl
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: kubernetes-mcp-server (containers)
+  - name: kubernetes-mcp-server
     install: "https://github.com/containers/kubernetes-mcp-server"
-    version_notes: "2274 GitHub Stars"
-  - name: AKS / Azure Kubernetes MCP
-    install: "https://learn.microsoft.com/en-us/azure/aks/aks-model-context-protocol-server"
-    version_notes: "62 GitHub Stars"
+    version_notes: "kubeconfig readonly default"
+  - name: kubectl
+    install: "Fallback bei MCP-Limits"
+    version_notes: "Gleiche RBAC"
+  - name: AKS Kubernetes MCP
+    install: "Microsoft AKS MCP docs"
+    version_notes: "--access-level readonly"
 inputs:
-  - "Kontext/Briefing für Kubernetes"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Cluster-Kontext und Namespace"
+  - "Skill mit diagnose/mitigate Schritten"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Skill↔MCP-Matrix"
+  - "Diagnosebericht"
+risk_level: high
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
@@ -32,75 +36,102 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Cluster inspizieren und (berechtigt) steuern über kubectl, spezialisierte MCPs oder Skills.
+Kubernetes über **MCP** und **kubectl** kombinieren: Skill definiert access-level, Freigaben und wann CLI statt MCP.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Kubernetes**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Cursor/Hermes mit kubernetes-mcp-server oder AKS MCP.
+- Team-Doku: welcher Skill-Schritt ruft `call_kubectl` vs. natives `kubectl logs`.
+
+**Wann nicht:** Wenn nur Helm/kubectl-Releases — siehe `k8s-*` Templates.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| kubernetes-mcp-server (containers) | MCP | Aus Recherche 2026-11-23 |
-| AKS / Azure Kubernetes MCP | MCP | Aus Recherche 2026-11-23 |
-| kubectl-ai | CLI-Agent | Aus Recherche 2026-11-23 |
+| kubernetes-mcp-server | MCP | Pod/Deploy describe |
+| kubectl | Ergänzung | logs, port-forward |
+| kubectl-ai | optional | Natürliche Sprache→kubectl |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Kubernetes (devops-cloud/kubernetes).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Immer zuerst: Kontext, Namespace, Read-only Diagnose. AKS-Docs-Beispiel: Why are pods pending in this cluster?
+Kubernetes MCP/Skill focus (devops-cloud/kubernetes).
+
+Skill must state: default access readonly; escalate to readwrite only with approval keyword.
+Map steps: verify context | list workloads | describe failing pod | fetch logs | propose patch/rollback.
+MCP inherits RBAC; if Forbidden, report exact API error, do not switch contexts silently.
+One cluster per session unless user lists multiple; kubectx switch documented.
+Prefer MCP for get/describe; use kubectl for logs --previous and stern-like multi-pod if MCP lacks it.
+AKS MCP: pass --access-level readonly in mcp.json; document in matrix.
+
+No delete collection, no cluster-admin MCP in prod skill templates.
+Helm changes not through MCP unless helm-mcp explicitly required_tools.
+After mitigation skill step: kubectl rollout status as verify (CLI).
+Document whether each command ran via MCP or shell.
 ```
 
 ## Arbeitsablauf
 
-- Immer zuerst: Kontext, Namespace, Read-only Diagnose. AKS-Docs-Beispiel: Why are pods pending in this cluster?
-- Access-Level nur erhoehen, wenn noetig und freigegeben.
+1. kubecontext prüfen: `kubectl config current-context`.
+2. Skill-Matrix anlegen (Diagnose/Mitigate/Verify).
+3. MCP: Namespaces, Deployments, Events lesen.
+4. Logs per kubectl wenn MCP truncated.
+5. Mitigation-Vorschlag; Gate bis APPROVE.
+6. Nach Freigabe: rollout undo oder apply patch — kanal dokumentieren.
+7. Verify: rollout status + MCP pod ready.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] access-level in Skill und MCP-Config übereinstimmend
+- [ ] MCP vs. CLI je Schritt markiert
+- [ ] Kein Admin-MCP in Prod ohne Ausnahmeprotokoll
 
 ## Sicherheit & Freigaben
 
-- Falscher kubeconfig-Kontext. MCP erbt RBAC. Admin-Level ist Produktionsrisiko.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- high risk auf Prod-Clustern.
+- Kubeconfig nicht in Chat; MCP über sicheren Transport.
+
+## Fallstricke
+
+- Falscher Context trotz MCP — menschliche Verifikation Pflicht.
+- Admin access-level Default — Produktionsrisiko.
+- MCP ohne --previous logs — Crash-Loops unsichtbar.
+- Zwei K8s-MCPs doppelte Tools.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Kubernetes-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `kubernetes` (Testdaten)
+- **Aufgabe:** Readonly Skill für Pending Pods.
+- **Input:** Cluster staging, ns `app`.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Kubernetes. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Matrix MCP describe + kubectl events; no writes.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+MCP: list pods; describe pod/payment-xxx
+CLI: kubectl get events -n app --sort-by=.lastTimestamp
+Cause: Insufficient cpu
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Kubernetes
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Escalation nach APPROVE für rollout undo.
+- **Input:** Deploy `payment` broken.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Skill step 5 after APPROVE: kubectl rollout undo; MCP verify pods ready.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```bash
+kubectl -n app rollout undo deploy/payment
+kubectl -n app rollout status deploy/payment
+```

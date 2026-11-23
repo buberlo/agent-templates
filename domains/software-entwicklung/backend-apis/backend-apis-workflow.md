@@ -4,29 +4,30 @@ title: "Backend und APIs"
 domain: software-entwicklung
 category: backend-apis
 tags:
+  - api
+  - openapi
   - backend
-  - software-entwicklung
-  - mcpplattform
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: Context7
-    install: "https://github.com/upstash/context7"
-    version_notes: "65314 GitHub Stars"
-  - name: supabase MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/supabase"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: Sentry MCP
-    install: "https://github.com/getsentry/sentry-mcp"
-    version_notes: "973 GitHub Stars"
+  - name: curl
+    install: "HTTP client"
+    version_notes: "Smoke tests"
+  - name: openapi-generator-cli
+    install: "optional"
+    version_notes: "Spec sync"
+  - name: pytest / vitest
+    install: "project test runner"
+    version_notes: "Contract tests"
 inputs:
-  - "Kontext/Briefing für Backend und APIs"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "OpenAPI path oder Route-Liste"
+  - "Auth schema (Bearer/API key)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Implementierte Route + Tests"
+  - "curl smoke examples"
 risk_level: low
 example_count: 2
 version: "1.0.0"
@@ -35,74 +36,103 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Services, APIs, Auth und serverseitige Logik.
+REST/GraphQL-Backends entwerfen, implementieren und mit **Contract-Tests** und curl-Smoke verifizieren.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Backend und APIs**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Neue Endpoints, Versionierung, Pagination.
+- Breaking-Change-Vorbereitung.
+
+**Wann nicht:** Vollständige Auth-Platform (eigenes IAM).
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Context7 | MCP / Plattform | Aus Recherche 2026-11-23 |
-| supabase MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| Sentry MCP | MCP | Aus Recherche 2026-11-23 |
+| curl | Smoke | `curl -sf -H` |
+| OpenAPI | Contract | single source |
+| pytest | Integration | httpx/TestClient |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Backend und APIs (software-entwicklung/backend-apis).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - API-Vertrag zuerst, dann Implementation und Tests.
+Backend APIs workflow (software-entwicklung/backend-apis).
+
+OpenAPI first or update spec with every route change.
+Validate breaking changes: list removed fields explicitly.
+Implement validation at boundary; consistent error envelope {code,message,details}.
+Pagination: cursor or offset documented; max limit cap.
+Auth: never log tokens; 401 vs 403 distinct.
+curl smoke: curl -sf -X POST http://localhost:8080/v1/items -H "Authorization: Bearer $TOKEN" -d @payload.json.
+Integration tests use test database or containers; no prod URLs.
+Rate limit headers if policy exists: Retry-After.
+Idempotency-Key for POST creates when user requests payments style APIs.
+Version paths /v1/ stable; /v2/ for breaks.
+Document migration notes for clients.
+Run tests before suggesting merge.
 ```
 
 ## Arbeitsablauf
 
-- API-Vertrag zuerst, dann Implementation und Tests.
+1. OpenAPI lesen/ergänzen.
+2. Handler + DTOs implementieren.
+3. Unit-Tests für Validierung.
+4. Integration `pytest tests/api/test_items.py`.
+5. `curl` smoke gegen lokale Instanz.
+6. Breaking diff gegen alte Spec.
+7. Changelog-Eintrag.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] OpenAPI committed und gültig
+- [ ] Tests grün
+- [ ] Error codes konsistent
 
 ## Sicherheit & Freigaben
 
-- Destructive SQL durch DB-MCPs – Read-only-Mode bevorzugen.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keine echten Tokens in Repo.
+- PII-Logging vermeiden.
+
+## Fallstricke
+
+- Spec ohne Implementierung drift.
+- 200 mit error body — verwirrend.
+- N+1 in List-Endpoints.
+- Fehlende 413/ payload limits.
+- CORS * in Prod-Vorschlag.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Backend und APIs-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `backend-apis` (Testdaten)
+- **Aufgabe:** GET /v1/items mit Pagination.
+- **Input:** OpenAPI exists.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Backend und APIs. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Implement list endpoint; pytest; curl with limit=10.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```bash
+pytest tests/api/test_list_items.py -q
+curl -sf 'http://localhost:8080/v1/items?limit=10' -H "Authorization: Bearer test"
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Backend und APIs
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** 422 validation errors.
+- **Input:** POST missing field.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Return structured 422; test asserts body.code=VALIDATION_ERROR.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```bash
+curl -s -o /tmp/r.json -w '%{http_code}' -X POST http://localhost:8080/v1/items -H 'Content-Type: application/json' -d '{}'
+# 422
+```

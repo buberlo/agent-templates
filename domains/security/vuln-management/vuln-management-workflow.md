@@ -5,28 +5,25 @@ domain: security
 category: vuln-management
 tags:
   - vuln
-  - security
-  - mcp
+  - cve
+  - patching
 target_agents:
   - hermes
   - grokbot
   - generic-mcp-agents
-  - generic
 required_tools:
-  - name: semgrep MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/semgrep"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: atlassian MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/atlassian"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: linear MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/linear"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
+  - name: grype / trivy
+    install: "container/filesystem scan"
+    version_notes: "SBOM optional"
+  - name: osv-scanner
+    install: "Go ecosystem"
+    version_notes: "lockfile"
 inputs:
-  - "Kontext/Briefing für Vulnerability Management"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Asset inventory scope"
+  - "SLA tiers (critical 7d etc.)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Prioritized vuln list"
+  - "Remediation tickets"
 risk_level: medium
 example_count: 2
 version: "1.0.0"
@@ -35,76 +32,102 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Bekannte Schwachstellen in eigenen Systemen inventarisieren, priorisieren und Patches nachverfolgen.
+Schwachstellen aus Scannern konsolidieren, nach **Risiko und SLA** priorisieren und Remediation-Tasks erzeugen — kein blindes Patch-Friday.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Vulnerability Management**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: medium`).
+- Wöchentliche VM-Zyklus, nach Pentest-Report (authorized).
+- Container-Image-Release-Gate.
+
+**Wann nicht:** Exploit-Entwicklung.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| semgrep MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| atlassian MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| linear MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| trivy | images/fs | CVE |
+| osv-scanner | deps | lockfile |
+| ticket system | track | SLA |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Vulnerability Management (security/vuln-management).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Befunde inventarisieren, priorisieren, Patch-Ticket, Nachscan.
+Vulnerability management workflow (security/vuln-management).
+
+Scan: trivy image <ref> --severity HIGH,CRITICAL; grype similarly.
+Deps: osv-scanner --lockfile=package-lock.json.
+Enrich with EPSS/exploit status only if user provides feed; do not invent exploitability.
+Prioritize: internet exposure * severity * asset criticality; user supplies tiers.
+Deduplicate CVE across layers (base image vs app).
+Remediation: prefer upgrade path with version; workaround only with expiry date.
+False positive: require scanner proof + vendor statement reference.
+SLA breach list sorted by overdue days.
+No active exploitation testing here.
+Track ticket id per vuln cluster not per duplicate CVE line.
+SBOM export optional CycloneDX for compliance evidence.
 ```
 
 ## Arbeitsablauf
 
-- Befunde inventarisieren, priorisieren, Patch-Ticket, Nachscan.
+1. Scope-Assets liste (images, repos).
+2. `trivy image ghcr.io/org/app:tag`.
+3. `osv-scanner -r .` für Monorepo.
+4. Merge findings; dedupe.
+5. Priorität nach SLA-Matrix.
+6. Ticket pro Cluster mit Fix-Vorschlag.
+7. Re-scan nach Patch zur Verifikation.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Scanner-Befehle dokumentiert
+- [ ] SLA-Tier pro Finding
+- [ ] Re-scan Plan
 
 ## Sicherheit & Freigaben
 
-- Scanner-Output ist nicht automatisch vollstaendig.
-- Nur defensive, autorisierte Nutzung; keine Angriffsverfahren in dieser Sammlung.
-- Keine Angriffs- oder Umgehungsanleitungen in diesen Templates.
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Scan-Reports vertraulich.
+- Prod-Patching nach Change-Fenster.
+
+## Fallstricke
+
+- Nur CVSS, keine Exposure.
+- Base image fix vergessen.
+- 500 gleiche CVE Zeilen — Gruppierung nötig.
+- Won't-fix ohne Expiry.
+- Scanner version stale CVE db.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Vulnerability Management-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `vuln-management` (Testdaten)
+- **Aufgabe:** Image scan release gate.
+- **Input:** `app:1.5.0`.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Vulnerability Management. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+trivy HIGH/CRITICAL; block release if critical unfixed.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```bash
+trivy image app:1.5.0 --severity HIGH,CRITICAL
+# 0 CRITICAL -> pass gate
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Vulnerability Management
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** npm osv backlog.
+- **Input:** 12 highs overdue.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+osv-scanner; group by package; SLA sort.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```bash
+osv-scanner -r .
+# Ticket VM-88 lodash upgrade path
+```

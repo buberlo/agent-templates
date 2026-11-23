@@ -5,26 +5,25 @@ domain: security
 category: siem-soc
 tags:
   - siem
-  - security
   - mcp
+  - soc
 target_agents:
   - hermes
-  - grokbot
   - generic-mcp-agents
-  - generic
 required_tools:
-  - name: datadog MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/datadog"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: Sentry MCP
-    install: "https://github.com/getsentry/sentry-mcp"
-    version_notes: "973 GitHub Stars"
+  - name: SIEM MCP
+    install: "org-specific if available"
+    version_notes: "read-only role"
+  - name: Sentry/security MCP
+    install: "app errors optional"
+    version_notes: "correlation"
 inputs:
-  - "Kontext/Briefing für SIEM und SOC"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Alert context"
+  - "Skill contain gate"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: medium
+  - "Investigation summary"
+  - "MCP tool audit"
+risk_level: high
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
@@ -32,76 +31,97 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Alerts triagieren, Korrelation und Playbooks in SIEM/SOAR-Umgebungen (defensiv).
+SIEM über MCP **read-only** abfragen; Skill blockiert Containment-Writes — Parallel zu `siem-soc-workflow`.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **SIEM und SOC**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: medium`).
+- MCP-Anbindung an Splunk/Elastic API (read).
+- Skill mit CONTAIN_APPROVE Gate.
+
+**Wann nicht:** Wenn MCP write/ SOAR nicht policy-konform.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| datadog MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| Sentry MCP | MCP | Aus Recherche 2026-11-23 |
-| grafana MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| SIEM MCP | Query | analyst |
+| Skill | Gate | contain block |
+| Ticket | Audit | id |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for SIEM und SOC (security/siem-soc).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Alert → Kontext sammeln → dokumentierte Mitigationsvorschlaege. Keine Offensivmassnahmen.
+SIEM SOC MCP/Skill focus (security/siem-soc).
+
+MCP tools whitelist: search/query only; ban isolate, delete_index, update_notable.
+Skill steps: ingest alert -> MCP query entities -> correlate -> document -> containment suggestion awaiting CONTAIN_APPROVE.
+If MCP offers write action, skill must refuse and use ticket template instead.
+Log query strings and result counts not raw log bulk.
+Cross MCP Sentry only for app errors with same trace id when provided.
+Session time bound enforced in MCP parameters.
+Disable unrelated MCPs during active incident triage.
+PII fields masked in summary.
+Handoff to human analyst if MCP auth fails mid-investigation.
 ```
 
 ## Arbeitsablauf
 
-- Alert → Kontext sammeln → dokumentierte Mitigationsvorschlaege. Keine Offensivmassnahmen.
+1. Alert in Skill laden.
+2. MCP query user/host timeline.
+3. Ergebnisse kondensieren.
+4. Hypothese dokumentieren.
+5. Containment-Vorschlag textuell.
+6. CONTAIN_APPROVE abwarten.
+7. MCP audit an SOC-Ticket.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Kein MCP write ohne APPROVE
+- [ ] Queries im Ticket
+- [ ] PII maskiert
 
 ## Sicherheit & Freigaben
 
-- Write-Zugriff auf Detection-Rules ist hochsensibel.
-- Nur defensive, autorisierte Nutzung.
-- Keine Angriffs- oder Umgehungsanleitungen in diesen Templates.
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- high risk containment.
+- MCP credentials scoped.
+
+## Fallstricke
+
+- MCP returns huge JSON — summarization loss.
+- Write tool hidden alias.
+- Cross-tenant MCP config error.
+- Stale MCP cache.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-SIEM und SOC-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `siem-soc` (Testdaten)
+- **Aufgabe:** MCP read hunt.
+- **Input:** host H-1.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für SIEM und SOC. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+MCP query 4h process creates; no isolate.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+47 powershell.exe children flagged; containment not executed
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in SIEM und SOC
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Block isolate tool.
+- **Input:** MCP suggests isolate_host.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Refuse MCP write; output ticket template.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Skill refused isolate_host; CONTAIN_APPROVE required + human SOAR
+```

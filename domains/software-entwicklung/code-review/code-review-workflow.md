@@ -4,32 +4,27 @@ title: "Code-Review"
 domain: software-entwicklung
 category: code-review
 tags:
-  - code
-  - software-entwicklung
-  - mcp
+  - review
+  - gh
+  - quality
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: GitHub Official MCP
-    install: "https://github.com/github/github-mcp-server"
-    version_notes: "34686 GitHub Stars"
-  - name: Hermes-Skill github / ClawHub Github
-    install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "ClawHub-Downloads Github (steipete): 174.624, 585 Registry-Stars (Leaderboard 23"
-  - name: semgrep MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/semgrep"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: Hermes-Skill requesting-code-review
-    install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "Bundled."
+  - name: gh
+    install: "gh pr diff, review"
+    version_notes: "Required"
+  - name: git
+    install: "local checkout optional"
+    version_notes: "deeper review"
 inputs:
-  - "Kontext/Briefing für Code-Review"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "PR number or branch"
+  - "Review focus (security, perf)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Structured review comments"
+  - "Approve/block recommendation"
 risk_level: low
 example_count: 2
 version: "1.0.0"
@@ -38,74 +33,103 @@ updated: "2026-11-23"
 
 ## Zweck
 
-PRs und Diffs prüfen, Sicherheits- und Qualitätsgates anwenden.
+Pull Requests mit **gh pr diff** und Checkliste reviewen — konstruktiv, priorisiert, ohne stilles Merge.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Code-Review**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Vor Merge: Bugs, Security, Tests fehlen.
+- Author braucht konkretes Feedback.
+
+**Wann nicht:** Ersetzt kein menschliches Pflicht-Review in regulierten Teams.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| GitHub Official MCP | MCP | Aus Recherche 2026-11-23 |
-| Hermes-Skill github / ClawHub Github | Skill + CLI | Aus Recherche 2026-11-23 |
-| semgrep MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| Hermes-Skill requesting-code-review | Skill | Aus Recherche 2026-11-23 |
+| gh | Diff, checks | `gh pr diff` |
+| git | Optional lokal | run tests |
+| linters | optional | project scripts |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Code-Review (software-entwicklung/code-review).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Claude-Code-Docs enthalten den illustrativen Prompt Review PR #456 and suggest improvements (kein gemessenes Praxiserg
+Code review workflow (software-entwicklung/code-review).
+
+Fetch: gh pr view <n> --json title,body,author,files,additions,deletions.
+Diff: gh pr diff <n>; focus files user lists or high risk paths (auth, migrations).
+Checks: gh pr checks <n>; block merge recommendation if required check missing.
+Comment structure: severity (blocker/suggestion/nit), file:line, suggested fix snippet.
+Security: secrets, injection, authz gaps, unsafe deserialization.
+No approve via gh pr review --approve without human REVIEW_APPROVE.
+Never request changes without at least one concrete finding or LGTM rationale.
+Test expectation: new behavior has test or documented exception.
+Scope creep: call out unrelated changes.
+Link official docs for API misuse suggestions.
+Summarize decision: LGTM with nits, Request changes, or Comment only.
+Do not run destructive git commands on reviewer's machine without ask.
 ```
 
 ## Arbeitsablauf
 
-- Claude-Code-Docs enthalten den illustrativen Prompt Review PR #456 and suggest improvements (kein gemessenes Praxisergebnis).
+1. `gh pr view 42 --json files,title`.
+2. `gh pr checks 42`.
+3. `gh pr diff 42 --patch` oder pro Datei.
+4. Optional `gh pr checkout 42 && npm test`.
+5. Review-Kommentare strukturieren.
+6. Draft `gh pr review 42 --comment --body-file review.md`.
+7. Submit nur nach Nutzer OK.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Jeder Blocker mit Datei/Zeile
+- [ ] Checks berücksichtigt
+- [ ] Kein ungefragtes Approve
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Diff kann Secrets enthalten — redigieren vor externem Teilen.
+
+## Fallstricke
+
+- Nur Summary ohne Diff — Halluzination.
+- Riesige PRs ungesliced — nach Module fragen.
+- Style-Nits dominieren Blocker.
+- Approve trotz roter CI.
+- Feedback ohne Vorschlag — weniger hilfreich.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Code-Review-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `code-review` (Testdaten)
+- **Aufgabe:** Review PR 42 security focus.
+- **Input:** auth middleware changed.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Code-Review. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+gh pr diff 42; list blockers; draft comment only.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```bash
+gh pr diff 42
+gh pr checks 42
+# Review draft: BLOCKER missing authz on DELETE /admin
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Code-Review
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** LGTM with tests ok.
+- **Input:** small doc fix.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Confirm checks green; suggest approve text; do not submit approve.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```bash
+gh pr checks 55
+# Suggested body: LGTM — checks pass, scope doc-only
+```

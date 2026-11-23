@@ -5,25 +5,23 @@ domain: security
 category: osint
 tags:
   - osint
-  - security
   - mcp
 target_agents:
   - hermes
-  - grokbot
   - generic-mcp-agents
-  - generic
 required_tools:
-  - name: Brave Search MCP
-    install: "https://github.com/brave/brave-search-mcp-server"
-    version_notes: "1585 GitHub Stars"
-  - name: Exa MCP
-    install: "https://github.com/exa-labs/exa-mcp-server"
-    version_notes: "5264 GitHub Stars"
+  - name: Web Search / Fetch MCP
+    install: "read-only browse"
+    version_notes: "public URLs only"
+  - name: whois/RDAP CLI
+    install: "verify step"
+    version_notes: "skill cross-check"
 inputs:
-  - "Kontext/Briefing für OSINT (offen zugängliche Quellen)"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "OSINT question scope"
+  - "Skill citation rules"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Cited brief"
+  - "MCP source log"
 risk_level: medium
 example_count: 2
 version: "1.0.0"
@@ -32,76 +30,97 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Öffentliche Informationen systematisch sammeln; keine illegalen Zugriffsmethoden.
+OSINT per **MCP Fetch/Search** mit Skill-Pflicht: **doppelte Quelle**, keine verdeckten Login-MCPs, gleiche Policy wie `osint-workflow`.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **OSINT (offen zugängliche Quellen)**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: medium`).
+- Agent mit Web-MCP für öffentliche Quellen.
+- Skill erzwingt Zitationsformat.
+
+**Wann nicht:** Wenn Web-MCP authentifizierte Bereiche ohne ROE erreicht.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Brave Search MCP | MCP | Aus Recherche 2026-11-23 |
-| Exa MCP | MCP | Aus Recherche 2026-11-23 |
-| Tavily MCP | MCP | Aus Recherche 2026-11-23 |
-| Firecrawl MCP | MCP | Aus Recherche 2026-11-23 |
+| Fetch MCP | Pages | public |
+| Skill | Citations | URL+date |
+| RDAP CLI | Verify | domain facts |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for OSINT (offen zugängliche Quellen) (security/osint).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Fragestellung, nur oeffentliche Quellen, Herkunft dokumentieren.
+OSINT MCP/Skill focus (security/osint).
+
+MCP fetch only public URLs user lists or that are clearly public documentation.
+Skill: question -> source1 MCP -> source2 independent -> synthesize with citations.
+Cross-check RDAP via CLI when domain facts material.
+No MCP tools that automate LinkedIn/private social scraping.
+Log each URL fetched with timestamp in audit footer.
+If MCP returns paywall/login wall, stop; do not bypass.
+Refuse private individual targeting.
+Minimize quoting; summarize with link.
+Disable high-risk MCPs (port scan plugins) entirely for this skill.
+Human review before external sharing of OSINT brief.
 ```
 
 ## Arbeitsablauf
 
-- Fragestellung, nur oeffentliche Quellen, Herkunft dokumentieren.
+1. Scope bestätigen.
+2. MCP fetch Quelle A (vendor advisory).
+3. MCP fetch Quelle B (independent news/registry).
+4. CLI RDAP cross-check wenn Domain.
+5. Brief mit Footnotes.
+6. MCP audit log.
+7. Kein weiterer Schritt bei Widerspruch ohne Klärung.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] ≥2 unabhängige Quellen für Kernfakten
+- [ ] MCP audit vollständig
+- [ ] Keine Policy-Verstöße
 
 ## Sicherheit & Freigaben
 
-- Keine Zugangsumgehung, kein Social Engineering.
-- Keine Angriffs- oder Umgehungsanleitungen in diesen Templates.
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keine Umgehung von Paywalls/Logins.
+
+## Fallstricke
+
+- MCP halluziniert URL — verify HTTP status.
+- Eine Quelle reicht nicht.
+- Injection in fetched HTML.
+- Alte Cache-Snapshot MCP.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-OSINT (offen zugängliche Quellen)-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `osint` (Testdaten)
+- **Aufgabe:** Vendor breach news check.
+- **Input:** Vendor V.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für OSINT (offen zugängliche Quellen). Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Two-source MCP fetch; cite; refuse if only rumor blog.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+[1] vendor status page [2] press wire; confidence medium
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in OSINT (offen zugängliche Quellen)
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Paywall hit.
+- **Input:** financial times article.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Stop at paywall; suggest manual analyst review.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Fetch 402/paywall; no bypass; manual step noted
+```

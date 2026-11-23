@@ -5,25 +5,26 @@ domain: software-entwicklung
 category: frontend
 tags:
   - frontend
-  - software-entwicklung
   - mcp
+  - playwright
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: figma MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/figma"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: canva MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/canva"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
+  - name: Playwright MCP
+    install: "UI debug"
+    version_notes: "CLI verify required"
+  - name: Chrome DevTools MCP
+    install: "layout/perf"
+    version_notes: "optional"
 inputs:
-  - "Kontext/Briefing für Frontend"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Local dev URL"
+  - "Skill verify playwright CLI"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Component fix"
+  - "MCP vs CLI matrix"
 risk_level: low
 example_count: 2
 version: "1.0.0"
@@ -32,74 +33,102 @@ updated: "2026-11-23"
 
 ## Zweck
 
-UI-Implementierung, Design-to-Code (Figma), Komponenten und Accessibility.
+Frontend-Debugging: **Playwright MCP** für UI-Zustand, Skill endet mit **`npx playwright test`** und `npm run build`.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Frontend**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Hydration/Layout-Bug schwer reproduzierbar.
+- Agent mit MCP browser snapshot.
+
+**Wann nicht:** Reine Typo — edit only.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| figma MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| canva MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| Playwright MCP | MCP | Aus Recherche 2026-11-23 |
-| Chrome DevTools MCP | MCP | Aus Recherche 2026-11-23 |
+| Playwright MCP | Observe | snapshots |
+| playwright CLI | Verify | tests |
+| DevTools MCP | Perf | optional |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Frontend (software-entwicklung/frontend).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Design-Link + Komponentenregeln; danach im Browser gegen die laufende App pruefen.
+Frontend MCP/Skill focus (software-entwicklung/frontend).
+
+Use MCP to observe failing UI state once; then fix code; verify with CLI playwright and build.
+Limit MCP rounds to 3 per bug to control tokens.
+DevTools MCP for layout shift or network waterfall only when perf issue stated.
+Never consider task done without npm run build success.
+MCP must target localhost dev URL user provides, not prod.
+Export reproduction as playwright spec when bug recurring.
+Disable MCP after spec written for remaining iterations.
+Document MCP snapshot findings vs DOM after fix.
+Prefer data-testid selectors in specs over CSS from MCP snapshot.
+Run lint with same command as CI from package.json scripts field.
+If hydration error, note server/client component boundary in summary.
+Capture before/after screenshots only in local test-results, not chat attachments.
+List React strict mode double-render issues when relevant to flaky MCP observations.
+Coordinate with design tokens file when visual mismatch is reported.
 ```
 
 ## Arbeitsablauf
 
-- Design-Link + Komponentenregeln; danach im Browser gegen die laufende App pruefen.
+1. `npm run dev` URL bestätigen.
+2. MCP: reproduce bug snapshot.
+3. Code fix im workspace.
+4. `npm run build`.
+5. `npx playwright test` relevant spec.
+6. Optional DevTools MCP confirm LCP improved.
+7. Matrix MCP rounds vs CLI runs.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] build + playwright grün
+- [ ] MCP rounds dokumentiert
+- [ ] localhost only
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- MCP captures may show user data — redact.
+
+## Fallstricke
+
+- Endless MCP loop ohne fix.
+- Fix gegen snapshot stale selector.
+- DevTools on prod URL.
+- MCP cost on static text extraction task.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Frontend-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `frontend` (Testdaten)
+- **Aufgabe:** Modal nicht klickbar.
+- **Input:** localhost:5173.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Frontend. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+MCP open modal once; fix z-index; playwright test.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```bash
+npx playwright test tests/modal.spec.ts
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Frontend
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** No MCP.
+- **Input:** type error only.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+tsc fix only; build verify.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```bash
+npm run build
+# MCP not used
+```

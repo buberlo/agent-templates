@@ -4,27 +4,28 @@ title: "Cloud: AWS"
 domain: devops-cloud
 category: cloud-aws
 tags:
+  - aws
   - cloud
-  - devops-cloud
-  - mcp
+  - cli
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: GitHub Official MCP
-    install: "https://github.com/github/github-mcp-server"
-    version_notes: "34686 GitHub Stars"
-  - name: Sentry MCP
-    install: "https://github.com/getsentry/sentry-mcp"
-    version_notes: "973 GitHub Stars"
+  - name: aws-cli
+    install: "AWS CLI v2"
+    version_notes: "SSO: aws configure sso"
+  - name: terraform
+    install: "optional für IaC-Tasks"
+    version_notes: "Siehe coding-terraform-aws-baseline"
 inputs:
-  - "Kontext/Briefing für Cloud: AWS"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Region, Account, Ressourcen-Typ"
+  - "Read vs. Write Scope"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "CLI-Protokoll und Empfehlung"
+  - "Optional: Terraform-Modul-Entwurf"
+risk_level: high
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
@@ -32,74 +33,108 @@ updated: "2026-11-23"
 
 ## Zweck
 
-AWS-Ressourcen und Dokumentation über CLIs, Skills und Knowledge-MCPs.
+AWS-Ressourcen sicher **lesen**, kostensparend inventarisieren und Änderungen nur über genehmigte IaC- oder Runbook-Pfade vorschlagen.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Cloud: AWS**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Inventar, Kosten-Triage, IAM-Policy-Review (read-mostly).
+- Vorbereitung Terraform-Module mit realistischen `aws`-Beispielen.
+
+**Wann nicht:** Ad-hoc-Prod-Änderungen per Einzel-CLI ohne Change-Ticket.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| GitHub Official MCP | MCP | Aus Recherche 2026-11-23 |
-| Sentry MCP | MCP | Aus Recherche 2026-11-23 |
+| aws | API-CLI | STS, EC2, S3, IAM describe |
+| terraform | IaC | Wenn Baseline gewünscht |
+| aws-vault | optional | Kurzlebige Credentials |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Cloud: AWS (devops-cloud/cloud-aws).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+AWS cloud workflow (devops-cloud/cloud-aws).
+
+Start every session: aws sts get-caller-identity and confirm account/region.
+Default read-only: describe*, list*, get*; no create/update/delete without approval.
+Prefer --query and --output json for scripting; paginate with --page-size where needed.
+
+Tag-based filters: filter tag:Environment=dev when user supplies environment.
+Never output secret access keys or full ARNs of secrets in public tickets.
+For cost: aws ce get-cost-and-usage with date range user provides (not guessed).
+For S3 public exposure: s3api get-public-access-block and bucket-policy review read-only.
+
+When change needed: output terraform snippet or change request, not silent aws ec2 run-instances.
+Document region in every command (--region eu-central-1).
+Respect SCP/permission boundaries; report AccessDenied verbatim.
+Log command sequence for audit replay.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. `aws sts get-caller-identity` und Profil dokumentieren.
+2. Scope klären: Service (EC2, RDS, Lambda) und Tags.
+3. Inventar: z. B. `aws ec2 describe-instances --filters "Name=tag:Environment,Values=prod" --region eu-central-1`.
+4. Policies: `aws iam get-user-policy` / `simulate-principal-policy` read-only.
+5. Befund zusammenfassen; Kosten optional `aws ce get-cost-and-usage`.
+6. Änderungsvorschlag als Terraform oder Ticket, nicht direkte Mutation.
+7. Freigabe einholen vor jedem write-API-Aufruf.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Account und Region in jeder Zusammenfassung
+- [ ] Nur genehmigte Schreibaktionen
+- [ ] Befehlsliste kopierfertig und redigiert
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Prod-Write nur mit Change-Fenster; `risk_level: high`.
+- Keine langfristigen Keys im Chat; SSO bevorzugen.
+- S3-/IAM-Exposition sofort eskalieren, nicht „schnell fixen“ ohne Review.
+
+## Fallstricke
+
+- Falsche Region — leere Listen statt Fehler.
+- Paginierung vergessen — unvollständiges Inventar.
+- `aws s3 ls` ohne Public-Block-Check — false sense of safety.
+- Broad IAM `*` in Vorschlägen — immer least privilege formulieren.
+- Datenübertragung aus Prod-Logs in KI-Thread — DSGVO beachten.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Cloud: AWS-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `cloud-aws` (Testdaten)
+- **Aufgabe:** EC2 in `prod` tag inventarisieren.
+- **Input:** Region `eu-central-1`.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Cloud: AWS. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+List running instances with tag Environment=prod; JSON table; read-only.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```bash
+aws ec2 describe-instances --region eu-central-1 \
+  --filters "Name=tag:Environment,Values=prod" "Name=instance-state-name,Values=running" \
+  --query 'Reservations[].Instances[].[InstanceId,InstanceType,Tags[?Key==`Name`].Value|[0]]' \
+  --output table
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Cloud: AWS
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Verdächtige öffentliche S3-Bucket-Policy finden.
+- **Input:** Bucket-Liste aus Audit.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Read-only check public access block and bucket policy for bucket logs-archive-prod.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```bash
+aws s3api get-public-access-block --bucket logs-archive-prod
+aws s3api get-bucket-policy-status --bucket logs-archive-prod
+# IsPublic: false, recommendation documented
+```

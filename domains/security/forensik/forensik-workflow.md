@@ -4,23 +4,26 @@ title: "Forensik (nur autorisiert)"
 domain: security
 category: forensik
 tags:
-  - forensik
-  - security
+  - forensics
+  - incident
+  - authorized
 target_agents:
   - hermes
-  - grokbot
   - generic-mcp-agents
-  - generic
 required_tools:
-  - name: terminal
-    install: "Shell des Agenten"
-    version_notes: "Domain-Default laut Recherche"
+  - name: chain-of-custody
+    install: "Org forensics SOP"
+    version_notes: "Hash before analyze"
+  - name: read-only images
+    install: "E01/DD per legal"
+    version_notes: "No mount write"
 inputs:
-  - "Kontext/Briefing für Forensik (nur autorisiert)"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Legal/HR authorization"
+  - "Evidence IDs and hashes"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: medium
+  - "Chain-of-custody notes"
+  - "Timeline template (no destructive steps)"
+risk_level: high
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
@@ -28,75 +31,99 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Hohe Flughöhe zu forensischen Werkzeugkategorien; keine Anleitungen zur Umgehung oder Ausbeutung.
-
-> Keine Methodik, keine Umgehungsanleitungen.
+Forensik **Rahmen**: Chain of Custody, Timeline, Reporting — keine Schritt-für-Schritt-Datenrettung oder Malware-Detonation in diesem Template.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Forensik (nur autorisiert)**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: medium`).
+- IR-Team braucht strukturierte Agent-Hilfe für Dokumentation.
+- Nach Autorisierung durch Legal/Security.
+
+**Wann nicht:** Ohne Custody-Formular oder bei personal devices without policy.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Terminal/CLI | Ausführung | Domain-Default |
+| SOP | Process | org-specific |
+| Hash tools | Integrity | sha256 before open |
+| Human examiner | Analysis | off-template |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Forensik (nur autorisiert) (security/forensik).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Nur in autorisierten Verfahren durch zustaendige Stellen; hier keine Methodik.
+Forensics framework ONLY (security/forensik).
+
+Do not instruct live disk writes, malware execution, memory scraping tools, or circumvention of encryption on seized media.
+Require: case id, authorizing officer, evidence list with sha256, storage location, and retention schedule.
+Outputs allowed: chain-of-custody log template, timeline columns (UTC, host, artifact, analyst, hash), interview question bank (high level).
+If evidence hash mismatch, stop and escalate; do not analyze.
+Minimize PII in chat; reference evidence ids only.
+Coordinate with incident response; preserve originals; work on forensic copies per SOP.
+Jurisdiction and privacy law reminder in summary.
+No cloud exfiltration of disk images to public AI services.
+Handoff to certified forensic analyst for tooling steps.
 ```
 
 ## Arbeitsablauf
 
-- Nur in autorisierten Verfahren durch zustaendige Stellen; hier keine Methodik.
+1. Authorization und Case-ID prüfen.
+2. Evidence-Liste mit SHA256 eintragen.
+3. Custody-Log: wer, wann, wohin.
+4. Timeline-Template anlegen (leer, strukturiert).
+5. Kopie vs. Original laut SOP bestätigen.
+6. Menschlicher Analyst übernimmt Tooling.
+7. Agent nur Dokumentation fortsetzen.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Custody vollständig
+- [ ] Keine destruktiven/analyse-Befehle generiert
+- [ ] Hashes vor Analyse dokumentiert
 
 ## Sicherheit & Freigaben
 
-- Keine forensischen Angriffs- oder Umgehungsverfahren in dieser Datei.
-- Keine Angriffs- oder Umgehungsanleitungen in diesen Templates.
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- **high risk**; Legal-Freigabe Pflicht.
+- Beweismittel nicht in Cloud-LLM hochladen.
+
+## Fallstricke
+
+- Mount read-write — Spuren zerstört.
+- Fehlende Uhrzeit-Sync in Timeline.
+- Analyst-Tool-Output ohne Hash-Referenz.
+- GDPR bei Mitarbeiter-Geräten.
+- Chain-of-custody Lücken invalidate court use.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Forensik (nur autorisiert)-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `forensik` (Testdaten)
+- **Aufgabe:** Custody log für USB-STICK-7.
+- **Input:** sha256 `abc...`, Case FIR-2026-03.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Forensik (nur autorisiert). Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Create custody table and timeline headers only; no acquisition commands.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Custody: received FIR-2026-03 by Analyst M; hash abc...; sealed bag ID 7
+Timeline columns ready UTC|Host|Event|Ref
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Forensik (nur autorisiert)
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Hash mismatch.
+- **Input:** re-hash differs.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Apply mismatch policy.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+STOP analysis; escalate integrity failure; do not mount image
+```

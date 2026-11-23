@@ -4,32 +4,27 @@ title: "Frontend"
 domain: software-entwicklung
 category: frontend
 tags:
+  - react
   - frontend
-  - software-entwicklung
-  - mcp
+  - vite
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: figma MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/figma"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: canva MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/canva"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: Playwright MCP
-    install: "https://github.com/microsoft/playwright-mcp"
-    version_notes: "40040 GitHub Stars"
-  - name: Chrome DevTools MCP
-    install: "https://github.com/ChromeDevTools/chrome-devtools-mcp"
-    version_notes: "58941 GitHub Stars"
+  - name: npm/pnpm
+    install: "package manager"
+    version_notes: "npm run build"
+  - name: playwright
+    install: "E2E smoke"
+    version_notes: "npx playwright test"
 inputs:
-  - "Kontext/Briefing für Frontend"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Route/Component scope"
+  - "Browser targets"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Working UI + tests"
+  - "Build ohne Fehler"
 risk_level: low
 example_count: 2
 version: "1.0.0"
@@ -38,74 +33,101 @@ updated: "2026-11-23"
 
 ## Zweck
 
-UI-Implementierung, Design-to-Code (Figma), Komponenten und Accessibility.
+Frontend-Features in React/Vue/Svelte: State, Routing, a11y, **Build und Playwright-Smoke**.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Frontend**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Neue Seiten, Komponenten, API-Anbindung.
+- Bundle- oder Hydration-Bugs.
+
+**Wann nicht:** Native Mobile (mobile-apps).
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| figma MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| canva MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| Playwright MCP | MCP | Aus Recherche 2026-11-23 |
-| Chrome DevTools MCP | MCP | Aus Recherche 2026-11-23 |
+| vite/next | bundler | project default |
+| eslint | lint | npm run lint |
+| playwright | E2E | critical paths |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Frontend (software-entwicklung/frontend).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Design-Link + Komponentenregeln; danach im Browser gegen die laufende App pruefen.
+Frontend workflow (software-entwicklung/frontend).
+
+Follow existing state management pattern; do not introduce new global store without ask.
+Data fetching: use project standard (react-query, trpc, fetch hooks).
+Handle loading, error, empty states in UI.
+Avoid useEffect fetch race; prefer declared data loaders if framework supports.
+npm run build must pass before done; fix type errors properly.
+Code split large routes; avoid importing server code client-side.
+a11y: button type, label for, alt text.
+Playwright: smoke login/dashboard path if exists.
+Env vars: NEXT_PUBLIC_ only for public values.
+No innerHTML without sanitization.
+CSS modules/tailwind per repo convention.
+Document any new env in .env.example not .env.
 ```
 
 ## Arbeitsablauf
 
-- Design-Link + Komponentenregeln; danach im Browser gegen die laufende App pruefen.
+1. Route/component files identifizieren.
+2. Implement + types.
+3. `npm run lint && npm run test`.
+4. `npm run build`.
+5. `npx playwright test tests/smoke.spec.ts` wenn vorhanden.
+6. Manual check responsive in devtools notes.
+7. PR summary mit Build-Zeit.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] build grün
+- [ ] lint clean oder begründet
+- [ ] Loading/error states
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- XSS: keine unescaped user HTML.
+
+## Fallstricke
+
+- Client bundle includes server secrets.
+- useEffect dependency loops.
+- Stale closure in handlers.
+- Playwright only chromium while Safari bug.
+- CSS specificity wars.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Frontend-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `frontend` (Testdaten)
+- **Aufgabe:** Settings page.
+- **Input:** route /settings.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Frontend. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Add form with validation; build; playwright smoke navigation.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```bash
+npm run build
+npx playwright test -g settings
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Frontend
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** API error toast.
+- **Input:** 500 from API.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Show retry toast; unit test hook; no silent fail.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```bash
+npm test -- useApi.test.tsx
+```

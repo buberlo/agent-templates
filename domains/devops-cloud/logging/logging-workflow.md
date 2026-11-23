@@ -5,26 +5,30 @@ domain: devops-cloud
 category: logging
 tags:
   - logging
-  - devops-cloud
-  - mcp
+  - loki
+  - cloudwatch
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: GitHub Official MCP
-    install: "https://github.com/github/github-mcp-server"
-    version_notes: "34686 GitHub Stars"
-  - name: Sentry MCP
-    install: "https://github.com/getsentry/sentry-mcp"
-    version_notes: "973 GitHub Stars"
+  - name: kubectl
+    install: "stern or kubectl logs"
+    version_notes: "Cluster logs"
+  - name: aws-cli
+    install: "logs filter-log-events"
+    version_notes: "CloudWatch"
+  - name: logcli
+    install: "Grafana Loki logcli"
+    version_notes: "Loki queries"
 inputs:
-  - "Kontext/Briefing für Logging"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Zeitfenster UTC, Service/Label"
+  - "Fehlermuster oder Trace-ID"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Log-Auszug mit Korrelation"
+  - "Query-Snippets für Dashboard"
+risk_level: medium
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
@@ -32,74 +36,103 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Logsuche, Korrelation und Alert-Kontext.
+Zentrale und Pod-Logs durchsuchen, Fehler korrelieren und **wiederverwendbare Queries** liefern — ohne Rohdaten-Massenexport.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Logging**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Incident-Triage, neue Fehlermeldung in Monitoring.
+- Logging-Pipeline-Validierung nach Deploy.
+
+**Wann nicht:** Langzeit-Archiv ohne Legal Hold Klärung.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| GitHub Official MCP | MCP | Aus Recherche 2026-11-23 |
-| Sentry MCP | MCP | Aus Recherche 2026-11-23 |
+| logcli | Loki | LogQL |
+| aws logs | CloudWatch | filter-log-events |
+| stern | K8s | Live multi-pod |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Logging (devops-cloud/logging).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Logging workflow (devops-cloud/logging).
+
+Always bound time range UTC; default last 1h if user omits, state assumption.
+Loki: logcli query '{app="api"} |= "error"' --since=1h --limit=200.
+CloudWatch: aws logs filter-log-events --log-group-name --start-time --filter-pattern.
+kubectl: kubectl logs deploy/api -n prod --since-time=<rfc3339> --tail=500 max.
+
+Redact emails, tokens, credit cards from excerpts; use *** placeholders.
+No download entire log groups to public chat.
+Correlate: request_id/trace_id across services when present in fields.
+If cardinality high, suggest label changes not ad-hoc .* queries in prod Loki.
+Save final LogQL/SQL as copy-paste block for Grafana.
+Do not change retention or delete log groups without approval.
+Stern: stern -n prod deploy/api --since 30m for burst incidents.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Zeitfenster und Service/Labels klären.
+2. Quelle wählen: Loki vs. CloudWatch vs. kubectl.
+3. `logcli labels` oder Log-Group-Liste validieren.
+4. Query ausführen; erste 50 Zeilen analysieren.
+5. Trace-ID verfolgen; zweite Query cross-service.
+6. Dashboard-Panel-Query als Snippet exportieren.
+7. PII-redigierten Auszug ins Ticket.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Zeitfenster und Quelle dokumentiert
+- [ ] Query wiederverwendbar
+- [ ] Keine Roh-PII im Chat
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Prod-Logs können Kundendaten enthalten — Minimierung.
+- Log-Group-Löschung nur mit Freigabe.
+
+## Fallstricke
+
+- Unbounded query — Loki/CloudWatch Kosten und Timeout.
+- Falsche TZ in --start-time — leere Ergebnisse.
+- JSON-Logs ohne json parser — Regex irreführend.
+- nur ERROR-Level — Root in vorherigem INFO.
+- kubectl logs ohne --previous bei CrashLoop.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Logging-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `logging` (Testdaten)
+- **Aufgabe:** Loki Fehler letzte Stunde.
+- **Input:** App `checkout`, trace `abc-123`.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Logging. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+LogQL for errors and trace abc-123; limit 100 lines.
 ```
+
 - **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+
+```bash
+logcli query '{app="checkout"} |= "abc-123" | json | level="error"' --since=1h --limit=100
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Logging
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** CloudWatch Filter.
+- **Input:** Group `/ecs/api`, Muster `OutOfMemory`.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+filter-log-events last 2h; redact account ids.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```bash
+aws logs filter-log-events --log-group-name /ecs/api \
+  --start-time $(date -d '2 hours ago' +%s000) \
+  --filter-pattern "OutOfMemory"
+```

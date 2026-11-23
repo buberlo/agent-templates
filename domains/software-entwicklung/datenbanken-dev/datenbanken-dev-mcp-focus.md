@@ -4,27 +4,28 @@ title: "Datenbanken (Entwicklung): MCP/Skill-Fokus"
 domain: software-entwicklung
 category: datenbanken-dev
 tags:
-  - datenbanken
-  - software-entwicklung
+  - sql
   - mcp
+  - postgres
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: supabase MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/supabase"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: neon MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/neon"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
+  - name: postgres-mcp
+    install: "community postgres MCP"
+    version_notes: "SELECT default"
+  - name: psql
+    install: "verify step"
+    version_notes: "same DSN as MCP staging"
 inputs:
-  - "Kontext/Briefing für Datenbanken (Entwicklung)"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Staging DSN name"
+  - "Migration path"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Migration draft"
+  - "MCP query audit"
+risk_level: medium
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
@@ -32,73 +33,97 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Schema, Migrations, Queries für App-Datenbanken (Postgres, Supabase, Neon).
+**Postgres MCP** nur für Schema-Reads und EXPLAIN auf **Staging**; Writes ausschließlich über Migration-Files im Repo.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Datenbanken (Entwicklung)**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Agent exploriert Schema per MCP, committet alembic/flyway.
+
+**Wann nicht:** Wenn MCP nicht read-only konfiguriert.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| supabase MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| neon MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| prisma-postgres MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| Postgres MCP | Describe/explain | read |
+| alembic | Writes | VCS |
+| Skill | Gate | no MCP DDL |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Datenbanken (Entwicklung) (software-entwicklung/datenbanken-dev).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Schema lesen, Migration als Review-Diff vorschlagen, nicht still apply.
+Database dev MCP/Skill focus (software-entwicklung/datenbanken-dev).
+
+MCP allowed: SELECT, EXPLAIN, \d equivalents; forbidden: DROP, TRUNCATE, UPDATE without migration file.
+Skill verify: migration file exists + alembic upgrade on docker compose db.
+DSN must match staging name user provides; reject prod hostnames pattern *prod*.
+Log every MCP SQL in audit; parameters redacted.
+One postgres MCP; disable duplicates.
+If MCP returns sample rows, redact PII in summary.
+Translate MCP findings into versioned migration, never live MCP DDL for schema change.
+Connection pool limits: avoid MCP full table scan on large tables without LIMIT sample.
+Fallback: read migrations folder if MCP auth fails.
 ```
 
 ## Arbeitsablauf
 
-- Schema lesen, Migration als Review-Diff vorschlagen, nicht still apply.
+1. Confirm staging DSN.
+2. MCP: table describe.
+3. MCP: EXPLAIN slow query.
+4. Write migration SQL file.
+5. `alembic upgrade head` local.
+6. pytest.
+7. MCP audit attach to PR draft.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Kein MCP DDL applied
+- [ ] Migration in git
+- [ ] Staging-only DSN
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Prod MCP blocked.
+- Row samples redacted.
+
+## Fallstricke
+
+- MCP write tool mislabeled read.
+- Staging = prod copy PII.
+- MCP LIMIT vergessen — timeout.
+- Migration nicht aus MCP abgeleitet.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Datenbanken (Entwicklung)-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `datenbanken-dev` (Testdaten)
+- **Aufgabe:** Index aus EXPLAIN MCP.
+- **Input:** staging `app_staging`.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Datenbanken (Entwicklung). Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+MCP EXPLAIN orders query; write migration index; no MCP CREATE INDEX.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+migrations/20261123_idx_orders_user.py
+alembic upgrade head OK
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Datenbanken (Entwicklung)
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Reject prod.
+- **Input:** DSN host db.prod.internal.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Abort MCP; read schema from migrations only.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+MCP not connected; schema from alembic versions
+```

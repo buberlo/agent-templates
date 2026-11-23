@@ -5,8 +5,8 @@ domain: devops-cloud
 category: cicd
 tags:
   - cicd
-  - devops-cloud
   - mcp
+  - github-actions
 target_agents:
   - hermes
   - claude-code
@@ -15,16 +15,17 @@ target_agents:
 required_tools:
   - name: GitHub Official MCP
     install: "https://github.com/github/github-mcp-server"
-    version_notes: "34686 GitHub Stars"
-  - name: circleci MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/circleci"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
+    version_notes: "Actions, PRs, Workflow-Runs"
+  - name: gh
+    install: "https://cli.github.com"
+    version_notes: "Ergänzung wenn MCP read-only reicht"
 inputs:
-  - "Kontext/Briefing für CI/CD"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Repo und fehlgeschlagene Workflow-Run-ID"
+  - "Skill-Schritte für Lint/Test/Deploy"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Skill↔MCP-Matrix für CI"
+  - "Root-Cause-Notiz mit Log-Auszug"
+risk_level: medium
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
@@ -32,74 +33,103 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Pipelines (GitHub Actions, GitLab CI, CircleCI, Buildkite) lesen, anpassen und Fehler analysieren.
+CI/CD-Aufgaben über **GitHub MCP** und **gh** orchestrieren: Failed Runs lesen, Logs analysieren, Fixes als PR — Writes nur nach Freigabe.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **CI/CD**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Agent soll Actions-Logs und PR-Kontext ohne manuelles UI.
+- Team dokumentiert, welcher Skill-Schritt welches MCP-Tool nutzt.
+
+**Wann nicht:** Wenn nur lokaler `act`-Test nötig ist ohne Remote — dann `coding-github-actions-ci-pipeline`.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| GitHub Official MCP | MCP | Aus Recherche 2026-11-23 |
-| circleci MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| buildkite MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| GitHub Official MCP | Runs, PRs | Strukturierte API |
+| gh CLI | Logs/Fallback | `gh run view --log-failed` |
+| Skill-CI | Ablauf | Repro, Fix, Verify |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for CI/CD (devops-cloud/cicd).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Log der failed Jobs holen, lokal reproduzieren, Fix als PR.
+MCP/Skill focus for CI/CD (devops-cloud/cicd).
+
+Map each skill step: discover workflows | fetch failed run | reproduce locally | propose yaml fix | open PR.
+Use GitHub MCP for read: workflows, runs, check suites, PR files.
+Use gh for large logs when MCP truncates: gh run view <id> --log-failed.
+
+Never merge or approve PRs without user approval.
+Never paste secrets from workflow logs; redact tokens and URLs with credentials.
+Prefer read-only MCP tools; restrict write tools in Hermes/Cursor policy.
+
+Skill verify: after yaml change, reference act or pending Actions run as DoD.
+CircleCI/Buildkite MCP only if listed in required_tools for that session.
+Document which tool answered each question (MCP vs gh).
+One MCP for GitHub; do not duplicate with third-party GitHub mirrors.
 ```
 
 ## Arbeitsablauf
 
-- Log der failed Jobs holen, lokal reproduzieren, Fix als PR.
+1. Skill-Matrix: Schritt → MCP-Tool / gh-Kommando.
+2. MCP: Workflow-Liste und letzte Runs auf `main` und PR-Branch.
+3. Fehl-Run-ID notieren; parallel `gh run view <id> --json conclusion,jobs`.
+4. Log-Auszug (Fehlerblock) ins Ticket; Secrets redigieren.
+5. Lokalen Repro-Befehl aus Workflow extrahieren.
+6. Fix-Entwurf als Diff; MCP/Skill Write nur nach Freigabe.
+7. Nach Push: Run beobachten; Matrix aktualisieren.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Failed Run mit Job+Step identifiziert
+- [ ] Skill↔MCP-Matrix für den Task vollständig
+- [ ] Keine Secrets in Chat oder PR-Beschreibung
 
 ## Sicherheit & Freigaben
 
 - Pipeline-Secrets nie in den Chat spiegeln.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Write-Tools (PR merge, workflow_dispatch) nur mit Freigabe.
+- Fine-grained PAT auf nötige Repos beschränken.
+
+## Fallstricke
+
+- MCP-Log-Größe truncated — gh CLI als Fallback.
+- Zwei GitHub-MCPs parallel — doppelte Tool-Schemas, langsamer Agent.
+- `workflow_dispatch` aus Agent ohne Policy — versehentlicher Prod-Deploy.
+- Fork-PR-Kontext: MCP sieht andere Permissions als Maintainer-Branch.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-CI/CD-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `cicd` (Testdaten)
+- **Aufgabe:** Letzten roten CI-Run auf PR #88 analysieren.
+- **Input:** Repo `acme/api`, Run `20112233`.
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für CI/CD. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Use GitHub MCP read tools for run 20112233; supplement with gh log-failed; no writes.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Matrix: step2=search_workflow_runs, step3=gh run view --log-failed
+Root cause: pytest collection error in tests/integration/
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in CI/CD
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Skill definieren für „grün vor Merge“.
+- **Input:** Branch protection verlangt `ci / test`.
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Write 5-step skill mapping MCP reads and local verify; approval before gh pr merge.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Skill steps 1-4 read-only; step5 merge blocked until user types APPROVE
+Check name documented: ci / test
+```
