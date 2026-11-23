@@ -73,7 +73,7 @@ Create flow: default markdown drafts in issue_drafts.md; API create only if prom
 Update: never change status to Done; allowed transitions user whitelists.
 Comments: draft only unless FREIGABE COMMENT with issue id.
 Links: spec section → ticket id in trace table.
-Spam guard: rate limit自 5 creates per run without user override.
+Spam guard: rate limit 5 creates per run without user override.
 Claude Code pattern: issue id may reference future PR—note in ticket, do not open PR here.
 Empty spec: abort with required fields list.
 Language: ticket body user language; URLs to Confluence verbatim if supplied.
