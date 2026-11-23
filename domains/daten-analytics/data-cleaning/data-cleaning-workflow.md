@@ -1,12 +1,11 @@
 ---
 id: data-cleaning-workflow
-title: "Data Cleaning"
+title: "Data Cleaning & Qualitätsregeln"
 domain: daten-analytics
 category: data-cleaning
 tags:
-  - data
-  - daten-analytics
-  - mcp
+  - data-quality
+  - cleaning
 target_agents:
   - hermes
   - grokbot
@@ -20,86 +19,123 @@ required_tools:
     install: "https://github.com/microsoft/markitdown"
     version_notes: "197975 GitHub Stars"
 inputs:
-  - "Kontext/Briefing für Data Cleaning"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Rohdaten-Pfad, Schlüsselspalten"
+  - "Qualitätsregeln (Unique, Range, Regex)"
+  - "Umgang mit Ausreißern (flag|quarantine)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "cleaned.parquet oder CSV"
+  - "quality_report.md"
+  - "transform.sql oder Python-Skript"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Duplikate, Typen, Missing Values, Schema-Abgleich.
+**Deterministische Bereinigung** mit auditablem Regelwerk—Original bleibt, bereinigt als neue Datei.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Data Cleaning**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Vor ETL/ML, nach Lieferanten-Export.
+- Duplikate und Format-Müll.
+
+**Wann nicht**
+
+- „KI-Raten“ ohne dokumentierte Regeln.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| motherduck MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| MarkItDown | CLI / Bibliothek | Aus Recherche 2026-11-23 |
+| DuckDB/SQL | Regeln | Reproduzierbar |
+| motherduck | Remote | Optional |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Data Cleaning (daten-analytics/data-cleaning).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: data quality engineer (daten-analytics/data-cleaning).
+Mission: Apply explicit cleaning rules; never overwrite source; quarantine bad rows.
+Inputs: source path, primary keys[], rules list unique|not_null|regex|range|enum, outlier policy flag.
+Profile before: rowcount, null%, distinct keys, duplicate key count.
+Rules engine: SQL CASE or Python apply per rule; rule_id column on quarantine table.
+Quarantine table: all rejected rows with rule_ids_failed array or multiple cols.
+Cleaning: trim strings, unify date ISO8601, decimal comma only if locale DE user says normalize dot.
+Dedupe: keep latest by timestamp col user defines or first occurrence document.
+PII: hash columns in quarantine if exporting samples.
+Output: data/cleaned.parquet, data/quarantine.parquet, quality_report.md counts per rule.
+Version cleaning_rules_v1.yaml copied in report.
+No destroy source file.
+Motherduck execute same sql if remote authorized.
+MarkItDown optional convert report for email.
+FREIGABE DROP only if user deletes quarantine permanently.
+Log rows in out rows quarantined percent.
+German column names ok quoted identifiers.
+Validate cleaned rowcount + quarantine = source rowcount.
+Referential checks fk orphan counts optional user.
+After cleaning checksum sha256 cleaned file log.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Source profilieren.
+2. Regeln in YAML festhalten.
+3. SQL/Python-Transformation schreiben.
+4. Dry-run auf Sample.
+5. Vollrun cleaned + quarantine.
+6. Rowcount-Bilanz prüfen.
+7. quality_report ausliefern.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Source unverändert
+- [ ] Bilanz rowcount stimmt
+- [ ] Regel-IDs in Quarantine
+- [ ] cleaning_rules.yaml versioniert
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Quarantine kann PII enthalten—Schutz.
+
+## Fallstricke
+
+- Dedupe ohne Zeitachse falscher Datensatz.
+- Regex zu aggressiv.
+- Locale Datum still wrong.
+- Quarantine nicht gespeichert.
+- Silent drop rows.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Data Cleaning-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `data-cleaning` (Testdaten)
+- **Aufgabe:** Dedupe orders order_id keep latest
+- **Input:** orders.csv
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Data Cleaning. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+quality report + cleaned.parquet quarantine with rule_id.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+counts balance | dedupe rule documented
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Data Cleaning
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** email regex validate
+- **Input:** contacts.csv
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+invalid emails to quarantine REGEX_EMAIL rule.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+quarantine n rows REGEX_EMAIL | valid in cleaned
+```

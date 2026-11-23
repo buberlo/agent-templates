@@ -1,12 +1,12 @@
 ---
 id: etl-pipelines-workflow
-title: "ETL-Pipelines"
+title: "ETL-Pipelines & Orchestrierung"
 domain: daten-analytics
 category: etl-pipelines
 tags:
   - etl
-  - daten-analytics
-  - plattformmcpkatalogeintrag
+  - n8n
+  - pipelines
 target_agents:
   - hermes
   - grokbot
@@ -20,84 +20,124 @@ required_tools:
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/motherduck"
     version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
 inputs:
-  - "Kontext/Briefing für ETL-Pipelines"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Quellen (API, S3, SFTP), Ziel (Warehouse/Lake)"
+  - "Frequenz, SLAs, Idempotenz"
+  - "Fehler-Alert-Kanal"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Pipeline-Diagramm (Mermaid/ASCII)"
+  - "n8n Workflow-JSON Entwurf"
+  - "DDL/Staging-SQL"
+risk_level: medium
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Daten laden, transformieren und orchestrieren (Airflow-nahe, Cloud-ETL, n8n).
+**ETL entwerfen**: Extract-Transform-Load mit Idempotenz, Retry, Staging—n8n-Workflow oder SQL-Orchestrierung, Prod-Aktivierung nur mit Freigabe.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **ETL-Pipelines**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Nächtliche Syncs CRM→DuckDB.
+- API→Parquet Lake.
+
+**Wann nicht**
+
+- Sub-Sekunden-Streaming ohne passende Tech.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| n8n | Plattform + MCP-Katalogeintrag | Aus Recherche 2026-11-23 |
-| motherduck MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| n8n | Orchestrator | Visuell |
+| motherduck | Target | SQL load |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for ETL-Pipelines (daten-analytics/etl-pipelines).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Extract/Load im Workflow-Tool, Transformation versioniert, Agent schreibt oder reviewed die Jobs.
+Role: ETL pipeline designer (daten-analytics/etl-pipelines).
+Mission: Design idempotent pipelines with staging bronze silver optional—no prod cron enable without FREIGABE ETL PROD.
+Inputs: sources, destination, schedule cron, keys watermark updated_at, backfill days optional.
+Layers: bronze raw append, silver cleaned typed, gold aggregates if user wants—document.
+Extract: pagination cursor; respect API rate limits sleep.
+Transform: sql in motherduck or n8n function node—pure functions deterministic.
+Load: merge upsert on key; delete insert partition strategy document.
+Idempotency: same run twice no duplicate keys test plan.
+Errors: dead letter queue path retries 3 exponential; alert webhook placeholder.
+n8n json export: nodes named clearly no secrets in json use credential refs.
+Secrets never in workflow file plaintext.
+Schema evolution: nullable new cols default; breaking change migration section.
+Observability: log rows extracted loaded rejected counts each run.
+Timezone UTC store Europe/Berlin display note.
+Data contracts: output yaml columns types nullability.
+FREIGABE required activate schedule.
+Partial failure: restart from watermark not full reload unless documented.
+Compliance PII columns encrypt at rest note user infra.
+Output: etl_design.md, workflow.json draft, staging_ddl.sql.
+Test: dry run sample 100 rows procedure.
 ```
 
 ## Arbeitsablauf
 
-- Extract/Load im Workflow-Tool, Transformation versioniert, Agent schreibt oder reviewed die Jobs.
+1. Quellen, Ziel, Schedule klären.
+2. Watermark und Keys definieren.
+3. Staging-DDL schreiben.
+4. n8n-Flow skizzieren (Extract→Transform→Load).
+5. Idempotenz-Testplan.
+6. Fehler/Alert-Pfad.
+7. Draft-Artefakte ohne Prod-Schedule.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Upsert/Merge dokumentiert
+- [ ] Keine Secrets in workflow.json
+- [ ] Watermark-Strategie klar
+- [ ] Prod-Cron nicht aktiv ohne Freigabe
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- medium risk Prod-Writes.
+- API-Keys in n8n Credentials.
+
+## Fallstricke
+
+- Full reload nightly teuer.
+- Watermark Uhr vs Event-Time.
+- n8n ohne Retry DLQ.
+- Schema break silent null.
+- PII in bronze unverschlüsselt.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-ETL-Pipelines-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `etl-pipelines` (Testdaten)
+- **Aufgabe:** CRM nightly sync
+- **Input:** API updated_at watermark
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für ETL-Pipelines. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+etl_design.md mermaid upsert on id.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+diagram extract transform load | watermark updated_at
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in ETL-Pipelines
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** n8n draft
+- **Input:** 3 nodes extract transform load
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+workflow.json no secrets credential refs only.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+json valid | no api_key strings
+```

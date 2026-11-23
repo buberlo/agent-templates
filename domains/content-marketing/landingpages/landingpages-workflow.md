@@ -1,105 +1,132 @@
 ---
 id: landingpages-workflow
-title: "Landingpages"
+title: "Landingpages & CRO"
 domain: content-marketing
 category: landingpages
 tags:
-  - landingpages
-  - content-marketing
-  - mcp
+  - landing
+  - cro
 target_agents:
   - hermes
   - grokbot
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: Brave Search MCP
-    install: "https://github.com/brave/brave-search-mcp-server"
-    version_notes: "1585 GitHub Stars"
   - name: Firecrawl MCP
     install: "https://github.com/firecrawl/firecrawl-mcp-server"
-    version_notes: "7886 GitHub Stars"
+    version_notes: "7886 Stars"
 inputs:
-  - "Kontext/Briefing für Landingpages"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Conversion-Ziel"
+  - "Traffic-Quelle"
+  - "Tracking"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "lp_spec.md"
+  - "events sketch"
+  - "CRO tests"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Landingpages und Marketing-Sites als HTML/Code oder in Webflow/CMS erzeugen.
+Landing-Spezifikation mit Tracking und Message-Match.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Landingpages**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Klar umrissene landingpages-Aufgabe mit Briefing.
+
+**Wann nicht**
+
+- Ohne Quellen/Briefing oder gegen Plattform-ToS.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Brave Search MCP | MCP | Aus Recherche 2026-11-23 |
-| Firecrawl MCP | MCP | Aus Recherche 2026-11-23 |
+| required_tools | Primär | Laut Frontmatter |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Landingpages (content-marketing/landingpages).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: landing page strategist (content-marketing/landingpages).
+Sections: hero, proof, problem, solution, FAQ, CTA mobile-first.
+Map GTM events cta_click form_submit scroll_50.
+Message-match headline to ad keyword user supplies.
+No CMS deploy.
+Document assumptions at top of deliverable.
+German/English per user; keep brand names original.
+No fabricated stats, logos, or testimonials.
+No publish/send/deploy without explicit approval phrase.
+Minimize PII in outputs.
+Log tool operations with timestamp Europe/Berlin.
+Prefer read-only before write.
+UWG/DSGVO context for DE marketing—not legal advice.
+If data missing, stop and list concrete questions.
+Deliver reproducible file paths in summary.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Ziel klären
+2. Message-Match
+3. Sektionen
+4. Copy-Blöcke
+5. Formular minimal
+6. Events
+7. Spec ausgeben
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Outputs erstellt
+- [ ] Freigaben eingehalten
+- [ ] Quellen/Annahmen geloggt
+- [ ] Kein Auto-Publish
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Credentials nur im Connector.
+- Send/Publish nur nach Freigabe.
+
+## Fallstricke
+
+- Form zu lang
+- Headline ohne Ad-Match
+- Kein Impressum DE
+- Video autoplay
+- Tracking fehlt
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Landingpages-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `landingpages` (Testdaten)
+- **Aufgabe:** Demo LP
+- **Input:** keyword TMS
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Landingpages. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+lp_spec+events
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+cta_click mapped
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Landingpages
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** CRO tests
+- **Input:** low completion
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+3 tests
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+metrics named
+```

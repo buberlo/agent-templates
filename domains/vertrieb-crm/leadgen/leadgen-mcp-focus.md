@@ -1,11 +1,11 @@
 ---
 id: leadgen-mcp-focus
-title: "Leadgenerierung: MCP/Skill-Fokus"
+title: "Leadgen: Recherche-MCP vs. CRM-Import"
 domain: vertrieb-crm
 category: leadgen
 tags:
   - leadgen
-  - vertrieb-crm
+  - exa
   - mcp
 target_agents:
   - hermes
@@ -19,88 +19,139 @@ required_tools:
   - name: Brave Search MCP
     install: "https://github.com/brave/brave-search-mcp-server"
     version_notes: "1585 GitHub Stars"
+  - name: attio MCP (Hermes-Katalog)
+    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/attio"
+    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
+  - name: close MCP (Hermes-Katalog)
+    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/close"
+    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
 inputs:
-  - "Kontext/Briefing für Leadgenerierung"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Recherche-Tiefe vs. CRM-Import in einer Session"
+  - "API-Budget und erlaubte MCPs"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Routing-Entscheid recherchieren → CSV → CRM"
+  - "Nutzungsprotokoll pro MCP"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Zielaccounts und Kontakte recherchieren, qualifizieren und in Listen oder CRM übernehmen.
+Leadgen-Sessions **entkoppeln**: erst Exa/Brave für Discovery, dann optional ein CRM-MCP für Draft-Import—nicht gleichzeitig alle vier MCPs voll laden.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Leadgenerierung**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Token-Budget knapp, aber Liste + CRM nötig.
+- Unklar, ob Exa alleine reicht vs. Brave-Verifikation.
+
+**Wann nicht**
+
+- Reine akademische Websuche → `recherche-wissen/web-exa`, nicht dieses Fokus-Template.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Exa MCP | MCP | Aus Recherche 2026-11-23 |
-| Brave Search MCP | MCP | Aus Recherche 2026-11-23 |
-| attio MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| close MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| Exa MCP | Discovery | Breite semantische Treffer |
+| Brave Search | Verify | Zweitquelle |
+| attio / close | Import Draft | Nur Phase 2 |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Leadgenerierung (vertrieb-crm/leadgen).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - ICP festlegen, nur oeffentliche Quellen, Liste mit Herkunftsspalte.
+You stage leadgen tooling (vertrieb-crm/leadgen-mcp-focus).
+
+Phase A – Research only: Exa MCP on; Brave for spot-check top N; attio/close OFF.
+Deliver: CSV path and row count; cite queries used.
+
+Phase B – CRM (optional): disable Exa if user confirms research complete; enable single CRM MCP (attio OR close, never both).
+Deliver: import mapping YAML and dry-run row preview (5 rows)—no insert until FREIGABE CRM IMPORT.
+
+Do not use web-exa recherche template ids in this flow—Exa here is account discovery only.
+
+If Brave and Exa disagree on company existence, downgrade fit_score and keep both URLs.
+
+Rate limits: log HTTP 429; switch to smaller batch, do not add third search MCP.
+
+Hermes include filter: recommend attio off during Phase A to save tokens.
+
+User asks "just CSV": Phase B skipped entirely.
+
+User asks "push to CRM": require CSV checksum match before Phase B.
+
+Document phase transitions with timestamps.
+
+German queries ok for DACH ICP; store query language in log.
+
+Close import: warn about duplicate lead rules in workspace.
+
+Attio lists: fetch list schema before mapping columns.
+
+Never run Close sequences from this focus template.
 ```
 
 ## Arbeitsablauf
 
-- ICP festlegen, nur oeffentliche Quellen, Liste mit Herkunftsspalte.
+1. Ziel: nur CSV oder CSV+CRM klären.
+2. Phase A: Exa/Brave aktivieren, CRM-MCPs aus Policy.
+3. Liste exportieren und Checksumme notieren.
+4. Nutzer-Review-Gate.
+5. Phase B optional: ein CRM, Mapping + Dry-Run.
+6. Freigabe für Insert abwarten.
+7. Abschlussbericht Phasen und MCP-Nutzung.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Klare Phasentrennung im Log
+- [ ] Maximal ein CRM in Phase B
+- [ ] Dry-Run vor Insert
+- [ ] Kein web-exa-Recherche-Scope vermischt
 
 ## Sicherheit & Freigaben
 
-- Scraping gegen ToS; keine erfundenen E-Mail-Adressen als verifiziert ausgeben.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- CRM-Bulk-Insert kann Duplikate massenhaft erzeugen.
+- API-Keys nicht in Queries loggen.
+
+## Fallstricke
+
+- attio während Exa-Suche aktiv → Kontext-Overflow.
+- Brave für jede Zeile statt Stichprobe → Budget leer.
+- Phase B ohne CSV-Review.
+- Close+Attio parallel importieren.
+- Exa-Ergebnis als CRM-Company ohne Domain-Normalisierung.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Leadgenerierung-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `leadgen` (Testdaten)
+- **Aufgabe:** Nur CSV, 20 Accounts
+- **Input:** ICP SaaS DACH
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Leadgenerierung. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Phase A only. attio excluded. Deliver leads_dach_saas.csv.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Phase A complete | MCPs: exa, brave | CSV 20 rows | Phase B skipped
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Leadgenerierung
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** CSV dann Attio Dry-Run
+- **Input:** `leads_dach_saas.csv` sha256 bekannt
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Phase B attio mapping, 5-row preview, no insert.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+mapping.yaml | preview ids match csv | awaiting FREIGABE
+```

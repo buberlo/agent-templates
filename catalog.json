@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T11:24:56Z",
+  "generated_at": "2026-11-23T11:36:39Z",
   "domains": [
     {
       "slug": "agent-platforms",
@@ -1544,13 +1544,13 @@
     },
     {
       "id": "ads-performance-workflow",
-      "title": "Ads und Performance",
+      "title": "Paid Ads Performance & Kreativ",
       "domain": "content-marketing",
       "category": "ads-performance",
       "tags": [
-        "ads",
-        "content-marketing",
-        "mcp"
+        "paid-ads",
+        "meta",
+        "google-ads"
       ],
       "target_agents": [
         "hermes",
@@ -1558,21 +1558,20 @@
         "generic-mcp-agents",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/content-marketing/ads-performance/ads-performance-workflow.md"
     },
     {
       "id": "branding-design-mcp-focus",
-      "title": "Branding und Design: MCP/Skill-Fokus",
+      "title": "Branding: Figma vs Canva",
       "domain": "content-marketing",
       "category": "branding-design",
       "tags": [
-        "branding",
-        "content-marketing",
-        "mcp"
+        "mcp",
+        "figma"
       ],
       "target_agents": [
         "hermes",
@@ -1582,19 +1581,17 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/content-marketing/branding-design/branding-design-mcp-focus.md"
     },
     {
       "id": "branding-design-workflow",
-      "title": "Branding und Design",
+      "title": "Branding & Design-Briefs",
       "domain": "content-marketing",
       "category": "branding-design",
       "tags": [
-        "branding",
-        "content-marketing",
-        "mcp"
+        "branding"
       ],
       "target_agents": [
         "hermes",
@@ -1604,7 +1601,7 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/content-marketing/branding-design/branding-design-workflow.md"
     },
@@ -1614,9 +1611,7 @@
       "domain": "content-marketing",
       "category": "content-strategie",
       "tags": [
-        "content",
-        "content-marketing",
-        "mcp"
+        "strategy"
       ],
       "target_agents": [
         "hermes",
@@ -1626,19 +1621,17 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/content-marketing/content-strategie/content-strategie-workflow.md"
     },
     {
       "id": "copywriting-workflow",
-      "title": "Copywriting",
+      "title": "Copywriting & Messaging",
       "domain": "content-marketing",
       "category": "copywriting",
       "tags": [
-        "copywriting",
-        "content-marketing",
-        "skill"
+        "copy"
       ],
       "target_agents": [
         "hermes",
@@ -1648,19 +1641,17 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/content-marketing/copywriting/copywriting-workflow.md"
     },
     {
       "id": "influencer-workflow",
-      "title": "Influencer",
+      "title": "Influencer Research",
       "domain": "content-marketing",
       "category": "influencer",
       "tags": [
-        "influencer",
-        "content-marketing",
-        "mcp"
+        "influencer"
       ],
       "target_agents": [
         "hermes",
@@ -1668,21 +1659,20 @@
         "generic-mcp-agents",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/content-marketing/influencer/influencer-workflow.md"
     },
     {
       "id": "landingpages-workflow",
-      "title": "Landingpages",
+      "title": "Landingpages & CRO",
       "domain": "content-marketing",
       "category": "landingpages",
       "tags": [
-        "landingpages",
-        "content-marketing",
-        "mcp"
+        "landing",
+        "cro"
       ],
       "target_agents": [
         "hermes",
@@ -1692,19 +1682,17 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/content-marketing/landingpages/landingpages-workflow.md"
     },
     {
       "id": "newsletter-workflow",
-      "title": "Newsletter",
+      "title": "Newsletter Content",
       "domain": "content-marketing",
       "category": "newsletter",
       "tags": [
-        "newsletter",
-        "content-marketing",
-        "mcp"
+        "newsletter"
       ],
       "target_agents": [
         "hermes",
@@ -1712,21 +1700,20 @@
         "generic-mcp-agents",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/content-marketing/newsletter/newsletter-workflow.md"
     },
     {
       "id": "seo-workflow",
-      "title": "SEO",
+      "title": "SEO Audits & On-Page",
       "domain": "content-marketing",
       "category": "seo",
       "tags": [
         "seo",
-        "content-marketing",
-        "mcp"
+        "audit"
       ],
       "target_agents": [
         "hermes",
@@ -1736,19 +1723,17 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/content-marketing/seo/seo-workflow.md"
     },
     {
       "id": "social-facebook-meta-workflow",
-      "title": "Social: Facebook / Meta",
+      "title": "Facebook Pages",
       "domain": "content-marketing",
       "category": "social-facebook-meta",
       "tags": [
-        "social",
-        "content-marketing",
-        "mcp"
+        "facebook"
       ],
       "target_agents": [
         "hermes",
@@ -1758,19 +1743,17 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/content-marketing/social-facebook-meta/social-facebook-meta-workflow.md"
     },
     {
       "id": "social-instagram-workflow",
-      "title": "Social: Instagram",
+      "title": "Instagram Reels",
       "domain": "content-marketing",
       "category": "social-instagram",
       "tags": [
-        "social",
-        "content-marketing",
-        "mcp"
+        "instagram"
       ],
       "target_agents": [
         "hermes",
@@ -1780,19 +1763,17 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/content-marketing/social-instagram/social-instagram-workflow.md"
     },
     {
       "id": "social-linkedin-workflow",
-      "title": "Social: LinkedIn",
+      "title": "LinkedIn Organic",
       "domain": "content-marketing",
       "category": "social-linkedin",
       "tags": [
-        "social",
-        "content-marketing",
-        "mcp"
+        "linkedin"
       ],
       "target_agents": [
         "hermes",
@@ -1802,39 +1783,38 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/content-marketing/social-linkedin/social-linkedin-workflow.md"
     },
     {
       "id": "social-buffer-schedule-campaign",
-      "title": "Kampagnenplanung mit Buffer API",
+      "title": "Buffer Kampagnenplanung",
       "domain": "content-marketing",
       "category": "social-media-strategie",
       "tags": [
         "buffer",
-        "scheduling",
-        "social"
+        "scheduling"
       ],
       "target_agents": [
+        "hermes",
         "grokbot",
+        "generic-mcp-agents",
         "generic"
       ],
       "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/content-marketing/social-media-strategie/social-buffer-schedule-campaign.md"
     },
     {
       "id": "social-reddit-workflow",
-      "title": "Social: Reddit",
+      "title": "Reddit Community",
       "domain": "content-marketing",
       "category": "social-reddit",
       "tags": [
-        "social",
-        "content-marketing",
-        "mcp"
+        "reddit"
       ],
       "target_agents": [
         "hermes",
@@ -1842,62 +1822,60 @@
         "generic-mcp-agents",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/content-marketing/social-reddit/social-reddit-workflow.md"
     },
     {
       "id": "social-ffmpeg-shorts-repurpose",
-      "title": "Longform zu Shorts mit ffmpeg",
+      "title": "Longform zu Shorts",
       "domain": "content-marketing",
       "category": "social-tiktok",
       "tags": [
         "ffmpeg",
-        "shorts",
-        "repurpose"
+        "shorts"
       ],
       "target_agents": [
         "hermes",
+        "grokbot",
+        "generic-mcp-agents",
         "generic"
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/content-marketing/social-tiktok/social-ffmpeg-shorts-repurpose.md"
     },
     {
       "id": "social-x-twitter-workflow",
-      "title": "Social: X / Twitter",
+      "title": "X Posts & Threads",
       "domain": "content-marketing",
       "category": "social-x-twitter",
       "tags": [
-        "social",
-        "content-marketing",
-        "skillcli"
+        "x"
       ],
       "target_agents": [
-        "grokbot",
         "hermes",
-        "generic-mcp-agents"
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/content-marketing/social-x-twitter/social-x-twitter-workflow.md"
     },
     {
       "id": "social-youtube-workflow",
-      "title": "Social: YouTube-Marketing",
+      "title": "YouTube Metadata",
       "domain": "content-marketing",
       "category": "social-youtube",
       "tags": [
-        "social",
-        "content-marketing",
-        "mcp"
+        "youtube"
       ],
       "target_agents": [
         "hermes",
@@ -1907,19 +1885,17 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/content-marketing/social-youtube/social-youtube-workflow.md"
     },
     {
       "id": "ugc-workflow",
-      "title": "UGC",
+      "title": "UGC Briefs",
       "domain": "content-marketing",
       "category": "ugc",
       "tags": [
-        "ugc",
-        "content-marketing",
-        "mcp"
+        "ugc"
       ],
       "target_agents": [
         "hermes",
@@ -1927,21 +1903,21 @@
         "generic-mcp-agents",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/content-marketing/ugc/ugc-workflow.md"
     },
     {
       "id": "bi-dashboards-workflow",
-      "title": "BI und Dashboards",
+      "title": "BI-Dashboards & Semantik",
       "domain": "daten-analytics",
       "category": "bi-dashboards",
       "tags": [
         "bi",
-        "daten-analytics",
-        "mcp"
+        "dashboards",
+        "motherduck"
       ],
       "target_agents": [
         "hermes",
@@ -1951,19 +1927,18 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/daten-analytics/bi-dashboards/bi-dashboards-workflow.md"
     },
     {
       "id": "data-cleaning-workflow",
-      "title": "Data Cleaning",
+      "title": "Data Cleaning & Qualitätsregeln",
       "domain": "daten-analytics",
       "category": "data-cleaning",
       "tags": [
-        "data",
-        "daten-analytics",
-        "mcp"
+        "data-quality",
+        "cleaning"
       ],
       "target_agents": [
         "hermes",
@@ -1973,7 +1948,7 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/daten-analytics/data-cleaning/data-cleaning-workflow.md"
     },
@@ -1983,9 +1958,8 @@
       "domain": "daten-analytics",
       "category": "data-viz",
       "tags": [
-        "data",
-        "daten-analytics",
-        "mcp"
+        "visualization",
+        "charts"
       ],
       "target_agents": [
         "hermes",
@@ -1995,19 +1969,19 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/daten-analytics/data-viz/data-viz-workflow.md"
     },
     {
       "id": "etl-pipelines-workflow",
-      "title": "ETL-Pipelines",
+      "title": "ETL-Pipelines & Orchestrierung",
       "domain": "daten-analytics",
       "category": "etl-pipelines",
       "tags": [
         "etl",
-        "daten-analytics",
-        "plattformmcpkatalogeintrag"
+        "n8n",
+        "pipelines"
       ],
       "target_agents": [
         "hermes",
@@ -2015,21 +1989,20 @@
         "generic-mcp-agents",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/daten-analytics/etl-pipelines/etl-pipelines-workflow.md"
     },
     {
       "id": "ml-training-workflow",
-      "title": "ML-Training",
+      "title": "ML-Training (tabellarisch)",
       "domain": "daten-analytics",
       "category": "ml-training",
       "tags": [
-        "ml",
-        "daten-analytics",
-        "mcp"
+        "machine-learning",
+        "training"
       ],
       "target_agents": [
         "hermes",
@@ -2037,9 +2010,9 @@
         "generic-mcp-agents",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/daten-analytics/ml-training/ml-training-workflow.md"
     },
@@ -2059,7 +2032,7 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/daten-analytics/spreadsheets-analyse/daten-python-pandas-eda.md"
     },
@@ -2080,13 +2053,13 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/daten-analytics/sql-abfragen/daten-duckdb-sql-report.md"
     },
     {
       "id": "web-playwright-research-scrape",
-      "title": "Strukturierte Web-Recherche mit Playwright",
+      "title": "Strukturiertes Scraping mit Playwright",
       "domain": "daten-analytics",
       "category": "web-scraping",
       "tags": [
@@ -2101,18 +2074,18 @@
       ],
       "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/daten-analytics/web-scraping/web-playwright-research-scrape.md"
     },
     {
       "id": "web-scraping-mcp-focus",
-      "title": "Web-Scraping: MCP/Skill-Fokus",
+      "title": "Scraping: Firecrawl vs. Playwright",
       "domain": "daten-analytics",
       "category": "web-scraping",
       "tags": [
-        "web",
-        "daten-analytics",
+        "firecrawl",
+        "playwright",
         "mcp"
       ],
       "target_agents": [
@@ -2122,8 +2095,8 @@
         "generic"
       ],
       "risk_level": "low",
-      "example_count": 3,
-      "version": "1.0.0",
+      "example_count": 2,
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/daten-analytics/web-scraping/web-scraping-mcp-focus.md"
     },
@@ -3913,71 +3886,71 @@
     },
     {
       "id": "animation-motion-workflow",
-      "title": "Animation und Motion",
+      "title": "Motion Graphics mit Remotion und Hermes-Creative",
       "domain": "medien",
       "category": "animation-motion",
       "tags": [
-        "animation",
-        "medien",
-        "skill"
+        "remotion",
+        "manim",
+        "motion"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "claude-code",
+        "cursor"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/medien/animation-motion/animation-motion-workflow.md"
     },
     {
       "id": "audio-bearbeitung-workflow",
-      "title": "Audio-Bearbeitung",
+      "title": "Audio schneiden, normalisieren und konvertieren",
       "domain": "medien",
       "category": "audio-bearbeitung",
       "tags": [
         "audio",
-        "medien",
-        "cli"
+        "ffmpeg",
+        "normalize"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "generic",
+        "cursor"
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/medien/audio-bearbeitung/audio-bearbeitung-workflow.md"
     },
     {
       "id": "bild-imagemagick-batch-resize",
-      "title": "Bilder stapelweise skalieren und optimieren",
+      "title": "Fotos batchweise skalieren und exportieren",
       "domain": "medien",
       "category": "bild-fotografie",
       "tags": [
         "imagemagick",
-        "webp",
-        "batch"
+        "batch",
+        "resize",
+        "web"
       ],
       "target_agents": [
-        "hermes",
+        "cursor",
+        "claude-code",
         "generic"
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/medien/bild-fotografie/bild-imagemagick-batch-resize.md"
     },
     {
       "id": "bild-comfyui-sdxl-workflow",
-      "title": "Bildgenerierung mit ComfyUI und SDXL",
+      "title": "SDXL-Bilder über ComfyUI-Workflow",
       "domain": "medien",
       "category": "bild-generierung",
       "tags": [
@@ -3986,207 +3959,210 @@
         "generative"
       ],
       "target_agents": [
-        "grokbot",
-        "generic"
+        "hermes",
+        "generic-mcp-agents",
+        "openclaw"
       ],
       "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/medien/bild-generierung/bild-comfyui-sdxl-workflow.md"
     },
     {
       "id": "bild-generierung-mcp-focus",
-      "title": "Bildgenerierung: MCP/Skill-Fokus",
+      "title": "Bildgenerierung: ComfyUI, Cloudinary und Skills",
       "domain": "medien",
       "category": "bild-generierung",
       "tags": [
-        "bild",
-        "medien",
-        "mcp"
+        "image-gen",
+        "comfy",
+        "mcp",
+        "cloudinary"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
         "generic-mcp-agents",
-        "generic"
+        "openclaw"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/medien/bild-generierung/bild-generierung-mcp-focus.md"
     },
     {
       "id": "dreid-modellierung-workflow",
-      "title": "3D-Modellierung",
+      "title": "3D-Assets prüfen, konvertieren und dokumentieren",
       "domain": "medien",
       "category": "dreid-modellierung",
       "tags": [
-        "dreid",
-        "medien",
-        "cli"
+        "3d",
+        "blender",
+        "glb",
+        "ffmpeg"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
+        "claude-code",
         "generic"
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/medien/dreid-modellierung/dreid-modellierung-workflow.md"
     },
     {
       "id": "musik-workflow",
-      "title": "Musik",
+      "title": "Songwriting und AI-Musik-Prompts",
       "domain": "medien",
       "category": "musik",
       "tags": [
-        "musik",
-        "medien",
-        "skill"
+        "music",
+        "songwriting",
+        "suno"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
+        "openclaw",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/medien/musik/musik-workflow.md"
     },
     {
       "id": "audio-ffmpeg-podcast-master",
-      "title": "Podcast mastering mit ffmpeg und loudnorm",
+      "title": "Podcast-Mastering mit FFmpeg",
       "domain": "medien",
       "category": "podcast",
       "tags": [
+        "podcast",
         "ffmpeg",
-        "loudness",
-        "podcast"
+        "loudnorm",
+        "mastering"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
+        "openclaw",
         "generic"
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/medien/podcast/audio-ffmpeg-podcast-master.md"
     },
     {
       "id": "podcast-mcp-focus",
-      "title": "Podcast: MCP/Skill-Fokus",
+      "title": "Podcast-Produktion: CLI, Whisper und Skills",
       "domain": "medien",
       "category": "podcast",
       "tags": [
         "podcast",
-        "medien",
-        "cli"
+        "whisper",
+        "ffmpeg",
+        "shownotes"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "openclaw",
+        "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/medien/podcast/podcast-mcp-focus.md"
     },
     {
       "id": "streaming-broadcast-workflow",
-      "title": "Streaming und Broadcast",
+      "title": "Streaming-Vorbereitung und Broadcast-Assets",
       "domain": "medien",
       "category": "streaming-broadcast",
       "tags": [
         "streaming",
-        "medien",
-        "cli"
+        "obs",
+        "ffmpeg",
+        "broadcast"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "generic",
+        "cursor"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/medien/streaming-broadcast/streaming-broadcast-workflow.md"
     },
     {
       "id": "audio-whisper-transcribe-diarize",
-      "title": "Audio transkribieren und Sprecher trennen",
+      "title": "Transkription und Sprechersegmente mit Whisper",
       "domain": "medien",
       "category": "untertitel-uebersetzung",
       "tags": [
         "whisper",
         "transcription",
-        "diarization"
+        "diarization",
+        "srt"
       ],
       "target_agents": [
         "hermes",
+        "openclaw",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/medien/untertitel-uebersetzung/audio-whisper-transcribe-diarize.md"
     },
     {
       "id": "untertitel-uebersetzung-mcp-focus",
-      "title": "Untertitel und Übersetzung: MCP/Skill-Fokus",
+      "title": "Untertitel und Übersetzung: Whisper plus FFmpeg",
       "domain": "medien",
       "category": "untertitel-uebersetzung",
       "tags": [
-        "untertitel",
-        "medien",
-        "skill"
+        "subtitles",
+        "whisper",
+        "ffmpeg",
+        "translation"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
+        "openclaw",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/medien/untertitel-uebersetzung/untertitel-uebersetzung-mcp-focus.md"
     },
     {
       "id": "video-bearbeitung-mcp-focus",
-      "title": "Video-Bearbeitung: MCP/Skill-Fokus",
+      "title": "Video-Bearbeitung: FFmpeg-CLI vs. Skills",
       "domain": "medien",
       "category": "video-bearbeitung",
       "tags": [
         "video",
-        "medien",
-        "cli"
+        "ffmpeg",
+        "mcp",
+        "skills"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
         "generic-mcp-agents",
-        "generic"
+        "cursor"
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/medien/video-bearbeitung/video-bearbeitung-mcp-focus.md"
     },
@@ -4198,58 +4174,61 @@
       "tags": [
         "ffmpeg",
         "transcode",
-        "subtitles"
+        "subtitles",
+        "whisper"
       ],
       "target_agents": [
         "hermes",
+        "claude-code",
+        "cursor",
         "generic"
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/medien/video-bearbeitung/video-ffmpeg-cut-transcode.md"
     },
     {
       "id": "video-remotion-programmatic",
-      "title": "Programmatisches Video mit Remotion",
+      "title": "Datengetriebenes Video mit Remotion",
       "domain": "medien",
       "category": "video-produktion-pipeline",
       "tags": [
         "remotion",
         "react",
-        "render"
+        "programmatic-video"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic"
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
       ],
       "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/medien/video-produktion-pipeline/video-remotion-programmatic.md"
     },
     {
       "id": "youtube-content-workflow",
-      "title": "YouTube-Content",
+      "title": "YouTube-Transkript zu Kapiteln und Content",
       "domain": "medien",
       "category": "youtube-content",
       "tags": [
         "youtube",
-        "medien",
-        "skill"
+        "transcript",
+        "chapters"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
+        "openclaw",
         "generic"
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/medien/youtube-content/youtube-content-workflow.md"
     },
@@ -5960,13 +5939,14 @@
     },
     {
       "id": "amazon-workflow",
-      "title": "Amazon",
+      "title": "Amazon Seller & Listing-Ops",
       "domain": "vertrieb-crm",
       "category": "amazon",
       "tags": [
         "amazon",
-        "vertrieb-crm",
-        "mcp"
+        "seller-central",
+        "asin",
+        "vertrieb-crm"
       ],
       "target_agents": [
         "hermes",
@@ -5976,19 +5956,19 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/vertrieb-crm/amazon/amazon-workflow.md"
     },
     {
       "id": "angebote-proposals-workflow",
-      "title": "Angebote und Proposals",
+      "title": "Angebote & Sales Proposals",
       "domain": "vertrieb-crm",
       "category": "angebote-proposals",
       "tags": [
-        "angebote",
-        "vertrieb-crm",
-        "mcp"
+        "proposal",
+        "quoting",
+        "b2b"
       ],
       "target_agents": [
         "hermes",
@@ -5996,21 +5976,22 @@
         "generic-mcp-agents",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/vertrieb-crm/angebote-proposals/angebote-proposals-workflow.md"
     },
     {
       "id": "crm-workflow",
-      "title": "CRM",
+      "title": "CRM Pipeline & Datenhygiene",
       "domain": "vertrieb-crm",
       "category": "crm",
       "tags": [
         "crm",
-        "vertrieb-crm",
-        "mcp"
+        "pipeline",
+        "attio",
+        "close"
       ],
       "target_agents": [
         "hermes",
@@ -6020,19 +6001,19 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/vertrieb-crm/crm/crm-workflow.md"
     },
     {
       "id": "e-commerce-workflow",
-      "title": "E-Commerce allgemein",
+      "title": "E-Commerce Ops (kanalübergreifend)",
       "domain": "vertrieb-crm",
       "category": "e-commerce",
       "tags": [
-        "e",
-        "vertrieb-crm",
-        "mcp"
+        "ecommerce",
+        "orders",
+        "catalog"
       ],
       "target_agents": [
         "hermes",
@@ -6042,19 +6023,19 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/vertrieb-crm/e-commerce/e-commerce-workflow.md"
     },
     {
       "id": "etsy-workflow",
-      "title": "Etsy",
+      "title": "Etsy Shop & Listing-Ops",
       "domain": "vertrieb-crm",
       "category": "etsy",
       "tags": [
         "etsy",
-        "vertrieb-crm",
-        "mcp"
+        "handmade",
+        "marketplace"
       ],
       "target_agents": [
         "hermes",
@@ -6064,19 +6045,19 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/vertrieb-crm/etsy/etsy-workflow.md"
     },
     {
       "id": "kdp-workflow",
-      "title": "KDP / Kindle Direct Publishing",
+      "title": "Amazon KDP & Buch-Metadaten",
       "domain": "vertrieb-crm",
       "category": "kdp",
       "tags": [
         "kdp",
-        "vertrieb-crm",
-        "mcp"
+        "publishing",
+        "amazon"
       ],
       "target_agents": [
         "hermes",
@@ -6086,18 +6067,18 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/vertrieb-crm/kdp/kdp-workflow.md"
     },
     {
       "id": "leadgen-mcp-focus",
-      "title": "Leadgenerierung: MCP/Skill-Fokus",
+      "title": "Leadgen: Recherche-MCP vs. CRM-Import",
       "domain": "vertrieb-crm",
       "category": "leadgen",
       "tags": [
         "leadgen",
-        "vertrieb-crm",
+        "exa",
         "mcp"
       ],
       "target_agents": [
@@ -6108,19 +6089,19 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/vertrieb-crm/leadgen/leadgen-mcp-focus.md"
     },
     {
       "id": "leadgen-workflow",
-      "title": "Leadgenerierung",
+      "title": "Leadgen & ICP-Listen",
       "domain": "vertrieb-crm",
       "category": "leadgen",
       "tags": [
         "leadgen",
-        "vertrieb-crm",
-        "mcp"
+        "icp",
+        "prospecting"
       ],
       "target_agents": [
         "hermes",
@@ -6130,19 +6111,18 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/vertrieb-crm/leadgen/leadgen-workflow.md"
     },
     {
       "id": "marketplaces-workflow",
-      "title": "Weitere Marktplätze",
+      "title": "Marktplatz-übergreifend (eBay, Otto, Kaufland …)",
       "domain": "vertrieb-crm",
       "category": "marketplaces",
       "tags": [
-        "marketplaces",
-        "vertrieb-crm",
-        "mcp"
+        "marketplace",
+        "multichannel"
       ],
       "target_agents": [
         "hermes",
@@ -6152,19 +6132,20 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/vertrieb-crm/marketplaces/marketplaces-workflow.md"
     },
     {
       "id": "outreach-mcp-focus",
-      "title": "Outreach: MCP/Skill-Fokus",
+      "title": "Outreach: E-Mail-Skills vs. CRM-MCP",
       "domain": "vertrieb-crm",
       "category": "outreach",
       "tags": [
         "outreach",
-        "vertrieb-crm",
-        "skillcli"
+        "mcp",
+        "email",
+        "hermes"
       ],
       "target_agents": [
         "hermes",
@@ -6172,21 +6153,22 @@
         "generic-mcp-agents",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/vertrieb-crm/outreach/outreach-mcp-focus.md"
     },
     {
       "id": "outreach-workflow",
-      "title": "Outreach",
+      "title": "1:1 Outreach & Sequencing",
       "domain": "vertrieb-crm",
       "category": "outreach",
       "tags": [
         "outreach",
-        "vertrieb-crm",
-        "skillcli"
+        "email",
+        "sdr",
+        "vertrieb-crm"
       ],
       "target_agents": [
         "hermes",
@@ -6194,21 +6176,21 @@
         "generic-mcp-agents",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/vertrieb-crm/outreach/outreach-workflow.md"
     },
     {
       "id": "preis-monitoring-workflow",
-      "title": "Preis-Monitoring",
+      "title": "Preis- & Wettbewerbsmonitoring",
       "domain": "vertrieb-crm",
       "category": "preis-monitoring",
       "tags": [
-        "preis",
-        "vertrieb-crm",
-        "mcp"
+        "pricing",
+        "monitoring",
+        "competitive"
       ],
       "target_agents": [
         "hermes",
@@ -6218,19 +6200,19 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/vertrieb-crm/preis-monitoring/preis-monitoring-workflow.md"
     },
     {
       "id": "shopify-workflow",
-      "title": "Shopify",
+      "title": "Shopify Store Ops & Katalog",
       "domain": "vertrieb-crm",
       "category": "shopify",
       "tags": [
         "shopify",
-        "vertrieb-crm",
-        "mcp"
+        "ecommerce",
+        "vertrieb-crm"
       ],
       "target_agents": [
         "hermes",
@@ -6238,9 +6220,9 @@
         "generic-mcp-agents",
         "generic"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/vertrieb-crm/shopify/shopify-workflow.md"
     },

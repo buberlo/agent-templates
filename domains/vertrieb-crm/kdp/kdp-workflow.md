@@ -1,105 +1,140 @@
 ---
 id: kdp-workflow
-title: "KDP / Kindle Direct Publishing"
+title: "Amazon KDP & Buch-Metadaten"
 domain: vertrieb-crm
 category: kdp
 tags:
   - kdp
-  - vertrieb-crm
-  - mcp
+  - publishing
+  - amazon
 target_agents:
   - hermes
   - grokbot
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: attio MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/attio"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
-  - name: close MCP (Hermes-Katalog)
-    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/close"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
+  - name: HasData/amazon-mcp
+    install: "https://github.com/HasData/amazon-mcp"
+    version_notes: "Stars hier nicht per API gezogen."
 inputs:
-  - "Kontext/Briefing für KDP / Kindle Direct Publishing"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "ASIN/ISBN, Kategorie, Zielmarkt (amazon.de)"
+  - "Manuskript-Metadaten (Titel, Untertitel, Keywords)"
+  - "Nur read-only Marktanalyse oder Metadata-Draft"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Kategorie- und Keyword-Vorschlag mit Wettbewerber-ASINs"
+  - "Cover/Description-Checkliste (kein Upload)"
+  - "Royalty-Szenario grob (Preis × Seitenformat)"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Manuskript, Metadaten und Listing-Hilfen für Self-Publishing; wenige ausgereifte offizielle Agent-Tools.
+**KDP-Publishing vorbereiten**: Metadaten, Kategorien und Wettbewerbs-ASINs recherchieren—Upload und Preisänderung bleiben beim Autor in KDP.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **KDP / Kindle Direct Publishing**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Neues Buch: Kategorie-Baum und Backend-Keywords planen.
+- Titel/Subtitle A/B-Entwürfe vor ISBN-Registrierung.
+- Comp-ASINs für Amazon-Werbeanzeigen recherchieren.
+
+**Wann nicht**
+
+- Urheberrechtsverletzende Inhalte oder AI-Disclosure-Pflicht ignorieren.
+- Automatisiertes KDP-Login oder Massenupload.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| attio MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| close MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| HasData/amazon-mcp | Comp-Bücher lesen | Read-only |
+| Manuell KDP-Richtlinien | Compliance | Kein MCP-Ersatz |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for KDP / Kindle Direct Publishing (vertrieb-crm/kdp).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: KDP metadata strategist (vertrieb-crm/kdp).
+Mission: Research categories, comp titles, keywords—author publishes manually in KDP.
+Inputs: genre, language, trim size, page count, fiction vs nonfiction, series name optional.
+Comps: 5-10 ASINs in same subcategory; capture title, price EUR, reviews, BSR bucket if visible via MCP.
+Categories: suggest browse path + mention need for two categories in KDP UI—do not claim API set.
+Keywords: seven backend keyword slots (nonfiction) as phrases ≤50 bytes each—German umlauts count bytes.
+Title/subtitle: unique, no trademark series names; subtitle clarifies benefit not keyword dump.
+Description: HTML-free plain text draft with hook, bullets, CTA—no fake reviews.
+Pricing: rough royalty table disclaimer—not tax advice; paperback vs ebook separate.
+AI content: remind user of Amazon AI disclosure policy if content AI-assisted.
+Ads: optional keyword list from comp titles—no AMS API write.
+Cover: checklist dimensions per trim—no image generation unless user separate tool.
+Series: book number consistency note.
+Read-only MCP: if 429 throttle batch ASINs.
+No scraping Kindle Cloud Reader.
+German market: note VAT on ebook price display.
+Output: kdp_metadata_pack.md, comps.csv.
+Never upload files to KDP or change list price.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Genre, Format und Marktplatz klären.
+2. Comp-ASINs über erlaubte Quellen sammeln.
+3. Kategoriepfade und Keyword-Slots ausfüllen (Draft).
+4. Titel/Untertitel/Description-Entwürfe.
+5. Royalty-Hinweis grob rechnen.
+6. Policy-Check (AI, Inhalt, Marken).
+7. Pack zur manuellen KDP-Eingabe übergeben.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Comp-ASINs mit Abrufquelle
+- [ ] Keyword-Byte-Limits beachtet (DE)
+- [ ] Kein KDP-Upload/Preis-API
+- [ ] AI-Disclosure-Hinweis wenn relevant
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Inhalte und Accounts nur beim Autor.
+- MCP-ToS wie Amazon-Workflow.
+
+## Fallstricke
+
+- Keyword-Stuffing im Untertitel → Ablehnung.
+- Falsche Kategorie → schlechte Organics.
+- Comp-BSR ohne Kategorie-Kontext missverständlich.
+- Taschenbuchmaße und Cover-Bleed verwechseln.
+- Übersetzung ohne lokales Lektorat.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-KDP / Kindle Direct Publishing-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `kdp` (Testdaten)
+- **Aufgabe:** Nonfiction Produktivität DE, 7 Keywords
+- **Input:** Working title, Ziel amazon.de
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für KDP / Kindle Direct Publishing. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+5 comp ASINs, 7 keyword slots DE, title+subtitle draft.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+comps.csv 5 rows | keywords in byte-safe phrases | no upload
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in KDP / Kindle Direct Publishing
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Series Buch 2 Metadaten
+- **Input:** Series name, Book 1 ASIN
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Consistency check title pattern; ads keyword ideas from book1 comps.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Series bracket format suggested | 10 ad keywords | series order warning in notes
+```

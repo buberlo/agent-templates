@@ -1,12 +1,13 @@
 ---
 id: crm-workflow
-title: "CRM"
+title: "CRM Pipeline & Datenhygiene"
 domain: vertrieb-crm
 category: crm
 tags:
   - crm
-  - vertrieb-crm
-  - mcp
+  - pipeline
+  - attio
+  - close
 target_agents:
   - hermes
   - grokbot
@@ -20,85 +21,128 @@ required_tools:
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/close"
     version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
 inputs:
-  - "Kontext/Briefing für CRM"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "CRM-System (Attio/Close) und Objekt (Deal, Person, Company)"
+  - "Pipeline-Name, Stages, Filter (Owner, Zeitraum)"
+  - "Erlaubte Operationen: read | draft-note | stage-change mit Freigabe"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Pipeline-Snapshot (Stage, Amount, Aging)"
+  - "Duplikat- oder Datenqualitätsliste"
+  - "Draft-Activities / Notizen zur Freigabe"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Deals, Kontakte und Aktivitäten in CRM-Systemen (Attio, Close, HubSpot, Salesforce u. a.) pflegen.
+CRM-Daten **lesen, bereinigen und vorbereiten**: Deals durch Stages, Aktivitäten nachvollziehbar, keine stillen Stage-Sprünge oder Owner-Wechsel.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **CRM**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Wochenreview: Pipeline-Gewicht, stuck deals, forecast sanity-check.
+- Duplikate Firmen/Personen vor ICP-Kampagne finden.
+- Meeting-Notizen als Draft-Task im CRM anlegen.
+
+**Wann nicht**
+
+- Massenlöschen oder API-Migration ohne Backup.
+- Deal-Stage auf „Closed Won“ ohne menschliche Bestätigung.
+- Fremde Pipeline-Definition ohne Admin-Abgleich.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| attio MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
-| close MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| attio MCP | Records, Lists | Moderne API |
+| close MCP | Sequences, Calls | Outbound-Teams |
+| CSV Export | Offline-Dedup | Wenn MCP read batch |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for CRM (vertrieb-crm/crm).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Lesen und Draft-Activities; Feldupdates nach Freigabe, keine stillen Deal-Stage-Spruenge.
+Role: CRM hygiene and pipeline analyst (vertrieb-crm/crm).
+Mission: Read-heavy CRM operations with draft-only writes unless user says "FREIGABE CRM WRITE".
+Tools: attio MCP and/or close MCP—use one system per session; do not cross-merge without mapping table.
+Inputs: object type, pipeline id/name, filters (owner, created_after, min amount).
+Deals: list id, name, stage, amount, currency, close_date, owner, days_in_stage.
+Aging: flag deals >21 days same stage unless user sets threshold.
+Data quality: missing company, duplicate domain (normalize www), stale next_step.
+Activities: draft note format—bullets, source call/email id, no invented interactions.
+Stage changes: forbidden unless explicit approval token; instead output proposed_change table.
+Forecast: weighted sum only if user supplies stage probabilities; else raw sum with disclaimer.
+Close.com: respect sequence enrollment—do not bulk remove from sequences.
+Attio: respect list memberships; attribute definitions may be custom—read schema first.
+PII: redact emails in summary tables if exporting to public channel—hash domain ok.
+German deal names ok; keep currency ISO 4217.
+Merge suggestions: pairs with match score and fields that differ—human merges only.
+Audit log: timestamp each API read window.
+Backfill: if user uploads CSV, map columns explicitly before any upsert proposal.
+No delete contact/deal ever in this skill.
+HubSpot/Salesforce: out of scope unless user only pastes export—treat as static CSV.
 ```
 
 ## Arbeitsablauf
 
-- Lesen und Draft-Activities; Feldupdates nach Freigabe, keine stillen Deal-Stage-Spruenge.
+1. CRM-Instanz, Objekttyp und Auth bestätigen.
+2. Schema/List-Felder einlesen (Custom Attributes dokumentieren).
+3. Pipeline-Snapshot mit Filtern ziehen.
+4. Aging- und Datenqualitätsregeln anwenden.
+5. Duplikat-Kandidaten nach Domain/Name listen.
+6. Draft-Notizen oder Task-Vorschläge formulieren.
+7. Änderungsliste zur Freigabe ausgeben—ohne API-Patch.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Stage-Namen aus Live-Schema, nicht angenommen
+- [ ] Kein Stage-Update ohne Freigabe-Token
+- [ ] Amount-Summen mit Währung und Filter dokumentiert
+- [ ] Duplikat-Vorschläge ohne automatisches Merge
 
 ## Sicherheit & Freigaben
 
-- CRM-Schreibrechte koennen Pipeline-Zahlen zerstoeren.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- CRM-Schreibrechte können Forecast und Provision zerstören.
+- OAuth nur im Connector; API-Keys nicht loggen.
+- Kundenlisten nicht in öffentliche Kanäle posten.
+
+## Fallstricke
+
+- Stage-IDs in Automations überschreiben manuelle Agent-Vorschläge.
+- Close-Datum in Vergangenheit bei offenen Deals ignorieren → Forecast-Lücke.
+- Attio-Listen ≠ Pipeline—falsche Summe.
+- Zwei MCPs parallel → doppelte Kontakte anlegen.
+- Währungsmix ohne FX → falsche Pipeline-Gewichtung.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-CRM-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `crm` (Testdaten)
+- **Aufgabe:** Pipeline review Q4 Enterprise
+- **Input:** Pipeline „Enterprise“, Owner „alex@firma.de“
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für CRM. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Snapshot open deals. Columns: name, stage, amount EUR, days_in_stage. Flag >30 days.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+14 deals | 218.000 EUR raw | 3 stuck >30d: Acme (Negotiation, 47d)
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in CRM
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Duplikat-Firmen nach Domain
+- **Input:** Export `companies.csv` 800 Zeilen
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Normalize domain, propose merge pairs score≥0.9. No API merge.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+Pair: acme.com ↔ www.acme.com | fields differ: phone | action: human merge
+```

@@ -140,14 +140,14 @@ Automatisch generiert. **27** Domains, **198** Kategorien, **247** Templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `ads-performance-workflow` | Ads und Performance | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `ads-performance-workflow` | Paid Ads Performance & Kreativ | hermes, grokbot, generic-mcp-agents… | medium | 2 |
 
 ### `content-marketing/branding-design` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `branding-design-mcp-focus` | Branding und Design: MCP/Skill-Fokus | hermes, grokbot, generic-mcp-agents… | low | 2 |
-| `branding-design-workflow` | Branding und Design | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `branding-design-mcp-focus` | Branding: Figma vs Canva | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `branding-design-workflow` | Branding & Design-Briefs | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `content-marketing/content-strategie` (1)
 
@@ -159,85 +159,85 @@ Automatisch generiert. **27** Domains, **198** Kategorien, **247** Templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `copywriting-workflow` | Copywriting | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `copywriting-workflow` | Copywriting & Messaging | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `content-marketing/influencer` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `influencer-workflow` | Influencer | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `influencer-workflow` | Influencer Research | hermes, grokbot, generic-mcp-agents… | medium | 2 |
 
 ### `content-marketing/landingpages` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `landingpages-workflow` | Landingpages | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `landingpages-workflow` | Landingpages & CRO | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `content-marketing/newsletter` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `newsletter-workflow` | Newsletter | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `newsletter-workflow` | Newsletter Content | hermes, grokbot, generic-mcp-agents… | medium | 2 |
 
 ### `content-marketing/seo` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `seo-workflow` | SEO | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `seo-workflow` | SEO Audits & On-Page | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `content-marketing/social-facebook-meta` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `social-facebook-meta-workflow` | Social: Facebook / Meta | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `social-facebook-meta-workflow` | Facebook Pages | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `content-marketing/social-instagram` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `social-instagram-workflow` | Social: Instagram | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `social-instagram-workflow` | Instagram Reels | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `content-marketing/social-linkedin` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `social-linkedin-workflow` | Social: LinkedIn | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `social-linkedin-workflow` | LinkedIn Organic | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `content-marketing/social-media-strategie` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `social-buffer-schedule-campaign` | Kampagnenplanung mit Buffer API | grokbot, generic | medium | 2 |
+| `social-buffer-schedule-campaign` | Buffer Kampagnenplanung | hermes, grokbot, generic-mcp-agents… | medium | 2 |
 
 ### `content-marketing/social-reddit` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `social-reddit-workflow` | Social: Reddit | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `social-reddit-workflow` | Reddit Community | hermes, grokbot, generic-mcp-agents… | medium | 2 |
 
 ### `content-marketing/social-tiktok` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `social-ffmpeg-shorts-repurpose` | Longform zu Shorts mit ffmpeg | hermes, generic | low | 2 |
+| `social-ffmpeg-shorts-repurpose` | Longform zu Shorts | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `content-marketing/social-x-twitter` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `social-x-twitter-workflow` | Social: X / Twitter | grokbot, hermes, generic-mcp-agents | low | 2 |
+| `social-x-twitter-workflow` | X Posts & Threads | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `content-marketing/social-youtube` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `social-youtube-workflow` | Social: YouTube-Marketing | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `social-youtube-workflow` | YouTube Metadata | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `content-marketing/ugc` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `ugc-workflow` | UGC | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `ugc-workflow` | UGC Briefs | hermes, grokbot, generic-mcp-agents… | medium | 2 |
 
 ## Domain: `daten-analytics` (9 Templates)
 
@@ -245,13 +245,13 @@ Automatisch generiert. **27** Domains, **198** Kategorien, **247** Templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `bi-dashboards-workflow` | BI und Dashboards | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `bi-dashboards-workflow` | BI-Dashboards & Semantik | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `daten-analytics/data-cleaning` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `data-cleaning-workflow` | Data Cleaning | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `data-cleaning-workflow` | Data Cleaning & Qualitätsregeln | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `daten-analytics/data-viz` (1)
 
@@ -263,13 +263,13 @@ Automatisch generiert. **27** Domains, **198** Kategorien, **247** Templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `etl-pipelines-workflow` | ETL-Pipelines | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `etl-pipelines-workflow` | ETL-Pipelines & Orchestrierung | hermes, grokbot, generic-mcp-agents… | medium | 2 |
 
 ### `daten-analytics/ml-training` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `ml-training-workflow` | ML-Training | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `ml-training-workflow` | ML-Training (tabellarisch) | hermes, grokbot, generic-mcp-agents… | medium | 2 |
 
 ### `daten-analytics/spreadsheets-analyse` (1)
 
@@ -287,8 +287,8 @@ Automatisch generiert. **27** Domains, **198** Kategorien, **247** Templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `web-playwright-research-scrape` | Strukturierte Web-Recherche mit Playwright | hermes, grokbot, generic | medium | 2 |
-| `web-scraping-mcp-focus` | Web-Scraping: MCP/Skill-Fokus | hermes, grokbot, generic-mcp-agents… | low | 3 |
+| `web-playwright-research-scrape` | Strukturiertes Scraping mit Playwright | hermes, grokbot, generic | medium | 2 |
+| `web-scraping-mcp-focus` | Scraping: Firecrawl vs. Playwright | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ## Domain: `devops-cloud` (18 Templates)
 
@@ -740,77 +740,77 @@ Automatisch generiert. **27** Domains, **198** Kategorien, **247** Templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `animation-motion-workflow` | Animation und Motion | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `animation-motion-workflow` | Motion Graphics mit Remotion und Hermes-Creative | hermes, claude-code, cursor | medium | 2 |
 
 ### `medien/audio-bearbeitung` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `audio-bearbeitung-workflow` | Audio-Bearbeitung | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `audio-bearbeitung-workflow` | Audio schneiden, normalisieren und konvertieren | hermes, generic, cursor | low | 2 |
 
 ### `medien/bild-fotografie` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `bild-imagemagick-batch-resize` | Bilder stapelweise skalieren und optimieren | hermes, generic | low | 2 |
+| `bild-imagemagick-batch-resize` | Fotos batchweise skalieren und exportieren | cursor, claude-code, generic | low | 2 |
 
 ### `medien/bild-generierung` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `bild-comfyui-sdxl-workflow` | Bildgenerierung mit ComfyUI und SDXL | grokbot, generic | medium | 2 |
-| `bild-generierung-mcp-focus` | Bildgenerierung: MCP/Skill-Fokus | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `bild-comfyui-sdxl-workflow` | SDXL-Bilder über ComfyUI-Workflow | hermes, generic-mcp-agents, openclaw | medium | 2 |
+| `bild-generierung-mcp-focus` | Bildgenerierung: ComfyUI, Cloudinary und Skills | hermes, generic-mcp-agents, openclaw | medium | 2 |
 
 ### `medien/dreid-modellierung` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `dreid-modellierung-workflow` | 3D-Modellierung | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `dreid-modellierung-workflow` | 3D-Assets prüfen, konvertieren und dokumentieren | hermes, claude-code, generic | low | 2 |
 
 ### `medien/musik` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `musik-workflow` | Musik | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `musik-workflow` | Songwriting und AI-Musik-Prompts | hermes, openclaw, generic | medium | 2 |
 
 ### `medien/podcast` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `audio-ffmpeg-podcast-master` | Podcast mastering mit ffmpeg und loudnorm | hermes, grokbot, generic | low | 2 |
-| `podcast-mcp-focus` | Podcast: MCP/Skill-Fokus | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `audio-ffmpeg-podcast-master` | Podcast-Mastering mit FFmpeg | hermes, openclaw, generic | low | 2 |
+| `podcast-mcp-focus` | Podcast-Produktion: CLI, Whisper und Skills | hermes, openclaw, generic-mcp-agents | medium | 2 |
 
 ### `medien/streaming-broadcast` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `streaming-broadcast-workflow` | Streaming und Broadcast | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `streaming-broadcast-workflow` | Streaming-Vorbereitung und Broadcast-Assets | hermes, generic, cursor | medium | 2 |
 
 ### `medien/untertitel-uebersetzung` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `audio-whisper-transcribe-diarize` | Audio transkribieren und Sprecher trennen | hermes, generic | low | 2 |
-| `untertitel-uebersetzung-mcp-focus` | Untertitel und Übersetzung: MCP/Skill-Fokus | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `audio-whisper-transcribe-diarize` | Transkription und Sprechersegmente mit Whisper | hermes, openclaw, generic | medium | 2 |
+| `untertitel-uebersetzung-mcp-focus` | Untertitel und Übersetzung: Whisper plus FFmpeg | hermes, openclaw, generic | medium | 2 |
 
 ### `medien/video-bearbeitung` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `video-bearbeitung-mcp-focus` | Video-Bearbeitung: MCP/Skill-Fokus | hermes, grokbot, generic-mcp-agents… | low | 2 |
-| `video-ffmpeg-cut-transcode` | Video schneiden, transcodieren und Untertitel | hermes, generic | low | 2 |
+| `video-bearbeitung-mcp-focus` | Video-Bearbeitung: FFmpeg-CLI vs. Skills | hermes, generic-mcp-agents, cursor | low | 2 |
+| `video-ffmpeg-cut-transcode` | Video schneiden, transcodieren und Untertitel | hermes, claude-code, cursor… | low | 2 |
 
 ### `medien/video-produktion-pipeline` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `video-remotion-programmatic` | Programmatisches Video mit Remotion | hermes, grokbot, generic | medium | 2 |
+| `video-remotion-programmatic` | Datengetriebenes Video mit Remotion | hermes, claude-code, cursor… | medium | 2 |
 
 ### `medien/youtube-content` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `youtube-content-workflow` | YouTube-Content | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `youtube-content-workflow` | YouTube-Transkript zu Kapiteln und Content | hermes, openclaw, generic | low | 2 |
 
 ## Domain: `office-dokumente` (16 Templates)
 
@@ -1197,69 +1197,69 @@ Automatisch generiert. **27** Domains, **198** Kategorien, **247** Templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `amazon-workflow` | Amazon | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `amazon-workflow` | Amazon Seller & Listing-Ops | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `vertrieb-crm/angebote-proposals` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `angebote-proposals-workflow` | Angebote und Proposals | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `angebote-proposals-workflow` | Angebote & Sales Proposals | hermes, grokbot, generic-mcp-agents… | medium | 2 |
 
 ### `vertrieb-crm/crm` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `crm-workflow` | CRM | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `crm-workflow` | CRM Pipeline & Datenhygiene | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `vertrieb-crm/e-commerce` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `e-commerce-workflow` | E-Commerce allgemein | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `e-commerce-workflow` | E-Commerce Ops (kanalübergreifend) | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `vertrieb-crm/etsy` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `etsy-workflow` | Etsy | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `etsy-workflow` | Etsy Shop & Listing-Ops | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `vertrieb-crm/kdp` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `kdp-workflow` | KDP / Kindle Direct Publishing | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `kdp-workflow` | Amazon KDP & Buch-Metadaten | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `vertrieb-crm/leadgen` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `leadgen-mcp-focus` | Leadgenerierung: MCP/Skill-Fokus | hermes, grokbot, generic-mcp-agents… | low | 2 |
-| `leadgen-workflow` | Leadgenerierung | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `leadgen-mcp-focus` | Leadgen: Recherche-MCP vs. CRM-Import | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `leadgen-workflow` | Leadgen & ICP-Listen | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `vertrieb-crm/marketplaces` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `marketplaces-workflow` | Weitere Marktplätze | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `marketplaces-workflow` | Marktplatz-übergreifend (eBay, Otto, Kaufland …) | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `vertrieb-crm/outreach` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `outreach-mcp-focus` | Outreach: MCP/Skill-Fokus | hermes, grokbot, generic-mcp-agents… | low | 2 |
-| `outreach-workflow` | Outreach | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `outreach-mcp-focus` | Outreach: E-Mail-Skills vs. CRM-MCP | hermes, grokbot, generic-mcp-agents… | medium | 2 |
+| `outreach-workflow` | 1:1 Outreach & Sequencing | hermes, grokbot, generic-mcp-agents… | medium | 2 |
 
 ### `vertrieb-crm/preis-monitoring` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `preis-monitoring-workflow` | Preis-Monitoring | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `preis-monitoring-workflow` | Preis- & Wettbewerbsmonitoring | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `vertrieb-crm/shopify` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `shopify-workflow` | Shopify | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `shopify-workflow` | Shopify Store Ops & Katalog | hermes, grokbot, generic-mcp-agents… | medium | 2 |
 
 ## Domain: `wissenschaft-engineering` (5 Templates)
 

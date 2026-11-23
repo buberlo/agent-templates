@@ -1,12 +1,13 @@
 ---
 id: outreach-mcp-focus
-title: "Outreach: MCP/Skill-Fokus"
+title: "Outreach: E-Mail-Skills vs. CRM-MCP"
 domain: vertrieb-crm
 category: outreach
 tags:
   - outreach
-  - vertrieb-crm
-  - skillcli
+  - mcp
+  - email
+  - hermes
 target_agents:
   - hermes
   - grokbot
@@ -19,86 +20,147 @@ required_tools:
   - name: Hermes-Skill google-workspace / gws CLI
     install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
     version_notes: "Bundled-Katalog."
+  - name: attio MCP (Hermes-Katalog)
+    install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/attio"
+    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
 inputs:
-  - "Kontext/Briefing für Outreach"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Outreach-Ziel (Draft|Read inbox context|Log activity)"
+  - "Aktive Hermes-Skills und erlaubte MCPs"
+  - "Sende-Richtlinie (niemals auto-send)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Tool-Wahlbegründung (Skill vs. MCP)"
+  - "Ausgeführte Draft-Anlage oder CRM-Notiz"
+  - "Token-/Policy-Hinweis"
+risk_level: medium
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Persönliche 1:1-Ansprachen per E-Mail, LinkedIn oder Sequencer entwerfen und nach Freigabe senden.
+Bei Outreach die **kleinste funktionierende Tool-Kombination** wählen: Gmail über himalaya/gws für Drafts, CRM-MCP nur für Kontext und Activity—keine doppelten Postfächer, kein Send-by-Accident.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Outreach**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Agent soll Outreach-Entwurf anlegen und im CRM protokollieren.
+- Unklar, ob E-Mail-MCP oder Hermes-Skill günstiger ist.
+- OpenClaw/Hermes Tool-Policy begrenzt MCP-Anzahl.
+
+**Wann nicht**
+
+- Reines Copywriting ohne Mail- oder CRM-System.
+- Bulk-Mail über Drittanbieter-API ohne Compliance-Review.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skills email-inbox-triage und him | Skill + CLI | Aus Recherche 2026-11-23 |
-| Hermes-Skill google-workspace / gws CLI | Skill + CLI | Aus Recherche 2026-11-23 |
-| attio MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| himalaya / gws | Gmail Drafts | Offizieller Workspace-Pfad |
+| attio MCP | Person/Deal-Kontext | Strukturierte Felder |
+| email-inbox-triage Skill | Thread-Kontext | Liest, sendet nicht |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Outreach (vertrieb-crm/outreach).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Personalisierung aus belegten Fakten, Entwurf in CRM/Gmail Draft, Mensch sendet.
+You route outreach tasks to the smallest tool set (vertrieb-crm/outreach-mcp-focus).
+
+Decision tree:
+1) User needs only email draft → gws/himalaya create draft; skip attio unless logging requested.
+2) User needs contact context (title, last activity) → attio MCP read first; then draft email.
+3) User needs inbox thread summary before reply → email-inbox-triage skill read-only; never send.
+4) User asks "log in CRM" → attio draft note or task; do not mark email sent.
+5) Close MCP only when user names Close AND sequence content—not default with attio same session.
+
+Never enable a second mailbox MCP alongside himalaya for the same Gmail—duplicate OAuth scopes.
+
+Quote estimated MCP schema tokens if user loads full attio catalog—recommend include filter.
+
+Send policy: hard stop. If tool offers "send", use draft/create only and report draft id.
+
+LinkedIn: no MCP unless user has one approved—output copy for manual paste.
+
+Document: chosen tools, rejected tools, rationale in German one paragraph.
+
+Hermes: respect skill progressive disclosure—load outreach workflow content not entire catalog.
+
+GrokBot: OAuth stays on connector—no refresh tokens in argv.
+
+Verify: after draft create, read-back subject line if API allows.
+
+Parallelism: sequential CRM read then email draft to avoid race on person id.
+
+German outreach copy allowed in draft body; metadata in English ok.
+
+Incident: if draft created wrong recipient, report draft id for user deletion—do not create replacement silently.
+
+Attio rate limits: batch reads ≤20 records.
+
+Close sequences: never enroll contacts in this focus template—refer to outreach-workflow for content only.
 ```
 
 ## Arbeitsablauf
 
-- Personalisierung aus belegten Fakten, Entwurf in CRM/Gmail Draft, Mensch sendet.
+1. Aufgabe klassifizieren: Draft / Kontext / Inbox / CRM-Log.
+2. Aktive Tools gegen Policy prüfen; Redundanz entfernen.
+3. CRM-Read wenn Personalisierung fehlt.
+4. Inbox-Kontext nur bei Reply-Tasks.
+5. Draft über gws/himalaya erstellen.
+6. CRM-Activity als Draft schreiben.
+7. Kurzbericht Tool-Wahl + keine Send-Bestätigung.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Genau ein E-Mail-Pfad genutzt
+- [ ] Kein `send` ohne Freigabe
+- [ ] Begründung für abgelehnte MCPs
+- [ ] Draft- oder Note-ID dokumentiert
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Zwei Send-Tools parallel = höchstes Risiko—deaktivieren.
+- Postfach-Zugriff nur mit Nutzer-OAuth.
+- Mittel-Risiko bei versehentlichem Empfänger.
+
+## Fallstricke
+
+- attio MCP für E-Mail-Body schreiben, obwohl nur Gmail Draft gewünscht.
+- gws Draft in falschem Google-Account.
+- Triage-Skill liest private HR-Mails mit in Outreach-Kontext.
+- MCP-Token-Overhead frisst Copy-Budget.
+- CRM-Notiz ohne Person-ID verknüpft.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Outreach-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `outreach` (Testdaten)
+- **Aufgabe:** Draft + CRM-Log für einen Kontakt
+- **Input:** attio person_id, Betreffidee
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Outreach. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Read person, write DE draft ≤100 words, log draft note in attio—no send.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Tools: attio read, gws draft create
+draft_id: r-123 | note: "draft created 2026-11-23"
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Outreach
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Reply-Kontext ohne CRM
+- **Input:** Gmail thread id
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Summarize thread, propose reply bullets. No MCP except triage skill.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+3 bullet summary; proposed reply in German; attio not loaded
+```
