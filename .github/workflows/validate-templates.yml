@@ -1,0 +1,20 @@
+name: Validate Templates
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate templates and regenerate index
+        run: python3 scripts/validate_and_index.py
+      - name: Check generated artifacts are committed
+        run: |
+          git diff --exit-code INDEX.md catalog.json || (
+            echo "INDEX.md or catalog.json out of date; run scripts/validate_and_index.py locally."
+            exit 1
+          )

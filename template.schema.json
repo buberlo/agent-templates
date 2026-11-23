@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/agent-templates/template.schema.json",
+  "title": "Agent Template Frontmatter",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "category",
+    "tags",
+    "target_agents",
+    "required_tools",
+    "inputs",
+    "outputs",
+    "risk_level",
+    "version",
+    "updated"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{2,62}[a-z0-9]$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 120
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "video-bearbeitung",
+        "audio",
+        "bild",
+        "dokumente-office",
+        "web-recherche",
+        "coding-devops",
+        "kubernetes-infra",
+        "it-support-remote",
+        "social-media",
+        "email-kommunikation",
+        "daten-analyse",
+        "finanzen-buchhaltung"
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 20,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 40
+      }
+    },
+    "target_agents": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": ["hermes", "grokbot", "generic"]
+      }
+    },
+    "required_tools": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "install", "version_notes"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "install": { "type": "string", "minLength": 1 },
+          "version_notes": { "type": "string" }
+        }
+      }
+    },
+    "inputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "outputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "updated": {
+      "type": "string",
+      "format": "date"
+    }
+  }
+}
