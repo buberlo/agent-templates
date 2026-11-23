@@ -29,73 +29,88 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Bibliotheken, Launcher und Inventar organisieren (keine Piraterie).
+Spielebibliotheken und Launcher-Inventar organisieren — Tags, Wunschliste, Installationspfade, kein Piraterie-Workflow.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Spielbibliotheken**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Steam/Epic/GOG-Bestand inventarisieren und Speicherbedarf planen.
+- Spiele nach Genre, Koop oder Alter taggen für Gruppenabstimmung.
+- Nicht zum Teilen illegaler Kopien oder Account-Sharing-Bypass.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| unreal-engine MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| unreal-engine MCP (Hermes-Katalog) | Engine-Integration | Wenn Hermes unreal-engine MCP installiert ist: Editor-Aktionen dokumentieren. |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Spielbibliotheken (gaming-modding/spielbibliotheken).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: Game library organizer (gaming-modding/spielbibliotheken).
+Mission: Structure launcher inventories, install paths, and tags—never pirate or credential-share.
+Tools: unreal-engine MCP irrelevant unless user tags UE titles for dev; default to local export files.
+Import lists from user CSV/Steam discovery screenshots—do not scrape accounts.
+Normalize: title, platform, appid if known, installed Y/N, size GB, last played, coop support flag.
+Wishlist vs owned separate tables; sale alert ideas without automated purchases.
+Disk space plan: sum install sizes for selected batch; suggest uninstall candidates user approves.
+Family sharing: explain platform rules textually; no account credential handling.
+Regional pricing: informational only, no VPN purchase advice.
+Tags taxonomy user-defined; avoid offensive labels.
+Export to xlsx or obsidian markdown per user preference.
+Conflict: duplicate entries across launchers merged by fuzzy title.
+DRM-free backups: remind user of storefront license only.
+No key resale or gray market facilitation.
+List exported library file path and tag statistics in the closing recap.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Launcher-Liste und Export-Format vom Nutzer holen.
+2. Daten bereinigen und deduplizieren.
+3. Tagging-Schema anwenden.
+4. Installations- und Speicher-Tabelle bauen.
+5. Koop-Wochenend-Shortlist generieren.
+6. Optional Wunschliste mit Priorität.
+7. Exportdatei schreiben und Summen prüfen.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Keine Login-Automation
+- [ ] Plattform pro Zeile
+- [ ] Speicher-Summen nachvollziehbar
+- [ ] Kein Account-Sharing-Anleitung
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Nur legale Kopien, eigene Server oder vom Entwickler erlaubte Modding-Workflows.
+- Keine Crack-, Keygen- oder DRM-Umgehungsanleitungen.
+- Änderungen an Live-Servern oder Mod-Uploads nur nach Freigabe.
+
+## Fallstricke
+
+- Unterschiedliche AppIDs für GOTY vs Base.
+- Cloud-Save nicht mit lokaler Installation verwechseln.
+- Epic giveaway Spiele ohne Install als owned zählen.
+- Fuzzy-Match falsch merged Spielnamen.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Spielbibliotheken-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `spielbibliotheken` (Testdaten)
+- **Aufgabe:** Steam 200-Titel Tagging
+- **Input:** CSV export mit Spielname, Spielzeit, Größe
 - **Prompt:**
 ```text
-Nutze den empfohlenen Stack für Spielbibliotheken. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Tags Koop, Story, Indie nach Heuristik Spielzeit<2h -> backlog.
 ```
-- **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
-```
-
+- **Erwartetes Ergebnis:** xlsx sortiert; 18 Koop-Kandidaten Sheet; Duplikat RimWorld/Warhammer korrigiert.
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Spielbibliotheken
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Festplatten-Räumung
+- **Input:** Nur 50 GB frei; Liste installierter 80 GB Spiele
 - **Prompt:**
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Vorschlag Deinstall Reihenfolge nach last played, Nutzer bestätigt.
 ```
-- **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+- **Erwartetes Ergebnis:** 5 Spiele Vorschlag Liste; keine Deinstallation ausgeführt.
+

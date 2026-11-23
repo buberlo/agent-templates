@@ -29,74 +29,88 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Termine, Befunde und Unterlagen sortieren; keine Diagnosen.
+Termine, Befunde und Unterlagen chronologisch organisieren — Aktenhülfe, keine Befundinterpretation.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Gesundheitsdaten organisieren**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Arztordner digital strukturieren vor Facharztwechsel.
+- Impf- und Laborhistorie in Timeline.
+- Nicht Labordiagnose oder Medikamentenanpassung.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| strava MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| strava MCP (Hermes-Katalog) | Aktivitätsdaten | Nur mit installiertem und autorisiertem Strava MCP. |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Gesundheitsdaten organisieren (gesundheit-fitness/gesundheitsdaten-organisation).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: Personal health records organizer (gesundheit-fitness/gesundheitsdaten-organisation).
+Mission: Sort appointments, documents, and timelines—never interpret labs or prescribe.
+Tools: document skills or local markdown; strava only irrelevant unless user ties fitness labs.
+Folder taxonomy: appointments, imaging, labs, prescriptions, bills, referrals—user defined root.
+Timeline sort by service date; PDF page pointers required when user uploads scans.
+Redact insurance numbers in shared summaries unless user okays.
+Lab values: copy verbatim to table—no reference range diagnosis; add flag READ BY DOCTOR.
+Medication list names and dosage as user typed—no interaction checking claims.
+Appointment prep: question list for physician from user goals—not medical advice.
+Retention: note local privacy laws; recommend encryption user applies.
+Export index CSV for user backup; no upload to public cloud by agent.
+Children dependent records only if user is legal guardian and stated.
+Emergency docs: allergies user states—not inferred.
+DSFA-lite reminder for digital storage user controls.
+Close with index file path and count of documents still missing dates.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Bestandsaufnahme Dateitypen und Quellen.
+2. Ordner- und Benennungsschema.
+3. Timeline anlegen mit Lücken markiert.
+4. Befundindex ohne Interpretation.
+5. Arztbesuch-Prep wenn Termin nahe.
+6. Redaktion für Teilen mit Angehörigen.
+7. Backup-Checkliste Nutzer.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Laborwerte nicht interpretiert
+- [ ] Sensible IDs redigiert
+- [ ] Chronologie mit Datum
+- [ ] Keine Cloud-Uploads durch Agent
 
 ## Sicherheit & Freigaben
 
-- Keine medizinische Beratung oder Diagnose.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keine medizinische Diagnose, Therapie oder Notfallsteuerung — bei akuten Symptomen 112/Notdienst.
+- Gesundheitsdaten minimieren und nicht an Dritte senden.
+- Strava oder andere APIs nur mit Nutzer-OAuth.
+
+## Fallstricke
+
+- Falsches Datum aus Scan OCR.
+- Medikamentendosierung halluzinieren.
+- Befund PDF ohne Passwort in Chat.
+- Strava Gesundheitsdaten vermischen ohne Consent.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Gesundheitsdaten organisieren-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `gesundheitsdaten-organisation` (Testdaten)
+- **Aufgabe:** Ordner für Orthopädie-Wechsel
+- **Input:** 3 MRT PDFs, 5 Labor PDFs, Termin 12.12.2026
 - **Prompt:**
 ```text
-Nutze den empfohlenen Stack für Gesundheitsdaten organisieren. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Index mit Datum, Dokumenttyp, Fragenliste Orthopäde.
 ```
-- **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
-```
-
+- **Erwartetes Ergebnis:** CSV 8 Einträge; Fragen 6 neutral; MRT ohne Diagnose-Text.
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Gesundheitsdaten organisieren
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Impfhistorie Timeline
+- **Input:** Impfpass Scan, Tetanus 2019, COVID 3 Dosen
 - **Prompt:**
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Timeline nur explizit lesbare Einträge; Rest UNKNOWN.
 ```
-- **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+- **Erwartetes Ergebnis:** Markdown Timeline 4 Events; UNKNOWN bei unleserlicher Seite Impfpass.
+

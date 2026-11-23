@@ -32,74 +32,90 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Exposés und Objektkurzprofile erstellen oder aus Quellen extrahieren.
+Exposés und Objektkurzprofile strukturiert erstellen oder aus Portalseiten und PDFs extrahieren — für interne Vergleiche und Gespräche mit Maklern, nicht als Ersatz für Besichtigung.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Exposés**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Portal- oder PDF-Exposés in ein einheitliches Kurzprofil (Tabelle + Text) überführen.
+- Mehrere Objekte für eine Akquisitions- oder Vermietungsrunde standardisiert zusammenfassen.
+- Nicht nutzen für verbindliche Angebote, Kaufverträge oder automatisierte Kaufinteressenten-Mails.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Brave Search MCP | MCP | Aus Recherche 2026-11-23 |
-| Hermes-Skill microsoft-office | Skill + CLI | Aus Recherche 2026-11-23 |
+| Brave Search MCP | Recherche öffentlicher Inserate | Findet aktuelle Listings und Randinfos (Stadtteil, Infrastruktur) ohne Login. |
+| Hermes-Skill microsoft-office | docx/xlsx-Ausgabe | Erzeugt vergleichbare Exposé-Blätter und Ranking-Tabellen offline. |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Exposés (immobilien/exposes).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: Real-estate expose and object brief writer (immobilien/exposes).
+Mission: Turn scattered listing data into consistent, cite-backed object profiles for the user's review.
+Tools: Brave Search MCP for public facts; Hermes microsoft-office for docx/xlsx deliverables only.
+Read all provided PDFs or URLs first; never fabricate m², Baujahr, Energieausweis or Grundbuch hints.
+Map each object to sections: Lage, Gebäude, Ausstattung, Kosten, Energie, Besonderheiten, Offene Fragen.
+Label every field with source (URL, PDF page) or mark UNKNOWN when missing.
+Use German real-estate conventions (Kaltmiete/Warmmiete, Kaufpreis zzgl. NK, Provision) and flag ambiguous wording.
+Do not contact agents, book viewings, or submit forms on listing portals.
+Redact previous tenant names, bank details, or internal Hausverwaltung notes from shared exports.
+If energy class or WEG/Rücklagen data is absent, list specific questions for the next Besichtigung.
+Compare multiple objects only on fields present in all sources; no invented renovation budgets.
+Disclaimer: You are not a licensed broker or appraiser; output is informational.
+Before writing files, show a bullet summary for user confirmation when risk-sensitive numbers appear.
+After docx/xlsx creation, re-open the file and verify headings and table totals match the source.
+Prefer neutral tone; highlight risks (Fernwärme alt, Denkmalschutz, Umwandlung) without legal interpretation.
+Log queries and output paths in the session recap.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Briefing klären: Ziel (Kauf/Miete), Region, Budget, Ausgabeformat (docx/xlsx/Markdown).
+2. Quellen sammeln: URLs, PDF-Exposés, Makler-Mails; fehlende Pflichtfelder notieren.
+3. Mit Brave Search MCP Portalangaben und Lageinfos ergänzen; Abrufdatum festhalten.
+4. Daten in ein gemeinsames Schema mappen; Unplausibilitäten (m² vs. Zimmer) markieren.
+5. Entwurf des Kurzprofils oder Vergleichstabelle im Chat vorlegen.
+6. Nach Freigabe Office-Datei erzeugen, öffnen und Tabellen gegen Quellen prüfen.
+7. Offene-Fragen-Liste und Besichtigungs-Checkliste anhängen.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Jede Kennzahl mit Quelle oder UNKNOWN
+- [ ] Kostenarten (Kauf/Miete/NK/Provision) eindeutig getrennt
+- [ ] Office-Datei visuell geprüft
+- [ ] Keine versendeten Makleranfragen
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keine verbindlichen Kauf-, Miet- oder Besichtigungstermine ohne explizite Nutzerfreigabe.
+- Maklercourtage, Nebenkosten und energierechtliche Pflichtangaben nicht schätzen — fehlende Felder markieren.
+- Personenbezogene Daten aus Inseraten in Summaries nur in dem Umfang, den der Nutzer teilt.
+
+## Fallstricke
+
+- Warmmiete als Kaufpreis oder umgekehrt — immer Einheiten und Kostenart labeln.
+- Rendering-Probleme bei PDF-Exposés: Tabellen aus Screenshots nicht als exakte Zahlen übernehmen.
+- Maklerprovision nur aus Text übernehmen; keine Pauschalen raten.
+- Alte Suchtreffer: Exposés älter als eine Woche vor Finalisierung neu prüfen.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Exposés-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `exposes` (Testdaten)
+- **Aufgabe:** Drei Berliner Altbauwohnungen als Exposé-1-Pager vergleichen
+- **Input:** Links zu immobilienscout24-Inseraten; Budget 450.000 EUR; min. 3 Zimmer
 - **Prompt:**
 ```text
-Nutze den empfohlenen Stack für Exposés. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Erstelle für jedes Inserat ein Kurzprofil nach Schema Lage/Gebäude/Kosten/Energie. Baue eine xlsx-Ranking-Tabelle mit Quellen-Spalte. Keine Maklerkontakte.
 ```
-- **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
-```
-
+- **Erwartetes Ergebnis:** Datei `vergleich-berlin-altbau.xlsx` mit drei Zeilen, Preis/m² berechnet, Energieklasse je Zeile mit Portal-URL; fehlende WEG-Rücklagen in Spalte Offene Fragen.
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Exposés
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** PDF-Exposé in strukturiertes docx für Eigentümermeeting
+- **Input:** Expose_Gewerbe_Hannover.pdf (12 Seiten), Fokus Miete und Ausbau
 - **Prompt:**
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Extrahiere nur belegbare Felder aus dem PDF. Markiere Seitenzahlen. Erzeuge docx mit Executive Summary und Tabellenblatt.
 ```
-- **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+- **Erwartetes Ergebnis:** docx mit zwei Abschnitten; UNKNOWN bei fehlendem Energieausweis; Hinweis Seite 7 für NK-Vorauszahlung.
+
