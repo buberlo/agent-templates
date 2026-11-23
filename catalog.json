@@ -1,0 +1,444 @@
+{
+  "generated_at": "2026-11-23T10:57:57Z",
+  "templates": [
+    {
+      "id": "audio-ffmpeg-podcast-master",
+      "title": "Podcast mastering mit ffmpeg und loudnorm",
+      "category": "audio",
+      "tags": [
+        "ffmpeg",
+        "loudness",
+        "podcast"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic"
+      ],
+      "risk_level": "low",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/audio/audio-ffmpeg-podcast-master.md"
+    },
+    {
+      "id": "audio-whisper-transcribe-diarize",
+      "title": "Audio transkribieren und Sprecher trennen",
+      "category": "audio",
+      "tags": [
+        "whisper",
+        "transcription",
+        "diarization"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "low",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/audio/audio-whisper-transcribe-diarize.md"
+    },
+    {
+      "id": "bild-comfyui-sdxl-workflow",
+      "title": "Bildgenerierung mit ComfyUI und SDXL",
+      "category": "bild",
+      "tags": [
+        "comfyui",
+        "sdxl",
+        "generative"
+      ],
+      "target_agents": [
+        "grokbot",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/bild/bild-comfyui-sdxl-workflow.md"
+    },
+    {
+      "id": "bild-imagemagick-batch-resize",
+      "title": "Bilder stapelweise skalieren und optimieren",
+      "category": "bild",
+      "tags": [
+        "imagemagick",
+        "webp",
+        "batch"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "low",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/bild/bild-imagemagick-batch-resize.md"
+    },
+    {
+      "id": "coding-github-actions-ci-pipeline",
+      "title": "CI-Pipeline mit GitHub Actions",
+      "category": "coding-devops",
+      "tags": [
+        "github-actions",
+        "ci",
+        "pytest"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/coding-devops/coding-github-actions-ci-pipeline.md"
+    },
+    {
+      "id": "coding-terraform-aws-baseline",
+      "title": "AWS Baseline mit Terraform",
+      "category": "coding-devops",
+      "tags": [
+        "terraform",
+        "aws",
+        "iac"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "high",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/coding-devops/coding-terraform-aws-baseline.md"
+    },
+    {
+      "id": "daten-duckdb-sql-report",
+      "title": "Ad-hoc Reporting mit DuckDB",
+      "category": "daten-analyse",
+      "tags": [
+        "duckdb",
+        "sql",
+        "parquet"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic"
+      ],
+      "risk_level": "low",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/daten-analyse/daten-duckdb-sql-report.md"
+    },
+    {
+      "id": "daten-python-pandas-eda",
+      "title": "Explorative Analyse mit pandas",
+      "category": "daten-analyse",
+      "tags": [
+        "pandas",
+        "eda",
+        "jupyter"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "low",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/daten-analyse/daten-python-pandas-eda.md"
+    },
+    {
+      "id": "dokumente-libreoffice-mail-merge",
+      "title": "Serienbrief mit LibreOffice und CSV",
+      "category": "dokumente-office",
+      "tags": [
+        "libreoffice",
+        "mail-merge",
+        "odt"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/dokumente-office/dokumente-libreoffice-mail-merge.md"
+    },
+    {
+      "id": "dokumente-pandoc-markdown-pdf",
+      "title": "Markdown in PDF mit Pandoc und Typst",
+      "category": "dokumente-office",
+      "tags": [
+        "pandoc",
+        "pdf",
+        "markdown"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "low",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/dokumente-office/dokumente-pandoc-markdown-pdf.md"
+    },
+    {
+      "id": "email-gmail-mcp-triage",
+      "title": "Posteingang triagieren mit Gmail MCP",
+      "category": "email-kommunikation",
+      "tags": [
+        "gmail",
+        "mcp",
+        "triage"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/email-kommunikation/email-gmail-mcp-triage.md"
+    },
+    {
+      "id": "email-postfix-dmarc-parse",
+      "title": "DMARC-Reports auswerten",
+      "category": "email-kommunikation",
+      "tags": [
+        "dmarc",
+        "postfix",
+        "email-security"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "low",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/email-kommunikation/email-postfix-dmarc-parse.md"
+    },
+    {
+      "id": "finanzen-camt053-reconcile",
+      "title": "Bankabgleich mit CAMT.053",
+      "category": "finanzen-buchhaltung",
+      "tags": [
+        "camt053",
+        "reconciliation",
+        "banking"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/finanzen-buchhaltung/finanzen-camt053-reconcile.md"
+    },
+    {
+      "id": "finanzen-datev-export-csv",
+      "title": "DATEV-Export aus Buchungsliste",
+      "category": "finanzen-buchhaltung",
+      "tags": [
+        "datev",
+        "csv",
+        "export"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/finanzen-buchhaltung/finanzen-datev-export-csv.md"
+    },
+    {
+      "id": "it-ansible-patch-baseline",
+      "title": "Patch-Baseline mit Ansible",
+      "category": "it-support-remote",
+      "tags": [
+        "ansible",
+        "patching",
+        "baseline"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "high",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/it-support-remote/it-ansible-patch-baseline.md"
+    },
+    {
+      "id": "it-meshcentral-remote-session",
+      "title": "Remote-Support mit MeshCentral",
+      "category": "it-support-remote",
+      "tags": [
+        "meshcentral",
+        "remote",
+        "support"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "high",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/it-support-remote/it-meshcentral-remote-session.md"
+    },
+    {
+      "id": "k8s-helm-chart-release",
+      "title": "Helm Chart installieren und upgraden",
+      "category": "kubernetes-infra",
+      "tags": [
+        "helm",
+        "kubernetes",
+        "release"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic"
+      ],
+      "risk_level": "high",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/kubernetes-infra/k8s-helm-chart-release.md"
+    },
+    {
+      "id": "k8s-kubectl-rollout-debug",
+      "title": "Deployment Rollout und Debug mit kubectl",
+      "category": "kubernetes-infra",
+      "tags": [
+        "kubectl",
+        "rollout",
+        "debug"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "high",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/kubernetes-infra/k8s-kubectl-rollout-debug.md"
+    },
+    {
+      "id": "social-buffer-schedule-campaign",
+      "title": "Kampagnenplanung mit Buffer API",
+      "category": "social-media",
+      "tags": [
+        "buffer",
+        "scheduling",
+        "social"
+      ],
+      "target_agents": [
+        "grokbot",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/social-media/social-buffer-schedule-campaign.md"
+    },
+    {
+      "id": "social-ffmpeg-shorts-repurpose",
+      "title": "Longform zu Shorts mit ffmpeg",
+      "category": "social-media",
+      "tags": [
+        "ffmpeg",
+        "shorts",
+        "repurpose"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "low",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/social-media/social-ffmpeg-shorts-repurpose.md"
+    },
+    {
+      "id": "video-ffmpeg-cut-transcode",
+      "title": "Video schneiden, transcodieren und Untertitel",
+      "category": "video-bearbeitung",
+      "tags": [
+        "ffmpeg",
+        "transcode",
+        "subtitles"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "low",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/video-bearbeitung/video-ffmpeg-cut-transcode.md"
+    },
+    {
+      "id": "video-remotion-programmatic",
+      "title": "Programmatisches Video mit Remotion",
+      "category": "video-bearbeitung",
+      "tags": [
+        "remotion",
+        "react",
+        "render"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/video-bearbeitung/video-remotion-programmatic.md"
+    },
+    {
+      "id": "web-exa-perplexity-briefing",
+      "title": "Recherche-Briefing mit Exa und Perplexity",
+      "category": "web-recherche",
+      "tags": [
+        "exa",
+        "perplexity",
+        "briefing"
+      ],
+      "target_agents": [
+        "grokbot",
+        "generic"
+      ],
+      "risk_level": "low",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/web-recherche/web-exa-perplexity-briefing.md"
+    },
+    {
+      "id": "web-playwright-research-scrape",
+      "title": "Strukturierte Web-Recherche mit Playwright",
+      "category": "web-recherche",
+      "tags": [
+        "playwright",
+        "scraping",
+        "research"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "categories/web-recherche/web-playwright-research-scrape.md"
+    }
+  ]
+}
