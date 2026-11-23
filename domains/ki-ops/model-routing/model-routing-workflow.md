@@ -1,100 +1,128 @@
 ---
 id: model-routing-workflow
-title: "Model Routing"
+title: "Model-Routing"
 domain: ki-ops
 category: model-routing
 tags:
-  - model
+  - routing
   - ki-ops
-  - plattformfeature
+  - models
 target_agents:
   - hermes
   - grokbot
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: Hermes model picker / Smart Routing
-    install: "https://hermes-agent.nousresearch.com/docs/getting-started/quickstart"
-    version_notes: "Produktdoku."
+  - name: AI Gateway / Router
+    install: "Vercel AI Gateway, LiteLLM, oder Provider-Router"
+    version_notes: "Fallback-Kette"
 inputs:
-  - "Kontext/Briefing für Model Routing"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Tasks mit Latenz/Kosten/Qualität"
+  - "Modellliste und Limits"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Routing-Tabelle"
+  - "Fallback-Policy"
 risk_level: low
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Aufgaben auf passende Modelle/Provider verteilen, Kosten und Qualität steuern.
+**Modelle pro Aufgabe routen**: billig/schnell für Klassifikation, stark für Code — mit Fallback bei Ausfall und Kosten-Obergrenze.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Model Routing**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Multi-Model-Agent-Plattform im Team.
+- Kosten-Explosion bei einem Modell.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes model picker / Smart Routing | Plattform-Feature | Aus Recherche 2026-11-23 |
+| Router config | Policy | zentral |
+| Small model | Triage | günstig |
+| Large model | Hard tasks | Qualität |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Model Routing (ki-ops/model-routing).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Guenstigeres Modell fuer Triage, staerkeres fuer riskante Schritte.
+Role: model routing architect (ki-ops/model-routing).
+Mission: Table task_class primary model fallback max_cost_per_request log metrics.
+
+Task classes: triage classify extract summarize code review codegen long context research.
+Triage always small model route label confidence if below 0.7 escalate large.
+Code: prefer model strong at code use same for review different temperature 0.
+Long context only if token count exceeds small model window measure before route.
+Fallback chain primary secondary after timeout 60s or 429 twice.
+Cost cap: abort or downgrade if estimated input output cost exceeds user daily cap variable.
+Privacy: eu data residency route eu endpoints only list models compliant.
+Log: route decision model id latency tokens cost per request id.
+Human override user says USE MODEL X lock session ignore router.
+Eval: monthly sample 50 tasks compare router vs always-large cost quality delta.
+No routing secret keys in client—gateway holds keys.
+Stream: same route sticky within conversation turn multi-step tools.
+German quality: note models weak at legal de escalate if user domain legal.
+A/B: optional canary 10 percent new model compare eval harness ki-ops/evals-benchmarks.
 ```
 
 ## Arbeitsablauf
 
-- Guenstigeres Modell fuer Triage, staerkeres fuer riskante Schritte.
+1. Aufgabenklassen definieren.
+2. Modelle mit Stärken/Schwächen tabellieren.
+3. Primär/Fallback pro Klasse setzen.
+4. Kosten- und Timeout-Regeln.
+5. Router-Config schreiben (LiteLLM/Gateway).
+6. Logging-Felder festlegen.
+7. Monatlicher Eval-Sample planen.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Jede Task-Klasse hat Primary+Fallback
+- [ ] Kosten-Cap dokumentiert
+- [ ] Residency-Regel wenn EU
 
 ## Sicherheit & Freigaben
 
-- Schwache Modelle rufen Tools unzuverlaessig.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keys nur im Gateway.
+
+## Fallstricke
+
+- Immer Large → Kosten.
+- Fallback nie getestet → Ausfall.
+- Triage-Fehler kaskadiert.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Model Routing-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `model-routing` (Testdaten)
+- **Aufgabe:** Support triage + answer
+- **Input:** tickets
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Model Routing. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Route classify small answer large if billing.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+routing table | fallback on 429
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Model Routing
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** EU PII
+- **Input:** customer data
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Use cheapest US model.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+block or eu-only models | residency note
+```

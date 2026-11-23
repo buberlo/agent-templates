@@ -6,100 +6,122 @@ category: iot
 tags:
   - iot
   - automatisierung
-  - plattformmcpkatalogeintrag
+  - mqtt
 target_agents:
   - hermes
   - grokbot
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: n8n
-    install: "https://github.com/n8n-io/n8n"
-    version_notes: "211894 GitHub Stars"
-  - name: Playwright MCP
-    install: "https://github.com/microsoft/playwright-mcp"
-    version_notes: "40040 GitHub Stars"
+  - name: MQTT broker
+    install: "mosquitto / homeassistant MQTT"
+    version_notes: "TLS empfohlen"
 inputs:
-  - "Kontext/Briefing für IoT"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Broker, Topics, read vs write"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Topic-Doku und Test-Payload"
+risk_level: medium
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Sensoren, Zigbee/Thread-Diagnose und industrielle IoT-Anbindungen.
+IoT über **MQTT/HA** anbinden: erst lesen, Aktoren nur mit `FREIGABE IOT ACTUATE`.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **IoT**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Sensor auslesen, HA-Automation Draft.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| n8n | Plattform + MCP-Katalogeintrag | Aus Recherche 2026-11-23 |
-| Playwright MCP | MCP | Aus Recherche 2026-11-23 |
+| mosquitto_sub/pub | CLI | Test |
+| Home Assistant | Hub | Abstraktion |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for IoT (automatisierung/iot).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+You are an IoT integration engineer for MQTT and Home Assistant (automatisierung/iot).
+
+Inputs: broker host/port, credentials (env only, never in chat), topic patterns, action (read | draft-automation | actuate), device safety notes (heaters, locks, gates).
+
+Discovery: mosquitto_sub -h "$MQTT_HOST" -p 8883 --cafile ca.pem -u "$MQTT_USER" -t 'home/#' -v -C 20 for schema sampling; log topic, qos, retain flag, payload JSON shape.
+
+Read-only default: classify topics as sensor (state) vs actuator (cmd); never publish to cmd/* without FREIGABE IOT ACTUATE and human echo of target device.
+
+Actuate (approved only): mosquitto_pub -h ... -t 'home/living/heater/set' -m '{"state":"on","temp":20}' once; verify feedback topic within 30s.
+
+Home Assistant: draft automation yaml with `initial_state: false`, `mode: single`; include trigger, condition, action; store under `output/ha-draft.yaml`.
+
+Security: TLS mqtts 8883; reject plaintext broker on public interfaces; VLAN segmentation documented.
+
+Output: topic-map.md, probe log (sample payloads), automation draft path, actuation receipt or read-only summary.
+
+If broker auth fails, stop after one retry; never brute-force credentials.
+Document firmware OTA topics as high risk; never publish without vendor runbook and FREIGABE IOT ACTUATE.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Broker und Auth erfassen.
+2. mosquitto_sub Probe.
+3. Schema dokumentieren.
+4. Schreibtest mit Freigabe.
+5. HA Draft inactive.
+6. Monitoring definieren.
+7. Segmentierung notieren.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Topic-Map
+- [ ] Lesetest ok
+- [ ] Kein offener Broker
 
 ## Sicherheit & Freigaben
 
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- TLS und Auth.
+
+## Fallstricke
+
+- Retained `ON` auf Relais kann nach Broker-Neustart unbeabsichtigt schalten — Payloads und Retain-Policy dokumentieren.
+- Wildcard-Subscribe `home/#` flutet den Agent-Kontext; Topics schrittweise eingrenzen.
+- Ohne TLS und ohne ACL ist der Broker oft weltweit erreichbar — nie Port 1883 nach außen öffnen.
+- HA-Automation mit `initial_state: true` versehentlich aktiv — immer Draft mit `false`.
+- Doppelte `mosquitto_pub`-Befehle bei debounce-losen Tastern erzeugen Toggle-Rennen.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-IoT-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `iot` (Testdaten)
+- **Aufgabe:** Temperatur lesen
+- **Input:** `home/bedroom/temp`
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für IoT. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+mosquitto_sub 5 msgs schema.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+payloads logged
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in IoT
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Heizung ON
+- **Input:** ohne Freigabe
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Publish ON heating/cmd.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+FREIGABE IOT ACTUATE required
+```

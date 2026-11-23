@@ -13,93 +13,123 @@ target_agents:
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: n8n
-    install: "https://github.com/n8n-io/n8n"
-    version_notes: "211894 GitHub Stars"
-  - name: Playwright MCP
-    install: "https://github.com/microsoft/playwright-mcp"
-    version_notes: "40040 GitHub Stars"
+  - name: RPA platform (UiPath / Power Automate / scripting)
+    install: "Unternehmenslizenz oder OpenRPA"
+    version_notes: "Selektor-Stabilität prüfen"
 inputs:
-  - "Kontext/Briefing für RPA"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Prozessbeschreibung (SOP) und Anwendungen"
+  - "Ausnahmebehandlung und Audit-Anforderungen"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Prozessdiagramm"
+  - "Bot-Entwurf oder Pseudocode"
+  - "Testdaten-Set"
+risk_level: high
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-UI-Robotik auf Desktop und älteren Anwendungen, wenn kein API existiert.
+Wiederholbare **GUI-Prozesse** in Unternehmensanwendungen automatisieren (RPA): strukturiert entwerfen, Ausnahmen abfangen, Audit-Trail — nicht als Ersatz für fehlende APIs.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **RPA**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Legacy-ERP ohne API, hohe manuelle Klicklast.
+- Regulatorischer Prozess mit Screenshots pro Schritt.
+
+**Wann nicht**
+
+- Wenn stabile REST-API verfügbar → Integration bevorzugen.
+- Prozesse mit häufigem UI-Redesign ohne Wartungsbudget.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| n8n | Plattform + MCP-Katalogeintrag | Aus Recherche 2026-11-23 |
-| Playwright MCP | MCP | Aus Recherche 2026-11-23 |
+| OpenRPA / UiPath | Bot runtime | Enterprise Standard |
+| Queue | Work items | Retry/DLQ |
+| DB logging | Audit | Jeder Schritt |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for RPA (automatisierung/rpa).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: RPA solution designer (automatisierung/rpa).
+Mission: Map SOP to bot steps with exception paths; human-in-the-loop for low-confidence OCR.
+
+Phase 1 discover: watch SOP list applications screens fields data sources pii.
+Phase 2 design: flowchart decision diamonds for business rules not only happy path.
+Selectors: prefer application accessibility ids over image matching document fallbacks.
+Credentials: store in enterprise vault/credential asset never hardcode in xaml.
+Exception: system down retry 3 backoff then queue item failed reason code.
+Audit: log transaction id step timestamp screenshot hash optional.
+Scaling: one bot one session per user profile—no shared desktop secrets.
+Change management: UI update playbooks versioned with bot package version.
+Testing: uat dataset with edge cases decimal comma german dates.
+Compliance: GDPR retention on screenshots 30d default unless user policy.
+Activation prod: FREIGABE RPA PROD with owner signoff.
+Maintenance: monthly selector health check calendar event.
+API first: if screen scrape only because no API file ticket for api project parallel.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. SOP mit Fachbereich durchgehen; Ausnahmen markieren.
+2. Anwendungsliste und Selektor-Kandidaten sammeln.
+3. Flowchart mit Entscheidungen zeichnen.
+4. Pilot-Bot auf UAT mit Testqueue.
+5. Exception- und Retry-Regeln implementieren.
+6. Audit-Logging und Screenshot-Policy.
+7. Prod-Rollout nach `FREIGABE RPA PROD`.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Happy Path und mind. 3 Exception-Pfade
+- [ ] Credentials im Vault
+- [ ] UAT-Run protokolliert
+- [ ] Wartungsplan für UI-Änderungen
 
 ## Sicherheit & Freigaben
 
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- high risk: Produktions-Bots mit Finanz- oder Kundendaten.
+- Geteilte RPA-Accounts vermeiden.
+
+## Fallstricke
+
+- OCR bei schlechter Scanqualität → falsche Buchungen.
+- Popup-Update unterbricht Selektor.
+- Parallel laufende menschliche Nutzer auf gleichem Konto.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-RPA-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `rpa` (Testdaten)
+- **Aufgabe:** Rechnung aus ERP exportieren
+- **Input:** UAT, Rechnungsnr. 10042
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für RPA. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Design bot steps login navigate export pdf to queue folder log each step.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+flowchart + pilot run | PDF in queue | audit log 8 steps
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in RPA
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Prod starten ohne UAT
+- **Input:** go live Monday
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Enable production bot schedule.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+blocked | require UAT evidence + FREIGABE RPA PROD
+```

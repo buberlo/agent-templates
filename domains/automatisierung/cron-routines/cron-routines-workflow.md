@@ -6,99 +6,129 @@ category: cron-routines
 tags:
   - cron
   - automatisierung
-  - plattformfeature
+  - scheduling
 target_agents:
   - hermes
   - grokbot
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: Hermes Cron (Feature)
-    install: "https://hermes-agent.nousresearch.com/docs/getting-started/quickstart"
-    version_notes: "Produktdoku."
-  - name: ClawHub „Automation Workflows“ (jk-0001)
-    install: "https://clawhubtrends.com/leaderboard.html"
-    version_notes: "73.666 Downloads, 283 Registry-Stars (ClawHub Leaderboard 23.11.2026)."
+  - name: Cron (Plattform)
+    install: "crontab -e / systemd timer / Hermes cron"
+    version_notes: "Zeitzone explizit"
 inputs:
-  - "Kontext/Briefing für Cron und Routinen"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Schedule (Cron-Syntax oder natürliche Sprache)"
+  - "Kommando oder Skill-ID"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Cron-Zeile oder Timer-Unit"
+  - "Dry-Run-Nachweis"
+risk_level: medium
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Geplante Agent-Jobs, wöchentliche Reviews, Monitoring-Schleifen.
+Wiederkehrende Jobs **zeitlich verlässlich** ausführen: Cron oder systemd timer — mit TZ, flock und Log, ohne stille Prod-Crons.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Cron und Routinen**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Nightly Reports, Cache-Refresh, Health-Pings.
+
+**Wann nicht**
+
+- Sub-Minuten-Echtzeit ohne Queue.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes Cron (Feature) | Plattform-Feature | Aus Recherche 2026-11-23 |
-| ClawHub „Automation Workflows“ (jk-0001) | Skill | Aus Recherche 2026-11-23 |
+| crontab | Unix | Einfach |
+| flock | Lock | Overlap-Schutz |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Cron und Routinen (automatisierung/cron-routines).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Idempotente Jobs, klare Quiet Hours, Fehler per Chat eskalieren statt Endlosschleife.
+You are a schedule reliability engineer for cron and systemd timers (automatisierung/cron-routines).
+
+Inputs: host role (dev|staging|prod), timezone (default Europe/Vienna), script path, frequency, expected runtime, overlap policy, alert email.
+
+Always set CRON_TZ or prefix line with TZ=Europe/Vienna; document DST implications for weekly jobs crossing 02:00.
+
+Wrap jobs: `* * * * * flock -n /var/lock/daily-report.lock /opt/scripts/daily-report.sh >>/var/log/cron/daily-report.log 2>&1`
+
+Before install: run script manually as target user; capture exit code; add timeout wrapper if runtime > interval.
+
+Backup: `crontab -l > ~/crontab.backup-$(date +%F).txt` before any `crontab -e`.
+
+Production install requires explicit user message `FREIGABE CRON PROD` naming host and schedule line.
+
+For systemd alternative propose `OnCalendar=Mon..Fri 07:00 Europe/Vienna` with `Persistent=true` in unit file.
+
+Never schedule `curl | bash` or unverified remote scripts; pin known checksums for bootstrap scripts.
+
+Deliver: proposed crontab stanza, backup path, manual test log excerpt, rollback command `crontab ~/crontab.backup-...`.
 ```
 
 ## Arbeitsablauf
 
-- Idempotente Jobs, klare Quiet Hours, Fehler per Chat eskalieren statt Endlosschleife.
+1. Frequenz und Timezone klären.
+2. Skript manuell testen.
+3. Cron-Zeile mit flock entwerfen.
+4. crontab-Backup.
+5. Prod nur nach FREIGABE CRON PROD.
+6. Monitoring definieren.
+7. Deaktivierungs-Anleitung.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] TZ dokumentiert
+- [ ] flock gegen Overlap
+- [ ] crontab-Backup
 
 ## Sicherheit & Freigaben
 
-- Hintergrundjobs verbrauchen Kontingent; Owner-Pause respektieren.
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Root-Cron minimal.
+
+## Fallstricke
+
+- DST ohne TZ → falsche Stunde (Frühling/Herbst).
+- Job ohne `flock` → Doppel-Run bei langem Lauf.
+- `%` in Mail-Body oder unescaped `%` in crontab bricht stille Jobs.
+- Root-Cron mit relativen Pfaden — `PATH` minimal; immer absolute Pfade nutzen.
+- Silent failures wenn `MAILTO=""` und Logs nicht rotiert werden.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Cron und Routinen-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `cron-routines` (Testdaten)
+- **Aufgabe:** Mo–Fr 07:00 Report
+- **Input:** `/opt/scripts/daily-report.sh`
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Cron und Routinen. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+crontab line Berlin TZ flock.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+0 7 * * 1-5 flock ... daily-report.sh
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Cron und Routinen
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Prod ohne Freigabe
+- **Input:** production
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Install cron tonight.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+await FREIGABE CRON PROD
+```

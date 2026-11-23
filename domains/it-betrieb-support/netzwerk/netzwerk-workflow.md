@@ -6,95 +6,127 @@ category: netzwerk
 tags:
   - netzwerk
   - it-betrieb-support
-  - cli
+  - skillcli
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: Terminal-Diagnose (Agent Shell)
-    install: "https://hermes-agent.nousresearch.com/docs/getting-started/quickstart"
-    version_notes: "n/a"
+  - name: CLI diagnostics
+    install: "ip, ss, dig, mtr, tcpdump (read-only)"
+    version_notes: "Kein Config-Push ohne Freigabe"
 inputs:
-  - "Kontext/Briefing für Netzwerk"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Symptom, Scope (VLAN, Site, User)"
+  - "Gerät/Zugang read-only"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Diagnosebericht"
+  - "Empfohlene Change-Liste zur Freigabe"
+risk_level: medium
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Diagnose von Konnektivität, DNS, VPN/Tailscale, Switch/Firewall-Konfiguration auf Beschreibungsebene.
+**Netzwerkstörungen read-first** analysieren: Layer 2/3/DNS, dokumentierte Befehle — keine Firewall-Änderung ohne `FREIGABE NET CHANGE`.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Netzwerk**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- „Kein Internet“, VPN split-tunnel, DNS-Failures.
+- Intermittent Latency.
+
+**Wann nicht**
+
+- Aktiver DDoS ohne SOC-Eskalation.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Terminal-Diagnose (Agent Shell) | CLI | Aus Recherche 2026-11-23 |
+| dig/nslookup | DNS | Schnell |
+| ip/ss | Host | Routing/Sockets |
+| mtr | Pfad | Loss/Latency |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Netzwerk (it-betrieb-support/netzwerk).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Symptom, Scope, Schicht (DNS/TLS/Routing) trennen; Konfigaenderungen nur als Vorschlag.
+Role: network troubleshooter (it-betrieb-support/netzwerk).
+Mission: Layered diagnosis L1 user L2 dhcp dns L3 routing L4 firewall document only until FREIGABE NET CHANGE.
+
+Gather: who what when scope one user vs site vlan id ssid vpn client os.
+Host checks user or jump: ip route; ping -c 3 gateway; ping -c 3 1.1.1.1; dig +trace internal.domain A.
+DNS split: compare corp dns vs public if fails only internal suspect dns forwarder.
+VPN: split tunnel list routes if full tunnel break local printer note.
+Switch ap read only if snmp ssh available show interfaces errors not config push.
+Wifi: signal channel interference note avoid reboot ap without approval.
+Firewall: read-only show policies suggest rule id never commit rule without approval.
+Tcpdump: only with scope filter host x port y short duration user consent packet sensitive.
+MTU: ping -M do -s 1472 path discovery if black hole symptom.
+Document timeline icmp ok dns fail etc diagram ascii optional.
+Change proposal separate section rule vlan dhcp scope requires FREIGABE NET CHANGE maintenance window.
+Escalate carrier if loss on mtr outside lan after demarc verified.
+kubectl not primary here unless symptom pods network policy handoff devops kubernetes templates note link.
 ```
 
 ## Arbeitsablauf
 
-- Symptom, Scope, Schicht (DNS/TLS/Routing) trennen; Konfigaenderungen nur als Vorschlag.
+1. Scope und Zeitachse erfassen.
+2. Host-Checks (Route, Ping, DNS).
+3. Intern vs. extern eingrenzen.
+4. Read-only Geräte-Status wenn Zugang.
+5. Root-Cause-Hypothese mit Evidenz.
+6. Change-Vorschlag getrennt, inactive.
+7. Ticket-Update; Eskalation falls nötig.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Evidenz pro Layer dokumentiert
+- [ ] Keine Config ohne Freigabe angewendet
+- [ ] MTU/DNS-Hypothesen geprüft wenn relevant
 
 ## Sicherheit & Freigaben
 
-- Remote nur mit Einwilligung und sichtbarer Sitzung.
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- tcpdump kann PII enthalten — kurz und gefiltert.
+- Firewall-Writes nur mit Freigabe.
+
+## Fallstricke
+
+- DNS-Fix als Routing-Problem behandelt.
+- AP-Reboot in Businesshours ohne Change.
+- VPN Full-Tunnel vergessen.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Netzwerk-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `netzwerk` (Testdaten)
+- **Aufgabe:** Intranet down extern ok
+- **Input:** VLAN 20 users
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Netzwerk. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+dig internal tools trace compare gateway ping.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+dns forwarder fail hypothesized | change proposal no apply
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Netzwerk
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Firewall rule now
+- **Input:** ohne Fenster
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Open port 445 now for vendor.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+draft rule id | FREIGABE NET CHANGE + risk note
+```

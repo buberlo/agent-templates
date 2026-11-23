@@ -6,100 +6,122 @@ category: mobile-phone-control
 tags:
   - mobile
   - automatisierung
-  - climcp
+  - mobile-mcp
 target_agents:
   - hermes
   - grokbot
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: Mobilerun (ehem. DroidRun)
-    install: "https://github.com/droidrun/mobilerun"
-    version_notes: "10100 GitHub Stars"
   - name: Mobile MCP
     install: "https://github.com/mobile-next/mobile-mcp"
-    version_notes: "10819 GitHub Stars"
+    version_notes: "stdio MCP; adb prerequisites"
+  - name: Mobilerun (ehem. DroidRun)
+    install: "https://github.com/droidrun/mobilerun"
+    version_notes: "CLI parallel nur wenn Nutzer will"
 inputs:
-  - "Kontext/Briefing für Mobile- und Phone-Control"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Client-Plattform und aktive MCP-Liste"
+  - "Android vs iOS vs Companion-App"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Empfohlene MCP/Companion-Kombination"
+  - "Precheck-Kommandos (adb, Simulator)"
+risk_level: medium
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Android/iOS-Geräte steuern (Mobilerun, mobile-mcp, OpenClaw-Companion).
+**mobile-mcp vs. Mobilerun vs. Companion** routen: minimales Setup, adb-Voraussetzungen, Policy für High-Risk-Aktionen vor der ersten Tap.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Mobile- und Phone-Control**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Vor einer Mobile-Automation-Session Tool-Landschaft klären.
+- Fehler „kein Gerät gefunden“ → Precheckliste.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Mobilerun (ehem. DroidRun) | CLI + MCP | Aus Recherche 2026-11-23 |
-| Mobile MCP | MCP | Aus Recherche 2026-11-23 |
-| OpenClaw Android App (Companion) | Companion-App | Aus Recherche 2026-11-23 |
+| Mobile MCP | UI automation | MCP-native Agenten |
+| Mobilerun | CLI | Skriptbare Android-Flows |
+| OpenClaw Companion | Relay | Nicht Agent-Host |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Mobile- und Phone-Control (automatisierung/mobile-phone-control).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Geraet sichtbar lassen, Aktionen bestaetigen lassen wo die Plattform das verlangt.
+Role: mobile MCP advisor (automatisierung/mobile-phone-control-mcp-focus).
+Mission: Select one primary control plane; document adb/simulator prerequisites.
+
+Android path: platform-tools; USB debugging; adb devices authorized.
+Mobile MCP config: add server mobile-mcp; prefer accessibility tree taps.
+Mobilerun: when user wants shell scripts without full MCP snapshot cost.
+Do not run Mobilerun and Mobile MCP competing taps same session.
+High risk: FREIGABE MOBILE SEND token in parent workflow.
+Precheck: adb version; adb devices -l; package grep fragment.
+Handoff to mobile-phone-control-workflow after tool choice frozen.
+
+Document emulator vs physical device policy; emulators may lack SMS/telephony.
+Simulator iOS path uses Xcode tools—not interchangeable with Android adb.
 ```
 
 ## Arbeitsablauf
 
-- Geraet sichtbar lassen, Aktionen bestaetigen lassen wo die Plattform das verlangt.
+1. Plattform und Gerätetyp erfragen.
+2. Precheck-Kommandos ausgeben.
+3. Mobile MCP vs Mobilerun entscheiden.
+4. include-Liste vorschlagen.
+5. High-Risk-Policy nennen.
+6. Verweis auf Workflow-Template.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Genau ein primäres Steuerungs-Tool empfohlen
+- [ ] adb Precheck dokumentiert
+- [ ] FREIGABE MOBILE SEND erwähnt
 
 ## Sicherheit & Freigaben
 
-- Cloud-MCP-Keys schuetzen. Companion ist nicht der Agent-Host.
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Companion-App ≠ Speicher für API-Keys.
+
+## Fallstricke
+
+- Zwei Steuerungen parallel → Ghost-taps und doppelte Sends.
+- MCP ohne adb auf PATH → sofortiger Fehler; `which adb` vor Session.
+- Full-page MCP-Screenshots teuer im Token-Budget — Accessibility-Tree bevorzugen.
+- USB-Debugging auf fremden Geräten ohne Owner-Freigabe — verboten.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Mobile- und Phone-Control-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `mobile-phone-control` (Testdaten)
+- **Aufgabe:** Toolwahl Android QA
+- **Input:** Hermes, USB-Gerät
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Mobile- und Phone-Control. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Which MCP for tap-through staging app?
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+mobile-mcp primary | adb devices checklist
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Mobile- und Phone-Control
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** iOS ohne Mac
+- **Input:** Windows host
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Automate iOS app on real iPhone.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+block or cloud farm | no false promise local iOS
+```

@@ -1,6 +1,6 @@
 ---
 id: context-token-management-mcp-focus
-title: "Context- und Token-Management: MCP/Skill-Fokus"
+title: "Kontext- und Token-Management: MCP/Skill-Fokus"
 domain: ki-ops
 category: context-token-management
 tags:
@@ -13,105 +13,110 @@ target_agents:
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: Playwright MCP
-    install: "https://github.com/microsoft/playwright-mcp"
-    version_notes: "40040 GitHub Stars"
-  - name: Context7
-    install: "https://github.com/upstash/context7"
-    version_notes: "65314 GitHub Stars"
+  - name: Hermes MCP settings
+    install: "https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp"
+    version_notes: "include/exclude"
 inputs:
-  - "Kontext/Briefing für Context- und Token-Management"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Client (Hermes/OpenClaw/Cursor) und MCP-Count"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Konkrete include/exclude Konfiguration"
 risk_level: low
-example_count: 3
-version: "1.0.0"
+example_count: 2
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Tool-Schema-Overhead, Lazy Loading, CLI statt fetter MCPs, Prompt-Budgets.
+**MCP-Konfiguration für Tokenkosten** optimieren: include/exclude, Tool-Policy, Skills — bevor das erste Tool geladen wird.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Context- und Token-Management**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Setup neuer Agent-Maschine mit großem MCP-Katalog.
+- Schulung: „warum ist mein Kontext voll?“
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Playwright MCP | MCP | Aus Recherche 2026-11-23 |
-| Context7 | MCP / Plattform | Aus Recherche 2026-11-23 |
-| Hermes tools.include / exclude und MCP-F | Config | Aus Recherche 2026-11-23 |
+| Hermes include/exclude | Filter | Offizielle Doku |
+| OpenClaw tool policy | Deny/allow | Skills getrennt |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Context- und Token-Management (ki-ops/context-token-management).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Baseline-Tokenverbrauch ohne Frage messen, dann Server abschalten bis der Stack tragbar ist.
+Role: MCP config specialist (ki-ops/context-token-management-mcp-focus).
+Mission: Output exact config snippets for user's client—default deny heavy catalog entries.
+
+Hermes pattern: include only task mcps in session yaml; exclude default bundle playwright if not needed.
+Example include list comment: motherduck, github-readonly not github-write until approved.
+OpenClaw: tool.policy deny playwright devtools until user tag #browser-task in message.
+Cursor: dynamic servers list—toggle off unused integrations in settings before agent run.
+Measure: recommend user count tools in first turn if product exposes tool count metric.
+Skills catalog: install one skill not entire category from clawhub leaderboard.
+Cross reference context-token-management-workflow for phased enablement plan.
+Grok plugins oauth backend—trim X large tool namespaces if task unrelated social.
+Never advise embedding full mcp catalog json in system prompt custom field.
+Document restart requirement if client needs restart after config change.
+Provide rollback: save previous include file copy path suggested.
 ```
 
 ## Arbeitsablauf
 
-- Baseline-Tokenverbrauch ohne Frage messen, dann Server abschalten bis der Stack tragbar ist.
+1. Client und geschätzte MCP-Anzahl erfassen.
+2. Aufgabenklassen für nächste Woche priorisieren.
+3. include/exclude oder tool.policy Snippet schreiben.
+4. Schwere Server identisch benennen wie in Katalog.
+5. Testsession mit „list tools“ falls möglich.
+6. An `context-token-management-workflow` für laufende Sessions verweisen.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Copy-paste-fähige Config
+- [ ] Rollback-Hinweis
+- [ ] Schwere MCPs standardmäßig aus
 
 ## Sicherheit & Freigaben
 
-- MCP-Toolschemas können den Kontext stark belasten, noch bevor die erste Frage kommt. In r/ClaudeAI berichtete ein Nutzer von 67.000 Token Overhead. Quelle: https://www.reddit.com/r/ClaudeAI/comments/1ryz7zp/i_measured_my_mcp_token_overhead_67k_tokens/
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF
+- Config-Dateien keine API-Keys.
+
+## Fallstricke
+
+- `include` ohne `exclude` → Rest trotzdem geladen je nach Client.
+- Config nicht neu geladen → Nutzer denkt es wirkt; Session-Neustart nötig.
+- Playwright-/Browser-MCPs aktiv lassen, obwohl nur Lesen nötig war — 5k vs 114k Token pro Snapshot in Community-Vergleichen.
+- Hermes/OpenClaw Tool-Policy und Skill-Ceiling werden unabhängig voneinander gesetzt — beide prüfen.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Context- und Token-Management-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `context-token-management` (Testdaten)
+- **Aufgabe:** Hermes Daten-Session
+- **Input:** DuckDB report
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Context- und Token-Management. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+mcp include exclude snippet.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+include motherduck filesystem | exclude playwright firecrawl x
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Context- und Token-Management
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Alles an
+- **Input:** power user 25 mcps
 - **Prompt:**
-```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
-```
-- **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
 
-### Beispiel 3 (Praxisbeispiel)
-
-- **Aufgabe:** Messen, wie viele Tokens bereits geladene MCP-Server verbrauchen, bevor eine Frage gestellt wird.
-- **Input:** Der bestehende MCP-Stack des Autors in Claude. Die genaue Serverliste im First Post konnte in dieser Recherche nicht vollstaendig geladen werden (Reddit-Seite weitgehend ohne Beitragstext).
-- **Prompt:**
 ```text
-Mehrere gleichzeitig aktivierte MCP-Server in einem Claude-Setup.
+Keep all enabled for flexibility.
 ```
+
 - **Erwartetes Ergebnis:**
-  Threadtitel und Suche geben die Messung mit 67.000 Tokens Overhead an, bevor die erste Frage eingegeben wurde.
-- **Quelle:** https://www.reddit.com/r/ClaudeAI/comments/1ryz7zp/i_measured_my_mcp_token_overhead_67k_tokens/
+
+```text
+warn overhead | propose profile sets dev browser data
+```

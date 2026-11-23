@@ -6,97 +6,125 @@ category: backup-restore
 tags:
   - backup
   - it-betrieb-support
-  - skillcli
 target_agents:
   - hermes
   - claude-code
   - cursor
   - generic-mcp-agents
 required_tools:
-  - name: Hermes-Skill google-workspace / gws CLI
-    install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "Bundled-Katalog."
+  - name: Backup platform
+    install: "Veeam / Restic / Borg / cloud native"
+    version_notes: "3-2-1 Regel"
 inputs:
-  - "Kontext/Briefing für Backup und Restore"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "System, RPO/RTO, letzte erfolgreiche Backup-ID"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Restore-Plan"
+  - "Test-Restore-Protokoll"
+risk_level: high
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Sicherungen prüfen, Restore-Pläne und Job-Status, ohne zerstörerische Schritte ohne Freigabe.
+**Backup prüfen und Restore planen**: 3-2-1, Test-Restores, keine Live-Restore auf Prod ohne Freigabe und Isolate-Netz.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Backup und Restore**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Backup-Fail Alerts, Ransomware-Verdacht Vorbereitung.
+- Quartals-Test-Restore.
+
+**Wann nicht**
+
+- Produktions-Overwrite-Restore ohne Change Advisory.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill google-workspace / gws CLI | Skill + CLI | Aus Recherche 2026-11-23 |
+| Backup console | Status | Jobs |
+| Isolated VLAN | Test restore | Sicher |
+| Checksums | Integrität | restic/borg |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Backup und Restore (it-betrieb-support/backup-restore).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: backup restore engineer (it-betrieb-support/backup-restore).
+Risk HIGH on prod restore—verify backup id chain before any overwrite.
+
+Inventory: system criticality rpo rto backup job name schedule last success last failure alert id.
+Verify job: read job log last run bytes duration errors ransomware note immutable repo if available.
+Restore classes: file level vm level db level different runbooks do not mix.
+Test restore quarterly: isolated network no production vlan no dns registration document vm name suffix -restore-test.
+Prod restore requires FREIGABE RESTORE PROD dual approval security plus app owner.
+Ransomware: do not restore from suspect backup without clean snapshot age verify offline copy.
+Db restore: recovery point timeline coordinate app shutdown order document transaction log chain.
+Encryption: keys in vault not backup repo; test key recovery annually.
+Retention: legal hold flag never delete without legal ticket.
+Documentation: step by step restore with expected duration copy paths permissions checklist.
+Post restore: antivirus scan before rejoin domain patch gap since backup note.
+kubectl pv restore if k8s handoff snapshot class doc velero if used link devops domain note.
+Failure: if backup missing escalate immediately do not promise recovery.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. RPO/RTO und letzten Erfolg prüfen.
+2. Backup-Job-Logs lesen.
+3. Restore-Typ wählen (File/VM/DB).
+4. Test-Restore isoliert planen/ausführen.
+5. Prod-Restore nur mit Freigaben und CAB.
+6. Post-Restore-Validation (AV, Patchstand).
+7. Ticket und Lessons Learned.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Backup-Kette für Zielpunkt verifiziert
+- [ ] Test-Restore isoliert dokumentiert
+- [ ] Prod-Restore mit dual approval
 
 ## Sicherheit & Freigaben
 
-- Remote nur mit Einwilligung und sichtbarer Sitzung.
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- high risk Prod-Overwrite.
+- Ransomware-Restore nur mit Security.
+
+## Fallstricke
+
+- Restore in Prod-VLAN → Reinfektion.
+- DB ohne App-Stop → inconsistent.
+- Nur ein Backup-Medium → kein 3-2-1.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Backup und Restore-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `backup-restore` (Testdaten)
+- **Aufgabe:** File restore one share
+- **Input:** backup id 2026-11-22 file /data/report.xlsx
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Backup und Restore. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Plan file restore alternate path verify checksum.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+restore plan | checksum match | not overwrote prod path
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Backup und Restore
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Full VM overwrite prod
+- **Input:** ohne CAB
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Restore Friday backup over prod vm now.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+FREIGABE RESTORE PROD required | isolate option proposed
+```

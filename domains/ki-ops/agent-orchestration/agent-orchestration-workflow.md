@@ -4,97 +4,132 @@ title: "Agent-Orchestrierung"
 domain: ki-ops
 category: agent-orchestration
 tags:
-  - agent
+  - agents
   - ki-ops
-  - skill
+  - orchestration
 target_agents:
   - hermes
   - grokbot
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: Hermes-Skills claude-code, codex, hermes-agent
-    install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "Bundled."
+  - name: Hermes multi-agent
+    install: "https://hermes-agent.nousresearch.com/docs/"
+    version_notes: "Subagents, MCP include"
+  - name: OpenClaw workflows
+    install: "https://docs.openclaw.ai/"
+    version_notes: "Tool policy, skills"
 inputs:
-  - "Kontext/Briefing für Agent-Orchestrierung"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Aufgaben-DAG (wer macht was, Übergaben)"
+  - "MCP-Set pro Subagent"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
-risk_level: low
+  - "Orchestrierungs-Plan"
+  - "Handoff-Payload-Schema"
+risk_level: medium
 example_count: 2
-version: "1.0.0"
+version: "1.1.0"
 updated: "2026-11-23"
 ---
 
 ## Zweck
 
-Delegation an Subagents, Claude Code/Codex, Multi-Agent-Teams und Gates.
+Mehrere Agenten **koordiniert** einsetzen: klarer DAG, minimale MCP pro Rolle, strukturierte Handoffs — ohne unkontrolliertes paralleles Schreiben.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Agent-Orchestrierung**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Research → Code → Review Pipeline.
+- Spezialist pro Domain mit Supervisor.
+
+**Wann nicht**
+
+- Ein-Schritt-Fragen mit einem Agenten.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skills claude-code, codex, hermes | Skill | Aus Recherche 2026-11-23 |
+| Supervisor-Prompt | Routing | Eine Quelle der Wahrheit |
+| Subagent-MCP filter | Scope | Token sparen |
+| Shared artifact dir | Handoff | JSON/MD |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Agent-Orchestrierung (ki-ops/agent-orchestration).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Grobe Planung im Orchestrator, Implementation im Coding-Agent, Review getrennt.
+Role: agent orchestration architect (ki-ops/agent-orchestration).
+Mission: Design DAG with single writer per resource and explicit handoff schema.
+
+Roles: supervisor plans only; workers execute; critic read-only except comments.
+Each worker max 3 MCPs enabled list in charter.
+Handoff payload json schema: task_id, inputs, artifacts[], blocked_reason nullable, next_agent.
+Supervisor never calls destructive tools directly—delegate with approval token if needed.
+Parallelism: only independent read branches; never parallel writes same ticket/db.
+Token budget: supervisor summarizes worker output max 2k tokens into decision memo.
+Failure: worker returns structured error code; supervisor retries or escalates human.
+Idempotency: handoff include run_id uuid to detect duplicate worker starts.
+Security: secrets stay in worker with vault mcp not in supervisor transcript.
+Observability: log agent name tool count duration artifacts list per step.
+Human gate: FREIGABE ORCH PROD before any worker with risk high executes.
+Testing: dry run with mock artifacts before live MCP.
+Anti-pattern: 10 subagents all with playwright—consolidate browser step one worker.
 ```
 
 ## Arbeitsablauf
 
-- Grobe Planung im Orchestrator, Implementation im Coding-Agent, Review getrennt.
+1. Aufgabe in Teilprobleme zerlegen (DAG skizzieren).
+2. Pro Knoten Rolle, MCP-Set, risk_level festlegen.
+3. Handoff-JSON-Schema definieren.
+4. Supervisor-Prompt und Worker-Charters schreiben.
+5. Dry-Run mit Mock-Daten.
+6. Live-Run mit Logs und Run-ID.
+7. Postmortem: Token und Fehlerpfade.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Ein Schreiber pro Ressource
+- [ ] Handoff-Schema validiert
+- [ ] MCP-Liste pro Worker ≤3 sinnvoll
 
 ## Sicherheit & Freigaben
 
-- Unkontrollierte Rekursion / Kosten. Grok Bot: seit 0.71.2 bis zu 200 Plugin-Skills (Wiki).
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- High-risk Worker nur mit FREIGABE ORCH PROD.
+- Keine Secrets in Supervisor-History.
+
+## Fallstricke
+
+- Supervisor führt Tools selbst aus → Scope creep.
+- Parallele CRM-Writes → Duplikate.
+- Ungebundene Handoffs → Kontextverlust.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Agent-Orchestrierung-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `agent-orchestration` (Testdaten)
+- **Aufgabe:** Research then patch PR
+- **Input:** bug report url
 - **Prompt:**
+
 ```text
-Nutze den empfohlenen Stack für Agent-Orchestrierung. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+DAG: researcher read-only exa, coder terminal gh, reviewer read diff only.
 ```
+
 - **Erwartetes Ergebnis:**
+
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+orchestration.md | handoff schema | mcp per role listed
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Agent-Orchestrierung
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Parallel delete
+- **Input:** two workers same db
 - **Prompt:**
+
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Speed up by parallel agents cleaning database.
 ```
+
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+
+```text
+reject parallel write | sequential with single writer
+```
