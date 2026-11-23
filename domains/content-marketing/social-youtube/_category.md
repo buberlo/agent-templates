@@ -1,40 +1,40 @@
 # Social: YouTube-Marketing
 
 - **Domain:** `content-marketing`
-- **Kategorie:** `social-youtube`
-- **Stand:** 2026-11-23
+- **Category:** `social-youtube`
+- **As of:** 2026-11-23
 
-## Kurzbeschreibung
+## Summary
 
-Titel, Beschreibungen, Thumbnails-Briefings und Community-Posts, getrennt vom reinen Transkript-Workflow.
+Titles, descriptions, thumbnails briefings and community posts, separate from the pure transcript workflow.
 
-## Empfohlener Tool-Stack
+## Recommended tool stack
 
 - Schreibende Skills + Humanizer
-- Suche/Crawl fuer Fakten
-- Kanal-APIs nur mit Freigabe zum Veroeffentlichen
+Search/crawl for facts
+Channel APIs only with release
 
-## MCP-Server und Skills
+## MCP servers and skills
 
-| Name | Typ | URL | Einsatz | Installation | Popularitaet | Quelle | Unverified? |
+| Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| Brave Search MCP | MCP | https://github.com/brave/brave-search-mcp-server | Websuche ueber Brave Search API. | Offizielles Brave-Repo. | 1.585 Stars | https://github.com/brave/brave-search-mcp-server | nein (so belegt) |
-| Firecrawl MCP | MCP | https://github.com/firecrawl/firecrawl-mcp-server | Websuche, Scraping und Crawling als Kontext fuer Agenten. | Offizielles MCP-Repo, typisch npx oder hosted laut README. | 7.886 Stars; Upstream 207.417 Stars | https://github.com/firecrawl/firecrawl-mcp-server | nein (so belegt) |
+| Brave Search MCP | MCP | https://github.com/brave/brave-search-mcp-server | Websuche ueber Brave Search API. | Offizielles Brave-Repo. | 1.585 Stars | https://github.com/brave/brave-search-mcp-server | no (as cited) |
+--------------------------------------------------------------------------------------------------------------------------------------------------- -- Zwerg-raft read---≡---entizz;es, Upstream 207.417 Stars | https://github.com/firecrawl/firecrawl-mcp-server | no (as cited) |
 
-## Typische Workflows
+## Typical workflows
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+- Set task, allowed tools and definition of done.
+- Read/research first, then draft, then release for effective steps.
+- Reread output (file, URL, ticket) and specify source.
 
-## Fallstricke
+## Pitfalls
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Skills are workflows/instructions (progressive disclosure), MCP are connections and tools. Combine both, do not confuse. Sources: https://code.claude.com/docs/en/features-overview, https://github.com/ComposioHQ/awesome-claude-skills
+Activate only the MCPs/Skills that the task needs. Hertres filters per include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp
+xixixixixixixixixixixixiexixixixixixixixi among treated themselves matter matter  the  brief CH con -- sat-  --anne remainlocxixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixi general conxixixixixixixixixixixixixixi-xixixixixixixixixixixixixixixixixixixi-xixi their-- xixixixixixixixixixixixixixixixixi con spending conxixixi, xixixixixixixixixixixie conxiexixixixixixixixixixixixixixixixixixixixixixixixixixixixixixi conxixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixixi Grok-Bot-Wiki: OAuth tokens remain on the connector backend; Command servers must not contain credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- write, send, pay, deploy and delete only after explicit release; good document skills require a Verify step (read file again, render PDF/PNG).
 
-## Quellen
+## Sources
 
 - https://github.com/brave/brave-search-mcp-server
 - https://github.com/firecrawl/firecrawl-mcp-server

@@ -13,37 +13,38 @@ target_agents:
   - generic
 required_tools:
   - name: terminal
-    install: "Shell des Agenten"
-    version_notes: "Domain-Default laut Recherche"
+    install: "Agent shell"
+    version_notes: "Domain default per research"
 inputs:
-  - "Kontext/Briefing für CAD"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Context/briefing for CAD"
+  - "Files, URLs, or IDs per task"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Documented result (file, report or ticket-update)"
 risk_level: low
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
 
-CAD-Modelle und technische Zeichnungen in FreeCAD, OpenSCAD oder KiCad-nah planen und Parameter dokumentieren.
+## Purpose
 
-## Wann nutzen
+CAD-Modelle and technische Zeichnungen in FreeCAD, OpenSCAD or KiCad-nah planen and Parameter dokumentieren.
 
-- Mechanisches Gehäuse oder Halterung parametrische Skizze.
-- STL-Export und Maßtoleranzen für 3D-Druck vorbereiten.
-- Nicht für sicherheitskritische Bauteile ohne Ingenieur-Freigabe.
+## When to use
 
-## Tool-Stack
+- Mechanisches housing or Halterung parametrische Skizze.
+- STL-export and Masstoleranzen for 3D-Druck vorbereiten.
+- Not for safety-critical parts without engineer approval.
 
-| Tool | Rolle | Begründung |
+## Tool stack
+
+| Tool | Role | Rationale |
 |------|-------|------------|
-| Lokale Entwicklungsumgebung | Build & Flash | arduino-cli, idf.py, openocd, slicer-CLIs laut Projekt — nur mit freigegebenen Pfaden. |
-| Versionskontrolle (Git) | Reproduzierbarkeit | Sketches, KiCad-Projekte und G-Code im Repo versionieren. |
+| Lokale Entwicklungsumgebung | Build & Flash | arduino-cli, idf.py, openocd, slicer-CLIs per Projekt — only with freigegebenen Pfaden. |
+| Versionskontrolle (Git) | Reproduzierbarkeit | sketches, KiCad-Projekte and G-Code in Repo versionieren. |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Role: Mechanical CAD drafting assistant (hardware-embedded/cad).
@@ -63,54 +64,54 @@ Drawing notes Deutsch/English per user; GD&T only if user supplied standards.
 Close with export filenames and revision id in a short recap.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. Anwendungsfall, Maße, Schnittstellen klären.
-2. Parameterliste und Toleranzen.
+1. Anwendungsfall, Masse, Schnittstellen klaren.
+2. Parameterliste and Toleranzen.
 3. Modellstrategie (OpenSCAD vs FreeCAD).
 4. Entwurf + BOM Entwurf.
 5. Export-Checkliste STL/STEP.
-6. Review mit Nutzer Screenshots oder Metriken.
+6. Review with user Screenshots or Metriken.
 7. Revisionseintrag dokumentieren.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
-- [ ] Toleranzen auf kritischen Maßen
+- [ ] Toleranzen on kritischen Massen
 - [ ] Parameternamen dokumentiert
 - [ ] Export-Settings notiert
 - [ ] Sicherheitskritisch → Ingenieur-Hinweis
 
-## Sicherheit & Freigaben
+## Security
 
-- Keine Anleitungen für gefährliche Hochspannung oder defekte Netzteile ohne Fachperson.
-- Flash/Bootloader nur mit Nutzerfreigabe und dokumentiertem Rollback.
-- Seriennummern und Standortdaten in Logs minimieren.
+- No Anleitungen for gefahrliche high voltage or defekte power supplies without qualified person.
+- Flash/Bootloader only with Nutzerfreigabe and dokumentiertem Rollback.
+- Seriennummern and Standortdaten in Logs minimieren.
 
-## Fallstricke
+## Pitfalls
 
-- Nicht-manifold STL.
+- Non-manifold STL.
 - Z-Achse Druckorientierung ignoriert.
-- KiCad Outline nicht synchron.
-- Schraubenloch ohne Gewindetyp.
+- KiCad Outline not synchron.
+- Schraubenloch without Gewindetyp.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Raspberry Pi Gehäuse OpenSCAD
-- **Input:** Pi 4, Lüfter 30mm, USB-Buchse Ausschnitt
+- **Task:** Raspberry Pi housing OpenSCAD
+- **Input:** Pi 4, Lufter 30mm, USB-Buchse Ausschnitt
 - **Prompt:**
 ```text
 Parametric wall 2.4mm, Pi board dims als Variablen.
 ```
-- **Erwartetes Ergebnis:** case.scad mit 6 Variablen; render Anweisung; BOM 4 Schrauben M3.
-### Beispiel 2 (Beispieldaten)
+- **Expected result:** case.scad with 6 Variablen; render Anweisung; BOM 4 Schrauben M3.
+### Example 2 (Example data)
 
-- **Aufgabe:** FreeCAD Halter Sensor
-- **Input:** SK1 M4 Löcher 40mm Raster
+- **Task:** FreeCAD Halter Sensor
+- **Input:** SK1 M4 Locher 40mm Raster
 - **Prompt:**
 ```text
 Skizze + Pad + Polar Array; DXF Export Montageplatte.
 ```
-- **Erwartetes Ergebnis:** Schritte nummeriert; Toleranz ±0.2mm Loch; keine STEP ohne Freigabe.
+- **Expected result:** Schritte nummeriert; Toleranz ±0.2mm Loch; no STEP without approval.
 

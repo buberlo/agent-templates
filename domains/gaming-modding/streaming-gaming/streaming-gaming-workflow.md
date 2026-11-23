@@ -1,6 +1,6 @@
 ---
 id: streaming-gaming-workflow
-title: "Gaming-Streaming"
+title: "Gaming streaming"
 domain: gaming-modding
 category: streaming-gaming
 tags:
@@ -13,37 +13,38 @@ target_agents:
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: unreal-engine MCP (Hermes-Katalog)
+  - name: unreal-engine MCP (Hermes catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/unreal-engine"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
+    version_notes: "Nous-approved optional-mcps catalog entry (listing 2026-11-23)."
 inputs:
-  - "Kontext/Briefing für Gaming-Streaming"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Context/briefing for Gaming-Streaming"
+  - "Files, URLs, or IDs per task"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Documented result (file, report or ticket-update)"
 risk_level: low
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
 
-Streaming-Setup für Gaming: Szenen, Overlays, Audio-Routing und Clip-Workflows dokumentieren.
+## Purpose
 
-## Wann nutzen
+Streaming-Setup for Gaming: Szenen, Overlays, Audio-Routing and Clip-Workflows dokumentieren.
 
-- OBS/Streamlabs-Layout und Hotkeys für neues Setup planen.
-- Overlay-Branding und Alert-Tests vorbereiten.
-- Nicht für unbefugtes Restreaming urheberrechtlich geschützter Inhalte.
+## When to use
 
-## Tool-Stack
+- OBS/Streamlabs-Layout and Hotkeys for neues Setup planen.
+- Overlay-Branding and Alert-Tests vorbereiten.
+- Not for unbefugtes Restreaming urheberrechtlich geschutzter Inhalte.
 
-| Tool | Rolle | Begründung |
+## Tool stack
+
+| Tool | Role | Rationale |
 |------|-------|------------|
-| unreal-engine MCP (Hermes-Katalog) | Engine-Integration | Wenn Hermes unreal-engine MCP installiert ist: Editor-Aktionen dokumentieren. |
+| unreal-engine MCP (Hermes catalog) | Engine-Integration | Wenn Hermes unreal-engine MCP installiert ist: Editor-Aktionen dokumentieren. |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Role: Gaming stream setup assistant (gaming-modding/streaming-gaming).
@@ -63,55 +64,55 @@ Copyright: game capture generally allowed per publisher; music DMCA risk highlig
 Test stream checklist private/unlisted before public go-live.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. Plattform, Auflösung, Hardware und Spiel festlegen.
-2. Szenenliste und Quellenstruktur entwerfen.
+1. Plattform, Auflosung, Hardware and game festlegen.
+2. Szenenliste and Quellenstruktur entwerfen.
 3. Audio-Routing-Diagramm in Text.
-4. Overlay-Dateipfade und Branding-Farben.
-5. Hotkeys-Tabelle und Backup der scene collection.
+4. Overlay-Dateipfade and Branding-Farben.
+5. Hotkeys-Tabelle and Backup the scene collection.
 6. Test-Stream-Checkliste.
 7. Clip-Nachbearbeitungs-Workflow skizzieren.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
 - [ ] DMCA-Hinweis Musik
-- [ ] Keine Copyright-Restreams
+- [ ] No Copyright-Restreams
 - [ ] OBS-Export beschrieben
 - [ ] Test-Stream vor Public
 
-## Sicherheit & Freigaben
+## Security
 
-- Nur legale Kopien, eigene Server oder vom Entwickler erlaubte Modding-Workflows.
-- Keine Crack-, Keygen- oder DRM-Umgehungsanleitungen.
-- Änderungen an Live-Servern oder Mod-Uploads nur nach Freigabe.
-- Keine Veröffentlichung privater Chats in Overlays.
+- Nur legale Kopien, eigene Server or from Entwickler erlaubte Modding-Workflows.
+- No Crack-, Keygen- or DRM-Umgehungsanleitungen.
+- Anderungen an Live-Servern or Mod-Uploads only nach approval.
+- No Veroffentlichung privater Chats in Overlays.
 
-## Fallstricke
+## Pitfalls
 
 - Game Capture vs Display Capture falsche Wahl Vollbild.
 - Mikrofon-Monitoring Feedback-Schleife.
 - NVENC Treiber zu alt — in Checkliste.
-- Alert-Volume ohne Limiter.
+- Alert-Volume without Limiter.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** OBS Szenen für Soulslike
+- **Task:** OBS Szenen for Soulslike
 - **Input:** 1080p60 NVENC, ein Monitor, Discord Voice
 - **Prompt:**
 ```text
-Szenen + Hotkeys F1–F4 und Audio-Bus Tabelle.
+Szenen + Hotkeys F1–F4 and Audio-Bus Tabelle.
 ```
-- **Erwartetes Ergebnis:** Markdown 6 Szenen; Discord-Quelle Separat; Test-Stream 6 Punkte.
-### Beispiel 2 (Beispieldaten)
+- **Expected result:** Markdown 6 scenes; Discord source separately; Test stream 6 points.
+### Example 2 (Example data)
 
-- **Aufgabe:** Highlight Clips Workflow
+- **Task:** Highlight Clips Workflow
 - **Input:** Replay Buffer 120s, YouTube Highlights Upload
 - **Prompt:**
 ```text
-Namenskonvention und Export Schritte ohne automatischen Upload.
+Namenskonvention and export Schritte without automatischen Upload.
 ```
-- **Erwartetes Ergebnis:** Ordnerstruktur clips/YYYY-MM-DD_title.md; Upload manuell Schrittfolge.
+- **Expected result:** Ordnerstruktur clips/YYYY-MM-DD_title.md; Upload manuell Schrittfolge.
 

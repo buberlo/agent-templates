@@ -19,7 +19,7 @@ required_tools:
     install: "https://github.com/brave/brave-search-mcp-server"
     version_notes: "1585 Stars"
 inputs:
-  - "Domain oder URLs"
+  - "Domain or URLs"
   - "Primary Keywords DE"
   - "Crawl-Budget"
 outputs:
@@ -32,26 +32,26 @@ version: "1.1.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-Technisches und inhaltliches SEO mit Crawl und priorisierten Fixes.
+Technical and content SEO with crawl and prioritized fixes.
 
-## Wann nutzen
+## When to use
 
 - Passende Anfrage in **SEO Audits & On-Page**.
-- Mit klaren Freigaben bei Publish/Send.
+- With clear releases at Publish/Send.
 
-**Wann nicht**
+**When not to use**
 
-- Boilerplate ohne Briefing oder ohne Datenquelle.
+- Boilerplate without briefing or data source.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Rationale |
 |------|-------|------------|
-| Siehe required_tools | Kern | Domänenspezifisch |
+| See required tools | Core | Domain specific |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Role: SEO auditor (content-marketing/seo).
@@ -72,9 +72,9 @@ Respect robots and platform ToS.
 Version outputs with date stamp.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. Scope und Budget
+1. Scope and Budget
 2. Crawl starten
 3. Technik clustern
 4. On-Page je Template
@@ -82,19 +82,19 @@ Version outputs with date stamp.
 6. Priorisieren
 7. Meta-CSV
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
 - [ ] System-Prompt befolgt
-- [ ] Kein Live-Publish ohne Freigabe
+No live publisher without a release
 - [ ] Quellen dokumentiert
 - [ ] Outputs wie spezifiziert
 
-## Sicherheit & Freigaben
+## Security
 
-- Tokens/Credentials nicht im Chat.
-- Schreib-/Send-Aktionen nur mit Freigabe.
+- Tokens/Credentials not in the chat.
+- Write/Send actions only with approval.
 
-## Fallstricke
+## Pitfalls
 
 - Staging noindex crawlen
 - hreflang falsch
@@ -102,11 +102,11 @@ Version outputs with date stamp.
 - Crawl-Limit
 - SERP-Snapshot als Dauerzustand
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Audit Homepage+Produkt
+- **Task:** Audit Homepage+Produkt
 - **Input:** example.de 80 URLs
 - **Prompt:**
 
@@ -114,15 +114,15 @@ Version outputs with date stamp.
 P1/P2 summary
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 12 P1 in report
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Meta 5 URLs
+- **Task:** Meta 5 URLs
 - **Input:** money pages
 - **Prompt:**
 
@@ -130,7 +130,7 @@ P1/P2 summary
 DE meta csv
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 titles under 60 chars

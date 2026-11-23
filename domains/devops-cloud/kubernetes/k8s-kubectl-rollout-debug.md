@@ -1,7 +1,7 @@
 ---
 id: k8s-kubectl-rollout-debug
+title: "Deployment Rollout and Debug with kubectl"
 domain: devops-cloud
-title: "Deployment Rollout und Debug mit kubectl"
 category: kubernetes
 tags:
   - kubectl
@@ -24,37 +24,37 @@ required_tools:
     version_notes: "Multi-Pod-Logs"
 inputs:
   - "Kubeconfig (Scope begrenzt)"
-  - "Namespace und Deployment-Name"
+  - "Namespace and Deployment Name"
   - "Symptom (CrashLoop, ImagePull, Pending)"
 outputs:
   - "Root-Cause-Zusammenfassung"
-  - "Empfohlene Remediation oder Rollback"
+  - "Empfohlene Remediation or Rollback"
 risk_level: high
+example_count: 2
 version: "1.1.0"
 updated: "2026-11-23"
-example_count: 2
 ---
 
-## Zweck
+## Purpose
 
-Fehlerhafte Kubernetes-Deployments mit read-first-Diagnose stabilisieren; Rollback nur auf Basis von Events, Logs und ReplicaSet-Historie.
+Stabilise faulty Kubernetes deployments with read-first diagnosis; Rollback only based on events, logs and ReplicaSet history.
 
-## Wann nutzen
+## When to use
 
-- CrashLoopBackOff, ImagePullBackOff oder fehlgeschlagener Rollout nach Release.
-- Prod- oder Staging-Cluster mit gültigem RBAC.
+- CrashLoopBackOff, ImagePullBackOff or fehlgeschlagener Rollout nach Release.
+Prod or staging clusters with valid RBAC.
 
-**Wann nicht:** Cluster-Upgrades oder Node-Drain (eigenes Playbook).
+**When not to use:** Cluster-Upgrades or Node-Drain (eigenes Playbook).
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Rationale |
 |------|-------|------------|
 | kubectl | Diagnose/Rollout | status, describe, logs, undo |
 | stern | Logs | `stern deploy/api -n prod` |
 | kube-capacity | optional | Pending wegen Ressourcen |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 You are a Kubernetes SRE debugging deployments (devops-cloud/kubernetes).
@@ -73,41 +73,41 @@ Do not patch live prod without change ticket reference when user supplies one.
 After remediation: kubectl rollout status until success; snapshot revision numbers.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. `kubectx` / `kubectl config use-context <cluster>` und Namespace bestätigen.
+1. `kubectx` / `kubectl config use-context <cluster>` and namespace confirm.
 2. `kubectl -n <ns> rollout status deploy/<name> --timeout=120s`.
-3. `kubectl -n <ns> get pods -l app=<label> -o wide` und failing Pod wählen.
-4. `kubectl -n <ns> describe pod <pod>` und `kubectl -n <ns> logs <pod> --previous`.
+3. `kubectl -n <ns> get pods -l app=<label> -o wide` and failing pod.
+4. `kubectl -n <ns> describe pod <pod>` and `kubectl -n <ns> logs <pod> --previous`.
 5. `stern -n <ns> -l app=<label> --since 15m` bei Flapping.
-6. Fix (Config/Secret/Image) oder nach Freigabe `kubectl rollout undo deploy/<name> -n <ns>`.
-7. `kubectl -n <ns> rollout history deploy/<name>` für Ticket-Dokumentation.
+6. Fix (Config/Secret/Image) or nach approval `kubectl rollout undo deploy/<name> -n <ns>`.
+7. of an untouched and untouched gourmand, and of an untouched and untouched goar
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
-- [ ] Root Cause benannt oder auf 1–2 Hypothesen eingegrenzt
-- [ ] Rollout wieder `Successfully rolled out` oder Rollback dokumentiert
+- [ ] Root Cause benannt or auf 1–2 Hypothesen eingegrenzt
+- [ ] Rollout wieder `Successfully rolled out` or Rollback dokumentiert
 - [ ] Alle kubectl-Befehle im Thread/Ticket
 
-## Sicherheit & Freigaben
+## Security
 
-- Prod-Kubeconfig nicht dauerhaft auf Laptop ohne Policy.
-- Schreibende kubectl-Aktionen nur im Change-Fenster und mit Freigabe.
-- Keine Secrets aus `kubectl get secret -o yaml` in Logs kopieren.
+- Prod-Kubeconfig not permanently on laptop without policy.
+- Writing kubectl actions only in the change window and with approval.
+- No Secrets aus `kubectl get secret -o yaml` in Logs kopieren.
 
-## Fallstricke
+## Pitfalls
 
 - Falscher Kontext — Classic „prod gedacht, staging getroffen“.
-- `logs` ohne `--previous` bei Restart-Loop — letzter Crash fehlt.
-- Rollback undo ohne ReplicaSet-Grund — gleiche kaputte Config bleibt.
-- Readiness schlägt fehl wegen externer Dependency — undo hilft nicht.
+- `logs` without `--previous` bei Restart-Loop — letzter Crash fehlt.
+- Rollback undo without ReplicaSet-Grund — gleiche kaputte Config bleibt.
+- Readiness fails due to external dependency - undo does not help.
 - `kubectl delete pod` als Default — verschleiert StatefulSet-/PDB-Probleme.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** API-Deployment crash nach Tag `v2.3.1`.
+- **Task:** API-Deployment crash nach Tag `v2.3.1`.
 - **Input:** Namespace `prod`, Deploy `api`.
 - **Prompt:**
 
@@ -115,7 +115,7 @@ After remediation: kubectl rollout status until success; snapshot revision numbe
 Debug CrashLoop on api in prod. Read-only until root cause; propose rollback only if secret missing.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 kubectl -n prod describe deploy/api
@@ -124,9 +124,9 @@ kubectl -n prod logs deploy/api-7d9f8b-xxxxx --previous
 kubectl -n prod rollout undo deploy/api
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** ImagePullBackOff nach Registry-Wechsel.
+- **Task:** ImagePullBackOff nach Registry-Wechsel.
 - **Input:** Pod Events `401 Unauthorized`.
 - **Prompt:**
 
@@ -134,7 +134,7 @@ kubectl -n prod rollout undo deploy/api
 List image pull events, suggest imagePullSecret fix path; no live patch without approval.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 kubectl -n staging get events --field-selector involvedObject.name=api-xxx

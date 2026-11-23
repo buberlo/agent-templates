@@ -1,7 +1,7 @@
 ---
 id: coding-terraform-aws-baseline
+title: "AWS Baseline with Terraform"
 domain: devops-cloud
-title: "AWS Baseline mit Terraform"
 category: iac-terraform
 tags:
   - terraform
@@ -14,47 +14,47 @@ target_agents:
   - generic-mcp-agents
 required_tools:
   - name: terraform
-    install: "tfenv oder HashiCorp-Releases — terraform >= 1.9"
+    install: "tfenv or HashiCorp-Releases — terraform >= 1.9"
     version_notes: "Provider aws ~> 5.x"
   - name: aws-cli
     install: "pip/apt: awscli v2"
     version_notes: "SSO-Profile empfohlen"
   - name: tflint
     install: "brew/apt: tflint"
-    version_notes: "Optional tfsec/checkov ergänzen"
+    version_notes: "Optionally add tfsec/checkov"
 inputs:
-  - "AWS Account-ID und Region"
+  - "AWS Account ID and Region"
   - "Modul-Scope (VPC, IAM, S3 State)"
   - "Umgebung (dev/stage/prod)"
 outputs:
-  - "Terraform-Root mit Backend"
+  - "Terraform root with backend"
   - "Gespeichertes Plan-Artefakt (plan.out)"
 risk_level: high
+example_count: 2
 version: "1.1.0"
 updated: "2026-11-23"
-example_count: 2
 ---
 
-## Zweck
+## Purpose
 
-Wiederholbare AWS-Baseline (VPC, IAM-Rollen, Remote State S3+DynamoDB) per Terraform — Plan-first, Apply nur mit menschlicher Freigabe.
+Repeatable AWS baseline (VPC, IAM roles, Remote State S3+DynamoDB) per Terraform — Plan-first, Apply only with human approval.
 
-## Wann nutzen
+## When to use
 
-- Greenfield-Account oder Audit-Finding „ClickOps“ in Kernnetzwerk.
-- Einheitliche Tags und State-Backend vor Team-Scale-out.
+- Greenfield-Account or Audit-Finding „ClickOps“ in Kernnetzwerk.
+- Uniform tags and state backend before team scale-out.
 
-**Wann nicht:** Live-Migrations-Schnitt ohne Wartungsfenster und Rollback-Plan.
+When, not to use: Live migration cut without maintenance window and rollback plan.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Rationale |
 |------|-------|------------|
 | terraform | IaC | fmt, validate, plan, apply |
-| aws | Identität | `aws sts get-caller-identity` vor jedem Plan |
-| tflint/tfsec | Shift-left | HIGH ohne Begründung blockiert Merge |
+| aws | identity | `aws sts get-caller-identity` before any plan |
+| tflint/tfsec | Shift-left | HIGH without justification blocks Merge |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 You are a Terraform/AWS platform engineer (devops-cloud/iac-terraform).
@@ -77,42 +77,42 @@ Output only plan and file tree until approval gate clears.
 After approved apply: capture terraform output -json redacted for ticket.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. `aws sts get-caller-identity` und Account/Region gegen Auftrag prüfen.
-2. State-Backend anlegen oder referenzieren: S3 + DynamoDB Lock (Modul oder einmalig).
+1. `aws sts get-caller-identity` and check account/region against order.
+2. State-Backend anlegen or referenzieren: S3 + DynamoDB Lock (Modul or einmalig).
 3. `terraform init -backend-config=backends/dev.hcl` im Root `infra/`.
 4. `terraform fmt -recursive && terraform validate`.
-5. `tflint --config=.tflint.hcl` und `tfsec .` (oder `checkov -d .`).
+5. `tflint --config=.tflint.hcl` and `tfsec .` (or `checkov -d .`).
 6. `terraform plan -out=plan.out -var-file=envs/dev.tfvars`.
-7. Plan-Artefakt und Summe ins Review; Apply `terraform apply plan.out` nur nach Freigabe.
+7. Plan artifact and sum in the review; Apply `terraform apply plan.out` only after approval.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
-- [ ] Remote State konfiguriert und erreichbar
-- [ ] tfsec/checkov ohne unbegründete HIGH
-- [ ] README mit Variablen, Backend und Apply-Gate
-- [ ] Plan.out dem Ticket/PR beigefügt (keine Secrets)
+- [ ] Remote State configured and accessible
+- [ ] tfsec/ item checkov without unfounded HIGH
+- [ ] README with variables, backend and apply gate
+- [ ] Plan.out attached to the ticket/PR (no secrets)
 
-## Sicherheit & Freigaben
+## Security
 
-- Apply mit Vier-Augen-Prinzip; Prod nur im Change-Fenster.
-- Keine `.tfvars` mit Keys im Git; OIDC für CI-Plan bevorzugen.
-- State-Bucket: versioning + SSE, kein öffentlicher Zugriff.
+- Apply with four-eyes principle; Prod only in the change window.
+- No `.tfvars` with keys in the git; prefer OIDC for CI plan.
+- State-Bucket: versioning + SSE, no public access.
 
-## Fallstricke
+## Pitfalls
 
 - Falscher AWS-Profile: Plan gegen falsches Konto — immer `get-caller-identity`.
-- State lock hängt nach abgebrochenem Apply — DynamoDB-Eintrag nur nach Absprache löschen.
-- `terraform import` ohne anschließenden Plan — Drift bleibt unsichtbar.
-- Provider-Upgrade ohne `terraform state replace-provider` — Ressourcen-Adressen brechen.
-- Große `count`/`for_each`-Änderungen: mass replace — Plan-Zeilen lesen, nicht blind apply.
+- State lock depends on canceled Apply - only delete DynamoDB entry by appointment.
+- `terraform import` without subsequent plan — drift remains invisible.
+- Provider-Upgrade without `terraform state replace-provider` — Ressourcen-Adressen brechen.
+- Great 'count'/'for'each': mass re-read — plan, not blindly apply.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Dev-VPC eu-central-1, /16, drei AZs.
+- **Task:** Dev-VPC eu-central-1, /16, drei AZs.
 - **Input:** Account `111122223333`, env `dev`.
 - **Prompt:**
 
@@ -120,7 +120,7 @@ After approved apply: capture terraform output -json redacted for ticket.
 Scaffold infra/modules/vpc, dev root, S3 backend ref. Run plan only; list terraform commands.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 terraform init
@@ -128,9 +128,9 @@ terraform plan -out=plan.out -var-file=envs/dev.tfvars
 # Plan: 12 to add, 0 to change, 0 to destroy
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** tfsec HIGH wegen offenem S3-Bucket im Entwurf.
+- **Task:** tfsec HIGH wegen offenem S3-Bucket im Entwurf.
 - **Input:** Finding `AWS017` auf Modul `state`.
 - **Prompt:**
 
@@ -138,7 +138,7 @@ terraform plan -out=plan.out -var-file=envs/dev.tfvars
 Fix module per tfsec; re-run plan.out; no apply.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 tfsec infra/

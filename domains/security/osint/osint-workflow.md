@@ -1,6 +1,6 @@
 ---
 id: osint-workflow
-title: "OSINT (offen zugängliche Quellen)"
+title: "OSINT (open sources)"
 domain: security
 category: osint
 tags:
@@ -29,26 +29,26 @@ version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-Informationen aus **öffentlich zugänglichen** Quellen sammeln — Due Diligence, Brand, CVE-Advisories — ohne Port-Scans oder Login-Umgehung.
+Collect information from **publicly available** sources — Due diligence, brand, CVE advisories — without port scans or login bypass.
 
-## Wann nutzen
+## When to use
 
-- Lieferanten-Check, Domain-Inventar aus öffentlichen Records.
+- Supplier check, domain inventory from public records.
 - Press/Advisory Monitoring.
 
-**Wann nicht:** Stalking, private Personen ohne Rechtsgrundlage.
+**When not:** Stalking, private persons without legal basis.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Justification |
 |------|-------|------------|
 | RDAP/whois | Domain | public |
 | official advisories | CVE | vendor sites |
 | search | news | cite URLs |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 OSINT open sources only (security/osint).
@@ -65,40 +65,40 @@ Archive: user may save public pages; do not upload restricted docs to public LLM
 Cross-check at least two sources for material claims when feasible.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. Zweck und Scope schriftlich bestätigen.
-2. Asset-Liste (Domains, öffentliche Produkte).
+1. Confirm purpose and scope in writing.
+2. Asset list (domains, public products).
 3. `whois example.de` / RDAP JSON.
 4. Advisory-Seiten des Vendors lesen (curl -fsSL).
-5. crt.sh oder ähnlich für cert names wenn policy erlaubt.
-6. Zusammenfassung mit Quellen + Datum.
-7. Keine weiteren „deep“ Schritte ohne neues Template/Autorisierung.
+5. crt.sh or similar for cert names if policy allowed.
+6. Summary with sources + date.
+7. No weiteren „deep“ Schritte without neues Template/Autorisierung.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done / Definition of Done
 
-- [ ] Jede Behauptung mit URL+Datum
-- [ ] Keine intrusive Techniken
+- [ ] Any claim with URL+date
+- [ ] No intrusive Techniken
 - [ ] PII minimiert
 
-## Sicherheit & Freigaben
+## Security
 
-- Nur legitimer Geschäftszweck.
-- Keine Fehlinformation bei Unsicherheit.
+- Only legitimate business purpose.
+- No Fehlinformation bei Unsicherheit.
 
-## Fallstricke
+## Pitfalls
 
-- whois privacy — unvollständig.
+Whois privacy — incomplete.
 - Veraltete News als aktuell.
 - crt.sh Wildcard-Noise.
-- ToS-Verstoß bei Mass-Fetch.
+- ToS violation at Mass-Fetch.
 - Verwechslung homonymer Firmen.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Vendor domain due diligence.
+- **Task:** Vendor domain due diligence.
 - **Input:** `vendor.example`.
 - **Prompt:**
 
@@ -106,16 +106,16 @@ Cross-check at least two sources for material claims when feasible.
 RDAP registration dates and nameservers; cite sources; no port scan.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 curl -fsSL "https://rdap.org/domain/vendor.example"
 # Summary with retrieval 2026-11-23 UTC
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** CVE advisory check.
+- **Task:** CVE advisory check.
 - **Input:** Product X 2.4.
 - **Prompt:**
 
@@ -123,7 +123,7 @@ curl -fsSL "https://rdap.org/domain/vendor.example"
 Fetch vendor advisory page; list fixed versions; cite URL.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 Advisory https://vendor.example/sec/2026-14 — upgrade to 2.4.3

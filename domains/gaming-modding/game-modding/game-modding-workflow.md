@@ -13,37 +13,38 @@ target_agents:
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: unreal-engine MCP (Hermes-Katalog)
+  - name: unreal-engine MCP (Hermes catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/unreal-engine"
-    version_notes: "Nous-approved optional-mcps-Katalogeintrag (Listing 23.11.2026)."
+    version_notes: "Nous-approved optional-mcps catalog entry (listing 2026-11-23)."
 inputs:
-  - "Kontext/Briefing für Game Modding"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Context/briefing for Game Modding"
+  - "Files, URLs, or IDs per task"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Documented result (file, report or ticket-update)"
 risk_level: low
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
 
-Mods entwickeln oder konfigurieren — Skripte, Konfigs und Asset-Pipelines für Spiele, die der Nutzer legal besitzt.
+## Purpose
 
-## Wann nutzen
+Mods entwickeln or konfigurieren — Skripte, Konfigs and Asset-Pipelines for games, the the user legal besitzt.
 
-- Mod-Struktur für ein erlaubtes Spiel planen oder bestehenden Mod debuggen.
-- Load-Order, Dependencies und kompatible Versionen dokumentieren.
-- Nicht für Piraterie, Anti-Cheat-Bypass oder Schummel in Online-Ranked.
+## When to use
 
-## Tool-Stack
+- Mod-Struktur for a erlaubtes game planen or bestehenden Mod debuggen.
+- Load-Order, Dependencies and kompatible Versionen dokumentieren.
+- Not for Piraterie, Anti-Cheat-Bypass or Schummel in Online-Ranked.
 
-| Tool | Rolle | Begründung |
+## Tool stack
+
+| Tool | Role | Rationale |
 |------|-------|------------|
-| unreal-engine MCP (Hermes-Katalog) | Engine-Integration | Wenn Hermes unreal-engine MCP installiert ist: Editor-Aktionen dokumentieren. |
+| unreal-engine MCP (Hermes catalog) | Engine-Integration | Wenn Hermes unreal-engine MCP installiert ist: Editor-Aktionen dokumentieren. |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Role: Legal game modding assistant (gaming-modding/game-modding).
@@ -64,54 +65,54 @@ Performance notes: LOD, texture sizing tradeoffs documented.
 Backup savegames before user applies mod locally—remind, do not run without path approval.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. Spiel, Version, Mod-Loader und Ziel (neu/fix/Config) klären.
-2. Bestehende Mod-Dateien lesen; Abhängigkeiten tabellieren.
-3. Änderungsplan mit Rollback und Savegame-Hinweis.
-4. Code/Config-Entwurf mit kleinen testbaren Schritten.
-5. Load-Order und Konfliktpotenzial mit anderen Mods bewerten.
+1. game, Version, Mod-Loader and Ziel (neu/fix/Config) klaren.
+2. Bestehende Mod-Files lesen; Abhangigkeiten tabellieren.
+3. Anderungsplan with Rollback and Savegame-Hinweis.
+4. Code/Config-Entwurf with kleinen testbaren Schritten.
+5. Load-Order and Konfliktpotenzial with anderen Mods bewerten.
 6. README Install/Deinstall erstellen.
-7. Nutzer wendet Mod lokal an; Agent lädt nichts hoch.
+7. user wendet Mod lokal an; agent ladt nichts hoch.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
-- [ ] Game-Version und Loader genannt
+- [ ] Game-Version and Loader genannt
 - [ ] Kein DRM-Bypass
 - [ ] Rollback dokumentiert
-- [ ] Kein Nexus-Upload ohne Freigabe
+- [ ] No Nexus upload without release
 
-## Sicherheit & Freigaben
+## Security
 
-- Nur legale Kopien, eigene Server oder vom Entwickler erlaubte Modding-Workflows.
-- Keine Crack-, Keygen- oder DRM-Umgehungsanleitungen.
-- Änderungen an Live-Servern oder Mod-Uploads nur nach Freigabe.
+- Nur legale Kopien, eigene Server or from Entwickler erlaubte Modding-Workflows.
+- No Crack-, Keygen- or DRM-Umgehungsanleitungen.
+- Anderungen an Live-Servern or Mod-Uploads only nach approval.
 
-## Fallstricke
+## Pitfalls
 
-- Patch-Inkompatibilität nach Game-Update.
-- Zwei Mods überschreiben dieselbe Config — Merge-Plan nötig.
+- Patch-Inkompatibilitat nach Game-update.
+- Zwei Mods uberschreiben dieselbe Config — Merge-Plan notig.
 - BepInEx vs. Melon Loader verwechseln.
-- Unreal MCP ohne Backup von Assets.
+- Unreal MCP without Backup von Assets.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Skyrim Quality-of-Life Mod Config
+- **Task:** Skyrim Quality-of-Life Mod Config
 - **Input:** Skyrim SE 1.6.640, SKSE, Ziel: UI-Skalierung in INI
 - **Prompt:**
 ```text
-Zeige sichere INI-Änderungen mit Backup-Schritten. Keine Script-Extender-DLLs von Unbekannten.
+Zeige sichere INI-Anderungen with Backup-Schritten. No Script-Extender-DLLs from Unbekannten.
 ```
-- **Erwartetes Ergebnis:** Markdown mit 3 INI-Zeilen, Backup-Batch-Hinweis, Load-Order unverändert.
-### Beispiel 2 (Beispieldaten)
+- **Expected result:** Markdown with 3 INI-Zeilen, Backup-Batch-Hinweis, Load-Order unverandert.
+### Example 2 (Example data)
 
-- **Aufgabe:** UE5 Tier-Mod Blueprint
+- **Task:** UE5 Tier-Mod Blueprint
 - **Input:** Eigenes UE5.4 Projekt, wolf companion blueprint
 - **Prompt:**
 ```text
-Ordnerstruktur Content/Mods/Wolf und Änderungsliste für MCP-sichere Schritte.
+Ordnerstruktur Content/Mods/Wolf and Anderungsliste for MCP-sichere Schritte.
 ```
-- **Erwartetes Ergebnis:** README + Component-Liste; MCP-Aufrufe nur nach Nutzer-Freigabe pro Schritt.
+- **Expected result:** README + Component list; MCP calls only by user sharing per step.
 

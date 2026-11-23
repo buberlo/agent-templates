@@ -1,18 +1,18 @@
-# HR und Recruiting
+# HR and Recruiting
 
-**Domain-Slug:** `hr-recruiting`
-**Kategorien:** 4
-**Stand:** 2026-11-23
+**Domain slug:** `hr-recruiting`
+**Categories:** 4
+**As of:** 2026-11-23
 
-## Übersicht
+## Overview
 
-Templates und Kategorie-Metadaten für **HR und Recruiting** — abgeleitet aus der Recherche vom 2026-11-23.
+Templates and category metadata for **HR and Recruiting** – derived from research dated 2026-11-23.
 
-## Kategorien
+## Categories
 
-| Kategorie | Slug | Templates |
+| Category | Slug | Templates |
 |-----------|------|-----------|
-| Bewerbungen | `bewerbungen` | 1 |
+| Job applications | `job-applications` | 1 |
 | CV-Screening | `cv-screening` | 1 |
 | Onboarding | `onboarding` | 1 |
-| Stellenausschreibungen | `stellenausschreibungen` | 1 |
+| Job postings | `job-postings` | 1 |

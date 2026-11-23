@@ -1,7 +1,7 @@
 # Claude Code
 
-1. Offizielle **Skills** (`SKILL.md`) + **MCP** (`~/.claude.json` / Projekt-Config) — Skills für Ablauf, MCP für Auth/Tools.
-2. Document-Skills (docx/pptx/xlsx/pdf): nach Generierung **rendern und visuell prüfen**, nicht nur Validator grün.
-3. MCP sparsam halten (Token-Overhead); Context7 für aktuelle Lib-Docs.
+1. Official **skills** (`SKILL.md`) + **MCP** (`~/.claude.json` / project config) — skills for procedure, MCP for auth/tools.
+2. Document skills (docx/pptx/xlsx/pdf): after generation **render and visually check**, not only green validator output.
+3. Keep MCP set small (token overhead); use Context7 for current library docs.
 
-Siehe `domains/agent-platforms/claude-code/_category.md`.
+See `domains/agent-platforms/claude-code/_category.md`.

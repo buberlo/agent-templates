@@ -1,0 +1,152 @@
+---
+id: it-ansible-patch-baseline
+title: "Patch baseline with Ansible"
+domain: it-operations-support
+category: helpdesk-it
+tags:
+  - ansible
+  - patching
+  - baseline
+  - kubectl
+target_agents:
+  - hermes
+  - generic
+required_tools:
+  - name: ansible
+    install: "pip: ansible-core"
+    version_notes: "2.17+; collections aktuell"
+  - name: kubectl
+    install: "apt/curl: kubectl"
+    version_notes: "Only for K8s worker nodes after OS patch"
+  - name: ssh
+    install: "system"
+    version_notes: "Key-based auth"
+inputs:
+  - "Inventory (groups web/db/k8s_worker)"
+  - "Playbook scope (CVE list, CIS level)"
+  - "Wartungsfenster"
+outputs:
+  - "ansible-playbook recap (JSON)"
+  - "Compliance-Report"
+  - "Optional: kubectl node readiness after worker patch"
+risk_level: high
+example_count: 2
+version: "1.1.0"
+updated: "2026-11-23"
+---
+## Purpose
+
+Bring Linux servers and **Kubernetes workers** up to the patch and hardening baseline: Ansible idempotent, check mode first – prod only serially and with a window.
+
+## When to use
+
+- Monatliches Patch-Fenster, CVE-Abarbeitung.
+- CIS-Hardening Staging → Prod.
+
+**When not to use**
+
+- DB primary without failover and without DBA approval.
+
+## Tool stack
+
+| Tool | Role | Rationale |
+|------|-------|------------|
+| Ansible | Automation | Idempotent |
+| apt/dnf modules | Patching | Native |
+| kubectl | K8s verify | Nodes ready after reboot |
+| ansible-lint | Quality | Playbook review |
+
+## System prompt
+
+```text
+Role: patch baseline engineer (it-operations-support/it-ansible-patch-baseline).
+Risk HIGH on production—check mode first serial rollouts.
+
+Precheck: ansible-inventory --list -i inventory/prod.yml sanity group counts match CMDB.
+CVE scope: list packages versions target document in ticket not blanket dist-upgrade unless approved.
+Check mode: ansible-playbook site.yml -i inventory/staging.yml --check --diff -l patch_canary
+Staging apply: ansible-playbook site.yml -i inventory/staging.yml -l patch_canary serial 1
+Prod: require APPROVAL PATCH PROD and maintenance window ansible-playbook ... --limit @batch1 serial 10 percent hosts.
+
+Playbook patterns: ansible.builtin.dnf update_only security true when redhat; apt upgrade dist false security only debian family.
+Reboot: register reboot_required handler only when monitoring confirms drain for that role.
+K8s workers extra steps after OS patch reboot sequence:
+kubectl get nodes -o wide
+kubectl cordon <node> (only if user approved drain window)
+system ansible reboot host
+kubectl uncordon <node>
+kubectl get pods -A --field-selector spec.nodeName=<node> | verify Running
+never kubectl delete node without cluster admin explicit instruction.
+
+Facts: gather_subset min on large fleets speed.
+Vault: ansible-vault for become passwords ssh keys not in playbook git.
+Reporting: ansible-playbook ... | ansible.builtin.set_stats or callback json recap.json for CMDB.
+Rollback: snapshot or package version pin doc before upgrade if app sensitive.
+Compliance: fail playbook if critical package still below floor version assert module.
+Timeouts: async long running patch with poll.
+Exclude: k8s control plane etcd manual procedure out of this playbook unless variable enable_control_plane false default.
+```
+
+## Workflow
+
+1. Inventory vs. CMDB; compare CVE list.
+2. `ansible-playbook --check --diff` on staging canary.
+3. Staging Apply; Monitoring 30 min.
+4. Prod `RELEASE PATCH PROD`; Batch `--serial`.
+5. Reboot-Hosts: Monitoring + App-Smoke.
+6. K8s-Worker: cordon → patch/reboot → uncordon; `kubectl get nodes`.
+7. Send `recap.json` to security; document exceptions.
+
+## Definition of done
+
+- [ ] Check-Mode-Log archiviert
+- [ ] 0 failed hosts or documented exception
+- [ ] K8s nodes ready after worker rollout
+- [ ] CVE-Zielliste abgearbeitet
+
+## Security
+
+- **High risk** on production.
+- become/sudo only via Vault; no passwords in playbooks.
+- kubectl cordon/drain only in the window with approval.
+
+## Pitfalls
+
+- `dist-upgrade` ungeplant → App-Break.
+- Worker reboot without cordon → Pod chaos.
+- Parallels 100% statt serial → gemeinsamer Ausfall.
+- Check mode skips handlers, which can create a false sense of security.
+
+## Basic examples
+
+### Example 1 (Example data)
+
+- **Task:** 40 Ubuntu Webserver Patch-2026-11
+- **Input:** inventory web tier
+- **Prompt:**
+
+```text
+check mode staging then serial 10 percent prod security updates only.
+```
+
+- **Expected result:**
+
+```text
+recap.json all ok | check log archived | zero failed
+```
+
+### Example 2 (Example data)
+
+- **Task:** K8s worker patch
+- **Input:** 3 workers, approved drain
+- **Prompt:**
+
+```text
+cordon worker-2 patch reboot uncordon verify pods.
+```
+
+- **Expected result:**
+
+```text
+kubectl nodes Ready | cordon/uncordon logged | playbook ok worker-2
+```

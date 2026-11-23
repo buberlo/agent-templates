@@ -1,38 +1,39 @@
 # Codex
 
 - **Domain:** `agent-platforms`
-- **Kategorie:** `codex`
-- **Stand:** 2026-11-23
+- **Category:** `codex`
+- **As of:** 2026-11-23
 
-## Kurzbeschreibung
+## Summary
 
-OpenAI-Codex-CLI als Coding-Agent, oft von Hermes delegiert, MCP-fähig.
+OpenAI Codex CLI as a coding agent, often delegated by Hermes, MCP-capable.
 
-## Empfohlener Tool-Stack
+## Recommended tool stack
 
 - Codex CLI als Coding-Runtime, MCP wie andere Clients, oft von Hermes delegiert
-- OpenClaw kann openclaw mcp serve oder openclaw acp in Richtung Codex nutzen
+- OpenClaw kann openclaw mcp serve or openclaw acp in Richtung Codex nutzen
 
-## MCP-Server und Skills
+## MCP Server and Skills
 
-| Name | Typ | URL | Einsatz | Installation | Popularitaet | Quelle | Unverified? |
+| Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| Hermes-Skill codex | Skill | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | Delegiert Features/PRs an OpenAI Codex CLI. | Bundled autonomous-ai-agents/codex. | Bundled. | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | nein (so belegt) |
-| OpenClaw MCP serve / ACP | Bruecke | https://docs.openclaw.ai/cli/mcp/serve | OpenClaw als MCP-Server fuer Clients wie Codex oder Claude Code, bzw. ACP wenn OpenClaw den Coding-Runtime hostet. | openclaw mcp serve (stdio) bzw. openclaw acp. | 395.081 Stars | https://docs.openclaw.ai/cli/mcp/serve | nein (so belegt) |
 
-## Typische Workflows
+| Hermes-Skill codex | Skill | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | Delegates features/PRs to OpenAI Codex CLI. | Bundled autonomous-ai-agents/codex. | Bundled. | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | no (as cited) |
+| OpenClaw MCP serve / ACP | Bridge | https://docs.openclaw.ai/cli/mcp/serve |OpenClaw as an MCP server for clients such as Codex or Claude Code, or ACP if OpenClaw hosts the coding runtime.| openclaw mcp serve (stdio) or `openclaw acp`. | 395.081 Stars | https://docs.openclaw.ai/cli/mcp/serve | no (as cited) |
 
-- In Hermes bleiben, Codex nur fuer die Coding-Schleife; Reviews zurueck im Orchestrator.
+## Typical workflows
 
-## Fallstricke
+- Stay in Hermes, Codex only for the coding loop; Reviews in the Orchestrator.
 
-- Zwei Agenten mit Schreibrecht auf dasselbe Repo ohne Abstimmung.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+## Pitfalls
 
-## Quellen
+- Two agents with writing rights to the same repo without voting.
+- Skills are workflows/instructions (progressive disclosure), MCP are connections and tools. Combine the two, not confuse them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
+Activate only the MCPs/Skills that the task needs. Hermes filters per include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp
+- Do not write tokens or passwords in chat, skill files or command arguments of custom MCPs. Grok bot wiki: OAuth tokens remain on the connector backend; Command servers must not contain credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- Write, send, pay, deploy and delete only after explicit approval; good document skills require a Verify step (re-read file, render PDF/PNG).
+
+## Sources
 
 - https://hermes-agent.nousresearch.com/docs/reference/skills-catalog
 - https://docs.openclaw.ai/cli/mcp/serve

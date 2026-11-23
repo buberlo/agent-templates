@@ -17,40 +17,39 @@ required_tools:
     install: "AWS CLI v2"
     version_notes: "SSO: aws configure sso"
   - name: terraform
-    install: "optional für IaC-Tasks"
-    version_notes: "Siehe coding-terraform-aws-baseline"
+    install: "https://www.terraform.io/downloads"
+    version_notes: "See coding-terraform-aws-baseline"
 inputs:
-  - "Region, Account, Ressourcen-Typ"
+  - "Region, Account, resource type"
   - "Read vs. Write Scope"
 outputs:
-  - "CLI-Protokoll und Empfehlung"
-  - "Optional: Terraform-Modul-Entwurf"
+  - "CLI protocol and recommendation"
+  - "Optional: Terraform-module draft"
 risk_level: high
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
 ---
+## Purpose
 
-## Zweck
+AWS resources securely **read**, inventory cost-effectively, and suggest changes only through approved IaC or Runbook paths.
 
-AWS-Ressourcen sicher **lesen**, kostensparend inventarisieren und Änderungen nur über genehmigte IaC- oder Runbook-Pfade vorschlagen.
+## When to use
 
-## Wann nutzen
+- Inventory, cost triage, IAM-IAM policy review (read-mostly).
+- Preparation of Terraform modules with realistic `aws` examples.
 
-- Inventar, Kosten-Triage, IAM-Policy-Review (read-mostly).
-- Vorbereitung Terraform-Module mit realistischen `aws`-Beispielen.
+**When not:** Ad hoc Prod changes by single CLI without change ticket.
 
-**Wann nicht:** Ad-hoc-Prod-Änderungen per Einzel-CLI ohne Change-Ticket.
+## Tool stack
 
-## Tool-Stack
-
-| Tool | Rolle | Begründung |
+| Tool | Role | Justification |
 |------|-------|------------|
 | aws | API-CLI | STS, EC2, S3, IAM describe |
-| terraform | IaC | Wenn Baseline gewünscht |
+| terraform | IaC | If baseline desired |
 | aws-vault | optional | Kurzlebige Credentials |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 AWS cloud workflow (devops-cloud/cloud-aws).
@@ -70,41 +69,41 @@ Respect SCP/permission boundaries; report AccessDenied verbatim.
 Log command sequence for audit replay.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. `aws sts get-caller-identity` und Profil dokumentieren.
-2. Scope klären: Service (EC2, RDS, Lambda) und Tags.
-3. Inventar: z. B. `aws ec2 describe-instances --filters "Name=tag:Environment,Values=prod" --region eu-central-1`.
+1. `aws sts get-caller-identity` and document profile.
+2. Scope clarification: Service (EC2, RDS, Lambda) and tags.
+3. Inventory: z. B. `aws ec2 describe-instances --filters "Name=tag:Environment,Values=prod" --region eu-central-1`.
 4. Policies: `aws iam get-user-policy` / `simulate-principal-policy` read-only.
 5. Befund zusammenfassen; Kosten optional `aws ce get-cost-and-usage`.
-6. Änderungsvorschlag als Terraform oder Ticket, nicht direkte Mutation.
-7. Freigabe einholen vor jedem write-API-Aufruf.
+6. Change proposal as terraform or ticket, not direct mutation.
+7. Sharing before each write API call.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done / Definition of Done
 
-- [ ] Account und Region in jeder Zusammenfassung
+- [ ] Account and region in each summary
 - [ ] Nur genehmigte Schreibaktionen
-- [ ] Befehlsliste kopierfertig und redigiert
+- [ ] command list ready to be copied and edited
 
-## Sicherheit & Freigaben
+## Security
 
-- Prod-Write nur mit Change-Fenster; `risk_level: high`.
-- Keine langfristigen Keys im Chat; SSO bevorzugen.
-- S3-/IAM-Exposition sofort eskalieren, nicht „schnell fixen“ ohne Review.
+Prod-Write only with change window; Risk level: high.
+- No langfristigen Keys im Chat; SSO bevorzugen.
+- S3/IAM exposure escalate immediately, not “fix quickly” without review.
 
-## Fallstricke
+## Pitfalls
 
 - Falsche Region — leere Listen statt Fehler.
-- Paginierung vergessen — unvollständiges Inventar.
-- `aws s3 ls` ohne Public-Block-Check — false sense of safety.
-- Broad IAM `*` in Vorschlägen — immer least privilege formulieren.
-- Datenübertragung aus Prod-Logs in KI-Thread — DSGVO beachten.
+- Forget pagination - incomplete inventory.
+- `aws s3 ls` without Public-Block-Check — false sense of safety.
+- Broad IAM `*` in proposals - always formulate least privilege.
+Data transmission from Prod logs in AI thread — observe GDPR.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** EC2 in `prod` tag inventarisieren.
+- **Task:** EC2 in `prod` tag inventarisieren.
 - **Input:** Region `eu-central-1`.
 - **Prompt:**
 
@@ -112,7 +111,7 @@ Log command sequence for audit replay.
 List running instances with tag Environment=prod; JSON table; read-only.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 aws ec2 describe-instances --region eu-central-1 \
@@ -121,9 +120,9 @@ aws ec2 describe-instances --region eu-central-1 \
   --output table
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Verdächtige öffentliche S3-Bucket-Policy finden.
+- **Task:** Find suspected public S3 bucket policy.
 - **Input:** Bucket-Liste aus Audit.
 - **Prompt:**
 
@@ -131,7 +130,7 @@ aws ec2 describe-instances --region eu-central-1 \
 Read-only check public access block and bucket policy for bucket logs-archive-prod.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 aws s3api get-public-access-block --bucket logs-archive-prod

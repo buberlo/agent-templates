@@ -1,6 +1,6 @@
 ---
 id: ads-performance-workflow
-title: "Paid Ads Performance & Kreativ"
+title: "Paid ads performance and creative"
 domain: content-marketing
 category: ads-performance
 tags:
@@ -15,47 +15,47 @@ target_agents:
 required_tools:
   - name: Brave Search MCP
     install: "https://github.com/brave/brave-search-mcp-server"
-    version_notes: "1585 GitHub Stars"
+    version_notes: "1585 GitHub stars"
 inputs:
-  - "Plattform (Meta, Google), Ziel (Leads, Sales)"
-  - "Export Performance letzte 30 Tage"
-  - "Budget und CPA/ROAS Ziel"
+  - "Platform (Meta, Google), goal (leads, sales)"
+  - "Performance export last 30 days"
+  - "Budget and CPA/ROAS targets"
 outputs:
-  - "Diagnose (Creative, Audience, Landing)"
-  - "Pause/Scale Empfehlungen"
-  - "Neue Kreativ-/Test-Liste"
+  - "Diagnosis (creative, audience, landing)"
+  - "Pause/scale recommendations"
+  - "New creative test list"
 risk_level: medium
 example_count: 2
 version: "1.1.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-**Paid-Media-Reviews** aus Nutzer-Exports: CPA/ROAS, Fatigue, Audience, Landing-Match—keine Live-Budget-Änderung ohne Freigabe.
+**Paid media reviews** from user exports: CPA/ROAS, fatigue, audience, landing match—no live budget changes without approval.
 
-## Wann nutzen
+## When to use
 
-- Wöchentliches Performance-Review.
-- Creative Fatigue erkennen.
-- Neues Angebot → Struktur-Vorschlag.
+- Weekly performance review.
+- Detect creative fatigue.
+- New offer → structure proposal.
 
-**Wann nicht**
+**When not to use**
 
-- Vollautomatisches Rules-Engine-Deployment ohne Freigabe.
+- Fully automated rules-engine deployment without approval.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Rationale |
 |------|-------|------------|
-| Ads Export CSV | Ground truth | Nutzer |
-| Brave | Konkurrenz-Angle | Öffentlich |
+| Ads export CSV | Ground truth | User provided |
+| Brave | Competitor angle | Public web |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Role: paid media analyst (content-marketing/ads-performance).
-Mission: Diagnose from user CSV exports and propose actions—no Ads API spend changes without FREIGABE ADS.
+Mission: Diagnose from user CSV exports and propose actions—no Ads API spend changes without explicit ads approval.
 Inputs: platform meta|google, goal cpa|roas targets, date range, currency.
 Ingest columns map: spend, impressions, clicks, conversions, conversion_value, ad_name, audience, creative_id if present.
 Metrics: CPA, CPC, CTR, ROAS, frequency if available.
@@ -79,65 +79,65 @@ Separate prospecting vs retargeting fatigue logic.
 Include one paragraph DE summary for stakeholders.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. Export und Ziel-KPIs klären.
-2. Spalten mappen und bereinigen.
-3. Kernmetriken berechnen.
-4. Fatigue- und CPA-Flags setzen.
-5. Top/Bottom Ads listen.
-6. Test- und Budget-Vorschläge tabellieren.
-7. Freigabe für Ads-Manager-Änderungen.
+1. Clarify export and target KPIs.
+2. Map and clean columns.
+3. Compute core metrics.
+4. Set fatigue and CPA flags.
+5. List top/bottom ads.
+6. Tabulate test and budget proposals.
+7. Approval for Ads Manager changes.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
-- [ ] CPA/ROAS vs Ziel dokumentiert
-- [ ] Jede Empfehlung mit Ad-Name/ID
-- [ ] Kein API-Budget-Save
-- [ ] Plattform getrennt
+- [ ] CPA/ROAS vs target documented
+- [ ] Each recommendation cites ad name/ID
+- [ ] No API budget save
+- [ ] Platforms separated
 
-## Sicherheit & Freigaben
+## Security
 
-- medium risk bei Budget-Fehlklick.
-- Ausgaben nur mit Freigabe.
+- Medium risk on budget mis-clicks.
+- Spend changes only with approval.
 
-## Fallstricke
+## Pitfalls
 
-- Conversion-Tracking defekt → falsche CPA.
-- Skalieren bei ausgereizter Audience.
-- Frequenz ignoriert bei Retargeting.
-- Mix Meta+Google ohne Attribution.
-- Creative ohne Mobile Safe Zone.
+- Broken conversion tracking → wrong CPA.
+- Scaling exhausted audience.
+- Frequency ignored on retargeting.
+- Mixing Meta + Google without attribution.
+- Creative without mobile safe zone.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Meta Review 30d
-- **Input:** export.csv CPA Ziel 40 EUR
+- **Task:** Meta review 30d.
+- **Input:** export.csv CPA target 40 EUR.
 - **Prompt:**
 
 ```text
 action_list pause ads CPA>50.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 3 pause recommendations with ad ids | avg CPA 52 EUR flagged
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Creative fatigue
-- **Input:** CTR -35% WoW
+- **Task:** Creative fatigue.
+- **Input:** CTR -35% WoW.
 - **Prompt:**
 
 ```text
 3 new test angles deutsch.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 Angles documented distinct from fatigued ad hooks

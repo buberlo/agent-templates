@@ -1,6 +1,6 @@
 ---
 id: monitoring-observability-mcp-focus
-title: "Monitoring und Observability: MCP/Skill-Fokus"
+title: "Monitoring and Observability: MCP/Skill Focus"
 domain: devops-cloud
 category: monitoring-observability
 tags:
@@ -26,7 +26,7 @@ inputs:
   - "Alert name, dashboard UID"
   - "Skill verify steps"
 outputs:
-  - "MCP minimization für observability task"
+  - "MCP minimization for observability task"
   - "Validated rule change proposal"
 risk_level: high
 example_count: 2
@@ -34,26 +34,26 @@ version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-Observability-MCPs (Grafana, Sentry) mit **promtool/kubectl Verify** im Skill kombinieren — keine Alert-Edits ohne lokale Rule-Prüfung.
+Combine Observability (Grafana, Sentry) with **promtool/kubectl Verify** in the skill — no alert edits without local rule check.
 
-## Wann nutzen
+## When to use
 
-- Agent soll Dashboards lesen und Alert-Vorschläge ausarbeiten.
+- Agent should read dashboards and work out alert suggestions.
 - Team skill: MCP read → promtool test → optional MCP write.
 
-**Wann nicht:** Reine CLI-Only — `monitoring-observability-workflow`.
+**When not to use:** Reine CLI-Only — `monitoring-observability-workflow`.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Rationale |
 |------|-------|------------|
 | Grafana MCP | Dashboards | UID panels |
 | Sentry MCP | Errors | Release link |
 | promtool | Gate | vor jeder Rule live |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Observability MCP/Skill focus (devops-cloud/monitoring-observability).
@@ -71,39 +71,39 @@ Matrix column: Verify = promtool test rules file path.
 After deploy skill step: suggest instant query to confirm metric moved.
 ```
 
-## Arbeitsablauf
+## Workflow
 
 1. Alert/Dashboard UID aus Ticket.
 2. Grafana MCP: Panel queries lesen.
 3. Sentry MCP: Issues zur selben Zeitspanne.
 4. Rule-Entwurf in Git; `promtool check rules`.
-5. Skill Verify-Schritt ausführen.
-6. Freigabe einholen; MCP/apply optional.
+5. Perform Skill Verify step.
+6. approval einholen; MCP/apply optional.
 7. Post-check instant query dokumentieren.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
-- [ ] promtool vor jeder Prod-Rule-Änderung
-- [ ] MCP-Write-Pfad dokumentiert oder verweigert
+- [ ] promtool before any Prod-Rule change
+- [ ] MCP-Write-Pfad dokumentiert or verweigert
 - [ ] Dashboard UID + Panel id in Summary
 
-## Sicherheit & Freigaben
+## Security
 
 - high risk: Prod alerts.
-- Unverified Grafana MCP nicht für Writes ohne Review.
+- Unverified Grafana MCP not for writes without review.
 
-## Fallstricke
+## Pitfalls
 
 - MCP extrahiert veraltetes Panel — Git als Source of Truth.
-- Sentry ohne Release-Tag — Korrelation schwach.
+- Sentry without Release-Tag — Korrelation schwach.
 - promtool Test vergessen — broken rule paging.
 - Zwei Grafana MCPs — Konflikt.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Dashboard UID `api-slo` lesen, Rule anpassen.
+- **Task:** Dashboard UID `api-slo` lesen, Rule anpassen.
 - **Input:** Panel „Error budget burn“.
 - **Prompt:**
 
@@ -111,7 +111,7 @@ After deploy skill step: suggest instant query to confirm metric moved.
 Grafana MCP read panel query; draft rule; promtool test before any write.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 MCP returned query sum(rate(...[5m]))
@@ -119,9 +119,9 @@ promtool test rules tests/slo_test.yaml OK
 Write blocked pending APPROVE
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Sentry+Grafana Korrelation.
+- **Task:** Sentry+Grafana Korrelation.
 - **Input:** Spike 09:00 UTC.
 - **Prompt:**
 
@@ -129,7 +129,7 @@ Write blocked pending APPROVE
 Minimize MCPs; timeline entry linking sentry release to dashboard spike.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 Release api@3.1.0; Grafana panel request rate +80% 09:00-09:15 UTC

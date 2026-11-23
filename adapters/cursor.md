@@ -1,7 +1,7 @@
 # Cursor
 
-1. **Rules / Skills** aus Template-**System-Prompt** und **Arbeitsablauf**; MCP über Cursor-Plugin-Connectors (Namespace-Tools).
-2. Gleiches Modell wie Grok Bot Plugins: OAuth pro Connector, keine Secrets in Repo.
-3. `target_agents` mit `cursor` markierte Templates priorisieren.
+1. **Rules / skills** from template **System prompt** and **Workflow**; MCP via Cursor plugin connectors (namespace tools).
+2. Same model as Grok Bot plugins: OAuth per connector, no secrets in the repo.
+3. Prioritize templates whose `target_agents` include `cursor`.
 
-Siehe `domains/agent-platforms/cursor/_category.md`.
+See `domains/agent-platforms/cursor/_category.md`.

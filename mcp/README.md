@@ -1,7 +1,7 @@
-# MCP-Katalog
+# MCP catalog
 
-Stand **2026-11-23**. **91** Einträge aus der Recherche (dedupliziert nach URL).
+As of **2026-11-23**. **91** entries from research (deduplicated by URL).
 
-Siehe `catalog.json` für `name`, `url`, `stars`, `categories`, `auth`, `risk_notes`.
+See `catalog.json` for `name`, `url`, `stars`, `categories`, `auth`, and `risk_notes`.
 
-**Hinweis:** Nur benötigte Server pro Aufgabe aktivieren (Token-Overhead).
+**Note:** Enable only the servers a task needs (token overhead).

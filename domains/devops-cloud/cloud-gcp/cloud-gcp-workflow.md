@@ -18,10 +18,10 @@ required_tools:
     version_notes: "gcloud auth login / application-default login"
   - name: gke-gcloud-auth-plugin
     install: "GKE kube auth plugin"
-    version_notes: "Pflicht für moderne GKE kubeconfig"
+    version_notes: "Required for kubectl against GKE"
 inputs:
-  - "Projekt-ID und Region"
-  - "GKE-Cluster oder Compute-Ressource"
+  - "Project ID and Region"
+  - "GKE-Cluster or Compute-Ressource"
 outputs:
   - "gcloud-Protokoll"
   - "Empfehlung / Terraform-google-Modul-Hinweis"
@@ -30,27 +30,26 @@ example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
 ---
+## Purpose
 
-## Zweck
+Invent GCP projects with **gcloud**, check GKE read-only and make changes only via IaC or released gcloud mutation pathways.
 
-GCP-Projekte mit **gcloud** inventarisieren, GKE read-only prüfen und Änderungen nur über IaC oder freigegebene `gcloud`-Mutationspfade.
-
-## Wann nutzen
+## When to use
 
 - GKE-Version, Node-Pool-Status, IAM-Bindings lesen.
 - Fehlersuche nach fehlgeschlagenem Deploy auf Cloud Run/GKE.
 
-**Wann nicht:** Org-Policy-Änderungen ohne Cloud-Admin.
+**When not:** Org policy changes without cloud admin.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Justification |
 |------|-------|------------|
 | gcloud | CLI | config, container, iam |
 | kubectl | GKE | nach get-credentials |
-| terraform-google | optional | Modulvorschläge |
+| terraform-google | optional | module proposals |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 GCP cloud workflow (devops-cloud/cloud-gcp).
@@ -69,40 +68,40 @@ Respect VPC-SC and org constraints; paste Permission denied for escalation.
 Prefer regional flags: --region europe-west3.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. `gcloud auth list` und `gcloud config set project <id>`.
+1. "gcloud auth list" and "gcloud config set project <id>".
 2. `gcloud container clusters list --region <r>`.
 3. Cluster: `gcloud container clusters describe <name> --region <r> --format="value(currentMasterVersion,status)"`.
-4. Nach Freigabe: `gcloud container clusters get-credentials <name> --region <r>`.
-5. `kubectl get nodes` und `kubectl get pods -A | head`.
+4. After release: `gcloud container clusters get-credentials <name> --region <r>`.
+5. "Kubectl get nodes" and "Kubectl get pods -A | head".
 6. IAM read: `gcloud projects get-iam-policy <id> --format=json` (Ausschnitt).
-7. Mutationen als Terraform-Vorschlag, nicht direkt ausführen.
+7. Mutations as a terraform proposal, do not execute directly.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done / Definition of Done
 
 - [ ] Projekt-ID in jeder Antwort
 - [ ] GKE Master/Node-Version dokumentiert
-- [ ] Keine Service-Account-Keys erzeugt
+- [ ] No Service-Account-Keys erzeugt
 
-## Sicherheit & Freigaben
+## Security
 
-- Prod-Projekt: high risk; Deletes verboten ohne Ticket.
-- IAM `roles/owner` nicht als Default-Vorschlag.
-- Audit-Logs nicht massenexportieren in öffentliche Threads.
+- Prod-Projekt: high risk; Deletes verboten without Ticket.
+- IAM `roles/owner` not as a default proposal.
+- Audit logs do not mass export to public threads.
 
-## Fallstricke
+## Pitfalls
 
 - Vergessener `gke-gcloud-auth-plugin` — kubectl auth scheitert.
 - Zonen vs. Region bei GKE — falsche Flag-Kombination.
 - Default VPC-Annahmen — Shared VPC braucht Host-Projekt-Kontext.
-- Quotas — Create schlägt fehl, List funktioniert; Quota separat prüfen.
+Quotas — Create fails, List works; Check the quota separately.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** GKE-Cluster-Status europe-west3.
+- **Task:** GKE-Cluster-Status europe-west3.
 - **Input:** Cluster `prod-gke`, Projekt `acme-prod`.
 - **Prompt:**
 
@@ -110,24 +109,24 @@ Prefer regional flags: --region europe-west3.
 Describe cluster version and node count; read-only gcloud only.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 gcloud container clusters describe prod-gke --region europe-west3 \
   --format="yaml(currentMasterVersion,currentNodeCount,status)"
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Fehlende Workload-Identity-Binding erkennen.
-- **Input:** KSA `default/api` kann GCS nicht lesen.
+- **Task:** Fehlende Workload-Identity-Binding erkennen.
+- **Input:** KSA `default/api` cannot read GCS.
 - **Prompt:**
 
 ```text
 Read IAM policy binding for GSA; suggest fix text only, no iam policy set.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 gcloud iam service-accounts get-iam-policy api-sa@acme-prod.iam.gserviceaccount.com

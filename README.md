@@ -1,69 +1,70 @@
 # agent-templates
 
-Private **Template-Datenbank** für KI-Agenten (Hermes, Grok Bot, OpenClaw, Claude Code, Codex, Cursor, generische MCP-Agenten): **welche Tools für welche Aufgabe**, mit Workflows, MCP-Katalog, Grundbeispielen und Freigaben.
+Public **template database** for AI agents (Hermes, Grok Bot, OpenClaw, Claude Code, Codex, Cursor, generic MCP agents): **which tools fit which job**, with workflows, MCP catalog, basic examples, and approval rules.
 
-Recherche-Stand: **23.11.2026** (siehe `research/SOURCES.md`; Roharchiv nicht versioniert).
+Research baseline: **2026-11-23** (see `research/SOURCES.md`; raw archive is not versioned).
 
-## Umfang
+## Scope
 
-| Kennzahl | Wert |
-|----------|------|
+| Metric | Value |
+|--------|------:|
 | Domains | 27 |
-| Kategorien | 198 (`_category.md` je Kategorie) |
-| Templates | 247 (≥1 pro Kategorie, 2+ wo Recherche reich) |
-| MCP-Einträge | 91 (`mcp/catalog.json`) |
+| Categories | 198 (`_category.md` per category) |
+| Templates | 247 (≥1 per category, 2+ where research was rich) |
+| MCP entries | 91 (`mcp/catalog.json`) |
 
-## Struktur
+## Layout
 
 ```text
 domains/<domain>/_domain.md
-domains/<domain>/<category>/_category.md   # Tool-Stack, MCP-Tabelle, Fallstricke, Quellen
-domains/<domain>/<category>/*.md             # Ausführbare Templates (YAML + Body)
+domains/<domain>/<category>/_category.md   # tool stack, MCP table, pitfalls, sources
+domains/<domain>/<category>/*.md             # executable templates (YAML + body)
 mcp/catalog.json, mcp/README.md
-adapters/                                    # Einbindung pro Agenten-Plattform
-scripts/validate_and_index.py                # Validierung + INDEX.md + catalog.json (+ Qualitäts-Gates Phase 3)
+adapters/                                    # wiring per agent platform
+scripts/validate_and_index.py                # validation + INDEX.md + catalog.json
 TEMPLATE.md, template.schema.json
-INDEX.md, catalog.json                       # generiert
-research/SOURCES.md                          # bereinigte Quellenliste
+INDEX.md, catalog.json                       # generated
+research/SOURCES.md                          # curated source list
+docs/PROGRESS.md                             # migration status and backlog
 ```
 
-## Template-Anatomie
+## Template anatomy
 
 - **Frontmatter:** `id`, `title`, `domain`, `category`, `tags`, `target_agents`, `required_tools`, `inputs`, `outputs`, `risk_level`, `example_count` (2–3), `version`, `updated`
-- **Body:** Zweck, Wann nutzen (inkl. Wann nicht), Tool-Stack, System-Prompt (15–40 Zeilen), Arbeitsablauf (5–10 Schritte), Qualitätskriterien, Sicherheit, **Fallstricke**, **Grundbeispiele** (konkrete Beispiele; `Beispieldaten` oder `Praxisbeispiel` + URL)
+- **Body:** Purpose, When to use (incl. When not to use), Tool stack, System prompt, Workflow, Definition of done, Security, Pitfalls, Basic examples (`Example data` or `Real-world example` + source URL)
 
-Kategorie-Metadaten liegen in `_category.md` (nicht im Template-Frontmatter duplizieren).
+Category metadata lives in `_category.md` (not duplicated in template frontmatter).
 
-## Neues Template
+## New template
 
-1. `TEMPLATE.md` nach `domains/<domain>/<category>/<id>.md` kopieren.
-2. `domain` / `category` müssen zum Ordner passen.
-3. Inhalt an `_category.md` und Recherche koppeln — keine unbelegten Tool-Claims.
-4. `python3 scripts/validate_and_index.py` → `INDEX.md` / `catalog.json` committen.
+1. Copy `TEMPLATE.md` to `domains/<domain>/<category>/<id>.md`.
+2. `domain` / `category` must match the folder path.
+3. Tie content to `_category.md` and research — no unsupported tool claims.
+4. Run `python3 scripts/validate_and_index.py` and commit `INDEX.md` / `catalog.json`.
 
-## Agenten-Adapter
+## Agent adapters
 
-| Plattform | Datei |
-|-----------|--------|
+| Platform | File |
+|----------|------|
 | Hermes | [adapters/hermes.md](adapters/hermes.md) |
 | Grok Bot | [adapters/grokbot.md](adapters/grokbot.md) |
 | OpenClaw | [adapters/openclaw.md](adapters/openclaw.md) |
 | Claude Code | [adapters/claude-code.md](adapters/claude-code.md) |
 | Cursor | [adapters/cursor.md](adapters/cursor.md) |
-| Generisch | [adapters/generic.md](adapters/generic.md) |
+| Generic | [adapters/generic.md](adapters/generic.md) |
 
-Agent-Plattform-Setups: `domains/agent-platforms/<plattform>/`.
+Platform setup templates: `domains/agent-platforms/<platform>/`.
 
-## Validierung
+## Validation
 
 ```bash
 python3 scripts/validate_and_index.py
 ```
 
-Prüft Schema, Pflichtsektionen (inkl. **Fallstricke**), `example_count`, Anti-Boilerplate (kein `{slug}`, keine Kurz-Prompts &lt;10 Zeilen, min. 5 Workflow-Schritte). CI: `.github/workflows/validate-templates.yml`.
+Checks schema, required English sections, `example_count`, anti-boilerplate rules, and a strict English language gate. CI: `.github/workflows/validate-templates.yml`.
 
-Templates werden **manuell** gepflegt (kein Massen-Generator). Recherchearchiv nur lokal zur Einordnung.
+Templates are **maintained manually** (no bulk generator). Research archives stay local for curation only.
 
-## Datenschutz
+## Privacy
 
-Keine Secrets, keine Kundendaten. [CONTRIBUTING.md](CONTRIBUTING.md).
+No secrets or customer data in examples. See [CONTRIBUTING.md](CONTRIBUTING.md).

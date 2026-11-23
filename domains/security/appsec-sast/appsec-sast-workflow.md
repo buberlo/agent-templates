@@ -1,6 +1,6 @@
 ---
 id: appsec-sast-workflow
-title: "AppSec und SAST"
+title: "AppSec and SAST"
 domain: security
 category: appsec-sast
 tags:
@@ -23,7 +23,7 @@ required_tools:
     install: "PR checks integration"
     version_notes: "optional"
 inputs:
-  - "Repo path und Sprachen"
+  - "Repo path and languages"
   - "Policy (blocker vs warn)"
 outputs:
   - "SAST report summary"
@@ -34,26 +34,26 @@ version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-Static Analysis und Dependency-Scans in CI und lokal ausführen, Findings priorisieren und sichere Fixes vorschlagen.
+Run static analysis and dependency scans in CI and locally, prioritize finds and suggest secure fixes.
 
-## Wann nutzen
+## When to use
 
 - Vor Release, nach Dependabot/Architektur-Wechsel.
 - Security Champions Review.
 
-**Wann nicht:** DAST/E2E-Pentest (pentest template).
+**When not:** DAST/E2E Pentest (pentest template).
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Justification |
 |------|-------|------------|
 | semgrep | SAST | custom rules |
 | pip-audit/npm audit | SCA | CVEs |
 | SARIF | CI | upload artifact |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 AppSec SAST workflow (security/appsec-sast).
@@ -70,40 +70,40 @@ Document command exit codes and paths scanned.
 Do not claim CVE not affected without version proof from lockfile.
 ```
 
-## Arbeitsablauf
+## Workflow
 
 1. Sprachen/Monorepo-Pfade identifizieren.
 2. `semgrep scan --config auto --json -o semgrep.json`.
 3. `pip-audit` / `npm audit --json` parallel.
-4. Findings dedupe und severity sortieren.
-5. Fix-Vorschläge pro CRITICAL/HIGH.
+4. Findings Dedupe and Severity.
+5. Fixed proposals per CRITICAL/HIGH.
 6. Tests nach Fix laufen lassen.
-7. Optional `gh pr create` mit SARIF summary.
+7. Optional `gh pr create` with SARIF summary.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
 - [ ] Scan-Befehle dokumentiert
-- [ ] CRITICAL triagiert (fix oder Ausnahme-Ticket)
-- [ ] Keine Rule-Disables ohne Begründung
+- [ ] CRITICAL triagiert (fix or Ausnahme-Ticket)
+- [ ] No rule disables without justification
 
-## Sicherheit & Freigaben
+## Security
 
-- SARIF kann Pfade preisgeben — Scope beachten.
+- SARIF kann Pfade preisgeben — Scope observe.
 - Prod-Daten in repro fixtures vermeiden.
 
-## Fallstricke
+## Pitfalls
 
-- semgrep auto-only für Enterprise langsam.
+- semgrep auto-only for Enterprise slow.
 - npm audit devDeps noise.
 - False positive SQLi in ORM.
 - Fix bricht Tests — characterization fehlt.
 - SARIF riesig in PR comment.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Python API semgrep.
+- **Task:** Python API semgrep.
 - **Input:** `src/`.
 - **Prompt:**
 
@@ -111,16 +111,16 @@ Do not claim CVE not affected without version proof from lockfile.
 semgrep scan; summarize HIGH; suggest fix for SQL concat if any.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 semgrep scan --config p/ci --json -o out.json
 # 0 critical after parameterized query fix
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** npm audit production.
+- **Task:** npm audit production.
 - **Input:** web app.
 - **Prompt:**
 
@@ -128,7 +128,7 @@ semgrep scan --config p/ci --json -o out.json
 npm audit --production; list fixable via npm audit fix --dry-run.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 npm audit --production

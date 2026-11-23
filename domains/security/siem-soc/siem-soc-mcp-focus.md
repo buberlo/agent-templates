@@ -1,6 +1,6 @@
 ---
 id: siem-soc-mcp-focus
-title: "SIEM und SOC: MCP/Skill-Fokus"
+title: "SIEM and SOC: MCP/Skill Focus"
 domain: security
 category: siem-soc
 tags:
@@ -29,26 +29,26 @@ version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-SIEM über MCP **read-only** abfragen; Skill blockiert Containment-Writes — Parallel zu `siem-soc-workflow`.
+query SIEM via MCP **read-only**; Skill blocks containment writes — parallel to `siem-soc-workflow`.
 
-## Wann nutzen
+## When to use
 
 - MCP-Anbindung an Splunk/Elastic API (read).
-- Skill mit CONTAIN_APPROVE Gate.
+- Skill with CONTAIN APPROVE Gate.
 
-**Wann nicht:** Wenn MCP write/ SOAR nicht policy-konform.
+**When not:** If MCP write/ SOAR is not policy compliant.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Justification |
 |------|-------|------------|
 | SIEM MCP | Query | analyst |
 | Skill | Gate | contain block |
 | Ticket | Audit | id |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 SIEM SOC MCP/Skill focus (security/siem-soc).
@@ -64,7 +64,7 @@ PII fields masked in summary.
 Handoff to human analyst if MCP auth fails mid-investigation.
 ```
 
-## Arbeitsablauf
+## Workflow
 
 1. Alert in Skill laden.
 2. MCP query user/host timeline.
@@ -74,29 +74,29 @@ Handoff to human analyst if MCP auth fails mid-investigation.
 6. CONTAIN_APPROVE abwarten.
 7. MCP audit an SOC-Ticket.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
-- [ ] Kein MCP write ohne APPROVE
+- [ ] Kein MCP write without APPROVE
 - [ ] Queries im Ticket
 - [ ] PII maskiert
 
-## Sicherheit & Freigaben
+## Security
 
 - high risk containment.
 - MCP credentials scoped.
 
-## Fallstricke
+## Pitfalls
 
 - MCP returns huge JSON — summarization loss.
 - Write tool hidden alias.
 - Cross-tenant MCP config error.
 - Stale MCP cache.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** MCP read hunt.
+- **Task:** MCP read hunt.
 - **Input:** host H-1.
 - **Prompt:**
 
@@ -104,15 +104,15 @@ Handoff to human analyst if MCP auth fails mid-investigation.
 MCP query 4h process creates; no isolate.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 47 powershell.exe children flagged; containment not executed
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Block isolate tool.
+- **Task:** Block isolate tool.
 - **Input:** MCP suggests isolate_host.
 - **Prompt:**
 
@@ -120,7 +120,7 @@ MCP query 4h process creates; no isolate.
 Refuse MCP write; output ticket template.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 Skill refused isolate_host; CONTAIN_APPROVE required + human SOAR

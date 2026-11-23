@@ -1,40 +1,40 @@
-# Ads und Performance
+# Ads and performance
 
 - **Domain:** `content-marketing`
-- **Kategorie:** `ads-performance`
-- **Stand:** 2026-11-23
+- **Category:** `ads-performance`
+- **As of:** 2026-11-23
 
-## Kurzbeschreibung
+## Summary
 
-Kampagnenbriefings, Anzeigentexte, Reporting und Anbindung an Ads-APIs/MCPs.
+campaign briefrates, ad texts, reporting and connection to Ads APIs/MCPs.
 
-## Empfohlener Tool-Stack
+## Recommended tool stack
 
 - Schreibende Skills + Humanizer
-- Suche/Crawl fuer Fakten
-- Kanal-APIs nur mit Freigabe zum Veroeffentlichen
+-Searching/Crawling/Facts
+sameennae
 
-## MCP-Server und Skills
+## MCP servers and skills
 
-| Name | Typ | URL | Einsatz | Installation | Popularitaet | Quelle | Unverified? |
+| Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| Brave Search MCP | MCP | https://github.com/brave/brave-search-mcp-server | Websuche ueber Brave Search API. | Offizielles Brave-Repo. | 1.585 Stars | https://github.com/brave/brave-search-mcp-server | nein (so belegt) |
-| Firecrawl MCP | MCP | https://github.com/firecrawl/firecrawl-mcp-server | Websuche, Scraping und Crawling als Kontext fuer Agenten. | Offizielles MCP-Repo, typisch npx oder hosted laut README. | 7.886 Stars; Upstream 207.417 Stars | https://github.com/firecrawl/firecrawl-mcp-server | nein (so belegt) |
+| Brave Search MCP | MCP | https://github.com/brave/brave-search-mcp-server | Websuche ueber Brave Search API. | Offizielles Brave-Repo. | 1.585 Stars | https://github.com/brave/brave-search-mcp-server | no (as cited) |
+| Firecrawl MCP | MCP | https://github.com/firecrawl/fire Upstream 207.417 Stars | https://github.com/firecrawl/firecrawl-mcp-server | no (as cited) |
 
-## Typische Workflows
+## Typical workflows
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+- Set task, allowed tools and definition of donee.
+- First read/research, then draft, then release for effective steps.
+Converse verse of the ponds of vise (converse ponds, ponds and ponds)
 
-## Fallstricke
+## Pitfalls
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- The skills are work-flows/PDs (progressive disclosure), MCPs are used and tools. The two of them are the two of the two of them. an acronym, cited in the Annex to Implementing Regulation (EU) 2015/2266, and the corresponding anciss, cit, ICES.
+Activate only the MCPs/Skills that the task needs. Hermes filters per include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp
+- Do not write tokens or passwords in chat, skill files or command arguments of custom MCPs. Grok bot wiki: OAuth tokens remain on the connector backend; Command servers must not contain credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- Write, send, pay, deploy and delete only after explicit release; good document skills require a Verify step (read file again, render PDF/PNG).
 
-## Quellen
+## Sources
 
 - https://github.com/brave/brave-search-mcp-server
 - https://github.com/firecrawl/firecrawl-mcp-server

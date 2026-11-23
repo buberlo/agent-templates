@@ -1,36 +1,36 @@
 # IaC / Terraform
 
 - **Domain:** `devops-cloud`
-- **Kategorie:** `iac-terraform`
-- **Stand:** 2026-11-23
+- **Category:** `iac-terraform`
+- **As of:** 2026-11-23
 
-## Kurzbeschreibung
+## Summary
 
-Infrastructure as Code planen, ändern und planen/apply nach Freigabe.
+Infrastructure as Code plan, modify and plan/apply upon release.
 
-## Empfohlener Tool-Stack
+## Recommended tool stack
 
-- Terraform/OpenTofu CLI im Terminal, Plan als Review-Artefakt, Apply nur mit Freigabe
+- Terraform/OpenTofu CLI in the terminal, plan as review artifact, Apply only with approval
 
-## MCP-Server und Skills
+## MCP servers and skills
 
-| Name | Typ | URL | Einsatz | Installation | Popularitaet | Quelle | Unverified? |
+| Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| Terraform/OpenTofu CLI | CLI | https://www.terraform.io/ | Plan/Apply ueber das Terminal-Tool; kein spezielles Star-MCP in dieser Recherche als Standard festgehalten. | Offizielle Distribution. | n/a | https://github.com/punkpeye/awesome-mcp-servers | ja, markiert |
+| Terraform/OpenTofu CLI | CLI | https://www.terraform.io/ | Plan/apply via the terminal tool; no dedicated star MCP established as standard in this research. | Official distribution. | n/a | https://github.com/punkpeye/awesome-mcp-servers | yes, flagged |
 
-## Typische Workflows
+## Typical workflows
 
 - plan speichern, Mensch reviewed, erst dann apply.
 
-## Fallstricke
+## Pitfalls
 
-- State-Dateien und Cloud-Creds nie in den Chat oder in Skills kopieren.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- state-sizes and creds never in the chat or in skills.
+- Skills are workflows/instructions (progressive disclosure); MCP servers are connections and tools. Combine both; do not conflate them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
+- Enable only the MCPs/skills the task needs. Hermes filters via include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
+- Do not put tokens or passwords in chat, skill files, or custom MCP command arguments. Grok Bot wiki: OAuth tokens stay on the connector backend; command servers must not pass credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- Write, send, pay, deploy, and delete only after explicit approval; good document skills require a verify step (re-read the file, render PDF/PNG).
 
-## Quellen
+## Sources
 
 - https://github.com/punkpeye/awesome-mcp-servers
 - https://www.terraform.io/

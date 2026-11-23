@@ -1,7 +1,7 @@
 ---
 id: coding-github-actions-ci-pipeline
+title: "CI Pipeline with GitHub Actions"
 domain: devops-cloud
-title: "CI-Pipeline mit GitHub Actions"
 category: cicd
 tags:
   - github-actions
@@ -17,7 +17,7 @@ target_agents:
 required_tools:
   - name: gh
     install: "https://cli.github.com — apt/brew: gh"
-    version_notes: "2.63+; gh auth login für API/Actions"
+    version_notes: "2.63+; gh auth login for API/Actions"
   - name: act
     install: "https://github.com/nektos/act — brew/apt"
     version_notes: "Lokaler Workflow-Dry-Run"
@@ -25,38 +25,38 @@ required_tools:
     install: ".github/workflows im Repo"
     version_notes: "ubuntu-latest Runner"
 inputs:
-  - "Repo-URL oder lokaler Clone"
-  - "Stack (Python/Node/Go) und Testbefehl"
+  - "Repo-URL or lokaler Clone"
+  - "Stack (Python/Node/Go) and test command"
   - "Branch-Protection-Anforderungen"
 outputs:
   - "Workflow-YAML unter .github/workflows/"
-  - "Grüner CI-Lauf auf PR und main"
+  - "Green CI run on PR and main"
 risk_level: medium
+example_count: 2
 version: "1.1.0"
 updated: "2026-11-23"
-example_count: 2
 ---
 
-## Zweck
+## Purpose
 
-GitHub Actions für Lint und Tests einführen oder reparieren — mit pinnbaren Actions, Dependency-Cache und nachvollziehbarem `gh`-gestütztem Debugging fehlgeschlagener Jobs.
+Introduce or repair GitHub actions for Lint and tests – with pinnable actions, dependency cache and traceable ‘gh’-assisted debugging of failed jobs.
 
-## Wann nutzen
+## When to use
 
-- Neues Repo ohne CI oder flaky Pipeline nach Dependency-Upgrade.
-- PR soll grüne Checks haben, bevor Branch Protection greift.
+- Neues Repo without CI or flaky Pipeline nach Dependency-Upgrade.
+- PR should have green checks before Branch Protection takes effect.
 
-**Wann nicht:** Vollständige GitLab-Migration oder Self-Hosted-Runner-Hardening in einem Schritt (eigene Runbooks).
+**When not to use:* Full GitLab-Migration or, Self-Hosted-Runner-Hardening in one step (own runbooks).
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Rationale |
 |------|-------|------------|
-| gh | Actions/PRs | `gh run view`, Logs ohne Browser |
+| gh | Actions/PRs | `gh run view`, Logs without Browser |
 | act | Lokal | Workflows vor Push testen |
 | GITHUB_TOKEN | CI | Least scope in workflow permissions |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 You are a CI engineer specializing in GitHub Actions (devops-cloud/cicd).
@@ -79,42 +79,42 @@ Do not disable failing checks without root-cause note.
 Output: final ci.yml snippet, commands run, and check names for branch rules.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. `gh repo view --json nameWithOwner,defaultBranch` und `gh workflow list` für Ist-Stand.
+1 `gh repo view --j and `gh workflow list' for actual status.
 2. Fehljob: `gh run list --branch main --limit 3` dann `gh run view <id> --log-failed`.
 3. Lokal reproduzieren: `pytest -q` / `npm test` wie im Workflow dokumentiert.
-4. Workflow entwerfen oder fixen unter `.github/workflows/ci.yml` (lint + test Jobs).
+4. Workflow entwerfen or fixen unter `.github/workflows/ci.yml` (lint + test Jobs).
 5. `act pull_request -j test` (optional `-P ubuntu-latest=catthehacker/ubuntu:act-latest`).
-6. Branch pushen; `gh pr create` oder bestehenden PR; auf grünen Run warten: `gh run watch`.
+6. Branch pushing; `gh pr create` or existing PR; waiting for green run: `gh run watch`.
 7. Branch Protection: `gh api repos/{owner}/{repo}/branches/main/protection` nur lesen; Empfehlung dokumentieren.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
-- [ ] getrennte Trigger `pull_request` und `push` auf `main`
-- [ ] Mittlere Laufzeit unter 15 min oder begründete Matrix
-- [ ] Keine Secrets in Logs oder Workflow-Kommentaren
-- [ ] Action-SHAs gepinnt oder Renovate-Policy dokumentiert
+- [ ] separate triggers `pull request` and `push` on `main`
+- [ ] Medium runtime under 15 min or matrix
+- [ ] No Secrets in Logs or Workflow-Kommentaren
+- [ ] Action-SHAs gepinnt or Renovate-Policy dokumentiert
 
-## Sicherheit & Freigaben
+## Security
 
-- `GITHUB_TOKEN` mit minimalen `permissions`; kein Schreibzugriff ohne Bedarf.
-- Fork-PR-Workflows ohne Secrets; kein `pull_request_target` ohne Security-Review.
-- Pipeline-Writes (deploy, publish) nur nach expliziter Freigabe.
+`GITHUB TOKEN` with minimal `permissions`; no write access without need.
+- Fork-PR-Workflows without Secrets; kein `pull_request_target` without Security-Review.
+- Pipeline-Writes (deploy, publish) nur nach expliziter approval.
 
-## Fallstricke
+## Pitfalls
 
-- `act` deckt nicht alle Actions 1:1 ab — Self-Hosted-Labels und OIDC scheitern lokal.
+- `act` does not cover all actions 1:1 — self-hosted labels and OIDC fail locally.
 - Floating `@v4` bei Actions: Supply-Chain-Risiko bei Tag-Move — SHA pinnen.
-- Matrix explodiert Minuten-Kontingent — nur OS/Version-Kombinationen mit echtem Nutzen.
-- `cache` ohne Lockfile-Pfad trifft nie — `package-lock.json`/`poetry.lock` explizit setzen.
-- `gh run view --log` bei riesigen Logs truncated — Job-Log per Web-UI oder Artifact.
+Matrix explodes minute quota — only OS/version combinations with real benefit.
+- `cache` without Lockfile-Pfad trifft nie — `package-lock.json`/`poetry.lock` explizit setzen.
+- `gh run view --log` bei riesigen Logs truncated — Job-Log per Web-UI or Artifact.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** Python-Repo: pytest-CI von Grund auf.
+- **Task:** Python-Repo: pytest-CI von Grund auf.
 - **Input:** `acme/widgets`, Default-Branch `main`, Test `pytest -q`.
 - **Prompt:**
 
@@ -122,7 +122,7 @@ Output: final ci.yml snippet, commands run, and check names for branch rules.
 Add GitHub Actions ci.yml: ruff lint + pytest on PR and main. Pin setup-python SHA. Show gh commands to verify first green run.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 gh workflow list
@@ -132,9 +132,9 @@ gh pr checks 42
 # all checks passing
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Fehlgeschlagener npm-test auf main analysieren.
+- **Task:** Fehlgeschlagener npm-test auf main analysieren.
 - **Input:** Run-ID `19888765`, Fehler `ENOMEM` im Jest-Step.
 - **Prompt:**
 
@@ -142,7 +142,7 @@ gh pr checks 42
 Pull failed logs with gh, suggest workflow fix (Node heap, shard tests). No secret changes.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 gh run view 19888765 --log-failed | head -80

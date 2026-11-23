@@ -1,29 +1,29 @@
-# Content und Marketing
+# Content and Marketing
 
-**Domain-Slug:** `content-marketing`
-**Kategorien:** 17
-**Stand:** 2026-11-23
+**Domain slug:** `content-marketing`
+**Categories:** 17
+**As of:** 2026-11-23
 
-## Übersicht
+## Overview
 
-Templates und Kategorie-Metadaten für **Content und Marketing** — abgeleitet aus der Recherche vom 2026-11-23.
+Templates and Category Metadata for **Content and Marketing** — derived from research from 2026-11-23.
 
-## Kategorien
+## Categories
 
-| Kategorie | Slug | Templates |
+| Category | Slug | Templates |
 |-----------|------|-----------|
-| Ads und Performance | `ads-performance` | 1 |
-| Branding und Design | `branding-design` | 2 |
-| Content-Strategie | `content-strategie` | 1 |
+transform into an ad the performance
+| Branding and Design | `branding-design` | 2 |
+| Content-Strategie | `content-strategy` | 1 |
 | Copywriting | `copywriting` | 1 |
 | Influencer | `influencer` | 1 |
-| Landingpages | `landingpages` | 1 |
+| Landingpages | `landing-pages` | 1 |
 | Newsletter | `newsletter` | 1 |
 | SEO | `seo` | 1 |
 | Social: Facebook / Meta | `social-facebook-meta` | 1 |
 | Social: Instagram | `social-instagram` | 1 |
 | Social: LinkedIn | `social-linkedin` | 1 |
-| Social-Media-Strategie | `social-media-strategie` | 1 |
+| Social-Media-Strategie | `social-media-strategy` | 1 |
 | Social: Reddit | `social-reddit` | 1 |
 | Social: TikTok | `social-tiktok` | 1 |
 | Social: X / Twitter | `social-x-twitter` | 1 |

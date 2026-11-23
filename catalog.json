@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T11:44:04Z",
+  "generated_at": "2026-11-23T00:00:00Z",
   "domains": [
     {
       "slug": "agent-platforms",
@@ -37,7 +37,50 @@
       ]
     },
     {
-      "slug": "automatisierung",
+      "slug": "ai-ops",
+      "category_count": 9,
+      "template_count": 11,
+      "categories": [
+        {
+          "slug": "agent-orchestration",
+          "template_count": 1
+        },
+        {
+          "slug": "context-token-management",
+          "template_count": 2
+        },
+        {
+          "slug": "evals-benchmarks",
+          "template_count": 1
+        },
+        {
+          "slug": "fine-tuning",
+          "template_count": 1
+        },
+        {
+          "slug": "local-models-ollama",
+          "template_count": 1
+        },
+        {
+          "slug": "mcp-server-build",
+          "template_count": 2
+        },
+        {
+          "slug": "model-routing",
+          "template_count": 1
+        },
+        {
+          "slug": "prompt-engineering",
+          "template_count": 1
+        },
+        {
+          "slug": "skills-authoring",
+          "template_count": 1
+        }
+      ]
+    },
+    {
+      "slug": "automation",
       "category_count": 8,
       "template_count": 10,
       "categories": [
@@ -76,28 +119,32 @@
       ]
     },
     {
-      "slug": "bildung",
-      "category_count": 5,
-      "template_count": 6,
+      "slug": "communication",
+      "category_count": 6,
+      "template_count": 10,
       "categories": [
         {
-          "slug": "kurse-erstellen",
+          "slug": "calendar-scheduling",
           "template_count": 2
         },
         {
-          "slug": "lernkarten",
+          "slug": "chat-messaging",
+          "template_count": 2
+        },
+        {
+          "slug": "email",
+          "template_count": 2
+        },
+        {
+          "slug": "imessage-sms",
           "template_count": 1
         },
         {
-          "slug": "nachhilfe-tutoring",
-          "template_count": 1
+          "slug": "meeting-transcription",
+          "template_count": 2
         },
         {
-          "slug": "sprachen",
-          "template_count": 1
-        },
-        {
-          "slug": "studium-forschung",
+          "slug": "phone-voice-agents",
           "template_count": 1
         }
       ]
@@ -116,7 +163,7 @@
           "template_count": 2
         },
         {
-          "slug": "content-strategie",
+          "slug": "content-strategy",
           "template_count": 1
         },
         {
@@ -128,7 +175,7 @@
           "template_count": 1
         },
         {
-          "slug": "landingpages",
+          "slug": "landing-pages",
           "template_count": 1
         },
         {
@@ -152,7 +199,7 @@
           "template_count": 1
         },
         {
-          "slug": "social-media-strategie",
+          "slug": "social-media-strategy",
           "template_count": 1
         },
         {
@@ -178,7 +225,34 @@
       ]
     },
     {
-      "slug": "daten-analytics",
+      "slug": "customer-service",
+      "category_count": 5,
+      "template_count": 5,
+      "categories": [
+        {
+          "slug": "escalation",
+          "template_count": 1
+        },
+        {
+          "slug": "helpdesk-tickets",
+          "template_count": 1
+        },
+        {
+          "slug": "knowledge-base",
+          "template_count": 1
+        },
+        {
+          "slug": "live-chat-bots",
+          "template_count": 1
+        },
+        {
+          "slug": "qos-csat",
+          "template_count": 1
+        }
+      ]
+    },
+    {
+      "slug": "data-analytics",
       "category_count": 8,
       "template_count": 9,
       "categories": [
@@ -203,11 +277,11 @@
           "template_count": 1
         },
         {
-          "slug": "spreadsheets-analyse",
+          "slug": "spreadsheets-analysis",
           "template_count": 1
         },
         {
-          "slug": "sql-abfragen",
+          "slug": "sql-queries",
           "template_count": 1
         },
         {
@@ -234,11 +308,11 @@
           "template_count": 1
         },
         {
-          "slug": "cloud-gcp",
+          "slug": "cloud-costs",
           "template_count": 1
         },
         {
-          "slug": "cloud-kosten",
+          "slug": "cloud-gcp",
           "template_count": 1
         },
         {
@@ -266,22 +340,49 @@
           "template_count": 2
         },
         {
-          "slug": "plattform-deploy",
+          "slug": "platform-deploy",
           "template_count": 2
         }
       ]
     },
     {
-      "slug": "finanzen",
+      "slug": "education",
+      "category_count": 5,
+      "template_count": 6,
+      "categories": [
+        {
+          "slug": "course-creation",
+          "template_count": 2
+        },
+        {
+          "slug": "flashcards",
+          "template_count": 1
+        },
+        {
+          "slug": "languages",
+          "template_count": 1
+        },
+        {
+          "slug": "study-research",
+          "template_count": 1
+        },
+        {
+          "slug": "tutoring",
+          "template_count": 1
+        }
+      ]
+    },
+    {
+      "slug": "finance",
       "category_count": 7,
       "template_count": 9,
       "categories": [
         {
-          "slug": "banking",
+          "slug": "accounting",
           "template_count": 1
         },
         {
-          "slug": "buchhaltung",
+          "slug": "banking",
           "template_count": 1
         },
         {
@@ -289,15 +390,15 @@
           "template_count": 1
         },
         {
+          "slug": "invoicing",
+          "template_count": 1
+        },
+        {
           "slug": "payments-stripe",
           "template_count": 2
         },
         {
-          "slug": "rechnungen",
-          "template_count": 1
-        },
-        {
-          "slug": "steuern",
+          "slug": "taxes",
           "template_count": 1
         },
         {
@@ -312,6 +413,10 @@
       "template_count": 4,
       "categories": [
         {
+          "slug": "game-libraries",
+          "template_count": 1
+        },
+        {
           "slug": "game-modding",
           "template_count": 1
         },
@@ -320,34 +425,7 @@
           "template_count": 1
         },
         {
-          "slug": "spielbibliotheken",
-          "template_count": 1
-        },
-        {
           "slug": "streaming-gaming",
-          "template_count": 1
-        }
-      ]
-    },
-    {
-      "slug": "gesundheit-fitness",
-      "category_count": 4,
-      "template_count": 4,
-      "categories": [
-        {
-          "slug": "ernaehrung",
-          "template_count": 1
-        },
-        {
-          "slug": "fitness-training",
-          "template_count": 1
-        },
-        {
-          "slug": "gesundheitsdaten-organisation",
-          "template_count": 1
-        },
-        {
-          "slug": "mental-health-organisation",
           "template_count": 1
         }
       ]
@@ -358,6 +436,10 @@
       "template_count": 4,
       "categories": [
         {
+          "slug": "3d-printing",
+          "template_count": 1
+        },
+        {
           "slug": "arduino-esp32",
           "template_count": 1
         },
@@ -366,11 +448,30 @@
           "template_count": 1
         },
         {
-          "slug": "dreid-druck",
+          "slug": "electronics-diagnostics",
+          "template_count": 1
+        }
+      ]
+    },
+    {
+      "slug": "health-fitness",
+      "category_count": 4,
+      "template_count": 4,
+      "categories": [
+        {
+          "slug": "fitness-training",
           "template_count": 1
         },
         {
-          "slug": "elektronik-diagnose",
+          "slug": "health-data-organization",
+          "template_count": 1
+        },
+        {
+          "slug": "mental-health-organisation",
+          "template_count": 1
+        },
+        {
+          "slug": "nutrition",
           "template_count": 1
         }
       ]
@@ -381,44 +482,25 @@
       "template_count": 4,
       "categories": [
         {
-          "slug": "bewerbungen",
+          "slug": "cv-screening",
           "template_count": 1
         },
         {
-          "slug": "cv-screening",
+          "slug": "job-applications",
+          "template_count": 1
+        },
+        {
+          "slug": "job-postings",
           "template_count": 1
         },
         {
           "slug": "onboarding",
           "template_count": 1
-        },
-        {
-          "slug": "stellenausschreibungen",
-          "template_count": 1
         }
       ]
     },
     {
-      "slug": "immobilien",
-      "category_count": 3,
-      "template_count": 3,
-      "categories": [
-        {
-          "slug": "exposes",
-          "template_count": 1
-        },
-        {
-          "slug": "immobilien-suche",
-          "template_count": 1
-        },
-        {
-          "slug": "verwaltung-weg",
-          "template_count": 1
-        }
-      ]
-    },
-    {
-      "slug": "it-betrieb-support",
+      "slug": "it-operations-support",
       "category_count": 10,
       "template_count": 10,
       "categories": [
@@ -447,7 +529,7 @@
           "template_count": 1
         },
         {
-          "slug": "identitaet-sso",
+          "slug": "identity-sso",
           "template_count": 1
         },
         {
@@ -455,7 +537,7 @@
           "template_count": 1
         },
         {
-          "slug": "netzwerk",
+          "slug": "network",
           "template_count": 1
         },
         {
@@ -465,133 +547,51 @@
       ]
     },
     {
-      "slug": "ki-ops",
-      "category_count": 9,
-      "template_count": 11,
+      "slug": "legal-admin",
+      "category_count": 3,
+      "template_count": 3,
       "categories": [
         {
-          "slug": "agent-orchestration",
+          "slug": "contracts",
           "template_count": 1
         },
         {
-          "slug": "context-token-management",
-          "template_count": 2
-        },
-        {
-          "slug": "evals-benchmarks",
+          "slug": "government-forms",
           "template_count": 1
         },
         {
-          "slug": "fine-tuning",
-          "template_count": 1
-        },
-        {
-          "slug": "lokale-modelle-ollama",
-          "template_count": 1
-        },
-        {
-          "slug": "mcp-server-bau",
-          "template_count": 2
-        },
-        {
-          "slug": "model-routing",
-          "template_count": 1
-        },
-        {
-          "slug": "prompt-engineering",
-          "template_count": 1
-        },
-        {
-          "slug": "skills-authoring",
+          "slug": "privacy-compliance",
           "template_count": 1
         }
       ]
     },
     {
-      "slug": "kommunikation",
-      "category_count": 6,
-      "template_count": 10,
-      "categories": [
-        {
-          "slug": "chat-messaging",
-          "template_count": 2
-        },
-        {
-          "slug": "email",
-          "template_count": 2
-        },
-        {
-          "slug": "imessage-sms",
-          "template_count": 1
-        },
-        {
-          "slug": "kalender-scheduling",
-          "template_count": 2
-        },
-        {
-          "slug": "meetings-transkription",
-          "template_count": 2
-        },
-        {
-          "slug": "telefon-voice-agents",
-          "template_count": 1
-        }
-      ]
-    },
-    {
-      "slug": "kundenservice",
-      "category_count": 5,
-      "template_count": 5,
-      "categories": [
-        {
-          "slug": "escalation",
-          "template_count": 1
-        },
-        {
-          "slug": "helpdesk-tickets",
-          "template_count": 1
-        },
-        {
-          "slug": "knowledge-base",
-          "template_count": 1
-        },
-        {
-          "slug": "live-chat-bots",
-          "template_count": 1
-        },
-        {
-          "slug": "qos-csat",
-          "template_count": 1
-        }
-      ]
-    },
-    {
-      "slug": "medien",
+      "slug": "media",
       "category_count": 12,
       "template_count": 16,
       "categories": [
+        {
+          "slug": "3d-modeling",
+          "template_count": 1
+        },
         {
           "slug": "animation-motion",
           "template_count": 1
         },
         {
-          "slug": "audio-bearbeitung",
+          "slug": "audio-editing",
           "template_count": 1
         },
         {
-          "slug": "bild-fotografie",
-          "template_count": 1
-        },
-        {
-          "slug": "bild-generierung",
+          "slug": "image-generation",
           "template_count": 2
         },
         {
-          "slug": "dreid-modellierung",
+          "slug": "music",
           "template_count": 1
         },
         {
-          "slug": "musik",
+          "slug": "photo-imaging",
           "template_count": 1
         },
         {
@@ -603,15 +603,15 @@
           "template_count": 1
         },
         {
-          "slug": "untertitel-uebersetzung",
+          "slug": "subtitles-translation",
           "template_count": 2
         },
         {
-          "slug": "video-bearbeitung",
+          "slug": "video-editing",
           "template_count": 2
         },
         {
-          "slug": "video-produktion-pipeline",
+          "slug": "video-production-pipeline",
           "template_count": 1
         },
         {
@@ -621,16 +621,16 @@
       ]
     },
     {
-      "slug": "office-dokumente",
+      "slug": "office-documents",
       "category_count": 11,
       "template_count": 16,
       "categories": [
         {
-          "slug": "diagramme-whiteboard",
+          "slug": "diagrams-whiteboard",
           "template_count": 1
         },
         {
-          "slug": "e-signatur",
+          "slug": "e-signature",
           "template_count": 1
         },
         {
@@ -638,7 +638,7 @@
           "template_count": 2
         },
         {
-          "slug": "formulare",
+          "slug": "forms",
           "template_count": 1
         },
         {
@@ -672,34 +672,34 @@
       ]
     },
     {
-      "slug": "persoenlich-lifestyle",
+      "slug": "personal-lifestyle",
       "category_count": 5,
       "template_count": 5,
       "categories": [
         {
-          "slug": "einkauf",
+          "slug": "food-recipes",
           "template_count": 1
         },
         {
-          "slug": "essen-rezepte",
+          "slug": "household",
           "template_count": 1
         },
         {
-          "slug": "haushalt",
+          "slug": "personal-appointments",
           "template_count": 1
         },
         {
-          "slug": "produkte-vergleich",
+          "slug": "product-comparison",
           "template_count": 1
         },
         {
-          "slug": "termine-persoenlich",
+          "slug": "shopping",
           "template_count": 1
         }
       ]
     },
     {
-      "slug": "projektmanagement",
+      "slug": "project-management",
       "category_count": 5,
       "template_count": 5,
       "categories": [
@@ -712,7 +712,7 @@
           "template_count": 1
         },
         {
-          "slug": "planung",
+          "slug": "planning",
           "template_count": 1
         },
         {
@@ -726,28 +726,47 @@
       ]
     },
     {
-      "slug": "recherche-wissen",
+      "slug": "real-estate",
+      "category_count": 3,
+      "template_count": 3,
+      "categories": [
+        {
+          "slug": "hoa-management",
+          "template_count": 1
+        },
+        {
+          "slug": "property-listings",
+          "template_count": 1
+        },
+        {
+          "slug": "property-search",
+          "template_count": 1
+        }
+      ]
+    },
+    {
+      "slug": "research-knowledge",
       "category_count": 8,
       "template_count": 13,
       "categories": [
         {
-          "slug": "akademisch",
+          "slug": "academic",
           "template_count": 1
-        },
-        {
-          "slug": "bibliothek-zotero",
-          "template_count": 2
         },
         {
           "slug": "grounded-citations",
           "template_count": 1
         },
         {
+          "slug": "library-zotero",
+          "template_count": 2
+        },
+        {
           "slug": "news-monitoring",
           "template_count": 1
         },
         {
-          "slug": "patente",
+          "slug": "patents",
           "template_count": 2
         },
         {
@@ -755,53 +774,89 @@
           "template_count": 2
         },
         {
-          "slug": "web-recherche",
+          "slug": "web-research",
           "template_count": 2
         },
         {
-          "slug": "wikis-dokumentation",
+          "slug": "wikis-documentation",
           "template_count": 2
         }
       ]
     },
     {
-      "slug": "recht-verwaltung",
-      "category_count": 3,
-      "template_count": 3,
+      "slug": "sales-crm",
+      "category_count": 11,
+      "template_count": 13,
       "categories": [
         {
-          "slug": "behoerden-formulare",
+          "slug": "amazon",
           "template_count": 1
         },
         {
-          "slug": "datenschutz",
+          "slug": "crm",
           "template_count": 1
         },
         {
-          "slug": "vertraege",
+          "slug": "e-commerce",
+          "template_count": 1
+        },
+        {
+          "slug": "etsy",
+          "template_count": 1
+        },
+        {
+          "slug": "kdp",
+          "template_count": 1
+        },
+        {
+          "slug": "leadgen",
+          "template_count": 2
+        },
+        {
+          "slug": "marketplaces",
+          "template_count": 1
+        },
+        {
+          "slug": "offers-proposals",
+          "template_count": 1
+        },
+        {
+          "slug": "outreach",
+          "template_count": 2
+        },
+        {
+          "slug": "price-monitoring",
+          "template_count": 1
+        },
+        {
+          "slug": "shopify",
           "template_count": 1
         }
       ]
     },
     {
-      "slug": "reisen-events",
-      "category_count": 4,
-      "template_count": 4,
+      "slug": "science-engineering",
+      "category_count": 5,
+      "template_count": 5,
       "categories": [
         {
-          "slug": "event-planung",
+          "slug": "data-experiments",
           "template_count": 1
         },
         {
-          "slug": "fluege-hotels",
+          "slug": "lab-notes",
           "template_count": 1
         },
         {
-          "slug": "reiseplanung",
+          "slug": "paper-writing",
           "template_count": 1
         },
         {
-          "slug": "tickets",
+          "slug": "simulation-numerics",
+          "template_count": 1
+        },
+        {
+          "slug": "tech-standards",
           "template_count": 1
         }
       ]
@@ -816,11 +871,11 @@
           "template_count": 1
         },
         {
-          "slug": "compliance-nis2-dsgvo",
+          "slug": "compliance-nis2-gdpr",
           "template_count": 2
         },
         {
-          "slug": "forensik",
+          "slug": "forensics",
           "template_count": 1
         },
         {
@@ -850,7 +905,7 @@
       ]
     },
     {
-      "slug": "software-entwicklung",
+      "slug": "software-development",
       "category_count": 12,
       "template_count": 19,
       "categories": [
@@ -867,7 +922,7 @@
           "template_count": 2
         },
         {
-          "slug": "datenbanken-dev",
+          "slug": "databases-dev",
           "template_count": 2
         },
         {
@@ -905,79 +960,24 @@
       ]
     },
     {
-      "slug": "vertrieb-crm",
-      "category_count": 11,
-      "template_count": 13,
+      "slug": "travel-events",
+      "category_count": 4,
+      "template_count": 4,
       "categories": [
         {
-          "slug": "amazon",
+          "slug": "event-planning",
           "template_count": 1
         },
         {
-          "slug": "angebote-proposals",
+          "slug": "flights-hotels",
           "template_count": 1
         },
         {
-          "slug": "crm",
+          "slug": "tickets",
           "template_count": 1
         },
         {
-          "slug": "e-commerce",
-          "template_count": 1
-        },
-        {
-          "slug": "etsy",
-          "template_count": 1
-        },
-        {
-          "slug": "kdp",
-          "template_count": 1
-        },
-        {
-          "slug": "leadgen",
-          "template_count": 2
-        },
-        {
-          "slug": "marketplaces",
-          "template_count": 1
-        },
-        {
-          "slug": "outreach",
-          "template_count": 2
-        },
-        {
-          "slug": "preis-monitoring",
-          "template_count": 1
-        },
-        {
-          "slug": "shopify",
-          "template_count": 1
-        }
-      ]
-    },
-    {
-      "slug": "wissenschaft-engineering",
-      "category_count": 5,
-      "template_count": 5,
-      "categories": [
-        {
-          "slug": "daten-experimente",
-          "template_count": 1
-        },
-        {
-          "slug": "lab-notes",
-          "template_count": 1
-        },
-        {
-          "slug": "paper-writing",
-          "template_count": 1
-        },
-        {
-          "slug": "simulation-numerics",
-          "template_count": 1
-        },
-        {
-          "slug": "tech-standards",
+          "slug": "trip-planning",
           "template_count": 1
         }
       ]
@@ -992,7 +992,7 @@
       "tags": [
         "claude",
         "agent-platforms",
-        "cliagent"
+        "cli-agent"
       ],
       "target_agents": [
         "claude-code",
@@ -1013,7 +1013,7 @@
       "tags": [
         "claude",
         "agent-platforms",
-        "cliagent"
+        "cli-agent"
       ],
       "target_agents": [
         "claude-code",
@@ -1054,7 +1054,7 @@
       "tags": [
         "cursor",
         "agent-platforms",
-        "ideagent"
+        "ide-agent"
       ],
       "target_agents": [
         "cursor",
@@ -1068,13 +1068,13 @@
     },
     {
       "id": "generic-mcp-agents-mcp-focus",
-      "title": "Generische MCP-Agenten: MCP/Skill-Fokus",
+      "title": "Generic MCP agents: MCP and skill focus",
       "domain": "agent-platforms",
       "category": "generic-mcp-agents",
       "tags": [
         "generic",
         "agent-platforms",
-        "katalog"
+        "catalog"
       ],
       "target_agents": [
         "hermes",
@@ -1096,7 +1096,7 @@
       "tags": [
         "generic",
         "agent-platforms",
-        "katalog"
+        "catalog"
       ],
       "target_agents": [
         "hermes",
@@ -1118,7 +1118,7 @@
       "tags": [
         "grokbot",
         "agent-platforms",
-        "produktconnector"
+        "product-connector"
       ],
       "target_agents": [
         "grokbot",
@@ -1138,7 +1138,7 @@
       "tags": [
         "hermes",
         "agent-platforms",
-        "agentplattform"
+        "agent-platform"
       ],
       "target_agents": [
         "hermes",
@@ -1158,7 +1158,7 @@
       "tags": [
         "openclaw",
         "agent-platforms",
-        "agentplattform"
+        "agent-platform"
       ],
       "target_agents": [
         "openclaw",
@@ -1178,7 +1178,7 @@
       "tags": [
         "openclaw",
         "agent-platforms",
-        "agentplattform"
+        "agent-platform"
       ],
       "target_agents": [
         "openclaw",
@@ -1191,13 +1191,255 @@
       "path": "domains/agent-platforms/openclaw/openclaw-workflow.md"
     },
     {
+      "id": "agent-orchestration-workflow",
+      "title": "Agent-Orchestrierung",
+      "domain": "ai-ops",
+      "category": "agent-orchestration",
+      "tags": [
+        "agents",
+        "ai-ops",
+        "orchestration"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/ai-ops/agent-orchestration/agent-orchestration-workflow.md"
+    },
+    {
+      "id": "context-token-management-mcp-focus",
+      "title": "Context and Token Management: MCP/Skill Focus",
+      "domain": "ai-ops",
+      "category": "context-token-management",
+      "tags": [
+        "context",
+        "ai-ops",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/ai-ops/context-token-management/context-token-management-mcp-focus.md"
+    },
+    {
+      "id": "context-token-management-workflow",
+      "title": "Context and token management",
+      "domain": "ai-ops",
+      "category": "context-token-management",
+      "tags": [
+        "context",
+        "ai-ops",
+        "tokens"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/ai-ops/context-token-management/context-token-management-workflow.md"
+    },
+    {
+      "id": "evals-benchmarks-workflow",
+      "title": "Evals and Benchmarks",
+      "domain": "ai-ops",
+      "category": "evals-benchmarks",
+      "tags": [
+        "evals",
+        "ai-ops",
+        "quality"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/ai-ops/evals-benchmarks/evals-benchmarks-workflow.md"
+    },
+    {
+      "id": "fine-tuning-workflow",
+      "title": "Fine-Tuning",
+      "domain": "ai-ops",
+      "category": "fine-tuning",
+      "tags": [
+        "finetuning",
+        "ai-ops",
+        "training"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "high",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/ai-ops/fine-tuning/fine-tuning-workflow.md"
+    },
+    {
+      "id": "local-models-ollama-workflow",
+      "title": "Lokale Modelle (Ollama)",
+      "domain": "ai-ops",
+      "category": "local-models-ollama",
+      "tags": [
+        "ollama",
+        "ai-ops",
+        "local"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/ai-ops/local-models-ollama/local-models-ollama-workflow.md"
+    },
+    {
+      "id": "mcp-server-build-mcp-focus",
+      "title": "MCP-Server bauen: MCP/Skill-Fokus",
+      "domain": "ai-ops",
+      "category": "mcp-server-build",
+      "tags": [
+        "mcp",
+        "ai-ops",
+        "referenz"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/ai-ops/mcp-server-build/mcp-server-build-mcp-focus.md"
+    },
+    {
+      "id": "mcp-server-build-workflow",
+      "title": "MCP-Server bauen",
+      "domain": "ai-ops",
+      "category": "mcp-server-build",
+      "tags": [
+        "mcp",
+        "ai-ops",
+        "referenz"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 3,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/ai-ops/mcp-server-build/mcp-server-build-workflow.md"
+    },
+    {
+      "id": "model-routing-workflow",
+      "title": "Model-Routing",
+      "domain": "ai-ops",
+      "category": "model-routing",
+      "tags": [
+        "routing",
+        "ai-ops",
+        "models"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/ai-ops/model-routing/model-routing-workflow.md"
+    },
+    {
+      "id": "prompt-engineering-workflow",
+      "title": "Prompt-Engineering",
+      "domain": "ai-ops",
+      "category": "prompt-engineering",
+      "tags": [
+        "prompt",
+        "ai-ops",
+        "instructions"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/ai-ops/prompt-engineering/prompt-engineering-workflow.md"
+    },
+    {
+      "id": "skills-authoring-workflow",
+      "title": "Skills authorisieren",
+      "domain": "ai-ops",
+      "category": "skills-authoring",
+      "tags": [
+        "skills",
+        "ai-ops",
+        "authoring"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/ai-ops/skills-authoring/skills-authoring-workflow.md"
+    },
+    {
       "id": "browser-automation-mcp-focus",
       "title": "Browser-Automation: MCP/Skill-Fokus",
-      "domain": "automatisierung",
+      "domain": "automation",
       "category": "browser-automation",
       "tags": [
         "browser",
-        "automatisierung",
+        "automation",
         "mcp",
         "playwright"
       ],
@@ -1211,16 +1453,16 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/automatisierung/browser-automation/browser-automation-mcp-focus.md"
+      "path": "domains/automation/browser-automation/browser-automation-mcp-focus.md"
     },
     {
       "id": "browser-automation-workflow",
       "title": "Browser-Automation",
-      "domain": "automatisierung",
+      "domain": "automation",
       "category": "browser-automation",
       "tags": [
         "browser",
-        "automatisierung",
+        "automation",
         "playwright"
       ],
       "target_agents": [
@@ -1230,19 +1472,19 @@
         "generic"
       ],
       "risk_level": "medium",
-      "example_count": 3,
+      "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/automatisierung/browser-automation/browser-automation-workflow.md"
+      "path": "domains/automation/browser-automation/browser-automation-workflow.md"
     },
     {
       "id": "cron-routines-workflow",
-      "title": "Cron und Routinen",
-      "domain": "automatisierung",
+      "title": "Cron and Routines",
+      "domain": "automation",
       "category": "cron-routines",
       "tags": [
         "cron",
-        "automatisierung",
+        "automation",
         "scheduling"
       ],
       "target_agents": [
@@ -1255,16 +1497,16 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/automatisierung/cron-routines/cron-routines-workflow.md"
+      "path": "domains/automation/cron-routines/cron-routines-workflow.md"
     },
     {
       "id": "desktop-automation-workflow",
       "title": "Desktop-Automation",
-      "domain": "automatisierung",
+      "domain": "automation",
       "category": "desktop-automation",
       "tags": [
         "desktop",
-        "automatisierung",
+        "automation",
         "skill"
       ],
       "target_agents": [
@@ -1277,16 +1519,16 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/automatisierung/desktop-automation/desktop-automation-workflow.md"
+      "path": "domains/automation/desktop-automation/desktop-automation-workflow.md"
     },
     {
       "id": "iot-workflow",
       "title": "IoT",
-      "domain": "automatisierung",
+      "domain": "automation",
       "category": "iot",
       "tags": [
         "iot",
-        "automatisierung",
+        "automation",
         "mqtt"
       ],
       "target_agents": [
@@ -1299,16 +1541,16 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/automatisierung/iot/iot-workflow.md"
+      "path": "domains/automation/iot/iot-workflow.md"
     },
     {
       "id": "mobile-phone-control-mcp-focus",
-      "title": "Mobile- und Phone-Control: MCP/Skill-Fokus",
-      "domain": "automatisierung",
+      "title": "Mobile and Phone Control: MCP/Skill Focus",
+      "domain": "automation",
       "category": "mobile-phone-control",
       "tags": [
         "mobile",
-        "automatisierung",
+        "automation",
         "mobile-mcp"
       ],
       "target_agents": [
@@ -1321,16 +1563,16 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/automatisierung/mobile-phone-control/mobile-phone-control-mcp-focus.md"
+      "path": "domains/automation/mobile-phone-control/mobile-phone-control-mcp-focus.md"
     },
     {
       "id": "mobile-phone-control-workflow",
-      "title": "Mobile- und Phone-Control",
-      "domain": "automatisierung",
+      "title": "Mobile and Phone Control",
+      "domain": "automation",
       "category": "mobile-phone-control",
       "tags": [
         "mobile",
-        "automatisierung",
+        "automation",
         "mobile-mcp"
       ],
       "target_agents": [
@@ -1343,16 +1585,16 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/automatisierung/mobile-phone-control/mobile-phone-control-workflow.md"
+      "path": "domains/automation/mobile-phone-control/mobile-phone-control-workflow.md"
     },
     {
       "id": "n8n-make-zapier-workflow",
       "title": "n8n, Make, Zapier",
-      "domain": "automatisierung",
+      "domain": "automation",
       "category": "n8n-make-zapier",
       "tags": [
         "n8n",
-        "automatisierung",
+        "automation",
         "iPaaS"
       ],
       "target_agents": [
@@ -1365,17 +1607,17 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/automatisierung/n8n-make-zapier/n8n-make-zapier-workflow.md"
+      "path": "domains/automation/n8n-make-zapier/n8n-make-zapier-workflow.md"
     },
     {
       "id": "rpa-workflow",
       "title": "RPA",
-      "domain": "automatisierung",
+      "domain": "automation",
       "category": "rpa",
       "tags": [
         "rpa",
-        "automatisierung",
-        "plattformmcpkatalogeintrag"
+        "automation",
+        "platform-mcp-catalog"
       ],
       "target_agents": [
         "hermes",
@@ -1387,16 +1629,16 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/automatisierung/rpa/rpa-workflow.md"
+      "path": "domains/automation/rpa/rpa-workflow.md"
     },
     {
       "id": "smart-home-workflow",
       "title": "Smart Home",
-      "domain": "automatisierung",
+      "domain": "automation",
       "category": "smart-home",
       "tags": [
         "smart",
-        "automatisierung",
+        "automation",
         "homeassistant"
       ],
       "target_agents": [
@@ -1409,16 +1651,60 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/automatisierung/smart-home/smart-home-workflow.md"
+      "path": "domains/automation/smart-home/smart-home-workflow.md"
     },
     {
-      "id": "kurse-erstellen-mcp-focus",
-      "title": "Kurse erstellen: MCP/Skill-Fokus",
-      "domain": "bildung",
-      "category": "kurse-erstellen",
+      "id": "calendar-scheduling-mcp-focus",
+      "title": "Calendar and scheduling: MCP/skill focus",
+      "domain": "communication",
+      "category": "calendar-scheduling",
       "tags": [
-        "kurse",
-        "bildung",
+        "kalender",
+        "communication",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/communication/calendar-scheduling/calendar-scheduling-mcp-focus.md"
+    },
+    {
+      "id": "calendar-scheduling-workflow",
+      "title": "Calendar and scheduling",
+      "domain": "communication",
+      "category": "calendar-scheduling",
+      "tags": [
+        "calendar",
+        "communication",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/communication/calendar-scheduling/calendar-scheduling-workflow.md"
+    },
+    {
+      "id": "chat-messaging-mcp-focus",
+      "title": "Chat and messaging: MCP/skill focus",
+      "domain": "communication",
+      "category": "chat-messaging",
+      "tags": [
+        "chat",
+        "communication",
         "skill"
       ],
       "target_agents": [
@@ -1431,16 +1717,16 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/bildung/kurse-erstellen/kurse-erstellen-mcp-focus.md"
+      "path": "domains/communication/chat-messaging/chat-messaging-mcp-focus.md"
     },
     {
-      "id": "kurse-erstellen-workflow",
-      "title": "Kurse erstellen",
-      "domain": "bildung",
-      "category": "kurse-erstellen",
+      "id": "chat-messaging-workflow",
+      "title": "Chat and messaging",
+      "domain": "communication",
+      "category": "chat-messaging",
       "tags": [
-        "kurse",
-        "bildung",
+        "chat",
+        "communication",
         "skill"
       ],
       "target_agents": [
@@ -1450,19 +1736,40 @@
         "generic"
       ],
       "risk_level": "low",
-      "example_count": 3,
+      "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/bildung/kurse-erstellen/kurse-erstellen-workflow.md"
+      "path": "domains/communication/chat-messaging/chat-messaging-workflow.md"
     },
     {
-      "id": "lernkarten-workflow",
-      "title": "Lernkarten",
-      "domain": "bildung",
-      "category": "lernkarten",
+      "id": "email-gmail-mcp-triage",
+      "title": "Posteingang triagieren with Gmail MCP",
+      "domain": "communication",
+      "category": "email",
       "tags": [
-        "lernkarten",
-        "bildung",
+        "gmail",
+        "mcp",
+        "triage"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/communication/email/email-gmail-mcp-triage.md"
+    },
+    {
+      "id": "email-mcp-focus",
+      "title": "Email: MCP/skill focus",
+      "domain": "communication",
+      "category": "email",
+      "tags": [
+        "email",
+        "communication",
         "skillcli"
       ],
       "target_agents": [
@@ -1475,16 +1782,16 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/bildung/lernkarten/lernkarten-workflow.md"
+      "path": "domains/communication/email/email-mcp-focus.md"
     },
     {
-      "id": "nachhilfe-tutoring-workflow",
-      "title": "Nachhilfe und Tutoring",
-      "domain": "bildung",
-      "category": "nachhilfe-tutoring",
+      "id": "imessage-sms-workflow",
+      "title": "iMessage and SMS",
+      "domain": "communication",
+      "category": "imessage-sms",
       "tags": [
-        "nachhilfe",
-        "bildung",
+        "imessage",
+        "communication",
         "skillcli"
       ],
       "target_agents": [
@@ -1497,17 +1804,17 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/bildung/nachhilfe-tutoring/nachhilfe-tutoring-workflow.md"
+      "path": "domains/communication/imessage-sms/imessage-sms-workflow.md"
     },
     {
-      "id": "sprachen-workflow",
-      "title": "Sprachen",
-      "domain": "bildung",
-      "category": "sprachen",
+      "id": "meeting-transcription-mcp-focus",
+      "title": "Meetings and transcription: MCP/skill focus",
+      "domain": "communication",
+      "category": "meeting-transcription",
       "tags": [
-        "sprachen",
-        "bildung",
-        "skillcli"
+        "meetings",
+        "communication",
+        "skill"
       ],
       "target_agents": [
         "hermes",
@@ -1519,17 +1826,17 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/bildung/sprachen/sprachen-workflow.md"
+      "path": "domains/communication/meeting-transcription/meeting-transcription-mcp-focus.md"
     },
     {
-      "id": "studium-forschung-workflow",
-      "title": "Studium und Forschung",
-      "domain": "bildung",
-      "category": "studium-forschung",
+      "id": "meeting-transcription-workflow",
+      "title": "Meetings and transcription",
+      "domain": "communication",
+      "category": "meeting-transcription",
       "tags": [
-        "studium",
-        "bildung",
-        "skillcli"
+        "meetings",
+        "communication",
+        "skill"
       ],
       "target_agents": [
         "hermes",
@@ -1541,11 +1848,33 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/bildung/studium-forschung/studium-forschung-workflow.md"
+      "path": "domains/communication/meeting-transcription/meeting-transcription-workflow.md"
+    },
+    {
+      "id": "phone-voice-agents-workflow",
+      "title": "Phone and voice agents",
+      "domain": "communication",
+      "category": "phone-voice-agents",
+      "tags": [
+        "telefon",
+        "communication",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/communication/phone-voice-agents/phone-voice-agents-workflow.md"
     },
     {
       "id": "ads-performance-workflow",
-      "title": "Paid Ads Performance & Kreativ",
+      "title": "Paid ads performance and creative",
       "domain": "content-marketing",
       "category": "ads-performance",
       "tags": [
@@ -1607,10 +1936,10 @@
       "path": "domains/content-marketing/branding-design/branding-design-workflow.md"
     },
     {
-      "id": "content-strategie-workflow",
+      "id": "content-strategy-workflow",
       "title": "Content-Strategie",
       "domain": "content-marketing",
-      "category": "content-strategie",
+      "category": "content-strategy",
       "tags": [
         "strategy"
       ],
@@ -1624,7 +1953,7 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/content-marketing/content-strategie/content-strategie-workflow.md"
+      "path": "domains/content-marketing/content-strategy/content-strategy-workflow.md"
     },
     {
       "id": "copywriting-workflow",
@@ -1667,10 +1996,10 @@
       "path": "domains/content-marketing/influencer/influencer-workflow.md"
     },
     {
-      "id": "landingpages-workflow",
+      "id": "landing-pages-workflow",
       "title": "Landingpages & CRO",
       "domain": "content-marketing",
-      "category": "landingpages",
+      "category": "landing-pages",
       "tags": [
         "landing",
         "cro"
@@ -1685,7 +2014,7 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/content-marketing/landingpages/landingpages-workflow.md"
+      "path": "domains/content-marketing/landing-pages/landing-pages-workflow.md"
     },
     {
       "id": "newsletter-workflow",
@@ -1790,9 +2119,9 @@
     },
     {
       "id": "social-buffer-schedule-campaign",
-      "title": "Buffer Kampagnenplanung",
+      "title": "Buffer campaign planning",
       "domain": "content-marketing",
-      "category": "social-media-strategie",
+      "category": "social-media-strategy",
       "tags": [
         "buffer",
         "scheduling"
@@ -1807,7 +2136,7 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/content-marketing/social-media-strategie/social-buffer-schedule-campaign.md"
+      "path": "domains/content-marketing/social-media-strategy/social-buffer-schedule-campaign.md"
     },
     {
       "id": "social-reddit-workflow",
@@ -1911,9 +2240,119 @@
       "path": "domains/content-marketing/ugc/ugc-workflow.md"
     },
     {
+      "id": "escalation-workflow",
+      "title": "Eskalation",
+      "domain": "customer-service",
+      "category": "escalation",
+      "tags": [
+        "escalation",
+        "customer-service",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/customer-service/escalation/escalation-workflow.md"
+    },
+    {
+      "id": "helpdesk-tickets-workflow",
+      "title": "Helpdesk and tickets",
+      "domain": "customer-service",
+      "category": "helpdesk-tickets",
+      "tags": [
+        "helpdesk",
+        "customer-service",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/customer-service/helpdesk-tickets/helpdesk-tickets-workflow.md"
+    },
+    {
+      "id": "knowledge-base-workflow",
+      "title": "Knowledge base support",
+      "domain": "customer-service",
+      "category": "knowledge-base",
+      "tags": [
+        "knowledge",
+        "customer-service",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/customer-service/knowledge-base/knowledge-base-workflow.md"
+    },
+    {
+      "id": "live-chat-bots-workflow",
+      "title": "Live chat and bots",
+      "domain": "customer-service",
+      "category": "live-chat-bots",
+      "tags": [
+        "live",
+        "customer-service",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/customer-service/live-chat-bots/live-chat-bots-workflow.md"
+    },
+    {
+      "id": "qos-csat-workflow",
+      "title": "Quality and CSAT",
+      "domain": "customer-service",
+      "category": "qos-csat",
+      "tags": [
+        "qos",
+        "customer-service",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/customer-service/qos-csat/qos-csat-workflow.md"
+    },
+    {
       "id": "bi-dashboards-workflow",
-      "title": "BI-Dashboards & Semantik",
-      "domain": "daten-analytics",
+      "title": "BI dashboards and semantics",
+      "domain": "data-analytics",
       "category": "bi-dashboards",
       "tags": [
         "bi",
@@ -1930,12 +2369,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/daten-analytics/bi-dashboards/bi-dashboards-workflow.md"
+      "path": "domains/data-analytics/bi-dashboards/bi-dashboards-workflow.md"
     },
     {
       "id": "data-cleaning-workflow",
-      "title": "Data Cleaning & Qualitätsregeln",
-      "domain": "daten-analytics",
+      "title": "Data Cleaning Workflow",
+      "domain": "data-analytics",
       "category": "data-cleaning",
       "tags": [
         "data-quality",
@@ -1951,12 +2390,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/daten-analytics/data-cleaning/data-cleaning-workflow.md"
+      "path": "domains/data-analytics/data-cleaning/data-cleaning-workflow.md"
     },
     {
       "id": "data-viz-workflow",
       "title": "Datenvisualisierung",
-      "domain": "daten-analytics",
+      "domain": "data-analytics",
       "category": "data-viz",
       "tags": [
         "visualization",
@@ -1972,12 +2411,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/daten-analytics/data-viz/data-viz-workflow.md"
+      "path": "domains/data-analytics/data-viz/data-viz-workflow.md"
     },
     {
       "id": "etl-pipelines-workflow",
       "title": "ETL-Pipelines & Orchestrierung",
-      "domain": "daten-analytics",
+      "domain": "data-analytics",
       "category": "etl-pipelines",
       "tags": [
         "etl",
@@ -1994,12 +2433,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/daten-analytics/etl-pipelines/etl-pipelines-workflow.md"
+      "path": "domains/data-analytics/etl-pipelines/etl-pipelines-workflow.md"
     },
     {
       "id": "ml-training-workflow",
-      "title": "ML-Training (tabellarisch)",
-      "domain": "daten-analytics",
+      "title": "ML training (tabular)",
+      "domain": "data-analytics",
       "category": "ml-training",
       "tags": [
         "machine-learning",
@@ -2015,13 +2454,13 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/daten-analytics/ml-training/ml-training-workflow.md"
+      "path": "domains/data-analytics/ml-training/ml-training-workflow.md"
     },
     {
-      "id": "daten-python-pandas-eda",
-      "title": "Explorative Analyse mit pandas",
-      "domain": "daten-analytics",
-      "category": "spreadsheets-analyse",
+      "id": "data-python-pandas-eda",
+      "title": "Exploratory analysis with pandas",
+      "domain": "data-analytics",
+      "category": "spreadsheets-analysis",
       "tags": [
         "pandas",
         "eda",
@@ -2035,13 +2474,13 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/daten-analytics/spreadsheets-analyse/daten-python-pandas-eda.md"
+      "path": "domains/data-analytics/spreadsheets-analysis/data-python-pandas-eda.md"
     },
     {
-      "id": "daten-duckdb-sql-report",
-      "title": "Ad-hoc Reporting mit DuckDB",
-      "domain": "daten-analytics",
-      "category": "sql-abfragen",
+      "id": "data-duckdb-sql-report",
+      "title": "Ad-hoc reporting with DuckDB",
+      "domain": "data-analytics",
+      "category": "sql-queries",
       "tags": [
         "duckdb",
         "sql",
@@ -2056,12 +2495,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/daten-analytics/sql-abfragen/daten-duckdb-sql-report.md"
+      "path": "domains/data-analytics/sql-queries/data-duckdb-sql-report.md"
     },
     {
       "id": "web-playwright-research-scrape",
-      "title": "Strukturiertes Scraping mit Playwright",
-      "domain": "daten-analytics",
+      "title": "Structured Scraping with Playwright",
+      "domain": "data-analytics",
       "category": "web-scraping",
       "tags": [
         "playwright",
@@ -2077,12 +2516,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/daten-analytics/web-scraping/web-playwright-research-scrape.md"
+      "path": "domains/data-analytics/web-scraping/web-playwright-research-scrape.md"
     },
     {
       "id": "web-scraping-mcp-focus",
       "title": "Scraping: Firecrawl vs. Playwright",
-      "domain": "daten-analytics",
+      "domain": "data-analytics",
       "category": "web-scraping",
       "tags": [
         "firecrawl",
@@ -2099,11 +2538,11 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/daten-analytics/web-scraping/web-scraping-mcp-focus.md"
+      "path": "domains/data-analytics/web-scraping/web-scraping-mcp-focus.md"
     },
     {
       "id": "cicd-mcp-focus",
-      "title": "CI/CD: MCP/Skill-Fokus",
+      "title": "CI/CD: MCP/Skill focus",
       "domain": "devops-cloud",
       "category": "cicd",
       "tags": [
@@ -2125,7 +2564,7 @@
     },
     {
       "id": "coding-github-actions-ci-pipeline",
-      "title": "CI-Pipeline mit GitHub Actions",
+      "title": "CI Pipeline with GitHub Actions",
       "domain": "devops-cloud",
       "category": "cicd",
       "tags": [
@@ -2192,6 +2631,28 @@
       "path": "domains/devops-cloud/cloud-azure/cloud-azure-workflow.md"
     },
     {
+      "id": "cloud-costs-workflow",
+      "title": "Cloud costs",
+      "domain": "devops-cloud",
+      "category": "cloud-costs",
+      "tags": [
+        "finops",
+        "cost",
+        "cloud"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/devops-cloud/cloud-costs/cloud-costs-workflow.md"
+    },
+    {
       "id": "cloud-gcp-workflow",
       "title": "Cloud: GCP",
       "domain": "devops-cloud",
@@ -2214,30 +2675,8 @@
       "path": "domains/devops-cloud/cloud-gcp/cloud-gcp-workflow.md"
     },
     {
-      "id": "cloud-kosten-workflow",
-      "title": "Cloud-Kosten",
-      "domain": "devops-cloud",
-      "category": "cloud-kosten",
-      "tags": [
-        "finops",
-        "cost",
-        "cloud"
-      ],
-      "target_agents": [
-        "hermes",
-        "claude-code",
-        "cursor",
-        "generic-mcp-agents"
-      ],
-      "risk_level": "medium",
-      "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "domains/devops-cloud/cloud-kosten/cloud-kosten-workflow.md"
-    },
-    {
       "id": "docker-container-workflow",
-      "title": "Docker und Container",
+      "title": "Docker Container Workflow",
       "domain": "devops-cloud",
       "category": "docker-container",
       "tags": [
@@ -2259,7 +2698,7 @@
     },
     {
       "id": "coding-terraform-aws-baseline",
-      "title": "AWS Baseline mit Terraform",
+      "title": "AWS Baseline with Terraform",
       "domain": "devops-cloud",
       "category": "iac-terraform",
       "tags": [
@@ -2281,7 +2720,7 @@
     },
     {
       "id": "incident-response-mcp-focus",
-      "title": "Incident Response: MCP/Skill-Fokus",
+      "title": "Incident Response: MCP/Skill focus",
       "domain": "devops-cloud",
       "category": "incident-response",
       "tags": [
@@ -2324,7 +2763,7 @@
     },
     {
       "id": "k8s-helm-chart-release",
-      "title": "Helm Chart installieren und upgraden",
+      "title": "Install and upgrade helmet chart",
       "domain": "devops-cloud",
       "category": "kubernetes",
       "tags": [
@@ -2345,7 +2784,7 @@
     },
     {
       "id": "k8s-kubectl-rollout-debug",
-      "title": "Deployment Rollout und Debug mit kubectl",
+      "title": "Deployment Rollout and Debug with kubectl",
       "domain": "devops-cloud",
       "category": "kubernetes",
       "tags": [
@@ -2367,7 +2806,7 @@
     },
     {
       "id": "kubernetes-mcp-focus",
-      "title": "Kubernetes: MCP/Skill-Fokus",
+      "title": "Kubernetes: MCP/Skill focus",
       "domain": "devops-cloud",
       "category": "kubernetes",
       "tags": [
@@ -2411,7 +2850,7 @@
     },
     {
       "id": "monitoring-observability-mcp-focus",
-      "title": "Monitoring und Observability: MCP/Skill-Fokus",
+      "title": "Monitoring and Observability: MCP/Skill Focus",
       "domain": "devops-cloud",
       "category": "monitoring-observability",
       "tags": [
@@ -2433,7 +2872,7 @@
     },
     {
       "id": "monitoring-observability-workflow",
-      "title": "Monitoring und Observability",
+      "title": "Monitoring and Observability",
       "domain": "devops-cloud",
       "category": "monitoring-observability",
       "tags": [
@@ -2454,10 +2893,10 @@
       "path": "domains/devops-cloud/monitoring-observability/monitoring-observability-workflow.md"
     },
     {
-      "id": "plattform-deploy-mcp-focus",
-      "title": "Platform Deploy: MCP/Skill-Fokus",
+      "id": "platform-deploy-mcp-focus",
+      "title": "Platform Deploy: MCP/Skill focus",
       "domain": "devops-cloud",
-      "category": "plattform-deploy",
+      "category": "platform-deploy",
       "tags": [
         "deploy",
         "mcp",
@@ -2473,13 +2912,13 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/devops-cloud/plattform-deploy/plattform-deploy-mcp-focus.md"
+      "path": "domains/devops-cloud/platform-deploy/platform-deploy-mcp-focus.md"
     },
     {
-      "id": "plattform-deploy-workflow",
+      "id": "platform-deploy-workflow",
       "title": "Platform Deploy",
       "domain": "devops-cloud",
-      "category": "plattform-deploy",
+      "category": "platform-deploy",
       "tags": [
         "deploy",
         "vercel",
@@ -2495,12 +2934,165 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/devops-cloud/plattform-deploy/plattform-deploy-workflow.md"
+      "path": "domains/devops-cloud/platform-deploy/platform-deploy-workflow.md"
     },
     {
-      "id": "finanzen-camt053-reconcile",
-      "title": "Bankabgleich mit CAMT.053",
-      "domain": "finanzen",
+      "id": "course-creation-mcp-focus",
+      "title": "Kurse erstellen: MCP/Skill focus",
+      "domain": "education",
+      "category": "course-creation",
+      "tags": [
+        "kurse",
+        "education",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/education/course-creation/course-creation-mcp-focus.md"
+    },
+    {
+      "id": "course-creation-workflow",
+      "title": "Course creation",
+      "domain": "education",
+      "category": "course-creation",
+      "tags": [
+        "courses",
+        "education",
+        "skill"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 3,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/education/course-creation/course-creation-workflow.md"
+    },
+    {
+      "id": "flashcards-workflow",
+      "title": "Lernkarten",
+      "domain": "education",
+      "category": "flashcards",
+      "tags": [
+        "lernkarten",
+        "education",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/education/flashcards/flashcards-workflow.md"
+    },
+    {
+      "id": "languages-workflow",
+      "title": "Sprachen",
+      "domain": "education",
+      "category": "languages",
+      "tags": [
+        "sprachen",
+        "education",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/education/languages/languages-workflow.md"
+    },
+    {
+      "id": "study-research-workflow",
+      "title": "Study and Research",
+      "domain": "education",
+      "category": "study-research",
+      "tags": [
+        "studium",
+        "education",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/education/study-research/study-research-workflow.md"
+    },
+    {
+      "id": "tutoring-workflow",
+      "title": "Training and Tutoring",
+      "domain": "education",
+      "category": "tutoring",
+      "tags": [
+        "nachhilfe",
+        "education",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/education/tutoring/tutoring-workflow.md"
+    },
+    {
+      "id": "finance-datev-export-csv",
+      "title": "DATEV export from ledger list",
+      "domain": "finance",
+      "category": "accounting",
+      "tags": [
+        "datev",
+        "csv",
+        "skr03"
+      ],
+      "target_agents": [
+        "hermes",
+        "cursor",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/finance/accounting/finance-datev-export-csv.md"
+    },
+    {
+      "id": "finance-camt053-reconcile",
+      "title": "Bank reconciliation with CAMT.053",
+      "domain": "finance",
       "category": "banking",
       "tags": [
         "camt053",
@@ -2516,33 +3108,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/finanzen/banking/finanzen-camt053-reconcile.md"
-    },
-    {
-      "id": "finanzen-datev-export-csv",
-      "title": "DATEV-Export aus Buchungsliste",
-      "domain": "finanzen",
-      "category": "buchhaltung",
-      "tags": [
-        "datev",
-        "csv",
-        "skr03"
-      ],
-      "target_agents": [
-        "hermes",
-        "cursor",
-        "generic"
-      ],
-      "risk_level": "medium",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/finanzen/buchhaltung/finanzen-datev-export-csv.md"
+      "path": "domains/finance/banking/finance-camt053-reconcile.md"
     },
     {
       "id": "budget-workflow",
-      "title": "Budgetplanung und Abweichungen",
-      "domain": "finanzen",
+      "title": "Budget planning and variances",
+      "domain": "finance",
       "category": "budget",
       "tags": [
         "budget",
@@ -2557,12 +3128,32 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/finanzen/budget/budget-workflow.md"
+      "path": "domains/finance/budget/budget-workflow.md"
+    },
+    {
+      "id": "invoicing-workflow",
+      "title": "Invoices and payment status",
+      "domain": "finance",
+      "category": "invoicing",
+      "tags": [
+        "invoices",
+        "stripe",
+        "ar"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/finance/invoicing/invoicing-workflow.md"
     },
     {
       "id": "payments-stripe-mcp-focus",
-      "title": "Stripe: MCP-Fokus",
-      "domain": "finanzen",
+      "title": "Stripe: MCP focus",
+      "domain": "finance",
       "category": "payments-stripe",
       "tags": [
         "stripe",
@@ -2576,12 +3167,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/finanzen/payments-stripe/payments-stripe-mcp-focus.md"
+      "path": "domains/finance/payments-stripe/payments-stripe-mcp-focus.md"
     },
     {
       "id": "payments-stripe-workflow",
-      "title": "Stripe Auswertungen Read-Only",
-      "domain": "finanzen",
+      "title": "Stripe reporting read-only",
+      "domain": "finance",
       "category": "payments-stripe",
       "tags": [
         "stripe",
@@ -2596,33 +3187,13 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/finanzen/payments-stripe/payments-stripe-workflow.md"
+      "path": "domains/finance/payments-stripe/payments-stripe-workflow.md"
     },
     {
-      "id": "rechnungen-workflow",
-      "title": "Rechnungen und Zahlungsstatus",
-      "domain": "finanzen",
-      "category": "rechnungen",
-      "tags": [
-        "invoices",
-        "stripe",
-        "ar"
-      ],
-      "target_agents": [
-        "hermes",
-        "generic"
-      ],
-      "risk_level": "medium",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/finanzen/rechnungen/rechnungen-workflow.md"
-    },
-    {
-      "id": "steuern-workflow",
-      "title": "Steuerdaten organisieren (keine Beratung)",
-      "domain": "finanzen",
-      "category": "steuern",
+      "id": "taxes-workflow",
+      "title": "Organize tax data (not advice)",
+      "domain": "finance",
+      "category": "taxes",
       "tags": [
         "tax",
         "org",
@@ -2636,12 +3207,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/finanzen/steuern/steuern-workflow.md"
+      "path": "domains/finance/taxes/taxes-workflow.md"
     },
     {
       "id": "trading-krypto-mcp-focus",
-      "title": "Trading/Krypto: Tool-Fokus",
-      "domain": "finanzen",
+      "title": "Trading/crypto: tool focus",
+      "domain": "finance",
       "category": "trading-krypto",
       "tags": [
         "trading",
@@ -2655,12 +3226,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/finanzen/trading-krypto/trading-krypto-mcp-focus.md"
+      "path": "domains/finance/trading-krypto/trading-krypto-mcp-focus.md"
     },
     {
       "id": "trading-krypto-workflow",
-      "title": "Trading- und Krypto-Read-Only",
-      "domain": "finanzen",
+      "title": "Trading and crypto read-only",
+      "domain": "finance",
       "category": "trading-krypto",
       "tags": [
         "trading",
@@ -2675,7 +3246,29 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/finanzen/trading-krypto/trading-krypto-workflow.md"
+      "path": "domains/finance/trading-krypto/trading-krypto-workflow.md"
+    },
+    {
+      "id": "game-libraries-workflow",
+      "title": "Game libraries",
+      "domain": "gaming-modding",
+      "category": "game-libraries",
+      "tags": [
+        "spielbibliotheken",
+        "gaming-modding",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/gaming-modding/game-libraries/game-libraries-workflow.md"
     },
     {
       "id": "game-modding-workflow",
@@ -2722,30 +3315,8 @@
       "path": "domains/gaming-modding/game-servers/game-servers-workflow.md"
     },
     {
-      "id": "spielbibliotheken-workflow",
-      "title": "Spielbibliotheken",
-      "domain": "gaming-modding",
-      "category": "spielbibliotheken",
-      "tags": [
-        "spielbibliotheken",
-        "gaming-modding",
-        "mcp"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "domains/gaming-modding/spielbibliotheken/spielbibliotheken-workflow.md"
-    },
-    {
       "id": "streaming-gaming-workflow",
-      "title": "Gaming-Streaming",
+      "title": "Gaming streaming",
       "domain": "gaming-modding",
       "category": "streaming-gaming",
       "tags": [
@@ -2766,14 +3337,13 @@
       "path": "domains/gaming-modding/streaming-gaming/streaming-gaming-workflow.md"
     },
     {
-      "id": "ernaehrung-workflow",
-      "title": "Ernährung",
-      "domain": "gesundheit-fitness",
-      "category": "ernaehrung",
+      "id": "3d-printing-workflow",
+      "title": "3D printing",
+      "domain": "hardware-embedded",
+      "category": "3d-printing",
       "tags": [
-        "ernaehrung",
-        "gesundheit-fitness",
-        "mcp"
+        "dreid",
+        "hardware-embedded"
       ],
       "target_agents": [
         "hermes",
@@ -2785,77 +3355,11 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/gesundheit-fitness/ernaehrung/ernaehrung-workflow.md"
-    },
-    {
-      "id": "fitness-training-workflow",
-      "title": "Fitness und Training",
-      "domain": "gesundheit-fitness",
-      "category": "fitness-training",
-      "tags": [
-        "fitness",
-        "gesundheit-fitness",
-        "mcp"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "domains/gesundheit-fitness/fitness-training/fitness-training-workflow.md"
-    },
-    {
-      "id": "gesundheitsdaten-organisation-workflow",
-      "title": "Gesundheitsdaten organisieren",
-      "domain": "gesundheit-fitness",
-      "category": "gesundheitsdaten-organisation",
-      "tags": [
-        "gesundheitsdaten",
-        "gesundheit-fitness",
-        "mcp"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "domains/gesundheit-fitness/gesundheitsdaten-organisation/gesundheitsdaten-organisation-workflow.md"
-    },
-    {
-      "id": "mental-health-organisation-workflow",
-      "title": "Organisation rund um mentale Gesundheit",
-      "domain": "gesundheit-fitness",
-      "category": "mental-health-organisation",
-      "tags": [
-        "mental",
-        "gesundheit-fitness",
-        "mcp"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "domains/gesundheit-fitness/mental-health-organisation/mental-health-organisation-workflow.md"
+      "path": "domains/hardware-embedded/3d-printing/3d-printing-workflow.md"
     },
     {
       "id": "arduino-esp32-workflow",
-      "title": "Arduino und ESP32",
+      "title": "Arduino and ESP32",
       "domain": "hardware-embedded",
       "category": "arduino-esp32",
       "tags": [
@@ -2896,31 +3400,10 @@
       "path": "domains/hardware-embedded/cad/cad-workflow.md"
     },
     {
-      "id": "dreid-druck-workflow",
-      "title": "3D-Druck",
+      "id": "electronics-diagnostics-workflow",
+      "title": "Electronics diagnostics",
       "domain": "hardware-embedded",
-      "category": "dreid-druck",
-      "tags": [
-        "dreid",
-        "hardware-embedded"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "domains/hardware-embedded/dreid-druck/dreid-druck-workflow.md"
-    },
-    {
-      "id": "elektronik-diagnose-workflow",
-      "title": "Elektronik-Diagnose",
-      "domain": "hardware-embedded",
-      "category": "elektronik-diagnose",
+      "category": "electronics-diagnostics",
       "tags": [
         "elektronik",
         "hardware-embedded"
@@ -2935,17 +3418,17 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/hardware-embedded/elektronik-diagnose/elektronik-diagnose-workflow.md"
+      "path": "domains/hardware-embedded/electronics-diagnostics/electronics-diagnostics-workflow.md"
     },
     {
-      "id": "bewerbungen-workflow",
-      "title": "Bewerbungen",
-      "domain": "hr-recruiting",
-      "category": "bewerbungen",
+      "id": "fitness-training-workflow",
+      "title": "Fitness and training",
+      "domain": "health-fitness",
+      "category": "fitness-training",
       "tags": [
-        "bewerbungen",
-        "lebenslauf",
-        "anschreiben"
+        "fitness",
+        "health-fitness",
+        "mcp"
       ],
       "target_agents": [
         "hermes",
@@ -2955,9 +3438,75 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.1.0",
+      "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/hr-recruiting/bewerbungen/bewerbungen-workflow.md"
+      "path": "domains/health-fitness/fitness-training/fitness-training-workflow.md"
+    },
+    {
+      "id": "health-data-organization-workflow",
+      "title": "Organize health data",
+      "domain": "health-fitness",
+      "category": "health-data-organization",
+      "tags": [
+        "gesundheitsdaten",
+        "health-fitness",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/health-fitness/health-data-organization/health-data-organization-workflow.md"
+    },
+    {
+      "id": "mental-health-organisation-workflow",
+      "title": "Mental health organization",
+      "domain": "health-fitness",
+      "category": "mental-health-organisation",
+      "tags": [
+        "mental",
+        "health-fitness",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/health-fitness/mental-health-organisation/mental-health-organisation-workflow.md"
+    },
+    {
+      "id": "nutrition-workflow",
+      "title": "Nutrition",
+      "domain": "health-fitness",
+      "category": "nutrition",
+      "tags": [
+        "ernaehrung",
+        "health-fitness",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/health-fitness/nutrition/nutrition-workflow.md"
     },
     {
       "id": "cv-screening-workflow",
@@ -2982,6 +3531,50 @@
       "path": "domains/hr-recruiting/cv-screening/cv-screening-workflow.md"
     },
     {
+      "id": "job-applications-workflow",
+      "title": "Job applications",
+      "domain": "hr-recruiting",
+      "category": "job-applications",
+      "tags": [
+        "job-applications",
+        "cv",
+        "cover-letter"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/hr-recruiting/job-applications/job-applications-workflow.md"
+    },
+    {
+      "id": "job-postings-workflow",
+      "title": "Job postings",
+      "domain": "hr-recruiting",
+      "category": "job-postings",
+      "tags": [
+        "stellenausschreibung",
+        "job-description",
+        "recruiting"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/hr-recruiting/job-postings/job-postings-workflow.md"
+    },
+    {
       "id": "onboarding-workflow",
       "title": "Onboarding",
       "domain": "hr-recruiting",
@@ -3004,100 +3597,13 @@
       "path": "domains/hr-recruiting/onboarding/onboarding-workflow.md"
     },
     {
-      "id": "stellenausschreibungen-workflow",
-      "title": "Stellenausschreibungen",
-      "domain": "hr-recruiting",
-      "category": "stellenausschreibungen",
-      "tags": [
-        "stellenausschreibung",
-        "job-description",
-        "recruiting"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/hr-recruiting/stellenausschreibungen/stellenausschreibungen-workflow.md"
-    },
-    {
-      "id": "exposes-workflow",
-      "title": "Exposés",
-      "domain": "immobilien",
-      "category": "exposes",
-      "tags": [
-        "exposes",
-        "immobilien",
-        "mcp"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "domains/immobilien/exposes/exposes-workflow.md"
-    },
-    {
-      "id": "immobilien-suche-workflow",
-      "title": "Immobiliensuche",
-      "domain": "immobilien",
-      "category": "immobilien-suche",
-      "tags": [
-        "immobilien",
-        "mcp"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "domains/immobilien/immobilien-suche/immobilien-suche-workflow.md"
-    },
-    {
-      "id": "verwaltung-weg-workflow",
-      "title": "Verwaltung / WEG",
-      "domain": "immobilien",
-      "category": "verwaltung-weg",
-      "tags": [
-        "verwaltung",
-        "immobilien",
-        "mcp"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "domains/immobilien/verwaltung-weg/verwaltung-weg-workflow.md"
-    },
-    {
       "id": "active-directory-entra-workflow",
-      "title": "Active Directory und Entra ID",
-      "domain": "it-betrieb-support",
+      "title": "Active Directory and Entra ID",
+      "domain": "it-operations-support",
       "category": "active-directory-entra",
       "tags": [
         "active",
-        "it-betrieb-support",
+        "it-operations-support",
         "entra"
       ],
       "target_agents": [
@@ -3110,16 +3616,16 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/it-betrieb-support/active-directory-entra/active-directory-entra-workflow.md"
+      "path": "domains/it-operations-support/active-directory-entra/active-directory-entra-workflow.md"
     },
     {
       "id": "backup-restore-workflow",
-      "title": "Backup und Restore",
-      "domain": "it-betrieb-support",
+      "title": "Backup and restore",
+      "domain": "it-operations-support",
       "category": "backup-restore",
       "tags": [
         "backup",
-        "it-betrieb-support"
+        "it-operations-support"
       ],
       "target_agents": [
         "hermes",
@@ -3131,16 +3637,16 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/it-betrieb-support/backup-restore/backup-restore-workflow.md"
+      "path": "domains/it-operations-support/backup-restore/backup-restore-workflow.md"
     },
     {
       "id": "endpoint-mdm-workflow",
-      "title": "Endpoint und MDM",
-      "domain": "it-betrieb-support",
+      "title": "Endpoint and MDM",
+      "domain": "it-operations-support",
       "category": "endpoint-mdm",
       "tags": [
         "endpoint",
-        "it-betrieb-support",
+        "it-operations-support",
         "mdm"
       ],
       "target_agents": [
@@ -3153,16 +3659,16 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/it-betrieb-support/endpoint-mdm/endpoint-mdm-workflow.md"
+      "path": "domains/it-operations-support/endpoint-mdm/endpoint-mdm-workflow.md"
     },
     {
       "id": "google-workspace-admin-workflow",
       "title": "Google-Workspace-Admin",
-      "domain": "it-betrieb-support",
+      "domain": "it-operations-support",
       "category": "google-workspace-admin",
       "tags": [
         "google",
-        "it-betrieb-support",
+        "it-operations-support",
         "workspace"
       ],
       "target_agents": [
@@ -3175,12 +3681,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/it-betrieb-support/google-workspace-admin/google-workspace-admin-workflow.md"
+      "path": "domains/it-operations-support/google-workspace-admin/google-workspace-admin-workflow.md"
     },
     {
       "id": "it-ansible-patch-baseline",
-      "title": "Patch-Baseline mit Ansible",
-      "domain": "it-betrieb-support",
+      "title": "Patch baseline with Ansible",
+      "domain": "it-operations-support",
       "category": "helpdesk-it",
       "tags": [
         "ansible",
@@ -3196,16 +3702,16 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/it-betrieb-support/helpdesk-it/it-ansible-patch-baseline.md"
+      "path": "domains/it-operations-support/helpdesk-it/it-ansible-patch-baseline.md"
     },
     {
       "id": "homelab-workflow",
       "title": "Homelab",
-      "domain": "it-betrieb-support",
+      "domain": "it-operations-support",
       "category": "homelab",
       "tags": [
         "homelab",
-        "it-betrieb-support",
+        "it-operations-support",
         "kubectl"
       ],
       "target_agents": [
@@ -3218,16 +3724,16 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/it-betrieb-support/homelab/homelab-workflow.md"
+      "path": "domains/it-operations-support/homelab/homelab-workflow.md"
     },
     {
-      "id": "identitaet-sso-workflow",
-      "title": "Identität und SSO",
-      "domain": "it-betrieb-support",
-      "category": "identitaet-sso",
+      "id": "identity-sso-workflow",
+      "title": "Identity and SSO",
+      "domain": "it-operations-support",
+      "category": "identity-sso",
       "tags": [
         "identitaet",
-        "it-betrieb-support",
+        "it-operations-support",
         "sso"
       ],
       "target_agents": [
@@ -3240,16 +3746,16 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/it-betrieb-support/identitaet-sso/identitaet-sso-workflow.md"
+      "path": "domains/it-operations-support/identity-sso/identity-sso-workflow.md"
     },
     {
       "id": "m365-admin-workflow",
       "title": "Microsoft 365 Admin",
-      "domain": "it-betrieb-support",
+      "domain": "it-operations-support",
       "category": "m365-admin",
       "tags": [
         "m365",
-        "it-betrieb-support",
+        "it-operations-support",
         "exchange"
       ],
       "target_agents": [
@@ -3262,16 +3768,16 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/it-betrieb-support/m365-admin/m365-admin-workflow.md"
+      "path": "domains/it-operations-support/m365-admin/m365-admin-workflow.md"
     },
     {
-      "id": "netzwerk-workflow",
+      "id": "network-workflow",
       "title": "Netzwerk",
-      "domain": "it-betrieb-support",
-      "category": "netzwerk",
+      "domain": "it-operations-support",
+      "category": "network",
       "tags": [
         "netzwerk",
-        "it-betrieb-support",
+        "it-operations-support",
         "skillcli"
       ],
       "target_agents": [
@@ -3284,12 +3790,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/it-betrieb-support/netzwerk/netzwerk-workflow.md"
+      "path": "domains/it-operations-support/network/network-workflow.md"
     },
     {
       "id": "it-meshcentral-remote-session",
-      "title": "Remote-Support mit MeshCentral",
-      "domain": "it-betrieb-support",
+      "title": "Remote support with MeshCentral",
+      "domain": "it-operations-support",
       "category": "remote-support",
       "tags": [
         "meshcentral",
@@ -3304,258 +3810,16 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/it-betrieb-support/remote-support/it-meshcentral-remote-session.md"
+      "path": "domains/it-operations-support/remote-support/it-meshcentral-remote-session.md"
     },
     {
-      "id": "agent-orchestration-workflow",
-      "title": "Agent-Orchestrierung",
-      "domain": "ki-ops",
-      "category": "agent-orchestration",
+      "id": "contracts-workflow",
+      "title": "Contracts",
+      "domain": "legal-admin",
+      "category": "contracts",
       "tags": [
-        "agents",
-        "ki-ops",
-        "orchestration"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "medium",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/ki-ops/agent-orchestration/agent-orchestration-workflow.md"
-    },
-    {
-      "id": "context-token-management-mcp-focus",
-      "title": "Kontext- und Token-Management: MCP/Skill-Fokus",
-      "domain": "ki-ops",
-      "category": "context-token-management",
-      "tags": [
-        "context",
-        "ki-ops",
-        "mcp"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/ki-ops/context-token-management/context-token-management-mcp-focus.md"
-    },
-    {
-      "id": "context-token-management-workflow",
-      "title": "Kontext- und Token-Management",
-      "domain": "ki-ops",
-      "category": "context-token-management",
-      "tags": [
-        "context",
-        "ki-ops",
-        "tokens"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/ki-ops/context-token-management/context-token-management-workflow.md"
-    },
-    {
-      "id": "evals-benchmarks-workflow",
-      "title": "Evals und Benchmarks",
-      "domain": "ki-ops",
-      "category": "evals-benchmarks",
-      "tags": [
-        "evals",
-        "ki-ops",
-        "quality"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/ki-ops/evals-benchmarks/evals-benchmarks-workflow.md"
-    },
-    {
-      "id": "fine-tuning-workflow",
-      "title": "Fine-Tuning",
-      "domain": "ki-ops",
-      "category": "fine-tuning",
-      "tags": [
-        "finetuning",
-        "ki-ops",
-        "training"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "high",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/ki-ops/fine-tuning/fine-tuning-workflow.md"
-    },
-    {
-      "id": "lokale-modelle-ollama-workflow",
-      "title": "Lokale Modelle (Ollama)",
-      "domain": "ki-ops",
-      "category": "lokale-modelle-ollama",
-      "tags": [
-        "ollama",
-        "ki-ops",
-        "local"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/ki-ops/lokale-modelle-ollama/lokale-modelle-ollama-workflow.md"
-    },
-    {
-      "id": "mcp-server-bau-mcp-focus",
-      "title": "MCP-Server bauen: MCP/Skill-Fokus",
-      "domain": "ki-ops",
-      "category": "mcp-server-bau",
-      "tags": [
-        "mcp",
-        "ki-ops",
-        "referenz"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/ki-ops/mcp-server-bau/mcp-server-bau-mcp-focus.md"
-    },
-    {
-      "id": "mcp-server-bau-workflow",
-      "title": "MCP-Server bauen",
-      "domain": "ki-ops",
-      "category": "mcp-server-bau",
-      "tags": [
-        "mcp",
-        "ki-ops",
-        "referenz"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "medium",
-      "example_count": 3,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/ki-ops/mcp-server-bau/mcp-server-bau-workflow.md"
-    },
-    {
-      "id": "model-routing-workflow",
-      "title": "Model-Routing",
-      "domain": "ki-ops",
-      "category": "model-routing",
-      "tags": [
-        "routing",
-        "ki-ops",
-        "models"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/ki-ops/model-routing/model-routing-workflow.md"
-    },
-    {
-      "id": "prompt-engineering-workflow",
-      "title": "Prompt-Engineering",
-      "domain": "ki-ops",
-      "category": "prompt-engineering",
-      "tags": [
-        "prompt",
-        "ki-ops",
-        "instructions"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/ki-ops/prompt-engineering/prompt-engineering-workflow.md"
-    },
-    {
-      "id": "skills-authoring-workflow",
-      "title": "Skills authorisieren",
-      "domain": "ki-ops",
-      "category": "skills-authoring",
-      "tags": [
-        "skills",
-        "ki-ops",
-        "authoring"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/ki-ops/skills-authoring/skills-authoring-workflow.md"
-    },
-    {
-      "id": "chat-messaging-mcp-focus",
-      "title": "Chat und Messaging: MCP/Skill-Fokus",
-      "domain": "kommunikation",
-      "category": "chat-messaging",
-      "tags": [
-        "chat",
-        "kommunikation",
+        "contracts",
+        "legal-admin",
         "skill"
       ],
       "target_agents": [
@@ -3566,18 +3830,18 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.1.0",
+      "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/kommunikation/chat-messaging/chat-messaging-mcp-focus.md"
+      "path": "domains/legal-admin/contracts/contracts-workflow.md"
     },
     {
-      "id": "chat-messaging-workflow",
-      "title": "Chat und Messaging",
-      "domain": "kommunikation",
-      "category": "chat-messaging",
+      "id": "government-forms-workflow",
+      "title": "Authorities and forms",
+      "domain": "legal-admin",
+      "category": "government-forms",
       "tags": [
-        "chat",
-        "kommunikation",
+        "government-forms",
+        "legal-admin",
         "skill"
       ],
       "target_agents": [
@@ -3588,127 +3852,18 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.1.0",
+      "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/kommunikation/chat-messaging/chat-messaging-workflow.md"
+      "path": "domains/legal-admin/government-forms/government-forms-workflow.md"
     },
     {
-      "id": "email-gmail-mcp-triage",
-      "title": "Posteingang triagieren mit Gmail MCP",
-      "domain": "kommunikation",
-      "category": "email",
+      "id": "privacy-compliance-workflow",
+      "title": "Privacy and compliance",
+      "domain": "legal-admin",
+      "category": "privacy-compliance",
       "tags": [
-        "gmail",
-        "mcp",
-        "triage"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic"
-      ],
-      "risk_level": "medium",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/kommunikation/email/email-gmail-mcp-triage.md"
-    },
-    {
-      "id": "email-mcp-focus",
-      "title": "E-Mail: MCP/Skill-Fokus",
-      "domain": "kommunikation",
-      "category": "email",
-      "tags": [
-        "email",
-        "kommunikation",
-        "skillcli"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/kommunikation/email/email-mcp-focus.md"
-    },
-    {
-      "id": "imessage-sms-workflow",
-      "title": "iMessage und SMS",
-      "domain": "kommunikation",
-      "category": "imessage-sms",
-      "tags": [
-        "imessage",
-        "kommunikation",
-        "skillcli"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/kommunikation/imessage-sms/imessage-sms-workflow.md"
-    },
-    {
-      "id": "kalender-scheduling-mcp-focus",
-      "title": "Kalender und Scheduling: MCP/Skill-Fokus",
-      "domain": "kommunikation",
-      "category": "kalender-scheduling",
-      "tags": [
-        "kalender",
-        "kommunikation",
-        "skillcli"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/kommunikation/kalender-scheduling/kalender-scheduling-mcp-focus.md"
-    },
-    {
-      "id": "kalender-scheduling-workflow",
-      "title": "Kalender und Scheduling",
-      "domain": "kommunikation",
-      "category": "kalender-scheduling",
-      "tags": [
-        "kalender",
-        "kommunikation",
-        "skillcli"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/kommunikation/kalender-scheduling/kalender-scheduling-workflow.md"
-    },
-    {
-      "id": "meetings-transkription-mcp-focus",
-      "title": "Meetings und Transkription: MCP/Skill-Fokus",
-      "domain": "kommunikation",
-      "category": "meetings-transkription",
-      "tags": [
-        "meetings",
-        "kommunikation",
+        "privacy-compliance",
+        "legal-admin",
         "skill"
       ],
       "target_agents": [
@@ -3719,276 +3874,15 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.1.0",
+      "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/kommunikation/meetings-transkription/meetings-transkription-mcp-focus.md"
+      "path": "domains/legal-admin/privacy-compliance/privacy-compliance-workflow.md"
     },
     {
-      "id": "meetings-transkription-workflow",
-      "title": "Meetings und Transkription",
-      "domain": "kommunikation",
-      "category": "meetings-transkription",
-      "tags": [
-        "meetings",
-        "kommunikation",
-        "skill"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/kommunikation/meetings-transkription/meetings-transkription-workflow.md"
-    },
-    {
-      "id": "telefon-voice-agents-workflow",
-      "title": "Telefon und Voice-Agents",
-      "domain": "kommunikation",
-      "category": "telefon-voice-agents",
-      "tags": [
-        "telefon",
-        "kommunikation",
-        "mcp"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/kommunikation/telefon-voice-agents/telefon-voice-agents-workflow.md"
-    },
-    {
-      "id": "escalation-workflow",
-      "title": "Eskalation",
-      "domain": "kundenservice",
-      "category": "escalation",
-      "tags": [
-        "escalation",
-        "kundenservice",
-        "mcp"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/kundenservice/escalation/escalation-workflow.md"
-    },
-    {
-      "id": "helpdesk-tickets-workflow",
-      "title": "Helpdesk und Tickets",
-      "domain": "kundenservice",
-      "category": "helpdesk-tickets",
-      "tags": [
-        "helpdesk",
-        "kundenservice",
-        "mcp"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/kundenservice/helpdesk-tickets/helpdesk-tickets-workflow.md"
-    },
-    {
-      "id": "knowledge-base-workflow",
-      "title": "Wissensdatenbank Support",
-      "domain": "kundenservice",
-      "category": "knowledge-base",
-      "tags": [
-        "knowledge",
-        "kundenservice",
-        "mcp"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/kundenservice/knowledge-base/knowledge-base-workflow.md"
-    },
-    {
-      "id": "live-chat-bots-workflow",
-      "title": "Live-Chat und Bots",
-      "domain": "kundenservice",
-      "category": "live-chat-bots",
-      "tags": [
-        "live",
-        "kundenservice",
-        "mcp"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "medium",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/kundenservice/live-chat-bots/live-chat-bots-workflow.md"
-    },
-    {
-      "id": "qos-csat-workflow",
-      "title": "Qualität und CSAT",
-      "domain": "kundenservice",
-      "category": "qos-csat",
-      "tags": [
-        "qos",
-        "kundenservice",
-        "mcp"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/kundenservice/qos-csat/qos-csat-workflow.md"
-    },
-    {
-      "id": "animation-motion-workflow",
-      "title": "Motion Graphics mit Remotion und Hermes-Creative",
-      "domain": "medien",
-      "category": "animation-motion",
-      "tags": [
-        "remotion",
-        "manim",
-        "motion"
-      ],
-      "target_agents": [
-        "hermes",
-        "claude-code",
-        "cursor"
-      ],
-      "risk_level": "medium",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/medien/animation-motion/animation-motion-workflow.md"
-    },
-    {
-      "id": "audio-bearbeitung-workflow",
-      "title": "Audio schneiden, normalisieren und konvertieren",
-      "domain": "medien",
-      "category": "audio-bearbeitung",
-      "tags": [
-        "audio",
-        "ffmpeg",
-        "normalize"
-      ],
-      "target_agents": [
-        "hermes",
-        "generic",
-        "cursor"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/medien/audio-bearbeitung/audio-bearbeitung-workflow.md"
-    },
-    {
-      "id": "bild-imagemagick-batch-resize",
-      "title": "Fotos batchweise skalieren und exportieren",
-      "domain": "medien",
-      "category": "bild-fotografie",
-      "tags": [
-        "imagemagick",
-        "batch",
-        "resize",
-        "web"
-      ],
-      "target_agents": [
-        "cursor",
-        "claude-code",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/medien/bild-fotografie/bild-imagemagick-batch-resize.md"
-    },
-    {
-      "id": "bild-comfyui-sdxl-workflow",
-      "title": "SDXL-Bilder über ComfyUI-Workflow",
-      "domain": "medien",
-      "category": "bild-generierung",
-      "tags": [
-        "comfyui",
-        "sdxl",
-        "generative"
-      ],
-      "target_agents": [
-        "hermes",
-        "generic-mcp-agents",
-        "openclaw"
-      ],
-      "risk_level": "medium",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/medien/bild-generierung/bild-comfyui-sdxl-workflow.md"
-    },
-    {
-      "id": "bild-generierung-mcp-focus",
-      "title": "Bildgenerierung: ComfyUI, Cloudinary und Skills",
-      "domain": "medien",
-      "category": "bild-generierung",
-      "tags": [
-        "image-gen",
-        "comfy",
-        "mcp",
-        "cloudinary"
-      ],
-      "target_agents": [
-        "hermes",
-        "generic-mcp-agents",
-        "openclaw"
-      ],
-      "risk_level": "medium",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/medien/bild-generierung/bild-generierung-mcp-focus.md"
-    },
-    {
-      "id": "dreid-modellierung-workflow",
-      "title": "3D-Assets prüfen, konvertieren und dokumentieren",
-      "domain": "medien",
-      "category": "dreid-modellierung",
+      "id": "3d-modeling-workflow",
+      "title": "Validate, convert, and document 3D assets",
+      "domain": "media",
+      "category": "3d-modeling",
       "tags": [
         "3d",
         "blender",
@@ -4004,13 +3898,98 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/medien/dreid-modellierung/dreid-modellierung-workflow.md"
+      "path": "domains/media/3d-modeling/3d-modeling-workflow.md"
     },
     {
-      "id": "musik-workflow",
-      "title": "Songwriting und AI-Musik-Prompts",
-      "domain": "medien",
-      "category": "musik",
+      "id": "animation-motion-workflow",
+      "title": "Motion Graphics with Remotion and Hermes-Creative",
+      "domain": "media",
+      "category": "animation-motion",
+      "tags": [
+        "remotion",
+        "manim",
+        "motion"
+      ],
+      "target_agents": [
+        "hermes",
+        "claude-code",
+        "cursor"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/media/animation-motion/animation-motion-workflow.md"
+    },
+    {
+      "id": "audio-editing-workflow",
+      "title": "Cut, normalize, and convert audio",
+      "domain": "media",
+      "category": "audio-editing",
+      "tags": [
+        "audio",
+        "ffmpeg",
+        "normalize"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic",
+        "cursor"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/media/audio-editing/audio-editing-workflow.md"
+    },
+    {
+      "id": "image-comfyui-sdxl-workflow",
+      "title": "SDXL-Bilder over ComfyUI-Workflow",
+      "domain": "media",
+      "category": "image-generation",
+      "tags": [
+        "comfyui",
+        "sdxl",
+        "generative"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic-mcp-agents",
+        "openclaw"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/media/image-generation/image-comfyui-sdxl-workflow.md"
+    },
+    {
+      "id": "image-generation-mcp-focus",
+      "title": "Bildgenerierung: ComfyUI, Cloudinary and Skills",
+      "domain": "media",
+      "category": "image-generation",
+      "tags": [
+        "image-gen",
+        "comfy",
+        "mcp",
+        "cloudinary"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic-mcp-agents",
+        "openclaw"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/media/image-generation/image-generation-mcp-focus.md"
+    },
+    {
+      "id": "music-workflow",
+      "title": "Songwriting and AI-Musik-Prompts",
+      "domain": "media",
+      "category": "music",
       "tags": [
         "music",
         "songwriting",
@@ -4025,12 +4004,34 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/medien/musik/musik-workflow.md"
+      "path": "domains/media/music/music-workflow.md"
+    },
+    {
+      "id": "image-imagemagick-batch-resize",
+      "title": "Fotos batchweise scale and exportieren",
+      "domain": "media",
+      "category": "photo-imaging",
+      "tags": [
+        "imagemagick",
+        "batch",
+        "resize",
+        "web"
+      ],
+      "target_agents": [
+        "cursor",
+        "claude-code",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/media/photo-imaging/image-imagemagick-batch-resize.md"
     },
     {
       "id": "audio-ffmpeg-podcast-master",
-      "title": "Podcast-Mastering mit FFmpeg",
-      "domain": "medien",
+      "title": "Podcast-Mastering with FFmpeg",
+      "domain": "media",
       "category": "podcast",
       "tags": [
         "podcast",
@@ -4047,12 +4048,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/medien/podcast/audio-ffmpeg-podcast-master.md"
+      "path": "domains/media/podcast/audio-ffmpeg-podcast-master.md"
     },
     {
       "id": "podcast-mcp-focus",
-      "title": "Podcast-Produktion: CLI, Whisper und Skills",
-      "domain": "medien",
+      "title": "Podcast-Produktion: CLI, Whisper and Skills",
+      "domain": "media",
       "category": "podcast",
       "tags": [
         "podcast",
@@ -4069,12 +4070,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/medien/podcast/podcast-mcp-focus.md"
+      "path": "domains/media/podcast/podcast-mcp-focus.md"
     },
     {
       "id": "streaming-broadcast-workflow",
-      "title": "Streaming-Vorbereitung und Broadcast-Assets",
-      "domain": "medien",
+      "title": "Streaming-Vorbereitung and Broadcast-Assets",
+      "domain": "media",
       "category": "streaming-broadcast",
       "tags": [
         "streaming",
@@ -4091,13 +4092,13 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/medien/streaming-broadcast/streaming-broadcast-workflow.md"
+      "path": "domains/media/streaming-broadcast/streaming-broadcast-workflow.md"
     },
     {
       "id": "audio-whisper-transcribe-diarize",
-      "title": "Transkription und Sprechersegmente mit Whisper",
-      "domain": "medien",
-      "category": "untertitel-uebersetzung",
+      "title": "Transcription and Sprechersegmente with Whisper",
+      "domain": "media",
+      "category": "subtitles-translation",
       "tags": [
         "whisper",
         "transcription",
@@ -4113,13 +4114,13 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/medien/untertitel-uebersetzung/audio-whisper-transcribe-diarize.md"
+      "path": "domains/media/subtitles-translation/audio-whisper-transcribe-diarize.md"
     },
     {
-      "id": "untertitel-uebersetzung-mcp-focus",
-      "title": "Untertitel und Übersetzung: Whisper plus FFmpeg",
-      "domain": "medien",
-      "category": "untertitel-uebersetzung",
+      "id": "subtitles-translation-mcp-focus",
+      "title": "Subtitles and Uebersetzung: Whisper plus FFmpeg",
+      "domain": "media",
+      "category": "subtitles-translation",
       "tags": [
         "subtitles",
         "whisper",
@@ -4135,13 +4136,13 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/medien/untertitel-uebersetzung/untertitel-uebersetzung-mcp-focus.md"
+      "path": "domains/media/subtitles-translation/subtitles-translation-mcp-focus.md"
     },
     {
-      "id": "video-bearbeitung-mcp-focus",
-      "title": "Video-Bearbeitung: FFmpeg-CLI vs. Skills",
-      "domain": "medien",
-      "category": "video-bearbeitung",
+      "id": "video-editing-mcp-focus",
+      "title": "Video-Editing: FFmpeg-CLI vs. Skills",
+      "domain": "media",
+      "category": "video-editing",
       "tags": [
         "video",
         "ffmpeg",
@@ -4157,13 +4158,13 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/medien/video-bearbeitung/video-bearbeitung-mcp-focus.md"
+      "path": "domains/media/video-editing/video-editing-mcp-focus.md"
     },
     {
       "id": "video-ffmpeg-cut-transcode",
-      "title": "Video schneiden, transcodieren und Untertitel",
-      "domain": "medien",
-      "category": "video-bearbeitung",
+      "title": "Cut, transcode, and subtitle video",
+      "domain": "media",
+      "category": "video-editing",
       "tags": [
         "ffmpeg",
         "transcode",
@@ -4180,13 +4181,13 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/medien/video-bearbeitung/video-ffmpeg-cut-transcode.md"
+      "path": "domains/media/video-editing/video-ffmpeg-cut-transcode.md"
     },
     {
       "id": "video-remotion-programmatic",
-      "title": "Datengetriebenes Video mit Remotion",
-      "domain": "medien",
-      "category": "video-produktion-pipeline",
+      "title": "Datengetriebenes Video with Remotion",
+      "domain": "media",
+      "category": "video-production-pipeline",
       "tags": [
         "remotion",
         "react",
@@ -4202,12 +4203,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/medien/video-produktion-pipeline/video-remotion-programmatic.md"
+      "path": "domains/media/video-production-pipeline/video-remotion-programmatic.md"
     },
     {
       "id": "youtube-content-workflow",
-      "title": "YouTube-Transkript zu Kapiteln und Content",
-      "domain": "medien",
+      "title": "YouTube-transcript to Kapiteln and Content",
+      "domain": "media",
       "category": "youtube-content",
       "tags": [
         "youtube",
@@ -4223,13 +4224,13 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/medien/youtube-content/youtube-content-workflow.md"
+      "path": "domains/media/youtube-content/youtube-content-workflow.md"
     },
     {
-      "id": "diagramme-whiteboard-workflow",
-      "title": "Diagramme und Whiteboards dokumentieren",
-      "domain": "office-dokumente",
-      "category": "diagramme-whiteboard",
+      "id": "diagrams-whiteboard-workflow",
+      "title": "Diagramme and Whiteboards document",
+      "domain": "office-documents",
+      "category": "diagrams-whiteboard",
       "tags": [
         "mermaid",
         "excalidraw",
@@ -4244,13 +4245,13 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/office-dokumente/diagramme-whiteboard/diagramme-whiteboard-workflow.md"
+      "path": "domains/office-documents/diagrams-whiteboard/diagrams-whiteboard-workflow.md"
     },
     {
-      "id": "e-signatur-workflow",
-      "title": "E-Signatur-Vorbereitung und Prüfung",
-      "domain": "office-dokumente",
-      "category": "e-signatur",
+      "id": "e-signature-workflow",
+      "title": "E-Signatur-Vorbereitung and Pruefung",
+      "domain": "office-documents",
+      "category": "e-signature",
       "tags": [
         "esign",
         "pdf",
@@ -4264,12 +4265,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/office-dokumente/e-signatur/e-signatur-workflow.md"
+      "path": "domains/office-documents/e-signature/e-signature-workflow.md"
     },
     {
       "id": "excel-xlsx-mcp-focus",
-      "title": "Excel XLSX: Skill- und Tool-Fokus",
-      "domain": "office-dokumente",
+      "title": "Excel XLSX: Skill- and Tool-Fokus",
+      "domain": "office-documents",
       "category": "excel-xlsx",
       "tags": [
         "xlsx",
@@ -4286,12 +4287,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/office-dokumente/excel-xlsx/excel-xlsx-mcp-focus.md"
+      "path": "domains/office-documents/excel-xlsx/excel-xlsx-mcp-focus.md"
     },
     {
       "id": "excel-xlsx-workflow",
-      "title": "Excel-Arbeitsmappen erstellen und prüfen",
-      "domain": "office-dokumente",
+      "title": "Excel-Arbeitsmappen erstellen and verify",
+      "domain": "office-documents",
       "category": "excel-xlsx",
       "tags": [
         "xlsx",
@@ -4307,13 +4308,13 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/office-dokumente/excel-xlsx/excel-xlsx-workflow.md"
+      "path": "domains/office-documents/excel-xlsx/excel-xlsx-workflow.md"
     },
     {
-      "id": "formulare-workflow",
-      "title": "PDF- und Office-Formulare ausfüllen",
-      "domain": "office-dokumente",
-      "category": "formulare",
+      "id": "forms-workflow",
+      "title": "Fill PDF and Office forms",
+      "domain": "office-documents",
+      "category": "forms",
       "tags": [
         "forms",
         "pdf",
@@ -4328,12 +4329,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/office-dokumente/formulare/formulare-workflow.md"
+      "path": "domains/office-documents/forms/forms-workflow.md"
     },
     {
       "id": "google-workspace-docs-workflow",
-      "title": "Google Docs und Sheets bearbeiten",
-      "domain": "office-dokumente",
+      "title": "Google Docs and Sheets bearbeiten",
+      "domain": "office-documents",
       "category": "google-workspace-docs",
       "tags": [
         "google-docs",
@@ -4349,12 +4350,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/office-dokumente/google-workspace-docs/google-workspace-docs-workflow.md"
+      "path": "domains/office-documents/google-workspace-docs/google-workspace-docs-workflow.md"
     },
     {
       "id": "notion-workflow",
-      "title": "Notion-Seiten und Datenbanken pflegen",
-      "domain": "office-dokumente",
+      "title": "Notion-pages and databases pflegen",
+      "domain": "office-documents",
       "category": "notion",
       "tags": [
         "notion",
@@ -4370,12 +4371,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/office-dokumente/notion/notion-workflow.md"
+      "path": "domains/office-documents/notion/notion-workflow.md"
     },
     {
       "id": "obsidian-workflow",
       "title": "Obsidian-Vault Wissen pflegen",
-      "domain": "office-dokumente",
+      "domain": "office-documents",
       "category": "obsidian",
       "tags": [
         "obsidian",
@@ -4391,12 +4392,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/office-dokumente/obsidian/obsidian-workflow.md"
+      "path": "domains/office-documents/obsidian/obsidian-workflow.md"
     },
     {
       "id": "ocr-mcp-focus",
-      "title": "OCR: Skill- und Tool-Fokus",
-      "domain": "office-dokumente",
+      "title": "OCR: Skill- and Tool-Fokus",
+      "domain": "office-documents",
       "category": "ocr",
       "tags": [
         "ocr",
@@ -4412,12 +4413,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/office-dokumente/ocr/ocr-mcp-focus.md"
+      "path": "domains/office-documents/ocr/ocr-mcp-focus.md"
     },
     {
       "id": "ocr-workflow",
-      "title": "OCR für Scans und Bild-PDFs",
-      "domain": "office-dokumente",
+      "title": "OCR for Scans and Bild-PDFs",
+      "domain": "office-documents",
       "category": "ocr",
       "tags": [
         "ocr",
@@ -4433,12 +4434,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/office-dokumente/ocr/ocr-workflow.md"
+      "path": "domains/office-documents/ocr/ocr-workflow.md"
     },
     {
-      "id": "dokumente-pandoc-markdown-pdf",
-      "title": "Markdown in PDF mit Pandoc und Typst",
-      "domain": "office-dokumente",
+      "id": "documents-pandoc-markdown-pdf",
+      "title": "Markdown in PDF with Pandoc and Typst",
+      "domain": "office-documents",
       "category": "pdf",
       "tags": [
         "pandoc",
@@ -4456,12 +4457,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/office-dokumente/pdf/dokumente-pandoc-markdown-pdf.md"
+      "path": "domains/office-documents/pdf/documents-pandoc-markdown-pdf.md"
     },
     {
       "id": "pdf-mcp-focus",
-      "title": "PDF: MCP- und Skill-Fokus",
-      "domain": "office-dokumente",
+      "title": "PDF: MCP- and Skill-Fokus",
+      "domain": "office-documents",
       "category": "pdf",
       "tags": [
         "pdf",
@@ -4479,12 +4480,12 @@
       "example_count": 3,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/office-dokumente/pdf/pdf-mcp-focus.md"
+      "path": "domains/office-documents/pdf/pdf-mcp-focus.md"
     },
     {
       "id": "powerpoint-pptx-mcp-focus",
       "title": "PowerPoint PPTX: Skill-Fokus",
-      "domain": "office-dokumente",
+      "domain": "office-documents",
       "category": "powerpoint-pptx",
       "tags": [
         "pptx",
@@ -4499,12 +4500,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/office-dokumente/powerpoint-pptx/powerpoint-pptx-mcp-focus.md"
+      "path": "domains/office-documents/powerpoint-pptx/powerpoint-pptx-mcp-focus.md"
     },
     {
       "id": "powerpoint-pptx-workflow",
-      "title": "PowerPoint-Präsentationen aus Briefing",
-      "domain": "office-dokumente",
+      "title": "PowerPoint-Praesentationen from Briefing",
+      "domain": "office-documents",
       "category": "powerpoint-pptx",
       "tags": [
         "pptx",
@@ -4520,12 +4521,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/office-dokumente/powerpoint-pptx/powerpoint-pptx-workflow.md"
+      "path": "domains/office-documents/powerpoint-pptx/powerpoint-pptx-workflow.md"
     },
     {
-      "id": "dokumente-libreoffice-mail-merge",
-      "title": "Serienbrief mit LibreOffice und CSV",
-      "domain": "office-dokumente",
+      "id": "documents-libreoffice-mail-merge",
+      "title": "Serienbrief with LibreOffice and CSV",
+      "domain": "office-documents",
       "category": "word-docx",
       "tags": [
         "libreoffice",
@@ -4542,12 +4543,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/office-dokumente/word-docx/dokumente-libreoffice-mail-merge.md"
+      "path": "domains/office-documents/word-docx/documents-libreoffice-mail-merge.md"
     },
     {
       "id": "word-docx-mcp-focus",
-      "title": "Word DOCX: MCP- und Skill-Fokus",
-      "domain": "office-dokumente",
+      "title": "Word DOCX: MCP- and Skill-Fokus",
+      "domain": "office-documents",
       "category": "word-docx",
       "tags": [
         "docx",
@@ -4564,16 +4565,16 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/office-dokumente/word-docx/word-docx-mcp-focus.md"
+      "path": "domains/office-documents/word-docx/word-docx-mcp-focus.md"
     },
     {
-      "id": "einkauf-workflow",
-      "title": "Einkauf",
-      "domain": "persoenlich-lifestyle",
-      "category": "einkauf",
+      "id": "food-recipes-workflow",
+      "title": "Food and recipes",
+      "domain": "personal-lifestyle",
+      "category": "food-recipes",
       "tags": [
-        "einkauf",
-        "persoenlich-lifestyle",
+        "food",
+        "personal-lifestyle",
         "skillcli"
       ],
       "target_agents": [
@@ -4586,38 +4587,16 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/persoenlich-lifestyle/einkauf/einkauf-workflow.md"
+      "path": "domains/personal-lifestyle/food-recipes/food-recipes-workflow.md"
     },
     {
-      "id": "essen-rezepte-workflow",
-      "title": "Essen und Rezepte",
-      "domain": "persoenlich-lifestyle",
-      "category": "essen-rezepte",
-      "tags": [
-        "essen",
-        "persoenlich-lifestyle",
-        "skillcli"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "domains/persoenlich-lifestyle/essen-rezepte/essen-rezepte-workflow.md"
-    },
-    {
-      "id": "haushalt-workflow",
+      "id": "household-workflow",
       "title": "Haushalt",
-      "domain": "persoenlich-lifestyle",
-      "category": "haushalt",
+      "domain": "personal-lifestyle",
+      "category": "household",
       "tags": [
         "haushalt",
-        "persoenlich-lifestyle",
+        "personal-lifestyle",
         "skillcli"
       ],
       "target_agents": [
@@ -4630,38 +4609,16 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/persoenlich-lifestyle/haushalt/haushalt-workflow.md"
+      "path": "domains/personal-lifestyle/household/household-workflow.md"
     },
     {
-      "id": "produkte-vergleich-workflow",
-      "title": "Produktvergleich",
-      "domain": "persoenlich-lifestyle",
-      "category": "produkte-vergleich",
-      "tags": [
-        "produkte",
-        "persoenlich-lifestyle",
-        "skillcli"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "domains/persoenlich-lifestyle/produkte-vergleich/produkte-vergleich-workflow.md"
-    },
-    {
-      "id": "termine-persoenlich-workflow",
-      "title": "Persönliche Termine",
-      "domain": "persoenlich-lifestyle",
-      "category": "termine-persoenlich",
+      "id": "personal-appointments-workflow",
+      "title": "Persoenliche Termine",
+      "domain": "personal-lifestyle",
+      "category": "personal-appointments",
       "tags": [
         "termine",
-        "persoenlich-lifestyle",
+        "personal-lifestyle",
         "skillcli"
       ],
       "target_agents": [
@@ -4674,12 +4631,56 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/persoenlich-lifestyle/termine-persoenlich/termine-persoenlich-workflow.md"
+      "path": "domains/personal-lifestyle/personal-appointments/personal-appointments-workflow.md"
+    },
+    {
+      "id": "product-comparison-workflow",
+      "title": "Produktvergleich",
+      "domain": "personal-lifestyle",
+      "category": "product-comparison",
+      "tags": [
+        "produkte",
+        "personal-lifestyle",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/personal-lifestyle/product-comparison/product-comparison-workflow.md"
+    },
+    {
+      "id": "shopping-workflow",
+      "title": "shopping",
+      "domain": "personal-lifestyle",
+      "category": "shopping",
+      "tags": [
+        "einkauf",
+        "personal-lifestyle",
+        "skillcli"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/personal-lifestyle/shopping/shopping-workflow.md"
     },
     {
       "id": "agile-kanban-workflow",
-      "title": "Agile und Kanban",
-      "domain": "projektmanagement",
+      "title": "Agile and Kanban",
+      "domain": "project-management",
       "category": "agile-kanban",
       "tags": [
         "kanban",
@@ -4696,12 +4697,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/projektmanagement/agile-kanban/agile-kanban-workflow.md"
+      "path": "domains/project-management/agile-kanban/agile-kanban-workflow.md"
     },
     {
       "id": "jira-linear-workflow",
-      "title": "Jira, Linear und Tickets",
-      "domain": "projektmanagement",
+      "title": "Jira, Linear and tickets",
+      "domain": "project-management",
       "category": "jira-linear",
       "tags": [
         "jira",
@@ -4718,17 +4719,17 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/projektmanagement/jira-linear/jira-linear-workflow.md"
+      "path": "domains/project-management/jira-linear/jira-linear-workflow.md"
     },
     {
-      "id": "planung-workflow",
-      "title": "Planung",
-      "domain": "projektmanagement",
-      "category": "planung",
+      "id": "planning-workflow",
+      "title": "Planning",
+      "domain": "project-management",
+      "category": "planning",
       "tags": [
-        "planung",
+        "planning",
         "roadmap",
-        "meilensteine"
+        "milestones"
       ],
       "target_agents": [
         "hermes",
@@ -4740,12 +4741,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/projektmanagement/planung/planung-workflow.md"
+      "path": "domains/project-management/planning/planning-workflow.md"
     },
     {
       "id": "reporting-workflow",
       "title": "Reporting",
-      "domain": "projektmanagement",
+      "domain": "project-management",
       "category": "reporting",
       "tags": [
         "reporting",
@@ -4762,12 +4763,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/projektmanagement/reporting/reporting-workflow.md"
+      "path": "domains/project-management/reporting/reporting-workflow.md"
     },
     {
       "id": "tasks-workflow",
       "title": "Tasks",
-      "domain": "projektmanagement",
+      "domain": "project-management",
       "category": "tasks",
       "tags": [
         "tasks",
@@ -4784,13 +4785,78 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/projektmanagement/tasks/tasks-workflow.md"
+      "path": "domains/project-management/tasks/tasks-workflow.md"
     },
     {
-      "id": "akademisch-workflow",
+      "id": "hoa-management-workflow",
+      "title": "HOA management",
+      "domain": "real-estate",
+      "category": "hoa-management",
+      "tags": [
+        "verwaltung",
+        "real-estate",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/real-estate/hoa-management/hoa-management-workflow.md"
+    },
+    {
+      "id": "property-listings-workflow",
+      "title": "Property listings",
+      "domain": "real-estate",
+      "category": "property-listings",
+      "tags": [
+        "exposes",
+        "real-estate",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/real-estate/property-listings/property-listings-workflow.md"
+    },
+    {
+      "id": "property-search-workflow",
+      "title": "Immobiliensuche",
+      "domain": "real-estate",
+      "category": "property-search",
+      "tags": [
+        "real-estate",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-23",
+      "path": "domains/real-estate/property-search/property-search-workflow.md"
+    },
+    {
+      "id": "academic-workflow",
       "title": "Akademische Literatursuche",
-      "domain": "recherche-wissen",
-      "category": "akademisch",
+      "domain": "research-knowledge",
+      "category": "academic",
       "tags": [
         "arxiv",
         "papers",
@@ -4804,53 +4870,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/recherche-wissen/akademisch/akademisch-workflow.md"
-    },
-    {
-      "id": "bibliothek-zotero-mcp-focus",
-      "title": "Bibliothek: Such-MCP mit Zotero",
-      "domain": "recherche-wissen",
-      "category": "bibliothek-zotero",
-      "tags": [
-        "zotero",
-        "mcp",
-        "search"
-      ],
-      "target_agents": [
-        "generic-mcp-agents",
-        "hermes"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/recherche-wissen/bibliothek-zotero/bibliothek-zotero-mcp-focus.md"
-    },
-    {
-      "id": "bibliothek-zotero-workflow",
-      "title": "Literaturverwaltung mit Zotero",
-      "domain": "recherche-wissen",
-      "category": "bibliothek-zotero",
-      "tags": [
-        "zotero",
-        "citations",
-        "bibtex"
-      ],
-      "target_agents": [
-        "hermes",
-        "cursor",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/recherche-wissen/bibliothek-zotero/bibliothek-zotero-workflow.md"
+      "path": "domains/research-knowledge/academic/academic-workflow.md"
     },
     {
       "id": "grounded-citations-workflow",
-      "title": "Belegpflicht und Quellenzitate",
-      "domain": "recherche-wissen",
+      "title": "Requirement and source quotations",
+      "domain": "research-knowledge",
       "category": "grounded-citations",
       "tags": [
         "citations",
@@ -4866,12 +4891,53 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/recherche-wissen/grounded-citations/grounded-citations-workflow.md"
+      "path": "domains/research-knowledge/grounded-citations/grounded-citations-workflow.md"
+    },
+    {
+      "id": "library-zotero-mcp-focus",
+      "title": "Library: Search MCP with Zotero",
+      "domain": "research-knowledge",
+      "category": "library-zotero",
+      "tags": [
+        "zotero",
+        "mcp",
+        "search"
+      ],
+      "target_agents": [
+        "generic-mcp-agents",
+        "hermes"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/research-knowledge/library-zotero/library-zotero-mcp-focus.md"
+    },
+    {
+      "id": "library-zotero-workflow",
+      "title": "Literature Management with Zotero",
+      "domain": "research-knowledge",
+      "category": "library-zotero",
+      "tags": [
+        "zotero",
+        "citations",
+        "bibtex"
+      ],
+      "target_agents": [
+        "hermes",
+        "cursor",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/research-knowledge/library-zotero/library-zotero-workflow.md"
     },
     {
       "id": "news-monitoring-workflow",
-      "title": "News-Monitoring und Alerts",
-      "domain": "recherche-wissen",
+      "title": "News Monitoring and Alerts",
+      "domain": "research-knowledge",
       "category": "news-monitoring",
       "tags": [
         "news",
@@ -4887,13 +4953,13 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/recherche-wissen/news-monitoring/news-monitoring-workflow.md"
+      "path": "domains/research-knowledge/news-monitoring/news-monitoring-workflow.md"
     },
     {
-      "id": "patente-mcp-focus",
+      "id": "patents-mcp-focus",
       "title": "Patente: MCP-Routing",
-      "domain": "recherche-wissen",
-      "category": "patente",
+      "domain": "research-knowledge",
+      "category": "patents",
       "tags": [
         "patents",
         "mcp"
@@ -4905,13 +4971,13 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/recherche-wissen/patente/patente-mcp-focus.md"
+      "path": "domains/research-knowledge/patents/patents-mcp-focus.md"
     },
     {
-      "id": "patente-workflow",
-      "title": "Patentrecherche Überblick",
-      "domain": "recherche-wissen",
-      "category": "patente",
+      "id": "patents-workflow",
+      "title": "Patent Research Overview",
+      "domain": "research-knowledge",
+      "category": "patents",
       "tags": [
         "patents",
         "search",
@@ -4925,12 +4991,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/recherche-wissen/patente/patente-workflow.md"
+      "path": "domains/research-knowledge/patents/patents-workflow.md"
     },
     {
       "id": "rag-memory-mcp-focus",
       "title": "RAG/Memory: Tool-Fokus",
-      "domain": "recherche-wissen",
+      "domain": "research-knowledge",
       "category": "rag-memory",
       "tags": [
         "rag",
@@ -4945,12 +5011,12 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/recherche-wissen/rag-memory/rag-memory-mcp-focus.md"
+      "path": "domains/research-knowledge/rag-memory/rag-memory-mcp-focus.md"
     },
     {
       "id": "rag-memory-workflow",
-      "title": "RAG und Agenten-Memory pflegen",
-      "domain": "recherche-wissen",
+      "title": "Keep RAG and Agent Memory",
+      "domain": "research-knowledge",
       "category": "rag-memory",
       "tags": [
         "rag",
@@ -4966,13 +5032,13 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/recherche-wissen/rag-memory/rag-memory-workflow.md"
+      "path": "domains/research-knowledge/rag-memory/rag-memory-workflow.md"
     },
     {
       "id": "web-exa-perplexity-briefing",
-      "title": "Recherche-Briefing mit Exa und Zitaten",
-      "domain": "recherche-wissen",
-      "category": "web-recherche",
+      "title": "Research briefing with exa and quotes",
+      "domain": "research-knowledge",
+      "category": "web-research",
       "tags": [
         "exa",
         "briefing",
@@ -4987,13 +5053,13 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/recherche-wissen/web-recherche/web-exa-perplexity-briefing.md"
+      "path": "domains/research-knowledge/web-research/web-exa-perplexity-briefing.md"
     },
     {
-      "id": "web-recherche-mcp-focus",
-      "title": "Web-Recherche: MCP-Fokus",
-      "domain": "recherche-wissen",
-      "category": "web-recherche",
+      "id": "web-research-mcp-focus",
+      "title": "Web research: MCP-Fokus",
+      "domain": "research-knowledge",
+      "category": "web-research",
       "tags": [
         "brave",
         "exa",
@@ -5009,13 +5075,13 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/recherche-wissen/web-recherche/web-recherche-mcp-focus.md"
+      "path": "domains/research-knowledge/web-research/web-research-mcp-focus.md"
     },
     {
-      "id": "wikis-dokumentation-mcp-focus",
-      "title": "Wiki-Docs: MCP für Recherche",
-      "domain": "recherche-wissen",
-      "category": "wikis-dokumentation",
+      "id": "wikis-documentation-mcp-focus",
+      "title": "Wiki-Docs: MCP for Research",
+      "domain": "research-knowledge",
+      "category": "wikis-documentation",
       "tags": [
         "wiki",
         "mcp",
@@ -5029,13 +5095,13 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/recherche-wissen/wikis-dokumentation/wikis-dokumentation-mcp-focus.md"
+      "path": "domains/research-knowledge/wikis-documentation/wikis-documentation-mcp-focus.md"
     },
     {
-      "id": "wikis-dokumentation-workflow",
+      "id": "wikis-documentation-workflow",
       "title": "Wiki-Dokumentation strukturieren",
-      "domain": "recherche-wissen",
-      "category": "wikis-dokumentation",
+      "domain": "research-knowledge",
+      "category": "wikis-documentation",
       "tags": [
         "wiki",
         "docs",
@@ -5050,16 +5116,305 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/recherche-wissen/wikis-dokumentation/wikis-dokumentation-workflow.md"
+      "path": "domains/research-knowledge/wikis-documentation/wikis-documentation-workflow.md"
     },
     {
-      "id": "behoerden-formulare-workflow",
-      "title": "Behörden und Formulare",
-      "domain": "recht-verwaltung",
-      "category": "behoerden-formulare",
+      "id": "amazon-workflow",
+      "title": "Amazon Seller & Listing-Ops",
+      "domain": "sales-crm",
+      "category": "amazon",
       "tags": [
-        "behoerden",
-        "recht-verwaltung",
+        "amazon",
+        "seller-central",
+        "asin",
+        "sales-crm"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/sales-crm/amazon/amazon-workflow.md"
+    },
+    {
+      "id": "crm-workflow",
+      "title": "CRM Pipeline & Data Hygiene",
+      "domain": "sales-crm",
+      "category": "crm",
+      "tags": [
+        "crm",
+        "pipeline",
+        "attio",
+        "close"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/sales-crm/crm/crm-workflow.md"
+    },
+    {
+      "id": "e-commerce-workflow",
+      "title": "E-Commerce Ops (cross-channel)",
+      "domain": "sales-crm",
+      "category": "e-commerce",
+      "tags": [
+        "ecommerce",
+        "orders",
+        "catalog"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/sales-crm/e-commerce/e-commerce-workflow.md"
+    },
+    {
+      "id": "etsy-workflow",
+      "title": "Etsy Shop & Listing-Ops",
+      "domain": "sales-crm",
+      "category": "etsy",
+      "tags": [
+        "etsy",
+        "handmade",
+        "marketplace"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/sales-crm/etsy/etsy-workflow.md"
+    },
+    {
+      "id": "kdp-workflow",
+      "title": "Amazon KDP & Buch-Metadaten",
+      "domain": "sales-crm",
+      "category": "kdp",
+      "tags": [
+        "kdp",
+        "publishing",
+        "amazon"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/sales-crm/kdp/kdp-workflow.md"
+    },
+    {
+      "id": "leadgen-mcp-focus",
+      "title": "Leadgen: Recherche-MCP vs. CRM-Import",
+      "domain": "sales-crm",
+      "category": "leadgen",
+      "tags": [
+        "leadgen",
+        "exa",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/sales-crm/leadgen/leadgen-mcp-focus.md"
+    },
+    {
+      "id": "leadgen-workflow",
+      "title": "Leadgen & ICP-Listen",
+      "domain": "sales-crm",
+      "category": "leadgen",
+      "tags": [
+        "leadgen",
+        "icp",
+        "prospecting"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/sales-crm/leadgen/leadgen-workflow.md"
+    },
+    {
+      "id": "marketplaces-workflow",
+      "title": "cross-marketplace (eBay, Otto, Kaufland ...)",
+      "domain": "sales-crm",
+      "category": "marketplaces",
+      "tags": [
+        "marketplace",
+        "multichannel"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/sales-crm/marketplaces/marketplaces-workflow.md"
+    },
+    {
+      "id": "offers-proposals-workflow",
+      "title": "Angebote & Sales Proposals",
+      "domain": "sales-crm",
+      "category": "offers-proposals",
+      "tags": [
+        "proposal",
+        "quoting",
+        "b2b"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/sales-crm/offers-proposals/offers-proposals-workflow.md"
+    },
+    {
+      "id": "outreach-mcp-focus",
+      "title": "Outreach: E-Mail-Skills vs. CRM-MCP",
+      "domain": "sales-crm",
+      "category": "outreach",
+      "tags": [
+        "outreach",
+        "mcp",
+        "email",
+        "hermes"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/sales-crm/outreach/outreach-mcp-focus.md"
+    },
+    {
+      "id": "outreach-workflow",
+      "title": "1:1 Outreach & Sequencing",
+      "domain": "sales-crm",
+      "category": "outreach",
+      "tags": [
+        "outreach",
+        "email",
+        "sdr",
+        "sales-crm"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/sales-crm/outreach/outreach-workflow.md"
+    },
+    {
+      "id": "price-monitoring-workflow",
+      "title": "Preis- & Wettbewerbsmonitoring",
+      "domain": "sales-crm",
+      "category": "price-monitoring",
+      "tags": [
+        "pricing",
+        "monitoring",
+        "competitive"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/sales-crm/price-monitoring/price-monitoring-workflow.md"
+    },
+    {
+      "id": "shopify-workflow",
+      "title": "Shopify Store Ops & catalog",
+      "domain": "sales-crm",
+      "category": "shopify",
+      "tags": [
+        "shopify",
+        "ecommerce",
+        "sales-crm"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents",
+        "generic"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-23",
+      "path": "domains/sales-crm/shopify/shopify-workflow.md"
+    },
+    {
+      "id": "data-experiments-workflow",
+      "title": "Experimentdaten",
+      "domain": "science-engineering",
+      "category": "data-experiments",
+      "tags": [
+        "daten",
+        "science-engineering",
         "skill"
       ],
       "target_agents": [
@@ -5072,16 +5427,16 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/recht-verwaltung/behoerden-formulare/behoerden-formulare-workflow.md"
+      "path": "domains/science-engineering/data-experiments/data-experiments-workflow.md"
     },
     {
-      "id": "datenschutz-workflow",
-      "title": "Datenschutz",
-      "domain": "recht-verwaltung",
-      "category": "datenschutz",
+      "id": "lab-notes-workflow",
+      "title": "Lab Notes",
+      "domain": "science-engineering",
+      "category": "lab-notes",
       "tags": [
-        "datenschutz",
-        "recht-verwaltung",
+        "lab",
+        "science-engineering",
         "skill"
       ],
       "target_agents": [
@@ -5094,16 +5449,16 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/recht-verwaltung/datenschutz/datenschutz-workflow.md"
+      "path": "domains/science-engineering/lab-notes/lab-notes-workflow.md"
     },
     {
-      "id": "vertraege-workflow",
-      "title": "Verträge",
-      "domain": "recht-verwaltung",
-      "category": "vertraege",
+      "id": "paper-writing-workflow",
+      "title": "Paper Writing",
+      "domain": "science-engineering",
+      "category": "paper-writing",
       "tags": [
-        "vertraege",
-        "recht-verwaltung",
+        "paper",
+        "science-engineering",
         "skill"
       ],
       "target_agents": [
@@ -5116,17 +5471,17 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/recht-verwaltung/vertraege/vertraege-workflow.md"
+      "path": "domains/science-engineering/paper-writing/paper-writing-workflow.md"
     },
     {
-      "id": "event-planung-workflow",
-      "title": "Eventplanung",
-      "domain": "reisen-events",
-      "category": "event-planung",
+      "id": "simulation-numerics-workflow",
+      "title": "Simulation and Numerics",
+      "domain": "science-engineering",
+      "category": "simulation-numerics",
       "tags": [
-        "event",
-        "reisen-events",
-        "mcp"
+        "simulation",
+        "science-engineering",
+        "skill"
       ],
       "target_agents": [
         "hermes",
@@ -5138,17 +5493,17 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/reisen-events/event-planung/event-planung-workflow.md"
+      "path": "domains/science-engineering/simulation-numerics/simulation-numerics-workflow.md"
     },
     {
-      "id": "fluege-hotels-workflow",
-      "title": "Flüge und Hotels",
-      "domain": "reisen-events",
-      "category": "fluege-hotels",
+      "id": "tech-standards-workflow",
+      "title": "Technische Standards",
+      "domain": "science-engineering",
+      "category": "tech-standards",
       "tags": [
-        "fluege",
-        "reisen-events",
-        "mcp"
+        "tech",
+        "science-engineering",
+        "skill"
       ],
       "target_agents": [
         "hermes",
@@ -5160,55 +5515,11 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/reisen-events/fluege-hotels/fluege-hotels-workflow.md"
-    },
-    {
-      "id": "reiseplanung-workflow",
-      "title": "Reiseplanung",
-      "domain": "reisen-events",
-      "category": "reiseplanung",
-      "tags": [
-        "reiseplanung",
-        "reisen-events",
-        "mcp"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "domains/reisen-events/reiseplanung/reiseplanung-workflow.md"
-    },
-    {
-      "id": "tickets-workflow",
-      "title": "Tickets",
-      "domain": "reisen-events",
-      "category": "tickets",
-      "tags": [
-        "tickets",
-        "reisen-events",
-        "mcp"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "domains/reisen-events/tickets/tickets-workflow.md"
+      "path": "domains/science-engineering/tech-standards/tech-standards-workflow.md"
     },
     {
       "id": "appsec-sast-workflow",
-      "title": "AppSec und SAST",
+      "title": "AppSec and SAST",
       "domain": "security",
       "category": "appsec-sast",
       "tags": [
@@ -5229,10 +5540,10 @@
       "path": "domains/security/appsec-sast/appsec-sast-workflow.md"
     },
     {
-      "id": "compliance-nis2-dsgvo-mcp-focus",
-      "title": "Compliance, NIS2 und DSGVO: MCP/Skill-Fokus",
+      "id": "compliance-nis2-gdpr-mcp-focus",
+      "title": "Compliance, NIS2 and GDPR: MCP/skill focus",
       "domain": "security",
-      "category": "compliance-nis2-dsgvo",
+      "category": "compliance-nis2-gdpr",
       "tags": [
         "compliance",
         "dsgvo",
@@ -5246,13 +5557,13 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/security/compliance-nis2-dsgvo/compliance-nis2-dsgvo-mcp-focus.md"
+      "path": "domains/security/compliance-nis2-gdpr/compliance-nis2-gdpr-mcp-focus.md"
     },
     {
       "id": "email-postfix-dmarc-parse",
       "title": "DMARC-Reports auswerten",
       "domain": "security",
-      "category": "compliance-nis2-dsgvo",
+      "category": "compliance-nis2-gdpr",
       "tags": [
         "dmarc",
         "postfix",
@@ -5267,13 +5578,13 @@
       "example_count": 2,
       "version": "1.1.0",
       "updated": "2026-11-23",
-      "path": "domains/security/compliance-nis2-dsgvo/email-postfix-dmarc-parse.md"
+      "path": "domains/security/compliance-nis2-gdpr/email-postfix-dmarc-parse.md"
     },
     {
-      "id": "forensik-workflow",
+      "id": "forensics-workflow",
       "title": "Forensik (nur autorisiert)",
       "domain": "security",
-      "category": "forensik",
+      "category": "forensics",
       "tags": [
         "forensics",
         "incident",
@@ -5287,11 +5598,11 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/security/forensik/forensik-workflow.md"
+      "path": "domains/security/forensics/forensics-workflow.md"
     },
     {
       "id": "osint-mcp-focus",
-      "title": "OSINT (offen zugängliche Quellen): MCP/Skill-Fokus",
+      "title": "OSINT (open sources): MCP/Skill Focus",
       "domain": "security",
       "category": "osint",
       "tags": [
@@ -5310,7 +5621,7 @@
     },
     {
       "id": "osint-workflow",
-      "title": "OSINT (offen zugängliche Quellen)",
+      "title": "OSINT (open sources)",
       "domain": "security",
       "category": "osint",
       "tags": [
@@ -5330,7 +5641,7 @@
     },
     {
       "id": "pentest-recon-workflow",
-      "title": "Pentest und Recon (nur autorisiert)",
+      "title": "Pentest and Recon (authorized only)",
       "domain": "security",
       "category": "pentest-recon",
       "tags": [
@@ -5391,7 +5702,7 @@
     },
     {
       "id": "siem-soc-mcp-focus",
-      "title": "SIEM und SOC: MCP/Skill-Fokus",
+      "title": "SIEM and SOC: MCP/Skill Focus",
       "domain": "security",
       "category": "siem-soc",
       "tags": [
@@ -5411,7 +5722,7 @@
     },
     {
       "id": "siem-soc-workflow",
-      "title": "SIEM und SOC",
+      "title": "SIEM and SOC",
       "domain": "security",
       "category": "siem-soc",
       "tags": [
@@ -5472,8 +5783,8 @@
     },
     {
       "id": "backend-apis-mcp-focus",
-      "title": "Backend und APIs: MCP/Skill-Fokus",
-      "domain": "software-entwicklung",
+      "title": "Backend and APIs: MCP/Skill Focus",
+      "domain": "software-development",
       "category": "backend-apis",
       "tags": [
         "api",
@@ -5490,12 +5801,12 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/software-entwicklung/backend-apis/backend-apis-mcp-focus.md"
+      "path": "domains/software-development/backend-apis/backend-apis-mcp-focus.md"
     },
     {
       "id": "backend-apis-workflow",
-      "title": "Backend und APIs",
-      "domain": "software-entwicklung",
+      "title": "Backend and APIs",
+      "domain": "software-development",
       "category": "backend-apis",
       "tags": [
         "api",
@@ -5512,12 +5823,12 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/software-entwicklung/backend-apis/backend-apis-workflow.md"
+      "path": "domains/software-development/backend-apis/backend-apis-workflow.md"
     },
     {
       "id": "code-review-mcp-focus",
       "title": "Code-Review: MCP/Skill-Fokus",
-      "domain": "software-entwicklung",
+      "domain": "software-development",
       "category": "code-review",
       "tags": [
         "review",
@@ -5534,12 +5845,12 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/software-entwicklung/code-review/code-review-mcp-focus.md"
+      "path": "domains/software-development/code-review/code-review-mcp-focus.md"
     },
     {
       "id": "code-review-workflow",
       "title": "Code-Review",
-      "domain": "software-entwicklung",
+      "domain": "software-development",
       "category": "code-review",
       "tags": [
         "review",
@@ -5556,12 +5867,12 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/software-entwicklung/code-review/code-review-workflow.md"
+      "path": "domains/software-development/code-review/code-review-workflow.md"
     },
     {
       "id": "coding-mcp-focus",
       "title": "Coding: MCP/Skill-Fokus",
-      "domain": "software-entwicklung",
+      "domain": "software-development",
       "category": "coding",
       "tags": [
         "coding",
@@ -5578,12 +5889,12 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/software-entwicklung/coding/coding-mcp-focus.md"
+      "path": "domains/software-development/coding/coding-mcp-focus.md"
     },
     {
       "id": "coding-workflow",
       "title": "Coding",
-      "domain": "software-entwicklung",
+      "domain": "software-development",
       "category": "coding",
       "tags": [
         "coding",
@@ -5599,13 +5910,13 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/software-entwicklung/coding/coding-workflow.md"
+      "path": "domains/software-development/coding/coding-workflow.md"
     },
     {
-      "id": "datenbanken-dev-mcp-focus",
+      "id": "databases-dev-mcp-focus",
       "title": "Datenbanken (Entwicklung): MCP/Skill-Fokus",
-      "domain": "software-entwicklung",
-      "category": "datenbanken-dev",
+      "domain": "software-development",
+      "category": "databases-dev",
       "tags": [
         "sql",
         "mcp",
@@ -5621,13 +5932,13 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/software-entwicklung/datenbanken-dev/datenbanken-dev-mcp-focus.md"
+      "path": "domains/software-development/databases-dev/databases-dev-mcp-focus.md"
     },
     {
-      "id": "datenbanken-dev-workflow",
+      "id": "databases-dev-workflow",
       "title": "Datenbanken (Entwicklung)",
-      "domain": "software-entwicklung",
-      "category": "datenbanken-dev",
+      "domain": "software-development",
+      "category": "databases-dev",
       "tags": [
         "sql",
         "postgres",
@@ -5643,12 +5954,12 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/software-entwicklung/datenbanken-dev/datenbanken-dev-workflow.md"
+      "path": "domains/software-development/databases-dev/databases-dev-workflow.md"
     },
     {
       "id": "design-to-code-workflow",
       "title": "Design to Code",
-      "domain": "software-entwicklung",
+      "domain": "software-development",
       "category": "design-to-code",
       "tags": [
         "design",
@@ -5665,12 +5976,12 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/software-entwicklung/design-to-code/design-to-code-workflow.md"
+      "path": "domains/software-development/design-to-code/design-to-code-workflow.md"
     },
     {
       "id": "frontend-mcp-focus",
       "title": "Frontend: MCP/Skill-Fokus",
-      "domain": "software-entwicklung",
+      "domain": "software-development",
       "category": "frontend",
       "tags": [
         "frontend",
@@ -5687,12 +5998,12 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/software-entwicklung/frontend/frontend-mcp-focus.md"
+      "path": "domains/software-development/frontend/frontend-mcp-focus.md"
     },
     {
       "id": "frontend-workflow",
       "title": "Frontend",
-      "domain": "software-entwicklung",
+      "domain": "software-development",
       "category": "frontend",
       "tags": [
         "react",
@@ -5709,12 +6020,12 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/software-entwicklung/frontend/frontend-workflow.md"
+      "path": "domains/software-development/frontend/frontend-workflow.md"
     },
     {
       "id": "game-dev-workflow",
       "title": "Game Development",
-      "domain": "software-entwicklung",
+      "domain": "software-development",
       "category": "game-dev",
       "tags": [
         "gamedev",
@@ -5731,12 +6042,12 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/software-entwicklung/game-dev/game-dev-workflow.md"
+      "path": "domains/software-development/game-dev/game-dev-workflow.md"
     },
     {
       "id": "git-github-workflow",
-      "title": "Git und GitHub",
-      "domain": "software-entwicklung",
+      "title": "Git and GitHub",
+      "domain": "software-development",
       "category": "git-github",
       "tags": [
         "git",
@@ -5753,12 +6064,12 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/software-entwicklung/git-github/git-github-workflow.md"
+      "path": "domains/software-development/git-github/git-github-workflow.md"
     },
     {
       "id": "mobile-apps-workflow",
       "title": "Mobile Apps",
-      "domain": "software-entwicklung",
+      "domain": "software-development",
       "category": "mobile-apps",
       "tags": [
         "mobile",
@@ -5775,12 +6086,12 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/software-entwicklung/mobile-apps/mobile-apps-workflow.md"
+      "path": "domains/software-development/mobile-apps/mobile-apps-workflow.md"
     },
     {
       "id": "refactoring-workflow",
       "title": "Refactoring",
-      "domain": "software-entwicklung",
+      "domain": "software-development",
       "category": "refactoring",
       "tags": [
         "refactoring",
@@ -5796,12 +6107,12 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/software-entwicklung/refactoring/refactoring-workflow.md"
+      "path": "domains/software-development/refactoring/refactoring-workflow.md"
     },
     {
       "id": "tech-docs-mcp-focus",
       "title": "Technische Dokumentation: MCP/Skill-Fokus",
-      "domain": "software-entwicklung",
+      "domain": "software-development",
       "category": "tech-docs",
       "tags": [
         "docs",
@@ -5818,12 +6129,12 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/software-entwicklung/tech-docs/tech-docs-mcp-focus.md"
+      "path": "domains/software-development/tech-docs/tech-docs-mcp-focus.md"
     },
     {
       "id": "tech-docs-workflow",
       "title": "Technische Dokumentation",
-      "domain": "software-entwicklung",
+      "domain": "software-development",
       "category": "tech-docs",
       "tags": [
         "docs",
@@ -5840,12 +6151,12 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/software-entwicklung/tech-docs/tech-docs-workflow.md"
+      "path": "domains/software-development/tech-docs/tech-docs-workflow.md"
     },
     {
       "id": "testing-mcp-focus",
       "title": "Testing: MCP/Skill-Fokus",
-      "domain": "software-entwicklung",
+      "domain": "software-development",
       "category": "testing",
       "tags": [
         "testing",
@@ -5862,12 +6173,12 @@
       "example_count": 3,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/software-entwicklung/testing/testing-mcp-focus.md"
+      "path": "domains/software-development/testing/testing-mcp-focus.md"
     },
     {
       "id": "testing-workflow",
       "title": "Testing",
-      "domain": "software-entwicklung",
+      "domain": "software-development",
       "category": "testing",
       "tags": [
         "testing",
@@ -5884,150 +6195,16 @@
       "example_count": 3,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/software-entwicklung/testing/testing-workflow.md"
+      "path": "domains/software-development/testing/testing-workflow.md"
     },
     {
-      "id": "amazon-workflow",
-      "title": "Amazon Seller & Listing-Ops",
-      "domain": "vertrieb-crm",
-      "category": "amazon",
+      "id": "event-planning-workflow",
+      "title": "Eventplanung",
+      "domain": "travel-events",
+      "category": "event-planning",
       "tags": [
-        "amazon",
-        "seller-central",
-        "asin",
-        "vertrieb-crm"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/vertrieb-crm/amazon/amazon-workflow.md"
-    },
-    {
-      "id": "angebote-proposals-workflow",
-      "title": "Angebote & Sales Proposals",
-      "domain": "vertrieb-crm",
-      "category": "angebote-proposals",
-      "tags": [
-        "proposal",
-        "quoting",
-        "b2b"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "medium",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/vertrieb-crm/angebote-proposals/angebote-proposals-workflow.md"
-    },
-    {
-      "id": "crm-workflow",
-      "title": "CRM Pipeline & Datenhygiene",
-      "domain": "vertrieb-crm",
-      "category": "crm",
-      "tags": [
-        "crm",
-        "pipeline",
-        "attio",
-        "close"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/vertrieb-crm/crm/crm-workflow.md"
-    },
-    {
-      "id": "e-commerce-workflow",
-      "title": "E-Commerce Ops (kanalübergreifend)",
-      "domain": "vertrieb-crm",
-      "category": "e-commerce",
-      "tags": [
-        "ecommerce",
-        "orders",
-        "catalog"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/vertrieb-crm/e-commerce/e-commerce-workflow.md"
-    },
-    {
-      "id": "etsy-workflow",
-      "title": "Etsy Shop & Listing-Ops",
-      "domain": "vertrieb-crm",
-      "category": "etsy",
-      "tags": [
-        "etsy",
-        "handmade",
-        "marketplace"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/vertrieb-crm/etsy/etsy-workflow.md"
-    },
-    {
-      "id": "kdp-workflow",
-      "title": "Amazon KDP & Buch-Metadaten",
-      "domain": "vertrieb-crm",
-      "category": "kdp",
-      "tags": [
-        "kdp",
-        "publishing",
-        "amazon"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/vertrieb-crm/kdp/kdp-workflow.md"
-    },
-    {
-      "id": "leadgen-mcp-focus",
-      "title": "Leadgen: Recherche-MCP vs. CRM-Import",
-      "domain": "vertrieb-crm",
-      "category": "leadgen",
-      "tags": [
-        "leadgen",
-        "exa",
+        "event",
+        "travel-events",
         "mcp"
       ],
       "target_agents": [
@@ -6038,152 +6215,19 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.1.0",
+      "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/vertrieb-crm/leadgen/leadgen-mcp-focus.md"
+      "path": "domains/travel-events/event-planning/event-planning-workflow.md"
     },
     {
-      "id": "leadgen-workflow",
-      "title": "Leadgen & ICP-Listen",
-      "domain": "vertrieb-crm",
-      "category": "leadgen",
+      "id": "flights-hotels-workflow",
+      "title": "Flights and Hotels",
+      "domain": "travel-events",
+      "category": "flights-hotels",
       "tags": [
-        "leadgen",
-        "icp",
-        "prospecting"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/vertrieb-crm/leadgen/leadgen-workflow.md"
-    },
-    {
-      "id": "marketplaces-workflow",
-      "title": "Marktplatz-übergreifend (eBay, Otto, Kaufland …)",
-      "domain": "vertrieb-crm",
-      "category": "marketplaces",
-      "tags": [
-        "marketplace",
-        "multichannel"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/vertrieb-crm/marketplaces/marketplaces-workflow.md"
-    },
-    {
-      "id": "outreach-mcp-focus",
-      "title": "Outreach: E-Mail-Skills vs. CRM-MCP",
-      "domain": "vertrieb-crm",
-      "category": "outreach",
-      "tags": [
-        "outreach",
-        "mcp",
-        "email",
-        "hermes"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "medium",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/vertrieb-crm/outreach/outreach-mcp-focus.md"
-    },
-    {
-      "id": "outreach-workflow",
-      "title": "1:1 Outreach & Sequencing",
-      "domain": "vertrieb-crm",
-      "category": "outreach",
-      "tags": [
-        "outreach",
-        "email",
-        "sdr",
-        "vertrieb-crm"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "medium",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/vertrieb-crm/outreach/outreach-workflow.md"
-    },
-    {
-      "id": "preis-monitoring-workflow",
-      "title": "Preis- & Wettbewerbsmonitoring",
-      "domain": "vertrieb-crm",
-      "category": "preis-monitoring",
-      "tags": [
-        "pricing",
-        "monitoring",
-        "competitive"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/vertrieb-crm/preis-monitoring/preis-monitoring-workflow.md"
-    },
-    {
-      "id": "shopify-workflow",
-      "title": "Shopify Store Ops & Katalog",
-      "domain": "vertrieb-crm",
-      "category": "shopify",
-      "tags": [
-        "shopify",
-        "ecommerce",
-        "vertrieb-crm"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "medium",
-      "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
-      "path": "domains/vertrieb-crm/shopify/shopify-workflow.md"
-    },
-    {
-      "id": "daten-experimente-workflow",
-      "title": "Experimentdaten",
-      "domain": "wissenschaft-engineering",
-      "category": "daten-experimente",
-      "tags": [
-        "daten",
-        "wissenschaft-engineering",
-        "skill"
+        "fluege",
+        "travel-events",
+        "mcp"
       ],
       "target_agents": [
         "hermes",
@@ -6195,17 +6239,17 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/wissenschaft-engineering/daten-experimente/daten-experimente-workflow.md"
+      "path": "domains/travel-events/flights-hotels/flights-hotels-workflow.md"
     },
     {
-      "id": "lab-notes-workflow",
-      "title": "Lab Notes",
-      "domain": "wissenschaft-engineering",
-      "category": "lab-notes",
+      "id": "tickets-workflow",
+      "title": "Tickets",
+      "domain": "travel-events",
+      "category": "tickets",
       "tags": [
-        "lab",
-        "wissenschaft-engineering",
-        "skill"
+        "tickets",
+        "travel-events",
+        "mcp"
       ],
       "target_agents": [
         "hermes",
@@ -6217,17 +6261,17 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/wissenschaft-engineering/lab-notes/lab-notes-workflow.md"
+      "path": "domains/travel-events/tickets/tickets-workflow.md"
     },
     {
-      "id": "paper-writing-workflow",
-      "title": "Paper Writing",
-      "domain": "wissenschaft-engineering",
-      "category": "paper-writing",
+      "id": "trip-planning-workflow",
+      "title": "Trip planning",
+      "domain": "travel-events",
+      "category": "trip-planning",
       "tags": [
-        "paper",
-        "wissenschaft-engineering",
-        "skill"
+        "trip-planning",
+        "travel-events",
+        "mcp"
       ],
       "target_agents": [
         "hermes",
@@ -6239,51 +6283,7 @@
       "example_count": 2,
       "version": "1.0.0",
       "updated": "2026-11-23",
-      "path": "domains/wissenschaft-engineering/paper-writing/paper-writing-workflow.md"
-    },
-    {
-      "id": "simulation-numerics-workflow",
-      "title": "Simulation und Numerik",
-      "domain": "wissenschaft-engineering",
-      "category": "simulation-numerics",
-      "tags": [
-        "simulation",
-        "wissenschaft-engineering",
-        "skill"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "domains/wissenschaft-engineering/simulation-numerics/simulation-numerics-workflow.md"
-    },
-    {
-      "id": "tech-standards-workflow",
-      "title": "Technische Standards",
-      "domain": "wissenschaft-engineering",
-      "category": "tech-standards",
-      "tags": [
-        "tech",
-        "wissenschaft-engineering",
-        "skill"
-      ],
-      "target_agents": [
-        "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
-      ],
-      "risk_level": "low",
-      "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
-      "path": "domains/wissenschaft-engineering/tech-standards/tech-standards-workflow.md"
+      "path": "domains/travel-events/trip-planning/trip-planning-workflow.md"
     }
   ]
 }

@@ -27,25 +27,25 @@ version: "1.1.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
 UGC Skript + Rechte-Checkliste—kein Paid upload.
 
-## Wann nutzen
+## When to use
 
-- Klar umrissene ugc-Aufgabe mit Briefing.
+- Clearly defined ugc task with briefing.
 
-**Wann nicht**
+**When not to use**
 
-- Ohne Quellen/Briefing oder gegen Plattform-ToS.
+- Without sources/briefing or against platform-ToS.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Rationale |
 |------|-------|------------|
-| required_tools | Primär | Laut Frontmatter |
+| required tools | Primary | According to Frontmatter |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Role: UGC creative director.
@@ -64,7 +64,7 @@ If data missing, stop and list concrete questions.
 Deliver reproducible file paths in summary.
 ```
 
-## Arbeitsablauf
+## Workflow
 
 1. Claims-Grenzen
 2. Hook/Shots
@@ -72,21 +72,21 @@ Deliver reproducible file paths in summary.
 4. Rights list
 5. QA sheet
 6. Brief
-7. Freigabe
+7. Release
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
 - [ ] Outputs erstellt
-- [ ] Freigaben eingehalten
+- [ ] user approvaln eingehalten
 - [ ] Quellen/Annahmen geloggt
 - [ ] Kein Auto-Publish
 
-## Sicherheit & Freigaben
+## Security
 
 - Credentials nur im Connector.
-- Send/Publish nur nach Freigabe.
+- Send/Publish only after release.
 
-## Fallstricke
+## Pitfalls
 
 - No contract
 - Whitelisting missing
@@ -94,11 +94,11 @@ Deliver reproducible file paths in summary.
 - Too many shots
 - Label unreadable
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** 20s skincare
+- **Task:** 20s skincare
 - **Input:** no heal
 - **Prompt:**
 
@@ -106,15 +106,15 @@ Deliver reproducible file paths in summary.
 ugc_brief
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 no medical
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Rights 6mo Meta
+- **Task:** Rights 6mo Meta
 - **Input:** paid only
 - **Prompt:**
 
@@ -122,7 +122,7 @@ no medical
 rights_checklist
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 platform row

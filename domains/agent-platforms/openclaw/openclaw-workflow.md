@@ -6,7 +6,7 @@ category: openclaw
 tags:
   - openclaw
   - agent-platforms
-  - agentplattform
+  - agent-platform
 target_agents:
   - openclaw
   - generic-mcp-agents
@@ -18,132 +18,134 @@ required_tools:
     install: "https://github.com/openclaw/clawhub"
     version_notes: "Registry; openclaw skills verify vor Installation"
 inputs:
-  - "Gateway-Setup oder bestehende OpenClaw-Instanz"
-  - "Skill-Name oder MCP-Server-Definition"
+  - "Gateway-Setup or bestehende OpenClaw-Instanz"
+  - "Skill-Name or MCP-Server-Definition"
 outputs:
-  - "Konfiguriertes Gateway mit dokumentierter Tool-Policy"
-  - "Verify-Bericht für ClawHub-Skills"
+  - "Configured Gateway with Documented Tool Policy"
+  - "Verify report for ClawHub skills"
 risk_level: high
 example_count: 3
 version: "1.0.0"
 updated: "2026-11-23"
 ---
+## Purpose
 
-## Zweck
+OpenClaw as a self-hosted **gateway** for skills, plugins and MCP: ClawHub delivers public skills, the Skill Workshop shapes new procedures – with **`openclaw skills verify`** before production, because registry audits found ~12% malicious code (Koi Security, Feb. 2026).
 
-OpenClaw als selbst gehostetes **Gateway** für Skills, Plugins und MCP betreiben: ClawHub liefert öffentliche Skills, der Skill Workshop prägt neue Prozeduren — mit **`openclaw skills verify`** vor Produktion, weil Registry-Audits ~12 % Schadcode fanden (Koi Security, Feb. 2026).
+## When to use
 
-## Wann nutzen
+- You want channels, Android companion and local tool policies under your own control.
+- Skills from Workspace **or* ClawHub, with Semver and Security Scan Summaries.
 
-- Du willst Kanäle, Android-Companion und lokale Tool-Policies unter eigener Kontrolle.
-- Skills aus Workspace **oder** ClawHub, mit Semver und Security-Scan-Summaries.
-- **Wann nicht:** Wenn du Skills blind aus der Registry installieren willst ohne Verify/Audit. Wenn `skills.limits.maxSkillsPromptChars` viele Skill-Beschreibungen kürzt und du keinen Kurz-Katalog pflegst. Wenn Companion-Apps fälschlich als Gateway-Host dienen sollen.
+### When not to use
 
-## Tool-Stack
+- If you want to install Skills blind from the registry without Verify/Audit. If `skills.limits.maxSkillsPromptChars` shortens many skill descriptions and you do not maintain a short catalogue. When Companion apps are incorrectly intended to serve as a gateway host.
 
-| Tool | Rolle | Begründung |
-|------|-------|------------|
-| OpenClaw Gateway | Host | Skills, MCP, Plugins, Kanäle |
+## Tool stack
+
+| Tool | Role | Rationale |
+|------|-------|-----------|
+| OpenClaw Gateway | Host | Skills, MCP, plugins, channels |
 | ClawHub | Registry | `openclaw skills install @owner/skill` |
 | Skill Workshop | Neue Prozeduren | Proposal review vor Publish |
 | mcp.servers + Tool-Policy | Least privilege | Begrenzt Tool-Zugriff |
-| Android-Companion | Client | QR-Kopplung an bestehendes Gateway |
+| Android companion | Client | QR pairing to existing gateway |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
-Du konfigurierst und nutzt OpenClaw Gateway. ClawHub-Skills immer zuerst mit openclaw skills verify prüfen.
-Bekanntes Risiko: ~12 % der geprüften Registry-Skills (341/2857) als schadhaft eingestuft (Feb. 2026 Audit).
-Workspace-Skills können Bundled überschreiben — Loading-Order prüfen.
-Metadaten-Datei heißt .clawhub, nicht .clawdhub (ältere Namen werden ignoriert).
-MCP unter mcp.servers eintragen; Tool-Policy für Write/Send restriktiv halten.
-Prompt-Budget: maxSkillsPromptChars kann Skill-Texte kürzen — Beschreibungen knapp halten.
-Skills = Ablauf, MCP = Verbindung — kombinieren, nicht verwechseln.
-Companion/Android ist kein Ersatz für Gateway auf dem Host.
-Keine Secrets in Skill-Install-Args oder Chat.
-Vor Schreiben/Senden/Löschen/Deploy: menschliche Freigabe.
-Dokument-Outputs: erneut lesen und PDF/PNG rendern (Verify).
-Leaderboard-Skills mit Warnflag und wenigen Registry-Stars trotz Downloads besonders kritisch prüfen.
+You configure and use OpenClaw Gateway. Always check ClawHub skills first with openclaw skills verify.
+Known risk: ~12% of audited registry skills (341/2857) classified as malicious (Feb. 2026 Audit).
+Workspace skills can override bundled — check loading orders.
+Metadata file is called .clawhub, not .clawdhub (older names are ignored).
+MCP unter mcp.servers eintragen; Tool-Policy for Write/Send restriktiv halten.
+Prompt budget: maxSkillsPromptChars can shorten skill texts — keep descriptions short.
+Skills = Ablauf, MCP = Verbindung — kombinieren, not verwechseln.
+The Android companion is not a replacement for the gateway on the host.
+No Secrets in Skill-Install-Args or Chat.
+Before Write/Send/Delete/Deploy: Human release.
+Dokument-Outputs: erneut lesen and PDF/PNG rendern (Verify).
+Leaderboard skills with Warnflag and few registry stars despite downloads particularly critical.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. Gateway starten; CLI `openclaw` und Workspace-Pfad dokumentieren.
-2. Geplante ClawHub-Skill-IDs sammeln; je Skill `openclaw skills verify` ausführen und Ergebnis speichern.
-3. Nur verifizierte Skills installieren; bei Warnung manuell Review oder ablehnen.
-4. MCP in Settings oder CLI (`openclaw mcp`) ergänzen; Tool-Policy für riskante Tools einschränken.
+Starting the gateway; CLI `openclaw` and workspace path document.
+2. Collect planned ClawHub skill IDs; execute each skill `openclaw skills verify` and save the result.
+3. Nur verifizierte Skills installieren; bei Warnung manuell Review or ablehnen.
+4. MCP in Settings or CLI (`openclaw mcp`); Restrict tool policy for risky tools.
 5. Skill Workshop nutzen, wenn neue Team-Prozeduren entstehen (Proposal review).
-6. Android-Companion per QR an **bestehendes** Gateway koppeln (nicht als Host missverstehen).
-7. Test-Task mit minimalem Skill-Set; Prompt-Länge nach Kürzung prüfen.
-8. Produktions-Task nur nach Freigabe-Gates für Schreib-/Sendeaktionen.
+6. Connect Android Companion to **existing** gateway via QR (not misunderstand as host).
+7. Test task with minimal skill set; Check prompt length after reduction.
+8. Production task only after share gates for write/send actions.
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
-- [ ] Jeder ClawHub-Skill hat dokumentiertes Verify-Ergebnis vor Aktivierung
-- [ ] Tool-Policy und aktive MCP-Liste passen zum Briefing
-- [ ] Keine `.clawdhub`-Legacy-Metadaten ohne Migration auf `.clawhub`
-- [ ] Schreib-/Sendeaktionen nur mit Freigabe
-- [ ] Skill-Prompt-Budget: keine überraschend abgeschnittenen Kernanweisungen
+- [ ] Jeder ClawHub-Skill hat dokumentiertes Verify-result vor Aktivierung
+- [ ] Tool policy and active MCP list match the briefing
+- [ ] No `.clawdhub`-Legacy-Metadaten without Migration auf `.clawhub`
+- [ ] Write/send actions only with approval
+- [ ] Skill prompt budget: no surprisingly cut-off core instructions
 
-## Sicherheit & Freigaben
+## Security
 
 - Hohes Registry-Risiko: Verify + Vorsicht bei Leaderboard-Anomalien (viele Downloads, wenige Stars).
-- Workspace-Skill-Overrides bewusst setzen, nicht blind aus ClawHub überschreiben.
-- Destruktive Gateway-Tools erst nach expliziter Freigabe.
+- Workspace skill overrides consciously put, not blindly overwrite from ClawHub.
+Destructive gateway tools only after explicit release.
 
-## Fallstricke
+## Pitfalls
 
 - **ClawHub-Malware ~12 %:** Koi Security Feb. 2026 — 341 von 2857 Skills schadhaft; immer `openclaw skills verify`, nie blind installieren.
-- **Loading-Order:** Workspace-Skills können Bundled-Skills verdrängen — unerwartetes Verhalten bei gleichen Namen.
-- **`.clawdhub` → `.clawhub`:** Alte Metadaten werden nicht gelesen; Upgrades scheitern still.
-- **Prompt-Budget:** `maxSkillsPromptChars` kürzt Beschreibungen — kritische Schritte fehlen im Kontext.
-- **Companion ≠ Host:** Android-App steuert Remote-Gateway, ersetzt keine Gateway-Sicherheit auf dem Server.
-- **MCP-Token-Overhead:** Zu viele MCP-Server belasten Kontext wie bei anderen Agent-Clients (Schema-Größe).
+**Loading Order:** Workspace skills can displace bundled skills — unexpected behavior on the same name.
+- **`.clawdhub` → `.clawhub`:** Old metadata is not read; Upgrades fail silently.
+- **Prompt budget:** `maxSkillsPromptChars` shortens descriptions — critical steps are missing in context.
+- **Companion ≠ host:** The Android app controls a remote gateway; it does not replace gateway security on the server.
+**MCP Token Overhead:** Too many MCP servers load context like other agent clients (schema size).
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Praxisbeispiel)
+### Example 1 (Real-world example)
 
-- **Aufgabe:** ClawHub-Sicherheitsaudit (Feb. 2026)
-- **Input:** 2.857 öffentlich gelistete ClawHub-Skills
+- **Task:** ClawHub-Sicherheitsaudit (Feb. 2026)
+*Input: 2,857 publicly listed ClawHub skills
 - **Prompt:**
 ```text
-(openclaw skills verify für Kandidaten; externes Audit als Kontext)
+(openclaw skills verify for Kandidaten; externes Audit als Kontext)
 ```
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 ```text
 341 Skills als schadhaft bewertet (~12 %).
-Konsequenz: Verify-Pflicht, keine Masseninstallation aus Leaderboard.
-Quelle: Koi Security / The Hacker News Berichte.
+Konsequenz: Verify-Pflicht, no Masseninstallation aus Leaderboard.
+Source: Koi Security / The Hacker News reports.
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Workspace-Skill über Bundled legen
-- **Input:** Gleicher Skill-Name in Workspace und Bundled, unterschiedliche Instruktionen
+- **Task:** Put Workspace-Skill over Bundled
+- **Input:** Same skill name in Workspace and Bundled, different instructions
 - **Prompt:**
 ```text
-Nutze den Github-Skill für PR-Zusammenfassung.
+Nutze den Github-Skill for PR-Zusammenfassung.
 ```
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 ```text
 Workspace-Variante gewinnt (Loading-Order).
-Bot folgt Workspace-Anweisung; Bundled-Text erscheint nicht im Log.
+Bot folgt Workspace-Anweisung; Bundled-Text erscheint not im Log.
 Hinweis im DoD: Order dokumentiert.
 ```
 
-### Beispiel 3 (Beispieldaten)
+### Example 3 (Example data)
 
-- **Aufgabe:** MCP + Skill für Issue-Triage ohne Auto-Write
+- **Task:** MCP + Skill for issue triage without auto-write
 - **Input:** linear-MCP in mcp.servers, clawhub:@team/triage-skill
 - **Prompt:**
 ```text
-Verify triage-skill, dann offene Issues listen. Keine Comment-POSTs.
+Verify triage-skill, dann offene Issues listen. No Comment-POSTs.
 ```
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 ```text
-verify: PASS (oder FAIL → Abbruch)
+verify: PASS (or FAIL → Abbruch)
 Markdown-Liste 8 Issues
 Tool-Policy blockiert write_comment
-Kein POST ausgeführt
+No POST executed
 ```

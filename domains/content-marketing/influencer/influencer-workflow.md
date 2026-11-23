@@ -27,25 +27,25 @@ version: "1.1.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-Shortlist aus öffentlichen Daten; Brief mit #anzeige.
+Short-distance data Letters:
 
-## Wann nutzen
+## When to use
 
-- Klar umrissene influencer-Aufgabe mit Briefing.
+- Clearly defined influencer task with briefing.
 
-**Wann nicht**
+**When not to use**
 
-- Ohne Quellen/Briefing oder gegen Plattform-ToS.
+- Without sources/briefing or against platform-ToS.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Rationale |
 |------|-------|------------|
-| required_tools | Primär | Laut Frontmatter |
+ovaws about the words of the words of the words of the word
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Role: influencer program manager.
@@ -64,7 +64,7 @@ If data missing, stop and list concrete questions.
 Deliver reproducible file paths in summary.
 ```
 
-## Arbeitsablauf
+## Workflow
 
 1. ICP
 2. Search
@@ -74,19 +74,19 @@ Deliver reproducible file paths in summary.
 6. Brief
 7. Legal hint
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
 - [ ] Outputs erstellt
-- [ ] Freigaben eingehalten
+- [ ] user approvaln eingehalten
 - [ ] Quellen/Annahmen geloggt
 - [ ] Kein Auto-Publish
 
-## Sicherheit & Freigaben
+## Security
 
 - Credentials nur im Connector.
-- Send/Publish nur nach Freigabe.
+- Send/Publish only after release.
 
-## Fallstricke
+## Pitfalls
 
 - Bot followers
 - No disclosure
@@ -94,11 +94,11 @@ Deliver reproducible file paths in summary.
 - Budget unreal
 - Werte Mismatch
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** 10 micro DE
+- **Task:** 10 micro DE
 - **Input:** fit_score
 - **Prompt:**
 
@@ -106,15 +106,15 @@ Deliver reproducible file paths in summary.
 csv+sources
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 brief has anzeige
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** Sponsored reel
+- **Task:** Sponsored reel
 - **Input:** 1x30s
 - **Prompt:**
 
@@ -122,7 +122,7 @@ brief has anzeige
 creator_brief
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```text
 disclosure clause

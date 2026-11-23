@@ -1,6 +1,6 @@
 ---
 id: monitoring-observability-workflow
-title: "Monitoring und Observability"
+title: "Monitoring and Observability"
 domain: devops-cloud
 category: monitoring-observability
 tags:
@@ -23,37 +23,37 @@ required_tools:
     install: "ServiceMonitors CR"
     version_notes: "Operator stacks"
 inputs:
-  - "Metric/Alert-Name, Cluster oder VM"
-  - "SLO oder Schwellwert"
+  - "Metric/Alert-Name, Cluster or VM"
+  - "SLO or Schwellwert"
 outputs:
-  - "Validierte Rule oder Dashboard-JSON-Snippet"
-  - "Runbook-Link für Alert"
+  - "Validierte Rule or Dashboard-JSON-Snippet"
+  - "Runbook link for Alert"
 risk_level: high
 example_count: 2
 version: "1.0.0"
 updated: "2026-11-23"
 ---
 
-## Zweck
+## Purpose
 
-Metriken, Alerts und SLOs pflegen — PromQL prüfen, Rules testen, Prod-Alerts nicht stillschweigend deaktivieren.
+Maintain metrics, alerts and SLOs — check PromQL, test rules, do not silently deactivate Prod alerts.
 
-## Wann nutzen
+## When to use
 
-- Neuer Alert, flaky firing, Dashboard für on-call.
+- New alert, flaky firing, dashboard for on-call.
 - Nach Deploy: SLI-Verifikation.
 
-**Wann nicht:** Vollständiges Observability-Vendor-Migration in einem Sprint.
+**When not to use:** Full observability vendor migration in a sprint.
 
-## Tool-Stack
+## Tool stack
 
-| Tool | Rolle | Begründung |
+| Tool | Role | Rationale |
 |------|-------|------------|
 | promtool | Rules | check rules |
 | Prometheus API | Query | instant/range |
 | Grafana | Dashboards | Export/Import JSON |
 
-## System-Prompt / Instruktionen
+## System prompt
 
 ```text
 Observability workflow (devops-cloud/monitoring-observability).
@@ -70,40 +70,40 @@ Document alert runbook URL in annotation runbook_url.
 No cardinality explosion from high-cardinality labels in user suggestions.
 ```
 
-## Arbeitsablauf
+## Workflow
 
-1. Alert symptom und aktuelle Rule-Datei laden.
+1. Alert symptom and current rule file load.
 2. `promtool check rules alerts/api.yaml`.
 3. Test vectors: `promtool test rules tests/api_alerts_test.yaml`.
 4. Live: `curl -G 'http://prom:9090/api/v1/query' --data-urlencode 'query=rate(http_requests_total{status=~"5.."}[5m])'`.
-5. Rule-Änderung als PR; Grafana Panel ergänzen.
-6. Nach Freigabe: `kubectl apply -f servicemonitor-api.yaml`.
+5. Rule change as PR; Grafana Panel supplement.
+6. Nach approval: `kubectl apply -f servicemonitor-api.yaml`.
 7. Ampeco firing test in staging (`amtool alert add` nur staging).
 
-## Qualitätskriterien / Definition of Done
+## Definition of done
 
-- [ ] promtool check + test grün
+- [ ] promtool check + test green
 - [ ] Runbook-Annotation gesetzt
-- [ ] Kein prod silence ohne Ticket
+- [ ] Kein prod silence without Ticket
 
-## Sicherheit & Freigaben
+## Security
 
 - Prod-Alert-Config: high risk.
-- Metrics können interne Hostnamen enthüllen — redigieren in öffentlichen Tickets.
+- Metrics can reveal internal hostnames - edit in public tickets.
 
-## Fallstricke
+## Pitfalls
 
-- `rate()` ohne `[5m]` minimum sinnvoll — spike noise.
-- Alert ohne `for:` — flapping pager.
+- `rate()` without `[5m]` minimum sinnvoll — spike noise.
+- Alert without `for:` — flapping pager.
 - Recording rule cyclic dependency.
-- Grafana Variable ohne datasource — broken dashboard.
+- Grafana Variable without datasource — broken dashboard.
 - kube-state-metrics fehlt — Pods unknown aber App „up“.
 
-## Grundbeispiele
+## Basic examples
 
-### Beispiel 1 (Beispieldaten)
+### Example 1 (Example data)
 
-- **Aufgabe:** 5xx-Rate-Alert prüfen.
+- **Task:** Check 5xx rate alert.
 - **Input:** `alerts/api.yaml` rule `HighErrorRate`.
 - **Prompt:**
 
@@ -111,7 +111,7 @@ No cardinality explosion from high-cardinality labels in user suggestions.
 promtool check and test; show instant query for current 5xx rate.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 promtool check rules alerts/api.yaml
@@ -120,9 +120,9 @@ curl -G 'http://localhost:9090/api/v1/query' \
   --data-urlencode 'query=sum(rate(http_requests_total{status=~"5.."}[5m]))'
 ```
 
-### Beispiel 2 (Beispieldaten)
+### Example 2 (Example data)
 
-- **Aufgabe:** ServiceMonitor für neues Deployment.
+- **Task:** ServiceMonitor for new deployment.
 - **Input:** NS `prod`, port metrics 8080.
 - **Prompt:**
 
@@ -130,7 +130,7 @@ curl -G 'http://localhost:9090/api/v1/query' \
 Draft ServiceMonitor yaml; apply only after approval note.
 ```
 
-- **Erwartetes Ergebnis:**
+- **Expected result:**
 
 ```bash
 kubectl apply -f servicemonitor-api.yaml   # after APPROVE

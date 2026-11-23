@@ -1,0 +1,157 @@
+---
+id: video-remotion-programmatic
+title: "Datengetriebenes Video with Remotion"
+domain: media
+category: video-production-pipeline
+tags:
+  - remotion
+  - react
+  - programmatic-video
+target_agents:
+  - hermes
+  - claude-code
+  - cursor
+  - generic-mcp-agents
+required_tools:
+  - name: Remotion
+    install: "npm: create-video / remotion in bestehendem Node-Projekt"
+    version_notes: "Remotion 4.x; Remotion Agent Skills from remotion-dev/skills"
+  - name: Node.js
+    install: "nodejs.org LTS or nvm"
+    version_notes: ">= 18; Chromium-Bundle via Remotion"
+  - name: ffmpeg
+    install: "OS-Paket ffmpeg"
+    version_notes: "Post-Render-Checks and leichte Nachediting"
+inputs:
+  - "Briefing (Targetgruppe, Laenge, Branding)"
+  - "Datenquelle (JSON/CSV/API-Stub)"
+  - "Composition-Spec (Szenen, Timing, Aufloesung)"
+outputs:
+  - "Gerendertes MP4 (and optional GIF/Still)"
+  - "Reproducibles Remotion-Projekt or PR-Diff"
+risk_level: medium
+example_count: 2
+version: "1.1.0"
+updated: "2026-11-23"
+---
+
+## Purpose
+
+Agenten fuehren **Briefing → React-Composition → Render → QA** for wiederholbare, datengetriebene Videos (KPI-Karten, Changelogs, Social-Clips) with **Remotion** statt manueller Timeline-Arbeit.
+
+## When to use
+
+- Inhalt variiert pro Lauf (Zahlen, Namen, Tabellen), Layout bleibt gleich.
+- CI/CD or Cron should monatliche Report-Videos create.
+- Team beherrscht TypeScript/React or akzeptiert generierten Scaffold.
+
+**When not to use**
+
+- Einmaliger Kinomontage-Cut with viel B-Roll and intuitiver Timeline (NLE).
+- Rechtlich sensible Daten duerfen the Render-Worker or Cloud not verlassen—without klare Hosting-Grenze.
+- Echtzeit-Livestream-Grafiken (OBS/NDI) without Remotion-Pipeline.
+
+## Tool stack
+
+| Tool | Role | Rationale |
+|------|-------|------------|
+| Remotion + @remotion/cli | Composition, Preview, Render | Official Render-path, Headless Chromium |
+| Remotion Agent Skills | Prompt-Patterns, Best Practices | Empfohlen statt veralteter MCP-pathe (Recherche 2026) |
+| ffmpeg / ffprobe | Bitrate, Dauer, Thumbnail | Schnelle approval without Studio |
+| git | Versionierung the Composition | Reproduzierbarkeit |
+
+## System prompt
+
+```text
+You build and render Remotion videos in an existing or new Remotion project (TypeScript/React).
+
+Inputs: creative brief, target resolution/fps/duration, data payload (JSON/CSV), brand tokens (fonts, colors—paths or CSS variables), output filename.
+
+Setup:
+- If no project: npx create-video@latest with appropriate template; pin remotion version in package.json.
+- Define Composition in Root.tsx with explicit width, height, fps, durationInFrames.
+
+Implementation rules:
+- All timing via useCurrentFrame() and interpolate(); avoid setState for animation.
+- Load data via getInputProps() or staticFile() for assets; never hardcode secrets in props.
+- Use <Series>, <Sequence>, and premount patterns for scene changes per Remotion skills.
+
+Preview before render: npm run start OR npx remotion preview; confirm one representative data row.
+
+Render: npx remotion render <CompositionId> out.mp4 --props='{"rows":[...]}' (escape JSON safely).
+Log stdout; on failure capture stack trace and last frame.
+
+Post-render: ffprobe duration and resolution; extract poster frame at 1s.
+
+Deliver: path to mp4, git diff summary, render command, and props schema for the next run.
+
+Do not deploy to cloud render farms or upload outputs without user approval.
+Stock assets and fonts: only use files the user provided or licenses they confirmed.
+```
+
+## Workflow
+
+1. Briefing and JSON-Schema the Datenzeilen festhalten; Dauer from `fps × frames` ableiten.
+2. `npx create-video@latest` or bestehendes Repo; `npm install` and Remotion-Skills-README konsultieren.
+3. Composition `ReportVideo` anlegen; Props-Typ in `src/types.ts` definieren.
+4. `npm run start` — Preview with Example-`inputProps` im Remotion Studio.
+5. `npx remotion render ReportVideo deliver/report_2026-11.mp4 --props=@data/payload.json`.
+6. `ffprobe deliver/report_2026-11.mp4`; Poster `npx remotion still ReportVideo poster.png --frame=30`.
+7. approval-Checkliste with Stakeholder; optional Commit and Tag.
+
+## Definition of done
+
+- [ ] Render without Fehler; Aufloesung and fps entsprechen Briefing
+- [ ] all Datenzeilen from Props sichtbar and lesbar (no Overflow without approval)
+- [ ] Render-Befehl and Props-file dokumentiert—Wiederholung without Agent possible
+- [ ] no unlizenzierten Fonts/Bilder im Bundle
+- [ ] ffprobe-Dauer ±1 Frame against `durationInFrames`
+
+## Security
+
+- Kundendaten in Props not in oeffentliche Issue-Tracker or Cloud-Render-Logs write.
+- FFmpeg-Nachediting with Wasserzeichen or Upload only after approval.
+- Dependencies: `npm audit` at neuen Paketen erwaehnen; no willkuerlichen Postinstall-Skripte.
+
+## Pitfalls
+
+- `durationInFrames` to knapp—letzte Animation will abgeschnitten; immer `+fps` Puffer.
+- Grosse Bilder without `width`/`height` in `<Img>` verursachen Layout-Shifts im Render.
+- `--props` as Shell-String bricht at Anfuehrungszeichen—file `@payload.json` bevorzugen.
+- Chromium-Headless on Servern without Fonts—Brand-Fonts in `public/` einbinden.
+- Skills vs. MCP: Remotion-Skills nutzen; veraltete MCP-Doku kann falsche Tool-Namen liefern.
+
+## Basic examples
+
+### Example 1 (Example data)
+
+- **Task:** Monatliches Sales-Dashboard-Video from CSV.
+- **Input:** `sales_nov.json` with `{ "month", "revenue_eur", "deals" }`, 1080×1920, 15 s.
+- **Prompt:**
+
+```text
+Add Remotion composition SalesStory (1080x1920, 30fps, 450 frames). Animate revenue and deal count from sales_nov.json. Render to out/sales_nov.mp4.
+```
+
+- **Expected result:**
+
+```json
+{
+  "render": "npx remotion render SalesStory out/sales_nov.mp4 --props=./sales_nov.json",
+  "ffprobe": { "width": 1080, "height": 1920, "duration_sec": 15.0 }
+}
+```
+
+### Example 2 (Real-world example)
+
+- **Task:** Remotion-Skills as Referenz for Agent-Prompting statt Legacy-MCP.
+- **Input:** Neues Repo, Skill-README of remotion-dev/skills.
+- **Prompt:**
+
+```text
+Follow remotion-dev/skills for composition structure and render CLI. Document why skills are preferred over deprecated MCP paths in 2026.
+```
+
+- **Expected result:**
+
+  Projekt with `npx remotion compositions` listet mindestens eine Composition; README-Link https://github.com/remotion-dev/skills im Agent-Protokoll; Render-Artefakt lokal unter `out/`.
