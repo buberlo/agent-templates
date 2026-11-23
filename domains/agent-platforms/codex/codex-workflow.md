@@ -13,15 +13,16 @@ target_agents:
 required_tools:
   - name: Hermes-Skill codex
     install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "Bundled."
+    version_notes: "Bundled; delegiert an OpenAI Codex CLI"
   - name: OpenClaw MCP serve / ACP
     install: "https://docs.openclaw.ai/cli/mcp/serve"
-    version_notes: "395081 GitHub Stars"
+    version_notes: "Bridge openclaw mcp serve oder openclaw acp"
 inputs:
-  - "Kontext/Briefing für Codex"
-  - "Dateien, URLs oder IDs laut Aufgabe"
+  - "Feature-Briefing oder PR-Beschreibung"
+  - "Repo-URL oder Pfad; Orchestrator (Hermes/OpenClaw)"
 outputs:
-  - "Dokumentiertes Ergebnis (Datei, Bericht oder Ticket-Update)"
+  - "Branch/Diff aus Codex-Schleife"
+  - "Review-Zusammenfassung im Orchestrator-Thread"
 risk_level: low
 example_count: 2
 version: "1.0.0"
@@ -30,73 +31,103 @@ updated: "2026-11-23"
 
 ## Zweck
 
-OpenAI-Codex-CLI als Coding-Agent, oft von Hermes delegiert, MCP-fähig.
+OpenAI **Codex CLI** als fokussierte Coding-Runtime einsetzen — oft **von Hermes delegiert** (`Hermes-Skill codex`) oder über **OpenClaw** (`openclaw mcp serve` / `openclaw acp`). Der Orchestrator hält Kontext und Freigaben; Codex liefert Implementierungsschleifen.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Codex**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Hermes/OpenClaw soll planen, auditieren und freigeben; Codex schreibt Code in isolierter Schleife.
+- OpenClaw-Gateway soll als MCP-Server für externe Clients (Codex, Claude Code) dienen.
+- **Wann nicht:** Wenn zwei Agenten parallel ohne Lock auf dasselbe Repo schreiben. Wenn du Office-Verify (document-skills Render) in Codex erwartest statt im Orchestrator/Skill. Wenn keine Rückkopplung in den Parent-Thread geplant ist.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill codex | Skill | Aus Recherche 2026-11-23 |
-| OpenClaw MCP serve / ACP | Bruecke | Aus Recherche 2026-11-23 |
+| Hermes-Skill codex | Delegation | Bundled Skill aus Skills-Katalog |
+| OpenAI Codex CLI | Coding-Runtime | MCP-fähig wie andere Clients |
+| openclaw mcp serve | Brücke | OpenClaw als MCP für Codex |
+| openclaw acp | Alternative Host | OpenClaw hostet Coding-Runtime |
+| Parent Orchestrator | Review | Hermes/OpenClaw-Thread mit Freigabe |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Codex (agent-platforms/codex).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - In Hermes bleiben, Codex nur fuer die Coding-Schleife; Reviews zurueck im Orchestrator.
+Du nutzt Codex als Coding-Runtime unter einem Orchestrator (Hermes oder OpenClaw).
+Codex-Session nur für Implementierung, Tests und lokale Diffs — keine Produktions-Deploys ohne Parent-Freigabe.
+Hermes-Skill codex: Aufgabe klar abgrenzen (Scope, Dateien, nicht ganze Monorepo umschreiben).
+OpenClaw-Brücke: openclaw mcp serve (stdio) nur mit Tool-Policy, die Writes begrenzt.
+Zwei Schreiber auf ein Repo: Serialisierung — ein aktiver Codex-Job pro Branch.
+MCP in Codex minimal halten (Schema-Overhead wie bei anderen Clients).
+Parent-Thread muss Diff und Teststatus zurückbekommen.
+Keine API-Keys in Delegations-Prompt oder Codex-argv.
+Nach Codex-Lauf: Orchestrator reviewt, merged nicht automatisch.
+Skills im Parent definieren Verify (Lint/Test); Codex führt aus, Parent sign-off.
+Bei ClawHub-Skills am Gateway: verify vor Nutzung durch Codex-Bridge.
+Document-Verify (Render) bleibt Parent-/Skill-Aufgabe, nicht Codex allein.
 ```
 
 ## Arbeitsablauf
 
-- In Hermes bleiben, Codex nur fuer die Coding-Schleife; Reviews zurueck im Orchestrator.
+1. Orchestrator-Thread öffnen; Briefing und Akzeptanzkriterien festhalten.
+2. Repo-Lock/Branch-Strategie klären (ein Codex-Job).
+3. Hermes `codex`-Skill anstoßen oder OpenClaw `mcp serve` für Codex-Client konfigurieren.
+4. Codex: implementieren, Tests laufen lassen, Diff erzeugen.
+5. Ergebnis (Diff, Test-Log) an Parent zurückmelden.
+6. Parent: Review, Security-Check, Freigabe für Push/Merge.
+7. Optional zweite Codex-Runde nur nach Review-Kommentaren.
+8. Abschluss im Orchestrator mit Links zu Commits/PR.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Ein Schreiber pro Branch während Codex-Lauf
+- [ ] Diff und Teststatus im Parent-Thread dokumentiert
+- [ ] Kein Merge/Deploy ohne Parent-Freigabe
+- [ ] MCP/Bridge-Policy verhindert unerwartete Remote-Writes
+- [ ] Keine Secrets in Delegations-Metadaten
 
 ## Sicherheit & Freigaben
 
-- Zwei Agenten mit Schreibrecht auf dasselbe Repo ohne Abstimmung.
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- OpenClaw-Bridge: Tool-Policy wie Gateway-Standard.
+- Parent muss destructive Aktionen freigeben.
+- Bei Registry-Skills am Gateway: ClawHub verify (~12 % Malware-Kontext).
+
+## Fallstricke
+
+- **Zwei Schreiber:** Hermes und Codex ändern parallel — Merge-Konflikte und Datenverlust.
+- **Delegation ohne Review:** Codex pusht; Parent kennt Diff nicht.
+- **MCP-Overhead:** Voller MCP-Stack in Codex + Parent — doppelter Schema-Druck.
+- **openclaw acp vs. serve:** Falsche Brücke — Client sieht falsche Tools.
+- **Skill vs. MCP:** Parent-Skill muss Verify-Schritte (Test/Lint) benennen.
+- **ClawHub am Gateway:** Codex über Bridge nutzt kompromittierte Skills, wenn nicht verifiziert.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Codex-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `codex` (Testdaten)
+- **Aufgabe:** Hermes delegiert kleines Feature
+- **Input:** „Endpoint GET /health in Express ergänzen“, Repo lokal geklont
 - **Prompt:**
 ```text
-Nutze den empfohlenen Stack für Codex. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+(Hermes) Nutze codex-Skill nur für src/routes/*. Codex: Implementierung + npm test. Kein git push.
 ```
 - **Erwartetes Ergebnis:**
 ```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
+Diff: +12 Zeilen health route
+npm test: 14 passed
+Parent-Thread: Review-OK, Nutzer gibt Push frei
 ```
 
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Codex
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Parallele Schreiber — Fehlmodus
+- **Input:** Gleicher Branch main, Hermes-Agent und Codex ohne Lock
 - **Prompt:**
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Codex: Refactor auth; parallel Hermes: Update README auf main.
 ```
 - **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+```text
+Merge-Konflikt in main
+Parent stoppt: „Serialisiere Jobs — ein Branch, ein aktiver Writer“
+Kein force-push
+```
