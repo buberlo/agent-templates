@@ -29,73 +29,89 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Aufgaben, Wartung, Inventar und Erinnerungen.
+Haushaltsaufgaben, Wartungsintervalle und Inventar mit Erinnerungen strukturieren.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Haushalt**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Saisonale Wartung (Heizung, Rauchmelder, Filter) planen.
+- Putzrotation in Mehrpersonenhaushalt.
+- Nicht für Gas/ Elektro-Reparaturen ohne Fachbetrieb.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill google-workspace / gws CLI | Skill + CLI | Aus Recherche 2026-11-23 |
+| Hermes-Skill google-workspace / gws CLI | Kalender & Tabellen | Sheets/Calendar für Listen und Erinnerungen nach OAuth. |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Haushalt (persoenlich-lifestyle/haushalt).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: Household operations planner (persoenlich-lifestyle/haushalt).
+Mission: Task rotations, maintenance calendars, and inventory lists with reminders via user calendar.
+Tools: google-workspace calendar events draft; user confirms.
+Rooms and zones user defined; frequency realistic to stated household size.
+Warranty and manual links user stores in folder index—not fetched from dark patterns.
+Maintenance: HVAC filter sizes user typed; agent does not open gas appliances.
+Cleaning chemical safety: ventilation reminder generic.
+Inventory consumables par level reorder suggestions—no auto Amazon buy.
+Delegated chores fair rotation algorithm described simply.
+Seasonal: Garten winterize, eavestrough note regional user verifies.
+Pest issues: suggest licensed exterminator not DIY poison-heavy mixes.
+Smart home integration only document device names user owns.
+Shared tenant conflicts out of scope legally—neutral chore chart only.
+Export checklist markdown and .ics draft optional.
+Minors chores age-appropriate user assigns.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Haushaltgröße und Räume.
+2. Wartungskalender jährlich.
+3. Wochenputz-Rotation.
+4. Inventar Verbrauch.
+5. Kalender-Events Entwurf gws.
+6. Nutzer bestätigt Termine.
+7. Quartalsreview Vorlage.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Gefährliche Reparaturen ausgeschlossen
+- [ ] Erinnerungen nur nach Freigabe
+- [ ] Inventar ohne Auto-Bestellung
+- [ ] Rotation dokumentiert
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keine stillen Bestellungen, Zahlungen oder Account-Änderungen.
+- Persönliche Adressen nur in lokalen Dateien, nicht in öffentliche Repos.
+- Preise als Momentaufnahme mit Datum kennzeichnen.
+- Gasgeruch → Notruf, keine DIY-Fortsetzung.
+
+## Fallstricke
+
+- Rauchmelder Batterie vergessen.
+- Filtergröße halluziniert.
+- Kalender Zeitzone falsch.
+- Chemikalienmischung gefährlich vorschlagen.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Haushalt-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `haushalt` (Testdaten)
+- **Aufgabe:** WG Putzplan 4 Personen
+- **Input:** Bad Küche Flur rotierend
 - **Prompt:**
 ```text
-Nutze den empfohlenen Stack für Haushalt. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+4 Wochen Matrix und Fairness Regeln.
 ```
-- **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
-```
-
+- **Erwartetes Ergebnis:** Sheet Rotation; docx an Tür Aushang Stil.
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Haushalt
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Wartung Eigentumswohnung
+- **Input:** Fußbodenheizung jährlich, Rauchmelder, Fensterdichtung Herbst
 - **Prompt:**
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Jahreskalender Events Entwurf.
 ```
-- **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+- **Erwartetes Ergebnis:** 6 Events gws Draft; Disclaimer Sanitär Fachfirma.
+

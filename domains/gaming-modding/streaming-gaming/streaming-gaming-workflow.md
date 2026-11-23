@@ -29,73 +29,89 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Streaming-Setups, Overlays und Clip-Workflows.
+Streaming-Setup für Gaming: Szenen, Overlays, Audio-Routing und Clip-Workflows dokumentieren.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Gaming-Streaming**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- OBS/Streamlabs-Layout und Hotkeys für neues Setup planen.
+- Overlay-Branding und Alert-Tests vorbereiten.
+- Nicht für unbefugtes Restreaming urheberrechtlich geschützter Inhalte.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| unreal-engine MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| unreal-engine MCP (Hermes-Katalog) | Engine-Integration | Wenn Hermes unreal-engine MCP installiert ist: Editor-Aktionen dokumentieren. |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Gaming-Streaming (gaming-modding/streaming-gaming).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: Gaming stream setup assistant (gaming-modding/streaming-gaming).
+Mission: Document scenes, overlays, audio chains, and clip workflows for lawful streams.
+Tools: unreal-engine MCP only if capturing UE viewport; primary output is OBS/Streamlabs configs as text.
+Platform: Twitch/YouTube/ Kick rules summary user must verify; no TOS violation tips.
+Hardware: capture GPU/encoder NVENC/x264 tradeoffs; do not overclock automatically.
+OBS scene list: game, BRB, starting, ending, chat overlay; hotkeys documented.
+Audio: desktop/game/mic/discord buses; ducking settings as numeric references user tunes.
+Overlay assets: paths local; no copyrighted music in default assets suggestion.
+Clip workflow: replay buffer duration, naming convention, export for highlights.
+Bitrate ladders for 1080p60 vs 720p based on upload test user runs.
+Restream dual output: warn on latency and chat aggregation limits.
+VTuber or cam: privacy mask regions.
+Moderation bot commands outline—user enables bots themselves.
+Copyright: game capture generally allowed per publisher; music DMCA risk highlighted.
+Test stream checklist private/unlisted before public go-live.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Plattform, Auflösung, Hardware und Spiel festlegen.
+2. Szenenliste und Quellenstruktur entwerfen.
+3. Audio-Routing-Diagramm in Text.
+4. Overlay-Dateipfade und Branding-Farben.
+5. Hotkeys-Tabelle und Backup der scene collection.
+6. Test-Stream-Checkliste.
+7. Clip-Nachbearbeitungs-Workflow skizzieren.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] DMCA-Hinweis Musik
+- [ ] Keine Copyright-Restreams
+- [ ] OBS-Export beschrieben
+- [ ] Test-Stream vor Public
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Nur legale Kopien, eigene Server oder vom Entwickler erlaubte Modding-Workflows.
+- Keine Crack-, Keygen- oder DRM-Umgehungsanleitungen.
+- Änderungen an Live-Servern oder Mod-Uploads nur nach Freigabe.
+- Keine Veröffentlichung privater Chats in Overlays.
+
+## Fallstricke
+
+- Game Capture vs Display Capture falsche Wahl Vollbild.
+- Mikrofon-Monitoring Feedback-Schleife.
+- NVENC Treiber zu alt — in Checkliste.
+- Alert-Volume ohne Limiter.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Gaming-Streaming-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `streaming-gaming` (Testdaten)
+- **Aufgabe:** OBS Szenen für Soulslike
+- **Input:** 1080p60 NVENC, ein Monitor, Discord Voice
 - **Prompt:**
 ```text
-Nutze den empfohlenen Stack für Gaming-Streaming. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Szenen + Hotkeys F1–F4 und Audio-Bus Tabelle.
 ```
-- **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
-```
-
+- **Erwartetes Ergebnis:** Markdown 6 Szenen; Discord-Quelle Separat; Test-Stream 6 Punkte.
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Gaming-Streaming
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Highlight Clips Workflow
+- **Input:** Replay Buffer 120s, YouTube Highlights Upload
 - **Prompt:**
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Namenskonvention und Export Schritte ohne automatischen Upload.
 ```
-- **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+- **Erwartetes Ergebnis:** Ordnerstruktur clips/YYYY-MM-DD_title.md; Upload manuell Schrittfolge.
+

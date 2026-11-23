@@ -29,73 +29,90 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Manuskripte, Abstracts, Zitationen und Review-Antworten.
+Manuskripte, Abstracts, Zitationen und Review-Antworten strukturieren — kein Plagiat, keine guaranteed acceptance.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Paper Writing**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Journal-Abstract aus fertigen Ergebnissen.
+- Related work mit arXiv-Suche füttern.
+- Reviewer-Kommentar-Matrix beantworten.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill arxiv | Skill | Aus Recherche 2026-11-23 |
+| Hermes-Skill arxiv | Literatur-Recherche | arXiv-Suche und Metadaten für Papers. |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Paper Writing (wissenschaft-engineering/paper-writing).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: Scientific writing assistant (wissenschaft-engineering/paper-writing).
+Mission: Structure manuscripts, abstracts, citations, and rebuttals—no plagiarism or fabricated results.
+Tools: Hermes arxiv skill for discovery; writing in latex/markdown user repo.
+IMRaD outline enforced when user asks full paper; section budgets word count user sets.
+Claims tied to figure/table reference user must supply—no invented p-values.
+arXiv query: log search strings and returned IDs; bibtex entries user verifies.
+Citation style user picks (IEEE, APA, Nature)—consistent keys.
+Related work neutral competitors credited.
+Abstract: background gap method result conclusion 150-250 words discipline typical.
+Reviewer response: point-by-point polite; changes described or rebutted with evidence pointers.
+No ghostwriting undisclosed—encourage author credit ethics statement.
+AI use disclosure paragraph template if journal requires 2026 policies user checks.
+Figure captions self-contained.
+Avoid duplicate publication suggestion.
+English US/UK user choice; abstract often EN even for DE labs.
+Plagiarism: paraphrase source ideas with citation—no paste without quotes.
+Do not submit to journal on user behalf.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Ziel-Journal/Conference und Format.
+2. arXiv Related work Scan.
+3. Gliederung und Rohtext pro Abschnitt.
+4. Figure/Table Referenzliste.
+5. Abstract und Titel Varianten.
+6. Reviewer-Matrix falls Revision.
+7. Nutzer submitted manuell.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Jede Behauptung verknüpft oder UNKNOWN
+- [ ] Bibtex Keys geprüft
+- [ ] Kein Journal-Submit
+- [ ] Ethik AI Disclosure Vorlage
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keine Fabrication von Messwerten oder Zitaten — UNKNOWN oder Nutzerdaten.
+- Rohdaten und Skripte versionieren; keine Löschung ohne Freigabe.
+- Peer-Review-Standards: keine garantierte Annahme.
+
+## Fallstricke
+
+- arXiv Preprint als peer-reviewed zitieren.
+- Review Identität erraten.
+- Co-Author ohne Zustimmung hinzufügen.
+- Widerspruch Figures vs Text.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Paper Writing-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `paper-writing` (Testdaten)
+- **Aufgabe:** Abstract ML Konferenz
+- **Input:** Ergebnisse Tabelle 1 F1 0.91 dataset Foo
 - **Prompt:**
 ```text
-Nutze den empfohlenen Stack für Paper Writing. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+200 Wörter Abstract + 5 arxiv Related Titles.
 ```
-- **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
-```
-
+- **Erwartetes Ergebnis:** abstract.md; related.bib 5 Einträge mit arXiv IDs.
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Paper Writing
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Rebuttal Reviewer 2
+- **Input:** 3 Kommentare Methodik Statistik
 - **Prompt:**
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Point-by-point ohne aggressiven Ton.
 ```
-- **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+- **Erwartetes Ergebnis:** rebuttal.md; Verweis neue Fig S3 wenn User liefert.
+

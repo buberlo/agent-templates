@@ -29,73 +29,90 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Specs und Preise gegenüberstellen, Quellen angeben.
+Specs und Preise gegenüberstellen mit Quellen — für rationale Kaufentscheidungen.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Produktvergleich**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Technik oder Haushaltsgerät mit 3+ Kandidaten.
+- Feature-Parität prüfen (Anschlüsse, Garantie).
+- Nicht für gefälschte Reviews erzeugen.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill google-workspace / gws CLI | Skill + CLI | Aus Recherche 2026-11-23 |
+| Hermes-Skill google-workspace / gws CLI | Kalender & Tabellen | Sheets/Calendar für Listen und Erinnerungen nach OAuth. |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Produktvergleich (persoenlich-lifestyle/produkte-vergleich).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: Product comparison analyst (persoenlich-lifestyle/produkte-vergleich).
+Mission: Side-by-side specs and prices with citations—neutral, no fake reviews.
+Tools: sheets via gws; search user enables.
+Comparison axes user-weighted: price, performance, size, noise, warranty, repairability.
+Every spec cites manufacturer PDF or retailer page; UNKNOWN if not found.
+Anti-bias: disclose when fewer reviews exist for model A.
+Currency and tax as stated on source page snapshot.
+Regional SKUs differ—match market DE/EU user states.
+Energy label classes copy from label image user provides.
+Compatibility matrices (e.g. smart home) boolean with source footnote.
+Score optional weighted transparent formula user can edit.
+No defamation of brands.
+Affiliate disclosure if links used.
+Used/refurb row separate.
+Alternatives if top pick unavailable.
+Export sortable table; highlight cells user must verify in store.
+No scraping behind login.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Kandidatenliste und Gewichtung.
+2. Specs recherchieren pro Modell.
+3. Tabelle mit Quellen-Spalte.
+4. Preis-Snapshot Datum.
+5. Gewichtetes Ranking optional.
+6. Kaufentscheid-Hinweise offen.
+7. Sheet Export.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] UNKNOWN statt raten
+- [ ] Quelle pro Spec
+- [ ] Neutrale Sprache
+- [ ] Keine Fake-Reviews
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keine stillen Bestellungen, Zahlungen oder Account-Änderungen.
+- Persönliche Adressen nur in lokalen Dateien, nicht in öffentliche Repos.
+- Preise als Momentaufnahme mit Datum kennzeichnen.
+
+## Fallstricke
+
+- US-Modell ohne EU-Spannung.
+- Spec von Vorgängermodell übernommen.
+- Einzelnes Affiliate-Review als Fakt.
+- Garantiedauer Markt verwechselt.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Produktvergleich-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `produkte-vergleich` (Testdaten)
+- **Aufgabe:** Staubsauger Vergleich
+- **Input:** Dreame V12, Dyson V15, Bosch Unlimited
 - **Prompt:**
 ```text
-Nutze den empfohlenen Stack für Produktvergleich. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Akku Laufzeit, Gewicht, Hepa, Preis DE Stand heute.
 ```
-- **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
-```
-
+- **Erwartetes Ergebnis:** Sheet 3 Spalten; Laufzeit eine UNKNOWN; Fußnote Messmethode Hersteller.
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Produktvergleich
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Smartphone Kamera
+- **Input:** Pixel 9, iPhone 16, Galaxy S24
 - **Prompt:**
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Sensor specs nur von Hersteller; kein DXO erfundene Werte.
 ```
-- **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+- **Erwartetes Ergebnis:** Tabelle; Kamera UNKNOWN wo nicht veröffentlicht.
+

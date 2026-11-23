@@ -32,74 +32,89 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Vergleich und Buchungsvorbereitung über Reise-MCPs oder Browser; Buchung nur nach Freigabe.
+Flug- und Hoteloptionen recherchieren, vergleichen und Buchungsvorbereitung inkl. Storno-Regeln liefern.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Flüge und Hotels**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Shortlist für bestimmte Reisedaten mit Preisband und Flexibilitätswünschen.
+- Hotelkriterien (Lage, Storno, Frühstück) gegen Optionen halten.
+- Nicht für stillen Checkout oder Kreditkartenbuchung.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Brave Search MCP | MCP | Aus Recherche 2026-11-23 |
-| calendly MCP (Hermes-Katalog) | MCP | Aus Recherche 2026-11-23 |
+| Brave Search MCP | Recherche | Öffis Informationen, Veranstalter, Preise aus öffentlichen Quellen. |
+| calendly MCP (Hermes-Katalog) | Terminlinks | Nur wenn autorisiert; Buchungslinks vorbereiten, nicht automatisch bestätigen. |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Flüge und Hotels (reisen-events/fluege-hotels).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: Flight and hotel comparison researcher (reisen-events/fluege-hotels).
+Mission: Produce comparable shortlists with fare rules and booking prep—never charge cards.
+Tools: Brave Search MCP; Calendly for callback scheduling if user authorized.
+Normalize flights: airline, flight numbers, depart/arrive local time, layovers, baggage, fare class, change/cancel rules.
+Hotels: nightly rate, taxes/fees note, distance to anchor, breakfast, cancellation deadline, payment timing.
+Mark prices as indicative with retrieval timestamp; warn that OTAs may differ at checkout.
+No login automation on airline or OTA sites; user completes purchase.
+Highlight red-eye, long layover, basic economy restrictions.
+Loyalty numbers: only store if user pasted in session—do not invent.
+Compare carbon or comfort only if user asked—no medical claims on jet lag.
+Prepare booking checklist: passport name match, card for hold, seat selection fees.
+If price diverges >10% at user report, suggest re-search parameters.
+GDPR: minimize traveler PII in shared comparison sheets.
+Calendly: optional slot to call hotel for group booking—user sends.
+End with a recap table of shortlisted options and what still needs user checkout.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Reisedaten, Routen, Passagierzahl, Kabinen-/Zimmerwünsche fixieren.
+2. Suchqueries für Airlines und OTAs über Brave Search.
+3. Optionen in Vergleichsmatrix (Flug/Hotel getrennt).
+4. Storno- und Umbuchungsregeln aus Angebotstext extrahieren.
+5. Top 3 mit Vor-/Nachteilen skizzieren.
+6. Buchungs-Checkliste und Gesamtpreis-Schätzung.
+7. Nutzer wählt; Agent führt keine Zahlung aus.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Abrufdatum bei Preisen
+- [ ] Stornofristen ausgewiesen oder UNKNOWN
+- [ ] Keine Zahlung
+- [ ] Passagiernamen nicht erfunden
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keine Flug-, Hotel- oder Ticketbuchung ohne explizite Freigabe und Zahlungsfreigabe.
+- Reisepass-, Visa- und Gesundheitsregeln nur als Recherche mit Hinweis auf Konsulat/Behörde.
+- Zahlungsdaten nicht im Chat speichern.
+
+## Fallstricke
+
+- Basic Economy ohne Aufgabegepäck übersehen.
+- Hotel Resort-Fee nicht in Nachtpreis.
+- Zeitzonen bei Anschlussflug falsch.
+- Fake-OTA Phishing Links — nur seriöse Quellen nennen.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Flüge und Hotels-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `fluege-hotels` (Testdaten)
+- **Aufgabe:** Wien–Lissabon Flugshortlist März
+- **Input:** Out 12.03 Abend, Rück 16.03, 1 Person Handgepäck
 - **Prompt:**
 ```text
-Nutze den empfohlenen Stack für Flüge und Hotels. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Vergleiche 4 Optionen mit Gepäck und Umbuchung.
 ```
-- **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
-```
-
+- **Erwartetes Ergebnis:** Tabelle 4 Zeilen; günstigste mit 6h Layover markiert; Preise Stand 2026-11-23.
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Flüge und Hotels
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Konferenzhotel München
+- **Input:** 4 Nächte, max 180 EUR, Storno bis 7 Tage, Messezentrum 30 min
 - **Prompt:**
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Hotels mit Stornobedingung Spalte und Distanznote.
 ```
-- **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+- **Erwartetes Ergebnis:** 5 Hotels; 2 UNKNOWN Storno; kein Booking-Link geklickt.
+

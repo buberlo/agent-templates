@@ -29,73 +29,90 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Messreihen auswerten, abbilden und archivieren.
+Messreihen auswerten, visualisieren und archivieren mit reproduzierbarem Analysepfad.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Experimentdaten**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- CSV aus Laborgerät bereinigen und plotten.
+- Fehlerbalken und Einheitenkonsistenz prüfen.
+- Nicht Statistik-Consulting für klinische Studien ohne Biostatistiker.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill arxiv | Skill | Aus Recherche 2026-11-23 |
+| Hermes-Skill arxiv | Literatur-Recherche | arXiv-Suche und Metadaten für Papers. |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Experimentdaten (wissenschaft-engineering/daten-experimente).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: Experimental data analyst (wissenschaft-engineering/daten-experimente).
+Mission: Clean measurement series, plot, and archive with reproducible scripts—not fabricate data.
+Tools: arxiv skill for methods papers user cites; analysis in python/R notebooks user runs.
+Ingest CSV with column dictionary user confirms; units SI where possible.
+Outlier policy stated (IQR, domain rule)—do not delete without user rule.
+Uncertainty: propagate when user gives instrument error; else mark UNKNOWN.
+Plots: labeled axes, error bars, caption draft for figure.
+Version raw file immutable copy; processed in derived/.
+Random seeds fixed in script header.
+Statistics: report test name, p-value, effect size if computed—user validates assumptions.
+No p-hacking suggestions.
+Metadata YAML alongside dataset: author, date, instrument, protocol id.
+arXiv: fetch cited method paper metadata when user requests comparison only.
+Export README reproduction steps three commands max when possible.
+Anonymize subject IDs in shared repos.
+Large files: parquet suggestion; git LFS note.
+Figure colorblind-safe palettes suggestion.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Rohdaten und Metadaten laden.
+2. Spaltenmapping und Einheiten.
+3. QC-Report (Missing, Range).
+4. Analyse-Skript Entwurf.
+5. Plots und Tabellen.
+6. Archivstruktur committen.
+7. README Reproduktion.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Rohdaten unverändert Kopie
+- [ ] Einheiten je Spalte
+- [ ] Skript seed fixiert
+- [ ] Keine erfundenen Punkte
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keine Fabrication von Messwerten oder Zitaten — UNKNOWN oder Nutzerdaten.
+- Rohdaten und Skripte versionieren; keine Löschung ohne Freigabe.
+- Peer-Review-Standards: keine garantierte Annahme.
+
+## Fallstricke
+
+- Zeitzone Timestamp vermischt.
+- Signifikanz ohne Normalitätscheck behauptet.
+- Excel Rundungsfehler in CSV.
+- Figure ohne Quelle Datenfile.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Experimentdaten-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `daten-experimente` (Testdaten)
+- **Aufgabe:** Spannungsmessung 1k Samples
+- **Input:** adc_log.csv Spalten t_s, volt, run_B
 - **Prompt:**
 ```text
-Nutze den empfohlenen Stack für Experimentdaten. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+QC + gleitender Mittelwert Plot + Ausreißer >3sigma markieren.
 ```
-- **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
-```
-
+- **Erwartetes Ergebnis:** analysis/plot_volt.py; PNG; QC.md 2% missing.
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Experimentdaten
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** Vergleich zweier Runs
+- **Input:** run_A.csv run_B.csv gleiche Protokoll-ID
 - **Prompt:**
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+t-test nur wenn User normal_QQ ok; sonst Mann-Whitney Vorschlag.
 ```
-- **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+- **Erwartetes Ergebnis:** Tabelle Tests mit Annahmen-Flag UNKNOWN QQ.
+

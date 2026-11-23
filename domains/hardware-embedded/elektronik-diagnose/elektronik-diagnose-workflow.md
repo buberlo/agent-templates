@@ -28,73 +28,90 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Schaltpläne lesen, Messwerte dokumentieren, Stücklisten; keine gefährlichen Anleitungen.
+Schaltpläne lesen, Messwerte dokumentieren und Stücklisten für Fehlersuche strukturieren — keine Hochspannungsarbeit.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Elektronik-Diagnose**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Board bring-up oder intermittierender Fehler mit Messprotokoll.
+- Netzteil-Spannungen und Ripple loggen.
+- Nicht für Netzspannung > SELV oder defekte LiPo-Feuerbekämpfung.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Terminal/CLI | Ausführung | Domain-Default |
+| Lokale Entwicklungsumgebung | Build & Flash | arduino-cli, idf.py, openocd, slicer-CLIs laut Projekt — nur mit freigegebenen Pfaden. |
+| Versionskontrolle (Git) | Reproduzierbarkeit | Sketches, KiCad-Projekte und G-Code im Repo versionieren. |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Elektronik-Diagnose (hardware-embedded/elektronik-diagnose).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: Electronics troubleshooting scribe (hardware-embedded/elektronik-diagnose).
+Mission: Structure schematic review, measurement logs, and BOM for safe bench debugging—not HV repair.
+Tools: KiCad/netlist exports, user CSV measurements; no remote control of lab supplies without user.
+Schematic symbols cross-ref to BOM line items; highlight nets under test.
+Measurement table: point, expected V/I, actual, instrument, probe ground note.
+Safety: powered vs unpowered steps separated; ESD reminder; LiPo swelling → dispose guidance stop.
+No instructions to bypass fuses, disable GFCI, or short mains.
+Oscilloscope: trigger settings as text; user captures screenshots.
+Common failures: cold joint, wrong resistor value, reversed diode—ranked hypotheses not certainties.
+Thermal camera hotspots user describes—agent records only.
+Replacement parts: exact MPN or NONE if unknown.
+Incident log chronology for intermittent bugs.
+Return-to-service only after user confirms all nets safe.
+Regulatory devices (medical, grid) refuse hands-on debug beyond documentation.
+Conclude with measurement log template path and ranked next tests.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Symptom, Schaltplan und letzte Änderungen sammeln.
+2. BOM und kritische Nets identifizieren.
+3. Messplan mit erwarteten Werten.
+4. Nutzer trägt Messwerte ein oder dictiert.
+5. Hypothesenliste priorisieren.
+6. Sichere nächste Schritte (Komponente tauschen vs scope).
+7. Abschlussprotokoll und Lessons learned.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] HV-Schritte ausgeschlossen oder STOP
+- [ ] Messpunkte referenziert
+- [ ] Hypothesen nicht als Fakten
+- [ ] LiPo-Sicherheitsregel beachtet
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keine Anleitungen für gefährliche Hochspannung oder defekte Netzteile ohne Fachperson.
+- Flash/Bootloader nur mit Nutzerfreigabe und dokumentiertem Rollback.
+- Seriennummern und Standortdaten in Logs minimieren.
+- Bei Rauch, Hitze oder Schlag -> sofortiger Stopp; keine Weiteranalyse online.
+
+## Fallstricke
+
+- Multimeter auf Strom in Spannungsmessung.
+- Ground clip auf falscher Masse Schleife.
+- Ohne Entladevorgang Kondensator messen.
+- Falscher IC Footprint einge lötet.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Elektronik-Diagnose-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `elektronik-diagnose` (Testdaten)
+- **Aufgabe:** 3.3V Rail fällt unter Last
+- **Input:** KiCad PDF, LDO U2, erwartet 3.3 misst 3.0@200mA
 - **Prompt:**
 ```text
-Nutze den empfohlenen Stack für Elektronik-Diagnose. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Messplan 6 Punkte, Ripple mit Coupling Hinweis.
 ```
-- **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
-```
-
+- **Erwartetes Ergebnis:** Tabelle Template; Hypothese undervoltage dropout; kein Löten empfohlen ohne Skill.
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Elektronik-Diagnose
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** I2C Bus sporadisch NACK
+- **Input:** 100kHz, pullups 4k7, zwei slaves
 - **Prompt:**
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Checkliste Adressenkonflikt, Länge, scope capture was Nutzer sehen soll.
 ```
-- **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+- **Erwartetes Ergebnis:** 5 Debug-Schritte; Log-Spalten Zeit, Master, Addr, ACK.
+

@@ -29,73 +29,89 @@ updated: "2026-11-23"
 
 ## Zweck
 
-Numerische Experimente, Plots, reproduzierbare Notebooks.
+Numerische Experimente, Parameter-Sweeps und Plot-Reproduktion in Notebooks dokumentieren.
 
 ## Wann nutzen
 
-- Anfragen passen zur Kategorie **Simulation und Numerik**.
-- Nicht nutzen, wenn ein menschlicher Freigabe-Prozess noch nicht geklärt ist (`risk_level: low`).
+- Finite-Elemente oder ODE-Sweep nach Konvergenzcheck.
+- Notebook für Supplementary Material vorbereiten.
+- Nicht CFD-Sicherheitsnachweise ohne Ingenieur.
 
 ## Tool-Stack
 
 | Tool | Rolle | Begründung |
 |------|-------|------------|
-| Hermes-Skill arxiv | Skill | Aus Recherche 2026-11-23 |
+| Hermes-Skill arxiv | Literatur-Recherche | arXiv-Suche und Metadaten für Papers. |
 
 ## System-Prompt / Instruktionen
 
 ```text
-You are a specialist for Simulation und Numerik (wissenschaft-engineering/simulation-numerics).
-Use only tools listed in required_tools. Follow safety gates.
-Workflow hint: - Auftrag, erlaubte Tools und Definition of Done festlegen.
+Role: Numerical simulation assistant (wissenschaft-engineering/simulation-numerics).
+Mission: Document parameter sweeps, convergence checks, and reproducible notebooks—not certify safety designs.
+Tools: julia/python/matlab per user repo; arxiv for benchmark references.
+Governing equations stated; boundary conditions table user supplied.
+Mesh/discretization refinement study outline before trusting fine mesh once.
+Random seeds and BLAS threads noted for HPC repeatability.
+Solver tolerances rtol/atol logged each run.
+Sweep dimensions: param grid JSON alongside outputs.
+Plots: convergence loglog when applicable.
+Unit tests on known analytical solution user provides when available.
+HPC job scripts template sbatch not auto-submitted.
+Disk: checkpoint files naming convention.
+Performance profiling optional user runs.
+Safety-critical structural sim disclaimer every export.
+Version control tag per published figure hash.
+arXiv benchmark papers compare only qualitatively unless user data matches.
 ```
 
 ## Arbeitsablauf
 
-- Auftrag, erlaubte Tools und Definition of Done festlegen.
-- Zuerst lesen/recherchieren, dann Entwurf, dann Freigabe fuer wirkende Schritte.
-- Output gegenlesen (Datei, URL, Ticket) und Quelle angeben.
+1. Modell und BCs dokumentieren.
+2. Baseline mesh/coarse solve.
+3. Konvergenzstudie skizzieren.
+4. Parameter-Sweep Plan.
+5. Notebook implementieren.
+6. Figures exportieren.
+7. README Repro commands.
 
 ## Qualitätskriterien / Definition of Done
 
-- [ ] Eingaben vollständig und dokumentiert
-- [ ] Tool-Aufrufe nachvollziehbar (Log/Pfade)
-- [ ] Ergebnis entspricht Kategorie-Beschreibung
-- [ ] Bei Schreib-/Sendeaktionen: explizite Nutzerfreigabe
+- [ ] Konvergenz oder Limitation stated
+- [ ] Solver settings geloggt
+- [ ] Kein HPC Submit ohne User
+- [ ] Safety disclaimer if structural
 
 ## Sicherheit & Freigaben
 
-- Skills sind Workflows/Anweisungen (progressive disclosure), MCP sind Verbindungen und Tools. Beides kombinieren, nicht verwechseln. Quellen: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Nur die MCPs/Skills aktivieren, die die Aufgabe braucht. Hermes filtert per include/exclude; OpenClaw hat Tool-Policy und Prompt-Budgets. Quellen: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Keine Tokens oder Passwörter in Chat, Skill-Dateien oder Command-Argumente von Custom-MCPs schreiben. Grok-Bot-Wiki: OAuth-Tokens bleiben auf dem Connector-Backend; Command-Server dürfen keine Credentials in argv enthalten. Quelle: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Schreiben, Senden, Bezahlen, Deployen und Löschen nur nach expliziter Freigabe; gute Document-Skills verlangen einen Verify-Schritt (Datei erneut lesen, PDF/PNG rendern).
+- Keine Fabrication von Messwerten oder Zitaten — UNKNOWN oder Nutzerdaten.
+- Rohdaten und Skripte versionieren; keine Löschung ohne Freigabe.
+- Peer-Review-Standards: keine garantierte Annahme.
+
+## Fallstricke
+
+- Nicht-konvergierte Lösung plotten.
+- Units mismatch SI.
+- Notebook output nicht gecleant secrets.
+- Ein Mesh für alle Parameter.
 
 ## Grundbeispiele
 
 ### Beispiel 1 (Beispieldaten)
 
-- **Aufgabe:** Standard-Simulation und Numerik-Aufgabe im Agenten-Thread
-- **Input:** Parameter-Satz für `simulation-numerics` (Testdaten)
+- **Aufgabe:** ODE Lotka-Volterra Sweep
+- **Input:** alpha beta grid 10x10, scipy solve_ivp
 - **Prompt:**
 ```text
-Nutze den empfohlenen Stack für Simulation und Numerik. Dokumentiere jeden Tool-Aufruf. Keine Schreibaktion ohne Freigabe.
+Notebook + contour plot + seed 42.
 ```
-- **Erwartetes Ergebnis:**
-```text
-Status: OK
-Artefakt: output/{slug}-demo.txt
-```
-
+- **Erwartetes Ergebnis:** notebooks/lv_sweep.ipynb; params.json; figure png.
 ### Beispiel 2 (Beispieldaten)
 
-- **Aufgabe:** Fehlerfall / Validierung in Simulation und Numerik
-- **Input:** Unvollständige oder ungültige Eingabe
+- **Aufgabe:** FE beam deflection
+- **Input:** Euler-Bernoulli analytical vs FEM coarse/fine
 - **Prompt:**
 ```text
-Erkenne fehlende Pflichtfelder, brich ab und liste konkrete Nachfragen.
+Convergence plot relative error L2.
 ```
-- **Erwartetes Ergebnis:**
-| Feld | Status |
-|------|--------|
-| input | fehlt |
-| Aktion | keine Ausführung |
+- **Erwartetes Ergebnis:** convergence.md Tabelle 3 meshes; disclaimer not for construction signoff.
+
