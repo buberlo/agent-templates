@@ -1,6 +1,6 @@
 # Template index
 
-Auto-generated. **27** domains, **198** categories, **247** templates.
+Auto-generated. **27** domains, **199** categories, **255** templates.
 
 ## Domain: `agent-platforms` (10 templates)
 
@@ -306,7 +306,7 @@ Auto-generated. **27** domains, **198** categories, **247** templates.
 |----|-------|--------|------|----------|
 | `ugc-workflow` | UGC Briefs | hermes, grokbot, generic-mcp-agents… | medium | 2 |
 
-## Domain: `customer-service` (5 templates)
+## Domain: `customer-service` (7 templates)
 
 ### `customer-service/escalation` (1)
 
@@ -314,16 +314,18 @@ Auto-generated. **27** domains, **198** categories, **247** templates.
 |----|-------|--------|------|----------|
 | `escalation-workflow` | Eskalation | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-### `customer-service/helpdesk-tickets` (1)
+### `customer-service/helpdesk-tickets` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `helpdesk-tickets-workflow` | Helpdesk and tickets | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `support-ticket-triage-reply-v1` | Support ticket triage and reply drafting | hermes, grokbot, cursor… | medium | 2 |
 
-### `customer-service/knowledge-base` (1)
+### `customer-service/knowledge-base` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
+| `help-center-kb-gap-analysis-v1` | Help center KB gap analysis from resolved tickets | hermes, grokbot, cursor… | low | 2 |
 | `knowledge-base-workflow` | Knowledge base support | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `customer-service/live-chat-bots` (1)
@@ -574,7 +576,7 @@ Auto-generated. **27** domains, **198** categories, **247** templates.
 |----|-------|--------|------|----------|
 | `streaming-gaming-workflow` | Gaming streaming | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-## Domain: `hardware-embedded` (4 templates)
+## Domain: `hardware-embedded` (5 templates)
 
 ### `hardware-embedded/3d-printing` (1)
 
@@ -582,11 +584,12 @@ Auto-generated. **27** domains, **198** categories, **247** templates.
 |----|-------|--------|------|----------|
 | `3d-printing-workflow` | 3D printing | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-### `hardware-embedded/arduino-esp32` (1)
+### `hardware-embedded/arduino-esp32` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `arduino-esp32-workflow` | Arduino and ESP32 | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `firmware-build-flash-debug-v1` | Firmware build, flash, and serial debug loop | hermes, grokbot, cursor… | high | 2 |
 
 ### `hardware-embedded/cad` (1)
 
@@ -626,13 +629,19 @@ Auto-generated. **27** domains, **198** categories, **247** templates.
 |----|-------|--------|------|----------|
 | `nutrition-workflow` | Nutrition | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-## Domain: `hr-recruiting` (4 templates)
+## Domain: `hr-recruiting` (6 templates)
 
 ### `hr-recruiting/cv-screening` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `cv-screening-workflow` | CV-Screening | hermes, grokbot, generic-mcp-agents… | low | 2 |
+
+### `hr-recruiting/interview-scheduling` (1)
+
+| id | title | agents | risk | examples |
+|----|-------|--------|------|----------|
+| `interview-scheduling-coordinator-v1` | Interview scheduling coordinator | hermes, grokbot, cursor… | medium | 2 |
 
 ### `hr-recruiting/job-applications` (1)
 
@@ -646,10 +655,11 @@ Auto-generated. **27** domains, **198** categories, **247** templates.
 |----|-------|--------|------|----------|
 | `job-postings-workflow` | Job postings | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-### `hr-recruiting/onboarding` (1)
+### `hr-recruiting/onboarding` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
+| `employee-onboarding-provisioning-v1` | New hire onboarding checklist and provisioning tracker | hermes, grokbot, cursor… | medium | 2 |
 | `onboarding-workflow` | Onboarding | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ## Domain: `it-operations-support` (10 templates)
@@ -714,12 +724,13 @@ Auto-generated. **27** domains, **198** categories, **247** templates.
 |----|-------|--------|------|----------|
 | `it-meshcentral-remote-session` | Remote support with MeshCentral | hermes, generic | high | 2 |
 
-## Domain: `legal-admin` (3 templates)
+## Domain: `legal-admin` (5 templates)
 
-### `legal-admin/contracts` (1)
+### `legal-admin/contracts` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
+| `contract-review-summary-v1` | Contract review summary and redline suggestions | hermes, grokbot, claude-code… | high | 2 |
 | `contracts-workflow` | Contracts | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `legal-admin/government-forms` (1)
@@ -728,10 +739,11 @@ Auto-generated. **27** domains, **198** categories, **247** templates.
 |----|-------|--------|------|----------|
 | `government-forms-workflow` | Authorities and forms | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-### `legal-admin/privacy-compliance` (1)
+### `legal-admin/privacy-compliance` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
+| `gdpr-dsar-intake-response-v1` | GDPR DSAR intake and response workflow | hermes, grokbot, cursor… | high | 2 |
 | `privacy-compliance-workflow` | Privacy and compliance | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ## Domain: `media` (16 templates)
@@ -949,7 +961,7 @@ Auto-generated. **27** domains, **198** categories, **247** templates.
 |----|-------|--------|------|----------|
 | `tasks-workflow` | Tasks | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-## Domain: `real-estate` (3 templates)
+## Domain: `real-estate` (4 templates)
 
 ### `real-estate/hoa-management` (1)
 
@@ -957,10 +969,11 @@ Auto-generated. **27** domains, **198** categories, **247** templates.
 |----|-------|--------|------|----------|
 | `hoa-management-workflow` | HOA management | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-### `real-estate/property-listings` (1)
+### `real-estate/property-listings` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
+| `listing-description-comps-writer-v1` | Listing description and comparable research | hermes, grokbot, cursor… | medium | 2 |
 | `property-listings-workflow` | Property listings | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `real-estate/property-search` (1)

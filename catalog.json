@@ -227,7 +227,7 @@
     {
       "slug": "customer-service",
       "category_count": 5,
-      "template_count": 5,
+      "template_count": 7,
       "categories": [
         {
           "slug": "escalation",
@@ -235,11 +235,11 @@
         },
         {
           "slug": "helpdesk-tickets",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "knowledge-base",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "live-chat-bots",
@@ -433,7 +433,7 @@
     {
       "slug": "hardware-embedded",
       "category_count": 4,
-      "template_count": 4,
+      "template_count": 5,
       "categories": [
         {
           "slug": "3d-printing",
@@ -441,7 +441,7 @@
         },
         {
           "slug": "arduino-esp32",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "cad",
@@ -478,11 +478,15 @@
     },
     {
       "slug": "hr-recruiting",
-      "category_count": 4,
-      "template_count": 4,
+      "category_count": 5,
+      "template_count": 6,
       "categories": [
         {
           "slug": "cv-screening",
+          "template_count": 1
+        },
+        {
+          "slug": "interview-scheduling",
           "template_count": 1
         },
         {
@@ -495,7 +499,7 @@
         },
         {
           "slug": "onboarding",
-          "template_count": 1
+          "template_count": 2
         }
       ]
     },
@@ -549,11 +553,11 @@
     {
       "slug": "legal-admin",
       "category_count": 3,
-      "template_count": 3,
+      "template_count": 5,
       "categories": [
         {
           "slug": "contracts",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "government-forms",
@@ -561,7 +565,7 @@
         },
         {
           "slug": "privacy-compliance",
-          "template_count": 1
+          "template_count": 2
         }
       ]
     },
@@ -728,7 +732,7 @@
     {
       "slug": "real-estate",
       "category_count": 3,
-      "template_count": 3,
+      "template_count": 4,
       "categories": [
         {
           "slug": "hoa-management",
@@ -736,7 +740,7 @@
         },
         {
           "slug": "property-listings",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "property-search",
@@ -2284,6 +2288,50 @@
       "path": "domains/customer-service/helpdesk-tickets/helpdesk-tickets-workflow.md"
     },
     {
+      "id": "support-ticket-triage-reply-v1",
+      "title": "Support ticket triage and reply drafting",
+      "domain": "customer-service",
+      "category": "helpdesk-tickets",
+      "tags": [
+        "zendesk",
+        "triage",
+        "drafts"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-24",
+      "path": "domains/customer-service/helpdesk-tickets/support-ticket-triage-reply-v1.md"
+    },
+    {
+      "id": "help-center-kb-gap-analysis-v1",
+      "title": "Help center KB gap analysis from resolved tickets",
+      "domain": "customer-service",
+      "category": "knowledge-base",
+      "tags": [
+        "knowledge-base",
+        "zendesk",
+        "analytics"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-24",
+      "path": "domains/customer-service/knowledge-base/help-center-kb-gap-analysis-v1.md"
+    },
+    {
       "id": "knowledge-base-workflow",
       "title": "Knowledge base support",
       "domain": "customer-service",
@@ -3379,6 +3427,28 @@
       "path": "domains/hardware-embedded/arduino-esp32/arduino-esp32-workflow.md"
     },
     {
+      "id": "firmware-build-flash-debug-v1",
+      "title": "Firmware build, flash, and serial debug loop",
+      "domain": "hardware-embedded",
+      "category": "arduino-esp32",
+      "tags": [
+        "platformio",
+        "esp-idf",
+        "serial"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "cursor",
+        "codex"
+      ],
+      "risk_level": "high",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-24",
+      "path": "domains/hardware-embedded/arduino-esp32/firmware-build-flash-debug-v1.md"
+    },
+    {
       "id": "cad-workflow",
       "title": "CAD",
       "domain": "hardware-embedded",
@@ -3531,6 +3601,28 @@
       "path": "domains/hr-recruiting/cv-screening/cv-screening-workflow.md"
     },
     {
+      "id": "interview-scheduling-coordinator-v1",
+      "title": "Interview scheduling coordinator",
+      "domain": "hr-recruiting",
+      "category": "interview-scheduling",
+      "tags": [
+        "scheduling",
+        "calendar",
+        "recruiting"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-24",
+      "path": "domains/hr-recruiting/interview-scheduling/interview-scheduling-coordinator-v1.md"
+    },
+    {
       "id": "job-applications-workflow",
       "title": "Job applications",
       "domain": "hr-recruiting",
@@ -3573,6 +3665,28 @@
       "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/hr-recruiting/job-postings/job-postings-workflow.md"
+    },
+    {
+      "id": "employee-onboarding-provisioning-v1",
+      "title": "New hire onboarding checklist and provisioning tracker",
+      "domain": "hr-recruiting",
+      "category": "onboarding",
+      "tags": [
+        "onboarding",
+        "provisioning",
+        "checklist"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-24",
+      "path": "domains/hr-recruiting/onboarding/employee-onboarding-provisioning-v1.md"
     },
     {
       "id": "onboarding-workflow",
@@ -3813,6 +3927,29 @@
       "path": "domains/it-operations-support/remote-support/it-meshcentral-remote-session.md"
     },
     {
+      "id": "contract-review-summary-v1",
+      "title": "Contract review summary and redline suggestions",
+      "domain": "legal-admin",
+      "category": "contracts",
+      "tags": [
+        "contracts",
+        "redlines",
+        "risk"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "high",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-24",
+      "path": "domains/legal-admin/contracts/contract-review-summary-v1.md"
+    },
+    {
       "id": "contracts-workflow",
       "title": "Contracts",
       "domain": "legal-admin",
@@ -3855,6 +3992,28 @@
       "version": "1.0.0",
       "updated": "2026-11-23",
       "path": "domains/legal-admin/government-forms/government-forms-workflow.md"
+    },
+    {
+      "id": "gdpr-dsar-intake-response-v1",
+      "title": "GDPR DSAR intake and response workflow",
+      "domain": "legal-admin",
+      "category": "privacy-compliance",
+      "tags": [
+        "gdpr",
+        "dsar",
+        "privacy"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "high",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-24",
+      "path": "domains/legal-admin/privacy-compliance/gdpr-dsar-intake-response-v1.md"
     },
     {
       "id": "privacy-compliance-workflow",
@@ -4810,6 +4969,28 @@
       "version": "1.0.0",
       "updated": "2026-11-23",
       "path": "domains/real-estate/hoa-management/hoa-management-workflow.md"
+    },
+    {
+      "id": "listing-description-comps-writer-v1",
+      "title": "Listing description and comparable research",
+      "domain": "real-estate",
+      "category": "property-listings",
+      "tags": [
+        "listings",
+        "fair-housing",
+        "comps"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-24",
+      "path": "domains/real-estate/property-listings/listing-description-comps-writer-v1.md"
     },
     {
       "id": "property-listings-workflow",

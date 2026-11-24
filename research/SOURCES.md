@@ -1,8 +1,8 @@
 # Sources
 
-As of: 2026-11-23 (Europe/Vienna). Each URL below was cited in at least one category file.
+As of: 2026-11-24 (Europe/Vienna). Each URL below was cited in at least one category file.
 
-Unique HTTP sources: **111**
+Unique HTTP sources: **122**
 
 Raw research dumps are not versioned (see `.gitignore`).
 
@@ -69,8 +69,15 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/unreal-engine
 - https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/vercel
 - https://github.com/Stripe/agent-toolkit
+- https://github.com/taylorwilsdon/google_workspace_mcp
 - https://github.com/anthropics/claude-code
 - https://github.com/anthropics/skills
+- https://developer.zendesk.com/api-reference/ticketing/introduction/
+- https://developers.google.com/calendar/api/guides/overview
+- https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/index.html
+- https://docs.platformio.org/en/latest/core/installation/index.html
+- https://gdpr.eu/article-12-how-controllers-should-provide-information-to-data-subjects/
+- https://github.com/Bidsketch/signwell-mcp
 - https://github.com/brave/brave-search-mcp-server
 - https://github.com/browserbase/mcp-server-browserbase
 - https://github.com/containers/kubernetes-mcp-server
@@ -90,7 +97,9 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://github.com/n8n-io/n8n
 - https://github.com/openclaw/clawhub
 - https://github.com/openclaw/openclaw
+- https://github.com/powerdragonfire/platformio.mcp
 - https://github.com/punkpeye/awesome-mcp-servers
+- https://github.com/reminia/zendesk-mcp-server
 - https://github.com/remotion-dev/skills
 - https://github.com/tavily-ai/tavily-mcp
 - https://github.com/tevonsb/homeassistant-mcp
@@ -107,6 +116,7 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://playwright.dev/mcp/introduction
 - https://tailscale.com/docs/develop-with-ai
 - https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html
+- https://www.hud.gov/helping-americans/fair-housing-act-overview
 - https://www.elegantsoftwaresolutions.com/blog/openclaw-skill-workshop-power-user-guide-2026-6-1
 - https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
 - https://www.paloaltonetworks.com/blog/security-operations/clawhavoc-ai-agent-skills-poisoning/

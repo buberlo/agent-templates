@@ -1,5 +1,13 @@
 # Migration progress
 
+## Completed (2026-11-24) — Batch 3
+
+- **Eight new templates (thin domains):** Support ticket triage and reply drafting (Zendesk MCP, drafts only); Help Center KB gap analysis from resolved tickets; HR interview scheduling coordinator (Google Workspace MCP, human sends invites); new-hire onboarding checklist and provisioning tracker; contract review summary with lawyer boundary; GDPR DSAR intake and response workflow; property listing description with comps research (fair-housing-safe wording); firmware build / flash / serial debug loop (PlatformIO, ESP-IDF, optional platformio.mcp).
+- **New category:** `hr-recruiting/interview-scheduling` with `_category.md`.
+- **MCP catalog:** English cleanup for remaining German labels in `mcp/catalog.json`; added zendesk-mcp-server (reminia), google_workspace_mcp, and platformio.mcp entries with official URLs (94 servers total).
+- **Validator:** `scripts/validate_and_index.py` applies the German language gate to string fields in `mcp/catalog.json`.
+- **Template total:** **255** after regeneration (`INDEX.md`, root `catalog.json`).
+
 ## Completed (2026-11-24)
 
 - **Template quality pass (batch 2):** Hand-rewrote 15 templates (IT ops Google Workspace, Ansible patching, Entra/AD, backup, MDM; content-marketing branding/copy/social; software backend/frontend/mobile/code review; vuln management; household) with concrete system prompts, numbered workflows, actionable pitfalls, and **Example data (self-written)** blocks with explicit Input and Expected result.
