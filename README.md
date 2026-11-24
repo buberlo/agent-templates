@@ -2,16 +2,16 @@
 
 Public **template database** for AI agents (Hermes, Grok Bot, OpenClaw, Claude Code, Codex, Cursor, generic MCP agents): **which tools fit which job**, with workflows, MCP catalog, basic examples, and approval rules.
 
-Research baseline: **2026-11-23** (see `research/SOURCES.md`; raw archive is not versioned).
+Research baseline: **2026-11-24** (see `research/SOURCES.md`; raw archive is not versioned).
 
 ## Scope
 
 | Metric | Value |
 |--------|------:|
 | Domains | 27 |
-| Categories | 198 (`_category.md` per category) |
-| Templates | 247 (≥1 per category, 2+ where research was rich) |
-| MCP entries | 91 (`mcp/catalog.json`) |
+| Categories | 199 (`_category.md` per category) |
+| Templates | 255 (≥1 per category, 2+ where research was rich) |
+| MCP entries | 94 (`mcp/catalog.json`) |
 
 ## Layout
 

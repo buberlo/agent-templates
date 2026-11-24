@@ -10,6 +10,7 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 SCHEMA_PATH = ROOT / "template.schema.json"
 DOMAINS_DIR = ROOT / "domains"
+MCP_CATALOG_PATH = ROOT / "mcp" / "catalog.json"
 BACKLOG_PATH = ROOT / "scripts" / "quality_backlog.txt"
 SKIP_NAMES = {"_category.md", "_domain.md", "TEMPLATE.md"}
 MIN_DUPLICATE_LINE_CHARS = 40
@@ -442,6 +443,36 @@ def path_has_legacy_german(rel: str) -> bool:
     return False
 
 
+def validate_mcp_catalog_language() -> list[str]:
+    """Apply the same German markers to mcp/catalog.json string fields."""
+    errors: list[str] = []
+    if not MCP_CATALOG_PATH.is_file():
+        errors.append(f"{MCP_CATALOG_PATH.relative_to(ROOT)}: missing file")
+        return errors
+    try:
+        data = json.loads(MCP_CATALOG_PATH.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        errors.append(f"{MCP_CATALOG_PATH.relative_to(ROOT)}: invalid JSON ({exc})")
+        return errors
+
+    def walk_strings(value, path: str) -> None:
+        if isinstance(value, str):
+            if text_has_german(value):
+                errors.append(
+                    f"{MCP_CATALOG_PATH.relative_to(ROOT)} {path}: "
+                    "language gate: German text in MCP catalog"
+                )
+        elif isinstance(value, list):
+            for i, item in enumerate(value):
+                walk_strings(item, f"{path}[{i}]")
+        elif isinstance(value, dict):
+            for key, item in value.items():
+                walk_strings(item, f"{path}.{key}")
+
+    walk_strings(data, "$")
+    return errors
+
+
 def language_gate(rel: str, fm_text: str | None, data: dict | None, body: str, full_text: str):
     errors = []
     if path_has_legacy_german(rel):
@@ -580,6 +611,7 @@ def main():
         )
 
     all_errors.extend(duplicate_system_prompt_line_errors(template_bodies_for_dupes))
+    all_errors.extend(validate_mcp_catalog_language())
 
     for domain, category in sorted(expected_cats):
         cat_dir = DOMAINS_DIR / domain / category
