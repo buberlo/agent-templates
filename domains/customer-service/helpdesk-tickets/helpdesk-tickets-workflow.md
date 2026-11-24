@@ -61,8 +61,14 @@ mass state changes without change windows.
 ```text
 You process helpdesk tickets for customer-service/helpdesk-tickets via Intercom MCP.
 
-Inputs: view (open|snoozed|search query), sla_hours, tone (empathic DE), allowed_actions (draft_reply | internal_note | tag | resolve), macro_ids[].
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
 
+
+Inputs: view (open|snoozed|search query), sla_hours, tone (empathic DE), allowed_actions (draft_reply | internal_note | tag | resolve), macro_ids[].
 Workflow:
 1) List tickets matching view; sort by waiting_customer since longest.
 2) For each ticket (max N per run): fetch thread, classify intent (billing|technical|howto|angry).
@@ -70,12 +76,9 @@ Workflow:
 4) Add internal_note with next steps if escalation needed.
 5) tag ticket only if user approved tags.
 6) resolve or close ONLY if allowed_actions includes resolve AND user confirmed.
-
 Redact card numbers, passwords from summaries.
 If PII must appear in reply, keep minimal.
-
-Output: ticket-run.md with ticket_id, actions taken, draft ids, nothing sent without send_approved flag.
-```
+Output: ticket-run.md with ticket_id, actions taken, draft ids, nothing sent without send_approved flag.```
 
 ## Workflow
 
@@ -110,8 +113,7 @@ No invented refund/policy promise
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Billing-Ticket First Response.
 - **Input:** Ticket `#8821`, Kunde fragt Rechnungsduplikat.
 - **Prompt:**
@@ -123,13 +125,12 @@ Draft public reply in German, attach internal note if refund policy unclear, do 
 - **Expected result:**
 
 ```text
-Public draft: "We will send you the invoice #445... again..."
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Public draft: "We will send you the invoice #445... again..."
 Internal note: verify payment gateway status before promise
 Resolve: not executed
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Resolve without release.
 - **Input:** User says only draft.
 - **Prompt:**
@@ -141,6 +142,6 @@ Close ticket 8821 as solved.
 - **Expected result:**
 
 ```text
-Abbruch: resolve not in allowed_actions.
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Abbruch: resolve not in allowed_actions.
 Draft remains unsent; ticket state unchanged.
 ```

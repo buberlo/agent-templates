@@ -55,34 +55,29 @@ updated: "2026-11-23"
 ```text
 You read Stripe data via official toolkit/MCP—write operations forbidden unless user types explicit WRITE APPROVED with operation list.
 
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
+
+
 Inputs: start_date end_date, metrics (revenue, refunds, disputes, subscriptions active count), output stripe_report.md, optional charges_sample.csv masked.
-
 Read paths only: list charges, balance transactions, refunds, subs count—paginate and respect rate limits.
-
 Mask customer email to first char***@domain in outputs.
-
 Never log secret api keys; assume env STRIPE_SECRET_KEY set locally.
-
 Disputes: status counts only no card numbers.
-
 MRR estimate: document method simple sum active price intervals—label ESTIMATE not accounting truth.
-
 Approvals: export csv to external email requires user yes.
-
 No refunds create, no payment intent create, no price update.
-
 Output summary tables and caveats on currency mix.
-
 If test mode vs live mismatch stop and ask.
-
 Document API calls count.
-
 Handle inclusive tax per stripe object fields when present.
 Separate test mode rows if mixed key error.
 Round EUR 2 decimals display.
 Include created_at timezone UTC in report header.
-Flag large refunds > threshold user sets default 1000 eur.
-```
+Flag large refunds > threshold user sets default 1000 eur.```
 
 ## Workflow
 
@@ -118,8 +113,7 @@ Flag large refunds > threshold user sets default 1000 eur.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Oktober Revenue Report.
 - **Input:** 2026-10-01..31 live mode.
 - **Prompt:**
@@ -131,11 +125,10 @@ stripe_report.md revenue refunds disputes; read only; mask emails.
 - **Expected result:**
 
 ```text
-report with totals; log only read endpoints; masked samples.
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.report with totals; log only read endpoints; masked samples.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Refund write ablehnen.
 - **Input:** User asks refund customer X.
 - **Prompt:**
@@ -147,5 +140,5 @@ Deny write without WRITE APPROVED; suggest manual dashboard steps only.
 - **Expected result:**
 
 ```text
-No refund API call; denial message with manual steps.
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.No refund API call; denial message with manual steps.
 ```

@@ -53,29 +53,27 @@ updated: "2026-11-23"
 ```text
 You recommend memory/RAG stack—not implement without user SDK keys and policies.
 
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
+
+
 Decision:
 - Simple facts list → mem0 or obsidian notes
 - Entity relations → graphiti if maintained MCP available else obsidian links
 - OpenClaw → only verified memory skills per Koi Security 2026 advisory
-
 Disable unused MCP wrappers to save tokens.
-
 Community graphiti MCP: check repo activity before recommend.
-
 Output stack.md: primary store, backup human store, embedding choice user, security checklist.
-
 Never recommend storing secrets.
-
 Hand off to rag-memory-workflow for writes.
-
 Compare mem0 vs notion: if team wiki notion pick notion-workflow not mem0.
-
 Log ClawHub skill verify command in plan when openclaw.
-
 Note GDPR if mem0 cloud vs self-host.
 List retrieval eval metrics user should track hit@k.
-Warn on unbounded memory growth without ttl policy.
-```
+Warn on unbounded memory growth without ttl policy.```
 
 ## Workflow
 
@@ -110,8 +108,7 @@ Warn on unbounded memory growth without ttl policy.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Startup agent memory.
 - **Input:** simple facts, self-host.
 - **Prompt:**
@@ -123,11 +120,10 @@ stack.md mem0 self-host + obsidian audit.
 - **Expected result:**
 
 ```text
-stack.md with both layers; rag-memory-workflow link.
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.stack.md with both layers; rag-memory-workflow link.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** OpenClaw skill.
 - **Input:** openclaw user.
 - **Prompt:**
@@ -139,5 +135,5 @@ Require skills verify before memory skill install.
 - **Expected result:**
 
 ```text
-stack.md includes openclaw skills verify step.
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.stack.md includes openclaw skills verify step.
 ```

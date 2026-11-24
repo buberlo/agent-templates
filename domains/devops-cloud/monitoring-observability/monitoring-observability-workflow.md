@@ -58,6 +58,13 @@ Maintain metrics, alerts and SLOs — check PromQL, test rules, do not silently 
 ```text
 Observability workflow (devops-cloud/monitoring-observability).
 
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
+
+
 Validate recording and alerting rules with promtool check rules and promtool test rules.
 Query live: curl -G <prometheus>/api/v1/query --data-urlencode 'query=up{job="api"}'.
 SLO alerts: for duration must match error budget policy user provides.
@@ -67,8 +74,7 @@ Dashboard changes: export JSON diff summary, not full paste if huge.
 kubectl apply ServiceMonitor only after promtool pass and approval.
 Recording rules before complex dashboards to avoid expensive queries.
 Document alert runbook URL in annotation runbook_url.
-No cardinality explosion from high-cardinality labels in user suggestions.
-```
+No cardinality explosion from high-cardinality labels in user suggestions.```
 
 ## Workflow
 
@@ -101,8 +107,7 @@ No cardinality explosion from high-cardinality labels in user suggestions.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Check 5xx rate alert.
 - **Input:** `alerts/api.yaml` rule `HighErrorRate`.
 - **Prompt:**
@@ -114,14 +119,13 @@ promtool check and test; show instant query for current 5xx rate.
 - **Expected result:**
 
 ```bash
-promtool check rules alerts/api.yaml
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.promtool check rules alerts/api.yaml
 promtool test rules tests/api_alerts_test.yaml
 curl -G 'http://localhost:9090/api/v1/query' \
   --data-urlencode 'query=sum(rate(http_requests_total{status=~"5.."}[5m]))'
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** ServiceMonitor for new deployment.
 - **Input:** NS `prod`, port metrics 8080.
 - **Prompt:**
@@ -133,6 +137,6 @@ Draft ServiceMonitor yaml; apply only after approval note.
 - **Expected result:**
 
 ```bash
-kubectl apply -f servicemonitor-api.yaml   # after APPROVE
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.kubectl apply -f servicemonitor-api.yaml   # after APPROVE
 kubectl get servicemonitor -n prod
 ```

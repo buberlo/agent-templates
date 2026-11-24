@@ -58,18 +58,23 @@ Platform deployments (Vercel️,ms, K8s Prod) with **Preview-first**, Prod only 
 ```text
 Platform deploy workflow (devops-cloud/plattform-deploy).
 
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
+
+
 Default preview/staging only until user message contains PROD_APPROVE with ticket id.
 Vercel: vercel deploy --prebuilt for CI artifacts; vercel promote only after approval.
 GitHub Actions: gh workflow run deploy.yml -f environment=production only after approval.
 Kubectl prod: never kubectl apply -f live prod without change window; prefer rollout with pinned image digest.
-
 Pre-deploy checklist: tests green, migrations reviewed, feature flags noted.
 Post-deploy: smoke URL list user provides; 5xx check via curl -sf.
 Rollback command prepared before prod deploy executes: vercel rollback or kubectl rollout undo.
 Record deployment id, git sha, actor, UTC time in summary.
 No database schema apply in same step unless DBA approval cited.
-Secrets via platform env, never CLI args.
-```
+Secrets via platform env, never CLI args.```
 
 ## Workflow
 
@@ -102,8 +107,7 @@ Secrets via platform env, never CLI args.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Preview dann Prod Vercel.
 - **Input:** SHA `abc1234`, Ticket INC-99.
 - **Prompt:**
@@ -115,15 +119,14 @@ Deploy preview, smoke health, wait for PROD_APPROVE INC-99, then prod with rollb
 - **Expected result:**
 
 ```bash
-vercel deploy
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.vercel deploy
 curl -sf https://project-abc1234.vercel.app/api/health
 # after PROD_APPROVE:
 vercel deploy --prod
 vercel rollback  # documented
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Prod via GitHub Actions.
 - **Input:** workflow `deploy.yml`.
 - **Prompt:**
@@ -135,7 +138,7 @@ gh workflow run only after approval; watch run; no kubectl.
 - **Expected result:**
 
 ```bash
-gh workflow run deploy.yml -f environment=production
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.gh workflow run deploy.yml -f environment=production
 gh run watch
 gh run view --log
 ```

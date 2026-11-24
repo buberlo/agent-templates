@@ -58,18 +58,23 @@ Combine Observability (Grafana, Sentry) with **promtool/kubectl Verify** in the 
 ```text
 Observability MCP/Skill focus (devops-cloud/monitoring-observability).
 
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
+
+
 Skill order: fetch context (MCP read) -> draft promql/rule -> promtool local -> approval -> apply kubectl/gh.
 Grafana MCP: read dashboard by uid; never delete datasource without approval.
 Sentry MCP: fetch issue stats; map release to github sha when possible.
 Unverified MCP servers: mark in output; prefer CLI promtool over untrusted write MCP.
-
 MCP writes disabled in prod until promtool test rules passes locally.
 One observability MCP pair max (Grafana + Sentry) per session.
 Document panel query extracted vs. modified.
 Silence creation via MCP forbidden; silences manual with ticket id only.
 Matrix column: Verify = promtool test rules file path.
-After deploy skill step: suggest instant query to confirm metric moved.
-```
+After deploy skill step: suggest instant query to confirm metric moved.```
 
 ## Workflow
 
@@ -101,8 +106,7 @@ After deploy skill step: suggest instant query to confirm metric moved.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Dashboard UID `api-slo` lesen, Rule anpassen.
 - **Input:** Panel „Error budget burn“.
 - **Prompt:**
@@ -114,13 +118,12 @@ Grafana MCP read panel query; draft rule; promtool test before any write.
 - **Expected result:**
 
 ```text
-MCP returned query sum(rate(...[5m]))
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.MCP returned query sum(rate(...[5m]))
 promtool test rules tests/slo_test.yaml OK
 Write blocked pending APPROVE
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Sentry+Grafana Korrelation.
 - **Input:** Spike 09:00 UTC.
 - **Prompt:**
@@ -132,5 +135,5 @@ Minimize MCPs; timeline entry linking sentry release to dashboard spike.
 - **Expected result:**
 
 ```text
-Release api@3.1.0; Grafana panel request rate +80% 09:00-09:15 UTC
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Release api@3.1.0; Grafana panel request rate +80% 09:00-09:15 UTC
 ```

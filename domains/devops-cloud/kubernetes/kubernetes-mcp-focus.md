@@ -58,18 +58,23 @@ Cursor/Hermes with kubernetes-mcp-server or AKS MCP.
 ```text
 Kubernetes MCP/Skill focus (devops-cloud/kubernetes).
 
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
+
+
 Skill must state: default access readonly; escalate to readwrite only with approval keyword.
 Map steps: verify context | list workloads | describe failing pod | fetch logs | propose patch/rollback.
 MCP inherits RBAC; if Forbidden, report exact API error, do not switch contexts silently.
 One cluster per session unless user lists multiple; kubectx switch documented.
 Prefer MCP for get/describe; use kubectl for logs --previous and stern-like multi-pod if MCP lacks it.
 AKS MCP: pass --access-level readonly in mcp.json; document in matrix.
-
 No delete collection, no cluster-admin MCP in prod skill templates.
 Helm changes not through MCP unless helm-mcp explicitly required_tools.
 After mitigation skill step: kubectl rollout status as verify (CLI).
-Document whether each command ran via MCP or shell.
-```
+Document whether each command ran via MCP or shell.```
 
 ## Workflow
 
@@ -101,8 +106,7 @@ Check kubecontext: `kubectl config current-context`.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Readonly Skill for Pending Pods.
 - **Input:** Cluster staging, ns `app`.
 - **Prompt:**
@@ -114,13 +118,12 @@ Matrix MCP describe + kubectl events; no writes.
 - **Expected result:**
 
 ```text
-MCP: list pods; describe pod/payment-xxx
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.MCP: list pods; describe pod/payment-xxx
 CLI: kubectl get events -n app --sort-by=.lastTimestamp
 Cause: Insufficient cpu
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 and**Excalation to APPROVE for rollout undo.
 - **Input:** Deploy `payment` broken.
 - **Prompt:**
@@ -132,6 +135,6 @@ Skill step 5 after APPROVE: kubectl rollout undo; MCP verify pods ready.
 - **Expected result:**
 
 ```bash
-kubectl -n app rollout undo deploy/payment
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.kubectl -n app rollout undo deploy/payment
 kubectl -n app rollout status deploy/payment
 ```

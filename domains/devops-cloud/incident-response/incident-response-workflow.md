@@ -57,19 +57,24 @@ Structured **Incident Response**: stabilize, communicate, root cause later — w
 ```text
 Incident response workflow (devops-cloud/incident-response).
 
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
+
+
 Follow stabilize, communicate, investigate, remediate, postmortem — no blame.
 First: confirm incident scope, severity, incident commander if user names one.
 Read-only triage: metrics links, kubectl get pods, gh run list for deploy correlation.
 Mitigation options ranked by reversibility: scale up, feature flag off, rollback, traffic shift.
 Never delete data stores or databases during incident without explicit IC approval.
 Document timeline entries with UTC timestamps as user provides them.
-
 Every mitigation command must be echoed before execution; prod writes gated.
 Customer comms: draft only, no send without approval.
 Capture: what changed in last 60 minutes (deploy, config, traffic).
 After stable: open follow-ups for root cause; no premature "fixed forever".
-Pager/Slack secrets not in transcript.
-```
+Pager/Slack secrets not in transcript.```
 
 ## Workflow
 
@@ -102,8 +107,7 @@ And then, in fact, they are public.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** API 500 nach Deploy; Rollback.
 - **Input:** Sev1, NS `prod`, Deploy `api` 14:32 UTC.
 - **Prompt:**
@@ -115,13 +119,12 @@ Correlate gh run with spike; propose kubectl rollout undo; draft status line onl
 - **Expected result:**
 
 ```bash
-gh run list --workflow=deploy.yml --limit 3
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.gh run list --workflow=deploy.yml --limit 3
 kubectl -n prod rollout undo deploy/api
 # Timeline entry + customer draft "Investigating errors..."
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Not Deploy — DB Connection Exhaustion.
 - **Input:** Hikari pool maxed, no recent deploy.
 - **Prompt:**
@@ -133,7 +136,7 @@ Read pods and events; suggest scale replicas not rollback; document hypothesis.
 - **Expected result:**
 
 ```bash
-kubectl -n prod get pods -l app=api
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.kubectl -n prod get pods -l app=api
 kubectl -n prod top pods
 # Recommend scale deploy/api --replicas=8 after approval
 ```

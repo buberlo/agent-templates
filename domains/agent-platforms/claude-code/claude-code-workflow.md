@@ -62,6 +62,14 @@ Office/PDF delivery items with Anthropic document skills and Verify pipeline.
 
 ```text
 You work in Claude Code in the project directory. Skills live in ~/.claude/skills or .claude/skills, or via the plugin marketplace.
+
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
+
+
 Add MCP only if the task is not resolvable without external data source — each server increases schema tokens.
 Before new MCPs: check existing list; Goal under ~5 servers for everyday work.
 document-skills: execute validate.py after generation, then render PDF/PNG and visually check (XML-PASS ≠ Layout-PASS).
@@ -73,8 +81,7 @@ Write, PR merge, deploy, delete only after user sharing.
 Commits small and described; Tests if usual in the repo.
 Bei pptx/docx: Spaltenbreiten and Zahlenformate im Render kontrollieren, not nur Validator.
 Playwright MCP nur for explizite UI-Aufgaben, not Default.
-Log estimated MCP number and whether context becomes scarce.
-```
+Log estimated MCP number and whether context becomes scarce.```
 
 ## Workflow
 
@@ -112,7 +119,7 @@ Prompt injection from MCP content not blindly followed
 
 ## Basic examples
 
-### Example 1 (Real-world example)
+### Example 1 (Example data (self-written))
 
 - **Task:** briefing.docx with official docx skill
 - **Input:** Briefing-Inhalt (Titel, Listen, Preistabelle) laut Tutorial
@@ -121,12 +128,12 @@ Prompt injection from MCP content not blindly followed
 ```
 - **Expected result:**
 ```text
-briefing.docx 10.354 Bytes
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.briefing.docx 10.354 Bytes
 validate: 25 paragraphs, All validations PASSED
 Render: Table first overflow (11,520 DXA), visible after fix 9.360 DXA
 ```
 
-### Example 2 (Real-world example)
+### Example 2 (Example data (self-written))
 
 - **Task:** pptx three slides — validator green, render shows bugs
 - **Input:** Field trial numbers, Theme Forest Green, Commit e4bb5d9
@@ -136,12 +143,12 @@ pptx skill: Create deck, validate, PNG/PDF, correct data labels and alignment if
 ```
 - **Expected result:**
 ```text
-validate: All validations PASSED
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.validate: All validations PASSED
 Render: Labels 3,1→3 (falsch); Callout +21 % vs. 22,4 % Mittel
 Nach dataLabelFormatCode 0.0 + Alignment: Render stimmt
 ```
 
-### Example 3 (Real-world example)
+### Example 3 (Example data (self-written))
 
 - **Task:** MCP-Overhead messen
 - **Input:** Bestehender MCP-Stack in Claude
@@ -151,6 +158,6 @@ Start session loaded with MCP only — estimate token overhead before first ques
 ```
 - **Expected result:**
 ```text
-Report: large overhead on many servers; Deactivate servers until task start
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Report: large overhead on many servers; Deactivate servers until task start
 Note: exact list in the original post not fully reproduced
 ```

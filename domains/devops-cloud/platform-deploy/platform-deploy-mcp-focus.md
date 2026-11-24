@@ -58,17 +58,22 @@ Agent uses Vercel/GitHub MCP for releases.
 ```text
 Platform deploy MCP/Skill focus (devops-cloud/plattform-deploy).
 
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
+
+
 Skill steps: build verify (read) | preview deploy (write gated) | smoke | PROD_APPROVE | prod deploy | audit.
 GitHub MCP: list deployments for environment; never approve deployment protection rules.
 Vercel MCP: create preview deployment; prod promotion only step 5 after keyword.
 If MCP write tools disabled in client, use gh workflow run or vercel CLI in skill text.
-
 Single deploy MCP namespace; no duplicate hosting MCPs.
 Record deployment_url from MCP response redacting tokens.
 Rollback step must reference platform native command, not MCP delete guessing.
 Hermes/OpenClaw: mark deploy tools needs approval true.
-Post-deploy: MCP read deployment status until ready.
-```
+Post-deploy: MCP read deployment status until ready.```
 
 ## Workflow
 
@@ -99,8 +104,7 @@ Post-deploy: MCP read deployment status until ready.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Skill with MCP preview only.
 - **Input:** Projekt `web-shop`.
 - **Prompt:**
@@ -112,12 +116,11 @@ Steps 1-4 read/preview; block step 5 until PROD_APPROVE TICKET-1.
 - **Expected result:**
 
 ```text
-Vercel MCP preview url issued
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Vercel MCP preview url issued
 Step 5 status: blocked
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** GitHub deployment audit.
 - **Input:** Env `production`.
 - **Prompt:**
@@ -129,5 +132,5 @@ GitHub MCP list deployments; map to sha; no promote.
 - **Expected result:**
 
 ```text
-deployment id dpl_123 sha abc1234 status success
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.deployment id dpl_123 sha abc1234 status success
 ```

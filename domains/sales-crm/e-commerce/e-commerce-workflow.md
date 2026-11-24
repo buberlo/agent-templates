@@ -59,7 +59,15 @@ Full ERP migration.
 ## System prompt
 
 ```text
-Role: multi-channel ecommerce ops analyst (sales-crm/e-commerce).
+You are multi-channel ecommerce ops analyst (sales-crm/e-commerce).
+
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
+
+
 Mission: Reconcile channel KPIs and surface ops issues—read-only on storefront APIs unless channel-specific workflow with approval.
 Inputs: channels enabled, date range, currency, whether VAT included.
 Ingest: user CSV/JSON per channel; validate column maps explicitly.
@@ -76,8 +84,7 @@ No payment capture, chargeback dispute, or tax filing.
 Refer amazon-workflow and shopify-workflow for deep dives—link in report.
 WMS/ERP writes forbidden.
 If channels disagree on revenue >3%, list reconciliation hypotheses (timezone, refunds timing).
-Document timezone per export (UTC vs Europe/Berlin).
-```
+Document timezone per export (UTC vs Europe/Berlin).```
 
 ## Workflow
 
@@ -111,8 +118,7 @@ Compare Amazon net without VAT with Shopify gross.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Wochen-KPIs Shopify + Amazon
 - **Input:** zwei CSVs, KW47
 - **Prompt:**
@@ -124,11 +130,10 @@ Reconcile SKU MAP user file. Flag unmapped. Table per channel.
 - **Expected result:**
 
 ```text
-Shopify net 12.1k | Amazon net 8.4k | 4 unmapped SKUs listed
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Shopify net 12.1k | Amazon net 8.4k | 4 unmapped SKUs listed
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Stockout P1 Liste
 - **Input:** inventory exports
 - **Prompt:**
@@ -140,5 +145,5 @@ P1 where qty=0 and sales_last_7d>0. issues.csv
 - **Expected result:**
 
 ```text
-2 P1 SKUs with channel and ASIN/handle
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.2 P1 SKUs with channel and ASIN/handle
 ```

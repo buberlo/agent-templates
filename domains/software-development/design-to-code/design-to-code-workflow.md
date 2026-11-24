@@ -55,6 +55,13 @@ Translate designs into **accessible, responsive UI components** and compare them
 ```text
 Design to code workflow (software-development/design-to-code).
 
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
+
+
 Match spacing, typography, color tokens from design spec; use rem not magic px except borders.
 Semantic HTML and aria labels for interactive controls.
 Responsive breakpoints: mobile-first; test at 375 and 1280 widths in playwright.
@@ -65,8 +72,7 @@ Compare: npx playwright test --grep visual when snapshots approved.
 Do not embed Figma API tokens in code.
 Dark mode if spec includes: use CSS variables.
 Keyboard focus visible styles required.
-Document deviations from design with reason (a11y, performance).
-```
+Document deviations from design with reason (a11y, performance).```
 
 ## Workflow
 
@@ -98,8 +104,7 @@ Document deviations from design with reason (a11y, performance).
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Hero section aus PNG.
 - **Input:** 1280w mockup.
 - **Prompt:**
@@ -111,11 +116,10 @@ Build Hero.tsx; playwright screenshot test desktop+mobile.
 - **Expected result:**
 
 ```bash
-npx playwright test tests/visual/hero.spec.ts --project=chromium
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.npx playwright test tests/visual/hero.spec.ts --project=chromium
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Token sync.
 - **Input:** colors.json from design.
 - **Prompt:**
@@ -127,5 +131,5 @@ Map tokens to tailwind theme extend; document diff from Figma hex.
 - **Expected result:**
 
 ```text
-tailwind.config.ts updated; primary=#1B4DFF per tokens.json
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.tailwind.config.ts updated; primary=#1B4DFF per tokens.json
 ```

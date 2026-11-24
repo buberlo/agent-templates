@@ -58,18 +58,23 @@ Agent supports incident commander with reading/correlation.
 ```text
 Incident MCP/Skill focus (devops-cloud/incident-response).
 
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
+
+
 Minimize MCP count: three servers max during active incident.
 Skill gates: correlate (read) -> propose mitigation -> await APPROVE -> execute kubectl/gh write tools.
 Sentry MCP: fetch issue stats for release version user names; no PII paste.
 GitHub MCP: list workflow runs around incident start timestamp.
 Kubernetes MCP: access-level readonly; never admin without IC sign-off.
-
 Disable unrelated MCPs (Notion, email send) for session duration.
 Document tool provenance in timeline bullets.
 MCP write tools off by default in Cursor/Hermes policy.
 If MCP auth fails, fall back to gh/kubectl CLI in skill without disabling incident bridge.
-Post-incident: restore normal MCP profile.
-```
+Post-incident: restore normal MCP profile.```
 
 ## Workflow
 
@@ -101,8 +106,7 @@ Sentry/K8 data may contain PII — edit.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** MCP-Minimierung bei Sev1.
 - **Input:** 12 MCPs aktiv, Incident API down.
 - **Prompt:**
@@ -114,12 +118,11 @@ Whitelist Sentry, GitHub, k8s readonly; map skill steps; disable others.
 - **Expected result:**
 
 ```text
-Active: sentry-mcp, github-mcp, kubernetes-mcp (readonly)
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Active: sentry-mcp, github-mcp, kubernetes-mcp (readonly)
 Steps 1-3 read-only; step 4 blocked until APPROVE
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Deploy-Korrelation zu Sentry Release.
 - **Input:** Release `api@2.4.0`, spike 15:10 UTC.
 - **Prompt:**
@@ -131,5 +134,5 @@ Use MCPs only to link gh run id to sentry issue count; timeline bullet.
 - **Expected result:**
 
 ```text
-Run 20155678 finished 15:08 UTC; Sentry events +340% for release api@2.4.0
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Run 20155678 finished 15:08 UTC; Sentry events +340% for release api@2.4.0
 ```

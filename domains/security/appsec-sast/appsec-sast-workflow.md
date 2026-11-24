@@ -58,6 +58,13 @@ Run static analysis and dependency scans in CI and locally, prioritize finds and
 ```text
 AppSec SAST workflow (security/appsec-sast).
 
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
+
+
 Run semgrep with org ruleset: semgrep scan --config auto or --config p/ci.
 Dependency: pip-audit -r requirements.txt; npm audit --production.
 Triage: OWASP category, reachability, exploitability; false positive reasoning required to dismiss.
@@ -67,8 +74,7 @@ SARIF output for GitHub code scanning when user uses Actions.
 No secret values in SARIF paths; redact filenames if sensitive.
 Block merge on CRITICAL reachable only per user policy statement.
 Document command exit codes and paths scanned.
-Do not claim CVE not affected without version proof from lockfile.
-```
+Do not claim CVE not affected without version proof from lockfile.```
 
 ## Workflow
 
@@ -101,8 +107,7 @@ Do not claim CVE not affected without version proof from lockfile.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Python API semgrep.
 - **Input:** `src/`.
 - **Prompt:**
@@ -114,12 +119,11 @@ semgrep scan; summarize HIGH; suggest fix for SQL concat if any.
 - **Expected result:**
 
 ```bash
-semgrep scan --config p/ci --json -o out.json
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.semgrep scan --config p/ci --json -o out.json
 # 0 critical after parameterized query fix
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** npm audit production.
 - **Input:** web app.
 - **Prompt:**
@@ -131,6 +135,6 @@ npm audit --production; list fixable via npm audit fix --dry-run.
 - **Expected result:**
 
 ```bash
-npm audit --production
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.npm audit --production
 npm audit fix --dry-run
 ```

@@ -59,19 +59,22 @@ Platform without installed skill and without plugin OAuth.
 ```text
 You design minimal chat tooling for communication/chat-messaging: pick ONE primary read path and ONE optional send path.
 
-Inputs: host OS, platforms needed, send_allowed (yes/no), hermes_include_mcp list, openclaw tool policy snippet.
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
 
+
+Inputs: host OS, platforms needed, send_allowed (yes/no), hermes_include_mcp list, openclaw tool policy snippet.
 Produce:
 1) tool-matrix.md: platform → tool → install command → scopes
 2) activation steps: hermes mcp include/exclude OR openclaw skills install + verify
 3) read smoke test command (list 3 recent messages, redact bodies in log)
 4) explicit disable list for send tools if send_allowed=no
-
 Grok plugin: note posts as connected user, channel ACL unchanged.
 iMessage: require darwin; if linux, state skill skipped and suggest SMS API alternative only if user provides approved MCP.
-
-Never store tokens in skill markdown. Deliver verification transcript with timestamps.
-```
+Never store tokens in skill markdown. Deliver verification transcript with timestamps.```
 
 ## Workflow
 
@@ -106,8 +109,7 @@ the ‘forget to use’ sets of tests
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Slack read-only Agent.
 - **Input:** OpenClaw, `send_allowed=no`.
 - **Prompt:**
@@ -119,14 +121,13 @@ Write tool-matrix and disable all post/send tools; smoke test #general read 3 me
 - **Expected result:**
 
 ```text
-Primary: openclaw slack (read)
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Primary: openclaw slack (read)
 Disabled: chat.postMessage, imessage send
 Smoke: 3 messages fetched, subjects redacted in log
 File: output/messaging-tooling.md
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** macOS iMessage vorbereiten.
 - **Input:** Darwin, Hermes bundled imessage.
 - **Prompt:**
@@ -138,7 +139,7 @@ Document imessage skill activation and list last 2 chats (handles redacted).
 - **Expected result:**
 
 ```text
-Platform: darwin — imessage skill active
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Platform: darwin — imessage skill active
 Chats: +43***01 (2 msgs), team@*** (5 msgs)
 Send: gated until user types SEND
 ```

@@ -61,8 +61,14 @@ Create **concise educational cards** (Anki format) from lectures, scripts or vid
 ```text
 You create flashcards for education/lernkarten.
 
-Inputs: source (file path|youtube url), deck_name, language, max_cards, card_style (basic|cloze), source_tag_prefix.
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
 
+
+Inputs: source (file path|youtube url), deck_name, language, max_cards, card_style (basic|cloze), source_tag_prefix.
 Rules:
 - One fact per card; question answerable without long context.
 - Cloze: max 2 deletions per card.
@@ -70,13 +76,10 @@ Rules:
 - No copyrighted exam item banks copied verbatim.
 - Deduplicate near-identical cards; list removed_duplicates[].
 - After generation, sample 5 cards for leak (answer in question).
-
 Output: anki_import.tsv columns: Front, Back, Tags
 Tag format: source_tag_prefix::chapter
-
 If youtube: fetch transcript via skill; cite mm:ss.
-Deliver: anki_import.tsv, quality_notes.md, card_count.
-```
+Deliver: anki_import.tsv, quality_notes.md, card_count.```
 
 ## Workflow
 
@@ -111,8 +114,7 @@ Explorers.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** 30 Karten aus Vorlesung docx Kap. 2.
 - **Input:** `lecture2.docx`, DE, basic.
 - **Prompt:**
@@ -124,14 +126,13 @@ Max 30 cards, tag prefix BIO101::ch2, export anki_import.tsv.
 - **Expected result:**
 
 ```text
-card_count: 30
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.card_count: 30
 Sample front: "Was ist Mitose?"
 Sample back: "Zellteilung … — Source: Kap. 2 §Mitose"
 quality_notes: 2 duplicates removed
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** YouTube without URL.
 - **Input:** Nur Thema "Photosynthese".
 - **Prompt:**
@@ -143,7 +144,7 @@ Make flashcards from YouTube.
 - **Expected result:**
 
 ```text
-Abbruch: source_url required for youtube path.
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Abbruch: source_url required for youtube path.
 Alternative: paste transcript text or provide docx.
 No TSV written.
 ```

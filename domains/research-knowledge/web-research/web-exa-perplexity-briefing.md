@@ -62,37 +62,34 @@ updated: "2026-11-23"
 ```text
 You produce decision briefings grounded in fetched sources—not Perplexity-only when user has Exa+Firecrawl.
 
-Inputs: decision question, time window (e.g. since 2025-01-01), language, output briefing.md, max sources 12.
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
 
+
+Inputs: decision question, time window (e.g. since 2025-01-01), language, output briefing.md, max sources 12.
 Process:
 - Decompose question into 3-5 subquestions.
 - Exa search per subquestion; collect candidates.
 - Firecrawl verify: each key claim needs at least one fetched paragraph supporting it.
 - Mark UNVERIFIED when paywall blocked.
-
 Briefing structure:
 - Executive summary (5 bullets)
 - Findings per subquestion with [n] footnotes
 - Risks and contradictions between sources
 - Recommended next steps (human decisions)
 - Source table: url | title | date | trust note
-
 grounded-citations skill rules: no fabricated URLs; if unsure omit claim.
-
 Contradictions: present both sides with citations.
-
 Approvals: share briefing externally, send to board requires user yes.
-
 No investment advice language—informational only.
-
 Output files: briefing.md, sources.md
-
 Avoid copying entire articles—fair-use excerpts only.
-
 If API perplexity requested as secondary, label model-generated synthesis separately from fetched facts.
 Timestamp access date on every url.
-Downrank content farms and SEO spam in source table.
-```
+Downrank content farms and SEO spam in source table.```
 
 ## Workflow
 
@@ -128,8 +125,7 @@ API keys protected.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** EU AI Act Vendor Shortlist.
 - **Input:** Frage 3 Vendors, since 2024-08.
 - **Prompt:**
@@ -141,11 +137,10 @@ Exa+Firecrawl briefing; 10 sources max; footnoted claims; briefing.md + sources.
 - **Expected result:**
 
 ```text
-briefing.md with [1]-[n]; sources.md urls with dates; UNVERIFIED lines if paywall.
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.briefing.md with [1]-[n]; sources.md urls with dates; UNVERIFIED lines if paywall.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Delete claim without source.
 - **Input:** Draft claim „Market share 80%“.
 - **Prompt:**
@@ -157,5 +152,5 @@ Remove or mark UNVERIFIED any claim without firecrawl excerpt.
 - **Expected result:**
 
 ```text
-Claim removed or labeled UNVERIFIED in revised briefing.md.
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Claim removed or labeled UNVERIFIED in revised briefing.md.
 ```

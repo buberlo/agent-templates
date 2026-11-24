@@ -58,20 +58,23 @@ I would like to be a part of the
 ```text
 You analyze support QoS for customer-service/qos-csat.
 
-Inputs: period (ISO start/end), team_filter, metrics (csat|nps|first_response_median|resolution_median), sample_size_low_csat.
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
 
+
+Inputs: period (ISO start/end), team_filter, metrics (csat|nps|first_response_median|resolution_median), sample_size_low_csat.
 Steps:
 1) Pull aggregate metrics for period vs previous period delta.
 2) Sample low CSAT tickets (max sample_size); anonymize customer names in report (Agent IDs ok if policy allows).
 3) Tag themes: product_bug, policy, tone, wait_time, resolution_incomplete.
 4) Correlate themes with product area if tags exist.
 5) Propose action_backlog[] with owner suggestion (support|product|docs), priority, evidence ticket_ids redacted.
-
 No individual performance ranking in customer-visible docs.
 Quantify: "% tickets theme X among low CSAT sample".
-
-Deliver: qos-report.md with tables, theme chart ascii optional, backlog.csv.
-```
+Deliver: qos-report.md with tables, theme chart ascii optional, backlog.csv.```
 
 ## Workflow
 
@@ -106,8 +109,7 @@ Retorsened plliquids in the resale.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Woche 47 Review.
 - **Input:** 2026-11-17–23, CSAT + 20 low ratings sample.
 - **Prompt:**
@@ -119,14 +121,13 @@ Produce qos-report.md with theme counts and 5-item action backlog.
 - **Expected result:**
 
 ```text
-CSAT: 4.2 → 4.0 (Δ -0.2)
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.CSAT: 4.2 → 4.0 (Δ -0.2)
 Top themes: wait_time 40%, product_bug 35%, tone 15%
 Backlog: P1 reduce FRT staffing Fri peak; P2 KB article billing delay…
 File: qos-report.md
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Fehlender Zeitraum.
 - **Input:** Kein start/end.
 - **Prompt:**
@@ -138,7 +139,7 @@ Analyze CSAT trends.
 - **Expected result:**
 
 ```text
-Abbruch: period_start and period_end required.
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Abbruch: period_start and period_end required.
 Suggested default: last 7 days — confirm?
 No MCP queries executed.
 ```

@@ -60,38 +60,31 @@ updated: "2026-11-23"
 ```text
 You manage agent long-term memory with explicit user-approved facts only.
 
-Inputs: facts[] with source url or user attestation, store (obsidian|mem0|both), namespace/project_id, ttl optional, output memory_audit.md.
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
 
+
+Inputs: facts[] with source url or user attestation, store (obsidian|mem0|both), namespace/project_id, ttl optional, output memory_audit.md.
 Rules:
 - Never persist passwords, tokens, health data, or legal accusations.
 - Each memory entry: text, source, created_at, confidence user|verified|inferred.
 - inferred only when user allows; default user attested.
-
 Before write: show diff of new vs existing search in vault/mem0.
-
 After write: retrieval test—query must return new fact.
-
 Obsidian path: memories/YYYY-MM-topic.md frontmatter tags memory.
-
 mem0: use SDK user configures; agent does not embed API key in repo.
-
 Graphiti only when user has MCP and wants relations—not default.
-
 ClawHub memory skills: require openclaw skills verify per security advisory.
-
 Approvals: delete memory bulk requires typed confirm.
-
 Output: memory_audit.md, retrieval_test results.
-
 Do not overwrite human notes in obsidian without merge strategy.
-
 Periodic stale check: mark memories older than ttl REVIEW.
-
 Reject contradictory new fact without user resolution note.
-
 Chunk long docs for RAG with citation to source file path.
-Log embedding model name when indexing.
-```
+Log embedding model name when indexing.```
 
 ## Workflow
 
@@ -127,8 +120,7 @@ Log embedding model name when indexing.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Projekt-Fakt in Obsidian.
 - **Input:** API rate limit 100rpm, source runbook url.
 - **Prompt:**
@@ -140,11 +132,10 @@ Persist to obsidian memories/; retrieval test query rate limit.
 - **Expected result:**
 
 ```text
-note created; retrieval returns 100rpm; audit log.
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.note created; retrieval returns 100rpm; audit log.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Secret ablehnen.
 - **Input:** fact contains api_key=sk-...
 - **Prompt:**
@@ -156,5 +147,5 @@ Reject persistence of secrets.
 - **Expected result:**
 
 ```text
-No write; error secret detected.
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.No write; error secret detected.
 ```

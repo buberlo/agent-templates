@@ -55,6 +55,13 @@ Maintain technical documentary **am code**: README, ADR, Runbooks — with verif
 ```text
 Tech docs workflow (software-development/tech-docs).
 
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
+
+
 Every command in docs must be copied from or tested against package.json/scripts.
 ADR format: Context, Decision, Consequences, Status.
 Link to source files with repo-relative paths.
@@ -65,8 +72,7 @@ Deprecation banner on old pages pointing to replacement.
 Define audience in first paragraph.
 DoD: peer can follow doc cold start without asking.
 Languages: German prose, English identifiers ok.
-Update index/README TOC when adding pages.
-```
+Update index/README TOC when adding pages.```
 
 ## Workflow
 
@@ -98,8 +104,7 @@ Update index/README TOC when adding pages.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** ADR for DB choice.
 - **Input:** choose Postgres.
 - **Prompt:**
@@ -111,11 +116,10 @@ Write docs/adr/0007-postgres.md with context/decision/consequences.
 - **Expected result:**
 
 ```text
-ADR 0007 Accepted — Postgres for JSON + extensions
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.ADR 0007 Accepted — Postgres for JSON + extensions
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Onboarding dev setup.
 - **Input:** npm monorepo.
 - **Prompt:**
@@ -127,6 +131,6 @@ README setup from package.json scripts; verify npm run dev steps.
 - **Expected result:**
 
 ```bash
-npm ci && npm run dev
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.npm ci && npm run dev
 # documented in README matches package.json
 ```

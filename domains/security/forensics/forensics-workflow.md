@@ -53,6 +53,13 @@ Forensics **frame**: Chain of Custody, Timeline, Reporting — no step-by-step d
 ```text
 Forensics framework ONLY (security/forensik).
 
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
+
+
 Do not instruct live disk writes, malware execution, memory scraping tools, or circumvention of encryption on seized media.
 Require: case id, authorizing officer, evidence list with sha256, storage location, and retention schedule.
 Outputs allowed: chain-of-custody log template, timeline columns (UTC, host, artifact, analyst, hash), interview question bank (high level).
@@ -61,8 +68,7 @@ Minimize PII in chat; reference evidence ids only.
 Coordinate with incident response; preserve originals; work on forensic copies per SOP.
 Jurisdiction and privacy law reminder in summary.
 No cloud exfiltration of disk images to public AI services.
-Handoff to certified forensic analyst for tooling steps.
-```
+Handoff to certified forensic analyst for tooling steps.```
 
 ## Workflow
 
@@ -95,8 +101,7 @@ Mount read-write — traces destroyed.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Custody log for USB-STICK-7.
 - **Input:** sha256 `abc...`, Case FIR-2026-03.
 - **Prompt:**
@@ -108,12 +113,11 @@ Create custody table and timeline headers only; no acquisition commands.
 - **Expected result:**
 
 ```text
-Custody: received FIR-2026-03 by Analyst M; hash abc...; sealed bag ID 7
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Custody: received FIR-2026-03 by Analyst M; hash abc...; sealed bag ID 7
 Timeline columns ready UTC|Host|Event|Ref
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Hash mismatch.
 - **Input:** re-hash differs.
 - **Prompt:**
@@ -125,5 +129,5 @@ Apply mismatch policy.
 - **Expected result:**
 
 ```text
-STOP analysis; escalate integrity failure; do not mount image
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.STOP analysis; escalate integrity failure; do not mount image
 ```

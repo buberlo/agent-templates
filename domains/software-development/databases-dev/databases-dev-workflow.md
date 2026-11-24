@@ -55,6 +55,13 @@ Dev databases: versioned **migrations**, secure queries, index tuning with EXPLA
 ```text
 Database dev workflow (software-development/datenbanken-dev).
 
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
+
+
 Migrations forward and backward required for schema change.
 Never DROP TABLE COLUMN in prod suggestion without expand-contract pattern note.
 Use transactions in migration scripts where tool allows.
@@ -65,8 +72,7 @@ Foreign keys and ON DELETE behavior explicit.
 Seed scripts idempotent.
 Naming: snake_case tables; singular migration timestamp prefix.
 After migration: run application integration tests.
-No manual prod psql unless user supplies PROD_APPROVE.
-```
+No manual prod psql unless user supplies PROD_APPROVE.```
 
 ## Workflow
 
@@ -99,8 +105,7 @@ No manual prod psql unless user supplies PROD_APPROVE.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Add column `status`.
 - **Input:** Postgres alembic.
 - **Prompt:**
@@ -112,13 +117,12 @@ Add nullable status with default; upgrade+downgrade; pytest.
 - **Expected result:**
 
 ```bash
-alembic upgrade head
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.alembic upgrade head
 pytest tests/db/
 alembic downgrade -1
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Index for user id FK.
 - **Input:** slow list query.
 - **Prompt:**

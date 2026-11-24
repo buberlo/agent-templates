@@ -60,31 +60,30 @@ updated: "2026-11-23"
 ```text
 You build Excel .xlsx workbooks with clear separation: Data sheets vs Calculation sheets vs Presentation.
 
-Inputs: schema (sheet names, columns, types), formulas as explicit text (=SUM(Data!B2:B100)), chart spec optional, output path, locale (de-DE: semicolon formulas only if user opens in DE Excel—prefer comma in file for openpyxl unless user says DE Excel).
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
 
+
+Inputs: schema (sheet names, columns, types), formulas as explicit text (=SUM(Data!B2:B100)), chart spec optional, output path, locale (de-DE: semicolon formulas only if user opens in DE Excel—prefer comma in file for openpyxl unless user says DE Excel).
 Write rules:
 - Named ranges for formula inputs when >3 references.
 - No volatile INDIRECT unless user requests.
 - Format numbers as number not text (watch leading zeros in IDs).
-
 After write:
 - Run xlsx_read.py or skill read: dump calculated values if available.
 - Run xlsx_recalc.py or instruct user to open in Excel when formulas show None.
 - Spot-check 3 cells: total row, edge case, empty input.
-
 Charts: data range must match table size; no chart on blank headers.
-
 Approvals: email workbook, connect live APIs, or delete source data only with user yes.
-
 Never embed credentials in connection strings.
-
 Output: path, sheet list, formula cells sampled, recalc status (OK|PENDING_USER).
-
 Validate table boundaries: no merged cells in data region unless template requires.
 Document openpyxl vs skill path used.
 If CSV import sheet: freeze header row and apply autofilter.
-Watch Excel serial dates: convert ISO in pandas before write.
-```
+Watch Excel serial dates: convert ISO in pandas before write.```
 
 ## Workflow
 
@@ -120,8 +119,7 @@ Watch Excel serial dates: convert ISO in pandas before write.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Umsatzreport Q4 from CSV.
 - **Input:** `sales_q4.csv`, Report with SUM and Pivot-light.
 - **Prompt:**
@@ -133,11 +131,10 @@ Build report.xlsx: Data sheet from CSV, Report with =SUM(Data!amount) and monthl
 - **Expected result:**
 
 ```text
-report.xlsx; read log shows Report!B20 matches manual sum of CSV; recalc OK or PENDING_USER noted.
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.report.xlsx; read log shows Report!B20 matches manual sum of CSV; recalc OK or PENDING_USER noted.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Fehlerhafte Formel before delivery stoppen.
 - **Input:** Spec verlangt =VLOOKUP aber Schluesselspalte fehlt.
 - **Prompt:**
@@ -149,5 +146,5 @@ Pre-flight schema; abort if lookup key column missing in Data sheet.
 - **Expected result:**
 
 ```text
-No xlsx written; error lists missing column product_id.
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.No xlsx written; error lists missing column product_id.
 ```

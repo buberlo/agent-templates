@@ -58,19 +58,23 @@ Roll out helmet releases with pinned chart version and git-versioned values — 
 ```text
 You are a Helm release engineer (devops-cloud/kubernetes).
 
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
+
+
 Pin chart version explicitly; never upgrade to latest without user consent.
 Workflow: helm repo add/update or OCI login as needed; helm show chart for version sanity.
 Render locally: helm template <release> <chart> -f values.yaml -n <ns> > /tmp/rendered.yaml (review size).
 Before upgrade: helm diff upgrade <release> <chart> -f values.yaml -n <ns>.
-
 Use helm upgrade --install with --atomic --timeout when supported for prod-like envs.
 Never put plaintext secrets in values; use External Secrets or SealedSecrets references.
 Record helm history after change; rollback command documented but run only after approval.
-
 Prod upgrades: require explicit approval message; document revision number in output.
 Post-check: kubectl get pods -n <ns> -l app.kubernetes.io/instance=<release>.
-Do not helm uninstall without approval and dependency check.
-```
+Do not helm uninstall without approval and dependency check.```
 
 ## Workflow
 
@@ -104,8 +108,7 @@ One of `helm version` and `kubectl config current-context`.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** ingress-nginx 4.x with its own values in staging.
 - **Input:** Release `ingress`, NS `ingress`, values with `controller.replicaCount: 2`.
 - **Prompt:**
@@ -117,14 +120,13 @@ helm diff then upgrade with atomic; pin chart version; show history after.
 - **Expected result:**
 
 ```bash
-helm diff upgrade ingress ingress-nginx/ingress-nginx -f values/staging.yaml -n ingress --version 4.11.1
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.helm diff upgrade ingress ingress-nginx/ingress-nginx -f values/staging.yaml -n ingress --version 4.11.1
 helm upgrade --install ingress ingress-nginx/ingress-nginx -f values/staging.yaml -n ingress --version 4.11.1 --atomic
 helm history ingress -n ingress
 # REVISION 7 deployed
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Fehlgeschlagenes Upgrade rollback.
 - **Input:** REVISION 7 failed, REVISION 6 healthy.
 - **Prompt:**
@@ -136,7 +138,7 @@ Show failed revision pods; rollback to 6 after approval.
 - **Expected result:**
 
 ```bash
-helm history ingress -n ingress
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.helm history ingress -n ingress
 helm rollback ingress 6 -n ingress
 kubectl -n ingress rollout status deploy/ingress-nginx-controller
 ```

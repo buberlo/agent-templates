@@ -276,6 +276,59 @@ def extract_system_prompt_block(body):
     return m.group(1)
 
 
+MIN_SYSTEM_PROMPT_CHARS = 350
+MIN_SENTENCE_LIKE_LINES = 3
+MIN_EXPECTED_OUTPUT_CHARS = 40
+MAX_COLON_KEYWORD_WITHOUT_SENTENCES = (5, 5)
+
+SENTENCE_LIKE_RE = re.compile(
+    r"(^(You are\b)|(\b(must|should|never|always|Do not|will|When|If|Before|After)\b)|"
+    r"(\b(the|a|an)\b.*\b(the|a|an)\b))",
+    re.I,
+)
+
+
+def system_prompt_non_empty_lines(sp: str) -> list[str]:
+    return [ln.strip() for ln in sp.splitlines() if ln.strip()]
+
+
+def line_is_colon_keyword_fragment(line: str) -> bool:
+    line = line.strip()
+    if re.match(r"^Role:\s", line, re.I):
+        return True
+    return bool(
+        re.match(r"^[A-Za-z][\w\s/&-]*:\s+\S", line) and len(line.split()) < 18
+    )
+
+
+def line_is_sentence_like(line: str) -> bool:
+    line = line.strip()
+    if line_is_colon_keyword_fragment(line):
+        return False
+    words = line.split()
+    if len(words) < 8:
+        return False
+    if SENTENCE_LIKE_RE.search(line):
+        return True
+    if len(words) >= 14 and re.search(r"[.!?]\s*$", line):
+        return True
+    return False
+
+
+def extract_basic_examples_expected_outputs(body: str) -> list[str]:
+    if "## Basic examples" not in body:
+        return []
+    part = body.split("## Basic examples", 1)[1]
+    outputs = []
+    for pattern in (
+        r"\*\*Expected result:\*\*\s*\n\n```(?:text|bash)?\s*\n(.*?)```",
+        r"\*\*Expected result:\*\*\s+```(?:text|bash)?\s*\n(.*?)```",
+    ):
+        for m in re.finditer(pattern, part, re.S):
+            outputs.append(m.group(1).strip())
+    return outputs
+
+
 def quality_content_checks(body):
     errors = []
     if re.search(r"\{slug\}|\{title\}|\{domain\}|\{category\}", body):
@@ -290,11 +343,44 @@ def quality_content_checks(body):
         errors.append("boilerplate Status: OK / Artefakt")
     if re.search(r"You are a specialist for \w+ \(", body):
         errors.append("generic one-line system prompt opener")
+    if "## Basic examples" in body:
+        if not re.search(
+            r"^### Example \d+ \(Example data \(self-written\)\)",
+            body,
+            re.M,
+        ):
+            errors.append(
+                "Basic examples must use heading (Example data (self-written))"
+            )
     sp = extract_system_prompt_block(body)
     if sp is None:
         errors.append("missing fenced system prompt block")
-    elif len([ln for ln in sp.splitlines() if ln.strip()]) < 10:
+    elif len(system_prompt_non_empty_lines(sp)) < 10:
         errors.append("system prompt fewer than 10 non-empty lines")
+    elif len(sp.strip()) < MIN_SYSTEM_PROMPT_CHARS:
+        errors.append(
+            f"system prompt shorter than {MIN_SYSTEM_PROMPT_CHARS} characters"
+        )
+    else:
+        lines = system_prompt_non_empty_lines(sp)
+        sentence_like = sum(1 for ln in lines if line_is_sentence_like(ln))
+        colon_keyword = sum(1 for ln in lines if line_is_colon_keyword_fragment(ln))
+        if sentence_like < MIN_SENTENCE_LIKE_LINES:
+            errors.append(
+                f"system prompt has fewer than {MIN_SENTENCE_LIKE_LINES} "
+                "sentence-like lines (keyword-salad risk)"
+            )
+        min_colon, min_sent = MAX_COLON_KEYWORD_WITHOUT_SENTENCES
+        if colon_keyword >= min_colon and sentence_like < min_sent:
+            errors.append(
+                "system prompt looks like keyword list (many Label: fragments)"
+            )
+    for idx, expected in enumerate(extract_basic_examples_expected_outputs(body), 1):
+        if len(expected) < MIN_EXPECTED_OUTPUT_CHARS:
+            errors.append(
+                f"Example expected output {idx} shorter than "
+                f"{MIN_EXPECTED_OUTPUT_CHARS} characters"
+            )
     wf = body.split("## Workflow", 1)
     if len(wf) > 1:
         wf_part = wf[1].split("##", 1)[0]

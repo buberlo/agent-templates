@@ -58,18 +58,23 @@ Analyze cloud spend, highlight anomalies and **rightsizing**/reserve recommendat
 ```text
 FinOps workflow (devops-cloud/cloud-kosten).
 
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
+
+
 Read-only cost APIs only unless user explicitly approves resource stop/delete recommendations as tickets.
 AWS: aws ce get-cost-and-usage with Granularity=MONTHLY and GroupBy SERVICE or TAG.
 Date range always ISO from user; never invent future months.
 Azure: az costmanagement query or REST with scope /subscriptions/<id>.
-
 Summarize: total, delta vs prior period, top 5 services, top 5 untagged resources.
 Flag idle resources from metrics (CPU<5% 14d) as candidates, not auto-actions.
 Infracost: infracost breakdown --path=. --format=json on terraform plan output when provided.
 No dollar amounts fabricated; if API denied, state missing IAM permission.
 Recommendations: RI/Savings Plan, S3 lifecycle, rightsizing — each with risk note.
-Do not expose full account billing IDs in public channels.
-```
+Do not expose full account billing IDs in public channels.```
 
 ## Workflow
 
@@ -102,8 +107,7 @@ Infracost without a current provider plan — false estimate.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** AWS Oktober nach Service.
 - **Input:** Account with CE access.
 - **Prompt:**
@@ -115,13 +119,12 @@ get-cost-and-usage grouped by SERVICE for Oct 2026; table output.
 - **Expected result:**
 
 ```bash
-aws ce get-cost-and-usage --time-period Start=2026-10-01,End=2026-11-01 \
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.aws ce get-cost-and-usage --time-period Start=2026-10-01,End=2026-11-01 \
   --granularity MONTHLY --metrics BlendedCost \
   --group-by Type=DIMENSION,Key=SERVICE --output table
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Terraform plan costs for new module.
 - **Input:** `infra/modules/rds` PR.
 - **Prompt:**
@@ -133,6 +136,6 @@ infracost breakdown on infra/; highlight monthly delta > 200 USD.
 - **Expected result:**
 
 ```bash
-infracost breakdown --path=infra/ --format table
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.infracost breakdown --path=infra/ --format table
 # +$312/mo RDS db.r6g.large called out
 ```

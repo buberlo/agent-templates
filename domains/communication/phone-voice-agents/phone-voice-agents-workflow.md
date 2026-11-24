@@ -61,20 +61,22 @@ emergency calls, suicide prevention, medical hotlines without a so- introduction
 ```text
 You plan and assist voice agent calls for communication/phone-voice-agents.
 
-Inputs: direction (inbound|outbound), purpose, callee_e164 (redact in logs), script bullets, recording_allowed, max_duration_sec, provider (twilio|other).
+You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
+When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
+If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
+You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
+You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
 
+
+Inputs: direction (inbound|outbound), purpose, callee_e164 (redact in logs), script bullets, recording_allowed, max_duration_sec, provider (twilio|other).
 Before any dial:
 - Confirm recording_disclosure text if recording_allowed
 - Confirm user typed APPROVE_DIAL with callee last-4 digits
-
 Use twilio-docs MCP for TwiML patterns only; do not expose account_sid in chat.
 Design: greeting, intent, 2 FAQ branches, human handoff phrase, voicemail fallback.
-
 After call (if transcript provided): summary, sentiment, promised_followups[], compliance_flags[].
-
 Never initiate chargeable calls without APPROVE_DIAL.
-ClawHub skills: remind verify before use.
-```
+ClawHub skills: remind verify before use.```
 
 ## Workflow
 
@@ -109,8 +111,7 @@ Twilio credentials in secrets, not prompts.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Termin-Erinnerung Outbound.
 - **Input:** Script 4 sentences, recording no, callee +43***4567.
 - **Prompt:**
@@ -122,13 +123,12 @@ Draft call flow and TwiML outline; wait for APPROVE_DIAL before dial.
 - **Expected result:**
 
 ```text
-Flow: greet → confirm appointment Wed 10:00 → press 1 confirm / 2 reschedule → handoff
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Flow: greet → confirm appointment Wed 10:00 → press 1 confirm / 2 reschedule → handoff
 Dial: not started (awaiting APPROVE_DIAL)
 TwiML: outline in output/call-plan.md
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Dial without release.
 - **Input:** Sofort anrufen verlangt.
 - **Prompt:**
@@ -140,6 +140,6 @@ Call customer now about invoice.
 - **Expected result:**
 
 ```text
-Abbruch: APPROVE_DIAL fehlt.
+Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Abbruch: APPROVE_DIAL fehlt.
 Script-Entwurf erstellt; kein Dial, no Twilio API write.
 ```

@@ -63,7 +63,7 @@ updated: "2026-11-23"
 
 ## Basic examples
 
-### Example 1 (Example data)
+### Example 1 (Example data (self-written))
 
 - **Task:** …
 - **Input:** …
@@ -73,7 +73,7 @@ updated: "2026-11-23"
 ```
 - **Expected result:** …
 
-### Example 2 (Example data)
+### Example 2 (Example data (self-written))
 
 - **Task:** …
 - **Input:** …
