@@ -16,6 +16,8 @@
 
 ## Hygiene
 
+- Fixed invalid YAML frontmatter in four templates (strict `yaml.safe_load` / js-yaml compatible quoting).
+- Validator now parses all `domains/` and `adapters/` frontmatter with PyYAML `safe_load` (mapping required); CI installs `pyyaml`.
 - Replaced example-only German domains (`firma.de`, etc.) with `example.com` where found.
 - No API keys, private keys, or live tokens found in tracked content.
 

@@ -5,6 +5,8 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
+import yaml
+
 ROOT = Path(__file__).resolve().parent.parent
 SCHEMA_PATH = ROOT / "template.schema.json"
 DOMAINS_DIR = ROOT / "domains"
@@ -60,102 +62,47 @@ def split_frontmatter(text):
     return fm, body
 
 
-def parse_scalar(value):
-    value = value.strip()
-    if not value:
-        return ""
-    if value in ("true", "True"):
-        return True
-    if value in ("false", "False"):
-        return False
-    if value in ("null", "~"):
-        return None
-    if value.startswith('"') and value.endswith('"'):
-        return value[1:-1].replace('\\"', '"')
-    if value.startswith("'") and value.endswith("'"):
-        return value[1:-1]
-    if re.fullmatch(r"-?\d+", value):
-        return int(value)
-    return value
-
-
-def parse_block(lines, indent=0):
-    result = {}
-    i = 0
-    while i < len(lines):
-        line = lines[i]
-        if not line.strip() or line.strip().startswith("#"):
-            i += 1
-            continue
-        stripped = line.lstrip()
-        cur_indent = len(line) - len(stripped)
-        if cur_indent < indent:
-            break
-        if stripped.startswith("- "):
-            break
-        if ":" not in stripped:
-            i += 1
-            continue
-        key, rest = stripped.split(":", 1)
-        key = key.strip()
-        rest = rest.strip()
-        if rest:
-            result[key] = parse_scalar(rest)
-            i += 1
-            continue
-        items = []
-        obj_lines = []
-        j = i + 1
-        while j < len(lines):
-            nxt = lines[j]
-            if not nxt.strip():
-                j += 1
-                continue
-            nxt_stripped = nxt.lstrip()
-            nxt_indent = len(nxt) - len(nxt_stripped)
-            if nxt_indent <= cur_indent:
-                break
-            if nxt_stripped.startswith("- "):
-                if obj_lines:
-                    break
-                item_text = nxt_stripped[2:].strip()
-                if item_text and ":" in item_text and not item_text.startswith('"'):
-                    block = [nxt_stripped[2:]]
-                    k = j + 1
-                    while k < len(lines):
-                        inner = lines[k]
-                        if not inner.strip():
-                            k += 1
-                            continue
-                        inner_stripped = inner.lstrip()
-                        inner_indent = len(inner) - len(inner_stripped)
-                        if inner_indent <= nxt_indent:
-                            break
-                        if inner_stripped.startswith("- "):
-                            break
-                        block.append(inner_stripped)
-                        k += 1
-                    items.append(parse_block(block, 0))
-                    j = k
-                    continue
-                items.append(parse_scalar(item_text))
-                j += 1
-                continue
-            obj_lines.append(nxt_stripped)
-            j += 1
-        if items:
-            result[key] = items
-        elif obj_lines:
-            result[key] = parse_block(obj_lines, cur_indent + 2)
-        else:
-            result[key] = []
-        i = j
-    return result
-
-
 def parse_yaml_frontmatter(fm_text):
-    lines = fm_text.splitlines()
-    return parse_block(lines, 0)
+    try:
+        data = yaml.safe_load(fm_text)
+    except yaml.YAMLError as exc:
+        raise ValueError(str(exc)) from exc
+    if data is None:
+        raise ValueError("frontmatter is empty")
+    if not isinstance(data, dict):
+        raise ValueError(
+            f"frontmatter must be a YAML mapping, got {type(data).__name__}"
+        )
+    return data
+
+
+def discover_frontmatter_markdown():
+    paths = []
+    for base_name in ("domains", "adapters"):
+        base = ROOT / base_name
+        if not base.is_dir():
+            continue
+        for path in sorted(base.rglob("*.md")):
+            text = path.read_text(encoding="utf-8")
+            fm_text, _ = split_frontmatter(text)
+            if fm_text is not None:
+                paths.append(path)
+    return paths
+
+
+def validate_strict_frontmatter(paths):
+    errors = []
+    for path in paths:
+        rel = path.relative_to(ROOT)
+        text = path.read_text(encoding="utf-8")
+        fm_text, _ = split_frontmatter(text)
+        if fm_text is None:
+            continue
+        try:
+            parse_yaml_frontmatter(fm_text)
+        except ValueError as exc:
+            errors.append(f"{rel}: {exc}")
+    return errors
 
 
 def load_schema():
@@ -552,6 +499,9 @@ def main():
         print("No templates found under domains/", file=sys.stderr)
         return 1
 
+    fm_paths = discover_frontmatter_markdown()
+    all_errors.extend(validate_strict_frontmatter(fm_paths))
+
     backlog_paths = load_quality_backlog()
     all_errors.extend(validate_backlog_file(backlog_paths))
     backlog_set = set(backlog_paths)
@@ -579,8 +529,8 @@ def main():
             continue
         try:
             data = parse_yaml_frontmatter(fm_text)
-        except Exception as exc:
-            all_errors.append(f"{rel}: frontmatter parse error: {exc}")
+        except ValueError as exc:
+            all_errors.append(f"{rel}: {exc}")
             continue
         errs = validate_frontmatter(data, schema)
         errs.extend(language_gate(str(rel), fm_text, data, body, text))

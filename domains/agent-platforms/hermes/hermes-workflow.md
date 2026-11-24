@@ -16,7 +16,7 @@ required_tools:
     version_notes: "265550 GitHub Stars; Quickstart Desktop or CLI"
   - name: Nous-approved MCP-catalog
     install: "https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp"
-    version_notes: "66 optional mcps; deactivated by default"; Hermes MP Install
+    version_notes: "66 optional mcps; deactivated by default; Hermes MCP install"
 inputs:
   - "Task briefing with desired result and risk level"
   - "Optional: Repo-Pfad, Ticket-IDs, URLs"

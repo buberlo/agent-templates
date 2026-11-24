@@ -22,7 +22,7 @@ required_tools:
 inputs:
   - "Start date, role, team, location (remote/hybrid/office)"
   - "Tech stack for account provisioning (only names, no secrets)"
-  - "Templates: existing onboarding checklist or "new"
+  - 'Templates: existing onboarding checklist or "new"'
   - "Buddy/manager names for welcome email draft"
 outputs:
   - "onboarding_checklist.xlsx (Owner, Due, Status-Spalte leer)"
