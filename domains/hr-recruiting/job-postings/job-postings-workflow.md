@@ -22,7 +22,7 @@ required_tools:
 inputs:
   - "Role briefing: Tasks, seniority, team, location/remote"
   - "Must-have/nice-to-have skills and demonstrable benefits (only from the user)"
-  - "Salary band or "open" / indication by agreement"
+  - 'Salary band or "open" / indication by agreement'
   - "Target channels (Indeed, careers page, LinkedIn) – Publish only with approval"
 outputs:
   - "job_description.docx (inclusive, checked for compliance with the General Act on Equal Treatment (AGG))"

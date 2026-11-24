@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install validator dependencies
+        run: pip install pyyaml
       - name: Validate templates and regenerate index
         run: python3 scripts/validate_and_index.py
       - name: Check generated artifacts are committed

@@ -21,8 +21,9 @@ inputs:
   - "Eskalationsstufen-Matrix"
   - "Notification channels (Slack/email draft)"
 outputs:
-  - "Eskalationspaket"
-  - "--"-- "-- "-- "-- "-- "-- " - "----- Riviera "s"
+  - "Escalation package (JSON)"
+  - "Customer-facing update draft"
+  - "Internal Slack escalation draft"
 risk_level: low
 example_count: 2
 version: "1.1.0"
