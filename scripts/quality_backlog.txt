@@ -1,15 +1,3 @@
-domains/agent-platforms/claude-code/claude-code-mcp-focus.md
-domains/agent-platforms/claude-code/claude-code-workflow.md
-domains/agent-platforms/codex/codex-workflow.md
-domains/agent-platforms/cursor/cursor-workflow.md
-domains/agent-platforms/generic-mcp-agents/generic-mcp-agents-mcp-focus.md
-domains/agent-platforms/generic-mcp-agents/generic-mcp-agents-workflow.md
-domains/agent-platforms/hermes/hermes-workflow.md
-domains/agent-platforms/openclaw/openclaw-mcp-focus.md
-domains/agent-platforms/openclaw/openclaw-workflow.md
-domains/ai-ops/agent-orchestration/agent-orchestration-workflow.md
-domains/ai-ops/context-token-management/context-token-management-mcp-focus.md
-domains/ai-ops/context-token-management/context-token-management-workflow.md
 domains/ai-ops/evals-benchmarks/evals-benchmarks-workflow.md
 domains/ai-ops/fine-tuning/fine-tuning-workflow.md
 domains/ai-ops/local-models-ollama/local-models-ollama-workflow.md

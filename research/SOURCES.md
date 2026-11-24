@@ -15,6 +15,10 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://code.claude.com/docs/en/features-overview
 - https://code.claude.com/docs/en/mcp
 - https://code.claude.com/docs/en/skills/
+- https://cursor.com/docs/context/mcp
+- https://cursor.com/docs/context/rules
+- https://developers.openai.com/codex/cli/
+- https://eur-lex.europa.eu/eli/reg/2016/679/oj
 - https://docs.docker.com/
 - https://docs.mobilerun.ai/mcp-server
 - https://docs.openclaw.ai/
@@ -112,6 +116,7 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/productivity/productivity-microsoft-office
 - https://learn.microsoft.com/en-us/azure/aks/aks-model-context-protocol-server
 - https://mcp.notion.com/mcp
+- https://modelcontextprotocol.io
 - https://ollama.com
 - https://playwright.dev/mcp/introduction
 - https://tailscale.com/docs/develop-with-ai
@@ -138,6 +143,10 @@ Important primary sources (short)
 - OpenClaw Repo: https://github.com/openclaw/openclaw (395.081 Stars, API 23.11.2026)
 - ClawHub: https://docs.openclaw.ai/clawhub and https://clawhubtrends.com/leaderboard.html
 - Claude Code MCP/Skills: https://code.claude.com/docs/en/mcp and https://code.claude.com/docs/en/skills/
+- Cursor MCP: https://cursor.com/docs/context/mcp
+- OpenAI Codex CLI: https://developers.openai.com/codex/cli/
+- EUR-Lex GDPR (EU) 2016/679: https://eur-lex.europa.eu/eli/reg/2016/679/oj
+- MCP specification: https://modelcontextprotocol.io
 - Anthropic skills: https://github.com/anthropics/skills (199.219 Stars)
 - Grok Bot Wiki (Plugins/MCP): https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
 - Grok Bot 101: https://x.ai/bot/guides/grok-bot-101

@@ -990,7 +990,7 @@
   "templates": [
     {
       "id": "claude-code-mcp-focus",
-      "title": "Claude Code: MCP/Skill-Fokus",
+      "title": "Claude Code: MCP and skill focus",
       "domain": "agent-platforms",
       "category": "claude-code",
       "tags": [
@@ -1004,9 +1004,9 @@
         "generic-mcp-agents"
       ],
       "risk_level": "low",
-      "example_count": 3,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-24",
       "path": "domains/agent-platforms/claude-code/claude-code-mcp-focus.md"
     },
     {
@@ -1025,9 +1025,9 @@
         "generic-mcp-agents"
       ],
       "risk_level": "low",
-      "example_count": 3,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-24",
       "path": "domains/agent-platforms/claude-code/claude-code-workflow.md"
     },
     {
@@ -1046,8 +1046,8 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
+      "version": "1.1.0",
+      "updated": "2026-11-24",
       "path": "domains/agent-platforms/codex/codex-workflow.md"
     },
     {
@@ -1066,8 +1066,8 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
+      "version": "1.1.0",
+      "updated": "2026-11-24",
       "path": "domains/agent-platforms/cursor/cursor-workflow.md"
     },
     {
@@ -1087,14 +1087,14 @@
         "generic"
       ],
       "risk_level": "low",
-      "example_count": 3,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-24",
       "path": "domains/agent-platforms/generic-mcp-agents/generic-mcp-agents-mcp-focus.md"
     },
     {
       "id": "generic-mcp-agents-workflow",
-      "title": "Generische MCP-Agenten",
+      "title": "Generic MCP agents",
       "domain": "agent-platforms",
       "category": "generic-mcp-agents",
       "tags": [
@@ -1109,9 +1109,9 @@
         "generic"
       ],
       "risk_level": "low",
-      "example_count": 3,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-24",
       "path": "domains/agent-platforms/generic-mcp-agents/generic-mcp-agents-workflow.md"
     },
     {
@@ -1150,13 +1150,13 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
+      "version": "1.1.0",
+      "updated": "2026-11-24",
       "path": "domains/agent-platforms/hermes/hermes-workflow.md"
     },
     {
       "id": "openclaw-mcp-focus",
-      "title": "OpenClaw: MCP/Skill-Fokus",
+      "title": "OpenClaw: MCP and skill focus",
       "domain": "agent-platforms",
       "category": "openclaw",
       "tags": [
@@ -1169,9 +1169,9 @@
         "generic-mcp-agents"
       ],
       "risk_level": "high",
-      "example_count": 3,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-24",
       "path": "domains/agent-platforms/openclaw/openclaw-mcp-focus.md"
     },
     {
@@ -1189,14 +1189,14 @@
         "generic-mcp-agents"
       ],
       "risk_level": "high",
-      "example_count": 3,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
+      "example_count": 2,
+      "version": "1.1.0",
+      "updated": "2026-11-24",
       "path": "domains/agent-platforms/openclaw/openclaw-workflow.md"
     },
     {
       "id": "agent-orchestration-workflow",
-      "title": "Agent-Orchestrierung",
+      "title": "Agent orchestration",
       "domain": "ai-ops",
       "category": "agent-orchestration",
       "tags": [
@@ -1212,13 +1212,13 @@
       ],
       "risk_level": "medium",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-24",
       "path": "domains/ai-ops/agent-orchestration/agent-orchestration-workflow.md"
     },
     {
       "id": "context-token-management-mcp-focus",
-      "title": "Context and Token Management: MCP/Skill Focus",
+      "title": "Context and token management: MCP/skill focus",
       "domain": "ai-ops",
       "category": "context-token-management",
       "tags": [
@@ -1234,8 +1234,8 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-24",
       "path": "domains/ai-ops/context-token-management/context-token-management-mcp-focus.md"
     },
     {
@@ -1256,8 +1256,8 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-24",
       "path": "domains/ai-ops/context-token-management/context-token-management-workflow.md"
     },
     {

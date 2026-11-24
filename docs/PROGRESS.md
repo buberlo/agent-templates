@@ -1,5 +1,12 @@
 # Migration progress
 
+## Completed (2026-11-24) — Batch 4
+
+- **Hand rewrites (12 templates):** Nine `agent-platforms` templates (Claude Code MCP focus and workflow, Codex, Cursor, generic MCP focus and workflow, Hermes, OpenClaw MCP focus and workflow) plus three `ai-ops` templates (agent orchestration, context-token management MCP focus and workflow) with platform-specific system prompts, numbered workflows, security gates, and **Example data (self-written)** blocks citing official docs.
+- **GDPR source fix:** `gdpr-dsar-intake-response-v1.md` now cites EUR-Lex for the official GDPR text; gdpr.eu retained as a labeled secondary explainer.
+- **Quality backlog:** **152 → 140** entries in `scripts/quality_backlog.txt` (12 removed after passing all quality gates with no warnings).
+- **Catalogs:** Regenerated root `catalog.json` and `INDEX.md` via the validator.
+
 ## Completed (2026-11-24) — Batch 3
 
 - **Eight new templates (thin domains):** Support ticket triage and reply drafting (Zendesk MCP, drafts only); Help Center KB gap analysis from resolved tickets; HR interview scheduling coordinator (Google Workspace MCP, human sends invites); new-hire onboarding checklist and provisioning tracker; contract review summary with lawyer boundary; GDPR DSAR intake and response workflow; property listing description with comps research (fair-housing-safe wording); firmware build / flash / serial debug loop (PlatformIO, ESP-IDF, optional platformio.mcp).
