@@ -1,6 +1,6 @@
 # Template index
 
-Auto-generated. **27** domains, **199** categories, **255** templates.
+Auto-generated. **27** domains, **199** categories, **263** templates.
 
 ## Domain: `agent-platforms` (10 templates)
 
@@ -471,7 +471,7 @@ Auto-generated. **27** domains, **199** categories, **255** templates.
 | `platform-deploy-mcp-focus` | Platform Deploy: MCP/Skill focus | hermes, claude-code, cursor… | high | 2 |
 | `platform-deploy-workflow` | Platform Deploy | hermes, claude-code, cursor… | high | 2 |
 
-## Domain: `education` (6 templates)
+## Domain: `education` (7 templates)
 
 ### `education/course-creation` (2)
 
@@ -480,10 +480,11 @@ Auto-generated. **27** domains, **199** categories, **255** templates.
 | `course-creation-mcp-focus` | Kurse erstellen: MCP/Skill focus | hermes, grokbot, generic-mcp-agents… | low | 2 |
 | `course-creation-workflow` | Course creation | hermes, grokbot, generic-mcp-agents… | low | 3 |
 
-### `education/flashcards` (1)
+### `education/flashcards` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
+| `course-material-anki-quiz-generator-v1` | Course material to flashcards and quiz generator | hermes, grokbot, generic-mcp-agents | low | 2 |
 | `flashcards-workflow` | Lernkarten | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `education/languages` (1)
@@ -550,7 +551,7 @@ Auto-generated. **27** domains, **199** categories, **255** templates.
 | `trading-krypto-mcp-focus` | Trading/crypto: tool focus | generic-mcp-agents | high | 2 |
 | `trading-krypto-workflow` | Trading and crypto read-only | hermes, generic | high | 2 |
 
-## Domain: `gaming-modding` (4 templates)
+## Domain: `gaming-modding` (6 templates)
 
 ### `gaming-modding/game-libraries` (1)
 
@@ -558,16 +559,18 @@ Auto-generated. **27** domains, **199** categories, **255** templates.
 |----|-------|--------|------|----------|
 | `game-libraries-workflow` | Game libraries | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-### `gaming-modding/game-modding` (1)
+### `gaming-modding/game-modding` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `game-modding-workflow` | Game Modding | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `mod-packaging-compatibility-check-v1` | Game mod packaging and compatibility check | hermes, grokbot, cursor… | medium | 2 |
 
-### `gaming-modding/game-servers` (1)
+### `gaming-modding/game-servers` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
+| `dedicated-server-admin-rcon-v1` | Dedicated game server admin (RCON and CLI) | hermes, grokbot, cursor… | high | 2 |
 | `game-servers-workflow` | Game Server | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `gaming-modding/streaming-gaming` (1)
@@ -603,13 +606,14 @@ Auto-generated. **27** domains, **199** categories, **255** templates.
 |----|-------|--------|------|----------|
 | `electronics-diagnostics-workflow` | Electronics diagnostics | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-## Domain: `health-fitness` (4 templates)
+## Domain: `health-fitness` (5 templates)
 
-### `health-fitness/fitness-training` (1)
+### `health-fitness/fitness-training` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `fitness-training-workflow` | Fitness and training | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `wearable-training-plan-builder-v1` | Training plan builder from wearable exports | hermes, grokbot, generic-mcp-agents | medium | 2 |
 
 ### `health-fitness/health-data-organization` (1)
 
@@ -929,7 +933,7 @@ Auto-generated. **27** domains, **199** categories, **255** templates.
 |----|-------|--------|------|----------|
 | `shopping-workflow` | shopping | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-## Domain: `project-management` (5 templates)
+## Domain: `project-management` (6 templates)
 
 ### `project-management/agile-kanban` (1)
 
@@ -949,11 +953,12 @@ Auto-generated. **27** domains, **199** categories, **255** templates.
 |----|-------|--------|------|----------|
 | `planning-workflow` | Planning | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-### `project-management/reporting` (1)
+### `project-management/reporting` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `reporting-workflow` | Reporting | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `weekly-status-github-linear-jira-v1` | Weekly status report from GitHub Linear and Jira | hermes, grokbot, cursor… | low | 2 |
 
 ### `project-management/tasks` (1)
 
@@ -1107,7 +1112,7 @@ Auto-generated. **27** domains, **199** categories, **255** templates.
 |----|-------|--------|------|----------|
 | `shopify-workflow` | Shopify Store Ops & catalog | hermes, grokbot, generic-mcp-agents… | medium | 2 |
 
-## Domain: `science-engineering` (5 templates)
+## Domain: `science-engineering` (6 templates)
 
 ### `science-engineering/data-experiments` (1)
 
@@ -1121,10 +1126,11 @@ Auto-generated. **27** domains, **199** categories, **255** templates.
 |----|-------|--------|------|----------|
 | `lab-notes-workflow` | Lab Notes | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-### `science-engineering/paper-writing` (1)
+### `science-engineering/paper-writing` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
+| `literature-search-paper-summary-v1` | Literature search and paper summary pipeline | hermes, grokbot, cursor… | low | 2 |
 | `paper-writing-workflow` | Paper Writing | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `science-engineering/simulation-numerics` (1)
@@ -1280,13 +1286,14 @@ Auto-generated. **27** domains, **199** categories, **255** templates.
 | `testing-mcp-focus` | Testing: MCP/Skill-Fokus | hermes, claude-code, cursor… | low | 3 |
 | `testing-workflow` | Testing | hermes, claude-code, cursor… | low | 3 |
 
-## Domain: `travel-events` (4 templates)
+## Domain: `travel-events` (6 templates)
 
-### `travel-events/event-planning` (1)
+### `travel-events/event-planning` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `event-planning-workflow` | Eventplanung | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `event-run-of-show-comms-drafter-v1` | Event run-of-show and attendee communications drafter | hermes, grokbot, generic-mcp-agents | medium | 2 |
 
 ### `travel-events/flights-hotels` (1)
 
@@ -1300,8 +1307,9 @@ Auto-generated. **27** domains, **199** categories, **255** templates.
 |----|-------|--------|------|----------|
 | `tickets-workflow` | Tickets | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-### `travel-events/trip-planning` (1)
+### `travel-events/trip-planning` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
+| `multi-city-itinerary-planner-v1` | Multi-city trip itinerary planner | hermes, grokbot, generic-mcp-agents | low | 2 |
 | `trip-planning-workflow` | Trip planning | hermes, grokbot, generic-mcp-agents… | low | 2 |

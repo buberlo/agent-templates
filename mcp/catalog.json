@@ -506,6 +506,7 @@
         "devops-cloud/cloud-gcp",
         "devops-cloud/cloud-costs",
         "devops-cloud/logging",
+        "project-management/reporting",
         "software-development/code-review",
         "software-development/coding",
         "software-development/git-github"

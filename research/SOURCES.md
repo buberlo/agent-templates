@@ -2,19 +2,21 @@
 
 As of: 2026-11-24 (Europe/Vienna). Each URL below was cited in at least one category file.
 
-Unique HTTP sources: **122**
+Unique HTTP sources: **133**
 
 Raw research dumps are not versioned (see `.gitignore`).
 
 ## URL list
 
 - https://agentos.guide/hermes-agent-video-analysis
+- https://api.semanticscholar.org/api-docs/
 - https://agentspulse.github.io/tutorials/claude-powerpoint-skill/
 - https://aifrontierpost.com/articles/anthropic-official-agent-skills-tutorial/
 - https://clawhubtrends.com/leaderboard.html
 - https://code.claude.com/docs/en/features-overview
 - https://code.claude.com/docs/en/mcp
 - https://code.claude.com/docs/en/skills/
+- https://docs.ankiweb.net/importing/exporting.html
 - https://docs.docker.com/
 - https://docs.mobilerun.ai/mcp-server
 - https://docs.openclaw.ai/
@@ -73,6 +75,7 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://github.com/anthropics/claude-code
 - https://github.com/anthropics/skills
 - https://developer.zendesk.com/api-reference/ticketing/introduction/
+- https://developers.strava.com/docs/reference/
 - https://developers.google.com/calendar/api/guides/overview
 - https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/index.html
 - https://docs.platformio.org/en/latest/core/installation/index.html
@@ -88,12 +91,19 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://github.com/getsentry/sentry-mcp
 - https://github.com/getzep/graphiti
 - https://github.com/github/github-mcp-server
+- https://github.com/LOOT/LOOT
+- https://github.com/ModOrganizer2/modorganizer
+- https://github.com/Nexus-Mods/Vortex
+- https://github.com/Tiiffi/mcrcon
+- https://github.com/dtcooper/python-fitparse
+- https://github.com/gorcon/rcon-cli
 - https://github.com/hugoles/langfuse-mcp
 - https://github.com/mem0ai/mem0
+- https://github.com/modelcontextprotocol/servers
+- https://github.com/tkrajina/gpxpy
 - https://github.com/microsoft/markitdown
 - https://github.com/microsoft/playwright-mcp
 - https://github.com/mobile-next/mobile-mcp
-- https://github.com/modelcontextprotocol/servers
 - https://github.com/n8n-io/n8n
 - https://github.com/openclaw/clawhub
 - https://github.com/openclaw/openclaw
@@ -105,6 +115,7 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://github.com/tevonsb/homeassistant-mcp
 - https://github.com/upstash/context7
 - https://hermes-agent.nousresearch.com/docs/getting-started/quickstart
+- https://info.arxiv.org/help/api/user-manual.html
 - https://hermes-agent.nousresearch.com/docs/reference/skills-catalog
 - https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp
 - https://hermes-agent.nousresearch.com/docs/user-guide/features/skills
@@ -112,6 +123,7 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/productivity/productivity-microsoft-office
 - https://learn.microsoft.com/en-us/azure/aks/aks-model-context-protocol-server
 - https://mcp.notion.com/mcp
+- https://minecraft.wiki/w/RCON
 - https://ollama.com
 - https://playwright.dev/mcp/introduction
 - https://tailscale.com/docs/develop-with-ai
