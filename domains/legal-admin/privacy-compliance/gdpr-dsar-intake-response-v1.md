@@ -16,9 +16,12 @@ required_tools:
   - name: Anthropic document skills (docx, pptx, xlsx, pdf)
     install: "https://github.com/anthropics/skills"
     version_notes: "Response pack and checklist documents (listing 2026-11-24)."
-  - name: GDPR Art. 12–15 guidance (official)
+  - name: GDPR Regulation (EU) 2016/679 (EUR-Lex)
+    install: "https://eur-lex.europa.eu/eli/reg/2016/679/oj"
+    version_notes: "Official EU GDPR legal text (Arts. 12–15 access and transparency)."
+  - name: GDPR.eu Art. 12 explainer (secondary)
     install: "https://gdpr.eu/article-12-how-controllers-should-provide-information-to-data-subjects/"
-    version_notes: "Public EU GDPR text for deadline and content requirements."
+    version_notes: "Unofficial plain-language summary; cite EUR-Lex for legal wording."
 inputs:
   - "DSAR request channel text (email, web form export)"
   - "Identity verification policy and acceptable ID types"
@@ -52,7 +55,8 @@ Structure intake of a European data-subject access request under GDPR, verify id
 | Tool | Role | Rationale |
 |------|------|-----------|
 | Document skills | Checklists and letters | Controlled templates for privacy team |
-| GDPR.eu public articles | Deadline rules | Authoritative timing references for EU requests |
+| EUR-Lex Reg. 2016/679 | Legal deadlines | Official Art. 12 one-month rule and extensions |
+| GDPR.eu (secondary) | Plain-language | Optional explainer; not an official EU source |
 | Internal data map | Scoping | Human-maintained systems list |
 
 ## System prompt

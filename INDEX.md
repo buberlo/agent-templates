@@ -8,8 +8,8 @@ Auto-generated. **27** domains, **199** categories, **255** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `claude-code-mcp-focus` | Claude Code: MCP/Skill-Fokus | claude-code, cursor, generic-mcp-agents | low | 3 |
-| `claude-code-workflow` | Claude Code | claude-code, cursor, generic-mcp-agents | low | 3 |
+| `claude-code-mcp-focus` | Claude Code: MCP and skill focus | claude-code, cursor, generic-mcp-agents | low | 2 |
+| `claude-code-workflow` | Claude Code | claude-code, cursor, generic-mcp-agents | low | 2 |
 
 ### `agent-platforms/codex` (1)
 
@@ -27,8 +27,8 @@ Auto-generated. **27** domains, **199** categories, **255** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `generic-mcp-agents-mcp-focus` | Generic MCP agents: MCP and skill focus | hermes, grokbot, generic-mcp-agents… | low | 3 |
-| `generic-mcp-agents-workflow` | Generische MCP-Agenten | hermes, grokbot, generic-mcp-agents… | low | 3 |
+| `generic-mcp-agents-mcp-focus` | Generic MCP agents: MCP and skill focus | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `generic-mcp-agents-workflow` | Generic MCP agents | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `agent-platforms/grokbot` (1)
 
@@ -46,8 +46,8 @@ Auto-generated. **27** domains, **199** categories, **255** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `openclaw-mcp-focus` | OpenClaw: MCP/Skill-Fokus | openclaw, generic-mcp-agents | high | 3 |
-| `openclaw-workflow` | OpenClaw | openclaw, generic-mcp-agents | high | 3 |
+| `openclaw-mcp-focus` | OpenClaw: MCP and skill focus | openclaw, generic-mcp-agents | high | 2 |
+| `openclaw-workflow` | OpenClaw | openclaw, generic-mcp-agents | high | 2 |
 
 ## Domain: `ai-ops` (11 templates)
 
@@ -55,13 +55,13 @@ Auto-generated. **27** domains, **199** categories, **255** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `agent-orchestration-workflow` | Agent-Orchestrierung | hermes, grokbot, generic-mcp-agents… | medium | 2 |
+| `agent-orchestration-workflow` | Agent orchestration | hermes, grokbot, generic-mcp-agents… | medium | 2 |
 
 ### `ai-ops/context-token-management` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `context-token-management-mcp-focus` | Context and Token Management: MCP/Skill Focus | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `context-token-management-mcp-focus` | Context and token management: MCP/skill focus | hermes, grokbot, generic-mcp-agents… | low | 2 |
 | `context-token-management-workflow` | Context and token management | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `ai-ops/evals-benchmarks` (1)
