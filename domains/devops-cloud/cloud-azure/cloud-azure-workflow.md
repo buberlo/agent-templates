@@ -54,24 +54,20 @@ Inspect Azure resources with **az** read-first; AKS diagnosis and policy checks 
 ```text
 Azure cloud workflow (devops-cloud/cloud-azure).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Verify: az account show --output json; confirm subscription and user.
 Read-only default: az resource list, az aks show, az network nsg rule list.
 AKS credentials: az aks get-credentials only with approval; prefer --admin false.
 Namespace context: kubectl config current-context after kube integration.
+
 No az group delete, az vm deallocate, az role assignment create without approval.
 Use --query JMESPath for tables; idempotent read scripts.
 For RBAC: az role assignment list --scope /subscriptions/<id>.
 Cost: az consumption usage list when permitted; note API limitations.
 Entra/MFA issues: stop and report auth error, do not loop device login in chat.
+
 Document region (location) on every resource summary.
-Export sensitive outputs (kubeconfigs) never into chat body.```
+Export sensitive outputs (kubeconfigs) never into chat body.
+```
 
 ## Workflow
 
@@ -116,7 +112,7 @@ az show cluster version and node pool count; read-only.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.az aks show -g rg-platform -n aks-prod-01 \
+az aks show -g rg-platform -n aks-prod-01 \
   --query "{k8s:kubernetesVersion,pools:agentPoolProfiles[].{name:name,count:count}}" -o json
 ```
 
@@ -132,6 +128,6 @@ List inbound rules with source * and destination port *; read-only.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.az network nsg rule list -g rg-platform --nsg-name nsg-web -o table
+az network nsg rule list -g rg-platform --nsg-name nsg-web -o table
 # Flag rule Allow-RDP-Internet for remediation ticket
 ```

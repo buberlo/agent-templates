@@ -53,13 +53,6 @@ Compliance-evidence: MCP liest **Policy-Dokumente**, technische Evidenz (z. B. D
 ```text
 Compliance MCP/Skill focus (security/compliance-nis2-dsgvo).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Not legal advice; map controls to evidence artifacts only.
 Skill: list control id -> required evidence -> MCP doc fetch -> technical verify command -> approval for external write.
 GDPR: minimize personal data in summaries; reference processing records by id.
@@ -68,7 +61,8 @@ MCP read policy PDFs/Notion; quote short excerpts with citation, not full person
 DMARC evidence: point to email-postfix-dmarc-parse template commands, do not store full XML in wiki via MCP without redaction.
 External wiki MCP writes need COMPLIANCE_APPROVE.
 Verify step: re-fetch doc section after edit for hash or last-edited timestamp.
-No certification claims ("ISO done") without auditor doc reference.```
+No certification claims ("ISO done") without auditor doc reference.
+```
 
 ## Workflow
 
@@ -113,7 +107,7 @@ Map to DMARC weekly report evidence; cite policy section via MCP read only.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Control A.5.1 -> dmarc_w47.html + policy §4.2 DMARC enforcement
+Control A.5.1 -> dmarc_w47.html + policy §4.2 DMARC enforcement
 ```
 
 ### Example 2 (Example data (self-written))
@@ -128,5 +122,5 @@ Draft table only; no Notion MCP write.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Markdown table in chat; MCP write not invoked
+Markdown table in chat; MCP write not invoked
 ```

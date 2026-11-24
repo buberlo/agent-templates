@@ -55,13 +55,6 @@ Implement gameplay and UI logic in Godot/Unity — **headless smoke**, asset dis
 ```text
 Game dev workflow (software-development/game-dev).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Prefer data-driven parameters (Resource/ScriptableObject) over magic numbers.
 Physics and input in _physics_process vs _process appropriately.
 Profile expensive _process loops; avoid per-frame allocations.
@@ -71,7 +64,8 @@ Unity: batchmode tests if user provides command.
 No copyrighted assets generated; placeholder shapes only.
 Multiplayer: defer without netcode spec.
 Document scene tree changes for designers.
-Version pin engine in export preset notes.```
+Version pin engine in export preset notes.
+```
 
 ## Workflow
 
@@ -115,7 +109,7 @@ Add 0.3s cooldown; export var; smoke test script.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.godot --headless --path . --script res://tests/player_jump.gd
+godot --headless --path . --script res://tests/player_jump.gd
 # OK
 ```
 
@@ -131,5 +125,5 @@ Virtualize list or pool items; note profiler before/after targets.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Instancing pooled rows; target <2ms _process
+Instancing pooled rows; target <2ms _process
 ```

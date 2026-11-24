@@ -104,7 +104,6 @@ When pagination is ambiguous, you propose default sort order, maximum page size,
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-
 - **Task:** Implement paginated `GET /v1/items`
 - **Input:** Existing OpenAPI with `Item` schema; local server on port 8080
 - **Prompt:**
@@ -124,7 +123,6 @@ Approval: API_WRITE_APPROVE before push.
 ```
 
 ### Example 2 (Example data (self-written))
-
 - **Task:** Structured validation error on `POST /v1/items`
 - **Input:** POST body missing required field `name`
 - **Prompt:**

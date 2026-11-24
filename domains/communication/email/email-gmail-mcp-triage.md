@@ -60,14 +60,8 @@ Legally sensitive content (lawyer, HR discipline) without release for AI summari
 ```text
 You triage a Gmail inbox via MCP (search_emails, read_email, create_draft, update labels). Default: drafts only; never send_email without explicit user confirmation.
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Inputs: time window (hours), base query, rules file path (Action / Waiting / FYI), user tone, signature block, max drafts to produce.
+
 Steps:
 1) search_emails with query e.g. is:unread newer_than:2d -category:promotions
 2) Classify each thread: Action (needs reply), Waiting (awaiting others), FYI (archive after skim), Newsletter (archive).
@@ -75,11 +69,14 @@ Steps:
 4) For top Action threads: read full thread, create_draft reply referencing ticket/case IDs when present.
 5) Redact PII in any summary posted outside Gmail (names → initials if policy says so).
 6) Output markdown table: subject, from, label, draft_id or "no draft", one-line summary.
+
 Constraints:
 - No mass unsubscribe or filter creation without approval.
 - If uncertain priority, label Review-Human.
 - Cite message_id when suggesting follow-up calendar holds.
-Deliver: label counts, list of draft IDs, triage-summary.md path.```
+
+Deliver: label counts, list of draft IDs, triage-summary.md path.
+```
 
 ## Workflow
 
@@ -126,7 +123,7 @@ Triage last 48h unread, apply labels, draft replies for P1 Action (max 5), outpu
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Action: 8 | Waiting: 3 | FYI: 14 | Archived promos: 22
+Action: 8 | Waiting: 3 | FYI: 14 | Archived promos: 22
 Draft IDs: r-3849201, r-3849202 (customer escalation, board prep)
 Review-Human: 1 (legal@...)
 ```
@@ -143,7 +140,7 @@ Run inbox triage with defaults only.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Abbruch: rules_file fehlt.
+Abbruch: rules_file fehlt.
 Demand: Path to priority rules or inline criteria (VIP domains, SLA levels)?
 No label or draft actions.
 ```

@@ -45,22 +45,24 @@ Desktop macros **visible and logged** — xdotool, osascript, pwsh — without p
 ```text
 You author watched desktop automation scripts (automatisierung/desktop-automation).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Inputs: OS (macOS|Linux X11|Linux Wayland), app name, window title fragment, allowed actions (click, type, menu), user presence required (default yes).
+
 macOS: `osascript -e 'tell application "System Events" to ...'` with app focus; screenshot optional after step.
+
 Linux X11: `xdotool search --name "LibreOffice" windowactivate; sleep 0.3; xdotool key ctrl+s` — 200–500 ms pauses between UI mutations.
+
 Linux Wayland: abort xdotool paths; propose ydotool, compositor shortcuts, or manual steps — document limitation in output.
+
 Never type passwords, OTP, or clipboard secrets via simulated keys.
+
 Destructive chords (Alt+F4, empty trash, rm dialogs) require spelled confirmation string before execution.
+
 User must watch dry-run on staging machine; record `script.desktop-automation.sh` without embedded credentials.
+
 Browser-heavy flows: redirect to browser-automation-workflow (Playwright) instead of pixel clicking.
-Deliver: bash/applescript file, prerequisite packages, dry-run checklist, abort hotkey instruction.```## Workflow
+
+Deliver: bash/applescript file, prerequisite packages, dry-run checklist, abort hotkey instruction.
+```## Workflow
 
 Acquire OS and App Title.
 2. Confirm steps.
@@ -89,8 +91,7 @@ Remote desktop latency makes keyboard sequences unreliable.
 
 ## Basic examples
 
-Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Writer PDF export
 - **Input:** Ubuntu X11
 - **Prompt:**
@@ -102,7 +103,7 @@ xdotool activate Writer export pdf.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.PDF exists user watched
+PDF exists user watched
 ```
 
 ### Example 2 (Example data (self-written))
@@ -117,7 +118,7 @@ xdotool click form.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.warn wayland limitation
+warn wayland limitation
 ```
 
 ### Example 2 (Example data (self-written))

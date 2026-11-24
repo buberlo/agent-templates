@@ -107,7 +107,6 @@ Rules:
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-
 - **Task:** Draft onboarding for an engineer
 - **Input:** OU `eng`, license `Workspace Enterprise`, groups `eng-all` and `vpn-users`, ticket `HD-1044`
 - **Prompt:**
@@ -128,7 +127,6 @@ Audit hint: Admin Reports filter admin#USER#CREATE for actor and target email.
 ```
 
 ### Example 2 (Example data (self-written))
-
 - **Task:** Manager wants the user deleted today without transfer
 - **Input:** Offboarding ticket missing HR date; user has shared drives
 - **Prompt:**

@@ -63,28 +63,34 @@ updated: "2026-11-23"
 ```text
 You stage leadgen tooling (sales-crm/leadgen-mcp-focus).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Phase A – Research only: Exa MCP on; Brave for spot-check top N; attio/close OFF.
 Deliver: CSV path and row count; cite queries used.
+
 Phase B – CRM (optional): disable Exa if user confirms research complete; enable single CRM MCP (attio OR close, never both).
 Deliver: import mapping YAML and dry-run row preview (5 rows)—no insert until APPROVE CRM IMPORT.
+
 Do not use web-exa recherche template ids in this flow—Exa here is account discovery only.
+
 If Brave and Exa disagree on company existence, downgrade fit_score and keep both URLs.
+
 Rate limits: log HTTP 429; switch to smaller batch, do not add third search MCP.
+
 Hermes include filter: recommend attio off during Phase A to save tokens.
+
 User asks "just CSV": Phase B skipped entirely.
+
 User asks "push to CRM": require CSV checksum match before Phase B.
+
 Document phase transitions with timestamps.
+
 German queries ok for DACH ICP; store query language in log.
+
 Close import: warn about duplicate lead rules in workspace.
+
 Attio lists: fetch list schema before mapping columns.
-Never run Close sequences from this focus template.```
+
+Never run Close sequences from this focus template.
+```
 
 ## Workflow
 
@@ -130,7 +136,7 @@ Phase A only. attio excluded. Deliver leads_dach_saas.csv.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Phase A complete | MCPs: exa, brave | CSV 20 rows | Phase B skipped
+Phase A complete | MCPs: exa, brave | CSV 20 rows | Phase B skipped
 ```
 
 ### Example 2 (Example data (self-written))
@@ -145,5 +151,5 @@ Phase B attio mapping, 5-row preview, no insert.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.mapping.yaml | preview ids match csv | awaiting FREIGAGE
+mapping.yaml | preview ids match csv | awaiting FREIGAGE
 ```

@@ -59,22 +59,19 @@ updated: "2026-11-23"
 ```text
 You configure course authoring tools for education/kurse-erstellen.
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Inputs: outputs_needed (pptx|docx|pdf|xlsx), host (claude_skills|hermes), run_validate bool.
+
 Produce course-authoring-tooling.md:
 - Primary generator per format with install path
 - Validate commands: python skills/pptx/scripts/office/validate.py file.pptx OR hermes skill verify equivalent
 - youtube-content: when to use fetch_transcript vs user-provided PDF
 - Disable unused document MCPs
+
 Require post-write verify: re-read file listing slide count or docx paragraph count.
 Note: pptx hex colors without # per Anthropic skill docs; warn on off-slide coordinates.
-Deliver smoke test: 1-slide pptx title "Tooling OK" and validation result line.```
+
+Deliver smoke test: 1-slide pptx title "Tooling OK" and validation result line.
+```
 
 ## Workflow
 
@@ -121,7 +118,7 @@ Document tooling and run 1-slide smoke test with validate if available.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Primary: hermes microsoft-office → python-pptx
+Primary: hermes microsoft-office → python-pptx
 Smoke: tooling-smoke.pptx (1 slide)
 Validate: SKIPPED (anthropic path not installed) | paragraphs counted via read-back
 ```
@@ -138,7 +135,7 @@ Configure anthropic pptx skill with validate.py command in tooling doc.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Validate cmd: python skills/pptx/scripts/office/validate.py <file.pptx>
+Validate cmd: python skills/pptx/scripts/office/validate.py <file.pptx>
 Smoke: tooling-smoke.pptx → All validations PASSED
 File: course-authoring-tooling.md
 ```

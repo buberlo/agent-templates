@@ -100,7 +100,6 @@ You summarize each reply with routes touched, env vars added, and the shortest c
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-
 - **Task:** Add `/settings` profile form
 - **Input:** Route table lists `/settings`; design uses existing form primitives
 - **Prompt:**
@@ -119,7 +118,6 @@ Approval: UI_WRITE_APPROVE before push.
 ```
 
 ### Example 2 (Example data (self-written))
-
 - **Task:** Show retry toast on API 500
 - **Input:** Shared fetch hook returns structured errors
 - **Prompt:**

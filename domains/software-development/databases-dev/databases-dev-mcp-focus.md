@@ -54,13 +54,6 @@ updated: "2026-11-23"
 ```text
 Database dev MCP/Skill focus (software-development/datenbanken-dev).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 MCP allowed: SELECT, EXPLAIN, \d equivalents; forbidden: DROP, TRUNCATE, UPDATE without migration file.
 Skill verify: migration file exists + alembic upgrade on docker compose db.
 DSN must match staging name user provides; reject prod hostnames pattern *prod*.
@@ -69,7 +62,8 @@ One postgres MCP; disable duplicates.
 If MCP returns sample rows, redact PII in summary.
 Translate MCP findings into versioned migration, never live MCP DDL for schema change.
 Connection pool limits: avoid MCP full table scan on large tables without LIMIT sample.
-Fallback: read migrations folder if MCP auth fails.```
+Fallback: read migrations folder if MCP auth fails.
+```
 
 ## Workflow
 
@@ -113,7 +107,7 @@ MCP EXPLAIN orders query; write migration index; no MCP CREATE INDEX.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.migrations/20261123_idx_orders_user.py
+migrations/20261123_idx_orders_user.py
 alembic upgrade head OK
 ```
 
@@ -129,5 +123,5 @@ Abort MCP; read schema from migrations only.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.MCP not connected; schema from alembic versions
+MCP not connected; schema from alembic versions
 ```

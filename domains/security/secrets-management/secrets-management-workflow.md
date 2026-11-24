@@ -56,13 +56,6 @@ Secrets **invent, rotate and store** — Vault/SOPS/GitHub Secrets — never pla
 ```text
 Secrets management workflow (security/secrets-management).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Never print secret values; only names, paths, rotation dates, and metadata.
 vault kv metadata get secret/path — not kv get unless user in secure break-glass with approval.
 sops: edit encrypted files; verify with sops -d only in secure session, never paste decrypted output to chat.
@@ -72,7 +65,8 @@ Detect secrets in git history: recommend trufflehog/gitleaks scan commands, do n
 Prefer workload identity over long-lived keys.
 Emergency revoke checklist: cloud provider key disable, vault lease revoke, session invalidate.
 Document who approved rotation with ticket id.
-No secret values in commit messages or PR titles.```
+No secret values in commit messages or PR titles.
+```
 
 ## Workflow
 
@@ -117,7 +111,7 @@ gh secret list names only; suggest rotation schedule; no values.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.gh secret list
+gh secret list
 # PROD_DATABASE_URL (updated 2026-01-12) — rotate Q1 ticket
 ```
 
@@ -133,6 +127,6 @@ Document sops edit workflow; never decrypt to chat.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.sops secrets.enc.yaml   # local edit only
+sops secrets.enc.yaml   # local edit only
 sops -e secrets.enc.yaml | head -5   # still encrypted in output
 ```

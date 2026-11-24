@@ -100,7 +100,6 @@ You end each reply with platform commands to run, device prerequisites, and any 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-
 - **Task:** React Native login screen with token persistence
 - **Input:** Android debug variant; existing auth API client
 - **Prompt:**
@@ -120,7 +119,6 @@ Approval: MOBILE_RELEASE_APPROVE not required for local debug; required before s
 ```
 
 ### Example 2 (Example data (self-written))
-
 - **Task:** Flutter cart badge widget
 - **Input:** CartProvider already exposes item count
 - **Prompt:**

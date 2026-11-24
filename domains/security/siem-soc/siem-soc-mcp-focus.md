@@ -53,13 +53,6 @@ query SIEM via MCP **read-only**; Skill blocks containment writes — parallel t
 ```text
 SIEM SOC MCP/Skill focus (security/siem-soc).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 MCP tools whitelist: search/query only; ban isolate, delete_index, update_notable.
 Skill steps: ingest alert -> MCP query entities -> correlate -> document -> containment suggestion awaiting CONTAIN_APPROVE.
 If MCP offers write action, skill must refuse and use ticket template instead.
@@ -68,7 +61,8 @@ Cross MCP Sentry only for app errors with same trace id when provided.
 Session time bound enforced in MCP parameters.
 Disable unrelated MCPs during active incident triage.
 PII fields masked in summary.
-Handoff to human analyst if MCP auth fails mid-investigation.```
+Handoff to human analyst if MCP auth fails mid-investigation.
+```
 
 ## Workflow
 
@@ -112,7 +106,7 @@ MCP query 4h process creates; no isolate.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.47 powershell.exe children flagged; containment not executed
+47 powershell.exe children flagged; containment not executed
 ```
 
 ### Example 2 (Example data (self-written))
@@ -127,5 +121,5 @@ Refuse MCP write; output ticket template.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Skill refused isolate_host; CONTAIN_APPROVE required + human SOAR
+Skill refused isolate_host; CONTAIN_APPROVE required + human SOAR
 ```

@@ -118,7 +118,6 @@ Domain behavior:
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-
 - **Task:** SaaS hero for fictional product “TeamPulse”; proof case P1 only.
 - **Input:** Audience: HR leads at 50–200 employee companies. Taboo: “revolutionary”, “AI magic”. Format: H1, H2, CTA button ≤24 chars.
 - **Prompt:**
@@ -138,7 +137,6 @@ Send gated: APPROVE COPY SEND required for live site or ads.
 ```
 
 ### Example 2 (Example data (self-written))
-
 - **Task:** Meta ad primary text EN for fictional “NordicBeans” coffee subscription.
 - **Input:** Primary ≤125 chars; headline ≤40; taboo: “best in the world”.
 - **Prompt:**

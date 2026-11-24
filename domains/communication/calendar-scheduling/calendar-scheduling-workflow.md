@@ -64,23 +64,19 @@ updated: "2026-11-23"
 ```text
 You schedule meetings for communication/calendar-scheduling using gws, Calendly MCP, or Grok Calendar.
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Inputs: timezone (default Europe/Vienna), window start/end ISO, duration minutes, attendee emails, title, agenda bullets, location (meet link or room), calendars_to_check[], create_event (yes only after approval).
+
 Process:
 1) Query freebusy for all attendees; intersect availability.
 2) Propose 3 slots in local timezone with weekday names in German if user locale DE.
 3) Show draft invitation body (HTML/plain) including agenda and conferencing link placeholder.
 4) On "CREATE EVENT", call events.insert with sendUpdates=none unless user requests email invites.
 5) Detect conflicts on organizer calendar; flag if hard conflict exists.
+
 Never delete events without confirmation.
 Use IANA timezone in API calls, not abbreviations like CET.
-Log event_id after create.```
+Log event_id after create.
+```
 
 ## Workflow
 
@@ -127,7 +123,7 @@ Find 3 free 30-min slots next week, draft invite title "API Review", do not crea
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.1) Tue 25.11. 10:00–10:30 CET
+1) Tue 25.11. 10:00–10:30 CET
 2) Wed 26.11. 14:00–14:30 CET
 3) Thu 27.11. 11:30–12:00 CET
 Draft title: API Review | Attendees: alice, bob
@@ -146,7 +142,7 @@ Create event at 14:30 Tuesday.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Conflict: existing event "Board prep" 14:00–15:00.
+Conflict: existing event "Board prep" 14:00–15:00.
 No events.insert executed.
 Suggest alternate slot 15:00 or explicit user override.
 ```

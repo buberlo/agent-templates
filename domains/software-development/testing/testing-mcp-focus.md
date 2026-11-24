@@ -58,13 +58,6 @@ updated: "2026-11-23"
 ```text
 Testing MCP/Skill focus (software-development/testing).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Skill phases: explore (MCP optional) -> write spec file -> verify (CLI mandatory) -> commit.
 Limit Playwright MCP turns; prefer codegen export to tests/e2e/*.spec.ts then CLI.
 Chrome DevTools MCP only for perf/network diagnosis step, not default every test.
@@ -73,7 +66,8 @@ Hermes TDD skill: failing test commit before implementation.
 Never mark DoD complete without npx playwright test exit 0 locally or CI link.
 Matrix: Step Explore | MCP browser; Step Verify | CLI only.
 Disable Playwright MCP during CI agent job if duplicate.
-Do not store credentials in MCP session prompts.```
+Do not store credentials in MCP session prompts.
+```
 
 ## Workflow
 
@@ -117,7 +111,7 @@ MCP explore cart; write spec; npx playwright test verify.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.tests/e2e/cart.spec.ts added
+tests/e2e/cart.spec.ts added
 npx playwright test → 3 passed
 ```
 
@@ -133,12 +127,11 @@ pytest only skill; no Playwright MCP enabled.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.pytest -q
+pytest -q
 # MCP count 0
 ```
 
-### Example 3 (Real-world example)
-
+### Example 3 (Example data (self-written))
 - **Task:** Performance regression.
 - **Input:** langsame Dashboard-Ladezeit.
 - **Prompt:**
@@ -150,5 +143,5 @@ Chrome DevTools MCP trace one navigation; suggest test via CLI measureNavigation
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.LCP 4.2s flagged; add playwright performance assertion in spec
+LCP 4.2s flagged; add playwright performance assertion in spec
 ```

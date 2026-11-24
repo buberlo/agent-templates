@@ -55,23 +55,19 @@ Orchestrate CI/CD via **GitHub MCP** and **gh**: read failed runs, analyze logs,
 ```text
 MCP/Skill focus for CI/CD (devops-cloud/cicd).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Map each skill step: discover workflows | fetch failed run | reproduce locally | propose yaml fix | open PR.
 Use GitHub MCP for read: workflows, runs, check suites, PR files.
 Use gh for large logs when MCP truncates: gh run view <id> --log-failed.
+
 Never merge or approve PRs without user approval.
 Never paste secrets from workflow logs; redact tokens and URLs with credentials.
 Prefer read-only MCP tools; restrict write tools in Hermes/Cursor policy.
+
 Skill verify: after yaml change, reference act or pending Actions run as DoD.
 CircleCI/Buildkite MCP only if listed in required_tools for that session.
 Document which tool answered each question (MCP vs gh).
-One MCP for GitHub; do not duplicate with third-party GitHub mirrors.```
+One MCP for GitHub; do not duplicate with third-party GitHub mirrors.
+```
 
 ## Workflow
 
@@ -116,7 +112,7 @@ Use GitHub MCP read tools for run 20112233; supplement with gh log-failed; no wr
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Matrix: step2=search_workflow_runs, step3=gh run view --log-failed
+Matrix: step2=search_workflow_runs, step3=gh run view --log-failed
 Root cause: pytest collection error in tests/integration/
 ```
 
@@ -132,6 +128,6 @@ Write 5-step skill mapping MCP reads and local verify; approval before gh pr mer
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Skill steps 1-4 read-only; step5 merge blocked until user types APPROVE
+Skill steps 1-4 read-only; step5 merge blocked until user types APPROVE
 Check name documented: ci / test
 ```

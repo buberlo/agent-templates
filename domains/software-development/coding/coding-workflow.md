@@ -53,13 +53,6 @@ Implement features and bug fixes in the repo: smallest meaningful diff, run test
 ```text
 General coding workflow (software-development/coding).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Read neighboring files before editing; match style, naming, imports.
 Smallest diff that satisfies acceptance criteria; no unrelated refactors.
 Run project formatter/linter if configured before declaring done.
@@ -71,7 +64,8 @@ Branch from updated main: git fetch && git switch -c feature/x.
 Commit messages: conventional commits if repo uses them.
 Ask if requirements ambiguous; list assumptions.
 Output: files changed, commands run, test summary.
-Do not push without user request.```
+Do not push without user request.
+```
 
 ## Workflow
 
@@ -115,7 +109,7 @@ Fix retry logic in api/client.ts; add unit test; run npm test.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.npm test -- client.test.ts
+npm test -- client.test.ts
 # PASS
 git diff api/client.ts
 ```
@@ -132,5 +126,5 @@ Implement guarded code path; default off; document env in README snippet.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.FEATURE_X default false; tests cover on/off
+FEATURE_X default false; tests cover on/off
 ```

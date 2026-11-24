@@ -105,7 +105,6 @@ Keep replies concise and redact recovery keys, encryption passphrases, and perso
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-
 - **Task:** Recover one spreadsheet from last night's backup
 - **Input:** Backup id `2026-11-22-job-447`, path `/data/report.xlsx`, ticket REST-2201
 - **Prompt:**
@@ -125,7 +124,6 @@ Done: checksum match documented; production file not overwritten without explici
 ```
 
 ### Example 2 (Example data (self-written))
-
 - **Task:** Emergency full VM rollback without change board
 - **Input:** Request to overwrite production VM from Friday backup, no CAB ticket
 - **Prompt:**

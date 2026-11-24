@@ -54,23 +54,19 @@ Invent GCP projects with **gcloud**, check GKE read-only and make changes only v
 ```text
 GCP cloud workflow (devops-cloud/cloud-gcp).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Verify project: gcloud config get-value project and gcloud auth list.
 Read-only: gcloud compute instances list, gcloud container clusters list, gcloud iam roles describe.
 GKE access: gcloud container clusters get-credentials with approval only.
+
 No gcloud compute instances delete, gcloud projects delete, iam policy set without approval.
 Use --format=json for parsing; filter with --filter.
 For billing export issues, read bucket permissions only, do not mutate.
 Workload Identity: describe service accounts; never create keys in chat.
+
 Log every command with project and region flags.
 Respect VPC-SC and org constraints; paste Permission denied for escalation.
-Prefer regional flags: --region europe-west3.```
+Prefer regional flags: --region europe-west3.
+```
 
 ## Workflow
 
@@ -115,7 +111,7 @@ Describe cluster version and node count; read-only gcloud only.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.gcloud container clusters describe prod-gke --region europe-west3 \
+gcloud container clusters describe prod-gke --region europe-west3 \
   --format="yaml(currentMasterVersion,currentNodeCount,status)"
 ```
 
@@ -131,6 +127,6 @@ Read IAM policy binding for GSA; suggest fix text only, no iam policy set.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.gcloud iam service-accounts get-iam-policy api-sa@acme-prod.iam.gserviceaccount.com
+gcloud iam service-accounts get-iam-policy api-sa@acme-prod.iam.gserviceaccount.com
 # Missing workloadIdentityUser binding documented in ticket
 ```

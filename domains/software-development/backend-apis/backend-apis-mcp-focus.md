@@ -58,13 +58,6 @@ API development with **GitHub MCP** (Spec in repo) and optional **Postgres MCP**
 ```text
 Backend APIs MCP/Skill focus (software-development/backend-apis).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Skill: read spec (GitHub MCP) -> read schema (Postgres MCP SELECT only) -> implement locally -> verify curl/pytest.
 Postgres MCP: never INSERT/UPDATE/DELETE without explicit approval and migration path.
 GitHub MCP writes (PR) gated; draft diff only until approval.
@@ -74,7 +67,8 @@ If MCP DB unavailable, fall back to described schema in migration files.
 Verify step mandatory with curl exit 0 on happy path.
 Redact connection strings from chat.
 Matrix documents which MCP supplied each fact.
-Disable DB MCP in prod connection strings unless user supplies staging DSN name.```
+Disable DB MCP in prod connection strings unless user supplies staging DSN name.
+```
 
 ## Workflow
 
@@ -118,7 +112,7 @@ GitHub read openapi; postgres describe orders; implement; curl verify.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.curl -sf http://localhost:8080/v1/orders/1 -H "Authorization: Bearer test"
+curl -sf http://localhost:8080/v1/orders/1 -H "Authorization: Bearer test"
 ```
 
 ### Example 2 (Example data (self-written))
@@ -133,5 +127,5 @@ Refuse postgres MCP prod; use migrations sql read only.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.MCP DB step skipped; schema from db/migrations/0003_orders.sql
+MCP DB step skipped; schema from db/migrations/0003_orders.sql
 ```

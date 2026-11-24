@@ -8,7 +8,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 SCHEMA_PATH = ROOT / "template.schema.json"
 DOMAINS_DIR = ROOT / "domains"
+BACKLOG_PATH = ROOT / "scripts" / "quality_backlog.txt"
 SKIP_NAMES = {"_category.md", "_domain.md", "TEMPLATE.md"}
+MIN_DUPLICATE_LINE_CHARS = 40
+MAX_TEMPLATES_WITH_IDENTICAL_LINE = 10
 
 GERMAN_UMLAUT = re.compile(r"[äöüÄÖÜß]")
 LEGACY_GERMAN_HEADINGS = re.compile(
@@ -329,7 +332,70 @@ def extract_basic_examples_expected_outputs(body: str) -> list[str]:
     return outputs
 
 
-def quality_content_checks(body):
+def load_quality_backlog():
+    if not BACKLOG_PATH.is_file():
+        return []
+    paths = []
+    for raw in BACKLOG_PATH.read_text(encoding="utf-8").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#"):
+            continue
+        paths.append(line.replace("\\", "/"))
+    return paths
+
+
+def validate_backlog_file(backlog_paths):
+    errors = []
+    if backlog_paths != sorted(backlog_paths):
+        errors.append(
+            f"{BACKLOG_PATH.relative_to(ROOT)} must be sorted (one path per line)"
+        )
+    seen = set()
+    for rel in backlog_paths:
+        if rel in seen:
+            errors.append(f"duplicate backlog entry: {rel}")
+        seen.add(rel)
+        if not (ROOT / rel).is_file():
+            errors.append(f"backlog points to missing file: {rel}")
+    return errors
+
+
+def quality_gate_violations(body):
+    """New quality gates that may be waived via scripts/quality_backlog.txt."""
+    violations = []
+    sp = extract_system_prompt_block(body)
+    if sp is None:
+        return violations
+    if len(system_prompt_non_empty_lines(sp)) < 10:
+        violations.append("system prompt fewer than 10 non-empty lines")
+    elif len(sp.strip()) < MIN_SYSTEM_PROMPT_CHARS:
+        violations.append(
+            f"system prompt shorter than {MIN_SYSTEM_PROMPT_CHARS} characters"
+        )
+    else:
+        lines = system_prompt_non_empty_lines(sp)
+        sentence_like = sum(1 for ln in lines if line_is_sentence_like(ln))
+        colon_keyword = sum(1 for ln in lines if line_is_colon_keyword_fragment(ln))
+        if sentence_like < MIN_SENTENCE_LIKE_LINES:
+            violations.append(
+                f"system prompt has fewer than {MIN_SENTENCE_LIKE_LINES} "
+                "sentence-like lines (keyword-salad risk)"
+            )
+        min_colon, min_sent = MAX_COLON_KEYWORD_WITHOUT_SENTENCES
+        if colon_keyword >= min_colon and sentence_like < min_sent:
+            violations.append(
+                "system prompt looks like keyword list (many Label: fragments)"
+            )
+    for idx, expected in enumerate(extract_basic_examples_expected_outputs(body), 1):
+        if len(expected) < MIN_EXPECTED_OUTPUT_CHARS:
+            violations.append(
+                f"Example expected output {idx} shorter than "
+                f"{MIN_EXPECTED_OUTPUT_CHARS} characters"
+            )
+    return violations
+
+
+def quality_structural_checks(body):
     errors = []
     if re.search(r"\{slug\}|\{title\}|\{domain\}|\{category\}", body):
         errors.append("unrendered placeholder token in body")
@@ -352,35 +418,8 @@ def quality_content_checks(body):
             errors.append(
                 "Basic examples must use heading (Example data (self-written))"
             )
-    sp = extract_system_prompt_block(body)
-    if sp is None:
+    if extract_system_prompt_block(body) is None:
         errors.append("missing fenced system prompt block")
-    elif len(system_prompt_non_empty_lines(sp)) < 10:
-        errors.append("system prompt fewer than 10 non-empty lines")
-    elif len(sp.strip()) < MIN_SYSTEM_PROMPT_CHARS:
-        errors.append(
-            f"system prompt shorter than {MIN_SYSTEM_PROMPT_CHARS} characters"
-        )
-    else:
-        lines = system_prompt_non_empty_lines(sp)
-        sentence_like = sum(1 for ln in lines if line_is_sentence_like(ln))
-        colon_keyword = sum(1 for ln in lines if line_is_colon_keyword_fragment(ln))
-        if sentence_like < MIN_SENTENCE_LIKE_LINES:
-            errors.append(
-                f"system prompt has fewer than {MIN_SENTENCE_LIKE_LINES} "
-                "sentence-like lines (keyword-salad risk)"
-            )
-        min_colon, min_sent = MAX_COLON_KEYWORD_WITHOUT_SENTENCES
-        if colon_keyword >= min_colon and sentence_like < min_sent:
-            errors.append(
-                "system prompt looks like keyword list (many Label: fragments)"
-            )
-    for idx, expected in enumerate(extract_basic_examples_expected_outputs(body), 1):
-        if len(expected) < MIN_EXPECTED_OUTPUT_CHARS:
-            errors.append(
-                f"Example expected output {idx} shorter than "
-                f"{MIN_EXPECTED_OUTPUT_CHARS} characters"
-            )
     wf = body.split("## Workflow", 1)
     if len(wf) > 1:
         wf_part = wf[1].split("##", 1)[0]
@@ -393,6 +432,36 @@ def quality_content_checks(body):
         bullets = re.findall(r"^\s*[-*]\s+", pit_part, re.M)
         if len(bullets) < 3:
             errors.append("Pitfalls section has fewer than 3 bullet items")
+    return errors
+
+
+def duplicate_system_prompt_line_errors(template_bodies):
+    line_to_templates = {}
+    for relpath, body in template_bodies:
+        sp = extract_system_prompt_block(body)
+        if not sp:
+            continue
+        seen_lines = set()
+        for raw in sp.splitlines():
+            line = raw.strip()
+            if len(line) < MIN_DUPLICATE_LINE_CHARS:
+                continue
+            if line in seen_lines:
+                continue
+            seen_lines.add(line)
+            line_to_templates.setdefault(line, set()).add(relpath)
+    errors = []
+    for line, paths in sorted(
+        line_to_templates.items(),
+        key=lambda item: (-len(item[1]), item[0]),
+    ):
+        if len(paths) <= MAX_TEMPLATES_WITH_IDENTICAL_LINE:
+            continue
+        preview = line if len(line) <= 72 else line[:69] + "..."
+        errors.append(
+            f"identical system-prompt line in {len(paths)} templates "
+            f"(max {MAX_TEMPLATES_WITH_IDENTICAL_LINE}): {preview!r}"
+        )
     return errors
 
 
@@ -483,7 +552,13 @@ def main():
         print("No templates found under domains/", file=sys.stderr)
         return 1
 
+    backlog_paths = load_quality_backlog()
+    all_errors.extend(validate_backlog_file(backlog_paths))
+    backlog_set = set(backlog_paths)
+    all_warnings = []
     validated_templates = []
+    template_bodies_for_dupes = []
+    backlog_passing = []
 
     for path in sorted(DOMAINS_DIR.rglob("*.md")):
         if path.name not in ("_domain.md", "_category.md"):
@@ -496,6 +571,7 @@ def main():
 
     for path in templates:
         rel = path.relative_to(ROOT)
+        relpath = str(rel).replace("\\", "/")
         text = path.read_text(encoding="utf-8")
         fm_text, body = split_frontmatter(text)
         if fm_text is None:
@@ -530,11 +606,30 @@ def main():
             errs.append(f"Basic examples: found {found}, example_count {ec}")
         if isinstance(ec, int) and found < 2:
             errs.append("fewer than 2 Basic examples")
-        errs.extend(quality_content_checks(body))
+        errs.extend(quality_structural_checks(body))
+        gate_errs = quality_gate_violations(body)
+        in_backlog = relpath in backlog_set
+        if in_backlog:
+            if not gate_errs:
+                backlog_passing.append(relpath)
+            else:
+                for ge in gate_errs:
+                    all_warnings.append(f"WARNING {rel}: {ge}")
+        else:
+            errs.extend(gate_errs)
+        template_bodies_for_dupes.append((relpath, body))
         if errs:
             all_errors.extend([f"{rel}: {e}" for e in errs])
         else:
-            validated_templates.append((data, str(rel).replace("\\", "/")))
+            validated_templates.append((data, relpath))
+
+    for relpath in backlog_passing:
+        all_errors.append(
+            f"{relpath}: passes quality gates but is still listed in "
+            f"{BACKLOG_PATH.relative_to(ROOT)} (remove it)"
+        )
+
+    all_errors.extend(duplicate_system_prompt_line_errors(template_bodies_for_dupes))
 
     for domain, category in sorted(expected_cats):
         cat_dir = DOMAINS_DIR / domain / category
@@ -551,6 +646,11 @@ def main():
         for e in all_errors:
             print(f"  - {e}", file=sys.stderr)
         return 1
+
+    if all_warnings:
+        print(f"Quality backlog warnings ({len(all_warnings)}):", file=sys.stderr)
+        for w in all_warnings:
+            print(f"  - {w}", file=sys.stderr)
 
     for data, relpath in validated_templates:
         catalog["templates"].append(

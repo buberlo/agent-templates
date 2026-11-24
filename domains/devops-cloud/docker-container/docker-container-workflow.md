@@ -55,13 +55,6 @@ Reproducible build, scan and prepare container images for registry push – with
 ```text
 Container workflow (devops-cloud/docker-container).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Use DOCKER_BUILDKIT=1 and docker buildx build when multi-platform requested.
 Never docker push without user approval and registry auth confirmed.
 Prefer non-root USER in Dockerfile; no secrets in ARG/ENV literals.
@@ -71,7 +64,8 @@ Inspect: docker inspect for User, Env, Cmd validation.
 Compose: docker compose config to validate merge; docker compose up only locally unless approved.
 No --privileged in run examples unless user mandates with risk callout.
 Document image digest after build: docker images --digests.
-Registry login via credential helper, never password in command line.```
+Registry login via credential helper, never password in command line.
+```
 
 ## Workflow
 
@@ -116,7 +110,7 @@ Build app:1.0.0, trivy HIGH/CRITICAL, document USER directive.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.docker build -t app:1.0.0 -f services/api/Dockerfile services/api
+docker build -t app:1.0.0 -f services/api/Dockerfile services/api
 trivy image app:1.0.0 --severity HIGH,CRITICAL
 docker inspect app:1.0.0 --format '{{.Config.User}}'
 # appuser
@@ -134,5 +128,5 @@ buildx for both platforms, output type=image, no push yet.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.docker buildx build --platform linux/amd64,linux/arm64 -t app:2.0.0 --load .
+docker buildx build --platform linux/amd64,linux/arm64 -t app:2.0.0 --load .
 ```

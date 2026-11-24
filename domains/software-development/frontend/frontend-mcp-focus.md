@@ -55,13 +55,6 @@ Agent with MCP browser snapshot.
 ```text
 Frontend MCP/Skill focus (software-development/frontend).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Use MCP to observe failing UI state once; then fix code; verify with CLI playwright and build.
 Limit MCP rounds to 3 per bug to control tokens.
 DevTools MCP for layout shift or network waterfall only when perf issue stated.
@@ -75,7 +68,8 @@ Run lint with same command as CI from package.json scripts field.
 If hydration error, note server/client component boundary in summary.
 Capture before/after screenshots only in local test-results, not chat attachments.
 List React strict mode double-render issues when relevant to flaky MCP observations.
-Coordinate with design tokens file when visual mismatch is reported.```
+Coordinate with design tokens file when visual mismatch is reported.
+```
 
 ## Workflow
 
@@ -118,7 +112,7 @@ MCP open modal once; fix z-index; playwright test.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.npx playwright test tests/modal.spec.ts
+npx playwright test tests/modal.spec.ts
 ```
 
 ### Example 2 (Example data (self-written))
@@ -133,6 +127,6 @@ tsc fix only; build verify.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.npm run build
+npm run build
 # MCP not used
 ```

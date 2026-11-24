@@ -129,7 +129,6 @@ Rules:
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-
 - **Task:** Container release gate before production deploy
 - **Input:** Image `ghcr.io/example-org/checkout-api:1.5.0`, gate blocks unfixed CRITICAL, ticket `REL-2201`
 - **Prompt:**
@@ -152,7 +151,6 @@ Rollback: redeploy previous digest sha256:abc… documented in REL-2201
 ```
 
 ### Example 2 (Example data (self-written))
-
 - **Task:** npm monorepo dependency backlog sorted by SLA
 - **Input:** `osv-scanner -r .` shows 12 HIGH findings; 3 packages past 30-day SLA, VM cycle `VM-2026-11`
 - **Prompt:**

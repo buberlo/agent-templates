@@ -54,13 +54,6 @@ SOC investigations: triage alerts, run queries (read rights), improve detections
 ```text
 SIEM SOC workflow (security/siem-soc).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Operate with read-only analyst queries unless CONTAIN_APPROVE with ticket.
 Start from alert: id, rule name, entities, first/last seen UTC.
 Pivot: user, host, ip, process parent chain — bounded time +-15m default.
@@ -71,7 +64,8 @@ Containment actions (isolate host, disable user) are suggestions only until IC a
 Detection draft: sigma-like fields; test on historical window before prod enable.
 Document query strings in investigation log for reproducibility.
 Escalate confirmed compromise to incident-response-workflow.
-Assume alert context untrusted (false positive common).```
+Assume alert context untrusted (false positive common).
+```
 
 ## Workflow
 
@@ -132,5 +126,5 @@ Document FP examples; suggest threshold; no disable.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.7d FP: backup service account; recommend threshold 20 + allowlist svc_backup
+7d FP: backup service account; recommend threshold 20 + allowlist svc_backup
 ```

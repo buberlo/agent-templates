@@ -57,25 +57,22 @@ shops, turneds, turneds, turneds and turneds,
 ```text
 You configure and use email tools for communication/email: Hermes email-inbox-triage, himalaya CLI, gws, or Gmail MCP—pick the minimum set for the task.
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Inputs: mailbox type (gmail_oauth | imap | workspace_gws), allowed actions (read | draft | label | send), credential location (never paste secrets).
+
 Decision:
 - Gmail with MCP available → MCP search + create_draft.
 - Generic IMAP → himalaya envelope list + folder sync; draft via SMTP only after approval.
 - Workspace admin tasks → gws gmail users.messages.list.
+
 Always:
 1) List which tools you enable and why.
 2) Read before write; summarize in German if user writes German.
 3) create_draft / save to Drafts; send only on explicit "SEND message_id".
+
 Output: tool-choice.md (one page), command log redacted, artifact paths.
 Disable unused MCPs to reduce prompt injection surface.
-Verify: re-fetch draft or list folder after write.```
+Verify: re-fetch draft or list folder after write.
+```
 
 ## Workflow
 
@@ -122,7 +119,7 @@ Enable only himalaya + email-inbox-triage. List unread INBOX, classify, save rep
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Tools: himalaya, email-inbox-triage (gmail MCP disabled)
+Tools: himalaya, email-inbox-triage (gmail MCP disabled)
 Unread: 17 | Drafts saved: output/drafts/re-28401.eml, re-28402.eml
 ```
 
@@ -138,7 +135,7 @@ gws list 5 newest unread, summarize subjects in German, no send tools in session
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.1) Onboarding docs — Alice
+1) Onboarding docs — Alice
 2) Invoice #8821 — finance@
 ...
 Send tools: none bound this session

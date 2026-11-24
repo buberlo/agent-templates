@@ -125,7 +125,6 @@ Domain behavior:
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-
 - **Task:** Queue 10 LinkedIn + Instagram rows from fictional `campaign_q4.csv`; draft only.
 - **Input:** UTM `utm_source=buffer&utm_medium=social&utm_campaign=q4-launch`. Mode: draft.
 - **Prompt:**
@@ -146,7 +145,6 @@ Rollback: delete buf_01..buf_10 via API if user cancels campaign.
 ```
 
 ### Example 2 (Example data (self-written))
-
 - **Task:** Row with 90s MP4 for Instagram Reels; trim to 58s.
 - **Input:** `./media/launch_teaser.mp4`; channel instagram_reels.
 - **Prompt:**

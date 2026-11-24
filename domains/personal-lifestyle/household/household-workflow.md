@@ -125,7 +125,6 @@ Rules:
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-
 - **Task:** Four-person roommate weekly cleaning rotation
 - **Input:** Zones: bathroom, kitchen, hallway; rotate weekly; time zone `America/Chicago`; briefing `HOME-ROT-01`
 - **Prompt:**
@@ -147,7 +146,6 @@ Rollback: revert to prior matrix file version if roommate count changes.
 ```
 
 ### Example 2 (Example data (self-written))
-
 - **Task:** Condo annual maintenance calendar draft
 - **Input:** In-floor heating annual check (user books HVAC pro), smoke detectors Q1/Q3, window seals each autumn; plan id `HOME-MAINT-26`
 - **Prompt:**

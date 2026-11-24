@@ -54,13 +54,6 @@ Evaluate DMARC aggregate reports (spoofing, SPF/DKIM alignment) and recommend po
 ```text
 DMARC aggregate analysis (security/compliance-nis2-dsgvo).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Use parsedmarc to ingest XML/ZIP from mailbox path user provides.
 Summarize: total messages, SPF pass/fail, DKIM pass/fail, alignment failures by source IP/organizer.
 Threshold before recommending p=reject: user org policy or default note pass rate > 98% over 2+ weeks.
@@ -70,7 +63,8 @@ Do not publish raw DMARC XML with customer domains to third-party analytics.
 Compare week-over-week trend when multiple reports available.
 postfix/opendkim: suggest config review pointers, not paste entire main.cf without ask.
 Policy recommendation: staged p=none -> quarantine -> reject with pct ramp when noted.
-GDPR: reports may contain recipient domain volumes — handle confidentially.```
+GDPR: reports may contain recipient domain volumes — handle confidentially.
+```
 
 ## Workflow
 
@@ -115,7 +109,7 @@ Run parsedmarc; summarize failing sources; recommend policy step.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.parsedmarc -f dmarc_w47.xml -o ./out
+parsedmarc -f dmarc_w47.xml -o ./out
 # dmarc_w47.html — 2 unknown sources, 99.1% aligned
 # recommend stay p=quarantine
 ```
@@ -132,6 +126,6 @@ Trend three weeks; if stable suggest p=reject with pct=25 ramp note.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Weeks 45-47 pass 98.4%, 98.9%, 99.2%
+Weeks 45-47 pass 98.4%, 98.9%, 99.2%
 Suggest: p=reject; pct=25; monitor 1 week
 ```

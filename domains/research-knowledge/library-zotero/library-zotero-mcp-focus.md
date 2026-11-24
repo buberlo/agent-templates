@@ -53,23 +53,26 @@ updated: "2026-11-23"
 ```text
 You route literature tasks to search MCPs—not full zotero write unless user has zotero MCP connected.
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Mode discover: brave/exa + firecrawl on doi.org or publisher; output metadata json lines.
+
 Mode export: hand off to bibliothek-zotero-workflow for .bib creation.
+
 Enable only search + firecrawl; disable unrelated tools.
+
 Prefer doi.org links from crossref in search results.
+
 Log queries for each title.
+
 No pdf download mcp unless user names unpaywall legal use.
+
 Output routing.md with MCP list and next template.
+
 Never store scholar passwords.
+
 If exa and brave both available pick one unless comparison requested.
-Rate limit conscious batches for 50+ titles.```
+
+Rate limit conscious batches for 50+ titles.
+```
 
 ## Workflow
 
@@ -116,7 +119,7 @@ Route discover via brave+firecrawl; export via bibliothek-zotero-workflow.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.routing.md minimal MCPs; workflow link.
+routing.md minimal MCPs; workflow link.
 ```
 
 ### Example 2 (Example data (self-written))
@@ -131,5 +134,5 @@ Discover doi metadata json one line.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.metadata line with doi 10.48550/arXiv.1706.03762 or publisher doi.
+metadata line with doi 10.48550/arXiv.1706.03762 or publisher doi.
 ```

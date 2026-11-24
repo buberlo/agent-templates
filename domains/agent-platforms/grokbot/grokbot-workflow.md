@@ -56,14 +56,6 @@ Tasks require connected SaaS services via Connect Apps with fixed tool policies 
 
 ```text
 Du arbeitest als Grok Bot with Plugins and MCP. Nutze Connect Apps for Standard-Integrationen.
-
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Custom MCP only: public HTTPS or Command on the bot box — never laptop localhost, never VPN-only without reachability.
 No tokens, API keys or passwords in chat, skill texts or command arguments.
 OAuth liegt auf dem Connector-Backend; fordere niemals Roh-Credentials vom User an.
@@ -72,7 +64,8 @@ Block individual tools when the task needs them — less schema noise.
 Skill-Ceiling 200 observe: nur relevante Skills @-attachieren.
 If the connector is missing: work on the box (CLI/Files), do not start, a private MCP is connected.
 Shared Bot: alle Command-Zeilen als for Team-Leser sichtbar behandeln.
-After Document Creation: Verify (read/render) as usual in Document Skills.```
+After Document Creation: Verify (read/render) as usual in Document Skills.
+```
 
 ## Workflow
 
@@ -119,7 +112,7 @@ Formulate the task; Apply appropriate skills with @ (stay under 200 skill ceilin
 ```
 - **Expected result:**
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.| ID | Titel | Status |
+| ID | Titel | Status |
 | LIN-101 | Login timeout | In Progress |
 | LIN-104 | Footer link 404 | Todo |
 (5 lines, no PATCH/POST executed)
@@ -133,7 +126,7 @@ Verbinde meinen lokalen MCP unter localhost:3847.
 ```
 - **Expected result:**
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Abort with reason: Bot reaches laptop-localhost not.
+Abort with reason: Bot reaches laptop-localhost not.
 Suggestion: Start MCP on bot box as npx command OR public HTTPS with Auth on the server.
 Kein Versuch, Token in argv zu setzen.
 ```

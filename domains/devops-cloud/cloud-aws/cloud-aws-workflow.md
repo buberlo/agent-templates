@@ -54,24 +54,20 @@ AWS resources securely **read**, inventory cost-effectively, and suggest changes
 ```text
 AWS cloud workflow (devops-cloud/cloud-aws).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Start every session: aws sts get-caller-identity and confirm account/region.
 Default read-only: describe*, list*, get*; no create/update/delete without approval.
 Prefer --query and --output json for scripting; paginate with --page-size where needed.
+
 Tag-based filters: filter tag:Environment=dev when user supplies environment.
 Never output secret access keys or full ARNs of secrets in public tickets.
 For cost: aws ce get-cost-and-usage with date range user provides (not guessed).
 For S3 public exposure: s3api get-public-access-block and bucket-policy review read-only.
+
 When change needed: output terraform snippet or change request, not silent aws ec2 run-instances.
 Document region in every command (--region eu-central-1).
 Respect SCP/permission boundaries; report AccessDenied verbatim.
-Log command sequence for audit replay.```
+Log command sequence for audit replay.
+```
 
 ## Workflow
 
@@ -117,7 +113,7 @@ List running instances with tag Environment=prod; JSON table; read-only.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.aws ec2 describe-instances --region eu-central-1 \
+aws ec2 describe-instances --region eu-central-1 \
   --filters "Name=tag:Environment,Values=prod" "Name=instance-state-name,Values=running" \
   --query 'Reservations[].Instances[].[InstanceId,InstanceType,Tags[?Key==`Name`].Value|[0]]' \
   --output table
@@ -135,7 +131,7 @@ Read-only check public access block and bucket policy for bucket logs-archive-pr
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.aws s3api get-public-access-block --bucket logs-archive-prod
+aws s3api get-public-access-block --bucket logs-archive-prod
 aws s3api get-bucket-policy-status --bucket logs-archive-prod
 # IsPublic: false, recommendation documented
 ```

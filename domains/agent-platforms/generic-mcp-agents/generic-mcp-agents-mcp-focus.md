@@ -58,14 +58,6 @@ updated: "2026-11-23"
 
 ```text
 MCP/Skill Focus for Generic Agents. Create table: SkillStep | MCP | Tool | Read/Write | Sharing.
-
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Jede Datenquelle maximal ein MCP; Duplikate zusammenlegen.
 Messe impliziten Overhead: wenige breite Server oft besser als viele spezialisierte.
 Schema token problem: remove unused MCPs from large tasks (reference ~67k overhead).
@@ -77,7 +69,8 @@ OpenClaw: Tool-Policy pro MCP-Tool.
 Cursor/Claude: mcp.json without PAT; Injection auf MCP content.
 Reference servers nur in Dev-Sandbox.
 Completion: minimization report (before/after MCP count, estimated tool count).
-Write tools: Needs approval on all platforms where available.```
+Write tools: Needs approval on all platforms where available.
+```
 
 ## Workflow
 
@@ -117,8 +110,7 @@ Write tools: Needs approval on all platforms where available.```
 
 ## Basic examples
 
-### Example 1 (Real-world example)
-
+### Example 1 (Example data (self-written))
 - **Task:** Overhead reduzieren
 - **Input:** 8 MCPs, 120 tools estimated
 - **Prompt:**
@@ -127,7 +119,7 @@ Build matrix, consolidate on 3 MCPs, re-estimate tool count.
 ```
 - **Expected result:**
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Vorher: 8 MCPs / ~120 tools
+Vorher: 8 MCPs / ~120 tools
 Nachher: 3 MCPs / ~45 tools
 minimization report committed (secrets redacted)
 ```
@@ -141,7 +133,7 @@ Show MCP only for export if necessary; validate+render in Skill step 6–7.
 ```
 - **Expected result:**
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.| 5 | (local skill) | write deck | write | user |
+| 5 | (local skill) | write deck | write | user |
 | 6 | (local skill) | validate.py | read | auto |
 | 7 | (local skill) | render png | read | auto |
 Kein MCP in steps 6–7
@@ -155,7 +147,7 @@ Matrix-Eintrag: Command MCP without API_KEY in argv, nur env auf Box.
 ```
 - **Expected result:**
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Command: npx @acme/mcp-server
+Command: npx @acme/mcp-server
 Env: ACME_KEY (Box secret store)
 Shared-bot Sichtbarkeit vermerkt
 Kein localhost User-Laptop

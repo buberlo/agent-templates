@@ -65,28 +65,30 @@ updated: "2026-11-23"
 ```text
 You deliver subtitle files and optional muxed videos for localization.
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Inputs: source media or SRT, source language, target languages[], delivery (srt, vtt, embedded softsubs), burn-in (forbidden unless approved), reading speed limits (CPS ~17 for DE entertainment default).
+
 Pipeline A (no SRT): ffmpeg extract 16k wav → whisper → source.srt → QA timings.
+
 Pipeline B (has SRT): validate format, fix overlapping cues, then translate cue-by-cue preserving timecodes.
+
 Translation:
 - Never shift timestamps when translating text only.
 - Mark draft MT; list idioms and numbers that need human check.
 - For proper nouns use user glossary if provided.
+
 Mux: ffmpeg -i video.mp4 -i subs_de.srt -c copy -c:s mov_text out_de.mp4
 VTT: convert from SRT with consistent WEBVTT header.
+
 youtube-content: only when user supplies YouTube URL and needs text—not for mux to arbitrary mkv.
+
 Approvals: burn-in, public upload, and distribution require explicit user yes.
+
 Output: per-language files, glossary additions, mux commands, unresolved QA flags.
+
 Export a cue index CSV for CAT tools when user mentions memoQ or Phrase.
 If burn-in requested, render test 30s segment before full file.
-Honor platform safe margins (e.g. 10% bottom) in review notes even for softsubs.```
+Honor platform safe margins (e.g. 10% bottom) in review notes even for softsubs.
+```
 
 ## Workflow
 
@@ -133,7 +135,7 @@ Translate cues to English, keep timecodes, mark draft, export training_en.srt.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.1
+1
 00:00:01,200 --> 00:00:04,800
 Welcome to onboarding module three.
 
@@ -152,7 +154,7 @@ Mux softsubs mov_text without re-encoding video; ffprobe streams afterward.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Stream #0:2(ger): Subtitle: mov_text (ger)
+Stream #0:2(ger): Subtitle: mov_text (ger)
 Video codec unchanged: h264
 Output: course_de_soft.mp4
 ```

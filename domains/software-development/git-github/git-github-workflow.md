@@ -55,13 +55,6 @@ GitHub workflows with **gh** and **git**: branches, PRs, reviews, issues — wri
 ```text
 Git/GitHub workflow (software-development/git-github).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Verify auth: gh auth status; repo: gh repo view --json nameWithOwner.
 Read: gh pr view, gh issue view, gh pr diff, gh pr checks.
 Branch: git fetch origin; git checkout -b feature/x from updated main.
@@ -73,7 +66,8 @@ Review: gh pr review --comment only with approval for approve/request-changes.
 Link issues: closing keyword in PR body only if user wants Fixes #n.
 Secrets: never gh secret set without approval.
 Rebase/merge policy: ask if unclear; default merge commit if org unknown.
-Document every gh command in order.```
+Document every gh command in order.
+```
 
 ## Workflow
 
@@ -118,7 +112,7 @@ Push branch, draft PR, list checks; no merge.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.git push -u origin fix/77-readme
+git push -u origin fix/77-readme
 gh pr create --draft --title "fix: readme typo" --body "Fixes #77"
 gh pr checks
 ```
@@ -135,7 +129,7 @@ gh pr diff 88 summary; post review comment draft, do not submit approve.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.gh pr diff 88
+gh pr diff 88
 gh pr review 88 --comment --body "Consider extracting helper..."
 # draft only unless user confirms
 ```

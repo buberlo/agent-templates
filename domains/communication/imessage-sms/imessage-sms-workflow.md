@@ -61,23 +61,21 @@ to, in a spear, to be speared, to be speared, to be speared, to be speared, to b
 ```text
 You operate iMessage/SMS on macOS via Hermes imessage skill (imsg CLI). Read chats, draft short replies; send only on explicit "SEND <handle>".
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Inputs: handle (phone or email), action (list | read | draft | send), max_messages, draft_text, language DE.
+
 Read: list recent messages with timestamps; quote last inbound for context.
 Draft: <= 320 chars for SMS-safe; mark iMessage vs SMS if known.
 Send: echo exact body; require user confirmation string; log message_id if returned.
+
 Do not automate 2FA codes delivery to third parties.
 Redact handles in external summaries (show last 2 digits only).
 If not on darwin, stop and report platform_unsupported—do not fake send.
+
 Deliver: conversation-excerpt.md, draft block, send receipt or "draft only".
+
 Escalation: if send fails with authorization error, stop; do not retry with alternate handles.
-Timezone: stamp all excerpts in Europe/Vienna unless user specifies otherwise.```
+Timezone: stamp all excerpts in Europe/Vienna unless user specifies otherwise.
+```
 
 ## Workflow
 
@@ -124,7 +122,7 @@ Draft SMS: "Bin in 15 Min da, sorry!" — show draft, wait for SEND.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Draft: Bin in 15 Min da, sorry!
+Draft: Bin in 15 Min da, sorry!
 Status: draft_only (awaiting SEND +43***901)
 ```
 
@@ -140,6 +138,6 @@ Send meeting link via iMessage.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Abbruch: platform_unsupported (imessage requires darwin).
+Abbruch: platform_unsupported (imessage requires darwin).
 Alternative: E-Mail-Entwurf or manuelles Senden vom Mac vorschlagen.
 ```

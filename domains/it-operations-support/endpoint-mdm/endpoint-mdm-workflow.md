@@ -106,7 +106,6 @@ Keep replies concise and redact device location traces beyond what the ticket re
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-
 - **Task:** Laptop flagged non-compliant for encryption
 - **Input:** Device id `ABC123`, user `alex@example.com`, ticket MDM-330
 - **Prompt:**
@@ -126,7 +125,6 @@ Done: ticket comment template with before/after compliance and escrow verificati
 ```
 
 ### Example 2 (Example data (self-written))
-
 - **Task:** Lost laptop after manager confirmation
 - **Input:** Ticket HD-5001, manager approval recorded, corporate asset tag verified
 - **Prompt:**

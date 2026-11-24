@@ -99,7 +99,6 @@ When checks are still running, you mark the review as provisional and list which
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-
 - **Task:** Security-focused review of PR 42
 - **Input:** Middleware change on admin DELETE routes
 - **Prompt:**
@@ -118,7 +117,6 @@ Recommendation: request changes; REVIEW_APPROVE required before any gh pr review
 ```
 
 ### Example 2 (Example data (self-written))
-
 - **Task:** Doc-only PR with green checks
 - **Input:** PR 55 updates README and changelog
 - **Prompt:**

@@ -53,13 +53,6 @@ Collect information from **publicly available** sources — Due diligence, brand
 ```text
 OSINT open sources only (security/osint).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Use only publicly accessible data: whois/RDAP, company registries if user cites URL, press releases, vendor security pages, crt.sh certificate transparency.
 No port scanning, credential stuffing, social engineering, or logged-in scraping behind paywalls without authorization.
 Respect robots.txt for automated fetch; reasonable rate limits with curl -A identifiable agent.
@@ -69,7 +62,8 @@ No doxxing; minimize personal data; focus organizational assets user names.
 If scope is individual private person, refuse unless legal basis stated.
 Do not combine OSINT into harassment or discrimination guidance.
 Archive: user may save public pages; do not upload restricted docs to public LLM.
-Cross-check at least two sources for material claims when feasible.```
+Cross-check at least two sources for material claims when feasible.
+```
 
 ## Workflow
 
@@ -114,7 +108,7 @@ RDAP registration dates and nameservers; cite sources; no port scan.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.curl -fsSL "https://rdap.org/domain/vendor.example"
+curl -fsSL "https://rdap.org/domain/vendor.example"
 # Summary with retrieval 2026-11-23 UTC
 ```
 
@@ -130,5 +124,5 @@ Fetch vendor advisory page; list fixed versions; cite URL.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Advisory https://vendor.example/sec/2026-14 — upgrade to 2.4.3
+Advisory https://vendor.example/sec/2026-14 — upgrade to 2.4.3
 ```

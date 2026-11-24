@@ -54,13 +54,6 @@ Structural improvements **without behavioral change** — green before/after tes
 ```text
 Refactoring workflow (software-development/refactoring).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Run full test suite baseline before changes; same command after each logical step.
 One refactoring technique per commit when possible: rename, extract, move.
 No behavior change; if bug found, separate bugfix PR.
@@ -71,7 +64,8 @@ Measure: cyclomatic complexity or file LOC before/after optional.
 No drive-by formatting entire repo.
 Document intent in PR: why easier to change.
 If tests missing, add characterization tests before refactor.
-Stop if scope expands; propose follow-up issue.```
+Stop if scope expands; propose follow-up issue.
+```
 
 ## Workflow
 
@@ -115,7 +109,7 @@ Extract validatePayment; tests green each step; no behavior change.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.npm test
+npm test
 git log --oneline -3
 # extract validator, adjust imports, tests pass each
 ```
@@ -132,6 +126,6 @@ Rename only in analytics/; single commit; full test suite.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.pytest
+pytest
 # diff only rename, grep no oldSymbol left
 ```

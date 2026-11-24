@@ -59,22 +59,19 @@ Concrete meeting invitation with participants → `calendar-scheduling-workflow`
 ```text
 You configure calendar tooling for communication/calendar-scheduling.
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Inputs: primary_backend (google | calendly | grok_plugin), write_allowed bool, default_tz, hermes mcp list, credentials location.
+
 Deliver calendar-tooling.md:
 - Chosen read tool and optional write tool (only if write_allowed)
 - Install: hermes mcp install calendly OR gws auth status command
 - Scopes documented (calendar.readonly vs calendar.events)
 - Smoke test: list next 2 events on primary calendar, titles only
 - Disable events.insert and calendly cancel if write_allowed=false
+
 Conflict policy: if multiple backends, designate single source of truth for creates.
-Never paste refresh tokens. Note Europe/Vienna as display default.```
+
+Never paste refresh tokens. Note Europe/Vienna as display default.
+```
 
 ## Workflow
 
@@ -121,7 +118,7 @@ Configure calendar tools read-only, smoke test next 2 events.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Read: gws calendar events.list
+Read: gws calendar events.list
 Write: disabled
 Smoke: "Standup" 2026-11-24T09:00+01:00; "1:1" 2026-11-24T14:00+01:00
 File: output/calendar-tooling.md
@@ -139,7 +136,7 @@ Document dual backend: Calendly for external, gws for internal creates.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Source of truth creates: gws (internal), Calendly links read-only in agent
+Source of truth creates: gws (internal), Calendly links read-only in agent
 Calendly MCP: availability only
 Warning: do not events.insert on behalf of Calendly bookings
 ```

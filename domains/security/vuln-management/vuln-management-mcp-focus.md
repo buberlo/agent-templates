@@ -52,13 +52,6 @@ Dependabot/GitHub Security MCP **read**, triaging per skill — verification wit
 ```text
 Vuln management MCP/Skill focus (security/vuln-management).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 GitHub MCP read dependabot alerts; never dismiss alert via MCP without DISMISS_APPROVE and justification text.
 Skill verify: run trivy or osv locally on same ref to confirm CVE still applies.
 MCP alert may be stale after upgrade — compare lockfile version.
@@ -72,7 +65,8 @@ Warn when alert applies to archived repo with no owner.
 Track dismissed alerts with expiry review date 90 days default suggestion.
 SBOM attach to ticket when user requests compliance pack.
 Do not auto-merge grouped alerts across unrelated packages without human sort.
-Flag transitive dependency depth when fix requires major bump.```
+Flag transitive dependency depth when fix requires major bump.
+```
 
 ## Workflow
 
@@ -116,7 +110,7 @@ MCP read alert; osv-scanner verify; ticket draft.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.osv-scanner -r .
+osv-scanner -r .
 # GHSA-xxxx confirmed fixed in 4.17.21 proposal
 ```
 
@@ -132,5 +126,5 @@ Show MCP vs lockfile drift; suggest dismiss with proof not auto dismiss.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.lockfile has patched version; dismiss needs DISMISS_APPROVE + reason fixed-in-1.2.3
+lockfile has patched version; dismiss needs DISMISS_APPROVE + reason fixed-in-1.2.3
 ```

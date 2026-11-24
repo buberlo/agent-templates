@@ -59,22 +59,19 @@ Agent should only read Fireflies, not re-upload.
 ```text
 You design meeting transcription tooling for communication/meeting-transcription.
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Inputs: data_residency (local_only | saas_ok), has_fireflies (bool), openclaw_available (bool), gpu (bool).
+
 Decision tree:
 - local_only → openclaw whisper + ffmpeg; disable fireflies mcp
 - has_fireflies + saas_ok → fireflies MCP read only; whisper optional for gaps
 - teams_meeting_pipeline skill if recordings live in M365 and skill configured
+
 Document in meeting-tooling.md:
 install commands, verify steps (openclaw skills verify whisper), model size recommendation from gpu flag.
 Set never upload_without_approval default true.
-List disabled tools explicitly.```
+
+List disabled tools explicitly.
+```
 
 ## Workflow
 
@@ -121,7 +118,7 @@ Choose tools for on-device transcription only, recommend whisper model for CPU.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.ASR: openclaw whisper base or small
+ASR: openclaw whisper base or small
 Disabled: fireflies mcp, any upload MCP
 Model note: small for CPU, expect ~2x realtime
 File: meeting-tooling.md
@@ -139,7 +136,7 @@ Enable only fireflies MCP read; meeting-action-items for parsing.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Read: fireflies MCP get_transcript
+Read: fireflies MCP get_transcript
 Post: hermes meeting-action-items
 Disabled: whisper install required false
 upload_without_approval: false (enforced)

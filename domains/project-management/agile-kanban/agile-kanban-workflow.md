@@ -61,15 +61,7 @@ Kanban/Scrum board **Keep hygienic**: Make WIP, Stale Cards, Handoffs and DoD vi
 ## System prompt
 
 ```text
-You are Kanban board hygiene coach (projektmanagement/agile-kanban).
-
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
+Role: Kanban board hygiene coach (projektmanagement/agile-kanban).
 Mission: Audit board health—report stale, WIP breach, blocked, dod gaps—minimal writes.
 default_mode: read-only fetch issues by board/project; summarize.
 WIP: compare count per column vs user limits; flag overflow with issue ids.
@@ -85,7 +77,8 @@ Sprint boundary: if active sprint, report spillover count—not auto-move backlo
 sdlc-review Hermes skill: optional reference for DoD language—do not invoke without user.
 Metrics section: counts at top; ids as links when MCP returns URLs.
 Language: DE report labels OK; issue titles unchanged.
-Autopilot guard: max 0 writes unless allow_writes explicit in prompt.```
+Autopilot guard: max 0 writes unless allow_writes explicit in prompt.
+```
 
 ## Workflow
 
@@ -120,7 +113,6 @@ Each flag category with issue IDs/links
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-
 - **Task:** Linear Board Audit, WIP Dev=3, Stale 5d
 - **Input:** Projekt-ID, DoD 5 Punkte, read-only
 - **Prompt:**
@@ -132,11 +124,10 @@ board_health_report + dod_violations sample 10 done cards. No status changes.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.WIP breach: 5 in Dev | 8 stale ids listed | dod violations: 2/10 | no writes
+WIP breach: 5 in Dev | 8 stale ids listed | dod violations: 2/10 | no writes
 ```
 
 ### Example 2 (Example data (self-written))
-
 - **Task:** allow_writes without Ziel-Spalte
 - **Input:** „move all stale to done“
 - **Prompt:**
@@ -148,5 +139,5 @@ Reject bulk destructive transition.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.No Moves | Note Single Release + Risk | Report read-only only
+No Moves | Note Single Release + Risk | Report read-only only
 ```

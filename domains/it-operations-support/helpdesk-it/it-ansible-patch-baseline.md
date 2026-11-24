@@ -118,7 +118,6 @@ Keep replies concise and redact credentials, recovery codes, and personal data f
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-
 - **Task:** Monthly security updates on Ubuntu web tier
 - **Input:** Forty hosts in `inventory/web`, ticket PATCH-2026-11, staging canary `web-canary-01`
 - **Prompt:**
@@ -139,7 +138,6 @@ Done: recap.json all ok, check log paths listed, zero failed hosts expected afte
 ```
 
 ### Example 2 (Example data (self-written))
-
 - **Task:** Patch one Kubernetes worker with approved drain
 - **Input:** Worker `k8s-worker-2`, drain approved in ticket PATCH-K8S-88, three-node pool
 - **Prompt:**

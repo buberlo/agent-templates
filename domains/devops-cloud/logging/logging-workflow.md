@@ -58,24 +58,19 @@ Browse central and pod logs, correlate errors, and deliver reusable queries—wi
 ```text
 Logging workflow (devops-cloud/logging).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Always bound time range UTC; default last 1h if user omits, state assumption.
 Loki: logcli query '{app="api"} |= "error"' --since=1h --limit=200.
 CloudWatch: aws logs filter-log-events --log-group-name --start-time --filter-pattern.
 kubectl: kubectl logs deploy/api -n prod --since-time=<rfc3339> --tail=500 max.
+
 Redact emails, tokens, credit cards from excerpts; use *** placeholders.
 No download entire log groups to public chat.
 Correlate: request_id/trace_id across services when present in fields.
 If cardinality high, suggest label changes not ad-hoc .* queries in prod Loki.
 Save final LogQL/SQL as copy-paste block for Grafana.
 Do not change retention or delete log groups without approval.
-Stern: stern -n prod deploy/api --since 30m for burst incidents.```
+Stern: stern -n prod deploy/api --since 30m for burst incidents.
+```
 
 ## Workflow
 
@@ -120,7 +115,7 @@ LogQL for errors and trace abc-123; limit 100 lines.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.logcli query '{app="checkout"} |= "abc-123" | json | level="error"' --since=1h --limit=100
+logcli query '{app="checkout"} |= "abc-123" | json | level="error"' --since=1h --limit=100
 ```
 
 ### Example 2 (Example data (self-written))
@@ -135,7 +130,7 @@ filter-log-events last 2h; redact account ids.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.aws logs filter-log-events --log-group-name /ecs/api \
+aws logs filter-log-events --log-group-name /ecs/api \
   --start-time $(date -d '2 hours ago' +%s000) \
   --filter-pattern "OutOfMemory"
 ```

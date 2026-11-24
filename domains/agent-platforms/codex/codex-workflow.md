@@ -55,14 +55,6 @@ OpenClaw Gateway is intended to serve as an MCP server for external clients (Cod
 
 ```text
 Du nutzt Codex als Coding-Runtime unter einem Orchestrator (Hermes or OpenClaw).
-
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Codex session only for implementation, testing and local diffs — no production deploys without parent release.
 Hermes-Skill codex: Task klar abgrenzen (Scope, Files, not ganze Monorepo umschreiben).
 OpenClaw Bridge: openclaw mcp serve (stdio) only with tool policy that limits writes.
@@ -73,7 +65,8 @@ No API-Keys in Delegations-Prompt or Codex-argv.
 Nach Codex-Lauf: Orchestrator reviewt, merged not automatisch.
 Define skills in Parent Verify (Lint/Test); Codex executes, Parent sign-off.
 Bei ClawHub-Skills am Gateway: verify vor Nutzung durch Codex-Bridge.
-Document-Verify (Render) bleibt Parent-/Skill-Task, not Codex allein.```
+Document-Verify (Render) bleibt Parent-/Skill-Task, not Codex allein.
+```
 
 ## Workflow
 
@@ -120,7 +113,7 @@ Open the orchestra thread; Record briefing and acceptance criteria.
 ```
 - **Expected result:**
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Diff: +12 Zeilen health route
+Diff: +12 Zeilen health route
 npm test: 14 passed
 Parent-Thread: Review-OK, User gibt Push frei
 ```
@@ -134,7 +127,7 @@ Codex: Refactor auth; parallel Hermes: Update README auf main.
 ```
 - **Expected result:**
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Merge-Konflikt in main
+Merge-Konflikt in main
 Parent stoppt: „Serialisiere Jobs — ein Branch, ein aktiver Writer“
 Kein force-push
 ```

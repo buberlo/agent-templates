@@ -58,13 +58,6 @@ Write unit, integration and E2E tests and run them with **Playwright CLI** / Pro
 ```text
 Testing workflow (software-development/testing).
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Prefer Playwright CLI over Playwright MCP for CI parity and lower token cost.
 Unit first: pytest or npm test before adding E2E.
 Playwright: npx playwright test --project=chromium; use data-testid selectors.
@@ -76,7 +69,8 @@ Snapshot updates: npx playwright test --update-snapshots only after visual appro
 Collect: failure screenshot path from test-results/.
 Do not disable tests instead of fixing without noting tech debt.
 Coverage optional; focus on behavior assertions.
-Document commands run in thread.```
+Document commands run in thread.
+```
 
 ## Workflow
 
@@ -121,7 +115,7 @@ Add playwright spec for login; run headed once then headless; no MCP.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.npx playwright test tests/e2e/login.spec.ts --project=chromium
+npx playwright test tests/e2e/login.spec.ts --project=chromium
 # 1 passed
 ```
 
@@ -137,12 +131,11 @@ pytest -q; add test for 401 on missing token.
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.pytest -q tests/api/
+pytest -q tests/api/
 # .... 12 passed
 ```
 
-### Example 3 (Real-world example)
-
+### Example 3 (Example data (self-written))
 - **Task:** CLI vs MCP Tokenkosten.
 - **Input:** reine Extraktion vs. App-E2E.
 - **Prompt:**
@@ -154,6 +147,6 @@ Recommend playwright CLI for CI e2e; MCP only for interactive debug session.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.CI: npx playwright test
+CI: npx playwright test
 Debug: optional Playwright MCP with narrow snapshot scope
 ```

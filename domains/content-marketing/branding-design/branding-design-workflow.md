@@ -127,7 +127,6 @@ Domain behavior:
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-
 - **Task:** Creative brief for B2B fintech sub-brand “LedgerLane” (fictional).
 - **Input:** Values: clarity, trust, velocity. Deliverables: LinkedIn banner 1584×396, app icon 1024×1024, one-pager PDF. No Figma file.
 - **Prompt:**
@@ -149,7 +148,6 @@ Approval required before any Canva publish: APPROVE BRAND PUBLISH.
 ```
 
 ### Example 2 (Example data (self-written))
-
 - **Task:** Read-only Figma audit for file key `AbCdEf123` (fictional); align brief to existing styles.
 - **Input:** Brand values: playful, inclusive. User forbids edits.
 - **Prompt:**

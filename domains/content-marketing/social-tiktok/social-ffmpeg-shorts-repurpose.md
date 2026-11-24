@@ -124,7 +124,6 @@ Domain behavior:
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-
 - **Task:** Three clips from owned file `./media/webinar_ep12.mp4` (fictional).
 - **Input:** Segments 00:05:10–00:05:48, 00:12:00–00:12:55, 00:28:30–00:29:20. RIGHTS CONFIRMED OWNED. No subs.
 - **Prompt:**
@@ -144,7 +143,6 @@ Publish blocked until user sends APPROVE SHORTS PUBLISH; rollback is keep local 
 ```
 
 ### Example 2 (Example data (self-written))
-
 - **Task:** Single clip with German SRT burn-in from `./subs/ep12_de.srt`.
 - **Input:** Segment 00:15:00–00:15:45; marginV 100.
 - **Prompt:**

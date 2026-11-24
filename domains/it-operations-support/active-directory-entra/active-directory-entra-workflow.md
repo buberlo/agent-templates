@@ -109,7 +109,6 @@ Keep replies concise and redact secrets, recovery codes, and private personal da
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-
 - **Task:** Account lockout after failed VPN logins
 - **Input:** UPN `max@example.com`, helpdesk ticket HD-991
 - **Prompt:**
@@ -129,7 +128,6 @@ Rollback: re-lock only via policy if compromise suspected; escalate if sign-ins 
 ```
 
 ### Example 2 (Example data (self-written))
-
 - **Task:** Manager demands immediate removal from all groups
 - **Input:** Angry manager chat, no HR ticket, user has 40 group memberships
 - **Prompt:**

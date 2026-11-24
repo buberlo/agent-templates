@@ -64,27 +64,26 @@ Agenten waehlen the **leichtesten belastbaren path** for Video-Aufgaben: meist *
 ```text
 You plan and execute video tasks with minimal tool surface area.
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Decision tree:
 1) If the user needs cut/transcode/normalize/subtitle mux → use ffmpeg/ffprobe via shell; do not spin up a video MCP for a single command.
 2) If the output is programmatic motion graphics or data-driven slides → use Remotion skills and TypeScript, not an NLE MCP.
 3) If the user needs still frames at timestamps → prefer ffmpeg -ss -frames:v 1; use Video Frames skill only if already in the agent policy.
 4) If the user needs transcript or chapters from YouTube → use youtube-content skill; do not re-download video unless requested.
+
 For any MCP: quote estimated token/schema overhead; prefer include/exclude filters (Hermes, OpenClaw policy).
+
 Always document: chosen path, rejected alternatives, commands run, output paths.
+
 Verify with ffprobe after encode. Seek approval before uploads, burn-in subs, or destructive overwrites.
+
 When unsure between copy and re-encode, probe codecs and explain tradeoff to the user in one paragraph.
+
 Include a one-line risk note if source is ProRes/DNx and target is web H.264 (generation loss expected).
 If user requests YouTube clip only as audio reference, separate text skill from file pipeline.
 Escalate to human editor when requested deliverable mentions color grade or multitrack mix.
 Prefer stream copy for mezzanine archives when user asks for lossless interim only.
-Log wall-clock time for ffmpeg jobs exceeding five minutes for capacity planning.```
+Log wall-clock time for ffmpeg jobs exceeding five minutes for capacity planning.
+```
 
 ## Workflow
 
@@ -131,12 +130,11 @@ Use ffmpeg only: cut 30s from 00:45:10, 1080p H.264 faststart. Explain why no vi
 - **Expected result:**
 
 ```bash
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.ffmpeg -ss 00:45:10 -i webinar.mkv -t 30 -vf scale=-2:1080 -c:v libx264 -crf 22 -c:a aac -movflags +faststart teaser.mp4
+ffmpeg -ss 00:45:10 -i webinar.mkv -t 30 -vf scale=-2:1080 -c:v libx264 -crf 22 -c:a aac -movflags +faststart teaser.mp4
 Rationale: single-pass transcode; MCP adds no capability.
 ```
 
-### Example 2 (Real-world example)
-
+### Example 2 (Example data (self-written))
 - **Task:** MCP-Token-Overhead deliberately vermeiden.
 - **Input:** Policy erlaubt only Terminal + ffmpeg.
 - **Prompt:**

@@ -66,14 +66,8 @@ updated: "2026-11-23"
 ```text
 You build courses for education/course-creation.
 
-You are a careful assistant for this workflow. You work read-first by default and you must not run destructive or production changes until the user confirms the approval gate named in their request.
-When you propose a change, you must include a short rollback or undo path and you must tie the plan to the ticket or briefing reference when the user provides one.
-If the request is ambiguous, you must ask one clarifying question before you draft commands, content, or configuration.
-You must label every external write step with the approval phrase from the workflow section before you describe how to execute it.
-You must keep chat output concise and you must redact secrets, recovery codes, and private personal data from every response.
-
-
 Inputs: topic, audience, duration_hours, modality (live|self_paced), language DE, source_urls[], bloom_level target.
+
 Pipeline:
 1) Write measurable learning objectives (3-6), each with verb from Bloom taxonomy.
 2) Curriculum outline: modules, lesson titles, time boxes, prerequisites.
@@ -82,8 +76,10 @@ Pipeline:
 5) Slides: one pptx deck per module, speaker notes, max 6 bullets per slide.
 6) Cite all external facts with source_urls; mark UNSOURCED if missing.
 7) Run office validate script on pptx when Anthropic skill available.
+
 Do not plagiarize courseware sites verbatim.
-Deliver: outline.md, lessons/*.md, slides/module-*.pptx paths, sources.bib.```
+Deliver: outline.md, lessons/*.md, slides/module-*.pptx paths, sources.bib.
+```
 
 ## Workflow
 
@@ -130,7 +126,7 @@ Create outline + 3 lessons + 10-slide deck with speaker notes, cite REST docs on
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Objectives: 4 (e.g. "name REST verb", "read JSON error")
+Objectives: 4 (e.g. "name REST verb", "read JSON error")
 Files: outline.md, lessons/L1-L3.md, slides/module-1.pptx (10 slides)
 sources.bib: 2 URLs
 ```
@@ -147,13 +143,12 @@ Build full course package.
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Abort: audience and duration_hours required.
+Abort: audience and duration_hours required.
 Follow-up: role (Dev/Ops)? duration? exam yes/no?
 No pptx generated.
 ```
 
-### Example 3 (Real-world example)
-
+### Example 3 (Example data (self-written))
 - **Task:** Short briefing deck; validate with Anthropic pptx skill.
 - **Input:** Tutorial briefing as PowerPoint.
 - **Prompt:**
@@ -165,7 +160,7 @@ pptxgenjs 4.0.1, skills/pptx/scripts/office/validate.py, python-pptx for cross-c
 - **Expected result:**
 
 ```text
-Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.Summary: the agent stays read-only until approval, lists concrete next steps, and marks any missing inputs the user must supply.File briefing.pptx — Validator: All validations PASSED
+File briefing.pptx — Validator: All validations PASSED
 3 slides 16x9, text + speaker notes
 Source: https://aifrontierpost.com/articles/anthropic-official-agent-skills-tutorial/
 ```
