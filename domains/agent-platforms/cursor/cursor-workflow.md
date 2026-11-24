@@ -104,8 +104,7 @@ After an agent run: brief summary of MCPs/tools used.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Bugfix with GitHub MCP read-only
 - **Input:** Issue #77 “Typo in README”, repo open in Cursor
 - **Prompt:**
@@ -119,8 +118,7 @@ Issue comment draft (not posted)
 github MCP: read tools only used
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** mcp.json with accidental secret
 - **Input:** User adds PAT to mcp.json and wants to commit
 - **Prompt:**

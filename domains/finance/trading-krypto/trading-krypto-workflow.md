@@ -122,8 +122,7 @@ Do not simulate liquidations or margin calls as advice.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Kraken export Q4.
 - **Input:** trades.csv.
 - **Prompt:**
@@ -138,8 +137,7 @@ portfolio_report exposure ESTIMATE fifo; read only.
 report with disclaimer; exposure by asset; no orders.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Buy order ablehnen.
 - **Input:** buy 1 btc now.
 - **Prompt:**

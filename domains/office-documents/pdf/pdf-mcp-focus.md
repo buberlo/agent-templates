@@ -135,8 +135,7 @@ Log pypdf version in troubleshoot notes when merge fails on encrypted inputs.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Drei submissions-PDFs in fixed Reihenfolge merge.
 - **Input:** `anlage_a.pdf` (2 S.), `anlage_b.pdf` (5 S.), `antrag.pdf` (3 S.).
 - **Prompt:**
@@ -151,8 +150,7 @@ Merge in order antrag, anlage_a, anlage_b to packet.pdf. Verify 10 pages. List p
 packet.pdf: 10 pages; merge log with input order; pypdf reader confirms page count.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Scan-PDF OCR and Betrag from Seite 1 extract.
 - **Input:** `rechnung_scan.pdf` (image-only).
 - **Prompt:**
@@ -167,8 +165,7 @@ OCR with Hermes pdf skill; extract invoice total and date; flag low-confidence c
 extracted.txt with TOTAL and DATE lines; confidence warnings on any digit under threshold; PNG qa page for user review.
 ```
 
-### Example 3 (Real-world example)
-
+### Example 3 (Example data (self-written))
 - **Task:** from DOCX gerendertes Briefing-PDF with pdf-Skill zurueckread (Verify from Anthropic-Tutorial).
 - **Input:** `briefing.pdf` from beforeigem DOCX-Render.
 - **Prompt:**

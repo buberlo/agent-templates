@@ -97,8 +97,7 @@ Conclude with measurement log template path and ranked next tests.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** 3.3V Rail fallt unter Last
 - **Input:** KiCad PDF, LDO U2, erwartet 3.3 misst 3.0@200mA
 - **Prompt:**
@@ -106,8 +105,7 @@ Conclude with measurement log template path and ranked next tests.
 Messplan 6 Punkte, Ripple with Coupling Hinweis.
 ```
 - **Expected result:** Tabelle Template; Hypothese undervoltage dropout; no Loten empfohlen without Skill.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** I2C Bus sporadisch NACK
 - **Input:** 100kHz, pullups 4k7, zwei slaves
 - **Prompt:**

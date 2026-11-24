@@ -101,8 +101,7 @@ Check kubecontext: `kubectl config current-context`.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Readonly Skill for Pending Pods.
 - **Input:** Cluster staging, ns `app`.
 - **Prompt:**
@@ -119,8 +118,7 @@ CLI: kubectl get events -n app --sort-by=.lastTimestamp
 Cause: Insufficient cpu
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 and**Excalation to APPROVE for rollout undo.
 - **Input:** Deploy `payment` broken.
 - **Prompt:**

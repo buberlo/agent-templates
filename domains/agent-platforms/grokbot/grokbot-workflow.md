@@ -103,8 +103,7 @@ Formulate the task; Apply appropriate skills with @ (stay under 200 skill ceilin
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Linear tickets read via Connect App
 **Input:** Connect app “Linear” connected; Task “Listen to Open Bugs of the Week”
 - **Prompt:**
@@ -119,8 +118,7 @@ Formulate the task; Apply appropriate skills with @ (stay under 200 skill ceilin
 (5 lines, no PATCH/POST executed)
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Falscher Custom MCP (localhost auf Entwicklerrechner)
 - **Input:** User suggests `http://127.0.0.1:3847/mcp` on MacBook
 - **Prompt:**```text

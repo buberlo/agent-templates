@@ -122,8 +122,7 @@ Avoid duplicating pages—search first.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Meeting Note unter Team-Parent.
 - **Input:** Parent URL, Titel, Bullet Notes MD.
 - **Prompt:**
@@ -138,8 +137,7 @@ Search duplicates; create page under parent; return url and changelog.
 notion.so/.../Meeting-2026-11-23; changelog: created; no duplicate found.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Tasks DB offene Items.
 - **Input:** DB id, Status=Open.
 - **Prompt:**

@@ -90,8 +90,7 @@ No fork without an update plan.
 
 ## Basic examples
 
-Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Google Drive
 - **Input:** read files
 - **Prompt:**
@@ -106,8 +105,7 @@ Build mcp for drive.
 buy existing connector | no custom build
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Internal ERP
 - **Input:** read tickets only
 - **Prompt:**
@@ -122,8 +120,7 @@ No public mcp.
 build approved | handoff mcp-server-bau-workflow | owner required
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Second dry run
 - **Input:** Example data only
 - **Prompt:**

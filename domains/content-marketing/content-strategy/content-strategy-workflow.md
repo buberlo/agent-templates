@@ -100,8 +100,7 @@ Titier (esters)
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Q1 3/Woche
 - **Input:** MQL goal
 - **Prompt:**
@@ -116,8 +115,7 @@ Titier (esters)
 36 slots
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Cannibalization
 - **Input:** 2 titles same KW
 - **Prompt:**

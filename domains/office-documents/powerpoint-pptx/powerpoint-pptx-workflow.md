@@ -124,8 +124,7 @@ Use high-contrast text on brand backgrounds.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** 12-Folien Status-Deck.
 - **Input:** Outline 12 Punkte, CI #003366.
 - **Prompt:**
@@ -140,8 +139,7 @@ Build status_nov.pptx from outline; speaker notes; validate; export status_nov.p
 status_nov.pptx 12 slides; validation PASS; pdf for QA attached path.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Chart without Daten ablehnen.
 - **Input:** Outline verlangt Umsatz-Chart without CSV.
 - **Prompt:**

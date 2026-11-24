@@ -94,8 +94,7 @@ Handoff to human analyst if MCP auth fails mid-investigation.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** MCP read hunt.
 - **Input:** host H-1.
 - **Prompt:**
@@ -110,8 +109,7 @@ MCP query 4h process creates; no isolate.
 47 powershell.exe children flagged; containment not executed
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Block isolate tool.
 - **Input:** MCP suggests isolate_host.
 - **Prompt:**

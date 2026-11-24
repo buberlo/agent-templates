@@ -91,8 +91,7 @@ Remote desktop latency makes keyboard sequences unreliable.
 
 ## Basic examples
 
-Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Writer PDF export
 - **Input:** Ubuntu X11
 - **Prompt:**
@@ -107,8 +106,7 @@ xdotool activate Writer export pdf.
 PDF exists user watched
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Wayland
 - **Input:** Fedora
 - **Prompt:**
@@ -123,8 +121,7 @@ xdotool click form.
 warn wayland limitation
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Second dry run
 - **Input:** Example data only
 - **Prompt:**

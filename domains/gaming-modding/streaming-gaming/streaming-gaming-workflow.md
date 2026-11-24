@@ -97,8 +97,7 @@ Test stream checklist private/unlisted before public go-live.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** OBS Szenen for Soulslike
 - **Input:** 1080p60 NVENC, ein Monitor, Discord Voice
 - **Prompt:**
@@ -106,8 +105,7 @@ Test stream checklist private/unlisted before public go-live.
 Szenen + Hotkeys F1–F4 and Audio-Bus Tabelle.
 ```
 - **Expected result:** Markdown 6 scenes; Discord source separately; Test stream 6 points.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Highlight Clips Workflow
 - **Input:** Replay Buffer 120s, YouTube Highlights Upload
 - **Prompt:**

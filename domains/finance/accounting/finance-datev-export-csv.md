@@ -122,8 +122,7 @@ Keep Steuerschlussel empty when user marks "tax advisor fills".
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** November-Buchungen EXTF SKR03.
 - **Input:** `buchungen_nov.xlsx`, `mapping_skr03.yaml`, Encoding ISO-8859-1.
 - **Prompt:**
@@ -138,8 +137,7 @@ Transform to EXTF_nov.csv, validate all mandatory fields, balance check, write v
 EXTF_nov.csv, validation.log (0 errors), transform_summary.md with 124 rows, debit=credit=48120.55.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Ungultiges Konto abbrechen.
 - **Input:** Zeile with Konto `99999` not in Kontenplan.
 - **Prompt:**

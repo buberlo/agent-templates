@@ -111,8 +111,7 @@ Pitfalls
 
 ## Basic examples
 
-Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Typeform → Google Sheet
 - **Input:** Webhook Testpayload `{ "email": "demo@example.com" } `
 - **Prompt:**
@@ -143,8 +142,7 @@ workflow stays inactive | checklist + request FREEGAGE N8N PROD
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Minimal dry run
 - **Input:** Example briefing (labeled example data)
 - **Prompt:**
@@ -153,8 +151,7 @@ Follow the workflow with no external side effects.
 ```
 - **Expected result:** Draft output paths listed; no production changes.
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Review-only pass
 - **Input:** Same briefing as Example 1
 - **Prompt:**

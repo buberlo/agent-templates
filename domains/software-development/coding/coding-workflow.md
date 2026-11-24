@@ -97,8 +97,7 @@ Do not push without user request.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Bugfix Timeout in fetch.
 - **Input:** Issue #12.
 - **Prompt:**
@@ -115,8 +114,7 @@ npm test -- client.test.ts
 git diff api/client.ts
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Feature Flag lesen.
 - **Input:** env FEATURE_X.
 - **Prompt:**

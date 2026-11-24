@@ -100,8 +100,7 @@ Coordinate with design tokens file when visual mismatch is reported.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Modal not clickable.
 - **Input:** localhost:5173.
 - **Prompt:**
@@ -116,8 +115,7 @@ MCP open modal once; fix z-index; playwright test.
 npx playwright test tests/modal.spec.ts
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** No MCP.
 - **Input:** type error only.
 - **Prompt:**

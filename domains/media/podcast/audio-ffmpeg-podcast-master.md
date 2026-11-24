@@ -120,8 +120,7 @@ Archive raw guest file checksum (sha256) in log for dispute resolution.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Interview-Spur on -16 LUFS bringen.
 - **Input:** `guest.wav`, 41:02, 48 kHz mono.
 - **Prompt:**
@@ -140,8 +139,7 @@ Output loudnorm:
 File: episode_guest.mp3 (duration 2462s)
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Intro 12 s + Episode + Outro 8 s concatenieren.
 - **Input:** `intro.wav`, `body_norm.wav`, `outro.wav` (all 48 kHz stereo).
 - **Prompt:**

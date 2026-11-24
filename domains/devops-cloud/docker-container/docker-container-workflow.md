@@ -98,8 +98,7 @@ Registry login via credential helper, never password in command line.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Build and scan API image.
 - **Input:** `services/api/Dockerfile`.
 - **Prompt:**
@@ -117,8 +116,7 @@ docker inspect app:1.0.0 --format '{{.Config.User}}'
 # appuser
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Multi-arch for linux/arm64 and amd64.
 - **Input:** Release `2.0.0`.
 - **Prompt:**

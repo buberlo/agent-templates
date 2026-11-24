@@ -97,8 +97,7 @@ Do not submit to journal on user behalf.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Abstract ML Konferenz
 - **Input:** Ergebnisse Tabelle 1 F1 0.91 dataset Foo
 - **Prompt:**
@@ -107,8 +106,7 @@ Do not submit to journal on user behalf.
 200 words abstract + 5 arxiv related titles.
 ```
 - **Expected result:** abstract.md; related.bib 5 entries with arXiv IDs.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Rebuttal Reviewer 2
 - **Input:** 3 Kommentare Methodik Statistik
 - **Prompt:**

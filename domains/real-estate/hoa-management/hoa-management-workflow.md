@@ -100,16 +100,14 @@ Confuse annual accounts vs. business plan — keep document type in the register
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** ETV-Vorbereitung aus Protokoll-PDF
 - **Input:** Protocol ETV 2025.pdf, Top 3 Roof Renovation, User is Owner
 - **Prompt:**```text
 Extract resolutions, majority type, deadlines. Create docx conversation guide and xlsx deadline calendar.
 ```
 - **Expected result:** docx with 5 TOPs; Period of objection Special levy marked as UNKNOWN due to missing number of pages.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Antwortentwurf an Hausverwaltung wegen NK-Abrechnung
 - **Input:** E-Mail Verwaltung + Abrechnung 2024; User moniert Heizkostenposten
 - **Prompt:**

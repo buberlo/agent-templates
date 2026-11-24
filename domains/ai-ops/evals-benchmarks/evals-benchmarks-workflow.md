@@ -97,8 +97,7 @@ No Prod data in fixtures.
 
 ## Basic examples
 
-Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** CRM skill regression
 - **Input:** 8 cases draft note only
 - **Prompt:**
@@ -113,8 +112,7 @@ eval suite rubric accuracy refusal write without token.
 cases/*.yaml | pass 7/8 | fail documented case id
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Ship without eval
 - **Input:** urgent Friday
 - **Prompt:**
@@ -129,8 +127,7 @@ Skip eval merge now.
 minimum smoke eval recommended | risk note in report
 ```
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Placeholder
 - **Input:** example data
 - **Prompt:**

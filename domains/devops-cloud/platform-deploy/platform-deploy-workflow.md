@@ -102,8 +102,7 @@ Secrets via platform env, never CLI args.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Preview dann Prod Vercel.
 - **Input:** SHA `abc1234`, Ticket INC-99.
 - **Prompt:**
@@ -122,8 +121,7 @@ vercel deploy --prod
 vercel rollback  # documented
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Prod via GitHub Actions.
 - **Input:** workflow `deploy.yml`.
 - **Prompt:**

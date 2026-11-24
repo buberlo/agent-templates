@@ -99,8 +99,7 @@ CLI playwright green
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Matrix Checkout-Flow.
 - **Input:** staging shop.
 - **Prompt:**
@@ -116,8 +115,7 @@ tests/e2e/cart.spec.ts added
 npx playwright test → 3 passed
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** MCP vermeiden bei API-only.
 - **Input:** REST service.
 - **Prompt:**
@@ -133,8 +131,7 @@ pytest -q
 # MCP count 0
 ```
 
-### Example 3 (Real-world example)
-
+### Example 3 (Example data (self-written))
 - **Task:** Performance regression.
 - **Input:** langsame Dashboard-Ladezeit.
 - **Prompt:**

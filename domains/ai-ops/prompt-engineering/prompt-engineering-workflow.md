@@ -98,8 +98,7 @@ Prompt without Eval → silent regression.
 
 ## Basic examples
 
-Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** CRM skill v1.1
 **Input:** writes without tokens
 - **Prompt:**
@@ -114,8 +113,7 @@ Add USER_APPROVAL CRM WRITE and refusal cases eval 5 cases.
 prompt v1.1 | eval pass refusal 5/5
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** 200 Zeilen Regeln
 - **Input:** bloat prompt
 - **Prompt:**
@@ -130,8 +128,7 @@ Add more caps lock rules.
 consolidate suggest move detail to skill file
 ```
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Placeholder
 - **Input:** example data
 - **Prompt:**

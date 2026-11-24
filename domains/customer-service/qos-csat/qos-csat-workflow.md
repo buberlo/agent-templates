@@ -106,8 +106,7 @@ Retorsened plliquids in the resale.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Woche 47 Review.
 - **Input:** 2026-11-17–23, CSAT + 20 low ratings sample.
 - **Prompt:**
@@ -125,8 +124,7 @@ Backlog: P1 reduce FRT staffing Fri peak; P2 KB article billing delay…
 File: qos-report.md
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Fehlender Zeitraum.
 - **Input:** Kein start/end.
 - **Prompt:**

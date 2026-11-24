@@ -104,8 +104,7 @@ Open the orchestra thread; Record briefing and acceptance criteria.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Hermes delegiert kleines Feature
 - **Input:** “Add Endpoint GET /health in Express”, Repo locally cloned
 - **Prompt:**
@@ -119,8 +118,7 @@ npm test: 14 passed
 Parent-Thread: Review-OK, User gibt Push frei
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Parallele Schreiber — Fehlmodus
 - **Input:** Same branch main, Hermes agent and Codex without lock
 - **Prompt:**

@@ -113,8 +113,7 @@ Deliver: session.md with dialogue summary, practice_problem, solution hidden in 
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Quadratische Gleichung Klasse 9, sokratisch.
 - **Input:** `x²-5x+6=0`, Versuch leer.
 - **Prompt:**
@@ -131,8 +130,7 @@ practice: x²-7x+12=0
 instructor_block: roots 2,3 (not shown to learner until requested)
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Live-Klausur.
 - **Input:** "This is my math exam, solve problem 3."
 - **Prompt:**

@@ -108,8 +108,7 @@ Document stripe account id last4 only in plan.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Finance read agent.
 - **Input:** monthly reporting.
 - **Prompt:**
@@ -124,8 +123,7 @@ mcp_plan.md read-only stripe toolkit.
 plan denies write tools; links payments-stripe-workflow.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Write request.
 - **Input:** enable refunds.
 - **Prompt:**

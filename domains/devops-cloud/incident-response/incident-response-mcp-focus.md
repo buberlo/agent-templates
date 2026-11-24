@@ -101,8 +101,7 @@ Sentry/K8 data may contain PII — edit.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** MCP-Minimierung bei Sev1.
 - **Input:** 12 MCPs aktiv, Incident API down.
 - **Prompt:**
@@ -118,8 +117,7 @@ Active: sentry-mcp, github-mcp, kubernetes-mcp (readonly)
 Steps 1-3 read-only; step 4 blocked until APPROVE
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Deploy-Korrelation zu Sentry Release.
 - **Input:** Release `api@2.4.0`, spike 15:10 UTC.
 - **Prompt:**

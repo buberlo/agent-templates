@@ -122,8 +122,7 @@ Avoid duplicating vendor docs—link out with summary.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Ops Runbook Root.
 - **Input:** 5 Services.
 - **Prompt:**
@@ -138,8 +137,7 @@ MOC + one runbook template per service stub; markdownlint.
 docs/README.md links 5 runbooks; stubs with verify sections.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Add ADR.
 - **Input:** Entscheidung Postgres vs MySQL.
 - **Prompt:**

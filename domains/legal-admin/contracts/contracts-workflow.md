@@ -96,8 +96,7 @@ Disclaimer on every output: informational, not legal opinion.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** NDA-Vergleich zwei Startups
 - **Input:** nda_v4.pdf vs nda_v5.docx; Focus on liability and term
 - **Prompt:**
@@ -105,8 +104,7 @@ Disclaimer on every output: informational, not legal opinion.
 Clause alignment table. Highlight material changes in liability and jurisdiction.
 ```
 - **Expected result:** xlsx 14 rows; v5 shorter term highlighted; UNKNOWN if signature page v4 is missing.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Rahmenvertrag Gliederungsreport
 - **Input:** 38-seitiger Dienstleistungsvertrag IT-Support
 - **Prompt:**

@@ -129,8 +129,7 @@ Do not claim legal compliance of content—layout only.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Internes Handbuch from drei Kapitel-MDs as PDF bauen.
 - **Input:** `chapters/{01-intro,02-api,03-ops}.md`, `meta.yaml` (title: „Platform Runbook“, version: 1.2).
 - **Prompt:**
@@ -148,8 +147,7 @@ pdfinfo handbuch_v1.pdf | grep Pages
 # → Pages: 42
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Review-DOCX parallel zum PDF for Marketing-Feedback.
 - **Input:** `policy.md`, gleiches `meta.yaml`.
 - **Prompt:**

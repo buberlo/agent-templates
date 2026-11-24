@@ -98,8 +98,7 @@ Flag transitive dependency depth when fix requires major bump.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Alert GHSA confirm.
 - **Input:** lodash alert.
 - **Prompt:**
@@ -115,8 +114,7 @@ osv-scanner -r .
 # GHSA-xxxx confirmed fixed in 4.17.21 proposal
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Stale alert.
 - **Input:** already patched package.
 - **Prompt:**

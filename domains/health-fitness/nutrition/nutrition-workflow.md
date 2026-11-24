@@ -97,8 +97,7 @@ Log disclaimers on every export file header.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Vegetarischer Wochenplan office
 - **Input:** 2000 kcal Ziel, no Erdnusse, 30 Min Kochzeit/Abend
 - **Prompt:**
@@ -106,8 +105,7 @@ Log disclaimers on every export file header.
 5 Abendessen with Prep, Einkaufsliste DE Supermarkt Gange.
 ```
 - **Expected result:** Markdown Plan + list 28 Zutaten; kcal as estimate markiert.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Makro-Abgleich with Strava
 - **Input:** OAuth aktiv, letzte Woche 2200 kcal Ø Verbrauch laut User
 - **Prompt:**

@@ -101,8 +101,7 @@ No cardinality explosion from high-cardinality labels in user suggestions.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Check 5xx rate alert.
 - **Input:** `alerts/api.yaml` rule `HighErrorRate`.
 - **Prompt:**
@@ -120,8 +119,7 @@ curl -G 'http://localhost:9090/api/v1/query' \
   --data-urlencode 'query=sum(rate(http_requests_total{status=~"5.."}[5m]))'
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** ServiceMonitor for new deployment.
 - **Input:** NS `prod`, port metrics 8080.
 - **Prompt:**

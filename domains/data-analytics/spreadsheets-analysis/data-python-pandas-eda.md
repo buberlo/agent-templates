@@ -109,8 +109,7 @@ Parquet preferred over xlsx performance.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** events.csv 2M Zeilen Sample
 - **Input:** hypothesis churn related to region
 - **Prompt:**
@@ -125,8 +124,7 @@ Sample 50k profile, quality list, region vs churn plot.
 eda.ipynb | profile.html | sample documented in md
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Missing audit
 - **Input:** id col user_id
 - **Prompt:**

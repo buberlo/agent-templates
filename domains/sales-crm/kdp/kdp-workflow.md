@@ -107,8 +107,7 @@ Never upload files to KDP or change list price.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Nonfiction Productivity EN, 7 Keywords
 - **Input:** Working title, Ziel amazon.de
 - **Prompt:**
@@ -123,8 +122,7 @@ Never upload files to KDP or change list price.
 comps.csv 5 rows | keywords in byte-safe phrases | no upload
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Series Buch 2 Metadaten
 - **Input:** Series name, Book 1 ASIN
 - **Prompt:**

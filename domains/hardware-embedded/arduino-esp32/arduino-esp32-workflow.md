@@ -96,8 +96,7 @@ End with build/flash command summary and open hardware questions.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** BME280 I2C ESP32
 - **Input:** ESP32 DevKit, SDA 21, SCL 22, Adafruit lib
 - **Prompt:**
@@ -105,8 +104,7 @@ End with build/flash command summary and open hardware questions.
 Sketch with init check, Celsius log alle 5s not-blockierend.
 ```
 - **Expected result:** main.cpp + pinout.md; arduino-cli compile Befehl; no Upload without OK.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Upload Fehler troubleshooting
 - **Input:** esptool fatal error Invalid head of packet
 - **Prompt:**

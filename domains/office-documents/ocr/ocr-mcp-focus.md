@@ -121,8 +121,7 @@ Note GPU optional for some engines—not assumed.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Interne Scans, no Cloud.
 - **Input:** 50 HR-Scans, confidential.
 - **Prompt:**
@@ -137,8 +136,7 @@ Route OCR: local only; minimal MCP set; point to ocr-workflow steps.
 Route: Hermes pdf OCR + tesseract fallback; MCPs: none extra; memo cites privacy class confidential.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Wiki-Import from Digital-PDF.
 - **Input:** `manual.pdf` born-digital.
 - **Prompt:**

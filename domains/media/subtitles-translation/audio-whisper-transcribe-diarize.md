@@ -123,8 +123,7 @@ When translating later, keep a glossary file of locked terms (product names).
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** DE-Subtitles for 8-min-Explainer.
 - **Input:** `explainer.mp4`, Sprache Deutsch.
 - **Prompt:**
@@ -144,8 +143,7 @@ Low confidence: none above threshold
 Duration coverage: 00:07:58.2 / 00:08:00.0
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Zwei Sprecher, Diarisierung from.
 - **Input:** Interview WAV, only transcript JSON for Uebersetzer.
 - **Prompt:**

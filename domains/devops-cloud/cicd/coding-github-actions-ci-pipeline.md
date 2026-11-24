@@ -112,8 +112,7 @@ Matrix explodes minute quota — only OS/version combinations with real benefit.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Python-Repo: pytest-CI von Grund auf.
 - **Input:** `acme/widgets`, Default-Branch `main`, Test `pytest -q`.
 - **Prompt:**
@@ -132,8 +131,7 @@ gh pr checks 42
 # all checks passing
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Fehlgeschlagener npm-test auf main analysieren.
 - **Input:** Run-ID `19888765`, Fehler `ENOMEM` im Jest-Step.
 - **Prompt:**

@@ -119,8 +119,7 @@ Document timezone on signature timestamps UTC display.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** MSA before DocuSign.
 - **Input:** `msa.pdf`, 2 Signer sequentiell.
 - **Prompt:**
@@ -135,8 +134,7 @@ Prepare checklist: fields, order, sha256; no send; AES level noted as user choic
 checklist.md; sha256 of msa.pdf; signer1 then signer2; no envelope id.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Signiertes PDF technisch read.
 - **Input:** `msa_signed.pdf`.
 - **Prompt:**

@@ -96,8 +96,7 @@ Commit scope: only files for this task.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Issue #5 implementieren.
 - **Input:** AC in GitHub.
 - **Prompt:**
@@ -113,8 +112,7 @@ npm test
 # MCP: 1x issue_read; edits via workspace
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Ohne GitHub MCP.
 - **Input:** lokale Spec im Chat.
 - **Prompt:**

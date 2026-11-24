@@ -110,8 +110,7 @@ Warn on unbounded memory growth without ttl policy.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Startup agent memory.
 - **Input:** simple facts, self-host.
 - **Prompt:**
@@ -126,8 +125,7 @@ stack.md mem0 self-host + obsidian audit.
 stack.md with both layers; rag-memory-workflow link.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** OpenClaw skill.
 - **Input:** openclaw user.
 - **Prompt:**

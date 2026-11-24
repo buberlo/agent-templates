@@ -105,8 +105,7 @@ After remediation: kubectl rollout status until success; snapshot revision numbe
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** API-Deployment crash nach Tag `v2.3.1`.
 - **Input:** Namespace `prod`, Deploy `api`.
 - **Prompt:**
@@ -124,8 +123,7 @@ kubectl -n prod logs deploy/api-7d9f8b-xxxxx --previous
 kubectl -n prod rollout undo deploy/api
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** ImagePullBackOff nach Registry-Wechsel.
 - **Input:** Pod Events `401 Unauthorized`.
 - **Prompt:**

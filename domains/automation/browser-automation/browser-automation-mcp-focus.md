@@ -110,8 +110,7 @@ Activate only shared MCPs.
 
 ## Basic examples
 
-Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Click Staging Checkout
 - **Input:** interact, Hermes
 - **Prompt:**
@@ -126,8 +125,7 @@ Enable Playwright MCP only; exclude Firecrawl. First step navigate staging URL.
 routing: playwright on | firecrawl off | next: open browser-automation-workflow
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Blog-Artikel nur zusammenfassen
 - **Input:** read-only
 - **Prompt:**
@@ -142,8 +140,7 @@ Reject Playwright MCP; suggest search or scrape template.
 no browser MCP | handoff daten-analytics/web-scraping or brave search
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Second dry run
 - **Input:** Example data only
 - **Prompt:**

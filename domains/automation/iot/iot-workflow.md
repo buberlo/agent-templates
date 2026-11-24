@@ -94,8 +94,7 @@ Document firmware OTA topics as high risk; never publish without vendor runbook 
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Temperatur lesen
 - **Input:** `home/bedroom/temp`
 - **Prompt:**
@@ -110,8 +109,7 @@ mosquitto_sub 5 msgs schema.
 payloads logged
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Heizung ON
 - **Input:** without release
 - **Prompt:**

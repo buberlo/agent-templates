@@ -104,8 +104,7 @@ Destructive gateway tools only after explicit release.
 
 ## Basic examples
 
-### Example 1 (Real-world example)
-
+### Example 1 (Example data (self-written))
 - **Task:** ClawHub-Sicherheitsaudit (Feb. 2026)
 *Input: 2,857 publicly listed ClawHub skills
 - **Prompt:**
@@ -119,8 +118,7 @@ Konsequenz: Verify-Pflicht, no Masseninstallation aus Leaderboard.
 Source: Koi Security / The Hacker News reports.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Put Workspace-Skill over Bundled
 - **Input:** Same skill name in Workspace and Bundled, different instructions
 - **Prompt:**
@@ -134,8 +132,7 @@ Bot folgt Workspace-Anweisung; Bundled-Text erscheint not im Log.
 Hinweis im DoD: Order dokumentiert.
 ```
 
-### Example 3 (Example data)
-
+### Example 3 (Example data (self-written))
 - **Task:** MCP + Skill for issue triage without auto-write
 - **Input:** linear-MCP in mcp.servers, clawhub:@team/triage-skill
 - **Prompt:**

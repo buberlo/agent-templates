@@ -103,8 +103,7 @@ Document commands run in thread.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Login E2E staging.
 - **Input:** `https://staging.example.com`.
 - **Prompt:**
@@ -120,8 +119,7 @@ npx playwright test tests/e2e/login.spec.ts --project=chromium
 # 1 passed
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** pytest API smoke.
 - **Input:** `tests/api/`.
 - **Prompt:**
@@ -137,8 +135,7 @@ pytest -q tests/api/
 # .... 12 passed
 ```
 
-### Example 3 (Real-world example)
-
+### Example 3 (Example data (self-written))
 - **Task:** CLI vs MCP Tokenkosten.
 - **Input:** reine Extraktion vs. App-E2E.
 - **Prompt:**

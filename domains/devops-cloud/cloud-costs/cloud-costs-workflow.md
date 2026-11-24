@@ -102,8 +102,7 @@ Infracost without a current provider plan — false estimate.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** AWS Oktober nach Service.
 - **Input:** Account with CE access.
 - **Prompt:**
@@ -120,8 +119,7 @@ aws ce get-cost-and-usage --time-period Start=2026-10-01,End=2026-11-01 \
   --group-by Type=DIMENSION,Key=SERVICE --output table
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Terraform plan costs for new module.
 - **Input:** `infra/modules/rds` PR.
 - **Prompt:**

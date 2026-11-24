@@ -106,8 +106,7 @@ enested in the gaunting in the en-a-reichen in Plus in the f  traders in the a p
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Read-only Google.
 - **Input:** `write_allowed=false`, gws.
 - **Prompt:**
@@ -125,8 +124,7 @@ Smoke: "Standup" 2026-11-24T09:00+01:00; "1:1" 2026-11-24T14:00+01:00
 File: output/calendar-tooling.md
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Calendly + Google schreiben.
 - **Input:** Public booking + internal calendar.
 - **Prompt:**

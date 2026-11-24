@@ -110,8 +110,7 @@ Write tools: Needs approval on all platforms where available.
 
 ## Basic examples
 
-### Example 1 (Real-world example)
-
+### Example 1 (Example data (self-written))
 - **Task:** Overhead reduzieren
 - **Input:** 8 MCPs, 120 tools estimated
 - **Prompt:**
@@ -125,8 +124,7 @@ Nachher: 3 MCPs / ~45 tools
 minimization report committed (secrets redacted)
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Document-Schritt in Matrix
 - **Input:** Skill step 5 „deliver pptx“
 - **Prompt:**
@@ -141,8 +139,7 @@ Show MCP only for export if necessary; validate+render in Skill step 6–7.
 Kein MCP in steps 6–7
 ```
 
-### Example 3 (Example data)
-
+### Example 3 (Example data (self-written))
 - **Task:** Grok Box-Command Zeile
 - **Input:** Custom MCP via npx auf Bot-Box
 - **Prompt:**```text

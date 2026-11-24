@@ -676,7 +676,7 @@ Auto-generated. **27** domains, **198** categories, **247** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `google-workspace-admin-workflow` | Google-Workspace-Admin | hermes, claude-code, cursor… | high | 2 |
+| `google-workspace-admin-workflow` | Google Workspace admin | hermes, claude-code, cursor… | high | 2 |
 
 ### `it-operations-support/helpdesk-it` (1)
 
@@ -897,7 +897,7 @@ Auto-generated. **27** domains, **198** categories, **247** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `household-workflow` | Haushalt | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `household-workflow` | Household | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `personal-lifestyle/personal-appointments` (1)
 
@@ -1184,7 +1184,7 @@ Auto-generated. **27** domains, **198** categories, **247** templates.
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `vuln-management-mcp-focus` | Vulnerability Management: MCP/Skill-Fokus | hermes, generic-mcp-agents | medium | 2 |
-| `vuln-management-workflow` | Vulnerability Management | hermes, grokbot, generic-mcp-agents | medium | 2 |
+| `vuln-management-workflow` | Vulnerability Management | hermes, grokbot, generic-mcp-agents… | medium | 2 |
 
 ## Domain: `software-development` (19 templates)
 

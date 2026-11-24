@@ -97,8 +97,7 @@ No scraping behind login.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Staubsauger Vergleich
 - **Input:** Dreame V12, Dyson V15, Bosch Unlimited
 - **Prompt:**
@@ -106,8 +105,7 @@ No scraping behind login.
 Akku Laufzeit, Gewicht, Hepa, Preis DE Stand heute.
 ```
 - **Expected result:** Sheet 3 Spalten; Laufzeit eine UNKNOWN; Fussnote Messmethode Hersteller.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Smartphone Kamera
 - **Input:** Pixel 9, iPhone 16, Galaxy S24
 - **Prompt:**

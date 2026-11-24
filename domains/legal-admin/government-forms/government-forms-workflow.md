@@ -96,8 +96,7 @@ Session summary: completed fields, open questions, files written.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Gewerbeanmeldung Vorbereitung
 - **Input:** City of Cologne PDF form, sole proprietorship IT consultancy, start date 01/02/2026
 - **Prompt:**
@@ -105,8 +104,7 @@ Session summary: completed fields, open questions, files written.
 List of mandatory fields and missing attachments. Create a docx working copy with placeholders for the commercial register number/tax number.
 ```
 - **Expected result:** Checklist with 12 fields; 3 attachments missing; docx with UNKNOWN marked for tax number.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Check the deadline for filing an objection
 - **Input:** Scan of Job Centre decision with proof of delivery dated 05/11/2026
 - **Prompt:**

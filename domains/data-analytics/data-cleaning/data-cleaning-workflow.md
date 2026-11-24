@@ -108,8 +108,7 @@ Quarantine not stored.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Dedupe orders order_id keep latest
 - **Input:** orders.csv
 - **Prompt:**
@@ -124,8 +123,7 @@ quality report + cleaned.parquet quarantine with rule_id.
 counts balance | dedupe rule documented
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** email regex validate
 - **Input:** contacts.csv
 - **Prompt:**

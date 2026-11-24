@@ -86,8 +86,7 @@ Leave Playwright/browser MCPs active, although only reading was necessary — 5k
 
 ## Basic examples
 
-Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Hermes data session
 - **Input:** DuckDB report
 - **Prompt:**
@@ -102,8 +101,7 @@ mcp include exclude snippet.
 include motherduck filesystem | exclude playwright firecrawl x
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Alles an
 - **Input:** power user 25 mcps
 - **Prompt:**
@@ -118,8 +116,7 @@ Keep all enabled for flexibility.
 warn overhead | propose profile sets dev browser data
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Second dry run
 - **Input:** Example data only
 - **Prompt:**

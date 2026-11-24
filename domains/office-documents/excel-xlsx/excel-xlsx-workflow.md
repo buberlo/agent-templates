@@ -120,8 +120,7 @@ Watch Excel serial dates: convert ISO in pandas before write.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Umsatzreport Q4 from CSV.
 - **Input:** `sales_q4.csv`, Report with SUM and Pivot-light.
 - **Prompt:**
@@ -136,8 +135,7 @@ Build report.xlsx: Data sheet from CSV, Report with =SUM(Data!amount) and monthl
 report.xlsx; read log shows Report!B20 matches manual sum of CSV; recalc OK or PENDING_USER noted.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Fehlerhafte Formel before delivery stoppen.
 - **Input:** Spec verlangt =VLOOKUP aber Schluesselspalte fehlt.
 - **Prompt:**

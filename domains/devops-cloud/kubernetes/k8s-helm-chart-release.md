@@ -104,8 +104,7 @@ One of `helm version` and `kubectl config current-context`.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** ingress-nginx 4.x with its own values in staging.
 - **Input:** Release `ingress`, NS `ingress`, values with `controller.replicaCount: 2`.
 - **Prompt:**
@@ -123,8 +122,7 @@ helm history ingress -n ingress
 # REVISION 7 deployed
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Fehlgeschlagenes Upgrade rollback.
 - **Input:** REVISION 7 failed, REVISION 6 healthy.
 - **Prompt:**

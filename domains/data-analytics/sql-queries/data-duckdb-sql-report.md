@@ -109,8 +109,7 @@ Document rowcount and runtime in stdout log.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Revenue Q3 from sales.parquet
 - **Input:** date_col order_date, Q3 2026
 - **Prompt:**
@@ -125,8 +124,7 @@ query.sql + result.csv + 3 sentence summary DE.
 SUM revenue matches user spot check | sql parameterized Q3
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Top 10 customers
 - **Input:** customers.csv orders.csv
 - **Prompt:**

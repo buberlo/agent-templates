@@ -115,8 +115,7 @@ List embedded fonts licensing risk when customer brand fonts used.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Claude Code Setup.
 - **Input:** User will edit investor.pptx.
 - **Prompt:**
@@ -131,8 +130,7 @@ Route tools for pptx audit + safe edits; minimal MCP; verify checklist.
 Anthropic pptx + audit table; checklist 3 steps; no xlsx MCP.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Hermes-only Server.
 - **Input:** Build new deck.
 - **Prompt:**

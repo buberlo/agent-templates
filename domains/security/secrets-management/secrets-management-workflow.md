@@ -99,8 +99,7 @@ No secret values in commit messages or PR titles.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Inventory GitHub Actions.
 - **Input:** org repo api.
 - **Prompt:**
@@ -116,8 +115,7 @@ gh secret list
 # PROD_DATABASE_URL (updated 2026-01-12) — rotate Q1 ticket
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** SOPS file add key path.
 - **Input:** secrets.enc.yaml.
 - **Prompt:**

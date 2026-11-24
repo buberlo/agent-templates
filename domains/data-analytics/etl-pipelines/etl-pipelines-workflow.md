@@ -109,8 +109,7 @@ Prod-Cron not active without release
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** CRM nightly sync
 - **Input:** API updated_at watermark
 - **Prompt:**
@@ -125,8 +124,7 @@ etl_design.md mermaid upsert on id.
 diagram extract transform load | watermark updated_at
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** n8n draft
 - **Input:** 3 nodes extract transform load
 - **Prompt:**

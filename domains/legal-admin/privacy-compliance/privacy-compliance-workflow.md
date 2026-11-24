@@ -96,8 +96,7 @@ Session deliverable: open legal questions list for DPO.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Records of processing activities for a micro-enterprise using SaaS
 - **Input:** Tools: Stripe, Google Workspace, Mailjet; no HR software
 - **Prompt:**
@@ -105,8 +104,7 @@ Session deliverable: open legal questions list for DPO.
 Generate xlsx with 8 typical processing activities. Mark data processing agreements as open.
 ```
 - **Expected result:** xlsx 8 rows; TOMs column with generic keywords; DRAFT footer.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Auskunftsanfrage Musterantwort
 - **Input:** Anfrage E-Mail betreffend Newsletter-Daten; Anmeldedatum bekannt
 - **Prompt:**

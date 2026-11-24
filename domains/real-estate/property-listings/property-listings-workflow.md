@@ -100,16 +100,14 @@ Log queries and output paths in the session recap.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Drei Berliner Altbauwohnungen als Exposé-1-Pager vergleichen
 - **Input:** Links zu immobilienscout24-Inseraten; Budget 450.000 EUR; min. 3 Zimmer
 - **Prompt:**```text
 Create for each advertisement a short profile according to the scheme location/building/cost/energy. Build an xlsx ranking table with source column. No brokerage contacts.
 ```
 - **Expected result:** File `komberlin-altbau.xlsx` with three lines, price/m2 calculated, energy class per line with portal URL; missing WEG reserves in column Open questions.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** PDF exposé in structured docx for owner meeting
 - **Input:** Expose Gewerbe Hannover.pdf (12 pages), focus rental and expansion
 - **Prompt:**

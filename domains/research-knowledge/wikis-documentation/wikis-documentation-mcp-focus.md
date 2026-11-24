@@ -109,8 +109,7 @@ Blog as a source.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Postgres backup wiki facts.
 - **Input:** topic pg_dump official docs.
 - **Prompt:**
@@ -125,8 +124,7 @@ facts.md from postgresql.org docs only; 5 bullets max.
 facts.md each line with postgres doc url.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** 404 doc.
 - **Input:** Moved doc url.
 - **Prompt:**

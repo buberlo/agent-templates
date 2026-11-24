@@ -126,8 +126,7 @@ Deskew and contrast normalize before tesseract when photos of paper.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Lieferantenrechnung Scan → Text.
 - **Input:** `invoice_scan.pdf` 2 pages, deu.
 - **Prompt:**
@@ -142,8 +141,7 @@ OCR beide pages; extract total and invoice date; flag conf<85%; save page crops.
 invoice_scan.txt; critical_field_table: TOTAL 1.234,56 EUR date 2026-11-15; page2 conf warning if any.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Bereits Text-PDF.
 - **Input:** `digital.pdf` with Selectable text.
 - **Prompt:**

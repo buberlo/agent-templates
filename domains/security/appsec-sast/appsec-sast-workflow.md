@@ -101,8 +101,7 @@ Do not claim CVE not affected without version proof from lockfile.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Python API semgrep.
 - **Input:** `src/`.
 - **Prompt:**
@@ -118,8 +117,7 @@ semgrep scan --config p/ci --json -o out.json
 # 0 critical after parameterized query fix
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** npm audit production.
 - **Input:** web app.
 - **Prompt:**

@@ -115,8 +115,7 @@ Stage IDs in Automations override manual agent suggestions.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Pipeline review Q4 Enterprise
 - **Input:** Pipeline „Enterprise“, Owner „alex@example.com“
 - **Prompt:**
@@ -131,8 +130,7 @@ Snapshot open deals. Columns: name, stage, amount EUR, days_in_stage. Flag >30 d
 14 deals | 218.000 EUR raw | 3 stuck >30d: Acme (Negotiation, 47d)
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Duplicate companies by domain
 - **Input:** Export `companies.csv`, 800 rows
 - **Prompt:**

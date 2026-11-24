@@ -110,8 +110,7 @@ After approved apply: capture terraform output -json redacted for ticket.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Dev-VPC eu-central-1, /16, drei AZs.
 - **Input:** Account `111122223333`, env `dev`.
 - **Prompt:**
@@ -128,8 +127,7 @@ terraform plan -out=plan.out -var-file=envs/dev.tfvars
 # Plan: 12 to add, 0 to change, 0 to destroy
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** tfsec HIGH wegen offenem S3-Bucket im Entwurf.
 - **Input:** Finding `AWS017` auf Modul `state`.
 - **Prompt:**

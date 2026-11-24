@@ -117,8 +117,7 @@ Keep intermediate WAV until user confirms final codec; delete only after approva
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Audio from Zoom-MP4, -24 LUFS rough normalisieren.
 - **Input:** `meeting.mp4`, 62 min.
 - **Prompt:**
@@ -134,8 +133,7 @@ ffmpeg -i meeting.mp4 -vn -ar 48000 meeting.wav
 # loudnorm two-pass → meeting_norm.wav, integrated ≈ -24 LUFS
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** 3 Voice-Memos to a FLAC.
 - **Input:** `memo1.m4a`, `memo2.m4a`, `memo3.m4a`.
 - **Prompt:**

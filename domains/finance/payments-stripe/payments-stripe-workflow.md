@@ -118,8 +118,7 @@ Flag large refunds > threshold user sets default 1000 eur.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Oktober Revenue Report.
 - **Input:** 2026-10-01..31 live mode.
 - **Prompt:**
@@ -134,8 +133,7 @@ stripe_report.md revenue refunds disputes; read only; mask emails.
 report with totals; log only read endpoints; masked samples.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Refund write ablehnen.
 - **Input:** User asks refund customer X.
 - **Prompt:**

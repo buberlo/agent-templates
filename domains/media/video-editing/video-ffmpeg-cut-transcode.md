@@ -124,8 +124,7 @@ Never upload to third-party hosts or publish URLs without approval.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Firmen-Interview from 4K-MOV on 1080p-Web-MP4 kuerzen.
 - **Input:** `interview.mov` (3840×2160, 12:40), Cut `00:00:45`–`00:08:20`, Target 1080p H.264.
 - **Prompt:**
@@ -144,8 +143,7 @@ ffprobe -v error -show_entries format=duration -of csv=p=0 interview_1080p.mp4
 # → 455.2
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Soft-Subtitles for internes Training (only Intranet).
 - **Input:** `training.mp4` (720p), approval for Whisper DE.
 - **Prompt:**

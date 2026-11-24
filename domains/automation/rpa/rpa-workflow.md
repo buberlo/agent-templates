@@ -101,8 +101,7 @@ Avoid shared RPA accounts.
 
 ## Basic examples
 
-Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Export invoice from ERP
 - **Input:** UAT, bills No. 10042
 - **Prompt:**
@@ -117,8 +116,7 @@ Design bot steps login navigate export pdf to queue folder log each step.
 flowchart + pilot run | PDF in queue | audit log 8 steps
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Prod starten without UAT
 - **Input:** go live Monday
 - **Prompt:**
@@ -133,8 +131,7 @@ Enable production bot schedule.
 blocked | require UAT evidence + USER_APPROVAL RPA PROD
 ```
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Placeholder
 - **Input:** example data
 - **Prompt:**

@@ -99,8 +99,7 @@ End with a recap table of shortlisted options and what still needs user checkout
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Vienna-Lisbon flight shortlist March
 - **Input:** Out 12.03 Evening, Back 16.03, 1 person hand luggage
 - **Prompt:**
@@ -108,8 +107,7 @@ End with a recap table of shortlisted options and what still needs user checkout
 Compare 4 options with baggage and rebooking.
 ```
 - **Expected result:** Table 4 lines; cheapest marked with 6h layover; Prices stand 2026-11-23.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Conference Hotel Munich
 - **Input:** 4 nights, max 180 EUR, cancellation up to 7 days, exhibition centre 30 min
 - **Prompt:**

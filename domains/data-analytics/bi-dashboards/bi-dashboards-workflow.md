@@ -109,8 +109,7 @@ Deprecation: flag legacy metrics if renaming.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Exec 5 KPIs
 - **Input:** revenue orders margin churn nps
 - **Prompt:**
@@ -125,8 +124,7 @@ bi_spec one page sketch metrics.yaml.
 5 metrics defined with formulas
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** SQL view revenue
 - **Input:** orders table schema user
 - **Prompt:**

@@ -96,8 +96,7 @@ List exported library file path and tag statistics in the closing recap.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Steam 200-Titel Tagging
 - **Input:** CSV export with Spielname, Spielzeit, size
 - **Prompt:**
@@ -105,8 +104,7 @@ List exported library file path and tag statistics in the closing recap.
 Tags Koop, Story, Indie nach Heuristik Spielzeit<2h -> backlog.
 ```
 - **Expected result:** xlsx sortiert; 18 Koop-Kandidaten Sheet; Duplikat RimWorld/Warhammer korrigiert.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Festplatten-cleanup
 - **Input:** Nur 50 GB frei; Liste installierter 80 GB Spiele
 - **Prompt:**

@@ -110,8 +110,7 @@ Global release rule for destructive tools.
 
 ## Basic examples
 
-### Example 1 (Real-world example)
-
+### Example 1 (Example data (self-written))
 - **Task:** MCP-Overhead messen
 - **Input:** Claude setup with many MCPs (exact list in the original post incomplete)
 - **Prompt:**
@@ -124,8 +123,7 @@ Bericht ~67.000 Tokens Overhead (Community-Messung r/ClaudeAI)
 Recommendation: on 2–3 MCPs for next session
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Read-only Recherche-Stack
 - **Input:** „API-Docs von Lib X verstehen“ auf Hermes
 - **Prompt:**```text
@@ -138,8 +136,7 @@ Zusammenfassung Lib X API (1 Seite)
 Skill protocol: 6 steps, release not triggered
 ```
 
-### Example 3 (Real-world example)
-
+### Example 3 (Example data (self-written))
 - **Task:** ClawHub-Audit-Kontext
 - **Input:** Skill from ClawHub for generic template
 - **Prompt:**

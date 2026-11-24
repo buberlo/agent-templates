@@ -119,8 +119,7 @@ For CMYK JPEG input, convert to sRGB before resize and note color shift risk.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Shop-catalog on 1200 px lange Kante.
 - **Input:** `catalog/in/` with 240 JPGs.
 - **Prompt:**
@@ -138,8 +137,7 @@ sku_002.jpg 800 1200 198022
 240 rows, no width/height > 1200
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Ein Bild with falscher EXIF-Orientation korrigieren.
 - **Input:** `tilted.jpg` Orientation 6.
 - **Prompt:**

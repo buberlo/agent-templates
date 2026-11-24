@@ -114,8 +114,7 @@ Deliver: outline.md, lessons/*.md, slides/module-*.pptx paths, sources.bib.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** 2h workshop “API fundamentals”.
 - **Input:** Beginner developers, DE.
 - **Prompt:**
@@ -132,8 +131,7 @@ Files: outline.md, lessons/L1-L3.md, slides/module-1.pptx (10 slides)
 sources.bib: 2 URLs
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Missing audience.
 - **Input:** Topic only "Kubernetes".
 - **Prompt:**
@@ -150,8 +148,7 @@ Follow-up: role (Dev/Ops)? duration? exam yes/no?
 No pptx generated.
 ```
 
-### Example 3 (Real-world example)
-
+### Example 3 (Example data (self-written))
 - **Task:** Short briefing deck; validate with Anthropic pptx skill.
 - **Input:** Tutorial briefing as PowerPoint.
 - **Prompt:**

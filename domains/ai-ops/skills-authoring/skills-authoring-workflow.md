@@ -95,8 +95,7 @@ No secrets in the skill.
 
 ## Basic examples
 
-Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** n8n Draft Skill
 - **Input:** trigger "n8n workflow"
 * Prompt: *
@@ -111,8 +110,7 @@ SKILL.md links n8n-make-zapier-workflow verify before activate.
 skill file | 3 trigger tests pass | mcp n8n only
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** API key in skill
 - **Input:** stripe_sk_live in example
 - **Prompt:**
@@ -127,8 +125,7 @@ Paste real key so agent works.
 reject | STRIPE_API_KEY env name only
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Second dry run
 - **Input:** Example data only
 - **Prompt:**

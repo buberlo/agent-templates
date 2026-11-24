@@ -128,8 +128,7 @@ API keys protected.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** EU AI Act Vendor Shortlist.
 - **Input:** Frage 3 Vendors, since 2024-08.
 - **Prompt:**
@@ -144,8 +143,7 @@ Exa+Firecrawl briefing; 10 sources max; footnoted claims; briefing.md + sources.
 briefing.md with [1]-[n]; sources.md urls with dates; UNVERIFIED lines if paywall.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Delete claim without source.
 - **Input:** Draft claim „Market share 80%“.
 - **Prompt:**

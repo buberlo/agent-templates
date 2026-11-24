@@ -102,8 +102,7 @@ Include/exclude for MCP and Skills nutzen, statt alles eingeschaltet zu lassen.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** GitHub Issue triage with minimal MCP set
 - **Input:** Issue URL `https://github.com/org/repo/issues/42`, short briefing “labels and draft comments”
 - **Prompt:**
@@ -119,8 +118,7 @@ Entwurf-Kommentar in Markdown (not gepostet)
 Log: github.get_issue OK, github.list_labels OK
 ```
 
-### Example 2 (Real-world example)
-
+### Example 2 (Example data (self-written))
 - **Task:** Use Hermes skill with macOS platform under Linux
 - **Input:** Skill from browse list with `platforms: [macos]` for desktop automation
 - **Prompt:**

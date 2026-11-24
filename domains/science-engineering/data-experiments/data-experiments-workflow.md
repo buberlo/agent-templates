@@ -97,8 +97,7 @@ Figure colorblind-safe palettes suggestion.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Spannungsmessung 1k Samples
 - **Input:** adc_log.csv Spalten t_s, volt, run_B
 - **Prompt:**
@@ -107,8 +106,7 @@ Figure colorblind-safe palettes suggestion.
 QC + moving mean plot + outlier >3sigma mark.
 ```
 - **Expected result:** analysis/plot_volt.py; PNG; QC.md 2% missing.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Vergleich zweier Runs
 - **Input:** run_A.csv run_B.csv gleiche Protokoll-ID
 - **Prompt:**

@@ -108,8 +108,7 @@ Thequi to see that, the Security TeamSHBSHBSHBSHBSHBSHBSHBSHBSHBSHBSHBSHBSHBSHBS
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Passwort-Reset-FAQ aktualisieren.
 - **Input:** 8 Tickets `password reset`, Artikel-ID `art_102`.
 - **Prompt:**
@@ -126,8 +125,7 @@ Macro: "Hi {{first name}}, here are the steps..." (<=400 chars)
 Publish: pending
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Publish without Review.
 - **Input:** Sofort live stellen.
 - **Prompt:**

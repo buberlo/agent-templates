@@ -100,8 +100,7 @@ Check MCP DB for incorrect DB — DSN.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Order endpoint + schema check.
 - **Input:** table `orders`.
 - **Prompt:**
@@ -116,8 +115,7 @@ GitHub read openapi; postgres describe orders; implement; curl verify.
 curl -sf http://localhost:8080/v1/orders/1 -H "Authorization: Bearer test"
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Block prod DSN.
 - **Input:** user pastes prod url.
 - **Prompt:**

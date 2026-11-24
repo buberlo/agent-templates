@@ -104,8 +104,7 @@ No live publisher without a release
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Audit Homepage+Produkt
 - **Input:** example.de 80 URLs
 - **Prompt:**
@@ -120,8 +119,7 @@ P1/P2 summary
 12 P1 in report
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Meta 5 URLs
 - **Input:** money pages
 - **Prompt:**

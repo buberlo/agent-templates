@@ -100,8 +100,7 @@ Post change smoke: login test incognito three users role admin user guest if app
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** SaaS login loop
 - **Input:** Azure SAML app
 - **Prompt:**
@@ -116,8 +115,7 @@ Compare ACS redirect cert expiry claim department mapping.
 mismatch redirect or claim named | fix draft staging first
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Disable signing validation
 - **Input:** vendor says so
 - **Prompt:**

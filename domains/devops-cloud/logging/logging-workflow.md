@@ -103,8 +103,7 @@ Unbounded query — Loki/CloudWatch costs and timeout.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Loki Fehler letzte Stunde.
 - **Input:** App `checkout`, trace `abc-123`.
 - **Prompt:**
@@ -119,8 +118,7 @@ LogQL for errors and trace abc-123; limit 100 lines.
 logcli query '{app="checkout"} |= "abc-123" | json | level="error"' --since=1h --limit=100
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** CloudWatch Filter.
 - **Input:** Group `/ecs/api`, Muster `OutOfMemory`.
 - **Prompt:**

@@ -120,8 +120,7 @@ Archive negative prompts alongside positive prompts in sidecar JSON.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** LinkedIn-Banner 1584×396 from SDXL lokal.
 - **Input:** Blau/weiss Brand, seed 99.
 - **Prompt:**
@@ -136,8 +135,7 @@ Local ComfyUI SDXL 1584x396, seed 99, save workflow JSON; no cloud upload.
 { "file": "banner_v1.png", "seed": 99, "tool": "comfyui_local", "workflow": "workflow_snapshot.json" }
 ```
 
-### Example 2 (Real-world example)
-
+### Example 2 (Example data (self-written))
 - **Task:** after approval WebP on Cloudinary.
 - **Input:** `banner_v1.png`, cloudinary MCP aktiv.
 - **Prompt:**

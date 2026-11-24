@@ -125,8 +125,7 @@ Include withdrawn papers check status field.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Related Work Transformer Efficiency.
 - **Input:** Keywords efficient attention, max 10 papers.
 - **Prompt:**
@@ -141,8 +140,7 @@ arxiv search; notes.md + papers.bib; log queries.
 10 entries; search_log 3 queries; bib with arXiv ids.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Einzelnes Paper.
 - **Input:** arXiv:2401.12345.
 - **Prompt:**

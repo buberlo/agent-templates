@@ -92,8 +92,7 @@ Keys only in the gateway.
 
 ## Basic examples
 
-Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Support triage + answer
 - **Input:** tickets
 - **Prompt:**
@@ -108,8 +107,7 @@ Route classify small answer large if billing.
 routing table | fallback on 429
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** EU PII
 - **Input:** customer data
 - **Prompt:**
@@ -124,8 +122,7 @@ Use cheapest US model.
 block or eu-only models | residency note
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Second dry run
 - **Input:** Example data only
 - **Prompt:**

@@ -119,8 +119,7 @@ A blog as the only source.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Marketing-Absatz fact-checken.
 - **Input:** 5 sets of statistics.
 - **Prompt:**
@@ -135,8 +134,7 @@ Ground each stat or UNVERIFIED; firecrawl user urls; source_log.csv.
 grounded.md; 2 UNVERIFIED; source_log 5 rows.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Fake URL entfernen.
 - **Input:** Draft cites https://example-fake.domain/study
 - **Prompt:**

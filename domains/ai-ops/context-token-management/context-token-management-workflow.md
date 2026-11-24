@@ -90,8 +90,7 @@ Document final enabled set and estimated overhead in session header note.
 
 ## Basic examples
 
-Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** 20 MCPs active
 - **Input:** Write SQL report
 - **Prompt:**
@@ -106,8 +105,7 @@ Trim for motherduck + filesystem only.
 trim plan | browser mcps off | motherduck on
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Webseite Text
 - **Input:** Playwright MCP default
 - **Prompt:**
@@ -122,8 +120,7 @@ Extract article text one url.
 recommend search/scrape not playwright snapshots
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Second dry run
 - **Input:** Example data only
 - **Prompt:**

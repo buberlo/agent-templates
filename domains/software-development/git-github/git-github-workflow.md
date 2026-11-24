@@ -100,8 +100,7 @@ Document every gh command in order.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** PR for Fix #77.
 - **Input:** Branch `fix/77-readme`.
 - **Prompt:**
@@ -118,8 +117,7 @@ gh pr create --draft --title "fix: readme typo" --body "Fixes #77"
 gh pr checks
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Review-Kommentar only.
 - **Input:** PR 88.
 - **Prompt:**

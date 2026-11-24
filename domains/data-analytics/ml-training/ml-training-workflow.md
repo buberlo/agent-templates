@@ -110,8 +110,7 @@ Experiment tracking mlflow optional mention placeholder not required.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Churn binary F1
 - **Input:** features_v2.parquet
 - **Prompt:**
@@ -126,8 +125,7 @@ baseline + logistic CV metrics.json.
 F1 baseline 0.31 model 0.52 | leakage check logged
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Regression RMSE
 - **Input:** time column present
 - **Prompt:**

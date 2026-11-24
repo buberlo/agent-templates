@@ -106,8 +106,7 @@ Supervisor runs Tools itself → Scope creep.
 
 ## Basic examples
 
-Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Research then patch PR
 - **Input:** bug report url
 - **Prompt:
@@ -122,8 +121,7 @@ DAG: researcher read-only exa, coder terminal gh, reviewer read diff only.
 orchestration.md | handoff schema | mcp per role listed
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Parallel delete
 - **Input:** two workers same db
 - **Prompt:**
@@ -138,8 +136,7 @@ Speed up by parallel agents cleaning database.
 reject parallel write | sequential with single writer
 ```
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Placeholder
 - **Input:** example data
 - **Prompt:**

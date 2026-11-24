@@ -120,8 +120,7 @@ Machine translation misunderstanding.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** EP Landschaft Batteriethema.
 - **Input:** Keyword solid-state, jurisdiction EP.
 - **Prompt:**
@@ -136,8 +135,7 @@ landscape.md top 15; counsel_questions.md; no FTO opinion.
 landscape with publication numbers; disclaimer; questions for counsel.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Secret mode.
 - **Input:** confidential invention description.
 - **Prompt:**

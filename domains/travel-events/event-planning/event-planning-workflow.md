@@ -98,8 +98,7 @@ Capacity Location < Invitations.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** 30-Personen Produkt-Launch Meetup
 - **Input:** Berlin, evening 6 – 9 pm, snacks, demo stage
 - **Prompt:**
@@ -107,8 +106,7 @@ Capacity Location < Invitations.
 Run-of-show and 3 location options with capacity.
 ```
 - **Expected result:** docx Timeline; xlsx guest template; Venue B UNKNOWN curfew.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Hochzeitsvorbereitung Checkliste
 - **Input:** 150 guests, daily church walk + reception
 - **Prompt:**

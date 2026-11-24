@@ -109,8 +109,7 @@ Twilio credentials in secrets, not prompts.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Termin-Erinnerung Outbound.
 - **Input:** Script 4 sentences, recording no, callee +43***4567.
 - **Prompt:**
@@ -127,8 +126,7 @@ Dial: not started (awaiting APPROVE_DIAL)
 TwiML: outline in output/call-plan.md
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Dial without release.
 - **Input:** Sofort anrufen verlangt.
 - **Prompt:**

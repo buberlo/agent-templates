@@ -99,8 +99,7 @@ Each line with URL and date of retrieval
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Mietwohnungssuche Graz, 2–3 Zimmer, max. 950 EUR warm
 - **Input:** Radius 15 km, Hund erlaubt, Balkon Pflicht
 - **Prompt:**
@@ -108,8 +107,7 @@ Each line with URL and date of retrieval
 Suche aktuelle Inserate, filtere Hund and Balkon, ranke nach €/m² and Lage.Stopp bei <5 Treffern with Relax-Vorschlag.
 ```
 - **Expected result:** xlsx with 9 candidates; 2 excluded due to animal prohibition; Column Date of call 2026-11-23.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - ** Task:** Price case monitoring for stored purchase objects
 - **Input:** Drei URLs aus vorheriger Suche; Schwellenwert -5% Preis
 - **Prompt:**

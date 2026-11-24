@@ -111,8 +111,7 @@ SP-API mention only as alternative path—do not claim credentials you lack.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Buy Box and rating for three competitor ASINs on amazon.de
 - **Input:** `B0TEST001`, `B0TEST002`, `B0TEST003`
 - **Prompt:**
@@ -129,8 +128,7 @@ Read-only snapshot 2026-11-23. Table: ASIN, buy box EUR, offers, stars, top revi
 CSV: 3 rows, ISO-8859-1 avoided (UTF-8)
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Listing-Compliance-Check vor Q4-Kampagne
 - **Input:** Own title/bullets (paste), category "Kitchen Helpers"
 - **Prompt:**

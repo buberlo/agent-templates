@@ -120,8 +120,7 @@ Limit 25 items per digest unless user asks more.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** 7-Tage CVE Digest.
 - **Input:** keywords CVE vendor produkt.
 - **Prompt:**
@@ -136,8 +135,7 @@ digest.md; alert any critical CVSS>=9; firecrawl primary sources.
 digest.md; alert.md 0-n items; urls with dates.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Exclude rumor blog.
 - **Input:** exclude list domain tabloid.example.
 - **Prompt:**

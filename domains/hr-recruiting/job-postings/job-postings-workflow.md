@@ -110,8 +110,7 @@ Remote/hybrid: location field explicit per user (no "everywhere" without tax hin
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Senior Product Manager, Hybrid Wien, 4 Must-Haves
 - **Input:** Benefits: 30 days of holiday confirmed, no salary
 - **Prompt:**
@@ -126,8 +125,7 @@ Indeed title research. JD DE inclusive. channel_pack + scorecard. No publish.
 jd.docx | 2 title options cited | scorecard 8 criteria | benefits only 30 Tage
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** JD with fictitious stock options
 - **Input:** User does not list any equity
 - **Prompt:**

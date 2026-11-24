@@ -110,8 +110,7 @@ Deliver: transcript.md, actions.md, email-draft.txt, low_confidence_segments if 
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Weekly sync MP4.
 - **Input:** `sync-2026-11-20.mp4`, DE, consent yes.
 - **Prompt:**
@@ -130,8 +129,7 @@ actions.md:
 email-draft.txt: Subject "Follow-up Sync 20.11." ...
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** No consent.
 - **Input:** `consent_confirmed=false`.
 - **Prompt:**

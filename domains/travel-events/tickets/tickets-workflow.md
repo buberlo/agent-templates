@@ -100,8 +100,7 @@ Event, date, seat requests, budget capture.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Bundesliga Heimspiel Tickets
 - **Input:** Stadium Dortmund, 2 standing places, budget 80 EUR
 - **Prompt:**
@@ -109,8 +108,7 @@ Event, date, seat requests, budget capture.
 Only official channels; Members benefit when mentioned on website.
 ```
 - **Expected result:** Table 3 channels; BVB Shop primary; Reseller warning block.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** ICE Sparpreis Cologne-Berlin
 - **Input:** Abfahrt Freitag 07:00 flexibel ±2h
 - **Prompt:**

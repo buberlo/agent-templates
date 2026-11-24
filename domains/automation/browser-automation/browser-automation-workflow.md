@@ -125,8 +125,7 @@ Playwright MCP for simple extraction → 100k+ tokens.
 
 ## Basic examples
 
-Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Login smoke on staging
 - **Input:** `https://staging.example.com/login`, user from `.en v'
 - **Prompt:**
@@ -141,8 +140,7 @@ Playwright CLI: test login shows dashboard h1 "Overview". storageState artifacts
 npx playwright test tests/e2e/login.spec.ts | 1 passed | no secrets in log
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Fehlende URL
 - **Input:** leer
 - **Prompt:**
@@ -156,8 +154,7 @@ Validate required fields before opening browser.
 ```text
 abort | list: baseURL, target path, approval for write actions
 ```
-### Example 3 (Real-world example)
-
+### Example 3 (Example data (self-written))
 - **Task:** Token comparison MCP vs. Markdown for Pure Reading
 - **Input:** Public product page only text
 - **Prompt:**

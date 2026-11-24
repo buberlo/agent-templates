@@ -110,8 +110,7 @@ iOS without Developer Trust → MCP fails.
 
 ## Basic examples
 
-Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Staging app Login screen reach
 - **Input:** `com.firma.staging`, device `R58M90ABCDE`
 - **Prompt:**
@@ -125,8 +124,7 @@ mobile-mcp open app, screenshot login, fill test user from env, do NOT tap submi
 ```text
 screenshots/01_login.png | submit not pressed | adb device logged
 ```
-Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Confirm payment
 - **Input:** without FREEDOM
 - **Prompt:**
@@ -143,8 +141,7 @@ action blocked | request USER_APPROVAL MOBILE SEND
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Minimal dry run
 - **Input:** Example briefing (labeled example data)
 - **Prompt:**
@@ -153,8 +150,7 @@ Follow the workflow with no external side effects.
 ```
 - **Expected result:** Draft output paths listed; no production changes.
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Review-only pass
 - **Input:** Same briefing as Example 1
 - **Prompt:**

@@ -101,8 +101,7 @@ After deploy skill step: suggest instant query to confirm metric moved.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Dashboard UID `api-slo` lesen, Rule anpassen.
 - **Input:** Panel „Error budget burn“.
 - **Prompt:**
@@ -119,8 +118,7 @@ promtool test rules tests/slo_test.yaml OK
 Write blocked pending APPROVE
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Sentry+Grafana Korrelation.
 - **Input:** Spike 09:00 UTC.
 - **Prompt:**

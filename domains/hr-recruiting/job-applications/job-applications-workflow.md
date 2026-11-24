@@ -113,8 +113,7 @@ Version stamp files: bewerbung_{company_slug}_{date}.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Backend role, JD as text, 2-page CV (German)
 - **Input:** 5 must-haves (Go, K8s, …), user confirms only 4 are met
 - **Prompt:**
@@ -129,8 +128,7 @@ Gap matrix – be honest. CV bullet points: Go/K8s at the top. Cover letter max.
 gap_matrix: 4 met, 1 partial | cv.docx + cover letter.docx | 1 gap with [USER TO CONFIRM]
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Fehlende JD
 - **Input:** Only the job title "Data Engineer"
 - **Prompt:**

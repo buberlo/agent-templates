@@ -122,8 +122,7 @@ Separate capex opex if column provided.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** November variance.
 - **Input:** budget_nov.csv actuals_nov.csv tolerance 5%.
 - **Prompt:**
@@ -138,8 +137,7 @@ variance.csv and variance.md; red flags >5%.
 variance files; red list accounts; totals match manual check.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Missing actuals.
 - **Input:** actuals missing account 4100.
 - **Prompt:**

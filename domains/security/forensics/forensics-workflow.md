@@ -95,8 +95,7 @@ Mount read-write — traces destroyed.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Custody log for USB-STICK-7.
 - **Input:** sha256 `abc...`, Case FIR-2026-03.
 - **Prompt:**
@@ -112,8 +111,7 @@ Custody: received FIR-2026-03 by Analyst M; hash abc...; sealed bag ID 7
 Timeline columns ready UTC|Host|Event|Ref
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Hash mismatch.
 - **Input:** re-hash differs.
 - **Prompt:**

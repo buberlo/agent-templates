@@ -99,8 +99,7 @@ Quotas — Create fails, List works; Check the quota separately.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** GKE-Cluster-Status europe-west3.
 - **Input:** Cluster `prod-gke`, Projekt `acme-prod`.
 - **Prompt:**
@@ -116,8 +115,7 @@ gcloud container clusters describe prod-gke --region europe-west3 \
   --format="yaml(currentMasterVersion,currentNodeCount,status)"
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Fehlende Workload-Identity-Binding erkennen.
 - **Input:** KSA `default/api` cannot read GCS.
 - **Prompt:**

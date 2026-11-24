@@ -132,8 +132,7 @@ Close sequences: never enroll contacts in this focus template—refer to outreac
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Draft + CRM log for a contact
 - **Input:** attio person_id, Betreffidee
 - **Prompt:**
@@ -149,8 +148,7 @@ Tools: attio read, gws draft create
 draft_id: r-123 | note: "draft created 2026-11-23"
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Reply context without CRM
 - **Input:** Gmail thread id
 - **Prompt:**

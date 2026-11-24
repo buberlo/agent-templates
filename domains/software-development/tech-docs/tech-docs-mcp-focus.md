@@ -96,8 +96,7 @@ MCP injection from wiki content treated untrusted when round-tripping to code.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Mirror onboarding.
 - **Input:** README.md.
 - **Prompt:**
@@ -112,8 +111,7 @@ GitHub read README; notion update after VERIFY; include sha footer.
 Notion page updated; footer commit abc1234
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Git only.
 - **Input:** adr in repo.
 - **Prompt:**

@@ -97,8 +97,7 @@ Smoke runs headless or documented editor step
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Jump cooldown Godot.
 - **Input:** player.tscn.
 - **Prompt:**
@@ -114,8 +113,7 @@ godot --headless --path . --script res://tests/player_jump.gd
 # OK
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** UI lag fix.
 - **Input:** inventory scroll.
 - **Prompt:**

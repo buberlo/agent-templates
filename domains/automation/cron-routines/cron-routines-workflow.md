@@ -101,8 +101,7 @@ Deliver: proposed crontab stanza, backup path, manual test log excerpt, rollback
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Mo–Fr 07:00 Report
 - **Input:** `/opt/scripts/daily-report.sh`
 - **Prompt:**
@@ -117,8 +116,7 @@ crontab line Berlin TZ flock.
 0 7 * * 1-5 flock ... daily-report.sh
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Prod without release
 - **Input:** production
 - **Prompt:**

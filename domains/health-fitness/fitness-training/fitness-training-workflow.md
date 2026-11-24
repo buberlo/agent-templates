@@ -96,8 +96,7 @@ Emergency: chest pain directive to call emergency services.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** 3x Kraft Ganzkorper Anfanger
 - **Input:** Heimstudio Hanteln, 3 Tage, no Schulter OP
 - **Prompt:**
@@ -105,8 +104,7 @@ Emergency: chest pain directive to call emergency services.
 12 Wochen with linearer Progression RPE 7-8.
 ```
 - **Expected result:** Tabelle Woche1 3 Sessions; Fussnote when Schulterschmerz Training stoppen.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Strava Wochenreview
 - **Input:** 7 Aktivitaten Rad+Run exportiert
 - **Prompt:**

@@ -96,8 +96,7 @@ Whois privacy — incomplete.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Vendor domain due diligence.
 - **Input:** `vendor.example`.
 - **Prompt:**
@@ -113,8 +112,7 @@ curl -fsSL "https://rdap.org/domain/vendor.example"
 # Summary with retrieval 2026-11-23 UTC
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** CVE advisory check.
 - **Input:** Product X 2.4.
 - **Prompt:**

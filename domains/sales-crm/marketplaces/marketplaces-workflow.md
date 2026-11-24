@@ -106,8 +106,7 @@ Fees without shipping model.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Parity Amazon vs Buying Country
 - **Input:** zwei CSVs, MAP, 3% tolerance
 - **Prompt:**
@@ -122,8 +121,7 @@ parity csv + top 10 worst deltas.
 11 SKUs over 3% | example SKU-991 +7.2% Kaufland higher
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Repressed Listings
 - **Input:** eBay export status column
 - **Prompt:**

@@ -93,8 +93,7 @@ One source is not enough.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Vendor breach news check.
 - **Input:** Vendor V.
 - **Prompt:**
@@ -109,8 +108,7 @@ Two-source MCP fetch; cite; refuse if only rumor blog.
 [1] vendor status page [2] press wire; confidence medium
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Paywall hit.
 - **Input:** financial times article.
 - **Prompt:**

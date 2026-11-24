@@ -120,8 +120,7 @@ Prefer copying source to work/ before mutate.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Audit before Kundenversand.
 - **Input:** `pricing.xlsx`.
 - **Prompt:**
@@ -136,8 +135,7 @@ Audit mode only: sheets, formula count, external links. Hermes read if available
 Markdown table: 3 sheets; Calc has 47 formulas; external_links: none; tool: Hermes xlsx_read.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Skill-Routing for Write.
 - **Input:** User on Claude Code with document-skills installed.
 - **Prompt:**

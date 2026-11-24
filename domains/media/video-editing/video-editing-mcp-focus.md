@@ -118,8 +118,7 @@ Log wall-clock time for ffmpeg jobs exceeding five minutes for capacity planning
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** 30 s Teaser from Webinar extract.
 - **Input:** `webinar.mkv`, 01:12:00 total, Ausschnitt ab 00:45:10.
 - **Prompt:**
@@ -135,8 +134,7 @@ ffmpeg -ss 00:45:10 -i webinar.mkv -t 30 -vf scale=-2:1080 -c:v libx264 -crf 22 
 Rationale: single-pass transcode; MCP adds no capability.
 ```
 
-### Example 2 (Real-world example)
-
+### Example 2 (Example data (self-written))
 - **Task:** MCP-Token-Overhead deliberately vermeiden.
 - **Input:** Policy erlaubt only Terminal + ffmpeg.
 - **Prompt:**

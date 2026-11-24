@@ -99,8 +99,7 @@ Post-deploy: MCP read deployment status until ready.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Skill with MCP preview only.
 - **Input:** Projekt `web-shop`.
 - **Prompt:**
@@ -116,8 +115,7 @@ Vercel MCP preview url issued
 Step 5 status: blocked
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** GitHub deployment audit.
 - **Input:** Env `production`.
 - **Prompt:**

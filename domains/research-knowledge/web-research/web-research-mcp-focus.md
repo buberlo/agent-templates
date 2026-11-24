@@ -126,8 +126,7 @@ No login automation without approval.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Vendor-Vergleich EU Hosting.
 - **Input:** 3 Vendor-Namen.
 - **Prompt:**
@@ -142,8 +141,7 @@ Plan: Brave search + Firecrawl top 3 each; no Playwright; minimal MCPs.
 plan.md: MCPs brave+firecrawl; 9 fetches max; queries listed.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** SPA-Dashboard Recherche.
 - **Input:** JS-only pricing page.
 - **Prompt:**

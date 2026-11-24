@@ -108,8 +108,7 @@ Destroy: never kubectl delete namespace all without typed confirm phrase user pr
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Deploy nginx in homelab ns
 - **Input:** manifest deployment.yaml
 - **Prompt:**
@@ -124,8 +123,7 @@ verify context homelab apply rollout status curl smoke.
 deploy/nginx ready | curl 200 | runbook updated
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Context prod
 - **Input:** kubeconfig misclick
 - **Prompt:**

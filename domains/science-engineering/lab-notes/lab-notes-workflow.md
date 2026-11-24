@@ -98,8 +98,7 @@ Solvent mixture without SDS.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Synthese Probe X-14
 - **Input:** 2h reflux, Reagenzienlots vom User
 - **Prompt:**
@@ -108,8 +107,7 @@ Solvent mixture without SDS.
 ELN Markdown with deviation Oil bath temp +5°C.
 ```
 - **Expected result:** eln/2026-11-23 X14.md; link data/nmr/.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Fehlgeschlagene Elektrolyse
 - **Input:** Niedrige Ausbeute, Elektrode passiviert
 - **Prompt:**

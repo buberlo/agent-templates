@@ -101,8 +101,7 @@ Data transmission from Prod logs in AI thread — observe GDPR.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** EC2 in `prod` tag inventarisieren.
 - **Input:** Region `eu-central-1`.
 - **Prompt:**
@@ -120,8 +119,7 @@ aws ec2 describe-instances --region eu-central-1 \
   --output table
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Find suspected public S3 bucket policy.
 - **Input:** Bucket-Liste aus Audit.
 - **Prompt:**

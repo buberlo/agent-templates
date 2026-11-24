@@ -93,8 +93,7 @@ Suggest include list.
 
 ## Basic examples
 
-Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Tool choice Android QA
 - **Input:** Hermes, USB device
 - **Prompt:**
@@ -109,8 +108,7 @@ Which MCP for tap-through staging app?
 mobile-mcp primary | adb devices checklist
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** iOS without Mac
 - **Input:** Windows host
 - **Prompt:**
@@ -125,8 +123,7 @@ Automate iOS app on real iPhone.
 block or cloud farm | no false promise local iOS
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Second dry run
 - **Input:** Example data only
 - **Prompt:**

@@ -96,8 +96,7 @@ Legal: only games whose dedicated server license allows your use case.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Valheim Docker-Server
 - **Input:** linux vps, 4 Spieler, Mods: Valheim Plus
 - **Prompt:**
@@ -105,8 +104,7 @@ Legal: only games whose dedicated server license allows your use case.
 docker-compose Entwurf with Volumes and Mod-Sync Tabelle.
 ```
 - **Expected result:** compose.yaml Snippet without Passwort; Umgebungsvariablen Tabelle; Backup cron Text.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Minecraft Paper Migration
 - **Input:** Vanilla 1.20.4 zu Paper, 12 Plugin-Namen
 - **Prompt:**

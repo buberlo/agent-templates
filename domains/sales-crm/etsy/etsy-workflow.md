@@ -107,8 +107,7 @@ The last, Tru me, the
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Tag-Audit Listing 884422
 - **Input:** Export-Zeile, Nische „personalisierte Tassen“
 - **Prompt:**
@@ -123,8 +122,7 @@ The last, Tru me, the
 Replace tags 7,11 (too generic) | keep 11 strong long-tail | no publish
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Q4 Order-KPIs
 - **Input:** orders_oct_nov.csv
 - **Prompt:**

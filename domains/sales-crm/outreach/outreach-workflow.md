@@ -117,8 +117,7 @@ Bounce handling: never retry guessed email patterns.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Erstkontakt an CTO Mittelstand Logistik
 - **Input:** Hook: Blogpost 2026-11-10 zu Track-and-Trace API
 - **Prompt:**
@@ -134,8 +133,7 @@ Subject: Track-and-Trace Post + Frage zu EDI
 Body cites URL and specific paragraph—no send, draft only.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Follow-up on day 7 with no response
 - **Input:** Vorheriger Betreff, Case Study Link freigegeben
 - **Prompt:**

@@ -110,8 +110,7 @@ No invented refund/policy promise
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Billing-Ticket First Response.
 - **Input:** Ticket `#8821`, Kunde fragt Rechnungsduplikat.
 - **Prompt:**
@@ -128,8 +127,7 @@ Internal note: verify payment gateway status before promise
 Resolve: not executed
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Resolve without release.
 - **Input:** User says only draft.
 - **Prompt:**

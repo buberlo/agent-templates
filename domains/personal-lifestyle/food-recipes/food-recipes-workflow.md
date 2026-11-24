@@ -96,8 +96,7 @@ No restaurant reservation automation.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Reste: Zucchini, Kichererbsen, Reis
 - **Input:** 2 Personen, 25 Min max
 - **Prompt:**
@@ -105,8 +104,7 @@ No restaurant reservation automation.
 2 Recipes with step list and shopping list only when items are missing.
 ```
 - **Expected result:** recipe Curry + Salat; shopping only Joghurt 1 Becher.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** familynmenue Mo–Fr
 - **Input:** 4 Personen, no Schwein
 - **Prompt:**

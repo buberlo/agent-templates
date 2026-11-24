@@ -96,8 +96,7 @@ MCP: PR files and checks.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** MCP read PR 10.
 - **Input:** security module.
 - **Prompt:**
@@ -113,8 +112,7 @@ Files: pkg/auth/*
 BLOCKER: missing constant-time compare in token.go
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Truncation fallback.
 - **Input:** 200 file PR.
 - **Prompt:**

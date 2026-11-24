@@ -96,8 +96,7 @@ Deliver reproducible file paths in summary.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** 10 micro DE
 - **Input:** fit_score
 - **Prompt:**
@@ -112,8 +111,7 @@ csv+sources
 brief has anzeige
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Sponsored reel
 - **Input:** 1x30s
 - **Prompt:**

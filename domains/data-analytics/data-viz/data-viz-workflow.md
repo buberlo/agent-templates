@@ -108,8 +108,7 @@ Color only for category not metric.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Umsatz Trend 12 Monate DE
 - **Input:** monthly revenue sql
 - **Prompt:**
@@ -124,8 +123,7 @@ line chart png + generate script.
 figures/revenue_trend.png DE labels
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Kategorien Vergleich
 - **Input:** top 8 categories
 - **Prompt:**

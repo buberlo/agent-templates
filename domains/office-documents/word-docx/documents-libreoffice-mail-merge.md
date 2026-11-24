@@ -127,8 +127,7 @@ Validate encoding: latin-1 CSV on DE umlauts needs utf-8-sig or iconv first.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** 200 Einladungen from CRM-CSV.
 - **Input:** `brief.odt` (fields: id, lastname, event_date), `kunden.csv` (200 Zeilen).
 - **Prompt:**
@@ -143,8 +142,7 @@ Validate fields, test 3 rows, then full merge to out/pdf/{id}_{lastname}.pdf. Lo
 out/pdf/: 200 PDFs (or 197 + merge.log with 3 ERROR rows); test/ with 3 PDFs documented first.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Fehlerfall fehlende Pflichtspalte.
 - **Input:** `brief.odt`, CSV without Spalte `lastname`.
 - **Prompt:**

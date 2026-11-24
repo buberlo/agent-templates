@@ -100,16 +100,14 @@ Currency amounts without the exchange rate date.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** 5-Tage Krakau Kulturreise
 - **Input:** Anreise Freitag, Budget 600 EUR without Flug, vegan
 - **Prompt:**```text
 Day plan with 3 museums, vegan restaurants with rating source only. Packing list March.
 ```
 - **Expected result:** Markdown-Itinerary 5 tables; Saturday closing day Wieliczka noted; Packing list 22 items.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Family trip with rollator
 - **Input:** Barcelona 4 Tage, rollatorfreie Routen Pflicht
 - **Prompt:**

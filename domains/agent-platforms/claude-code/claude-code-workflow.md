@@ -112,8 +112,7 @@ Prompt injection from MCP content not blindly followed
 
 ## Basic examples
 
-### Example 1 (Real-world example)
-
+### Example 1 (Example data (self-written))
 - **Task:** briefing.docx with official docx skill
 - **Input:** Briefing-Inhalt (Titel, Listen, Preistabelle) laut Tutorial
 - **Prompt:**```text
@@ -126,8 +125,7 @@ validate: 25 paragraphs, All validations PASSED
 Render: Table first overflow (11,520 DXA), visible after fix 9.360 DXA
 ```
 
-### Example 2 (Real-world example)
-
+### Example 2 (Example data (self-written))
 - **Task:** pptx three slides — validator green, render shows bugs
 - **Input:** Field trial numbers, Theme Forest Green, Commit e4bb5d9
 - **Prompt:**
@@ -141,8 +139,7 @@ Render: Labels 3,1→3 (falsch); Callout +21 % vs. 22,4 % Mittel
 Nach dataLabelFormatCode 0.0 + Alignment: Render stimmt
 ```
 
-### Example 3 (Real-world example)
-
+### Example 3 (Example data (self-written))
 - **Task:** MCP-Overhead messen
 - **Input:** Bestehender MCP-Stack in Claude
 - **Prompt:**

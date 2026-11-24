@@ -104,8 +104,7 @@ Retention: compliance tag read do not purge hold users.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Mail delay internal
 - **Input:** sender a recipient b 2h window
 - **Prompt:**
@@ -120,8 +119,7 @@ Message trace connectors queues summarize.
 trace status delayed reason hop list | no rule change yet
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Auto forward all external
 - **Input:** executive request
 - **Prompt:**

@@ -106,8 +106,7 @@ the ‘forget to use’ sets of tests
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Slack read-only Agent.
 - **Input:** OpenClaw, `send_allowed=no`.
 - **Prompt:**
@@ -125,8 +124,7 @@ Smoke: 3 messages fetched, subjects redacted in log
 File: output/messaging-tooling.md
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** macOS iMessage vorbereiten.
 - **Input:** Darwin, Hermes bundled imessage.
 - **Prompt:**

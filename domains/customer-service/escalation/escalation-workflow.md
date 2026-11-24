@@ -107,8 +107,7 @@ Severity inflation Team alert fatigue.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** VIP-Ausfall, Severity 3.
 - **Input:** Ticket `#9902`, Matrix L2-Engineering.
 - **Prompt:**
@@ -125,8 +124,7 @@ Customer draft: "Wir priorisieren Ihren Fall… Update innerhalb 2 Stunden…"
 Slack draft: @oncall — summary + timeline (not posted)
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Gewaltandrohung.
 **Input:** Customer text related to physicals threat.
 - **Prompt:**

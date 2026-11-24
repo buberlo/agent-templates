@@ -114,8 +114,7 @@ Check JS-Heavy.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Docs site markdown
 - **Input:** docs.example.com
 - **Prompt:**
@@ -130,8 +129,7 @@ firecrawl max 100 pages routing.
 routing: firecrawl | playwright rejected
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Preistabelle 20 Seiten
 - **Input:** paginated catalog
 - **Prompt:**

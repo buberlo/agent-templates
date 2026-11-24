@@ -115,8 +115,7 @@ Deliver: summary.md, draft message block, list of message IDs referenced.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** #product digest 24h.
 - **Input:** Slack `#product`, since `2026-11-22T09:00:00+01:00`.
 - **Prompt:**
@@ -133,8 +132,7 @@ Action items: @maria API spec by Wed; @tom QA checklist.
 Draft (not posted): "Good morning — v2.1 stays Friday..."
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Missing channel ID.
 - **Input:** Name "product" only, no workspace context.
 - **Prompt:**

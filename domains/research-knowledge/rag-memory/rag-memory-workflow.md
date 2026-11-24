@@ -127,8 +127,7 @@ Log embedding model name when indexing.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Projekt-Fakt in Obsidian.
 - **Input:** API rate limit 100rpm, source runbook url.
 - **Prompt:**
@@ -143,8 +142,7 @@ Persist to obsidian memories/; retrieval test query rate limit.
 note created; retrieval returns 100rpm; audit log.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Secret ablehnen.
 - **Input:** fact contains api_key=sk-...
 - **Prompt:**

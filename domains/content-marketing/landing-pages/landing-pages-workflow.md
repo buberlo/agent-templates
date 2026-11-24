@@ -99,8 +99,7 @@ Hanfmethacrylate and object
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Demo LP
 - **Input:** keyword TMS
 - **Prompt:**
@@ -115,8 +114,7 @@ lp_spec+events
 cta_click mapped
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** CRO tests
 - **Input:** low completion
 - **Prompt:**

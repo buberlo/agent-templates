@@ -120,8 +120,7 @@ Keep legend for color semantics when more than 3 colors.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Onboarding-Prozess Flowchart.
 - **Input:** 8 steps of Registrierung bis Go-Live.
 - **Prompt:**
@@ -136,8 +135,7 @@ Mermaid flowchart TD; render deploy_flow.svg; German labels.
 deploy_flow.mmd, deploy_flow.svg; mmdc log success.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Sequenz Auth-Service.
 - **Input:** 4 Akteure, 6 Messages.
 - **Prompt:**

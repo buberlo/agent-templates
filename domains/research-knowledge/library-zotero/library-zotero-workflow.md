@@ -124,8 +124,7 @@ Missing metadata for FAILs.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** 5 DOIs nach BibTeX.
 - **Input:** DOI-Liste Projekt X.
 - **Prompt:**
@@ -140,8 +139,7 @@ Resolve metadata; references.bib; import_steps for Zotero.
 references.bib 5 entries; import_steps.md; missing empty.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Titel without DOI.
 - **Input:** Paper title only.
 - **Prompt:**

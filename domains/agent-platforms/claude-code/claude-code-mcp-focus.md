@@ -105,8 +105,7 @@ Each active MCP has documented purpose and a successful smoke test
 
 ## Basic examples
 
-### Example 1 (Real-world example)
-
+### Example 1 (Example data (self-written))
 - **Task:** docx with Skill, GitHub MCP from
 - **Input:** Briefing text for Word file
 - **Prompt:**
@@ -120,8 +119,7 @@ validate PASSED, PDF without Tabellen-Overflow nach Fix
 0 MCPs aktiv im Abschlusslog
 ```
 
-### Example 2 (Real-world example)
-
+### Example 2 (Example data (self-written))
 - **Task:** PR review with GitHub MCP
 - **Input:** PR #456
 - **Prompt:**
@@ -135,8 +133,7 @@ Kein merge_pull_request aufgerufen
 1 MCP aktiv
 ```
 
-### Example 3 (Real-world example)
-
+### Example 3 (Example data (self-written))
 - **Task:** Overhead-Warnung bei vollem Stack
 - **Input:** 6+ MCPs konfiguriert
 - **Prompt:**```text

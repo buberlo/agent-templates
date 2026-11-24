@@ -121,8 +121,7 @@ If text animates, verify contrast ratio against background for accessibility.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** 10 s KPI-Counter in Remotion.
 - **Input:** Start 0, End 1200000 EUR, 1080p30.
 - **Prompt:**
@@ -138,8 +137,7 @@ npx remotion render KpiCount out/kpi.mp4
 Duration: 10.00s, 1920x1080
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Sinuskurve erclarify with Manim.
 - **Input:** 45 s, 1080p.
 - **Prompt:**

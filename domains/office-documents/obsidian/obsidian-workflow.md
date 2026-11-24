@@ -122,8 +122,7 @@ Add see-also section with 2-3 wikilinks when helpful.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Concept Note with Backlinks.
 - **Input:** Vault `/wiki`, Thema „CAMT Import“.
 - **Prompt:**
@@ -138,8 +137,7 @@ Create note CAMT Import; link to [[Buchhaltung]] and [[SEPA]]; rg dupes first.
 wiki/CAMT Import.md; links to existing notes; changelog paths.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Daily Note.
 - **Input:** Date 2026-11-23, 3 bullets standup.
 - **Prompt:**

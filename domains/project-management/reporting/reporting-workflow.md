@@ -111,8 +111,7 @@ Compare Velocity without equal team capacity.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Steering Weekly, Linear Team X
 - **Input:** period 2026-W47, vorheriger Report Amber wegen API
 - **Prompt:**
@@ -127,8 +126,7 @@ status_report md RAG + metrics. email draft not sent.
 RAG justified | 12 completed cited | API risk updated | email draft tagged DO NOT SEND
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Exec without Tracker-Zugang
 - **Input:** only narrative bullet notes
 - **Prompt:**

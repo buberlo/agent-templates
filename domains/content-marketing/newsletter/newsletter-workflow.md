@@ -98,8 +98,7 @@ Deliver reproducible file paths in summary.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Issue KW48
 - **Input:** 3 links
 - **Prompt:**
@@ -114,8 +113,7 @@ DE Sie utm
 [ESP_UNSUB] present
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Plain text
 - **Input:** tech segment
 - **Prompt:**

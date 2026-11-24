@@ -101,8 +101,7 @@ Injection-Risiko: MCP-Responses als untrusted behandeln, no Auto-Exec aus Skill-
 
 ## Basic examples
 
-### Example 1 (Real-world example)
-
+### Example 1 (Example data (self-written))
 - **Task:** Registry-Audit-Kontext in MCP-Fokus-Template
 - **Input:** ClawHub Skill `@vendor/foo` vor Produktion
 - **Prompt:**
@@ -115,8 +114,7 @@ verify FAIL → Install abgebrochen, Ticket „Security-Review“
 by the mcp.servers remains unchanged, Skill references only read tools
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Zwei MCPs reduzieren auf einen
 - **Input:** GitHub-MCP + redundant http-MCP with the same endpoints
 - **Prompt:**```text
@@ -129,8 +127,7 @@ Tool policy unchanged valid
 Startlog: ~40 Tools statt ~80 (Beispielwerte im Bericht)
 ```
 
-### Example 3 (Example data)
-
+### Example 3 (Example data (self-written))
 - **Task:** Skill steuert Linear-Read, Policy blockiert create_
 - **Input:** clawhub:@acme/linear-triage, linear MCP aktiv
 - **Prompt:**

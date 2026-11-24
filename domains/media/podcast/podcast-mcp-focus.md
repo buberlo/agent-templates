@@ -118,8 +118,7 @@ YouTube content for your own episode instead of file—wrong source.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** episode 42: Master + DE-transcript.
 - **Input:** `ep42_raw.wav`, Titel „API-Design with Lea“.
 - **Prompt:**
@@ -138,8 +137,7 @@ Master to -16 LUFS MP3, Whisper DE transcript, draft show notes with 4 chapters.
 Files: ep42.mp3, ep42.txt, show_notes_draft.md
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Eigennamen after ASR korrigieren.
 - **Input:** transcript with „Graph QL“ statt „GraphQL“.
 - **Prompt:**

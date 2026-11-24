@@ -111,8 +111,7 @@ Document session isolation from stripe mcps to prevent confusion.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Portfolio agent setup.
 - **Input:** csv only policy.
 - **Prompt:**
@@ -127,8 +126,7 @@ security_plan csv-only no exchange mcp.
 plan denies all exchange tools; csv workflow.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Read-only API.
 - **Input:** ccxt read trades.
 - **Prompt:**

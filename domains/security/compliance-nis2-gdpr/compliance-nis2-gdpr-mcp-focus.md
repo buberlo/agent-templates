@@ -95,8 +95,7 @@ Wiki write only after release.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Control A.5.1 Mail spoofing.
 - **Input:** ISO 27001 annex ref.
 - **Prompt:**
@@ -111,8 +110,7 @@ Map to DMARC weekly report evidence; cite policy section via MCP read only.
 Control A.5.1 -> dmarc_w47.html + policy §4.2 DMARC enforcement
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Block wiki write.
 - **Input:** no COMPLIANCE_APPROVE.
 - **Prompt:**

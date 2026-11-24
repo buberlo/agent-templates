@@ -109,8 +109,7 @@ Metafield-Sync ERP overwrites without versioning.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Bestandsaudit vor Black Friday
 - **Input:** `demo-brand.myshopify.com`, SKUs `HOODIE-BLK-S/M/L`
 - **Prompt:**
@@ -126,8 +125,7 @@ HOODIE-BLK-M: qty -1 → CRITICAL oversell risk
 3 rows in products_snapshot.csv
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Order-KPIs letzte 7 Tage
 - **Input:** Period 2026-11-16-23, currency EUR
 - **Prompt:**

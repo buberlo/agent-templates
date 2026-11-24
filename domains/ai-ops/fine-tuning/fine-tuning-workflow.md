@@ -102,8 +102,7 @@ FREEDOM FT RUN for cost-intensive runs.
 
 ## Basic examples
 
-Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Support tone FT
 - **Input:** 800 jsonl, 20% val
 - **Prompt:
@@ -118,8 +117,7 @@ Baseline eval then ft plan lora local.
 baseline scores | train plan | safety cases included
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Kundendaten CSV
 - **Input:** no DPA
 - **Prompt:**
@@ -134,8 +132,7 @@ Train on exported tickets.
 block until rights confirmed | anonymize guide
 ```
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Placeholder
 - **Input:** example data
 - **Prompt:**

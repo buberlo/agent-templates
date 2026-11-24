@@ -97,8 +97,7 @@ Backup savegames before user applies mod locally—remind, do not run without pa
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Skyrim Quality-of-Life Mod Config
 - **Input:** Skyrim SE 1.6.640, SKSE, Ziel: UI-Skalierung in INI
 - **Prompt:**
@@ -106,8 +105,7 @@ Backup savegames before user applies mod locally—remind, do not run without pa
 Zeige sichere INI-Anderungen with Backup-Schritten. No Script-Extender-DLLs from Unbekannten.
 ```
 - **Expected result:** Markdown with 3 INI-Zeilen, Backup-Batch-Hinweis, Load-Order unverandert.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** UE5 Tier-Mod Blueprint
 - **Input:** Eigenes UE5.4 Projekt, wolf companion blueprint
 - **Prompt:**

@@ -120,8 +120,7 @@ Intent: funding news, hiring surge, new CTO—tag intent_flags[].
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** 30 Logistik-Firmen DACH 100–250 MA
 - **Input:** ICP, no competitors from URL0
 - **Prompt:**
@@ -136,8 +135,7 @@ Fit≥2 only. CSV with sources. Stop at 30 or quality drop report.
 28 qualified | 2 partial run | columns per spec | 5 excluded (competitor)
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Anreicherung Event-Liste
 - **Input:** 50 domains without contact
 - **Prompt:**

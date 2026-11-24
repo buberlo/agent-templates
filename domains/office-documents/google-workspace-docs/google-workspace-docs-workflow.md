@@ -123,8 +123,7 @@ For Sheets: note if IMPORTRANGE external—do not break without user ok.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** FAQ-Abschnitt in Doc aktualisieren.
 - **Input:** Doc URL, neuer Absatz unter „Support“.
 - **Prompt:**
@@ -139,8 +138,7 @@ Read outline, backup snapshot, insert paragraph under Support heading; changelog
 Doc updated; changelog: +1 paragraph Support; backup/faq_snapshot.md.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Sheet-Zelle without Backup ablehnen.
 - **Input:** Aenderung an ganze Sheet without backup flag.
 - **Prompt:**

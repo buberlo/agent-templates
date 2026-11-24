@@ -114,8 +114,7 @@ Attribute source URL in every deliverable footer.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Kapitel + Kurzsummary for Tutorial-URL.
 - **Input:** `https://www.youtube.com/watch?v=dQw4w9WgXcQ` (Example-ID), Format Kapitel.
 - **Prompt:**
@@ -138,8 +137,7 @@ Attribute source URL in every deliverable footer.
 Source: https://www.youtube.com/watch?v=dQw4w9WgXcQ
 ```
 
-### Example 2 (Real-world example)
-
+### Example 2 (Example data (self-written))
 - **Task:** Langes Interview chunken.
 - **Input:** transcript 72k Zeichen.
 - **Prompt:**

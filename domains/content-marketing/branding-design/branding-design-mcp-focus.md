@@ -100,8 +100,7 @@ in- off-line,
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Figma audit
 - **Input:** file
 - **Prompt:**
@@ -116,8 +115,7 @@ figma on
 routing says figma
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Canva 1080
 - **Input:** colors paste
 - **Prompt:**

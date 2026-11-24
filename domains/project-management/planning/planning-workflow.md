@@ -111,8 +111,7 @@ Version plan_{project}_{date}.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Q1 Release, 4 FTE, Linear backlog 120 pts
 - **Input:** target 2026-03-31, avg velocity 28 pts/sprint
 - **Prompt:**
@@ -127,8 +126,7 @@ capacity_model + critical path. confidence if missing estimates.
 projected_end > target or buffer needed | critical path 6 items | LOW if >40% unestimated
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Kein target_date
 - **Input:** nur Scope-Paragraph
 - **Prompt:**

@@ -100,8 +100,7 @@ One MCP for GitHub; do not duplicate with third-party GitHub mirrors.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Letzten roten CI-Run auf PR #88 analysieren.
 - **Input:** Repo `acme/api`, Run `20112233`.
 - **Prompt:**
@@ -117,8 +116,7 @@ Matrix: step2=search_workflow_runs, step3=gh run view --log-failed
 Root cause: pytest collection error in tests/integration/
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Define skill for “green before merge”.
 - **Input:** Branch protection verlangt `ci / test`.
 - **Prompt:**

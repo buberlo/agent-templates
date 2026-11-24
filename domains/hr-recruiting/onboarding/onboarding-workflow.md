@@ -113,8 +113,7 @@ Version: onboarding_{role_slug}_{start_date}.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Software Engineer, Start in 14 Tagen, Remote DE
 - **Input:** Stack GitHub, Slack, Jira; manager "P. Muster"
 - **Prompt:**
@@ -129,8 +128,7 @@ T-7 HR, T0 laptop ship task, compliance before repo access. xlsx + week1 docx.
 checklist 25+ rows | security training before git | no API calls | verify ok
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Start date is missing
 - **Input:** Only the "Marketing Manager" role
 - **Prompt:**

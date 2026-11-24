@@ -111,8 +111,7 @@ Compare Amazon net without VAT with Shopify gross.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Wochen-KPIs Shopify + Amazon
 - **Input:** zwei CSVs, KW47
 - **Prompt:**
@@ -127,8 +126,7 @@ Reconcile SKU MAP user file. Flag unmapped. Table per channel.
 Shopify net 12.1k | Amazon net 8.4k | 4 unmapped SKUs listed
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Stockout P1 Liste
 - **Input:** inventory exports
 - **Prompt:**

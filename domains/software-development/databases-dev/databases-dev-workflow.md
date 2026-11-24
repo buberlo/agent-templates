@@ -99,8 +99,7 @@ No manual prod psql unless user supplies PROD_APPROVE.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Add column `status`.
 - **Input:** Postgres alembic.
 - **Prompt:**
@@ -117,8 +116,7 @@ pytest tests/db/
 alembic downgrade -1
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Index for user id FK.
 - **Input:** slow list query.
 - **Prompt:**

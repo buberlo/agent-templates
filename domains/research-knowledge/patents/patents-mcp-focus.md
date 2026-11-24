@@ -104,8 +104,7 @@ Sample query strings only no secret tech in examples.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** EP MCP plan.
 - **Input:** jurisdiction EP.
 - **Prompt:**
@@ -120,8 +119,7 @@ MCP plan brave+firecrawl espacenet focus.
 plan.md allowlist espacenet; patente-workflow link.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** US focus.
 - **Input:** US patents.
 - **Prompt:**

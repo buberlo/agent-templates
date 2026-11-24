@@ -112,8 +112,7 @@ Complete on completing similarity without ID.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Meeting Notes 1 Seite → Todoist Preview
 - **Input:** 6 bullets, 2 with date “Fr 28.11.”, TZ Vienna
 - **Prompt:**
@@ -128,8 +127,7 @@ Task candidates and dedupe read open tasks. Please note that the information pro
 6 candidates | 2 with due | 0 todoist created | 1 duplicate flagged if match
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** FREEGABE COMPLETE all inbox
 - **Input:** unspezifiziert
 - **Prompt:**

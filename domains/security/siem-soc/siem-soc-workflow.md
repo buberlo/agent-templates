@@ -98,8 +98,7 @@ Open Alert/Ticket; Set UTC windows.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Failed logins spike alert.
 - **Input:** user alice, 2h window.
 - **Prompt:**
@@ -115,8 +114,7 @@ index=auth action=failure user=alice earliest=-2h latest=now
 | stats count by src_ip
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Tune noisy rule.
 - **Input:** rule R-442 threshold 5 -> 20 proposed.
 - **Prompt:**

@@ -95,8 +95,7 @@ Import only user-supplied data; no mailbox scrape without permission.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** November Doctor + Buergeramt
 - **Input:** Hautarzt 14.11 10:30, Buergeramt 19.11 8:00, 45 Min Fahrt
 - **Prompt:**
@@ -104,8 +103,7 @@ Import only user-supplied data; no mailbox scrape without permission.
 Kalender Drafts + Checkliste Ausweis Meldebescheinigung.
 ```
 - **Expected result:** 2 Events Draft; Checklisten 5 Items; Konflikt keiner.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** familyn-Sporttraining Kinder
 - **Input:** Training Di+Do 17:00, Eltern Abholung 18:15
 - **Prompt:**

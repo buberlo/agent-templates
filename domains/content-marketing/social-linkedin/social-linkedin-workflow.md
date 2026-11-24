@@ -96,8 +96,7 @@ Deliver reproducible file paths in summary.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Post Launch
 - **Input:** ICP B2B
 - **Prompt:**
@@ -112,8 +111,7 @@ DE hook+CTA
 draft only
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Second format
 - **Input:** thread or carousel
 - **Prompt:**

@@ -96,8 +96,7 @@ Close with export filenames and revision id in a short recap.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Raspberry Pi housing OpenSCAD
 - **Input:** Pi 4, Lufter 30mm, USB-Buchse Ausschnitt
 - **Prompt:**
@@ -105,8 +104,7 @@ Close with export filenames and revision id in a short recap.
 Parametric wall 2.4mm, Pi board dims als Variablen.
 ```
 - **Expected result:** case.scad with 6 Variablen; render Anweisung; BOM 4 Schrauben M3.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** FreeCAD Halter Sensor
 - **Input:** SK1 M4 Locher 40mm Raster
 - **Prompt:**

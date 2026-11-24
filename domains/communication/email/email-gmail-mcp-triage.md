@@ -111,8 +111,7 @@ Drafts contain correct thread reference/reply-to
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Morning triage leader inbox.
 - **Input:** Query `is:unread -category:promotions`, Regeln `config/inbox-triage-rules.yaml`.
 - **Prompt:**
@@ -129,8 +128,7 @@ Draft IDs: r-3849201, r-3849202 (customer escalation, board prep)
 Review-Human: 1 (legal@...)
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Fehlende Regeldatei.
 - **Input:** Kein Pfad zu `inbox-triage-rules.yaml`.
 - **Prompt:**

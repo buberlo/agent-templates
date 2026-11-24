@@ -121,8 +121,7 @@ No upload to Sketchfab or CDN without approval.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** FBX → GLB under 100k tris.
 - **Input:** `chair.fbx`, 210k tris.
 - **Prompt:**
@@ -142,8 +141,7 @@ Blender headless import chair.fbx, decimate to under 100k tris, export chair.glb
 }
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Turntable preview.
 - **Input:** `dist/chair.glb`.
 - **Prompt:**

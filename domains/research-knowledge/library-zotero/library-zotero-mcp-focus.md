@@ -107,8 +107,7 @@ Rate limit conscious batches for 50+ titles.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Setup Literatur-Agent.
 - **Input:** Zotero desktop only.
 - **Prompt:**
@@ -123,8 +122,7 @@ Route discover via brave+firecrawl; export via bibliothek-zotero-workflow.
 routing.md minimal MCPs; workflow link.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** DOI sample.
 - **Input:** Title „Attention Is All You Need“.
 - **Prompt:**

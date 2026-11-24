@@ -112,8 +112,7 @@ Cut Spec in epics/stories/tasks (vote size).
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Spec in 5 Linear Stories, Draft only
 - **Input:** 2-seitige Spec, Team ENG
 - **Prompt:**
@@ -128,8 +127,7 @@ issue_drafts.md + trace. No API create.
 5 drafts each numbered AC | trace 5 rows | 0 live issues
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** FREE GUIDE CREATE 3 bugs
 - **Input:** Liste repro steps, Jira project BUG
 - **Prompt:**

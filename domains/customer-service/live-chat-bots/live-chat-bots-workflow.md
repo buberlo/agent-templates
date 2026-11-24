@@ -106,8 +106,7 @@ The Loe B once to Ts.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Passwort-Hilfe im Chat.
 - **Input:** Customer "do not come in", KB `art 102`.
 - **Prompt:**
@@ -124,8 +123,7 @@ Internal cite: art_102 §steps 1-2
 Handoff: false
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Refund demand furious.
 - **Input:** "I want lawyer", sentiment angry.
 - **Prompt:**

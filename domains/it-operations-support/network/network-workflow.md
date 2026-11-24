@@ -99,8 +99,7 @@ kubectl not primary here unless symptom pods network policy handoff devops kuber
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Intranet down extern ok
 - **Input:** VLAN 20 users
 - **Prompt:**
@@ -115,8 +114,7 @@ dig internal tools trace compare gateway ping.
 dns forwarder fail hypothesized | change proposal no apply
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Firewall rule now
 - **Input:** Without windows
 - **Prompt:**

@@ -112,8 +112,7 @@ Language: rationale in user's language (DE default).
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** 8 CVs, 4 Must-Haves, Top 3 Shortlist
 - **Input:** Scorecard xlsx, CVs as docx
 - **Prompt:**
@@ -128,8 +127,7 @@ Weighted rubric. NO for any missing must-have. CSV + shortlist.md
 8 rows | 3 shortlisted | 2 NO must-have | all rows have evidence snippets
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Scorecard fehlt
 - **Input:** PDF CV only
 - **Prompt:**

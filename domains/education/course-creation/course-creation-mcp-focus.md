@@ -106,8 +106,7 @@ External YouTube URLs only with userlist.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Nur Hermes pptx.
 - **Input:** `outputs_needed=pptx`, hermes host.
 - **Prompt:**
@@ -124,8 +123,7 @@ Smoke: tooling-smoke.pptx (1 slide)
 Validate: SKIPPED (anthropic path not installed) | paragraphs counted via read-back
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Anthropic validate Pfad.
 - **Input:** claude_skills, run_validate true.
 - **Prompt:**

@@ -95,8 +95,7 @@ Fallback: read migrations folder if MCP auth fails.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Index aus EXPLAIN MCP.
 - **Input:** staging `app_staging`.
 - **Prompt:**
@@ -112,8 +111,7 @@ migrations/20261123_idx_orders_user.py
 alembic upgrade head OK
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Reject prod.
 - **Input:** DSN host db.prod.internal.
 - **Prompt:**

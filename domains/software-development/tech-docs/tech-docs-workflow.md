@@ -98,8 +98,7 @@ Update index/README TOC when adding pages.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** ADR for DB choice.
 - **Input:** choose Postgres.
 - **Prompt:**
@@ -114,8 +113,7 @@ Write docs/adr/0007-postgres.md with context/decision/consequences.
 ADR 0007 Accepted — Postgres for JSON + extensions
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Onboarding dev setup.
 - **Input:** npm monorepo.
 - **Prompt:**

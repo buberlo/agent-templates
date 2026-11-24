@@ -99,8 +99,7 @@ Export markdown templates only.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Woche with therapy Di Do
 - **Input:** Therapie 17:00, morgens 15 Min Journal
 - **Prompt:**
@@ -108,8 +107,7 @@ Export markdown templates only.
 Routinen-Canvas and 5 neutrale Journal-Prompts.
 ```
 - **Expected result:** docx Wochenplan; Prompts without Trauma; Krisennummern Fussnote.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Mood + Strava Korrelation
 - **Input:** User will sehen ob lange Runs Stimmung next day beeinflussen
 - **Prompt:**

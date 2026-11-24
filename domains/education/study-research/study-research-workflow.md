@@ -114,8 +114,7 @@ Export docx-Outline if desired.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Exposé Outline Master, APA.
 - **Input:** topic AI in education, 8 PDFs from the user.
 - **Prompt:**
@@ -132,8 +131,7 @@ literature_table.csv: 8 rows with APA keys
 gaps.md: "Longitudinal classroom studies scarce"
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Ganze Thesis schreiben.
 - **Input:** 60 Seiten Abgabe in 2 Tagen.
 - **Prompt:**

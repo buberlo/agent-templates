@@ -96,8 +96,7 @@ Close with index file path and count of documents still missing dates.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Ordner for Orthopadie-Wechsel
 - **Input:** 3 MRT PDFs, 5 Labor PDFs, Termin 12.12.2026
 - **Prompt:**
@@ -105,8 +104,7 @@ Close with index file path and count of documents still missing dates.
 Index with Datum, Dokumenttyp, Fragenliste orthopedist.
 ```
 - **Expected result:** CSV 8 Eintrage; Fragen 6 neutral; MRT without diagnosis-Text.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Impfhistorie Timeline
 - **Input:** Impfpass Scan, Tetanus 2019, COVID 3 Dosen
 - **Prompt:**

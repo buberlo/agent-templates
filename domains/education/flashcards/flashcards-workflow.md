@@ -111,8 +111,7 @@ Explorers.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** 30 Karten aus Vorlesung docx Kap. 2.
 - **Input:** `lecture2.docx`, DE, basic.
 - **Prompt:**
@@ -130,8 +129,7 @@ Sample back: "Zellteilung … — Source: Kap. 2 §Mitose"
 quality_notes: 2 duplicates removed
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** YouTube without URL.
 - **Input:** Nur Thema "Photosynthese".
 - **Prompt:**

@@ -109,8 +109,7 @@ Check URLs and robots.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** 5 Seiten catalog-Tabelle
 - **Input:** base url, tr.product-row
 - **Prompt:**
@@ -125,8 +124,7 @@ robots ok, delay 1500, max 5 pages csv.
 output.csv consistent columns | robots.log allowed
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** robots disallow
 - **Input:** /private/ path disallowed
 - **Prompt:**

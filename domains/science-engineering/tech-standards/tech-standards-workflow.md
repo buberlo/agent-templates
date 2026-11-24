@@ -95,8 +95,7 @@ Summarize matrix row counts and open PASS/FAIL/UNKNOWN totals at end.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** ISO 9001 Gap internes QM
 - **Input:** User checklist Chapter 4-6 excerpts
 - **Prompt:**
@@ -105,8 +104,7 @@ Summarize matrix row counts and open PASS/FAIL/UNKNOWN totals at end.
 Matrix PASS/FAIL/UNKNOWN Prozessdokumente.
 ```
 - **Expected result:** matrix.md 22 Zeilen; 5 UNKNOWN without Audit.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** EN 62368-1 Produktentwurf
 - **Input:** Device 24V SELV, User clauses 5.4.x Paste
 - **Prompt:**

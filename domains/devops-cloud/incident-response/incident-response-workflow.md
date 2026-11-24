@@ -102,8 +102,7 @@ And then, in fact, they are public.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** API 500 nach Deploy; Rollback.
 - **Input:** Sev1, NS `prod`, Deploy `api` 14:32 UTC.
 - **Prompt:**
@@ -120,8 +119,7 @@ kubectl -n prod rollout undo deploy/api
 # Timeline entry + customer draft "Investigating errors..."
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Not Deploy — DB Connection Exhaustion.
 - **Input:** Hikari pool maxed, no recent deploy.
 - **Prompt:**

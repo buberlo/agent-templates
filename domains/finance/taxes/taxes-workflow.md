@@ -121,8 +121,7 @@ Wrong category invented.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Q3 Belegepaket.
 - **Input:** receipts_index.csv categories_stb.yaml.
 - **Prompt:**
@@ -137,8 +136,7 @@ package_index.csv handoff.md open_questions; no tax advice.
 index sorted; disclaimer header; questions for unknown merchants.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** USt berechnen ablehnen.
 - **Input:** calculate vat return.
 - **Prompt:**

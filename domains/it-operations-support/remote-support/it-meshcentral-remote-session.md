@@ -110,8 +110,7 @@ MeshCentral audit: export session record id if breach suspicion link security te
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Repair VPN ticket #8842
 - **Input:** Windows laptop, agent installed, consent logged
 - **Prompt:**
@@ -126,8 +125,7 @@ View-only first diagnose VPN adapter fix profile user confirms interactive.
 session 18 min | VPN connected | ticket updated | audit session id noted
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Copy private photos
 - **Input:** Without ticket scope
 - **Prompt:**

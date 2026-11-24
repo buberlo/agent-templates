@@ -133,8 +133,7 @@ Abort if currency mix without user FX policy.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** November-Auszug gegen OPOS.
 - **Input:** `stmt_nov.camt`, `opos_nov.csv` (80 Zeilen), Toleranz ±2 Tage.
 - **Prompt:**
@@ -149,8 +148,7 @@ Parse CAMT, tiered match, output match.csv and unmatched lists. No ERP. Mask IBA
 match.csv: 72 MATCHED; unmatched_bank.csv: 5; unmatched_opos.csv: 8; summary with match rate 90%.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Teilzahlung erkennen.
 - **Input:** Eine OPOS 1.000 €, zwei Bankzeilen 600 € + 400 € gleiche Referenz.
 - **Prompt:**

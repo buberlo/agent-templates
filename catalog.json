@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T00:00:00Z",
+  "generated_at": "2026-11-24T00:00:00Z",
   "domains": [
     {
       "slug": "agent-platforms",
@@ -1931,8 +1931,8 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-24",
       "path": "domains/content-marketing/branding-design/branding-design-workflow.md"
     },
     {
@@ -1971,8 +1971,8 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-24",
       "path": "domains/content-marketing/copywriting/copywriting-workflow.md"
     },
     {
@@ -2134,8 +2134,8 @@
       ],
       "risk_level": "medium",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-24",
       "path": "domains/content-marketing/social-media-strategy/social-buffer-schedule-campaign.md"
     },
     {
@@ -2175,8 +2175,8 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-24",
       "path": "domains/content-marketing/social-tiktok/social-ffmpeg-shorts-repurpose.md"
     },
     {
@@ -3614,8 +3614,8 @@
       ],
       "risk_level": "high",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-24",
       "path": "domains/it-operations-support/active-directory-entra/active-directory-entra-workflow.md"
     },
     {
@@ -3635,8 +3635,8 @@
       ],
       "risk_level": "high",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-24",
       "path": "domains/it-operations-support/backup-restore/backup-restore-workflow.md"
     },
     {
@@ -3657,13 +3657,13 @@
       ],
       "risk_level": "high",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-24",
       "path": "domains/it-operations-support/endpoint-mdm/endpoint-mdm-workflow.md"
     },
     {
       "id": "google-workspace-admin-workflow",
-      "title": "Google-Workspace-Admin",
+      "title": "Google Workspace admin",
       "domain": "it-operations-support",
       "category": "google-workspace-admin",
       "tags": [
@@ -3679,8 +3679,8 @@
       ],
       "risk_level": "high",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-24",
       "path": "domains/it-operations-support/google-workspace-admin/google-workspace-admin-workflow.md"
     },
     {
@@ -3700,8 +3700,8 @@
       ],
       "risk_level": "high",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-24",
       "path": "domains/it-operations-support/helpdesk-it/it-ansible-patch-baseline.md"
     },
     {
@@ -4591,24 +4591,26 @@
     },
     {
       "id": "household-workflow",
-      "title": "Haushalt",
+      "title": "Household",
       "domain": "personal-lifestyle",
       "category": "household",
       "tags": [
-        "haushalt",
-        "personal-lifestyle",
-        "skillcli"
+        "household",
+        "maintenance",
+        "chores",
+        "inventory"
       ],
       "target_agents": [
         "hermes",
         "grokbot",
         "generic-mcp-agents",
-        "generic"
+        "generic",
+        "cursor"
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-24",
       "path": "domains/personal-lifestyle/household/household-workflow.md"
     },
     {
@@ -5768,17 +5770,19 @@
       "tags": [
         "vuln",
         "cve",
-        "patching"
+        "patching",
+        "sbom"
       ],
       "target_agents": [
         "hermes",
         "grokbot",
-        "generic-mcp-agents"
+        "generic-mcp-agents",
+        "cursor"
       ],
       "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-24",
       "path": "domains/security/vuln-management/vuln-management-workflow.md"
     },
     {
@@ -5821,8 +5825,8 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-24",
       "path": "domains/software-development/backend-apis/backend-apis-workflow.md"
     },
     {
@@ -5865,8 +5869,8 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-24",
       "path": "domains/software-development/code-review/code-review-workflow.md"
     },
     {
@@ -6018,8 +6022,8 @@
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-24",
       "path": "domains/software-development/frontend/frontend-workflow.md"
     },
     {
@@ -6084,8 +6088,8 @@
       ],
       "risk_level": "medium",
       "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-24",
       "path": "domains/software-development/mobile-apps/mobile-apps-workflow.md"
     },
     {

@@ -123,8 +123,7 @@ Honor platform safe margins (e.g. 10% bottom) in review notes even for softsubs.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** DE SRT → EN Entwurf, gleiche Cues.
 - **Input:** `training_de.srt` (84 cues).
 - **Prompt:**
@@ -143,8 +142,7 @@ Welcome to onboarding module three.
 Cue count: 84 (unchanged timecodes)
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Softsubs in MP4 muxen.
 - **Input:** `course.mp4`, `course_de.srt`, approval Softsub.
 - **Prompt:**

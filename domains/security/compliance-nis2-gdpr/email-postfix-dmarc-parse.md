@@ -97,8 +97,7 @@ Open JSON/HTML; Tabulate fail rate per source.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Week 47 for `example.de`.
 - **Input:** 4 XML-Files.
 - **Prompt:**
@@ -115,8 +114,7 @@ parsedmarc -f dmarc_w47.xml -o ./out
 # recommend stay p=quarantine
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Before reject release.
 - **Input:** 3 Wochen >98% pass.
 - **Prompt:**

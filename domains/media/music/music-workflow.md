@@ -112,8 +112,7 @@ Never spend credits or call paid APIs without confirmation.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** 30 s Podcast-Intro, instrumental, uptempo.
 - **Input:** Funk, 110 BPM, no Vocals.
 - **Prompt:**
@@ -130,8 +129,7 @@ Negative: vocals, ambient pad, slow intro
 Checklist: commercial_use pending user ToS review
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Chorus for deutschsprachigen Pop-Song.
 - **Input:** Thema „Ankommen in neuer Stadt“.
 - **Prompt:**

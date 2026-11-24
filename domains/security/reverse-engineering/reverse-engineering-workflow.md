@@ -100,8 +100,7 @@ Dynamic analysis with network — C2 triggered.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Eigene Firmware audit plan.
 - **Input:** signed contract AUDIT-12, hash `def456...`.
 - **Prompt:**
@@ -117,8 +116,7 @@ Checklist: VM snapshot, no internet, case AUDIT-12
 Sections: static overview (human), findings table
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Crack request abweisen.
 - **Input:** „bypass Adobe trial“.
 - **Prompt:**

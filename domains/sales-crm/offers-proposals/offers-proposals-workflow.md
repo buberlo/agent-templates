@@ -112,8 +112,7 @@ Currency mixed EUR/USD.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Angebot 12 Monate SaaS Pro
 - **Input:** attio deal, Preisliste v2026-09
 - **Prompt:**
@@ -128,8 +127,7 @@ DE proposal, 50 seats Pro, net excl VAT, valid 30 days.
 proposal_draft.md with line 50× seat price | total matches list math
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Renewal +10% uplift
 - **Input:** prior contract value, uplift rule in price list
 - **Prompt:**

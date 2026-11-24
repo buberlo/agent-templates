@@ -98,8 +98,7 @@ RAM/VRAM.
 
 ## Basic examples
 
-Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Laptop 16GB RAM
 - **Input:** German summary
 - **Prompt:**
@@ -114,8 +113,7 @@ Recommend ollama model and smoke test api.
 llama3.2:3b or mistral 7b q4 | curl generate ok
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Expose API LAN
 - **Input:** OLLAMA_HOST=0.0.0.0
 - **Prompt:**
@@ -130,8 +128,7 @@ Share model with coworkers on wifi.
 warn authentication absent | suggest vpn or reverse proxy auth
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Second dry run
 - **Input:** Example data only
 - **Prompt:**

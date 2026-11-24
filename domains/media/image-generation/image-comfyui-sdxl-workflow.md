@@ -118,8 +118,7 @@ Never publish images to stock or social without user approval.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Hero-Bild 1344×768 for Blog.
 - **Input:** Prompt „minimalist office desk, morning light“, SDXL base, seed 4242.
 - **Prompt:**
@@ -139,8 +138,7 @@ Run SDXL ComfyUI workflow 1344x768, seed 4242, save snapshot and PNG. cfg 6, ste
 }
 ```
 
-### Example 2 (Real-world example)
-
+### Example 2 (Example data (self-written))
 - **Task:** Hermes optional-mcps comfy-cloud for GPU-freie Agenten.
 - **Input:** Freigegebener comfy-cloud MCP, gleicher Prompt wie oben.
 - **Prompt:**

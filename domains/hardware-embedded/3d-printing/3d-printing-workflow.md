@@ -96,8 +96,7 @@ G-code from untrusted source without review.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** PETG housing Tuning
 - **Input:** Prusa MK4, 0.4 nozzle, PETG CF
 - **Prompt:**
@@ -105,8 +104,7 @@ G-code from untrusted source without review.
 Profil langsamer outer wall, 240°C Startvorschlag with UNKNOWN confirmation.
 ```
 - **Expected result:** Tabelle 12 Parameter; Dry box Hinweis; erste Layer Check 5 Punkte.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Miniatur Batch 6 Teile
 - **Input:** PLA, 2h Budget, Arrangement on 220 Bed
 - **Prompt:**

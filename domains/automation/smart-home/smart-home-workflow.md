@@ -102,8 +102,7 @@ Cloud outage on pure cloud switches.
 
 ## Basic examples
 
-Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Evening light scene
 - **Input:** `light.living room`, sunset -30min
 - **Prompt:**
@@ -134,8 +133,7 @@ blocked | USER_APPROVAL HOME ACTUATE + confirm occupants
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Minimal dry run
 - **Input:** Example briefing (labeled example data)
 - **Prompt:**
@@ -144,8 +142,7 @@ Follow the workflow with no external side effects.
 ```
 - **Expected result:** Draft output paths listed; no production changes.
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Review-only pass
 - **Input:** Same briefing as Example 1
 - **Prompt:**

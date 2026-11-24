@@ -113,8 +113,7 @@ Idiom translated literally.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** EN→DE Business-Mail Korrektur.
 - **Input:** B1, register formal Sie.
 - **Prompt:**
@@ -131,8 +130,7 @@ Correct this email in German business register, table of errors.
 Corrected body: Dear Mrs. Mueller, ...
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Certified translation.
 - **Input:** Vertrag EN→DE beglaubigt.
 - **Prompt:**

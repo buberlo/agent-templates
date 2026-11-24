@@ -107,8 +107,7 @@ If no prior snapshot, report baseline only no delta.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Daily snapshot 10 ASINs
 - **Input:** watchlist.csv
 - **Prompt:**
@@ -123,8 +122,7 @@ prices_2026-11-23.csv + alerts if >5% down vs yesterday.
 10 rows | 2 alerts ASIN B0X dropped 6.1%
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** MAP check
 - **Input:** map_price column
 - **Prompt:**

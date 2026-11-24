@@ -123,8 +123,7 @@ Watch multi-line address fields length limits.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Antrag from CRM-Export.
 - **Input:** `antrag.pdf`, `row.json` with name, address, case_id.
 - **Prompt:**
@@ -139,8 +138,7 @@ Fill required fields; verify.json; qa png page 1; no submit.
 antrag_filled.pdf; verification diff empty; qa/antrag_p1.png.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Fehlendes Pflichtfield.
 - **Input:** JSON without `case_id`.
 - **Prompt:**

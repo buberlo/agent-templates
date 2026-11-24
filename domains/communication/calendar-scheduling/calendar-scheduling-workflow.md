@@ -111,8 +111,7 @@ Log event_id after create.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** 30-minute sync with two colleagues.
 - **Input:** `alice@firma.example`, `bob@firma.example`, Mon–Fri 09–17 Europe/Vienna.
 - **Prompt:**
@@ -131,8 +130,7 @@ Draft title: API Review | Attendees: alice, bob
 Create: pending
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Hard conflict.
 - **Input:** Organizer blocked 14:00–15:00; desired slot 14:30.
 - **Prompt:**

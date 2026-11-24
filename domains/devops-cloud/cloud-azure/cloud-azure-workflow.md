@@ -100,8 +100,7 @@ Subscription and Tenant in Summary
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** AKS cluster overview.
 - **Input:** RG `rg-platform`, Cluster `aks-prod-01`.
 - **Prompt:**
@@ -117,8 +116,7 @@ az aks show -g rg-platform -n aks-prod-01 \
   --query "{k8s:kubernetesVersion,pools:agentPoolProfiles[].{name:name,count:count}}" -o json
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** NSG-Regel „Any/Any“ finden.
 - **Input:** NSG `nsg-web`.
 - **Prompt:**

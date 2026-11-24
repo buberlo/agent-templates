@@ -107,8 +107,7 @@ Re morning (WW ,  (ww) rushing upwards ( second benefiting in and ing in (ww) an
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** IMAP-Firmenpostfach triagieren.
 - **Input:** Server `mail.firma.example`, Skill Himalaya aktiv.
 - **Prompt:**
@@ -124,8 +123,7 @@ Tools: himalaya, email-inbox-triage (gmail MCP disabled)
 Unread: 17 | Drafts saved: output/drafts/re-28401.eml, re-28402.eml
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Workspace-Inbox lesen without Send-Tool.
 - **Input:** gws installiert, Policy: read+draft only.
 - **Prompt:**

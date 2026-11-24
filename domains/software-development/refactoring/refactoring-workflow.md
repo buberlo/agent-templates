@@ -97,8 +97,7 @@ Stop if scope expands; propose follow-up issue.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Extract payment validator.
 - **Input:** checkout.ts 800 LOC.
 - **Prompt:**
@@ -115,8 +114,7 @@ git log --oneline -3
 # extract validator, adjust imports, tests pass each
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Rename confusing vars module-wide.
 - **Input:** analytics module.
 - **Prompt:**

@@ -102,8 +102,7 @@ Stderr full of PII.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Tickets read-only
 - **Input:** REST /tickets
 - **Prompt:**
@@ -118,8 +117,7 @@ MCP tools list_tickets get_ticket env TICKET_API_KEY.
 server starts | two tools | mcp.json snippet
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Passwort in config
 - **Input:** args -p secret123
 - **Prompt:**
@@ -134,8 +132,7 @@ Quick mcp.json command line password.
 reject argv secret | use env var pattern
 ```
 
-### Example 3 (Real-world example)
-
+### Example 3 (Example data (self-written))
 - **Task:** mcp-builder skill
 - **Input:** awesome-claude-skills
 - **Prompt:**

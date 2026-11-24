@@ -110,8 +110,7 @@ We terminal we). Which and traders
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Report delay 15 minutes.
 - **Input:** Handle `+43…901`, Draft DE.
 - **Prompt:**
@@ -127,8 +126,7 @@ Draft: Bin in 15 Min da, sorry!
 Status: draft_only (awaiting SEND +43***901)
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Linux-Server.
 - **Input:** `uname` = Linux, imessage angefragt.
 - **Prompt:**

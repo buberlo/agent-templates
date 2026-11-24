@@ -111,8 +111,7 @@ Include one paragraph DE summary for stakeholders.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Meta review 30d.
 - **Input:** export.csv CPA target 40 EUR.
 - **Prompt:**
@@ -127,8 +126,7 @@ action_list pause ads CPA>50.
 3 pause recommendations with ad ids | avg CPA 52 EUR flagged
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Creative fatigue.
 - **Input:** CTR -35% WoW.
 - **Prompt:**

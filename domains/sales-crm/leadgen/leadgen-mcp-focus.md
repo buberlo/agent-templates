@@ -124,8 +124,7 @@ Never run Close sequences from this focus template.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** CSV only, 20 accounts
 - **Input:** ICP SaaS DACH
 - **Prompt:**
@@ -140,8 +139,7 @@ Phase A only. attio excluded. Deliver leads_dach_saas.csv.
 Phase A complete | MCPs: exa, brave | CSV 20 rows | Phase B skipped
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** CSV dann Attio Dry-Run
 - **Input:** `leads_dach_saas.csv` sha256 bekannt
 - **Prompt:**

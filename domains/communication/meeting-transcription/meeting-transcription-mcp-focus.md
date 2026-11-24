@@ -106,8 +106,7 @@ The end of the entity in front a cross- poster, a crossnap of a cross-aper a cro
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** local_only Setup.
 - **Input:** `data_residency=local_only`, GPU nein.
 - **Prompt:**
@@ -125,8 +124,7 @@ Model note: small for CPU, expect ~2x realtime
 File: meeting-tooling.md
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Fireflies-only read.
 - **Input:** `has_fireflies=true`, `saas_ok=true`.
 - **Prompt:**

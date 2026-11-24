@@ -119,8 +119,7 @@ Recommend backup recording locally in OBS checklist even when streaming only.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Intro 5 s on 1080p30 normalisieren.
 - **Input:** `intro_4k.mov`, Canvas 1920×1080.
 - **Prompt:**
@@ -136,8 +135,7 @@ intro_norm.mp4: 1920x1080, 30 fps, h264, duration 5.00s
 gop: 60 frames
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** OBS-Checkliste YouTube 1080p.
 - **Input:** no Keys; only Spec.
 - **Prompt:**

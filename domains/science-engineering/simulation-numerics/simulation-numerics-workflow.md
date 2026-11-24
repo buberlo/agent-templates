@@ -96,8 +96,7 @@ arXiv benchmark papers compare only qualitatively unless user data matches.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** ODE Lotka-Volterra Sweep
 - **Input:** alpha beta grid 10x10, scipy solve_ivp
 - **Prompt:**
@@ -106,8 +105,7 @@ arXiv benchmark papers compare only qualitatively unless user data matches.
 Notebook + contour plot + seed 42.
 ```
 - **Expected result:** notebooks/lv_sweep.ipynb; params.json; figure png.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** FE beam deflection
 - **Input:** Euler-Bernoulli analytical vs FEM coarse/fine
 - **Prompt:**

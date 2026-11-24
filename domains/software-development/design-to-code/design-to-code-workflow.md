@@ -98,8 +98,7 @@ Document deviations from design with reason (a11y, performance).
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Hero section aus PNG.
 - **Input:** 1280w mockup.
 - **Prompt:**
@@ -114,8 +113,7 @@ Build Hero.tsx; playwright screenshot test desktop+mobile.
 npx playwright test tests/visual/hero.spec.ts --project=chromium
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Token sync.
 - **Input:** colors.json from design.
 - **Prompt:**

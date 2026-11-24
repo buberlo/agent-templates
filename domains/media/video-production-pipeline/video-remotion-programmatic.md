@@ -123,8 +123,7 @@ Stock assets and fonts: only use files the user provided or licenses they confir
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Monatliches Sales-Dashboard-Video from CSV.
 - **Input:** `sales_nov.json` with `{ "month", "revenue_eur", "deals" }`, 1080×1920, 15 s.
 - **Prompt:**
@@ -142,8 +141,7 @@ Add Remotion composition SalesStory (1080x1920, 30fps, 450 frames). Animate reve
 }
 ```
 
-### Example 2 (Real-world example)
-
+### Example 2 (Example data (self-written))
 - **Task:** Remotion-Skills as Referenz for Agent-Prompting statt Legacy-MCP.
 - **Input:** Neues Repo, Skill-README of remotion-dev/skills.
 - **Prompt:**

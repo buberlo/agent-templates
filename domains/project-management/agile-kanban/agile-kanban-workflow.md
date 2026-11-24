@@ -112,8 +112,7 @@ Each flag category with issue IDs/links
 
 ## Basic examples
 
-### Example 1 (Example data) (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** Linear Board Audit, WIP Dev=3, Stale 5d
 - **Input:** Projekt-ID, DoD 5 Punkte, read-only
 - **Prompt:**
@@ -128,8 +127,7 @@ board_health_report + dod_violations sample 10 done cards. No status changes.
 WIP breach: 5 in Dev | 8 stale ids listed | dod violations: 2/10 | no writes
 ```
 
-### Example 2 (Example data) (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** allow_writes without Ziel-Spalte
 - **Input:** „move all stale to done“
 - **Prompt:**

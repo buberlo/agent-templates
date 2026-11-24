@@ -129,8 +129,7 @@ If Hermes path: run bundled read script and echo sheet/section inventory.
 
 ## Basic examples
 
-### Example 1 (Real-world example)
-
+### Example 1 (Example data (self-written))
 - **Task:** Briefing-DOCX wie im Anthropic-Tutorial create and validieren.
 - **Input:** Titel, zwei H1-Abschnitte, listn, Preistabelle with Spalten-DXA.
 - **Prompt:**
@@ -142,8 +141,7 @@ Create briefing.docx per outline; run validate.py; render PDF and pdftoppm; fix 
 - **Expected result:** `briefing.docx` (~10 KB), 25 Absaetze, All validations PASSED; after DXA-Korrektur sichtbare Context-Spalte.
 - **Source:** https://aifrontierpost.com/articles/anthropic-official-agent-skills-tutorial/
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Hermes microsoft-office path for internes Memo without Anthropic Plugin.
 - **Input:** Gliederung 3 Abschnitte, no Tabelle.
 - **Prompt:**

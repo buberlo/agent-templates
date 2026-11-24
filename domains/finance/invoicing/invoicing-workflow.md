@@ -126,8 +126,7 @@ Round cents explicitly in csv.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** OPOS aus CSV.
 - **Input:** invoices.csv 50 rows.
 - **Prompt:**
@@ -142,8 +141,7 @@ opos.csv aging; opos.md top 10 open by amount.
 aging buckets; no emails sent.
 ```
 
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Mahn send ablehnen.
 - **Input:** send dunning now.
 - **Prompt:**

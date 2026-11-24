@@ -96,8 +96,7 @@ Wait vs buy recommendation heuristic only with uncertainty stated.
 
 ## Basic examples
 
-### Example 1 (Example data)
-
+### Example 1 (Example data (self-written))
 - **Task:** E-Bike bis 2500 EUR
 - **Input:** Pendeln 15km, Bosch Motor, STORES DE
 - **Prompt:**
@@ -105,8 +104,7 @@ Wait vs buy recommendation heuristic only with uncertainty stated.
 Matrix of 4 bikes with weight and range from manufacturer pages.
 ```
 - **Expected result:** Sheet 4 Zeilen; ein UNKNOWN Reichweite; no Kauf.
-### Example 2 (Example data)
-
+### Example 2 (Example data (self-written))
 - **Task:** Black Friday Watchlist
 - **Input:** Kopfhoerer + Monitor, Target -20%
 - **Prompt:**
