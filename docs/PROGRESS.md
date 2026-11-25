@@ -1,5 +1,12 @@
 # Migration progress
 
+## Completed (2026-11-24) — Batch 5
+
+- **Eight new templates (thin domains):** Game mod packaging and LOOT-style compatibility report; dedicated server admin via RCON/CLI with restart approval gates; wearable export training plan builder (Strava API, FIT/GPX, not-medical-advice); multi-city trip itinerary and booking checklist (no payments); event run-of-show and attendee comms drafters; course material to Anki TSV and quiz with source-grounded cards; weekly status report from GitHub / Linear / Jira (read-only); arXiv and Semantic Scholar literature search pipeline with required citations.
+- **Sources and MCP:** Added CLI/API citations to `research/SOURCES.md` (LOOT, Vortex, MO2, mcrcon, rcon-cli, Strava API, fitparse, gpxpy, arXiv API, Semantic Scholar API, Anki import docs, Minecraft RCON wiki). Extended `GitHub Official MCP` category mapping to `project-management/reporting` in `mcp/catalog.json` (no new MCP servers; Nexus/LOOT and paper APIs use CLI/API).
+- **Validator:** `python3 scripts/validate_and_index.py` — 0 errors; regenerated `INDEX.md` and root `catalog.json`.
+- **Template total:** **263** after regeneration.
+
 ## Completed (2026-11-24) — Batch 4
 
 - **Hand rewrites (12 templates):** Nine `agent-platforms` templates (Claude Code MCP focus and workflow, Codex, Cursor, generic MCP focus and workflow, Hermes, OpenClaw MCP focus and workflow) plus three `ai-ops` templates (agent orchestration, context-token management MCP focus and workflow) with platform-specific system prompts, numbered workflows, security gates, and **Example data (self-written)** blocks citing official docs.

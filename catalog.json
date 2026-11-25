@@ -348,7 +348,7 @@
     {
       "slug": "education",
       "category_count": 5,
-      "template_count": 6,
+      "template_count": 7,
       "categories": [
         {
           "slug": "course-creation",
@@ -356,7 +356,7 @@
         },
         {
           "slug": "flashcards",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "languages",
@@ -410,7 +410,7 @@
     {
       "slug": "gaming-modding",
       "category_count": 4,
-      "template_count": 4,
+      "template_count": 6,
       "categories": [
         {
           "slug": "game-libraries",
@@ -418,11 +418,11 @@
         },
         {
           "slug": "game-modding",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "game-servers",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "streaming-gaming",
@@ -456,11 +456,11 @@
     {
       "slug": "health-fitness",
       "category_count": 4,
-      "template_count": 4,
+      "template_count": 5,
       "categories": [
         {
           "slug": "fitness-training",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "health-data-organization",
@@ -705,7 +705,7 @@
     {
       "slug": "project-management",
       "category_count": 5,
-      "template_count": 5,
+      "template_count": 6,
       "categories": [
         {
           "slug": "agile-kanban",
@@ -721,7 +721,7 @@
         },
         {
           "slug": "reporting",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "tasks",
@@ -841,7 +841,7 @@
     {
       "slug": "science-engineering",
       "category_count": 5,
-      "template_count": 5,
+      "template_count": 6,
       "categories": [
         {
           "slug": "data-experiments",
@@ -853,7 +853,7 @@
         },
         {
           "slug": "paper-writing",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "simulation-numerics",
@@ -966,11 +966,11 @@
     {
       "slug": "travel-events",
       "category_count": 4,
-      "template_count": 4,
+      "template_count": 6,
       "categories": [
         {
           "slug": "event-planning",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "flights-hotels",
@@ -982,7 +982,7 @@
         },
         {
           "slug": "trip-planning",
-          "template_count": 1
+          "template_count": 2
         }
       ]
     }
@@ -3029,6 +3029,27 @@
       "path": "domains/education/course-creation/course-creation-workflow.md"
     },
     {
+      "id": "course-material-anki-quiz-generator-v1",
+      "title": "Course material to flashcards and quiz generator",
+      "domain": "education",
+      "category": "flashcards",
+      "tags": [
+        "anki",
+        "quiz",
+        "spaced-repetition"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-24",
+      "path": "domains/education/flashcards/course-material-anki-quiz-generator-v1.md"
+    },
+    {
       "id": "flashcards-workflow",
       "title": "Lernkarten",
       "domain": "education",
@@ -3341,6 +3362,50 @@
       "path": "domains/gaming-modding/game-modding/game-modding-workflow.md"
     },
     {
+      "id": "mod-packaging-compatibility-check-v1",
+      "title": "Game mod packaging and compatibility check",
+      "domain": "gaming-modding",
+      "category": "game-modding",
+      "tags": [
+        "nexus-mods",
+        "vortex",
+        "loot"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-24",
+      "path": "domains/gaming-modding/game-modding/mod-packaging-compatibility-check-v1.md"
+    },
+    {
+      "id": "dedicated-server-admin-rcon-v1",
+      "title": "Dedicated game server admin (RCON and CLI)",
+      "domain": "gaming-modding",
+      "category": "game-servers",
+      "tags": [
+        "minecraft",
+        "rcon",
+        "valheim"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "high",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-24",
+      "path": "domains/gaming-modding/game-servers/dedicated-server-admin-rcon-v1.md"
+    },
+    {
       "id": "game-servers-workflow",
       "title": "Game Server",
       "domain": "gaming-modding",
@@ -3511,6 +3576,27 @@
       "version": "1.0.0",
       "updated": "2026-11-23",
       "path": "domains/health-fitness/fitness-training/fitness-training-workflow.md"
+    },
+    {
+      "id": "wearable-training-plan-builder-v1",
+      "title": "Training plan builder from wearable exports",
+      "domain": "health-fitness",
+      "category": "fitness-training",
+      "tags": [
+        "strava",
+        "gpx",
+        "fit"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-24",
+      "path": "domains/health-fitness/fitness-training/wearable-training-plan-builder-v1.md"
     },
     {
       "id": "health-data-organization-workflow",
@@ -4927,6 +5013,28 @@
       "path": "domains/project-management/reporting/reporting-workflow.md"
     },
     {
+      "id": "weekly-status-github-linear-jira-v1",
+      "title": "Weekly status report from GitHub Linear and Jira",
+      "domain": "project-management",
+      "category": "reporting",
+      "tags": [
+        "github",
+        "linear",
+        "jira"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-24",
+      "path": "domains/project-management/reporting/weekly-status-github-linear-jira-v1.md"
+    },
+    {
       "id": "tasks-workflow",
       "title": "Tasks",
       "domain": "project-management",
@@ -5633,6 +5741,28 @@
       "version": "1.0.0",
       "updated": "2026-11-23",
       "path": "domains/science-engineering/lab-notes/lab-notes-workflow.md"
+    },
+    {
+      "id": "literature-search-paper-summary-v1",
+      "title": "Literature search and paper summary pipeline",
+      "domain": "science-engineering",
+      "category": "paper-writing",
+      "tags": [
+        "arxiv",
+        "semantic-scholar",
+        "citations"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-24",
+      "path": "domains/science-engineering/paper-writing/literature-search-paper-summary-v1.md"
     },
     {
       "id": "paper-writing-workflow",
@@ -6405,6 +6535,27 @@
       "path": "domains/travel-events/event-planning/event-planning-workflow.md"
     },
     {
+      "id": "event-run-of-show-comms-drafter-v1",
+      "title": "Event run-of-show and attendee communications drafter",
+      "domain": "travel-events",
+      "category": "event-planning",
+      "tags": [
+        "events",
+        "communications",
+        "run-of-show"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-24",
+      "path": "domains/travel-events/event-planning/event-run-of-show-comms-drafter-v1.md"
+    },
+    {
       "id": "flights-hotels-workflow",
       "title": "Flights and Hotels",
       "domain": "travel-events",
@@ -6447,6 +6598,27 @@
       "version": "1.0.0",
       "updated": "2026-11-23",
       "path": "domains/travel-events/tickets/tickets-workflow.md"
+    },
+    {
+      "id": "multi-city-itinerary-planner-v1",
+      "title": "Multi-city trip itinerary planner",
+      "domain": "travel-events",
+      "category": "trip-planning",
+      "tags": [
+        "itinerary",
+        "travel",
+        "research"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-24",
+      "path": "domains/travel-events/trip-planning/multi-city-itinerary-planner-v1.md"
     },
     {
       "id": "trip-planning-workflow",
