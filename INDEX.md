@@ -68,44 +68,44 @@ Auto-generated. **27** domains, **199** categories, **271** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `evals-benchmarks-workflow` | Evals and Benchmarks | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `evals-benchmarks-workflow` | Evals and benchmarks | hermes, grokbot, cursor… | low | 2 |
 
 ### `ai-ops/fine-tuning` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `fine-tuning-workflow` | Fine-Tuning | hermes, grokbot, generic-mcp-agents… | high | 2 |
+| `fine-tuning-workflow` | Fine-tuning | hermes, cursor, generic-mcp-agents… | high | 2 |
 
 ### `ai-ops/local-models-ollama` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `local-models-ollama-workflow` | Lokale Modelle (Ollama) | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `local-models-ollama-workflow` | Local models (Ollama) | hermes, cursor, grokbot… | low | 2 |
 
 ### `ai-ops/mcp-server-build` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `mcp-server-build-mcp-focus` | MCP-Server bauen: MCP/Skill-Fokus | hermes, grokbot, generic-mcp-agents… | low | 2 |
-| `mcp-server-build-workflow` | MCP-Server bauen | hermes, grokbot, generic-mcp-agents… | medium | 3 |
+| `mcp-server-build-workflow` | Build an MCP server | hermes, cursor, claude-code… | medium | 3 |
 
 ### `ai-ops/model-routing` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `model-routing-workflow` | Model-Routing | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `model-routing-workflow` | Model routing | hermes, grokbot, cursor… | low | 2 |
 
 ### `ai-ops/prompt-engineering` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `prompt-engineering-workflow` | Prompt-Engineering | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `prompt-engineering-workflow` | Prompt engineering | hermes, grokbot, cursor… | low | 2 |
 
 ### `ai-ops/skills-authoring` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `skills-authoring-workflow` | Skills authorisieren | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `skills-authoring-workflow` | Skills authoring | hermes, grokbot, cursor… | low | 2 |
 
 ## Domain: `automation` (10 templates)
 
@@ -404,7 +404,7 @@ Auto-generated. **27** domains, **199** categories, **271** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `cloud-aws-workflow` | Cloud: AWS | hermes, claude-code, cursor… | high | 2 |
+| `cloud-aws-workflow` | Cloud: AWS | hermes, cursor, claude-code… | high | 2 |
 
 ### `devops-cloud/cloud-azure` (1)
 
@@ -440,8 +440,8 @@ Auto-generated. **27** domains, **199** categories, **271** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `incident-response-mcp-focus` | Incident Response: MCP/Skill focus | hermes, claude-code, cursor… | high | 2 |
-| `incident-response-workflow` | Incident Response | hermes, grokbot, generic-mcp-agents | high | 2 |
+| `incident-response-mcp-focus` | Incident response: MCP focus | hermes, cursor, claude-code… | high | 2 |
+| `incident-response-workflow` | Incident response | hermes, grokbot, cursor… | high | 2 |
 | `sentry-production-error-triage-fix-pr-v1` | Sentry MCP production error triage to fix PR plan | cursor, claude-code, hermes… | high | 2 |
 
 ### `devops-cloud/kubernetes` (3)
@@ -450,7 +450,7 @@ Auto-generated. **27** domains, **199** categories, **271** templates.
 |----|-------|--------|------|----------|
 | `k8s-helm-chart-release` | Install and upgrade helmet chart | hermes, grokbot, generic-mcp-agents | high | 2 |
 | `k8s-kubectl-rollout-debug` | Deployment Rollout and Debug with kubectl | hermes, grokbot, generic-mcp-agents… | high | 2 |
-| `kubernetes-mcp-focus` | Kubernetes: MCP/Skill focus | hermes, claude-code, cursor… | high | 2 |
+| `kubernetes-mcp-focus` | Kubernetes: MCP focus | hermes, cursor, claude-code… | high | 2 |
 
 ### `devops-cloud/logging` (1)
 
@@ -463,7 +463,7 @@ Auto-generated. **27** domains, **199** categories, **271** templates.
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `grafana-alert-incident-timeline-v1` | Grafana MCP alert investigation and incident timeline | hermes, cursor, grokbot… | medium | 2 |
-| `monitoring-observability-mcp-focus` | Monitoring and Observability: MCP/Skill Focus | hermes, claude-code, cursor… | high | 2 |
+| `monitoring-observability-mcp-focus` | Monitoring and observability: MCP focus | hermes, cursor, claude-code… | high | 2 |
 | `monitoring-observability-workflow` | Monitoring and Observability | hermes, claude-code, cursor… | high | 2 |
 
 ### `devops-cloud/platform-deploy` (3)
@@ -472,7 +472,7 @@ Auto-generated. **27** domains, **199** categories, **271** templates.
 |----|-------|--------|------|----------|
 | `cloudflare-dns-workers-change-review-v1` | Cloudflare MCP DNS and Workers change review | hermes, grokbot, cursor… | high | 2 |
 | `platform-deploy-mcp-focus` | Platform Deploy: MCP/Skill focus | hermes, claude-code, cursor… | high | 2 |
-| `platform-deploy-workflow` | Platform Deploy | hermes, claude-code, cursor… | high | 2 |
+| `platform-deploy-workflow` | Platform deploy | hermes, cursor, claude-code… | high | 2 |
 
 ## Domain: `education` (7 templates)
 

@@ -1,5 +1,12 @@
 # Migration progress
 
+## Completed (2026-11-25) — Batch 7
+
+- **Hand rewrites (13 templates):** Full **ai-ops** backlog cluster (evals-benchmarks, fine-tuning, local-models-ollama, mcp-server-build, model-routing, prompt-engineering, skills-authoring) plus six **devops-cloud** templates (incident-response workflow and MCP focus, monitoring-observability MCP focus, platform-deploy, cloud-aws, kubernetes MCP focus) with English prose, numbered workflows, approval gates, and **Example data (self-written)** blocks citing official tool docs.
+- **Sources:** Added Ollama, OpenAI fine-tuning, LiteLLM, Vercel AI Gateway, promtool, AWS CLI install, and MCP Python SDK URLs to `research/SOURCES.md` where cited in templates; Grok Bot Wiki cited only as an unofficial community guide where noted.
+- **Quality backlog:** **140 → 127** entries in `scripts/quality_backlog.txt` (13 removed after passing all quality gates with no warnings).
+- **Validator:** `python3 scripts/validate_and_index.py` — 0 errors; regenerated `INDEX.md` and root `catalog.json`.
+
 ## Completed (2026-11-25) — Batch 6
 
 - **Eight new templates (MCP dev and ops):** Playwright MCP E2E authoring and flaky-test triage; Sentry MCP production error triage to fix PR plan (with example SVG flow); Stripe read-only refund and dispute investigation; Supabase MCP schema migration review with rollback plan; Figma remote MCP design-to-component implementation; Cloudflare MCP DNS and Workers change review; Grafana MCP alert investigation and incident timeline (with example SVG timeline); Linear hosted MCP backlog grooming and sprint prep.

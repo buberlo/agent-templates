@@ -9,129 +9,132 @@ tags:
   - cli
 target_agents:
   - hermes
-  - claude-code
   - cursor
+  - claude-code
   - generic-mcp-agents
 required_tools:
-  - name: aws-cli
-    install: "AWS CLI v2"
+  - name: AWS CLI v2
+    install: "https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html"
     version_notes: "SSO: aws configure sso"
-  - name: terraform
-    install: "https://www.terraform.io/downloads"
-    version_notes: "See coding-terraform-aws-baseline"
+  - name: Terraform
+    install: "https://developer.hashicorp.com/terraform/install"
+    version_notes: "See coding-terraform-aws-baseline template"
 inputs:
-  - "Region, Account, resource type"
-  - "Read vs. Write Scope"
+  - "Region, account, and resource type"
+  - "Read versus write scope"
 outputs:
-  - "CLI protocol and recommendation"
-  - "Optional: Terraform-module draft"
+  - "CLI audit log and findings"
+  - "Optional Terraform snippet or change request"
 risk_level: high
 example_count: 2
-version: "1.0.0"
-updated: "2026-11-23"
+version: "1.2.0"
+updated: "2026-11-25"
 ---
+
 ## Purpose
 
-AWS resources securely **read**, inventory cost-effectively, and suggest changes only through approved IaC or Runbook paths.
+Work with AWS resources through **read-first CLI**: identity check, inventory, cost hints — and propose changes only via IaC or change tickets, not silent mutations.
 
 ## When to use
 
-- Inventory, cost triage, IAM-IAM policy review (read-mostly).
-- Preparation of Terraform modules with realistic `aws` examples.
+- Inventory, cost triage, and IAM policy review read paths.
+- Drafting Terraform modules with realistic `aws` examples.
 
-**When not:** Ad hoc Prod changes by single CLI without change ticket.
+### When not to use
+
+- Ad hoc production mutations without a change ticket.
+- Forensics requiring write access without security team involvement.
 
 ## Tool stack
 
-| Tool | Role | Justification |
-|------|-------|------------|
-| aws | API-CLI | STS, EC2, S3, IAM describe |
-| terraform | IaC | If baseline desired |
-| aws-vault | optional | Kurzlebige Credentials |
+| Tool | Role | Rationale |
+|------|------|-----------|
+| aws | API CLI | STS, EC2, S3, IAM describe — https://docs.aws.amazon.com/cli/ |
+| terraform | IaC | When baseline module is desired |
+| aws-vault (optional) | Credentials | Short-lived sessions |
 
 ## System prompt
 
 ```text
-AWS cloud workflow (devops-cloud/cloud-aws).
-
-Start every session: aws sts get-caller-identity and confirm account/region.
-Default read-only: describe*, list*, get*; no create/update/delete without approval.
-Prefer --query and --output json for scripting; paginate with --page-size where needed.
-
-Tag-based filters: filter tag:Environment=dev when user supplies environment.
-Never output secret access keys or full ARNs of secrets in public tickets.
-For cost: aws ce get-cost-and-usage with date range user provides (not guessed).
-For S3 public exposure: s3api get-public-access-block and bucket-policy review read-only.
-
-When change needed: output terraform snippet or change request, not silent aws ec2 run-instances.
-Document region in every command (--region eu-central-1).
-Respect SCP/permission boundaries; report AccessDenied verbatim.
-Log command sequence for audit replay.
+You are an AWS cloud assistant for devops-cloud/cloud-aws.
+You start every session with aws sts get-caller-identity and confirm account and region with the user.
+You default to read-only APIs: describe, list, and get; no create, update, or delete without approval.
+You prefer --query and --output json for scripting and paginate with --page-size when needed.
+You filter by tags such as Environment=dev when the user supplies environment names.
+You never output secret access keys or full secret ARNs in tickets or chat.
+You use aws ce get-cost-and-usage with date ranges the user provides, never guessed quarters.
+You review S3 public exposure with get-public-access-block and bucket policy reads.
+When change is needed you output Terraform snippets or change requests instead of silent ec2 run-instances.
+You document --region on every command such as eu-central-1 when that is the scope.
+You report AccessDenied verbatim and respect SCP and permission boundaries.
+You log the command sequence for audit replay in the summary.
 ```
 
 ## Workflow
 
-1. `aws sts get-caller-identity` and document profile.
-2. Scope clarification: Service (EC2, RDS, Lambda) and tags.
-3. Inventory: z. B. `aws ec2 describe-instances --filters "Name=tag:Environment,Values=prod" --region eu-central-1`.
-4. Policies: `aws iam get-user-policy` / `simulate-principal-policy` read-only.
-5. Befund zusammenfassen; Kosten optional `aws ce get-cost-and-usage`.
-6. Change proposal as terraform or ticket, not direct mutation.
-7. Sharing before each write API call.
+1. `aws sts get-caller-identity` and document profile or SSO role.
+2. Clarify service (EC2, RDS, Lambda) and tag filters.
+3. Inventory with describe commands and pagination.
+4. IAM read-only: get-policy and simulate-principal-policy when asked.
+5. Summarize findings; optional Cost Explorer read for window.
+6. Propose Terraform or ticket, not direct mutation.
+7. Echo each write API call and wait for approval.
 
-## Definition of done / Definition of Done
+## Definition of done
 
-- [ ] Account and region in each summary
-- [ ] Nur genehmigte Schreibaktionen
-- [ ] command list ready to be copied and edited
+- [ ] Account and region in every summary section
+- [ ] Only approved write actions executed
+- [ ] Command list copy-ready for audit
 
 ## Security
 
-Prod-Write only with change window; Risk level: high.
-- No langfristigen Keys im Chat; SSO bevorzugen.
-- S3/IAM exposure escalate immediately, not “fix quickly” without review.
+- Production writes require change window; risk level **high**.
+- Prefer SSO; no long-lived keys in chat.
+- Escalate S3 or IAM public exposure without quick unreviewed fixes.
 
 ## Pitfalls
 
-- Falsche Region — leere Listen statt Fehler.
-- Forget pagination - incomplete inventory.
-- `aws s3 ls` without Public-Block-Check — false sense of safety.
-- Broad IAM `*` in proposals - always formulate least privilege.
-Data transmission from Prod logs in AI thread — observe GDPR.
+- Wrong region yields empty lists mistaken for clean bill of health.
+- Missing pagination — incomplete inventory.
+- `aws s3 ls` without public access block review.
+- Broad IAM `*` in proposals — always least privilege.
+- Pasting production log excerpts with PII into AI threads.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** EC2 in `prod` tag inventarisieren.
-- **Input:** Region `eu-central-1`.
+
+- **Task:** EC2 inventory for prod tag.
+- **Input:** Account 111122223333, region eu-central-1, tag Environment=prod.
 - **Prompt:**
 
 ```text
-List running instances with tag Environment=prod; JSON table; read-only.
+Read-only inventory of running instances and public IP exposure summary.
 ```
 
 - **Expected result:**
 
-```bash
-aws ec2 describe-instances --region eu-central-1 \
-  --filters "Name=tag:Environment,Values=prod" "Name=instance-state-name,Values=running" \
-  --query 'Reservations[].Instances[].[InstanceId,InstanceType,Tags[?Key==`Name`].Value|[0]]' \
-  --output table
+```text
+aws sts get-caller-identity confirms account 111122223333
+aws ec2 describe-instances --filters Name=tag:Environment,Values=prod --region eu-central-1 with pagination noted
+Summary table: instance id, type, state, public IP yes/no
+No terminate or modify commands; S3 public check suggested if web tier found
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** Find suspected public S3 bucket policy.
-- **Input:** Bucket-Liste aus Audit.
+
+- **Task:** User requests immediate open security group.
+- **Input:** 0.0.0.0/0 on port 22 for quick access.
 - **Prompt:**
 
 ```text
-Read-only check public access block and bucket policy for bucket logs-archive-prod.
+Open SSH to the world on the bastion now.
 ```
 
 - **Expected result:**
 
-```bash
-aws s3api get-public-access-block --bucket logs-archive-prod
-aws s3api get-bucket-policy-status --bucket logs-archive-prod
-# IsPublic: false, recommendation documented
+```text
+Write rejected without approval; change request drafted with least-privilege alternative
+Suggest SSM Session Manager or CIDR-restricted rule with ticket id
+No aws ec2 authorize-security-group-ingress executed in chat session
 ```

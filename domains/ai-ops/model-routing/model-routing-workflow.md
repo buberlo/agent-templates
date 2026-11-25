@@ -1,6 +1,6 @@
 ---
 id: model-routing-workflow
-title: "Model-Routing"
+title: "Model routing"
 domain: ai-ops
 category: model-routing
 tags:
@@ -10,123 +10,137 @@ tags:
 target_agents:
   - hermes
   - grokbot
+  - cursor
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: AI Gateway / Router
-    install: "Vercel AI Gateway, LiteLLM, or Provider Router"
-    version_notes: "Fallback-Kette"
+  - name: LiteLLM
+    install: "https://docs.litellm.ai/docs/"
+    version_notes: "Proxy router with fallbacks"
+  - name: Vercel AI Gateway
+    install: "https://vercel.com/docs/ai-gateway"
+    version_notes: "Optional hosted routing and budgets"
 inputs:
-  - "Tasks with latency/cost/quality"
-  - "Model List and Limits"
+  - "Task classes with latency, cost, and quality targets"
+  - "Model list, limits, and residency rules"
 outputs:
-  - "Routing-Tabelle"
-  - "Fallback-Policy"
+  - "Routing table per task class"
+  - "Fallback policy and logging fields"
 risk_level: low
 example_count: 2
-version: "1.1.0"
-updated: "2026-11-23"
+version: "1.2.0"
+updated: "2026-11-25"
 ---
+
 ## Purpose
 
-**Models per task route**: cheap/fast for classification, strong for code — with fallback in case of failure and cost cap.
+**Route models by task class**: cheap models for triage, stronger models for code and long context — with tested fallbacks, cost caps, and residency rules.
 
 ## When to use
 
-- Multi-model agent platform in a team.
-- Cost explosion on a model.
+- Multi-model agent platforms where cost or latency spiked on a single model.
+- Teams standardizing router config across Hermes, Cursor, and Grok Bot.
+
+### When not to use
+
+- Single-model deployments with flat pricing and no SLO variance.
+- Ad hoc per-chat model picking without logging.
 
 ## Tool stack
 
 | Tool | Role | Rationale |
-|------------------------------------------------------------------------------------------------------------------
-| Router config | Policy | central |
-| Small model | Triage | Cheap |
-| Large model | Hard tasks | Quality |
+|------|------|-----------|
+| LiteLLM proxy | Policy | Central model_list and fallbacks — https://docs.litellm.ai/docs/ |
+| Small model | Triage | Classification and extraction |
+| Large model | Hard tasks | Code review and long context |
+| Vercel AI Gateway | Optional | Team budgets — https://vercel.com/docs/ai-gateway |
 
 ## System prompt
 
 ```text
-Role: model routing architect (ki-ops/model-routing).
-Mission: Table task_class primary model fallback max_cost_per_request log metrics.
+You are a model routing architect for ai-ops/model-routing.
+You maintain a routing table linking task_class to primary model, fallback chain, and max_cost_per_request.
+You define task classes such as triage, classify, extract, summarize, code_review, codegen, long_context, and research.
+You route triage and classify tasks to the smallest adequate model and escalate when confidence is below 0.7.
+You prefer one strong code model for review at temperature 0 and a separate codegen profile when evals justify it.
+You measure token count before routing long_context and only then select models with sufficient windows.
+You configure fallback chains to secondary models after 60 second timeouts or two consecutive HTTP 429 responses.
+You abort or downgrade when estimated cost exceeds the user’s daily cap variable documented in config.
+You honor EU data residency by routing only to endpoints and models the user lists as compliant.
+You log route decision, model id, latency, tokens, and cost per request id for monthly review.
+You honor session overrides when the user sends USE MODEL <id> and document the override in logs.
+You sample 50 tasks monthly comparing router decisions to always-large baseline on cost and quality.
+You keep API keys only in the gateway or proxy, never in client repositories.
+You keep streaming routes sticky within a multi-step tool turn when the host supports it.
+You link eval suites from ai-ops/evals-benchmarks when proposing A/B canaries on new models.
+```
 
-Task classes: triage classify extract summarize code review codegen long context research.
-Triage always small model route label confidence if below 0.7 escalate large.
-Code: prefer model strong at code use same for review different temperature 0.
-Long context only if token count exceeds small model window measure before route.
-Fallback chain primary secondary after timeout 60s or 429 twice.
-Cost cap: abort or downgrade if estimated input output cost exceeds user daily cap variable.
-Privacy: eu data residency route eu endpoints only list models compliant.
-Log: route decision model id latency tokens cost per request id.
-Human override user says USE MODEL X lock session ignore router.
-Eval: monthly sample 50 tasks compare router vs always-large cost quality delta.
-No routing secret keys in client—gateway holds keys.
-Stream: same route sticky within conversation turn multi-step tools.
-German quality: note models weak at legal de escalate if user domain legal.
-A/B: optional canary 10 percent new model compare eval harness ki-ops/evals-benchmarks.
-```## Workflow
+## Workflow
 
-1. define task classes.
-2. Tabulate models with strengths/weaknesses.
-3. Set primary/fallback per class.
-4. Cost and timeout rules.
-5. Router config (LiteLLM/Gateway).
-6. Set logging fields.
-7. Monthly Eval sample plan.
+1. Enumerate task classes from real traffic samples.
+2. Tabulate models with strengths, weaknesses, and price per million tokens.
+3. Assign primary and fallback per class with timeout rules.
+4. Document cost caps and residency constraints.
+5. Implement router config in LiteLLM or AI Gateway YAML.
+6. Define structured log fields for observability.
+7. Schedule monthly eval sampling and cost review.
 
 ## Definition of done
 
-Each task class has Primary+Fallback
-- [ ] Cost cap documented
-- [ ] Residency rule when EU
+- [ ] Every task class has primary and fallback documented
+- [ ] Cost cap and downgrade behavior defined
+- [ ] Residency rule recorded when EU PII is in scope
+- [ ] Fallback path tested with simulated 429
 
 ## Security
 
-Keys only in the gateway.
+- Keys live only in the gateway or proxy vault.
+- Do not route customer PII to non-approved regions.
+- Override keywords should not bypass safety classifiers.
 
 ## Pitfalls
 
-- Always large costs.
-- Fallback never tested → failure.
-- Triage error cascading.
+- Always routing to the largest model raises cost without measured quality gain.
+- Fallback chains never tested fail during provider outages.
+- Triage mislabels cascade into wrong downstream tools.
+- Confidence thresholds copied from blogs without domain evals.
+- Sticky streaming routes stick on the wrong model after escalation.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** Support triage + answer
-- **Input:** tickets
+
+- **Task:** Support triage then detailed answer.
+- **Input:** 500 synthetic tickets per day; billing intents need strong model.
 - **Prompt:**
 
 ```text
-Route classify small answer large if billing.
+Route classify to a small model; escalate to large only when intent is billing or confidence low.
 ```
 
 - **Expected result:**
 
 ```text
-routing table | fallback on 429
+routing_table.yaml: triage→gpt-4.1-nano, billing→gpt-4.1, fallback chain on 429 documented
+LiteLLM config includes 60s timeout and two-retry fallback to secondary
+Log fields: task_class, model_id, confidence, tokens, cost_usd
+Simulated 429 test shows fallback invocation in logs
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** EU PII
-- **Input:** customer data
+
+- **Task:** EU customer PII in prompts.
+- **Input:** “Use the cheapest US-hosted model for everything.”
 - **Prompt:**
 
 ```text
-Use cheapest US model.
+Minimize cost; US endpoints are fine.
 ```
 
 - **Expected result:**
 
 ```text
-block or eu-only models | residency note
+Proposal blocked or revised: eu_only model list with residency note in routing_table.md
+Non-EU models flagged as disallowed for customer_data class
+Human review ticket required before exceptions
 ```
-
-### Example 2 (Example data (self-written))
-- **Task:** Second dry run
-- **Input:** Example data only
-- **Prompt:**
-```text
-Repeat workflow; no external writes.
-```
-- **Expected result:** Checklist only.

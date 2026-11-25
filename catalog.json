@@ -1262,7 +1262,7 @@
     },
     {
       "id": "evals-benchmarks-workflow",
-      "title": "Evals and Benchmarks",
+      "title": "Evals and benchmarks",
       "domain": "ai-ops",
       "category": "evals-benchmarks",
       "tags": [
@@ -1273,18 +1273,19 @@
       "target_agents": [
         "hermes",
         "grokbot",
+        "cursor",
         "generic-mcp-agents",
         "generic"
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-25",
       "path": "domains/ai-ops/evals-benchmarks/evals-benchmarks-workflow.md"
     },
     {
       "id": "fine-tuning-workflow",
-      "title": "Fine-Tuning",
+      "title": "Fine-tuning",
       "domain": "ai-ops",
       "category": "fine-tuning",
       "tags": [
@@ -1294,19 +1295,19 @@
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
+        "cursor",
         "generic-mcp-agents",
         "generic"
       ],
       "risk_level": "high",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-25",
       "path": "domains/ai-ops/fine-tuning/fine-tuning-workflow.md"
     },
     {
       "id": "local-models-ollama-workflow",
-      "title": "Lokale Modelle (Ollama)",
+      "title": "Local models (Ollama)",
       "domain": "ai-ops",
       "category": "local-models-ollama",
       "tags": [
@@ -1316,14 +1317,15 @@
       ],
       "target_agents": [
         "hermes",
+        "cursor",
         "grokbot",
         "generic-mcp-agents",
         "generic"
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-25",
       "path": "domains/ai-ops/local-models-ollama/local-models-ollama-workflow.md"
     },
     {
@@ -1350,29 +1352,31 @@
     },
     {
       "id": "mcp-server-build-workflow",
-      "title": "MCP-Server bauen",
+      "title": "Build an MCP server",
       "domain": "ai-ops",
       "category": "mcp-server-build",
       "tags": [
         "mcp",
         "ai-ops",
-        "referenz"
+        "sdk"
       ],
       "target_agents": [
         "hermes",
+        "cursor",
+        "claude-code",
         "grokbot",
         "generic-mcp-agents",
         "generic"
       ],
       "risk_level": "medium",
       "example_count": 3,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-25",
       "path": "domains/ai-ops/mcp-server-build/mcp-server-build-workflow.md"
     },
     {
       "id": "model-routing-workflow",
-      "title": "Model-Routing",
+      "title": "Model routing",
       "domain": "ai-ops",
       "category": "model-routing",
       "tags": [
@@ -1383,18 +1387,19 @@
       "target_agents": [
         "hermes",
         "grokbot",
+        "cursor",
         "generic-mcp-agents",
         "generic"
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-25",
       "path": "domains/ai-ops/model-routing/model-routing-workflow.md"
     },
     {
       "id": "prompt-engineering-workflow",
-      "title": "Prompt-Engineering",
+      "title": "Prompt engineering",
       "domain": "ai-ops",
       "category": "prompt-engineering",
       "tags": [
@@ -1405,18 +1410,20 @@
       "target_agents": [
         "hermes",
         "grokbot",
+        "cursor",
+        "claude-code",
         "generic-mcp-agents",
         "generic"
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-25",
       "path": "domains/ai-ops/prompt-engineering/prompt-engineering-workflow.md"
     },
     {
       "id": "skills-authoring-workflow",
-      "title": "Skills authorisieren",
+      "title": "Skills authoring",
       "domain": "ai-ops",
       "category": "skills-authoring",
       "tags": [
@@ -1427,13 +1434,15 @@
       "target_agents": [
         "hermes",
         "grokbot",
+        "cursor",
+        "openclaw",
         "generic-mcp-agents",
         "generic"
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-25",
       "path": "domains/ai-ops/skills-authoring/skills-authoring-workflow.md"
     },
     {
@@ -2646,14 +2655,14 @@
       ],
       "target_agents": [
         "hermes",
-        "claude-code",
         "cursor",
+        "claude-code",
         "generic-mcp-agents"
       ],
       "risk_level": "high",
       "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-25",
       "path": "domains/devops-cloud/cloud-aws/cloud-aws-workflow.md"
     },
     {
@@ -2768,7 +2777,7 @@
     },
     {
       "id": "incident-response-mcp-focus",
-      "title": "Incident Response: MCP/Skill focus",
+      "title": "Incident response: MCP focus",
       "domain": "devops-cloud",
       "category": "incident-response",
       "tags": [
@@ -2778,19 +2787,20 @@
       ],
       "target_agents": [
         "hermes",
-        "claude-code",
         "cursor",
+        "claude-code",
+        "grokbot",
         "generic-mcp-agents"
       ],
       "risk_level": "high",
       "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-25",
       "path": "domains/devops-cloud/incident-response/incident-response-mcp-focus.md"
     },
     {
       "id": "incident-response-workflow",
-      "title": "Incident Response",
+      "title": "Incident response",
       "domain": "devops-cloud",
       "category": "incident-response",
       "tags": [
@@ -2801,12 +2811,13 @@
       "target_agents": [
         "hermes",
         "grokbot",
+        "cursor",
         "generic-mcp-agents"
       ],
       "risk_level": "high",
       "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-25",
       "path": "domains/devops-cloud/incident-response/incident-response-workflow.md"
     },
     {
@@ -2878,7 +2889,7 @@
     },
     {
       "id": "kubernetes-mcp-focus",
-      "title": "Kubernetes: MCP/Skill focus",
+      "title": "Kubernetes: MCP focus",
       "domain": "devops-cloud",
       "category": "kubernetes",
       "tags": [
@@ -2888,14 +2899,15 @@
       ],
       "target_agents": [
         "hermes",
-        "claude-code",
         "cursor",
+        "claude-code",
+        "grokbot",
         "generic-mcp-agents"
       ],
       "risk_level": "high",
       "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-25",
       "path": "domains/devops-cloud/kubernetes/kubernetes-mcp-focus.md"
     },
     {
@@ -2946,7 +2958,7 @@
     },
     {
       "id": "monitoring-observability-mcp-focus",
-      "title": "Monitoring and Observability: MCP/Skill Focus",
+      "title": "Monitoring and observability: MCP focus",
       "domain": "devops-cloud",
       "category": "monitoring-observability",
       "tags": [
@@ -2956,14 +2968,15 @@
       ],
       "target_agents": [
         "hermes",
-        "claude-code",
         "cursor",
+        "claude-code",
+        "grokbot",
         "generic-mcp-agents"
       ],
       "risk_level": "high",
       "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-25",
       "path": "domains/devops-cloud/monitoring-observability/monitoring-observability-mcp-focus.md"
     },
     {
@@ -3036,7 +3049,7 @@
     },
     {
       "id": "platform-deploy-workflow",
-      "title": "Platform Deploy",
+      "title": "Platform deploy",
       "domain": "devops-cloud",
       "category": "platform-deploy",
       "tags": [
@@ -3046,14 +3059,14 @@
       ],
       "target_agents": [
         "hermes",
-        "claude-code",
         "cursor",
+        "claude-code",
         "generic-mcp-agents"
       ],
       "risk_level": "high",
       "example_count": 2,
-      "version": "1.0.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-25",
       "path": "domains/devops-cloud/platform-deploy/platform-deploy-workflow.md"
     },
     {

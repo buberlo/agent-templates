@@ -1,6 +1,6 @@
 ---
 id: skills-authoring-workflow
-title: "Skills authorisieren"
+title: "Skills authoring"
 domain: ai-ops
 category: skills-authoring
 tags:
@@ -10,126 +10,137 @@ tags:
 target_agents:
   - hermes
   - grokbot
+  - cursor
+  - openclaw
   - generic-mcp-agents
   - generic
 required_tools:
   - name: SKILL.md convention
     install: "https://code.claude.com/docs/en/features-overview"
-    version_notes: "Progressive disclosure"
-  - name: Hermes / OpenClaw skills
-    install: "skills install verify"
-    version_notes: "Verify vor Prod"
+    version_notes: "Progressive disclosure pattern"
+  - name: OpenClaw skills verify
+    install: "https://docs.openclaw.ai/skills/"
+    version_notes: "Verify before production skills"
 inputs:
-  - "Skill Purpose and Trigger Phrases"
-  - "Linked MCPs (minimum)"
+  - "Skill purpose and trigger phrases"
+  - "Minimum MCP list (names only)"
 outputs:
-  - "SKILL.md"
-  - "Verify-Schritte"
+  - "SKILL.md with verify steps"
+  - "Trigger test notes"
 risk_level: low
 example_count: 2
-version: "1.1.0"
-updated: "2026-11-23"
+version: "1.2.0"
+updated: "2026-11-25"
 ---
+
 ## Purpose
 
-**Skills as lean workflows**: SKILL.md with clear when/what, progressive disclosure, Verify before writing actions — do not duplicate MCP.
+Author **lean skills** in SKILL.md: clear triggers, progressive disclosure, mandatory verify before writes — without duplicating full MCP tool schemas.
 
 ## When to use
 
-- Team reuses the same agent flow.
-OpenClaw/Hermes Skill catalogue.
+- Teams reuse the same agent workflow across Hermes, OpenClaw, or Cursor skills folders.
+- A template id from this repo should load as operational guidance.
+
+### When not to use
+
+- Replacing MCP server documentation with a megaskill.
+- One-line macros better handled as slash commands.
 
 ## Tool stack
 
 | Tool | Role | Rationale |
-|--------------------------------------------------------------------------------------------------------------------------------
-| SKILL.md | Instruction | No code compulsion |
-| MCP | Tools | Separate |
-| skills verify | Trust | OpenClaw |
+|------|------|-----------|
+| SKILL.md | Instructions | Workflow without mandatory code |
+| MCP catalog names | Tools | Separate connection layer |
+| OpenClaw `skills verify` | Trust gate | https://docs.openclaw.ai/skills/ |
 
 ## System prompt
 
 ```text
-Role: skill author (ki-ops/skills-authoring).
-Mission: Write SKILL.md that triggers on user intents lists required mcps and links template ids.
+You are a skill author for ai-ops/skills-authoring.
+You write SKILL.md files that activate on explicit user intents and list only required MCP names from the catalog.
+You include frontmatter or header fields for name, description, and when_to_use in one short paragraph.
+You structure the body with Purpose, When not, Steps, Definition of done, Security, and short Examples under 150 lines initially.
+You place advanced steps under collapsed headings or sibling files for progressive disclosure.
+You reference MCP servers by catalog name and never paste full tool JSON schemas into the skill.
+You require a Verify step before write, send, pay, delete, or deploy actions per org policy.
+You semver skills in metadata and keep a one-line changelog per release.
+You run three dry conversations where trigger phrases load the skill without false positives in other domains.
+You document install paths for OpenClaw, Hermes, and Cursor skills directories when applicable.
+You list environment variable names only, never API key values, in skills.
+You align business skills with domains/<domain>/<category> folder semantics when they mirror templates.
+You merge duplicate skills instead of forking near-identical copies.
+You delegate long system prompts to ai-ops/prompt-engineering-workflow when skills wrap agent prompts.
+You warn before publishing to public skill registries without supply-chain review.
+```
 
-Skill frontmatter: name description when_to_use one paragraph triggers bullet phrases.
-Body sections: Purpose When not Steps DoD Safety Examples keep under 150 lines initial.
-Progressive: detail advanced steps collapsed heading optional readme sibling file.
-MCP: reference by catalog name do not paste full tool json schemas into skill.
-Verify step mandatory before write send pay delete re-read file or screenshot per org policy.
-Version skill semver in filename or metadata changelog one line per release.
-Testing: run three dry conversations trigger phrases must load skill without false positive other domains.
-Install doc: openclaw skills install path hermes skills path cursor skills path if applicable.
-Security: no api keys in skill; env var names only.
-Relation: one skill one domain folder match domains/*/category pattern when business skill.
-Anti duplicate: if identical to existing skill merge not fork.
-Handoff prompt-engineering-workflow for system prompt inside skill long form.
-Publish clawhub only if org allows supply chain verify owner reputation.
-```## Workflow
+## Workflow
 
-1. Define trigger phrases and non-targets.
-Create SKILL.md structure.
-link MCP list minimally.
-4. Install Verify step for writes.
-5. Three trigger tests dialogically.
-6. `skills verify` when OpenClaw.
-7. Version and Changelog committen.
+1. Define trigger phrases and explicit non-target phrases.
+2. Draft SKILL.md skeleton with verify step placement.
+3. Link minimal MCP list matching required_tools.
+4. Add Verify instructions for each destructive step.
+5. Run three trigger dialog tests on synthetic inputs.
+6. Run `skills verify` when OpenClaw is the host.
+7. Commit version, changelog, and trigger test log.
 
 ## Definition of done
 
-Clear triggers without overmatch
-- [ ] Verify before writing actions
-No secrets in the skill.
-- [ ] MCP list minimal
+- [ ] Triggers are specific enough to avoid cross-domain activation
+- [ ] Verify step precedes every write-class action
+- [ ] No secrets in skill body
+- [ ] MCP list is minimal and named consistently
 
 ## Security
 
-- Verify ClawHub skills before Prod.
+- Verify third-party skills before production install.
+- Grok Bot and other hosts: OAuth stays on connector backend per product docs.
+- Supply-chain review before org-wide skill publish.
 
 ## Pitfalls
 
-- Skill replaces MCP-Doku → Tools are missing.
-- Too wide trigger → wrong skill activation.
-- Huge skill file → token load on every turn.
+- Skills that restate MCP docs leave tools unwired in hosts.
+- Over-broad triggers load wrong skills on ambiguous phrases.
+- Huge skills inflate tokens on every turn.
+- Pasting live Stripe or AWS keys into examples.
+- Missing verify steps cause agents to send emails autonomously.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** n8n Draft Skill
-- **Input:** trigger "n8n workflow"
-* Prompt: *
+
+- **Task:** n8n workflow drafting skill.
+- **Input:** Trigger phrase “n8n workflow design”.
+- **Prompt:**
 
 ```text
-SKILL.md links n8n-make-zapier-workflow verify before activate.
+Write SKILL.md linking domains/automation/n8n-make-zapier/n8n-make-zapier-workflow; verify before activate.
 ```
 
 - **Expected result:**
 
 ```text
-skill file | 3 trigger tests pass | mcp n8n only
+skills/n8n-draft/SKILL.md under 120 lines with triggers and non-targets
+Three trigger tests pass; unrelated “kubernetes rollout” does not load skill
+MCP list: n8n community server only; verify step before workflow activation
+OpenClaw skills verify output archived when applicable
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** API key in skill
-- **Input:** stripe_sk_live in example
+
+- **Task:** Live Stripe key in skill example.
+- **Input:** User pastes sk_live example in SKILL.md.
 - **Prompt:**
 
 ```text
-Paste real key so agent works.
+Paste our real key so the agent works out of the box.
 ```
 
 - **Expected result:**
 
 ```text
-reject | STRIPE_API_KEY env name only
+Key rejected from skill body; use STRIPE_API_KEY env name only
+Example blocks use sk_test_fake_from_dashboard syntax per Stripe docs
+Security section cites host connector pattern, not embedded secrets
 ```
-
-### Example 2 (Example data (self-written))
-- **Task:** Second dry run
-- **Input:** Example data only
-- **Prompt:**
-```text
-Repeat workflow; no external writes.
-```
-- **Expected result:** Checklist only.

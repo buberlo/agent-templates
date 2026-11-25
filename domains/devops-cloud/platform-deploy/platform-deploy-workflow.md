@@ -1,6 +1,6 @@
 ---
 id: platform-deploy-workflow
-title: "Platform Deploy"
+title: "Platform deploy"
 domain: devops-cloud
 category: platform-deploy
 tags:
@@ -9,102 +9,105 @@ tags:
   - production
 target_agents:
   - hermes
-  - claude-code
   - cursor
+  - claude-code
   - generic-mcp-agents
 required_tools:
-  - name: vercel
-    install: "npm i -g vercel"
-    version_notes: "vercel deploy --prebuilt"
-  - name: gh
-    install: "Deployment via Actions"
+  - name: Vercel CLI
+    install: "https://vercel.com/docs/cli"
+    version_notes: "vercel deploy; see deployment docs"
+  - name: GitHub CLI
+    install: "https://cli.github.com/manual/gh"
     version_notes: "workflow_dispatch gated"
   - name: kubectl
-    install: "optional K8s prod"
-    version_notes: "approval Pflicht"
+    install: "optional Kubernetes production"
+    version_notes: "approval required"
 inputs:
-  - "Zielumgebung (preview/prod)"
+  - "Target environment (preview or production)"
   - "Artifact or Git SHA"
 outputs:
-  - "Deployment-URL or Revision"
-  - "Rollback-Befehl"
+  - "Deployment URL or revision"
+  - "Rollback command documented"
 risk_level: high
 example_count: 2
-version: "1.0.0"
-updated: "2026-11-23"
+version: "1.2.0"
+updated: "2026-11-25"
 ---
 
 ## Purpose
 
-Platform deployments (Vercel️,ms, K8s Prod) with **Preview-first**, Prod only after explicit approval and rollback plan.
+Run platform deployments (Vercel, GitHub Actions, optional Kubernetes production) with **preview-first** flow, explicit production approval, and rollback prepared before promote.
 
 ## When to use
 
-- Release Promotion preview → production.
-- Hotfix path with documented rollback.
+- Promoting preview to production after smoke checks.
+- Documented hotfix path with rollback commands.
 
-**When not to use:** Erstes Setup without CI — zuerst `coding-github-actions-ci-pipeline`.
+### When not to use
+
+- Greenfield CI setup without pipelines — use software CI templates first.
+- Database migrations without DBA review in the same change window.
 
 ## Tool stack
 
 | Tool | Role | Rationale |
-|------|-------|------------|
-| vercel | Edge/Serverless | `vercel deploy` |
-| gh | Actions deploy | audit trail |
-| kubectl | K8s | `kubectl set image` gated |
+|------|------|-----------|
+| Vercel CLI | Edge and serverless | https://vercel.com/docs/deployments |
+| gh | Actions deploy | Audit trail via workflow runs |
+| kubectl | Kubernetes | `kubectl set image` or rollout undo when gated |
 
 ## System prompt
 
 ```text
-Platform deploy workflow (devops-cloud/plattform-deploy).
-
-Default preview/staging only until user message contains PROD_APPROVE with ticket id.
-Vercel: vercel deploy --prebuilt for CI artifacts; vercel promote only after approval.
-GitHub Actions: gh workflow run deploy.yml -f environment=production only after approval.
-Kubectl prod: never kubectl apply -f live prod without change window; prefer rollout with pinned image digest.
-
-Pre-deploy checklist: tests green, migrations reviewed, feature flags noted.
-Post-deploy: smoke URL list user provides; 5xx check via curl -sf.
-Rollback command prepared before prod deploy executes: vercel rollback or kubectl rollout undo.
-Record deployment id, git sha, actor, UTC time in summary.
-No database schema apply in same step unless DBA approval cited.
-Secrets via platform env, never CLI args.
+You are a platform deploy assistant for devops-cloud/platform-deploy.
+You default to preview or staging until the user message contains PROD_APPROVE with a ticket id.
+You use vercel deploy for previews and vercel promote or production deploy only after approval.
+You run gh workflow run with production environment only after PROD_APPROVE is recorded.
+You never kubectl apply live production manifests without a change window; prefer rollout with pinned image digest.
+You complete pre-deploy checklist: tests green, migrations reviewed, feature flags noted.
+You run post-deploy smoke URLs the user lists with curl -sf and note 5xx responses.
+You prepare rollback commands before production executes: vercel rollback or kubectl rollout undo.
+You record deployment id, git sha, actor, and UTC time in the summary.
+You do not apply database schema changes in the same step unless DBA approval is cited.
+You keep secrets in platform environment settings, never CLI arguments.
 ```
 
 ## Workflow
 
-1. Target environment and SHA: `git rev-parse HEAD`.
-2. Preview: `vercel deploy` or PR-Preview via CI.
-3. Smoke: `curl -sf https://preview-xxx.vercel.app/api/health`.
-4. Prod-approval abwarten (PROD_APPROVE).
-5. `vercel deploy --prod` or `gh workflow run deploy.yml -f env=production`.
-6 6 Post-deploy smoke and 5 min metrics windows.
-7. Rollback-Befehl im Ticket belassen.
+1. Confirm target environment and `git rev-parse HEAD`.
+2. Preview: `vercel deploy` or CI PR preview.
+3. Smoke: `curl -sf` health endpoints on preview URL.
+4. Wait for PROD_APPROVE with ticket id.
+5. Production deploy via Vercel or `gh workflow run`.
+6. Post-deploy smoke and five-minute metrics observation window.
+7. Leave rollback command in the ticket comment.
 
 ## Definition of done
 
-- [ ] Preview erfolgreich vor Prod
-- [ ] SHA and deployment ID documented
-- [ ] Rollback getestet or beschrieben
+- [ ] Successful preview before production
+- [ ] SHA and deployment id documented
+- [ ] Rollback command tested or explicitly described
 
 ## Security
 
-- **high** for Prod/remote deploy.
-- Kein `--force` without IC.
+- **High risk** for production and remote deploy.
+- No `--force` deploy without incident commander approval.
+- Production tokens never pasted in chat.
 
 ## Pitfalls
 
-- Prod without Preview — klassischer Ausfall.
-- Promote falsches Preview — Version mismatch.
-- DB migration irreversible — Rollback app is not enough.
-- kubectl latest Tag — digest pinnen.
-- vercel --prod from Feature Branch — Check Branch Policy.
+- Production without preview — classic outage pattern.
+- Promoting wrong preview URL — version mismatch.
+- Irreversible DB migrations — app rollback insufficient.
+- kubectl `latest` tag — pin digest.
+- `vercel deploy --prod` from feature branch — verify branch policy.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** Preview dann Prod Vercel.
-- **Input:** SHA `abc1234`, Ticket INC-99.
+
+- **Task:** Vercel preview then production.
+- **Input:** SHA `abc1234`, ticket INC-99.
 - **Prompt:**
 
 ```text
@@ -113,16 +116,17 @@ Deploy preview, smoke health, wait for PROD_APPROVE INC-99, then prod with rollb
 
 - **Expected result:**
 
-```bash
-vercel deploy
-curl -sf https://project-abc1234.vercel.app/api/health
-# after PROD_APPROVE:
-vercel deploy --prod
-vercel rollback  # documented
+```text
+vercel deploy yields preview URL; curl -sf /api/health succeeds
+Production blocked until PROD_APPROVE INC-99 appears in thread
+After approval: vercel deploy --prod records deployment id dpl_123
+Rollback documented: vercel rollback dpl_prev listed before prod step
+Summary includes sha abc1234 and UTC deploy time
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** Prod via GitHub Actions.
+
+- **Task:** Production via GitHub Actions only.
 - **Input:** workflow `deploy.yml`.
 - **Prompt:**
 
@@ -132,8 +136,9 @@ gh workflow run only after approval; watch run; no kubectl.
 
 - **Expected result:**
 
-```bash
-gh workflow run deploy.yml -f environment=production
-gh run watch
-gh run view --log
+```text
+gh workflow run deploy.yml -f environment=production deferred without PROD_APPROVE
+After approval: gh run watch captures success log tail
+gh run view shows actor and sha; no kubectl commands issued
+Rollback noted as re-run previous workflow dispatch input or revert commit
 ```
