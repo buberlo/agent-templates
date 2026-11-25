@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-11-24T00:00:00Z",
-  "count": 94,
+  "count": 99,
   "servers": [
     {
       "name": "Agent Skills progressive disclosure",
@@ -1317,6 +1317,66 @@
       ],
       "auth": "varies",
       "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
+    },
+    {
+      "name": "Cloudflare API MCP Server",
+      "url": "https://github.com/cloudflare/mcp",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "devops-cloud/platform-deploy"
+      ],
+      "auth": "OAuth / API token",
+      "risk_notes": "Review DNS and Workers changes read-only first; writes need human approval."
+    },
+    {
+      "name": "Figma MCP server (remote)",
+      "url": "https://developers.figma.com/docs/figma-mcp-server/",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "content-marketing/branding-design",
+        "software-development/design-to-code"
+      ],
+      "auth": "OAuth",
+      "risk_notes": "Canvas write tools are high risk; scope to selected frames for code generation."
+    },
+    {
+      "name": "Grafana MCP (mcp-grafana)",
+      "url": "https://github.com/grafana/mcp-grafana",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "devops-cloud/incident-response",
+        "devops-cloud/monitoring-observability"
+      ],
+      "auth": "Service account token",
+      "risk_notes": "Prefer dashboard summary tools; patch and delete need human approval."
+    },
+    {
+      "name": "Linear MCP (hosted)",
+      "url": "https://linear.app/docs/mcp",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "project-management/agile-kanban",
+        "project-management/jira-linear"
+      ],
+      "auth": "OAuth",
+      "risk_notes": "Use https://mcp.linear.app/mcp/readonly for grooming-only sessions when possible."
+    },
+    {
+      "name": "Supabase MCP Server",
+      "url": "https://github.com/supabase/mcp",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "data-analytics/sql-queries",
+        "software-development/backend-apis",
+        "software-development/databases-dev"
+      ],
+      "auth": "OAuth",
+      "risk_notes": "Use read_only=true and project-scoped URLs for migration review; do not pass tokens in argv."
     },
     {
       "name": "zendesk-mcp-server (reminia)",

@@ -1,8 +1,8 @@
 # Sources
 
-As of: 2026-11-24 (Europe/Vienna). Each URL below was cited in at least one category file.
+As of: 2026-11-25 (Europe/Vienna). Each URL below was cited in at least one category file.
 
-Unique HTTP sources: **137**
+Unique HTTP sources: **149**
 
 Raw research dumps are not versioned (see `.gitignore`).
 
@@ -86,7 +86,12 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://gdpr.eu/article-12-how-controllers-should-provide-information-to-data-subjects/
 - https://github.com/brave/brave-search-mcp-server
 - https://github.com/browserbase/mcp-server-browserbase
+- https://cli.sentry.dev/commands/mcp/
+- https://developers.figma.com/docs/figma-mcp-server/
+- https://github.com/cloudflare/mcp
+- https://github.com/cloudflare/mcp-server-cloudflare
 - https://github.com/containers/kubernetes-mcp-server
+- https://github.com/grafana/mcp-grafana
 - https://github.com/droidrun/mobilerun
 - https://github.com/exa-labs/exa-mcp-server
 - https://github.com/firecrawl/firecrawl-mcp-server
@@ -111,6 +116,7 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://github.com/openclaw/clawhub
 - https://github.com/openclaw/openclaw
 - https://github.com/powerdragonfire/platformio.mcp
+- https://github.com/supabase/mcp
 - https://github.com/punkpeye/awesome-mcp-servers
 - https://github.com/reminia/zendesk-mcp-server
 - https://github.com/remotion-dev/skills
@@ -125,11 +131,19 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/media/media-youtube-content
 - https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/productivity/productivity-microsoft-office
 - https://learn.microsoft.com/en-us/azure/aks/aks-model-context-protocol-server
+- https://linear.app/docs/mcp
+- https://mcp.cloudflare.com/mcp
+- https://mcp.figma.com/mcp
+- https://mcp.linear.app/mcp
+- https://mcp.sentry.dev
+- https://mcp.supabase.com/mcp
 - https://mcp.notion.com/mcp
 - https://minecraft.wiki/w/RCON
 - https://modelcontextprotocol.io
 - https://ollama.com
 - https://playwright.dev/mcp/introduction
+- https://supabase.com/docs/guides/ai-tools/mcp#security-risks
+- https://supabase.com/mcp
 - https://tailscale.com/docs/develop-with-ai
 - https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html
 - https://www.hud.gov/helping-americans/fair-housing-act-overview

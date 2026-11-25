@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24T00:00:00Z",
+  "generated_at": "2026-11-25T00:00:00Z",
   "domains": [
     {
       "slug": "agent-platforms",
@@ -293,7 +293,7 @@
     {
       "slug": "devops-cloud",
       "category_count": 12,
-      "template_count": 18,
+      "template_count": 21,
       "categories": [
         {
           "slug": "cicd",
@@ -325,7 +325,7 @@
         },
         {
           "slug": "incident-response",
-          "template_count": 2
+          "template_count": 3
         },
         {
           "slug": "kubernetes",
@@ -337,11 +337,11 @@
         },
         {
           "slug": "monitoring-observability",
-          "template_count": 2
+          "template_count": 3
         },
         {
           "slug": "platform-deploy",
-          "template_count": 2
+          "template_count": 3
         }
       ]
     },
@@ -375,7 +375,7 @@
     {
       "slug": "finance",
       "category_count": 7,
-      "template_count": 9,
+      "template_count": 10,
       "categories": [
         {
           "slug": "accounting",
@@ -395,7 +395,7 @@
         },
         {
           "slug": "payments-stripe",
-          "template_count": 2
+          "template_count": 3
         },
         {
           "slug": "taxes",
@@ -705,11 +705,11 @@
     {
       "slug": "project-management",
       "category_count": 5,
-      "template_count": 6,
+      "template_count": 7,
       "categories": [
         {
           "slug": "agile-kanban",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "jira-linear",
@@ -911,7 +911,7 @@
     {
       "slug": "software-development",
       "category_count": 12,
-      "template_count": 19,
+      "template_count": 22,
       "categories": [
         {
           "slug": "backend-apis",
@@ -927,11 +927,11 @@
         },
         {
           "slug": "databases-dev",
-          "template_count": 2
+          "template_count": 3
         },
         {
           "slug": "design-to-code",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "frontend",
@@ -959,7 +959,7 @@
         },
         {
           "slug": "testing",
-          "template_count": 2
+          "template_count": 3
         }
       ]
     },
@@ -2810,6 +2810,30 @@
       "path": "domains/devops-cloud/incident-response/incident-response-workflow.md"
     },
     {
+      "id": "sentry-production-error-triage-fix-pr-v1",
+      "title": "Sentry MCP production error triage to fix PR plan",
+      "domain": "devops-cloud",
+      "category": "incident-response",
+      "tags": [
+        "sentry",
+        "mcp",
+        "incident-response",
+        "debugging"
+      ],
+      "target_agents": [
+        "cursor",
+        "claude-code",
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "high",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-25",
+      "path": "domains/devops-cloud/incident-response/sentry-production-error-triage-fix-pr-v1.md"
+    },
+    {
       "id": "k8s-helm-chart-release",
       "title": "Install and upgrade helmet chart",
       "domain": "devops-cloud",
@@ -2897,6 +2921,30 @@
       "path": "domains/devops-cloud/logging/logging-workflow.md"
     },
     {
+      "id": "grafana-alert-incident-timeline-v1",
+      "title": "Grafana MCP alert investigation and incident timeline",
+      "domain": "devops-cloud",
+      "category": "monitoring-observability",
+      "tags": [
+        "grafana",
+        "alerts",
+        "mcp",
+        "on-call"
+      ],
+      "target_agents": [
+        "hermes",
+        "cursor",
+        "grokbot",
+        "claude-code",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-25",
+      "path": "domains/devops-cloud/monitoring-observability/grafana-alert-incident-timeline-v1.md"
+    },
+    {
       "id": "monitoring-observability-mcp-focus",
       "title": "Monitoring and Observability: MCP/Skill Focus",
       "domain": "devops-cloud",
@@ -2939,6 +2987,30 @@
       "version": "1.0.0",
       "updated": "2026-11-23",
       "path": "domains/devops-cloud/monitoring-observability/monitoring-observability-workflow.md"
+    },
+    {
+      "id": "cloudflare-dns-workers-change-review-v1",
+      "title": "Cloudflare MCP DNS and Workers change review",
+      "domain": "devops-cloud",
+      "category": "platform-deploy",
+      "tags": [
+        "cloudflare",
+        "dns",
+        "workers",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "cursor",
+        "claude-code",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "high",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-25",
+      "path": "domains/devops-cloud/platform-deploy/cloudflare-dns-workers-change-review-v1.md"
     },
     {
       "id": "platform-deploy-mcp-focus",
@@ -3257,6 +3329,29 @@
       "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/finance/payments-stripe/payments-stripe-workflow.md"
+    },
+    {
+      "id": "stripe-refund-dispute-investigation-v1",
+      "title": "Stripe MCP refund and dispute investigation (read-only)",
+      "domain": "finance",
+      "category": "payments-stripe",
+      "tags": [
+        "stripe",
+        "refunds",
+        "disputes",
+        "read-only"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "high",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-25",
+      "path": "domains/finance/payments-stripe/stripe-refund-dispute-investigation-v1.md"
     },
     {
       "id": "taxes-workflow",
@@ -4947,6 +5042,30 @@
       "path": "domains/project-management/agile-kanban/agile-kanban-workflow.md"
     },
     {
+      "id": "linear-backlog-grooming-sprint-prep-v1",
+      "title": "Linear MCP backlog grooming and sprint prep",
+      "domain": "project-management",
+      "category": "agile-kanban",
+      "tags": [
+        "linear",
+        "backlog",
+        "grooming",
+        "mcp"
+      ],
+      "target_agents": [
+        "cursor",
+        "claude-code",
+        "grokbot",
+        "hermes",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-25",
+      "path": "domains/project-management/agile-kanban/linear-backlog-grooming-sprint-prep-v1.md"
+    },
+    {
       "id": "jira-linear-workflow",
       "title": "Jira, Linear and tickets",
       "domain": "project-management",
@@ -6272,6 +6391,29 @@
       "path": "domains/software-development/databases-dev/databases-dev-workflow.md"
     },
     {
+      "id": "supabase-migration-review-rollback-v1",
+      "title": "Supabase MCP schema migration review with rollback plan",
+      "domain": "software-development",
+      "category": "databases-dev",
+      "tags": [
+        "supabase",
+        "postgres",
+        "migrations",
+        "mcp"
+      ],
+      "target_agents": [
+        "cursor",
+        "claude-code",
+        "hermes",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "high",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-25",
+      "path": "domains/software-development/databases-dev/supabase-migration-review-rollback-v1.md"
+    },
+    {
       "id": "design-to-code-workflow",
       "title": "Design to Code",
       "domain": "software-development",
@@ -6292,6 +6434,29 @@
       "version": "1.0.0",
       "updated": "2026-11-23",
       "path": "domains/software-development/design-to-code/design-to-code-workflow.md"
+    },
+    {
+      "id": "figma-dev-mode-component-impl-v1",
+      "title": "Figma MCP Dev Mode design-to-component implementation",
+      "domain": "software-development",
+      "category": "design-to-code",
+      "tags": [
+        "figma",
+        "design-system",
+        "react",
+        "mcp"
+      ],
+      "target_agents": [
+        "cursor",
+        "claude-code",
+        "grokbot",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-25",
+      "path": "domains/software-development/design-to-code/figma-dev-mode-component-impl-v1.md"
     },
     {
       "id": "frontend-mcp-focus",
@@ -6467,6 +6632,30 @@
       "version": "1.0.0",
       "updated": "2026-11-23",
       "path": "domains/software-development/tech-docs/tech-docs-workflow.md"
+    },
+    {
+      "id": "playwright-e2e-authoring-flaky-triage-v1",
+      "title": "Playwright MCP E2E test authoring and flaky-test triage",
+      "domain": "software-development",
+      "category": "testing",
+      "tags": [
+        "playwright",
+        "e2e",
+        "mcp",
+        "flaky-tests"
+      ],
+      "target_agents": [
+        "cursor",
+        "claude-code",
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-25",
+      "path": "domains/software-development/testing/playwright-e2e-authoring-flaky-triage-v1.md"
     },
     {
       "id": "testing-mcp-focus",
