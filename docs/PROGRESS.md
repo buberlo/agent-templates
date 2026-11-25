@@ -1,5 +1,13 @@
 # Migration progress
 
+## Completed (2026-11-25) — Batch 6
+
+- **Eight new templates (MCP dev and ops):** Playwright MCP E2E authoring and flaky-test triage; Sentry MCP production error triage to fix PR plan (with example SVG flow); Stripe read-only refund and dispute investigation; Supabase MCP schema migration review with rollback plan; Figma remote MCP design-to-component implementation; Cloudflare MCP DNS and Workers change review; Grafana MCP alert investigation and incident timeline (with example SVG timeline); Linear hosted MCP backlog grooming and sprint prep.
+- **Assets:** Example data (self-written) SVG diagrams under `domains/devops-cloud/incident-response/assets/` and `domains/devops-cloud/monitoring-observability/assets/`.
+- **MCP catalog:** Added official entries for Supabase MCP Server, Grafana MCP (mcp-grafana), Cloudflare API MCP Server, Figma MCP server (remote), and Linear MCP (hosted) in `mcp/catalog.json`. New source URLs in `research/SOURCES.md` (Sentry CLI MCP, Supabase, Cloudflare, Grafana, Figma, Linear hosted endpoints).
+- **Validator:** `python3 scripts/validate_and_index.py` — 0 errors; regenerated `INDEX.md` and root `catalog.json`.
+- **Template total:** **271** after regeneration.
+
 ## Completed (2026-11-24) — Batch 5
 
 - **Eight new templates (thin domains):** Game mod packaging and LOOT-style compatibility report; dedicated server admin via RCON/CLI with restart approval gates; wearable export training plan builder (Strava API, FIT/GPX, not-medical-advice); multi-city trip itinerary and booking checklist (no payments); event run-of-show and attendee comms drafters; course material to Anki TSV and quiz with source-grounded cards; weekly status report from GitHub / Linear / Jira (read-only); arXiv and Semantic Scholar literature search pipeline with required citations.

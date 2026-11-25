@@ -1,6 +1,6 @@
 # Template index
 
-Auto-generated. **27** domains, **199** categories, **263** templates.
+Auto-generated. **27** domains, **199** categories, **271** templates.
 
 ## Domain: `agent-platforms` (10 templates)
 
@@ -391,7 +391,7 @@ Auto-generated. **27** domains, **199** categories, **263** templates.
 | `web-playwright-research-scrape` | Structured Scraping with Playwright | hermes, grokbot, generic | medium | 2 |
 | `web-scraping-mcp-focus` | Scraping: Firecrawl vs. Playwright | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-## Domain: `devops-cloud` (18 templates)
+## Domain: `devops-cloud` (21 templates)
 
 ### `devops-cloud/cicd` (2)
 
@@ -436,12 +436,13 @@ Auto-generated. **27** domains, **199** categories, **263** templates.
 |----|-------|--------|------|----------|
 | `coding-terraform-aws-baseline` | AWS Baseline with Terraform | hermes, claude-code, cursor… | high | 2 |
 
-### `devops-cloud/incident-response` (2)
+### `devops-cloud/incident-response` (3)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `incident-response-mcp-focus` | Incident Response: MCP/Skill focus | hermes, claude-code, cursor… | high | 2 |
 | `incident-response-workflow` | Incident Response | hermes, grokbot, generic-mcp-agents | high | 2 |
+| `sentry-production-error-triage-fix-pr-v1` | Sentry MCP production error triage to fix PR plan | cursor, claude-code, hermes… | high | 2 |
 
 ### `devops-cloud/kubernetes` (3)
 
@@ -457,17 +458,19 @@ Auto-generated. **27** domains, **199** categories, **263** templates.
 |----|-------|--------|------|----------|
 | `logging-workflow` | Logging | hermes, claude-code, cursor… | medium | 2 |
 
-### `devops-cloud/monitoring-observability` (2)
+### `devops-cloud/monitoring-observability` (3)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
+| `grafana-alert-incident-timeline-v1` | Grafana MCP alert investigation and incident timeline | hermes, cursor, grokbot… | medium | 2 |
 | `monitoring-observability-mcp-focus` | Monitoring and Observability: MCP/Skill Focus | hermes, claude-code, cursor… | high | 2 |
 | `monitoring-observability-workflow` | Monitoring and Observability | hermes, claude-code, cursor… | high | 2 |
 
-### `devops-cloud/platform-deploy` (2)
+### `devops-cloud/platform-deploy` (3)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
+| `cloudflare-dns-workers-change-review-v1` | Cloudflare MCP DNS and Workers change review | hermes, grokbot, cursor… | high | 2 |
 | `platform-deploy-mcp-focus` | Platform Deploy: MCP/Skill focus | hermes, claude-code, cursor… | high | 2 |
 | `platform-deploy-workflow` | Platform Deploy | hermes, claude-code, cursor… | high | 2 |
 
@@ -505,7 +508,7 @@ Auto-generated. **27** domains, **199** categories, **263** templates.
 |----|-------|--------|------|----------|
 | `tutoring-workflow` | Training and Tutoring | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-## Domain: `finance` (9 templates)
+## Domain: `finance` (10 templates)
 
 ### `finance/accounting` (1)
 
@@ -531,12 +534,13 @@ Auto-generated. **27** domains, **199** categories, **263** templates.
 |----|-------|--------|------|----------|
 | `invoicing-workflow` | Invoices and payment status | hermes, generic | medium | 2 |
 
-### `finance/payments-stripe` (2)
+### `finance/payments-stripe` (3)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `payments-stripe-mcp-focus` | Stripe: MCP focus | generic-mcp-agents, hermes | high | 2 |
 | `payments-stripe-workflow` | Stripe reporting read-only | hermes, generic-mcp-agents | medium | 2 |
+| `stripe-refund-dispute-investigation-v1` | Stripe MCP refund and dispute investigation (read-only) | hermes, grokbot, cursor… | high | 2 |
 
 ### `finance/taxes` (1)
 
@@ -933,13 +937,14 @@ Auto-generated. **27** domains, **199** categories, **263** templates.
 |----|-------|--------|------|----------|
 | `shopping-workflow` | shopping | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-## Domain: `project-management` (6 templates)
+## Domain: `project-management` (7 templates)
 
-### `project-management/agile-kanban` (1)
+### `project-management/agile-kanban` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `agile-kanban-workflow` | Agile and Kanban | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `linear-backlog-grooming-sprint-prep-v1` | Linear MCP backlog grooming and sprint prep | cursor, claude-code, grokbot… | medium | 2 |
 
 ### `project-management/jira-linear` (1)
 
@@ -1205,7 +1210,7 @@ Auto-generated. **27** domains, **199** categories, **263** templates.
 | `vuln-management-mcp-focus` | Vulnerability Management: MCP/Skill-Fokus | hermes, generic-mcp-agents | medium | 2 |
 | `vuln-management-workflow` | Vulnerability Management | hermes, grokbot, generic-mcp-agents… | medium | 2 |
 
-## Domain: `software-development` (19 templates)
+## Domain: `software-development` (22 templates)
 
 ### `software-development/backend-apis` (2)
 
@@ -1228,18 +1233,20 @@ Auto-generated. **27** domains, **199** categories, **263** templates.
 | `coding-mcp-focus` | Coding: MCP/Skill-Fokus | hermes, claude-code, cursor… | low | 2 |
 | `coding-workflow` | Coding | hermes, claude-code, cursor… | low | 2 |
 
-### `software-development/databases-dev` (2)
+### `software-development/databases-dev` (3)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `databases-dev-mcp-focus` | Datenbanken (Entwicklung): MCP/Skill-Fokus | hermes, claude-code, cursor… | medium | 2 |
 | `databases-dev-workflow` | Datenbanken (Entwicklung) | hermes, claude-code, cursor… | medium | 2 |
+| `supabase-migration-review-rollback-v1` | Supabase MCP schema migration review with rollback plan | cursor, claude-code, hermes… | high | 2 |
 
-### `software-development/design-to-code` (1)
+### `software-development/design-to-code` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `design-to-code-workflow` | Design to Code | hermes, claude-code, cursor… | low | 2 |
+| `figma-dev-mode-component-impl-v1` | Figma MCP Dev Mode design-to-component implementation | cursor, claude-code, grokbot… | medium | 2 |
 
 ### `software-development/frontend` (2)
 
@@ -1279,10 +1286,11 @@ Auto-generated. **27** domains, **199** categories, **263** templates.
 | `tech-docs-mcp-focus` | Technische Dokumentation: MCP/Skill-Fokus | hermes, claude-code, cursor… | low | 2 |
 | `tech-docs-workflow` | Technische Dokumentation | hermes, claude-code, cursor… | low | 2 |
 
-### `software-development/testing` (2)
+### `software-development/testing` (3)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
+| `playwright-e2e-authoring-flaky-triage-v1` | Playwright MCP E2E test authoring and flaky-test triage | cursor, claude-code, hermes… | medium | 2 |
 | `testing-mcp-focus` | Testing: MCP/Skill-Fokus | hermes, claude-code, cursor… | low | 3 |
 | `testing-workflow` | Testing | hermes, claude-code, cursor… | low | 3 |
 
