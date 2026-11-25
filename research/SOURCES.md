@@ -13,10 +13,13 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://agentspulse.github.io/tutorials/claude-powerpoint-skill/
 - https://aifrontierpost.com/articles/anthropic-official-agent-skills-tutorial/
 - https://clawhubtrends.com/leaderboard.html
+- https://cli.github.com/manual/gh
 - https://code.claude.com/docs/en/features-overview
 - https://code.claude.com/docs/en/mcp
 - https://code.claude.com/docs/en/skills/
 - https://cursor.com/docs/context/mcp
+- https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+- https://docs.litellm.ai/docs/
 - https://cursor.com/docs/context/rules
 - https://developers.openai.com/codex/cli/
 - https://docs.ankiweb.net/importing/exporting.html
@@ -97,6 +100,8 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://github.com/firecrawl/firecrawl-mcp-server
 - https://github.com/forgemeshlabs/shopscout-mcp
 - https://github.com/getsentry/sentry-mcp
+- https://github.com/modelcontextprotocol/python-sdk
+- https://github.com/ollama/ollama/blob/main/docs/api.md
 - https://github.com/getzep/graphiti
 - https://github.com/github/github-mcp-server
 - https://github.com/LOOT/LOOT
@@ -141,14 +146,19 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://minecraft.wiki/w/RCON
 - https://modelcontextprotocol.io
 - https://ollama.com
+- https://platform.openai.com/docs/guides/fine-tuning
 - https://playwright.dev/mcp/introduction
+- https://prometheus.io/docs/prometheus/latest/command-line/promtool/
 - https://supabase.com/docs/guides/ai-tools/mcp#security-risks
 - https://supabase.com/mcp
 - https://tailscale.com/docs/develop-with-ai
+- https://vercel.com/docs/ai-gateway
+- https://vercel.com/docs/cli
+- https://vercel.com/docs/deployments
 - https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html
 - https://www.hud.gov/helping-americans/fair-housing-act-overview
 - https://www.elegantsoftwaresolutions.com/blog/openclaw-skill-workshop-power-user-guide-2026-6-1
-- https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp (unofficial community guide; not affiliated with xAI)
 - https://www.paloaltonetworks.com/blog/security-operations/clawhavoc-ai-agent-skills-poisoning/
 - https://www.reddit.com/r/ClaudeAI/comments/1ryz7zp/i_measured_my_mcp_token_overhead_67k_tokens/
 - https://www.reddit.com/r/mcp/comments/1spvkrz/microsoft_recommends_cli_over_mcp_for_playwright/
@@ -173,7 +183,7 @@ Important primary sources (short)
 - EUR-Lex GDPR (EU) 2016/679: https://eur-lex.europa.eu/eli/reg/2016/679/oj
 - MCP specification: https://modelcontextprotocol.io
 - Anthropic skills: https://github.com/anthropics/skills (199.219 Stars)
-- Grok Bot Wiki (Plugins/MCP): https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- Grok Bot Wiki (Plugins/MCP, unofficial community guide; not affiliated with xAI): https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
 - Grok Bot 101: https://x.ai/bot/guides/grok-bot-101
 - awesome-mcp-servers: https://github.com/punkpeye/awesome-mcp-servers (98.405 Stars)
 - ClawHub-Audit Feb. 2026: https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html
