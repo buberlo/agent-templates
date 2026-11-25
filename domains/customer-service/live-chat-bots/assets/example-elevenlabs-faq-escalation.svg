@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Example data (self-written) — fictional ElevenLabs FAQ escalation -->
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="220" viewBox="0 0 640 220">
+  <title>Example ElevenLabs FAQ escalation (fictional)</title>
+  <rect width="640" height="220" fill="#faf5ff"/>
+  <text x="20" y="24" font-family="sans-serif" font-size="12" fill="#64748b">Example data (self-written): voice FAQ to human handoff</text>
+  <rect x="20" y="48" width="100" height="44" rx="6" fill="#e9d5ff" stroke="#7c3aed"/>
+  <text x="70" y="75" text-anchor="middle" font-family="sans-serif" font-size="10">Incoming call</text>
+  <polygon points="128,70 148,70 138,60" fill="#7c3aed"/>
+  <rect x="148" y="48" width="120" height="44" rx="6" fill="#e9d5ff" stroke="#7c3aed"/>
+  <text x="208" y="75" text-anchor="middle" font-family="sans-serif" font-size="10">FAQ from KB</text>
+  <polygon points="276,70 296,70 286,60" fill="#7c3aed"/>
+  <rect x="296" y="48" width="130" height="44" rx="6" fill="#fef3c7" stroke="#d97706"/>
+  <text x="361" y="68" text-anchor="middle" font-family="sans-serif" font-size="9">Escalation rule</text>
+  <text x="361" y="82" text-anchor="middle" font-family="sans-serif" font-size="9">transfer_to_number</text>
+  <polygon points="434,70 454,70 444,60" fill="#7c3aed"/>
+  <rect x="454" y="48" width="166" height="44" rx="6" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="537" y="75" text-anchor="middle" font-family="sans-serif" font-size="10">Human operator</text>
+  <rect x="120" y="130" width="400" height="70" rx="6" fill="#f1f5f9" stroke="#94a3b8"/>
+  <text x="320" y="155" text-anchor="middle" font-family="sans-serif" font-size="11">No full transcript stored (fictional policy)</text>
+  <text x="320" y="175" text-anchor="middle" font-family="sans-serif" font-size="10">Metadata: topic, duration, escalation reason only</text>
+</svg>

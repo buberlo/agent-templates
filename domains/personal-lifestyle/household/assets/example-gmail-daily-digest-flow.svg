@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Example data (self-written) — fictional personal Gmail digest flow -->
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="200" viewBox="0 0 640 200">
+  <title>Example personal Gmail digest flow (fictional)</title>
+  <rect width="640" height="200" fill="#f0fdf4"/>
+  <text x="20" y="24" font-family="sans-serif" font-size="12" fill="#64748b">Example data (self-written): household Gmail digest (drafts only)</text>
+  <rect x="20" y="50" width="110" height="44" rx="6" fill="#d1fae5" stroke="#059669"/>
+  <text x="75" y="77" text-anchor="middle" font-family="sans-serif" font-size="10">search_threads</text>
+  <polygon points="138,72 158,72 148,62" fill="#059669"/>
+  <rect x="158" y="50" width="110" height="44" rx="6" fill="#d1fae5" stroke="#059669"/>
+  <text x="213" y="77" text-anchor="middle" font-family="sans-serif" font-size="10">Classify</text>
+  <polygon points="276,72 296,72 286,62" fill="#059669"/>
+  <rect x="296" y="50" width="120" height="44" rx="6" fill="#fef3c7" stroke="#d97706"/>
+  <text x="356" y="77" text-anchor="middle" font-family="sans-serif" font-size="10">create_draft</text>
+  <polygon points="424,72 444,72 434,62" fill="#059669"/>
+  <rect x="444" y="50" width="176" height="44" rx="6" fill="#e0e7ff" stroke="#4338ca"/>
+  <text x="532" y="77" text-anchor="middle" font-family="sans-serif" font-size="10">Daily digest MD</text>
+  <rect x="220" y="130" width="200" height="44" rx="6" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="320" y="157" text-anchor="middle" font-family="sans-serif" font-size="11">Human sends in Gmail</text>
+  <line x1="356" y1="94" x2="320" y2="130" stroke="#94a3b8" stroke-dasharray="4"/>
+</svg>

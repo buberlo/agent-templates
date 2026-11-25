@@ -1,6 +1,6 @@
 # Template index
 
-Auto-generated. **27** domains, **199** categories, **271** templates.
+Auto-generated. **27** domains, **199** categories, **279** templates.
 
 ## Domain: `agent-platforms` (10 templates)
 
@@ -107,7 +107,7 @@ Auto-generated. **27** domains, **199** categories, **271** templates.
 |----|-------|--------|------|----------|
 | `skills-authoring-workflow` | Skills authoring | hermes, grokbot, cursor… | low | 2 |
 
-## Domain: `automation` (10 templates)
+## Domain: `automation` (11 templates)
 
 ### `automation/browser-automation` (2)
 
@@ -141,11 +141,12 @@ Auto-generated. **27** domains, **199** categories, **271** templates.
 | `mobile-phone-control-mcp-focus` | Mobile and Phone Control: MCP/Skill Focus | hermes, grokbot, generic-mcp-agents… | medium | 2 |
 | `mobile-phone-control-workflow` | Mobile and Phone Control | hermes, grokbot, generic-mcp-agents… | high | 2 |
 
-### `automation/n8n-make-zapier` (1)
+### `automation/n8n-make-zapier` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `n8n-make-zapier-workflow` | n8n, Make, Zapier | hermes, grokbot, generic-mcp-agents… | medium | 2 |
+| `n8n-workflow-builder-review-mcp-v1` | n8n workflow builder and reviewer via instance MCP | cursor, claude-code, hermes… | high | 2 |
 
 ### `automation/rpa` (1)
 
@@ -306,7 +307,7 @@ Auto-generated. **27** domains, **199** categories, **271** templates.
 |----|-------|--------|------|----------|
 | `ugc-workflow` | UGC Briefs | hermes, grokbot, generic-mcp-agents… | medium | 2 |
 
-## Domain: `customer-service` (7 templates)
+## Domain: `customer-service` (8 templates)
 
 ### `customer-service/escalation` (1)
 
@@ -328,10 +329,11 @@ Auto-generated. **27** domains, **199** categories, **271** templates.
 | `help-center-kb-gap-analysis-v1` | Help center KB gap analysis from resolved tickets | hermes, grokbot, cursor… | low | 2 |
 | `knowledge-base-workflow` | Knowledge base support | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-### `customer-service/live-chat-bots` (1)
+### `customer-service/live-chat-bots` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
+| `elevenlabs-voice-faq-agent-v1` | ElevenLabs voice phone FAQ agent with human escalation | hermes, generic-mcp-agents | high | 2 |
 | `live-chat-bots-workflow` | Live chat and bots | hermes, grokbot, generic-mcp-agents… | medium | 2 |
 
 ### `customer-service/qos-csat` (1)
@@ -474,7 +476,7 @@ Auto-generated. **27** domains, **199** categories, **271** templates.
 | `platform-deploy-mcp-focus` | Platform Deploy: MCP/Skill focus | hermes, claude-code, cursor… | high | 2 |
 | `platform-deploy-workflow` | Platform deploy | hermes, cursor, claude-code… | high | 2 |
 
-## Domain: `education` (7 templates)
+## Domain: `education` (8 templates)
 
 ### `education/course-creation` (2)
 
@@ -502,10 +504,11 @@ Auto-generated. **27** domains, **199** categories, **271** templates.
 |----|-------|--------|------|----------|
 | `study-research-workflow` | Study and Research | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-### `education/tutoring` (1)
+### `education/tutoring` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
+| `rubric-assignment-feedback-drafter-v1` | Rubric-based assignment feedback drafter for teachers | hermes, cursor, claude-code… | medium | 2 |
 | `tutoring-workflow` | Training and Tutoring | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ## Domain: `finance` (10 templates)
@@ -610,7 +613,7 @@ Auto-generated. **27** domains, **199** categories, **271** templates.
 |----|-------|--------|------|----------|
 | `electronics-diagnostics-workflow` | Electronics diagnostics | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-## Domain: `health-fitness` (5 templates)
+## Domain: `health-fitness` (6 templates)
 
 ### `health-fitness/fitness-training` (2)
 
@@ -631,11 +634,12 @@ Auto-generated. **27** domains, **199** categories, **271** templates.
 |----|-------|--------|------|----------|
 | `mental-health-organisation-workflow` | Mental health organization | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-### `health-fitness/nutrition` (1)
+### `health-fitness/nutrition` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `nutrition-workflow` | Nutrition | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `pantry-weekly-meal-plan-usda-v1` | Pantry-based weekly meal plan with USDA nutrition lookup | hermes, grokbot, generic-mcp-agents | low | 2 |
 
 ## Domain: `hr-recruiting` (6 templates)
 
@@ -905,7 +909,7 @@ Auto-generated. **27** domains, **199** categories, **271** templates.
 | `documents-libreoffice-mail-merge` | Serienbrief with LibreOffice and CSV | hermes, cursor, generic | medium | 2 |
 | `word-docx-mcp-focus` | Word DOCX: MCP- and Skill-Fokus | hermes, claude-code, openclaw… | low | 2 |
 
-## Domain: `personal-lifestyle` (5 templates)
+## Domain: `personal-lifestyle` (6 templates)
 
 ### `personal-lifestyle/food-recipes` (1)
 
@@ -913,10 +917,11 @@ Auto-generated. **27** domains, **199** categories, **271** templates.
 |----|-------|--------|------|----------|
 | `food-recipes-workflow` | Food and recipes | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-### `personal-lifestyle/household` (1)
+### `personal-lifestyle/household` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
+| `gmail-personal-daily-digest-v1` | Personal Gmail daily digest with labels and draft replies | hermes, grokbot, generic-mcp-agents | medium | 2 |
 | `household-workflow` | Household | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `personal-lifestyle/personal-appointments` (1)
@@ -937,7 +942,7 @@ Auto-generated. **27** domains, **199** categories, **271** templates.
 |----|-------|--------|------|----------|
 | `shopping-workflow` | shopping | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-## Domain: `project-management` (7 templates)
+## Domain: `project-management` (8 templates)
 
 ### `project-management/agile-kanban` (2)
 
@@ -952,10 +957,11 @@ Auto-generated. **27** domains, **199** categories, **271** templates.
 |----|-------|--------|------|----------|
 | `jira-linear-workflow` | Jira, Linear and tickets | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-### `project-management/planning` (1)
+### `project-management/planning` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
+| `meeting-transcript-notion-actions-v1` | Meeting transcript to action items and decisions in Notion | hermes, grokbot, cursor… | medium | 2 |
 | `planning-workflow` | Planning | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `project-management/reporting` (2)
@@ -971,13 +977,14 @@ Auto-generated. **27** domains, **199** categories, **271** templates.
 |----|-------|--------|------|----------|
 | `tasks-workflow` | Tasks | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-## Domain: `real-estate` (4 templates)
+## Domain: `real-estate` (5 templates)
 
-### `real-estate/hoa-management` (1)
+### `real-estate/hoa-management` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `hoa-management-workflow` | HOA management | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `landlord-maintenance-triage-quotes-v1` | Landlord maintenance triage and contractor quote comparison | hermes, grokbot, generic-mcp-agents | medium | 2 |
 
 ### `real-estate/property-listings` (2)
 
@@ -1117,13 +1124,14 @@ Auto-generated. **27** domains, **199** categories, **271** templates.
 |----|-------|--------|------|----------|
 | `shopify-workflow` | Shopify Store Ops & catalog | hermes, grokbot, generic-mcp-agents… | medium | 2 |
 
-## Domain: `science-engineering` (6 templates)
+## Domain: `science-engineering` (7 templates)
 
-### `science-engineering/data-experiments` (1)
+### `science-engineering/data-experiments` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `data-experiments-workflow` | Experimentdaten | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `jupyter-reproducibility-audit-v1` | Jupyter notebook reproducibility audit with papermill | cursor, claude-code, hermes… | medium | 2 |
 
 ### `science-engineering/lab-notes` (1)
 

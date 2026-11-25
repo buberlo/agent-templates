@@ -2,7 +2,7 @@
 
 As of: 2026-11-25 (Europe/Vienna). Each URL below was cited in at least one category file.
 
-Unique HTTP sources: **149**
+Unique HTTP sources: **158**
 
 Raw research dumps are not versioned (see `.gitignore`).
 
@@ -82,15 +82,22 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://github.com/anthropics/claude-code
 - https://github.com/anthropics/skills
 - https://developer.zendesk.com/api-reference/ticketing/introduction/
+- https://developers.google.com/workspace/gmail/api/guides/configure-mcp-server
+- https://developers.google.com/workspace/gmail/api/reference/mcp
 - https://developers.strava.com/docs/reference/
 - https://developers.google.com/calendar/api/guides/overview
 - https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/index.html
+- https://docs.n8n.io/connect/connect-to-n8n-mcp-server
 - https://docs.platformio.org/en/latest/core/installation/index.html
 - https://gdpr.eu/article-12-how-controllers-should-provide-information-to-data-subjects/
 - https://github.com/brave/brave-search-mcp-server
 - https://github.com/browserbase/mcp-server-browserbase
 - https://cli.sentry.dev/commands/mcp/
 - https://developers.figma.com/docs/figma-mcp-server/
+- https://elevenlabs.io/docs/eleven-agents/build/overview
+- https://elevenlabs.io/docs/eleven-agents/customization/tools/system-tools/transfer-to-number
+- https://fdc.nal.usda.gov/api-guide/
+- https://fdc.nal.usda.gov/api-key-signup/
 - https://github.com/cloudflare/mcp
 - https://github.com/cloudflare/mcp-server-cloudflare
 - https://github.com/containers/kubernetes-mcp-server
@@ -115,6 +122,7 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://github.com/modelcontextprotocol/servers
 - https://github.com/tkrajina/gpxpy
 - https://github.com/microsoft/markitdown
+- https://nbconvert.readthedocs.io/
 - https://github.com/microsoft/playwright-mcp
 - https://github.com/mobile-next/mobile-mcp
 - https://github.com/n8n-io/n8n
@@ -147,6 +155,8 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://modelcontextprotocol.io
 - https://ollama.com
 - https://platform.openai.com/docs/guides/fine-tuning
+- https://papermill.readthedocs.io/en/latest/usage-cli.html
+- https://papermill.readthedocs.io/en/stable/usage-execute.html
 - https://playwright.dev/mcp/introduction
 - https://prometheus.io/docs/prometheus/latest/command-line/promtool/
 - https://supabase.com/docs/guides/ai-tools/mcp#security-risks
@@ -163,6 +173,7 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://www.reddit.com/r/ClaudeAI/comments/1ryz7zp/i_measured_my_mcp_token_overhead_67k_tokens/
 - https://www.reddit.com/r/mcp/comments/1spvkrz/microsoft_recommends_cli_over_mcp_for_playwright/
 - https://www.terraform.io/
+- https://www.twilio.com/en-us/blog/developers/tutorials/integrations/ai-agent-to-human-agent-elevenlabs-call-handoffs-twilio
 - https://x.ai/bot/guides/grok-bot-101
 - https://x.com/AnylancerInc/status/2116384700449149180
 - https://x.com/JayQinQT/status/2120856724668133406
