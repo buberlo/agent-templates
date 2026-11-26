@@ -106,7 +106,7 @@ Cache fetch results in thread to avoid duplicate firecrawl on same url.
 
 - [ ] ≤2 aktive Search-MCPs
 - [ ] Firecrawl nur auf Kurzliste
-- [ ] Queries geloggt
+- [ ] Queries logged
 - [ ] Playwright justified when used
 - [ ] No Credentials in Queries
 

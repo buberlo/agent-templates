@@ -90,7 +90,7 @@ Rate limit conscious batches for 50+ titles.
 - [ ] ≤2 Search MCPs
 - [ ] No PDF without release
 - [ ] Handoff dokumentiert
-- [ ] Queries geloggt
+- [ ] Queries logged
 
 ## Security
 

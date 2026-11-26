@@ -77,13 +77,13 @@ End each summary with stable relative paths to scripts, shot lists, and rights c
 ## Definition of done
 
 - [ ] Outputs erstellt
-- [ ] user approvaln eingehalten
-- [ ] Quellen/Annahmen geloggt
-- [ ] Kein Auto-Publish
+- [ ] User approval observed
+- [ ] Sources and assumptions logged
+- [ ] No auto-publish
 
 ## Security
 
-- Credentials nur im Connector.
+- Keep credentials in the connector only.
 - Send/Publish only after release.
 
 ## Pitfalls

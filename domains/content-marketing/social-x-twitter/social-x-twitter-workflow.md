@@ -53,13 +53,13 @@ Strong hook; one takeaway; platform limits enforced.
 No API publish; document char counts if relevant.
 Disclosure and community rules for promo content.
 Document assumptions at top of deliverable.
-German/English per user; keep brand names original.
+Use the user's language (default English); keep brand names unchanged.
 No fabricated stats, logos, or testimonials.
 No publish/send/deploy without explicit approval phrase.
 Minimize PII in outputs.
-Log tool operations with timestamp Europe/Berlin.
+Log tool operations with a timestamp in the user's timezone.
 Prefer read-only before write.
-UWG/DSGVO context for DE marketing—not legal advice.
+Note applicable advertising and privacy law; this is not legal advice.
 If data missing, stop and list concrete questions.
 Deliver reproducible file paths in summary.
 ```
@@ -77,13 +77,13 @@ Deliver reproducible file paths in summary.
 ## Definition of done
 
 - [ ] Outputs erstellt
-- [ ] user approvaln eingehalten
-- [ ] Quellen/Annahmen geloggt
-- [ ] Kein Auto-Publish
+- [ ] User approval observed
+- [ ] Sources and assumptions logged
+- [ ] No auto-publish
 
 ## Security
 
-- Credentials nur im Connector.
+- Keep credentials in the connector only.
 Send/Publish only after release nitrogen.
 
 ## Pitfalls

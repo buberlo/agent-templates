@@ -86,7 +86,7 @@ Version outputs with date stamp.
 
 - [ ] System-Prompt befolgt
 No live publisher without a release
-- [ ] Quellen dokumentiert
+- [ ] Sources documented
 - [ ] Outputs wie spezifiziert
 
 ## Security

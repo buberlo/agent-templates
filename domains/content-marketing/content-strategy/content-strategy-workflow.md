@@ -82,7 +82,7 @@ Version outputs with date stamp.
 
 - [ ] System-Prompt befolgt
 Titier (esters)
-- [ ] Quellen dokumentiert
+- [ ] Sources documented
 - [ ] Outputs wie spezifiziert
 
 ## Security
