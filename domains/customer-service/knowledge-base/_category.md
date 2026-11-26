@@ -1,4 +1,4 @@
-# Wissensdatenbank Support
+# Knowledge base support
 
 - **Domain:** `customer-service`
 - **Category:** `knowledge-base`

@@ -51,6 +51,7 @@ Category metadata lives in `_category.md` (not duplicated in template frontmatte
 | OpenClaw | [adapters/openclaw.md](adapters/openclaw.md) |
 | Claude Code | [adapters/claude-code.md](adapters/claude-code.md) |
 | Cursor | [adapters/cursor.md](adapters/cursor.md) |
+| Codex | [adapters/codex.md](adapters/codex.md) |
 | Generic | [adapters/generic.md](adapters/generic.md) |
 
 Platform setup templates: `domains/agent-platforms/<platform>/`.

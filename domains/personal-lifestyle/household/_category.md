@@ -6,7 +6,7 @@
 
 ## Summary
 
-Aufgaben, Wartung, Inventory and reminders.
+Tasks, maintenance, inventory, and reminders.
 
 ## Recommended tool stack
 

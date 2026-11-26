@@ -16,7 +16,7 @@ Recognize secrets, rotate, stay out of chats and keep them in vaults.
 
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| Policy: no Secrets im Prompt | Praxisregel | https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp | Grok-Bot-Wiki: no Keys in Custom-MCP-Argumenten; Tokens auf Connector-Backend. | Prozess, kein Install. | n/a | https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp | no (as cited) |
+| Policy: no secrets in the prompt | Practice rule | https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp | Grok Bot wiki: no keys in custom MCP arguments; tokens stay on the connector backend. | Process, no install. | n/a | https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp | no (as cited) |
 
 ## Typical workflows
 

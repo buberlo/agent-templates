@@ -1,7 +1,7 @@
 # Network
 
 - **Domain:** `it-operations-support`
-- **Category:** `netzwerk`
+- **Category:** `network`
 - **As of:** 2026-11-23
 
 ## Summary

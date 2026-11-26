@@ -11,7 +11,7 @@ Employees working with Gmail/IMAP/Workspace tools.
 ## Recommended tool stack
 
 - Triage-Skill + Gmail/Workspace/IMAP
-- Default: Entwuerfe, kein Auto-Send
+- Default: drafts, no auto-send
 
 ## MCP servers and skills
 
@@ -23,7 +23,7 @@ Employees working with Gmail/IMAP/Workspace tools.
 
 ## Typical workflows
 
-- Hermes email-inbox-triage: priorisieren, sicher antworten. Himalaya wenn IMAP gewuenscht ist.
+- Hermes email-inbox-triage: prioritize and reply safely. Use Himalaya when IMAP is wanted.
 That is held in the next part of the next part.
 
 ## Pitfalls

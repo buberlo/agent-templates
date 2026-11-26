@@ -10,7 +10,7 @@ Manuscript, metadata and listing aids for self-publishing; few sophisticated off
 
 ## Recommended tool stack
 
-- Recherche-MCP + CRM-MCP (Attio/Close o. ae.)
+- Research MCP + CRM MCP (Attio/Close or similar)
 - Email only as a draft
 
 ## MCP servers and skills

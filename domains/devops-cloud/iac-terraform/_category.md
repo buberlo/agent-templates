@@ -20,7 +20,7 @@ Infrastructure as Code plan, modify and plan/apply upon release.
 
 ## Typical workflows
 
-- plan speichern, Mensch reviewed, erst dann apply.
+- Save the plan, a human reviews it, only then apply.
 
 ## Pitfalls
 

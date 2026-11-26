@@ -11,13 +11,13 @@ Conversion, simplification and cleaning up of existing codebases.
 ## Recommended tool stack
 
 - Hermes simplify-code / systematic-debugging / spike
-- Tests vor dem grossen Schnitt
+- Tests before the large cut
 
 ## MCP servers and skills
 
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| Hermes-Skills simplify-code, systematic-debugging, spike | Skill | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | Paralleles Aufraeumen, systematisches Debug, Throwaway-Spikes vor dem Bau. | Bundled software-development/. | Bundled. | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | no (as cited) |
+| Hermes-Skills simplify-code, systematic-debugging, spike | Skill | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | Parallel cleanup, systematic debugging, throwaway spikes before the build. | Bundled software-development/. | Bundled. | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | no (as cited) |
 
 ## Typical workflows
 

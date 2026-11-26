@@ -1,7 +1,7 @@
 # Planning
 
 - **Domain:** `project-management`
-- **Category:** `planning'
+- **Category:** `planning`
 - **As of:** 2026-11-23
 
 ## Summary
@@ -10,7 +10,7 @@ Schedules, milestones, dependencies, and capacity.
 
 ## Recommended tool stack
 
-- Linear/Jira/Todoist-MCPs, Status nur nach Regelwerk change
+- Linear/Jira/Todoist MCPs; change status only according to the ruleset
 
 ## MCP Server and Skills
 

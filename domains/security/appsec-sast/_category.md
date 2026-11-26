@@ -26,7 +26,7 @@ Statistics (e.g., Semgrep) and secure reviews in the own code.
 
 ## Pitfalls
 
-- Nur defensive, autorisierte Nutzung.
+- Defensive, authorized use only.
 - No Angriffs- or Umgehungsanleitungen in diesen Templates.
 - Do not put tokens or passwords in chat, skill files, or custom MCP command arguments. Grok Bot wiki: OAuth tokens stay on the connector backend; command servers must not pass credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
 - Skills are workflows/instructions (progressive disclosure); MCP servers are connections and tools. Combine both; do not conflate them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills

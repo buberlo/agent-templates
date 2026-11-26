@@ -18,7 +18,7 @@ Remote maintenance with consent, e.g., MeshCentral, plus clear consent and visib
 | Name | Typee | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
 | meshcentral-mcp (EynaExp) | MCP | https://github.com/EynaExp/meshcentral-mcp | Community MCP for MeshCentral: List devices, commands, power actions. Very low star signal – check before production. Only with consent and a scoped token. | See repo. | 5 stars |https://github.com/EynaExp/meshcentral-mcp | no (as cited) |
-| Tailscale (Netzwerkpfad) | Netzwerk / Docs | https://tailscale.com/docs/develop-with-ai | Tailscale docs describe AI-assisted doc connections. MeshCentral over Tailscale is described in community discussions. This is a network path, not a hidden remote. | Tailscale on the admin and server side. | meshcentral-mcp only has 5 stars – experimental. |https://tailscale.com/docs/develop-with-ai | no (as cited) |
+| Tailscale (network path) | Network / docs | https://tailscale.com/docs/develop-with-ai | Tailscale docs describe AI-assisted doc connections. MeshCentral over Tailscale is described in community discussions. This is a network path, not a hidden remote. | Tailscale on the admin and server side. | meshcentral-mcp only has 5 stars – experimental. | https://tailscale.com/docs/develop-with-ai | no (as cited) |
 
 ## Typeical workflows
 

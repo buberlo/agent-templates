@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-11-24T00:00:00Z",
-  "count": 108,
+  "count": 107,
   "servers": [
     {
       "name": "Agent Skills progressive disclosure",
@@ -35,7 +35,7 @@
         "education/course-creation",
         "ai-ops/skills-authoring",
         "office-documents/excel-xlsx",
-        "office-documents/formulare",
+        "office-documents/forms",
         "office-documents/ocr",
         "office-documents/pdf",
         "office-documents/powerpoint-pptx",
@@ -83,7 +83,7 @@
       "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
-      "name": "Axolotl (in Hermes-Skills-Doku als Slash-Beispiel)",
+      "name": "Axolotl (listed as a slash-command example in the Hermes skills docs)",
       "url": "https://hermes-agent.nousresearch.com/docs/user-guide/features/skills",
       "type": "Skill / Toolchain",
       "stars": null,
@@ -110,7 +110,7 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "office-documents/e-signatur"
+        "office-documents/e-signature"
       ],
       "auth": "varies",
       "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
@@ -130,7 +130,7 @@
         "content-marketing/social-facebook-meta",
         "content-marketing/social-instagram",
         "content-marketing/social-linkedin",
-        "content-marketing/social-media-strategie",
+        "content-marketing/social-media-strategy",
         "content-marketing/social-reddit",
         "content-marketing/social-tiktok",
         "content-marketing/social-youtube",
@@ -412,7 +412,7 @@
       "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
-      "name": "FFmpeg (CLI, oft ohne eigenes MCP)",
+      "name": "FFmpeg (CLI, often used without its own MCP)",
       "url": "https://ffmpeg.org/",
       "type": "CLI",
       "stars": null,
@@ -424,7 +424,7 @@
         "media/streaming-broadcast",
         "media/subtitles-translation",
         "media/video-editing",
-        "media/video-produktion-pipeline"
+        "media/video-production-pipeline"
       ],
       "auth": "varies",
       "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
@@ -458,7 +458,7 @@
         "content-marketing/social-facebook-meta",
         "content-marketing/social-instagram",
         "content-marketing/social-linkedin",
-        "content-marketing/social-media-strategie",
+        "content-marketing/social-media-strategy",
         "content-marketing/social-reddit",
         "content-marketing/social-tiktok",
         "content-marketing/social-youtube",
@@ -618,7 +618,7 @@
       "stars": null,
       "categories": [
         "automation/cron-routines",
-        "it-operations-support/netzwerk",
+        "it-operations-support/network",
         "ai-ops/model-routing"
       ],
       "auth": "varies",
@@ -650,8 +650,8 @@
         "communication/meeting-transcription",
         "media/animation-motion",
         "media/music",
-        "office-documents/diagramme-whiteboard",
-        "office-documents/formulare",
+        "office-documents/diagrams-whiteboard",
+        "office-documents/forms",
         "office-documents/google-workspace-docs",
         "office-documents/obsidian",
         "office-documents/ocr",
@@ -691,7 +691,7 @@
       "categories": [
         "education/course-creation",
         "education/flashcards",
-        "education/nachhilfe-tutoring",
+        "education/tutoring",
         "education/languages",
         "education/study-research",
         "content-marketing/copywriting",
@@ -719,7 +719,7 @@
       "categories": [
         "education/course-creation",
         "education/flashcards",
-        "education/nachhilfe-tutoring",
+        "education/tutoring",
         "education/languages",
         "education/study-research",
         "media/podcast",
@@ -878,7 +878,7 @@
       "type": "MCP",
       "stars": null,
       "categories": [
-        "office-documents/diagramme-whiteboard"
+        "office-documents/diagrams-whiteboard"
       ],
       "auth": "varies",
       "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
@@ -1172,7 +1172,7 @@
       "categories": [
         "media/animation-motion",
         "media/video-editing",
-        "media/video-produktion-pipeline"
+        "media/video-production-pipeline"
       ],
       "auth": "varies",
       "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."

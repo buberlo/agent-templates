@@ -10,14 +10,14 @@ IDE agent, MCP plugins, skills; Grok-Bot shares the plugin model.
 
 ## Recommended tool stack
 
-- Cursor-MCP-Config, Skills, dieselben Plugin-Muster wie Grok Bot laut offizieller Bot-101-Aussage
+- Cursor MCP config and skills, following the same plugin pattern as Grok Bot according to the official Bot 101 statement
 
 ## MCP Server and Skills
 
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
 
-| Cursor + MCP/Skills | IDE-Agent | https://x.ai/bot/guides/grok-bot-101 |Grok Bot 101: Grok Bot supports the same MCP servers, plugins, and skills as Cursor.| Cursor-Settings / mcp.json; Plugins analog Connect Apps im Bot-Kosmos. | Produktdoku (no Cursor-Star-Zahl in dieser Recherche). | https://x.ai/bot/guides/grok-bot-101 | no (as cited) |
+| Cursor + MCP/Skills | IDE agent | https://x.ai/bot/guides/grok-bot-101 | Grok Bot 101: Grok Bot supports the same MCP servers, plugins, and skills as Cursor. | Cursor settings / mcp.json; plugins analogous to Connect Apps in the bot ecosystem. | Product docs (no Cursor star count in this research). | https://x.ai/bot/guides/grok-bot-101 | no (as cited) |
 
 ## Typical workflows
 

@@ -10,7 +10,7 @@ Statusreports, Weekly Notes, Stakeholder-Updates.
 
 ## Recommended tool stack
 
-- Linear/Jira/Todoist-MCPs, Status nur nach Regelwerk change
+- Linear/Jira/Todoist MCPs; change status only according to the ruleset
 
 ## MCP Server and Skills
 

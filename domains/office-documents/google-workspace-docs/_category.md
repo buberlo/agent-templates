@@ -21,7 +21,7 @@ Docs, Sheets, Slides and Drive-files over Workspace-CLI or MCP.
 
 ## Typical workflows
 
-- Lesen and Entwuerfe bevorzugen; Senden only after approval.
+- Prefer reading and drafts; send only after approval.
 
 ## Pitfalls
 

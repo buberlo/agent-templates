@@ -1,7 +1,7 @@
 # Jira, Linear, and Tickets
 
 - **Domain:** `project-management`
-- **Category:** `jira-linea r `
+- **Category:** `jira-linear`
 - **As of:** 2026-11-23
 
 ## Summary
@@ -25,7 +25,7 @@ Create issues, change status, link sprints and specifications.
 
 ## Pitfalls
 
-- Spam an Boards durch zu aggressive Autopiloten.
+- Board spam from overly aggressive autopilots.
 - Skills are workflows/instructions (progressive disclosure); MCPs are connections and tools. Combine the two, don't confuse them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
 Activate only the MCPs/Skills that the task needs. Hermes filters per include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp
 - Do not write tokens or passwords in chats, skill files, or command arguments of custom MCPs. Grok Bot Wiki: OAuth tokens remain on the connector backend; command servers must not contain credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
