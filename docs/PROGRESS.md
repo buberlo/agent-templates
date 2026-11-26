@@ -2,7 +2,7 @@
 
 ## Completed (2026-11-26) — Batch 9
 
-- **Eight new templates (agent platforms and thin ops):** Cursor shell/MCP hook gates and subagent governance; Claude Code PreToolUse permission hooks; Codex nested `AGENTS.md` overrides; Hermes optional MCP sprint onboarding; OpenClaw ClawHub verify-and-install; Grok Bot scheduled X research brief (read-only); personal monthly budget variance review (`finance/budget`); parent-child agent handoff contract (`ai-ops/agent-orchestration`).
+- **Nine new templates (agent platforms and thin ops):** Cursor shell/MCP hook gates and subagent governance; Claude Code PreToolUse permission hooks; Codex nested `AGENTS.md` overrides; Hermes optional MCP sprint onboarding; OpenClaw ClawHub verify-and-install; Grok Bot scheduled X research brief (read-only); personal monthly budget variance review (`finance/budget`); parent-child agent handoff contract (`ai-ops/agent-orchestration`).
 - **Assets:** Example data SVGs under `domains/agent-platforms/cursor/assets/` and `domains/agent-platforms/openclaw/assets/`.
 - **MCP catalog:** Added Pattern entries for Cursor Agent hooks, Claude Code hooks, and Codex AGENTS.md discovery; tightened `OpenClaw MCP serve / ACP` risk notes and category mapping.
 - **Sources:** `research/SOURCES.md` — https://cursor.com/docs/agent/hooks, https://code.claude.com/docs/en/hooks, https://learn.chatgpt.com/docs/agent-configuration/agents-md.
