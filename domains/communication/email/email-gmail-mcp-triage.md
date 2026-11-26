@@ -53,7 +53,7 @@ Legally sensitive content (lawyer, HR discipline) without release for AI summari
 |------|-------|------------|
 | Gmail MCP | Reading, labels, drafts | OAuth, auditable API |
 | YAML/MD Regelsatz | Priorisierung | Transparente Triage |
-| Kalender MCP (optional) | Termin-Snippets | Meeting-Antworten |
+| Calendar MCP (optional) | Appointment snippets | Meeting replies |
 
 ## System prompt
 

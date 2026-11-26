@@ -110,7 +110,7 @@ Twilio credentials in secrets, not prompts.
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** Termin-Erinnerung Outbound.
+- **Task:** Appointment-reminder outbound.
 - **Input:** Script 4 sentences, recording no, callee +43***4567.
 - **Prompt:**
 

@@ -1,5 +1,13 @@
 # Migration progress
 
+## Completed (2026-11-26) — Cleanup batch
+
+- **English-only repair:** Restored official source URLs (verified with HTTP 200) and remapped 12 dead `mcp/catalog.json` category references. Rewrote 17 MT-garbled templates from pre-migration German sources. Translated residual German and Denglisch in templates, category/domain pages, frontmatter, checklists, and system prompts. System prompts now respond in the user's language (default English). Normalized leftover German slug mentions in prose (folders were already English). No website folder-slug redirects required (`buberlo/agent-templates-web` has no hardcoded German slugs).
+- **Headings and quality backlog:** All templates now use the exact `## Definition of done` heading. Quality backlog **115 → 108** after rewritten templates passed existing quality gates.
+- **Validator:** Hardened `scripts/validate_and_index.py` — German markers (including heading markers; no `\bdie\b`), German date/thousand-separator checks, repetition/token-loop detection, allowlist-free URL hygiene (known-bad typo patterns and suspicious TLDs), exact required headings, Expected-result extraction beyond `text`/`bash` fences, MCP category referential integrity, published count checks, and `--check` mode. `python3 scripts/validate_and_index.py` — 0 errors; regenerated `INDEX.md` and root `catalog.json`.
+- **Repo hygiene:** Removed 27 leftover translation/migration scripts under `scripts/` (kept `validate_and_index.py` and `quality_backlog.txt`). Added `adapters/codex.md`. Corrected count drift: README templates **279 → 288**, MCP entries **105 → 107**; `mcp/README.md` **94 → 107**; `mcp/catalog.json` count **107**; `research/SOURCES.md` unique HTTP sources **187**, with English number/date formats.
+- **Template total:** **288** templates, **27** domains, **199** categories.
+
 ## Completed (2026-11-26) — Batch 10
 
 - **Hand rewrites (12 templates):** Browser automation MCP routing and Playwright workflow; cron and systemd scheduling; desktop GUI automation; MQTT and IoT; mobile MCP focus and device workflow; n8n/Make/Zapier integration design; RPA solution design; Home Assistant smart home; iMessage and SMS on macOS; meeting transcription MCP stack selection.

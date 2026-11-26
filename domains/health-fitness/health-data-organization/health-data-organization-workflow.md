@@ -98,7 +98,7 @@ Close with index file path and count of documents still missing dates.
 
 ### Example 1 (Example data (self-written))
 - **Task:** Folder for switching orthopedists
-- **Input:** 3 MRT PDFs, 5 Labor PDFs, Termin 12.12.2026
+- **Input:** 3 MRI PDFs, 5 lab PDFs, appointment 12 Dec 2026
 - **Prompt:**
 ```text
 Index with date, document type, question list for the orthopedist.

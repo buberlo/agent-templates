@@ -10,8 +10,8 @@ Research baseline: **2026-11-24** (see `research/SOURCES.md`; raw archive is not
 |--------|------:|
 | Domains | 27 |
 | Categories | 199 (`_category.md` per category) |
-| Templates | 279 (≥1 per category, 2+ where research was rich) |
-| MCP entries | 105 (`mcp/catalog.json`) |
+| Templates | 288 (≥1 per category, 2+ where research was rich) |
+| MCP entries | 107 (`mcp/catalog.json`) |
 
 ## Layout
 

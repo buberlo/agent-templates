@@ -1,6 +1,6 @@
 # MCP catalog
 
-As of **2026-11-24**. **94** entries from research (deduplicated by URL).
+As of **2026-11-26**. **107** entries from research (deduplicated by URL).
 
 See `catalog.json` for `name`, `url`, `stars`, `categories`, `auth`, and `risk_notes`.
 
