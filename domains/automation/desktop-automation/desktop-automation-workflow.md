@@ -1,131 +1,133 @@
 ---
 id: desktop-automation-workflow
-title: "Desktop-Automation"
+title: "Desktop GUI automation"
 domain: automation
 category: desktop-automation
 tags:
   - desktop
   - automation
-  - skill
+  - scripting
 target_agents:
   - hermes
-  - grokbot
+  - cursor
+  - claude-code
   - generic-mcp-agents
-  - generic
 required_tools:
-  - name: OS automation
-    install: "xdotool / AppleScript / PowerShell UIA"
-    version_notes: "Sichtbarer Desktop"
+  - name: xdotool
+    install: "https://github.com/jordansissel/xdotool"
+    version_notes: "X11 only; Wayland needs ydotool or compositor shortcuts"
+  - name: osascript
+    install: "https://ss64.com/mac/osascript.html"
+    version_notes: "macOS AppleScript and System Events"
+  - name: PowerShell UI Automation
+    install: "https://learn.microsoft.com/en-us/windows/win32/winauto/uiauto-usepatterns"
+    version_notes: "Windows UI Automation patterns for supported apps"
 inputs:
-  - "OS and target app"
+  - "Operating system and display server (X11, Wayland, macOS, Windows)"
+  - "Target application window title or process name"
+  - "Allowed actions: menu navigation, save, export — no passwords from chat"
 outputs:
-  - "Script and protocol"
+  - "Script file with pauses between UI mutations"
+  - "Dry-run checklist the user executes while watching"
+  - "Abort hotkey or kill instruction"
 risk_level: medium
 example_count: 2
-version: "1.1.0"
-updated: "2026-11-23"
+version: "1.2.0"
+updated: "2026-11-26"
 ---
+
 ## Purpose
 
-Desktop macros **visible and logged** — xdotool, osascript, pwsh — without passwords from chat.
+Automate visible desktop GUI steps with short, logged scripts so a human can watch each mutation and stop unsafe chords before data loss.
 
 ## When to use
 
-- Recurring GUI steps in the workplace.
+- Repetitive export or save flows in desktop apps without APIs.
+- Internal tools that only expose native dialogs for PDF or CSV export.
+- Temporary macros while an API integration is scheduled.
+
+### When not to use
+
+- Browser-only flows — use `automation/browser-automation/browser-automation-workflow` with Playwright instead.
+- Headless servers without a logged-in graphical session the user can see.
 
 ## Tool stack
 
 | Tool | Role | Rationale |
-|-------------------------------------------------------------------------------------------------------
-| xdotool | Linux X11 | Windows/Keys |
-| osascript | macOS | AppleScript |
+|------|------|-----------|
+| xdotool | Linux X11 keys and focus | Window search and key sequences |
+| osascript | macOS automation | System Events tells for menu and save |
+| PowerShell UIA | Windows control patterns | MS docs for supported automation peers |
 
 ## System prompt
 
 ```text
-You author watched desktop automation scripts (automatisierung/desktop-automation).
+You write watched desktop automation scripts for automation/desktop-automation-workflow.
+You begin by confirming OS, display server, target app, and whether the user will remain at the keyboard during dry-run and live run.
+On macOS you generate osascript that focuses the application via System Events and inserts 200 to 500 millisecond pauses between UI changes.
+On Linux X11 you use xdotool search and windowactivate with similar pauses; on Wayland you stop xdotool paths and document ydotool, compositor shortcuts, or manual steps instead.
+On Windows you prefer UI Automation patterns from Microsoft docs rather than raw mouse coordinates when the control exposes an automation peer.
+You never type passwords, one-time codes, or clipboard secrets through simulated keys; the user enters sensitive input manually unless a lab fixture is documented.
+You require a spelled confirmation string before destructive chords such as emptying trash, confirming delete dialogs, or Alt+F4 on unsaved work.
+You redirect browser-heavy sequences to Playwright templates because pixel clicking in Chrome is brittle compared to browser automation.
+You deliver a script file path, prerequisite packages, dry-run checklist, and abort instruction such as killing the script process.
+You log each step in comments: window title fragment, action, and expected visible outcome after the pause.
+You size delays for HiDPI and fractional scaling because coordinate clicks drift when scaling is not one hundred percent.
+```
 
-Inputs: OS (macOS|Linux X11|Linux Wayland), app name, window title fragment, allowed actions (click, type, menu), user presence required (default yes).
+## Workflow
 
-macOS: `osascript -e 'tell application "System Events" to ...'` with app focus; screenshot optional after step.
-
-Linux X11: `xdotool search --name "LibreOffice" windowactivate; sleep 0.3; xdotool key ctrl+s` — 200–500 ms pauses between UI mutations.
-
-Linux Wayland: abort xdotool paths; propose ydotool, compositor shortcuts, or manual steps — document limitation in output.
-
-Never type passwords, OTP, or clipboard secrets via simulated keys.
-
-Destructive chords (Alt+F4, empty trash, rm dialogs) require spelled confirmation string before execution.
-
-User must watch dry-run on staging machine; record `script.desktop-automation.sh` without embedded credentials.
-
-Browser-heavy flows: redirect to browser-automation-workflow (Playwright) instead of pixel clicking.
-
-Deliver: bash/applescript file, prerequisite packages, dry-run checklist, abort hotkey instruction.
-```## Workflow
-
-Acquire OS and App Title.
-2. Confirm steps.
-3. Script with delays.
-4. Dry-run with user.
-5. Activate logging.
-6. File the script without secrets.
-7. Cut-off instructions.
+1. Confirm OS, Wayland versus X11, and target application name.
+2. Walk through human steps; mark decision points and destructive dialogs.
+3. Draft script with explicit sleeps between focus changes and key presses.
+4. User executes dry-run while screen sharing or sitting at the machine.
+5. Enable logging to a timestamped file without embedding credentials.
+6. Store script in repo without secrets; document required packages.
+7. Provide disable or uninstall steps and when to retire the macro for an API.
 
 ## Definition of done
 
-- [ ] Tested on target OS
-- [ ] No passwords in the script
+- [ ] Script tested on the target OS and display server stated in inputs
+- [ ] No passwords or OTP literals in the script or chat transcript
+- [ ] Destructive actions gated on user confirmation strings
+- [ ] Wayland limitation documented when xdotool is inappropriate
 
 ## Security
 
-- Users have to watch.
+- Desktop macros can exfiltrate visible data; run only on trusted machines.
+- Users must watch the display; unattended macros are out of scope.
+- Remote desktop latency can desynchronize key sequences; warn before cloud RDP.
 
 ## Pitfalls
 
-- Wrong window focused — multiple tabs with the same title.
-- Wayland + xdotool fails without ydotool/Portal.
-- Sleeps that are too short → Clicks end up in charge state.
-Scaling 125% / HiDPI moves coordinates at mouse clicks.
-Remote desktop latency makes keyboard sequences unreliable.
+- Wrong window focused when multiple windows share similar titles.
+- Wayland sessions block legacy X11 tools without ydotool or portal helpers.
+- Pauses that are too short send keystrokes before dialogs finish opening.
+- HiDPI scaling shifts click coordinates when scripts use raw mouse events.
+- RDP or VNC lag reorders key chords and saves to the wrong document.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** Writer PDF export
-- **Input:** Ubuntu X11
+
+- **Task:** Export PDF from LibreOffice Writer on Ubuntu X11.
+- **Input:** Ubuntu 22.04 X11, window title contains `Weekly Report.odt`, user watching.
 - **Prompt:**
 
 ```text
-xdotool activate Writer export pdf.
+xdotool macro: focus Writer, Ctrl+Shift+O export dialog, choose PDF, save to ~/exports/report.pdf.
 ```
 
-- **Expected result:**
-
-```text
-PDF exists user watched
-```
+- **Expected result:** Shell script with window search, activate, key sequences, half-second sleeps, and comments per step. Dry-run checklist asks user to verify focus before export. Expected file path `~/exports/report.pdf` after user confirms the save dialog. No password typing included.
 
 ### Example 2 (Example data (self-written))
-- **Task:** Wayland
-- **Input:** Fedora
+
+- **Task:** Wayland attempt with xdotool form click.
+- **Input:** Fedora 40 Wayland, user wants xdotool click on a GTK form.
 - **Prompt:**
 
 ```text
-xdotool click form.
+Use xdotool to click Submit on my Wayland desktop form.
 ```
 
-- **Expected result:**
-
-```text
-warn wayland limitation
-```
-
-### Example 2 (Example data (self-written))
-- **Task:** Second dry run
-- **Input:** Example data only
-- **Prompt:**
-```text
-Repeat workflow; no external writes.
-```
-- **Expected result:** Checklist only.
+- **Expected result:** Agent refuses bare xdotool on Wayland, explains limitation with link to xdotool project notes, suggests ydotool or manual completion, and offers Playwright if the form is in a browser. No script claimed as executed.

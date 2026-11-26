@@ -1,5 +1,14 @@
 # Migration progress
 
+## Completed (2026-11-26) — Batch 10
+
+- **Hand rewrites (12 templates):** Browser automation MCP routing and Playwright workflow; cron and systemd scheduling; desktop GUI automation; MQTT and IoT; mobile MCP focus and device workflow; n8n/Make/Zapier integration design; RPA solution design; Home Assistant smart home; iMessage and SMS on macOS; meeting transcription MCP stack selection.
+- **Sources:** `research/SOURCES.md` — added citations for Playwright docs, crontab/systemd timers, Home Assistant, Mosquitto, OpenRPA, UiPath, Make, Zapier, n8n API, ffmpeg, and Google Workspace CLI where referenced in templates.
+- **MCP catalog:** No new servers; existing Playwright MCP, Mobile MCP, Mobilerun, homeassistant-mcp, fireflies MCP, and n8n entries reused with official URLs in template bodies.
+- **Quality backlog:** **127 → 115** entries in `scripts/quality_backlog.txt` (12 removed after passing all quality gates).
+- **Validator:** `python3 scripts/validate_and_index.py` — 0 errors; regenerated `INDEX.md` and root `catalog.json`.
+- **Template total:** unchanged count at **288** (rewrites only, no new template files).
+
 ## Completed (2026-11-26) — Batch 9
 
 - **Nine new templates (agent platforms and thin ops):** Cursor shell/MCP hook gates and subagent governance; Claude Code PreToolUse permission hooks; Codex nested `AGENTS.md` overrides; Hermes optional MCP sprint onboarding; OpenClaw ClawHub verify-and-install; Grok Bot scheduled X research brief (read-only); personal monthly budget variance review (`finance/budget`); parent-child agent handoff contract (`ai-ops/agent-orchestration`).

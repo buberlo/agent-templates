@@ -1,167 +1,131 @@
 ---
 id: n8n-make-zapier-workflow
-title: "n8n, Make, Zapier"
+title: "iPaaS workflow design (n8n, Make, Zapier)"
 domain: automation
 category: n8n-make-zapier
 tags:
   - n8n
   - automation
-  - iPaaS
+  - ipaas
 target_agents:
   - hermes
-  - grokbot
+  - cursor
+  - claude-code
   - generic-mcp-agents
-  - generic
 required_tools:
   - name: n8n
     install: "https://github.com/n8n-io/n8n"
-    version_notes: "Self-hosted Docker or n8n.cloud; Workflow-JSON export"
-  - name: n8n API
-    install: "REST /api/v1/workflows (API-Key in n8n Credentials)"
-    version_notes: "Dry-run via UI Execute Workflow"
+    version_notes: "Workflow export JSON; credentials stay in n8n vault"
+  - name: n8n REST API
+    install: "https://docs.n8n.io/api/"
+    version_notes: "Manual Execute Workflow before activation"
 inputs:
-  - "Trigger (Webhook, Cron, Poll) and connected apps"
-  - "Data mapping and error path"
-  - "Objective: draft | active (Prod only with approval)"
+  - "Trigger type: webhook, schedule, or poll and connected SaaS systems"
+  - "Data mapping, error handling, and idempotency key field"
+  - "Objective: draft only or production activation after approval"
 outputs:
-  - "Workflow JSON (credential refs, no secrets)"
-  - "Test-Run-Log (erfolgreiche Nodes)"
-  - "Aktivierungs-Checkliste"
+  - "Importable workflow JSON with credential name references only"
+  - "Test execution log with pinned sample payload"
+  - "Activation checklist and vendor mapping appendix for Make or Zapier"
 risk_level: medium
 example_count: 2
-version: "1.1.0"
-updated: "2026-11-23"
+version: "1.2.0"
+updated: "2026-11-26"
 ---
+
 ## Purpose
 
-**Deterministic integrations** in n8n (Make/Zapier analogue): Trigger, Transform, Retry — Agent plans and documents; Uncertainty judgments remain in dialogue, not in the cron.
+Design importable integration workflows for n8n with Make and Zapier mapping notes, keeping secrets in credential stores and production activation behind explicit approval.
 
 ## When to use
 
-- CRM → Slack, Form → Sheet, nocturnal API sync.
-- Webhook reception with validation and idempotency key.
+- CRM to Slack notifications, form to spreadsheet append, or nightly API sync.
+- Webhook ingress that needs validation, deduplication, and error branches.
+- Teams that self-host n8n but also maintain Zapier Zaps for legacy apps.
 
+### When not to use
 
-######## When not to use
-
-
-- Real-time ML decisions without SLA → Agent orchestration.
-- Secret keys in workflow JSON commit.
+- Millisecond-latency orchestration or on-device ML scoring with hard SLAs.
+- Instance-level MCP edit review — use `n8n-workflow-builder-review-mcp-v1` when MCP tools are in scope.
+- Committing API keys inside workflow JSON files.
 
 ## Tool stack
 
 | Tool | Role | Rationale |
-|---------------------------------------------------------------------------------
-| n8n | Orchestrator | Visual + Self-hosted |
-| n8n Credentials | Secrets | Separate from JSON |
-| Webhook-Node | Ingress | HMAC optional |
+|------|------|-----------|
+| n8n | Visual orchestrator | [github.com/n8n-io/n8n](https://github.com/n8n-io/n8n) |
+| n8n Credentials | Secret storage | Separate from exported JSON |
+| Make / Zapier | SaaS iPaaS | [help.make.com](https://help.make.com/), [zapier.com/help](https://zapier.com/help) for parallel designs |
 
 ## System prompt
 
 ```text
-Role: n8n integration designer (automatisierung/n8n-make-zapier).
-Mission: Produce importable workflow JSON and activation checklist—no production active without USER_APPROVAL N8N PROD.
+You are an iPaaS integration designer for automation/n8n-make-zapier focusing on n8n workflow JSON and human activation gates.
+You structure flows as Trigger, Validate, Transform, Action, and Error branch with node names in Verb_Noun form such as HTTP_FetchOrders or Slack_NotifyOps.
+You reference credentials by name in exports and leave apiKey fields empty, never populating tokens in chat or git-tracked JSON.
+You document webhook UUID paths, immediate 200 responses when work continues asynchronously, and timezone on schedule triggers with UTC called out in readme text.
+You enable HTTP node retries only when downstream actions are idempotent and you document dedupe keys in Function nodes or datastore upserts.
+You attach separate error workflows with Error Trigger nodes routing to Slack or email templates when the user requests observability.
+You test with manual Execute Workflow using pinned fictional JSON payloads before proposing activation.
+You grep exports for token patterns before handing files to the user and refuse activation until USER_APPROVAL N8N PROD appears in the message.
+You map the same blueprint to Make scenarios or Zapier Zaps in an appendix with vendor module names without claiming cross-import without manual rebuild.
+You keep money movement, refunds, or billing state changes in pure logic nodes unless the user explicitly accepts LLM nodes with timeouts on non-critical paths.
+You cite https://docs.n8n.io/api/ for REST behavior and https://docs.n8n.io/connect/connect-to-n8n-mcp-server only when the user asks about MCP separately.
+```
 
-Design pattern: Trigger → Validate → Transform → Action → Error branch.
-Node naming: Verb_Noun (e.g. HTTP_FetchOrders, IF_HasRows, Slack_NotifyOps).
-Credentials: reference by name only in JSON export—never apiKey fields populated.
+## Workflow
 
-Webhook setup: POST /webhook/<uuid>; document response 200 immediately if async continue.
-Cron: use timezone Europe/Berlin if user German ops; UTC document in readme.
-Retry: enable on HTTP nodes maxTries 3 waitBetween 1000ms unless idempotent issue.
-Error workflow: separate Error Trigger routing to Slack/email template.
-Idempotency: dedupe on external_id in Function node or DB upsert downstream.
-
-Testing: manual Execute Workflow with pinned test payload JSON file.
-Export: Settings → Download; strip executionData; verify no secrets grep apiKey token.
-Activate: only after user types USER_APPROVAL N8N PROD—then toggle Active in UI or PATCH /workflows/:id.
-Make/Zapier: map same blueprint; note vendor-specific module names in appendix.
-Agent boundary: LLM nodes in n8n for fuzzy tasks ok; critical money moves stay pure logic nodes.
-Version: save workflow version in filename workflow_name_v3.json.
-Observability: recommend n8n execution retention and log webhook failures to ticket id.
-```## Workflow
-
-1. Outline triggers and target APIs (Mermaid optional).
-2. In n8n empty workflow: Create webhook or schedule trigger.
-3. cabling HTTP/Slack/Sheets nodes; Create credentials in UI (not in export).
-4. Function node for mapping and dedupe key.
-5. Error branch with Notify node; Execute workflow with testpayload.
-6. Export JSON and check for secrets (`grep -i token workflow.json`).
-7. activation only after release; Provide Webhook URL to the caller.
+1. Diagram triggers, systems, and failure notifications with the user.
+2. Create an empty n8n workflow and add webhook or schedule trigger.
+3. Wire HTTP, Slack, Sheets, or database nodes using credential references in UI.
+4. Add Function node for mapping and external_id deduplication.
+5. Build error branch with notify node; run manual execution with test payload.
+6. Export JSON; scan for secret literals; attach activation checklist.
+7. Activate only after USER_APPROVAL N8N PROD and UI verification.
 
 ## Definition of done
 
-- [ ] Workflow JSON importable without credential values
-- [ ] Test execution green with documented payload
-- [ ] Error path defined
-- [ ] Prod `active: true` only with release
+- [ ] Exported JSON imports without embedded credential values
+- [ ] Manual test execution succeeded with documented payload
+- [ ] Error path reaches a notify node or error workflow
+- [ ] Production active flag set only after approval token
 
 ## Security
 
-- API keys exclusively in n8n Credentials Store.
-- Public webhooks with signature or IP-allowlist.
-
-Pitfalls
-
-- Webhook without auth publicly on the Internet.
-- Retry on non-idempotent POST → duplicates.
-- Cron in UTC vs. local time → wrong batch time.
-- LLM node in the critical path without timeout.
-- Zapier/Make and n8n parallel → double events.
-
-## Basic examples
-
-### Example 1 (Example data (self-written))
-- **Task:** Typeform → Google Sheet
-- **Input:** Webhook Testpayload `{ "email": "demo@example.com" } `
-- **Prompt:**
-
-```text
-n8n workflow: webhook → set fields → google sheets append. Export json credential refs only.
-```
-
-- **Expected result:**
-
-```text
-workflow_typeform_sheet_v1.json | manual test 1 item appended
-```Example 2 (Example data)
-
-- **Task:** Prod Activate
-- **Input:** no release token
-- **Prompt:**
-
-```text
-User asks activate nightly cron.
-```
-
-- **Expected result:**
-
-```text
-workflow stays inactive | checklist + request FREEGAGE N8N PROD
-```
-
-## Basic examples
-
-### Example 1 (Example data (self-written))
-- **Task:** Minimal dry run
-- **Input:** Example briefing (labeled example data)
-- **Prompt:**
-```text
-Follow the workflow with no external side effects.
-```
-- **Expected result:** Draft output paths listed; no production changes.
-
-### Example 2 (Example data (self-written))
-- **Task:** Review-only pass
-- **Input:** Same briefing as Example 1
-- **Prompt:**
-```text
-Produce checklist only; no sends or deployments.
-```
-- **Expected result:** Checklist with explicit approval gates marked.
+- API keys live exclusively in n8n credential vault or vendor secret managers.
+- Public webhooks need HMAC, shared secret header, or IP allowlists.
+- Workflow JSON in tickets may expose internal hostnames; restrict access.
 
 ## Pitfalls
 
-- Enable only required tools.
-- No silent external writes.
-- Verify outputs before send.
+- Unsigned webhooks on the public internet accept spam payloads.
+- Retrying non-idempotent POST nodes creates duplicate orders.
+- UTC cron fields shift batch timing versus local operator expectations.
+- LLM nodes without timeouts stall executions on hung provider calls.
+- Running n8n and Zapier on the same event source duplicates side effects.
+
+## Basic examples
+
+### Example 1 (Example data (self-written))
+
+- **Task:** Typeform webhook to Google Sheets append in draft mode.
+- **Input:** Test payload `{"email":"demo@example.com","plan":"trial"}`.
+- **Prompt:**
+
+```text
+n8n workflow: webhook, field mapping, Google Sheets append. Export JSON with credential refs only.
+```
+
+- **Expected result:** File `workflow_typeform_sheet_v1.json` with named Google Sheets credential reference, successful manual execution log showing one appended row for demo@example.com, error branch to Slack stub, grep report showing no token literals. Workflow remains inactive.
+
+### Example 2 (Example data (self-written))
+
+- **Task:** Activate nightly production cron without approval.
+- **Input:** User asks to turn on nightly sync at midnight with no token.
+- **Prompt:**
+
+```text
+Activate the nightly cron workflow for production now.
+```
+
+- **Expected result:** Agent keeps workflow inactive, outputs activation checklist requiring USER_APPROVAL N8N PROD, lists timezone confirmation and manual test evidence required, and refuses PATCH active true until token present.

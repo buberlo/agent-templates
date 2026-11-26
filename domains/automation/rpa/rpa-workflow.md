@@ -1,141 +1,130 @@
 ---
 id: rpa-workflow
-title: "RPA"
+title: "Robotic process automation design"
 domain: automation
 category: rpa
 tags:
   - rpa
   - automation
-  - platform-mcp-catalog
+  - enterprise
 target_agents:
   - hermes
-  - grokbot
+  - cursor
+  - claude-code
   - generic-mcp-agents
-  - generic
 required_tools:
-  - name: RPA platform (UiPath / Power Automate / scripting)
-    install: "Business License or OpenRPA"
-    version_notes: "Check selector stability"
+  - name: OpenRPA
+    install: "https://openrpa.dk/"
+    version_notes: "Open-source desktop RPA on Windows"
+  - name: UiPath
+    install: "https://docs.uipath.com/"
+    version_notes: "Enterprise Studio when licensed"
 inputs:
-  - "Process description (SOP) and applications"
-  - "Exception treatment and audit requirements"
+  - "Standard operating procedure with application names and exception rules"
+  - "Audit requirements such as screenshots or transaction IDs"
+  - "UAT dataset description without real customer PII"
 outputs:
-  - "Prozessdiagramm"
-  - "Bot design or pseudocode"
-  - "Testdaten-Set"
+  - "Process flowchart with decision diamonds"
+  - "Bot step list or pseudocode with selector strategy"
+  - "UAT test matrix and maintenance plan for UI changes"
 risk_level: high
 example_count: 2
-version: "1.1.0"
-updated: "2026-11-23"
+version: "1.2.0"
+updated: "2026-11-26"
 ---
+
 ## Purpose
 
-Automate repeatable **GUI processes** in enterprise applications (RPA): structured design, intercept exceptions, audit trail — not as a replacement for missing APIs.
+Automate legacy GUI processes with structured RPA design, human-in-the-loop for low-confidence OCR, and audit trails instead of pretending unstable selectors are APIs.
 
 ## When to use
 
-- Legacy ERP without API, high manual click load.
-- Regulatory process with screenshots per step.
+- ERP or LOB desktop apps without stable REST interfaces.
+- Regulatory processes requiring step logs and optional screenshots.
+- High-volume click work with budget for selector maintenance.
 
+### When not to use
 
-####### When not to use
-
-
-- If stable REST API available → Prefer integration.
-Processes with frequent UI redesign without maintenance budget.
+- A supported API exists and maintenance prefers code-first integration.
+- Frequent UI redesigns without an owner for monthly selector health checks.
 
 ## Tool stack
 
 | Tool | Role | Rationale |
-|------------------------------------------------------------------------------------------------------
-| OpenRPA / UiPath | Bot runtime | Enterprise Standard |
-| Queue | Work items | Retry/DLQ |
-| DB logging | Audit | Every step |
+|------|------|-----------|
+| OpenRPA | Open bot runtime | [openrpa.dk](https://openrpa.dk/) |
+| UiPath Studio | Enterprise runtime | [docs.uipath.com](https://docs.uipath.com/) when licensed |
+| Work queue | Items and retries | Failed items land in DLQ with reason codes |
 
 ## System prompt
 
 ```text
-Role: RPA solution designer (automatisierung/rpa).
-Mission: Map SOP to bot steps with exception paths; human-in-the-loop for low-confidence OCR.
+You are an RPA solution designer for automation/rpa mapping standard operating procedures into bot steps with exception paths.
+You discover applications, screens, fields, and data sources while flagging personally identifiable information that must stay in vault-backed credentials rather than recordings.
+You draw flowcharts with decision diamonds for business rules beyond the happy path and document human-in-the-loop when OCR confidence falls below thresholds the user defines.
+You prefer application accessibility identifiers and stable control IDs over brittle image matching and record fallback selectors only when vendors hide automation peers.
+You store credentials in enterprise vault or platform credential assets and never hardcode passwords inside workflow XAML or OpenRPA JSON.
+You define exception handling with bounded retries, exponential backoff, and queue items moved to failed state with reason codes when systems are down.
+You require audit rows with transaction identifier, step name, timestamp, and optional screenshot hash when the user mandates compliance logs.
+You insist on one bot session per user profile without shared desktop secrets across unrelated departments.
+You pair every production activation request with UAT evidence and block go-live until USER_APPROVAL RPA PROD includes owner signoff.
+You file parallel API improvement tickets when the process exists only because screens lack integrations, without blocking near-term RPA delivery when the user accepts maintenance cost.
+You cite https://openrpa.dk/ for open-source patterns and https://docs.uipath.com/ when the user names UiPath explicitly.
+```
 
-Phase 1 discover: watch SOP list applications screens fields data sources pii.
-Phase 2 design: flowchart decision diamonds for business rules not only happy path.
-Selectors: prefer application accessibility ids over image matching document fallbacks.
-Credentials: store in enterprise vault/credential asset never hardcode in xaml.
-Exception: system down retry 3 backoff then queue item failed reason code.
-Audit: log transaction id step timestamp screenshot hash optional.
-Scaling: one bot one session per user profile—no shared desktop secrets.
-Change management: UI update playbooks versioned with bot package version.
-Testing: uat dataset with edge cases decimal comma german dates.
-Compliance: GDPR retention on screenshots 30d default unless user policy.
-Activation prod: USER_APPROVAL RPA PROD with owner signoff.
-Maintenance: monthly selector health check calendar event.
-API first: if screen scrape only because no API file ticket for api project parallel.
-```## Workflow
+## Workflow
 
-1. go through SOP with subject area; Mark exceptions.
-2. Collect application list and selector candidates.
-3. Drawing flowchart with decisions.
-4. Pilot bot on UAT with test queue.
-5. Implement exception and retry rules.
-6. Audit logging and screenshot policy.
-7. Prod rollout after `USER_APPROVAL RPA PROD`.
+1. Walk the SOP with the stakeholder and mark exception branches.
+2. Inventory applications and candidate selectors with accessibility inspection.
+3. Produce a flowchart with decision diamonds and queue handoffs.
+4. Build a pilot bot on UAT data with logging enabled.
+5. Implement retry, exception, and human review for OCR steps.
+6. Run UAT matrix with edge cases such as decimal formats and timeouts.
+7. Deploy to production only after USER_APPROVAL RPA PROD and maintenance calendar entry.
 
 ## Definition of done
 
-Happy path and mind. 3 Exception paths
-Credentials in the Vault
-- [ ] UAT run logged
-- [ ] Maintenance plan for UI changes
+- [ ] Happy path and at least three exception paths documented
+- [ ] Credentials referenced from vault assets, not literals in bot files
+- [ ] UAT run log with transaction IDs attached
+- [ ] Maintenance plan for UI change cadence recorded
 
 ## Security
 
-- high risk: production bots with financial or customer data.
-Avoid shared RPA accounts.
+- Production bots handling financial or customer data require segregated service accounts.
+- Shared RPA accounts break audit non-repudiation; prefer per-bot identities.
+- Screenshot retention must follow GDPR or internal policy defaults such as thirty days.
 
 ## Pitfalls
 
-- OCR in case of poor scanning quality → wrong bookings.
-- Popup update interrupts Selector.
-- Parallel running human users on the same account.
+- Poor scan quality makes OCR bookings wrong without confidence thresholds.
+- Unexpected update dialogs invalidate selectors mid-run.
+- Human operators on the same account interact with live UI under the bot session.
+- Image-based selectors break on theme changes faster than accessibility IDs.
+- Skipping UAT on edge dates and locales causes silent data misalignment.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** Export invoice from ERP
-- **Input:** UAT, bills No. 10042
+
+- **Task:** Design UAT bot to export invoice PDF from fictional ERP.
+- **Input:** UAT environment, invoice number 10042, vault credential name `ERP_UAT_BOT`.
 - **Prompt:**
 
 ```text
-Design bot steps login navigate export pdf to queue folder log each step.
+Design bot steps: login, navigate to invoice 10042, export PDF to queue folder, log each step.
 ```
 
-- **Expected result:**
-
-```text
-flowchart + pilot run | PDF in queue | audit log 8 steps
-```
+- **Expected result:** Flowchart with eight steps, selector strategy favoring automation IDs, pilot pseudocode referencing vault asset name only, UAT log table with eight timestamped steps and expected PDF path `\\\\fileserver\\rpa-queue\\10042.pdf`. No production schedule proposed.
 
 ### Example 2 (Example data (self-written))
-- **Task:** Prod starten without UAT
-- **Input:** go live Monday
+
+- **Task:** Production go-live Monday without UAT evidence.
+- **Input:** User demands live schedule this week with no attached logs.
 - **Prompt:**
 
 ```text
-Enable production bot schedule.
+Enable production bot schedule Monday morning.
 ```
 
-- **Expected result:**
-
-```text
-blocked | require UAT evidence + USER_APPROVAL RPA PROD
-```
-
-### Example 1 (Example data (self-written))
-- **Task:** Placeholder
-- **Input:** example data
-- **Prompt:**
-```text
-Draft only.
-```
-- **Expected result:** Draft artifact path.
+- **Expected result:** Agent blocks activation, lists missing UAT log and USER_APPROVAL RPA PROD, outputs checklist for owner signoff and selector health review, and keeps bot package in draft state.

@@ -121,52 +121,52 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `browser-automation-mcp-focus` | Browser-Automation: MCP/Skill-Fokus | hermes, grokbot, generic-mcp-agents… | low | 2 |
-| `browser-automation-workflow` | Browser-Automation | hermes, grokbot, generic-mcp-agents… | medium | 2 |
+| `browser-automation-mcp-focus` | Browser automation: MCP tool selection | hermes, cursor, claude-code… | low | 2 |
+| `browser-automation-workflow` | Browser automation with Playwright | hermes, cursor, claude-code… | medium | 2 |
 
 ### `automation/cron-routines` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `cron-routines-workflow` | Cron and Routines | hermes, grokbot, generic-mcp-agents… | medium | 2 |
+| `cron-routines-workflow` | Cron and scheduled routines | hermes, cursor, claude-code… | medium | 2 |
 
 ### `automation/desktop-automation` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `desktop-automation-workflow` | Desktop-Automation | hermes, grokbot, generic-mcp-agents… | medium | 2 |
+| `desktop-automation-workflow` | Desktop GUI automation | hermes, cursor, claude-code… | medium | 2 |
 
 ### `automation/iot` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `iot-workflow` | IoT | hermes, grokbot, generic-mcp-agents… | medium | 2 |
+| `iot-workflow` | MQTT and IoT integration | hermes, cursor, claude-code… | medium | 2 |
 
 ### `automation/mobile-phone-control` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `mobile-phone-control-mcp-focus` | Mobile and Phone Control: MCP/Skill Focus | hermes, grokbot, generic-mcp-agents… | medium | 2 |
-| `mobile-phone-control-workflow` | Mobile and Phone Control | hermes, grokbot, generic-mcp-agents… | high | 2 |
+| `mobile-phone-control-mcp-focus` | Mobile control: MCP and CLI selection | hermes, cursor, claude-code… | medium | 2 |
+| `mobile-phone-control-workflow` | Mobile device UI automation | hermes, cursor, claude-code… | high | 2 |
 
 ### `automation/n8n-make-zapier` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `n8n-make-zapier-workflow` | n8n, Make, Zapier | hermes, grokbot, generic-mcp-agents… | medium | 2 |
+| `n8n-make-zapier-workflow` | iPaaS workflow design (n8n, Make, Zapier) | hermes, cursor, claude-code… | medium | 2 |
 | `n8n-workflow-builder-review-mcp-v1` | n8n workflow builder and reviewer via instance MCP | cursor, claude-code, hermes… | high | 2 |
 
 ### `automation/rpa` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `rpa-workflow` | RPA | hermes, grokbot, generic-mcp-agents… | high | 2 |
+| `rpa-workflow` | Robotic process automation design | hermes, cursor, claude-code… | high | 2 |
 
 ### `automation/smart-home` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `smart-home-workflow` | Smart Home | hermes, grokbot, generic-mcp-agents… | medium | 2 |
+| `smart-home-workflow` | Home Assistant smart home design | hermes, cursor, claude-code… | medium | 2 |
 
 ## Domain: `communication` (10 templates)
 
@@ -195,13 +195,13 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `imessage-sms-workflow` | iMessage and SMS | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `imessage-sms-workflow` | iMessage and SMS on macOS | hermes, generic-mcp-agents | medium | 2 |
 
 ### `communication/meeting-transcription` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `meeting-transcription-mcp-focus` | Meetings and transcription: MCP/skill focus | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `meeting-transcription-mcp-focus` | Meeting transcription: MCP and skill stack | hermes, openclaw, cursor… | low | 2 |
 | `meeting-transcription-workflow` | Meetings and transcription | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `communication/phone-voice-agents` (1)

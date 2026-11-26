@@ -1,15 +1,3 @@
-domains/automation/browser-automation/browser-automation-mcp-focus.md
-domains/automation/browser-automation/browser-automation-workflow.md
-domains/automation/cron-routines/cron-routines-workflow.md
-domains/automation/desktop-automation/desktop-automation-workflow.md
-domains/automation/iot/iot-workflow.md
-domains/automation/mobile-phone-control/mobile-phone-control-mcp-focus.md
-domains/automation/mobile-phone-control/mobile-phone-control-workflow.md
-domains/automation/n8n-make-zapier/n8n-make-zapier-workflow.md
-domains/automation/rpa/rpa-workflow.md
-domains/automation/smart-home/smart-home-workflow.md
-domains/communication/imessage-sms/imessage-sms-workflow.md
-domains/communication/meeting-transcription/meeting-transcription-mcp-focus.md
 domains/communication/phone-voice-agents/phone-voice-agents-workflow.md
 domains/content-marketing/ads-performance/ads-performance-workflow.md
 domains/content-marketing/branding-design/branding-design-mcp-focus.md

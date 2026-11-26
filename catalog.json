@@ -1621,7 +1621,7 @@
     },
     {
       "id": "browser-automation-mcp-focus",
-      "title": "Browser-Automation: MCP/Skill-Fokus",
+      "title": "Browser automation: MCP tool selection",
       "domain": "automation",
       "category": "browser-automation",
       "tags": [
@@ -1632,19 +1632,20 @@
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "cursor",
+        "claude-code",
+        "openclaw",
+        "generic-mcp-agents"
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-26",
       "path": "domains/automation/browser-automation/browser-automation-mcp-focus.md"
     },
     {
       "id": "browser-automation-workflow",
-      "title": "Browser-Automation",
+      "title": "Browser automation with Playwright",
       "domain": "automation",
       "category": "browser-automation",
       "tags": [
@@ -1654,19 +1655,19 @@
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "cursor",
+        "claude-code",
+        "generic-mcp-agents"
       ],
       "risk_level": "medium",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-26",
       "path": "domains/automation/browser-automation/browser-automation-workflow.md"
     },
     {
       "id": "cron-routines-workflow",
-      "title": "Cron and Routines",
+      "title": "Cron and scheduled routines",
       "domain": "automation",
       "category": "cron-routines",
       "tags": [
@@ -1676,41 +1677,41 @@
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "cursor",
+        "claude-code",
+        "generic-mcp-agents"
       ],
       "risk_level": "medium",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-26",
       "path": "domains/automation/cron-routines/cron-routines-workflow.md"
     },
     {
       "id": "desktop-automation-workflow",
-      "title": "Desktop-Automation",
+      "title": "Desktop GUI automation",
       "domain": "automation",
       "category": "desktop-automation",
       "tags": [
         "desktop",
         "automation",
-        "skill"
+        "scripting"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "cursor",
+        "claude-code",
+        "generic-mcp-agents"
       ],
       "risk_level": "medium",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-26",
       "path": "domains/automation/desktop-automation/desktop-automation-workflow.md"
     },
     {
       "id": "iot-workflow",
-      "title": "IoT",
+      "title": "MQTT and IoT integration",
       "domain": "automation",
       "category": "iot",
       "tags": [
@@ -1720,19 +1721,19 @@
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "cursor",
+        "claude-code",
+        "generic-mcp-agents"
       ],
       "risk_level": "medium",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-26",
       "path": "domains/automation/iot/iot-workflow.md"
     },
     {
       "id": "mobile-phone-control-mcp-focus",
-      "title": "Mobile and Phone Control: MCP/Skill Focus",
+      "title": "Mobile control: MCP and CLI selection",
       "domain": "automation",
       "category": "mobile-phone-control",
       "tags": [
@@ -1742,19 +1743,19 @@
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "cursor",
+        "claude-code",
+        "generic-mcp-agents"
       ],
       "risk_level": "medium",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-26",
       "path": "domains/automation/mobile-phone-control/mobile-phone-control-mcp-focus.md"
     },
     {
       "id": "mobile-phone-control-workflow",
-      "title": "Mobile and Phone Control",
+      "title": "Mobile device UI automation",
       "domain": "automation",
       "category": "mobile-phone-control",
       "tags": [
@@ -1764,36 +1765,36 @@
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "cursor",
+        "claude-code",
+        "generic-mcp-agents"
       ],
       "risk_level": "high",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-26",
       "path": "domains/automation/mobile-phone-control/mobile-phone-control-workflow.md"
     },
     {
       "id": "n8n-make-zapier-workflow",
-      "title": "n8n, Make, Zapier",
+      "title": "iPaaS workflow design (n8n, Make, Zapier)",
       "domain": "automation",
       "category": "n8n-make-zapier",
       "tags": [
         "n8n",
         "automation",
-        "iPaaS"
+        "ipaas"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "cursor",
+        "claude-code",
+        "generic-mcp-agents"
       ],
       "risk_level": "medium",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-26",
       "path": "domains/automation/n8n-make-zapier/n8n-make-zapier-workflow.md"
     },
     {
@@ -1820,29 +1821,29 @@
     },
     {
       "id": "rpa-workflow",
-      "title": "RPA",
+      "title": "Robotic process automation design",
       "domain": "automation",
       "category": "rpa",
       "tags": [
         "rpa",
         "automation",
-        "platform-mcp-catalog"
+        "enterprise"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "cursor",
+        "claude-code",
+        "generic-mcp-agents"
       ],
       "risk_level": "high",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-26",
       "path": "domains/automation/rpa/rpa-workflow.md"
     },
     {
       "id": "smart-home-workflow",
-      "title": "Smart Home",
+      "title": "Home Assistant smart home design",
       "domain": "automation",
       "category": "smart-home",
       "tags": [
@@ -1852,14 +1853,14 @@
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "cursor",
+        "claude-code",
+        "generic-mcp-agents"
       ],
       "risk_level": "medium",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-26",
       "path": "domains/automation/smart-home/smart-home-workflow.md"
     },
     {
@@ -1995,46 +1996,44 @@
     },
     {
       "id": "imessage-sms-workflow",
-      "title": "iMessage and SMS",
+      "title": "iMessage and SMS on macOS",
       "domain": "communication",
       "category": "imessage-sms",
       "tags": [
         "imessage",
         "communication",
-        "skillcli"
+        "hermes"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "generic-mcp-agents"
       ],
-      "risk_level": "low",
+      "risk_level": "medium",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-26",
       "path": "domains/communication/imessage-sms/imessage-sms-workflow.md"
     },
     {
       "id": "meeting-transcription-mcp-focus",
-      "title": "Meetings and transcription: MCP/skill focus",
+      "title": "Meeting transcription: MCP and skill stack",
       "domain": "communication",
       "category": "meeting-transcription",
       "tags": [
         "meetings",
-        "communication",
-        "skill"
+        "transcription",
+        "mcp"
       ],
       "target_agents": [
         "hermes",
-        "grokbot",
-        "generic-mcp-agents",
-        "generic"
+        "openclaw",
+        "cursor",
+        "generic-mcp-agents"
       ],
       "risk_level": "low",
       "example_count": 2,
-      "version": "1.1.0",
-      "updated": "2026-11-23",
+      "version": "1.2.0",
+      "updated": "2026-11-26",
       "path": "domains/communication/meeting-transcription/meeting-transcription-mcp-focus.md"
     },
     {
