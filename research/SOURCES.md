@@ -14,9 +14,11 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://aifrontierpost.com/articles/anthropic-official-agent-skills-tutorial/
 - https://clawhubtrends.com/leaderboard.html
 - https://cli.github.com/manual/gh
+- https://code.claude.com/docs/en/hooks
 - https://code.claude.com/docs/en/features-overview
 - https://code.claude.com/docs/en/mcp
 - https://code.claude.com/docs/en/skills/
+- https://cursor.com/docs/agent/hooks
 - https://cursor.com/docs/context/mcp
 - https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 - https://docs.litellm.ai/docs/
@@ -191,6 +193,7 @@ Important primary sources (short)
 - Claude Code MCP/Skills: https://code.claude.com/docs/en/mcp and https://code.claude.com/docs/en/skills/
 - Cursor MCP: https://cursor.com/docs/context/mcp
 - OpenAI Codex CLI: https://developers.openai.com/codex/cli/
+- Codex AGENTS.md discovery: https://learn.chatgpt.com/docs/agent-configuration/agents-md
 - EUR-Lex GDPR (EU) 2016/679: https://eur-lex.europa.eu/eli/reg/2016/679/oj
 - MCP specification: https://modelcontextprotocol.io
 - Anthropic skills: https://github.com/anthropics/skills (199.219 Stars)

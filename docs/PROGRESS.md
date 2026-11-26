@@ -1,5 +1,14 @@
 # Migration progress
 
+## Completed (2026-11-26) — Batch 9
+
+- **Nine new templates (agent platforms and thin ops):** Cursor shell/MCP hook gates and subagent governance; Claude Code PreToolUse permission hooks; Codex nested `AGENTS.md` overrides; Hermes optional MCP sprint onboarding; OpenClaw ClawHub verify-and-install; Grok Bot scheduled X research brief (read-only); personal monthly budget variance review (`finance/budget`); parent-child agent handoff contract (`ai-ops/agent-orchestration`).
+- **Assets:** Example data SVGs under `domains/agent-platforms/cursor/assets/` and `domains/agent-platforms/openclaw/assets/`.
+- **MCP catalog:** Added Pattern entries for Cursor Agent hooks, Claude Code hooks, and Codex AGENTS.md discovery; tightened `OpenClaw MCP serve / ACP` risk notes and category mapping.
+- **Sources:** `research/SOURCES.md` — https://cursor.com/docs/agent/hooks, https://code.claude.com/docs/en/hooks, https://learn.chatgpt.com/docs/agent-configuration/agents-md.
+- **Validator:** `python3 scripts/validate_and_index.py` — 0 errors; regenerated `INDEX.md` and root `catalog.json`.
+- **Template total:** **288** after regeneration.
+
 ## Completed (2026-11-25) — Batch 8
 
 - **Eight new templates (thin domains):** Personal Gmail daily digest (`personal-lifestyle/household`); meeting transcript to Notion actions (`project-management/planning`); ElevenLabs voice FAQ with human escalation (`customer-service/live-chat-bots`); pantry weekly meal plan with USDA FDC API (`health-fitness/nutrition`); rubric assignment feedback drafter (`education/tutoring`); Jupyter reproducibility audit with papermill (`science-engineering/data-experiments`); landlord maintenance triage and quote compare (`real-estate/hoa-management`); n8n workflow builder and reviewer via instance MCP (`automation/n8n-make-zapier`).

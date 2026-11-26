@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-11-25T00:00:00Z",
+  "generated_at": "2026-11-26T00:00:00Z",
   "domains": [
     {
       "slug": "agent-platforms",
       "category_count": 7,
-      "template_count": 10,
+      "template_count": 17,
       "categories": [
         {
           "slug": "claude-code",
-          "template_count": 2
+          "template_count": 3
         },
         {
           "slug": "codex",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "cursor",
-          "template_count": 1
+          "template_count": 3
         },
         {
           "slug": "generic-mcp-agents",
@@ -24,26 +24,26 @@
         },
         {
           "slug": "grokbot",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "hermes",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "openclaw",
-          "template_count": 2
+          "template_count": 3
         }
       ]
     },
     {
       "slug": "ai-ops",
       "category_count": 9,
-      "template_count": 11,
+      "template_count": 12,
       "categories": [
         {
           "slug": "agent-orchestration",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "context-token-management",
@@ -375,7 +375,7 @@
     {
       "slug": "finance",
       "category_count": 7,
-      "template_count": 10,
+      "template_count": 11,
       "categories": [
         {
           "slug": "accounting",
@@ -387,7 +387,7 @@
         },
         {
           "slug": "budget",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "invoicing",
@@ -1010,6 +1010,28 @@
       "path": "domains/agent-platforms/claude-code/claude-code-mcp-focus.md"
     },
     {
+      "id": "claude-code-pre-tool-permission-hooks-v1",
+      "title": "Claude Code PreToolUse permission hooks",
+      "domain": "agent-platforms",
+      "category": "claude-code",
+      "tags": [
+        "claude-code",
+        "hooks",
+        "pretooluse",
+        "permissions"
+      ],
+      "target_agents": [
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-26",
+      "path": "domains/agent-platforms/claude-code/claude-code-pre-tool-permission-hooks-v1.md"
+    },
+    {
       "id": "claude-code-workflow",
       "title": "Claude Code",
       "domain": "agent-platforms",
@@ -1031,6 +1053,29 @@
       "path": "domains/agent-platforms/claude-code/claude-code-workflow.md"
     },
     {
+      "id": "codex-agents-md-nested-overrides-v1",
+      "title": "Codex AGENTS.md nested overrides",
+      "domain": "agent-platforms",
+      "category": "codex",
+      "tags": [
+        "codex",
+        "agents-md",
+        "monorepo",
+        "conventions"
+      ],
+      "target_agents": [
+        "codex",
+        "cursor",
+        "claude-code",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-26",
+      "path": "domains/agent-platforms/codex/codex-agents-md-nested-overrides-v1.md"
+    },
+    {
       "id": "codex-workflow",
       "title": "Codex",
       "domain": "agent-platforms",
@@ -1049,6 +1094,48 @@
       "version": "1.1.0",
       "updated": "2026-11-24",
       "path": "domains/agent-platforms/codex/codex-workflow.md"
+    },
+    {
+      "id": "cursor-hooks-shell-mcp-gates-v1",
+      "title": "Cursor Agent hooks: shell and MCP gates",
+      "domain": "agent-platforms",
+      "category": "cursor",
+      "tags": [
+        "cursor",
+        "hooks",
+        "security",
+        "cloud-agents"
+      ],
+      "target_agents": [
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-26",
+      "path": "domains/agent-platforms/cursor/cursor-hooks-shell-mcp-gates-v1.md"
+    },
+    {
+      "id": "cursor-subagent-governance-hooks-v1",
+      "title": "Cursor subagent governance with hooks",
+      "domain": "agent-platforms",
+      "category": "cursor",
+      "tags": [
+        "cursor",
+        "subagents",
+        "task-tool",
+        "hooks"
+      ],
+      "target_agents": [
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-26",
+      "path": "domains/agent-platforms/cursor/cursor-subagent-governance-hooks-v1.md"
     },
     {
       "id": "cursor-workflow",
@@ -1115,6 +1202,27 @@
       "path": "domains/agent-platforms/generic-mcp-agents/generic-mcp-agents-workflow.md"
     },
     {
+      "id": "grokbot-scheduled-x-research-brief-v1",
+      "title": "Grok Bot scheduled X research brief",
+      "domain": "agent-platforms",
+      "category": "grokbot",
+      "tags": [
+        "grokbot",
+        "x-api",
+        "scheduled",
+        "research"
+      ],
+      "target_agents": [
+        "grokbot",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-26",
+      "path": "domains/agent-platforms/grokbot/grokbot-scheduled-x-research-brief-v1.md"
+    },
+    {
       "id": "grokbot-workflow",
       "title": "Grok Bot",
       "domain": "agent-platforms",
@@ -1135,6 +1243,27 @@
       "path": "domains/agent-platforms/grokbot/grokbot-workflow.md"
     },
     {
+      "id": "hermes-optional-mcp-sprint-onboarding-v1",
+      "title": "Hermes optional MCP sprint onboarding",
+      "domain": "agent-platforms",
+      "category": "hermes",
+      "tags": [
+        "hermes",
+        "mcp",
+        "optional-mcps",
+        "onboarding"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-26",
+      "path": "domains/agent-platforms/hermes/hermes-optional-mcp-sprint-onboarding-v1.md"
+    },
+    {
       "id": "hermes-workflow",
       "title": "Hermes Agent (Nous Research)",
       "domain": "agent-platforms",
@@ -1153,6 +1282,27 @@
       "version": "1.1.0",
       "updated": "2026-11-24",
       "path": "domains/agent-platforms/hermes/hermes-workflow.md"
+    },
+    {
+      "id": "openclaw-clawhub-skill-verify-install-v1",
+      "title": "OpenClaw ClawHub verify and install",
+      "domain": "agent-platforms",
+      "category": "openclaw",
+      "tags": [
+        "openclaw",
+        "clawhub",
+        "skills",
+        "supply-chain"
+      ],
+      "target_agents": [
+        "openclaw",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "high",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-26",
+      "path": "domains/agent-platforms/openclaw/openclaw-clawhub-skill-verify-install-v1.md"
     },
     {
       "id": "openclaw-mcp-focus",
@@ -1215,6 +1365,30 @@
       "version": "1.2.0",
       "updated": "2026-11-24",
       "path": "domains/ai-ops/agent-orchestration/agent-orchestration-workflow.md"
+    },
+    {
+      "id": "parent-child-agent-handoff-v1",
+      "title": "Parent-child agent handoff contract",
+      "domain": "ai-ops",
+      "category": "agent-orchestration",
+      "tags": [
+        "orchestration",
+        "handoff",
+        "subagents",
+        "mcp"
+      ],
+      "target_agents": [
+        "hermes",
+        "cursor",
+        "claude-code",
+        "codex",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-26",
+      "path": "domains/ai-ops/agent-orchestration/parent-child-agent-handoff-v1.md"
     },
     {
       "id": "context-token-management-mcp-focus",
@@ -3348,6 +3522,28 @@
       "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/finance/budget/budget-workflow.md"
+    },
+    {
+      "id": "personal-monthly-budget-variance-v1",
+      "title": "Personal monthly budget variance review",
+      "domain": "finance",
+      "category": "budget",
+      "tags": [
+        "budget",
+        "personal-finance",
+        "variance",
+        "spreadsheet"
+      ],
+      "target_agents": [
+        "hermes",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-26",
+      "path": "domains/finance/budget/personal-monthly-budget-variance-v1.md"
     },
     {
       "id": "invoicing-workflow",
