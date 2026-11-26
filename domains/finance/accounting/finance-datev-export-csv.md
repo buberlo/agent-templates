@@ -17,13 +17,13 @@ required_tools:
     version_notes: "Transformation"
   - name: LibreOffice Calc
     install: "optional"
-    version_notes: "Sample before handoff"
+    version_notes: "Spot check before handoff"
 inputs:
-  - "Interne Buchungsliste (CSV/XLSX)"
-  - "SKR03 or SKR04"
-  - "Kanzlei-Formatversion (EXTF)"
+  - "Internal ledger list (CSV/XLSX)"
+  - "Chart of accounts (SKR03 or SKR04)"
+  - "Accounting firm format version (DATEV EXTF)"
 outputs:
-  - "DATEV-kompatible CSV"
+  - "DATEV-compatible EXTF CSV"
   - "validation.log"
 risk_level: medium
 example_count: 2
@@ -31,123 +31,118 @@ version: "1.1.0"
 updated: "2026-11-23"
 ---
 
-
 ## Purpose
 
-**Internal Buchungsdaten** in a from the Steuerkanzlei bestatigtes **DATEV-CSV (EXTF)** uberfuhren—Pflichtfelder validieren, Summen prufen, **no Upload** without approval.
+Transform **internal ledger booking data** into a tax-advisor-approved **DATEV CSV (EXTF)** file—validating mandatory fields, verifying debit/credit balance totals, and writing an audit log with **no automated upload or external transmission** without explicit user approval.
 
 ## When to use
 
-- Monatsbatch vor tax advisor-handoff.
-- Mapping SKR03/04 liegt schriftlich vor.
-- Agent automatisiert Transform + Validator, Mensch gibt Export frei.
+- Preparing monthly accounting batches for handoff to a tax advisor or accounting firm.
+- When a written column and account mapping specification (`SKR03` or `SKR04`) is available.
+- Automating ETL transformation and validation while keeping final export sign-off with a human reviewer.
 
-######################################################################## When not to use
+### When not to use
 
-- Ohne schriftliche Feldspezifikation the tax office (Version 7.0 vs. andere).
-- Steuerliche Bewertung or Kontenwahl without Fachfreigabe.
-- Direkter DATEV-Unternehmen-online-Import durch Bot.
+- When no written field specification or EXTF format version (e.g., version 7.0 vs. other) has been confirmed by the accounting firm.
+- Making tax classification decisions or selecting general ledger accounts without professional accounting sign-off.
+- Performing direct automated bot uploads into DATEV Unternehmen online.
 
 ## Tool stack
 
 | Tool | Role | Rationale |
-|------|-------|------------|
-| pandas | ETL | Spaltenmapping |
-| Validator (Script) | Pflichtfelder | Vor handoff |
-| Kanzlei-Mapping-Tabelle | Spec | Source of truth |
-| Calc | Stichprobe | Menschliche QA |
+|------|------|-----------|
+| `pandas` | ETL and column mapping | Deterministic table transformation and rounding control |
+| Validator script | Mandatory field and balance check | Prevents malformed batches prior to handoff |
+| Accounting firm mapping file | Specification source of truth | Defines exact EXTF header, chart of accounts, and encoding rules |
+| LibreOffice Calc | Spot check | Human QA inspection before transferring the file |
 
 ## System prompt
 
 ```text
-You transform internal ledger exports to DATEV CSV per Kanzlei mapping—not tax advisory.
+You transform internal ledger exports into DATEV EXTF CSV format strictly according to an accounting firm's mapping specification—never providing tax advisory services.
+Work in the user's language (default to English).
 
-Inputs: ledger.csv/xlsx, mapping.yaml (internal_col → DATEV field), SKR (03|04), FORMAT_VERSION from Steuerberater, mandant_number if required, encoding (ISO-8859-1 vs UTF-8 per Kanzlei).
+Inputs:
+- ledger.csv or ledger.xlsx
+- mapping.yaml (maps internal_col -> DATEV EXTF field)
+- chart_of_accounts: SKR03 or SKR04
+- FORMAT_VERSION specified by the tax advisor / accounting firm
+- client_number (consultant/client IDs if required by header)
+- encoding (ISO-8859-1 or UTF-8 per accounting firm specification)
 
-Rules:
-- posting date, turnover, debit/credit-Konto, BU key, document field 1/2 as mapping defines.
-- debit/credit sums must balance per batch; stop on imbalance > 0.01 EUR.
-- No invented tax keys; UNKNOWN accounts → validation error list.
+Transformation & Validation Rules:
+1. Map document date, amount/turnover, debit/credit account, posting key (BU key), and document reference fields 1/2 strictly as defined in mapping.yaml.
+2. Verify that total debits equal total credits per batch; abort if an imbalance exceeds 0.01 EUR.
+3. Never invent tax keys or account numbers. Flag any unmapped or unknown account numbers in the validation error log. Leave tax key fields empty when marked as "filled by tax advisor".
+4. Emit the exact EXTF header row defined in the user-supplied specification sample.
+5. Apply banker's rounding to 2 decimal places for currency values unless mapping.yaml specifies otherwise.
+6. When ISO-8859-1 encoding is required, convert special characters explicitly and log any replacement characters.
+7. Write row-level validation errors with exact line numbers to validation.log. Do not produce the final EXTF CSV if blocking errors exist unless the user explicitly signs off on waivers.
+8. Include the mapping file version hash, row count, and debit/credit totals in transform_summary.md.
+9. Never email or upload the CSV to third parties automatically; the user selects and approves the secure transfer channel. Do not call DATEV APIs unless a separate approved integration scope is provided.
 
-Transform steps in pandas; emit EXTF header row exactly as spec PDF states (user provides sample).
-
-Validation log must list row-level errors with line numbers; zero blocking errors before export OR user sign-off on waivers.
-
-Encoding: when Kanzlei demands ISO-8859-1, convert umlauts explicitly; log replacement chars.
-
-Output files: EXTF_nov.csv, validation.log, transform_summary.md (row count, sum debit/credit).
-
-Never email CSV to third parties; user chooses secure channel.
-
-No DATEV API calls unless user provides separate integration scope.
-
-Document mapping version hash in summary.
-
-Round currency to 2 decimals banker's rounding unless mapping says else.
-
-Keep Steuerschlussel empty when user marks "tax advisor fills".
+Outputs:
+- EXTF_<period>.csv (only when validation passes)
+- validation.log
+- transform_summary.md
 ```
 
 ## Workflow
 
-1. tax office-Mapping and FORMAT_VERSION laden.
-2. Internal list einlesen; Datentypen and Datum normalisieren.
-3. Spaltentransform gemass mapping.yaml.
-4. Summen debit/credit per Batch prufen.
-5. Validator-Script → validation.log.
-6. Bei 0 Fehler: CSV schreiben; sonst Fehlerliste an Buchhaltung.
-7. Sample 5 lines in Calc; release law firm contact.
+1. Load the accounting firm's `mapping.yaml` specification and target `FORMAT_VERSION`.
+2. Read the internal ledger file and normalize data types, decimal separators, and dates.
+3. Transform columns and account codes according to `mapping.yaml`.
+4. Verify that debit and credit totals balance within `+/- 0.01 EUR` across the batch.
+5. Run the mandatory-field and chart-of-accounts validator to generate `validation.log`.
+6. If blocking errors equal zero, write the EXTF CSV and `transform_summary.md`; otherwise return the error log for correction.
+7. Perform a 5-row manual spot check in LibreOffice Calc and obtain user sign-off before handoff to the tax advisor.
 
 ## Definition of done
 
-- [ ] Validator: 0 blockierende Fehler or dokumentierte approval
-- [ ] Debit total equals credit total (±0.01 EUR)
-- [ ] Encoding laut Kanzlei-Vorgabe
-- [ ] Kein Versand without Nutzerkanal-Wahl
-- [ ] Mapping-Version im Summary
+- [ ] Validator reports 0 blocking errors (or documented user waiver sign-off)
+- [ ] Debit total equals credit total within `+/- 0.01 EUR`
+- [ ] File encoding matches the accounting firm's specification (`ISO-8859-1` or `UTF-8`)
+- [ ] Mapping version hash and control totals are recorded in `transform_summary.md`
+- [ ] No external file upload or email transmission occurs without explicit user action
 
 ## Security
 
-- Finanzdaten GOdB/DSGVO; Export nur sicherer Kanal.
-- No Mandantennummern in offentlichen Logs.
-- tax advisor bestatigt Format vor Produktiv-Batch.
+- Handle all accounting exports in compliance with financial data protection and GDPR standards; transfer exports exclusively over user-approved encrypted channels.
+- Redact consultant and client IDs from public logs and chat transcripts.
+- Require confirmation of the EXTF format specification from the tax advisor before running production batches.
 
 ## Pitfalls
 
-- Falsche EXTF-Kopfzeile → kompletter Import abgelehnt.
-- SKR03-Konto in SKR04-Export.
-- Excel-Datum als Serienzahl falsch konvertiert.
-- ISO-8859-1 without Umlaut-Test in Calc.
-- BU key veraltet nach Gesetzesanderung.
+- Emitting an incomplete or mismatched EXTF header row, causing the entire batch import to be rejected.
+- Mixing `SKR03` accounts into an `SKR04` export configuration.
+- Misinterpreting Excel serial date numbers during date conversion.
+- Exporting `ISO-8859-1` files without testing character encoding in Calc.
+- Using outdated posting keys (`BU` keys) after regulatory or VAT rate changes.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** November-Buchungen EXTF SKR03.
-- **Input:** `buchungen_nov.xlsx`, `mapping_skr03.yaml`, Encoding ISO-8859-1.
+
+- **Task:** Transform November ledger bookings into a DATEV EXTF CSV using `SKR03` (example data).
+- **Input:** `bookings_nov.xlsx`, `mapping_skr03.yaml`, encoding `ISO-8859-1`.
 - **Prompt:**
-
 ```text
-Transform to EXTF_nov.csv, validate all mandatory fields, balance check, write validation.log.
+Transform bookings_nov.xlsx using mapping_skr03.yaml into EXTF_nov.csv with ISO-8859-1 encoding. Validate all mandatory fields, check debit/credit balance, and write validation.log and transform_summary.md.
 ```
-
 - **Expected result:**
-
 ```text
-EXTF_nov.csv, validation.log (0 errors), transform_summary.md with 124 rows, debit=credit=48120.55.
+EXTF_nov.csv written; validation.log reports 0 blocking errors; transform_summary.md shows 124 rows with debit = credit = 48,120.55 EUR.
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** Ungultiges Konto abbrechen.
-- **Input:** Zeile with Konto `99999` not in Kontenplan.
+
+- **Task:** Halt export when an invalid ledger account is detected (example data).
+- **Input:** Ledger row 47 contains account `99999`, which is absent from the chart of accounts in `mapping_skr03.yaml`.
 - **Prompt:**
-
 ```text
-Run validator only; expect blocking error on row 47 invalid account.
+Run the validator on the ledger file and halt export if any invalid account is found.
 ```
-
 - **Expected result:**
-
 ```text
-No EXTF export written; validation.log line: row 47 ACCOUNT_INVALID 99999.
+No EXTF export file written; validation.log records blocking error: row 47 ACCOUNT_INVALID 99999.
 ```

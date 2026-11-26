@@ -13,18 +13,18 @@ target_agents:
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: Hermes-Skill imessage
+  - name: Hermes skill imessage
     install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
     version_notes: "Bundled."
-  - name: ClawHub „Slack“ (steipete)
+  - name: ClawHub "Slack" (steipete)
     install: "https://clawhubtrends.com/leaderboard.html"
-    version_notes: "42.838 Downloads, 140 Registry-Stars (ClawHub Leaderboard 23.11.2026)."
+    version_notes: "42,838 downloads, 140 registry stars (ClawHub leaderboard 23 Nov 2026)."
 inputs:
-  - "target platform and permitted actions"
-  - "Tool-Policy / MCP-Include-Liste"
+  - "Target platform and permitted actions"
+  - "Tool policy / MCP include list"
 outputs:
-  - "Tool matrix and activation protocol"
-  - "Test-Lesezugriff (Nachrichtenanzahl)"
+  - "Tool matrix and activation log"
+  - "Read-only smoke test log (message count)"
 risk_level: low
 example_count: 2
 version: "1.1.0"
@@ -33,110 +33,112 @@ updated: "2026-11-23"
 
 ## Purpose
 
-************************************************************************************************************************************************************************************************************/ * between**** minimum* concerned. lettra- sames- 8- same benchmarks for the family
+**Activate chat and messaging tools minimally**: separate native skills (Slack, iMessage) from cloud OAuth plugins, enforce a strict tool policy, and verify connectivity with a harmless read-only smoke test.
 
 ## When to use
 
-- New agent setup for messaging; Insecurity Skill vs. MCP vs. Plugin.
-- Reduction of the tool surface (prompt injection, budget).
-- Vergleich Hermes imessage vs. OpenClaw Slack auf einem Host.
+- Setting up a new agent for messaging when deciding between a native skill, an MCP server, or an OAuth plugin.
+- Reducing the active tool surface to limit prompt injection risk and context token usage.
+- Comparing Hermes `imessage` and OpenClaw `Slack` skills on a specific host operating system.
 
-**When not to use**
+### When not to use
 
-- Konkrete Inhaltsaufgabe (Thread zusammenfassen) → `chat-messaging-workflow`.
-Platform without installed skill and without plugin OAuth.
+- Running concrete content tasks such as summarizing threads or drafting replies (use `chat-messaging-workflow` instead).
+- Targeting a messaging platform without an installed skill or authorized OAuth plugin.
 
 ## Tool stack
 
 | Tool | Role | Rationale |
-|------|-------|------------|
-| Hermes imessage | macOS SMS/iMessage | Plattform skill, bundled |
-| OpenClaw Slack | Bot/User-Token je Setup | Verifizierte Registry-Skills |
-| Grok Slack plugin | Cloud OAuth | No rights increase over users |
+|------|------|-----------|
+| Hermes `imessage` | macOS SMS/iMessage integration | Bundled platform-specific skill for macOS (`darwin`) |
+| OpenClaw `Slack` | Bot or user token Slack integration | Verified registry skill for workspace messaging |
+| Grok Slack plugin | Cloud OAuth connector | Operates within connected user permissions without privilege escalation |
 
 ## System prompt
 
 ```text
-You design minimal chat tooling for communication/chat-messaging: pick ONE primary read path and ONE optional send path.
+You design a minimal chat tooling configuration for communication/chat-messaging: pick ONE primary read path and ONE optional send path.
+Work in the user's language (default to English).
 
-Inputs: host OS, platforms needed, send_allowed (yes/no), hermes_include_mcp list, openclaw tool policy snippet.
+Inputs:
+- Host OS
+- Target messaging platforms
+- send_allowed (yes/no)
+- hermes_include_mcp list
+- openclaw tool policy snippet
 
 Produce:
-1) tool-matrix.md: platform → tool → install command → scopes
+1) tool-matrix.md: platform -> tool -> install command -> required scopes
 2) activation steps: hermes mcp include/exclude OR openclaw skills install + verify
-3) read smoke test command (list 3 recent messages, redact bodies in log)
-4) explicit disable list for send tools if send_allowed=no
+3) read smoke test command (list 3 recent messages, redact message bodies in logs)
+4) explicit disable list for all send/post tools if send_allowed=no (and require explicit user approval before any external message is sent when send_allowed=yes)
 
-Grok plugin: note posts as connected user, channel ACL unchanged.
-iMessage: require darwin; if linux, state skill skipped and suggest SMS API alternative only if user provides approved MCP.
-
-Never store tokens in skill markdown. Deliver verification transcript with timestamps.
+Platform rules:
+- Grok plugin: note that posts execute as the connected user and channel ACLs remain unchanged.
+- iMessage: requires macOS (darwin); if running on Linux, explicitly state that the skill is skipped and suggest an SMS API alternative only if the user provides an approved MCP.
+- Never store tokens or secrets in skill Markdown files. Deliver a verification transcript with timestamps.
 ```
 
 ## Workflow
 
-1. The con retailings to be consuming, conning the singles consuming consuming consuming consuming consuming consuming consuming consuming consuming consuming consuming consuming consuming consuming consuming consuming consuming consuming
-2 2 `tool-matrix.md` from category research.
-3. Hermes: exclude unnecessary MCPs; OpenClaw: ‘openclaw skills verify slack’.
-4. Slack `conversations.history limit=3` or imessage list.
-ly.ly to be able to withstand.
-6. Result and command protocol in `output/messaging-tooling.md`.
-7. User confirms Matrix before productive workflow.
+1. Detect the host operating system (`uname -s` for the `imessage` compatibility check) and confirm target platforms.
+2. Populate `tool-matrix.md` with the selected primary read tool, scopes, and installation source.
+3. Configure agent policies: exclude unneeded MCP servers in Hermes or run `openclaw skills verify slack` in OpenClaw.
+4. Execute a read-only smoke test (e.g., Slack `conversations.history limit=3` or `imessage` chat list) with message bodies redacted.
+5. Disable send/post tools in the policy if read-only mode is requested, or gate them behind explicit user approval.
+6. Record the verification result and command transcript in `output/messaging-tooling.md`.
+7. Obtain user confirmation of the tool matrix before transitioning to production messaging workflows.
 
 ## Definition of done
 
-- [ ] Exactly one primary reading stack documented
-- [ ] Verify step mentioned/executed for ClawHub skills
-- [ ] Send tools disabled or marked with release gate
-- [ ] Linux + imessage: expliziter Hinweis auf Skip
+- [ ] Exactly one primary read stack is documented per platform
+- [ ] Verification step (`skills verify`) is documented and executed for ClawHub skills
+- [ ] Send tools are either disabled or gated behind explicit user approval
+- [ ] On Linux hosts, skipping `imessage` is explicitly noted
 
 ## Security
 
-- ClawHub-Skills vor Produktion verifizieren (bekannte Registry-Risiken).
-- No Bot-Tokens in Repos.
-- Plugin OAuth only via official connect flows.
+- Verify ClawHub skills before production use to mitigate third-party registry risks.
+- Never commit bot tokens, signing secrets, or OAuth credentials into repositories or Markdown logs.
+- Complete plugin OAuth connections exclusively through official connector flows, and never auto-send messages without explicit approval.
 
 ## Pitfalls
 
-- Zwei Slack-Integrationen parallel → doppelte Posts.
-- imessage without macOS → stilles Fehlschlagen.
-- Grok in Kanal without User-Mitgliedschaft → 404 without klare Ursache.
-- Zu breite MCP-Include-Liste → Kontext-Overflow.
-the ‘forget to use’ sets of tests
+- Running two Slack integrations in parallel, resulting in duplicate posts or conflicting rate limits.
+- Enabling the `imessage` skill on a non-macOS host, leading to silent runtime failures.
+- Invoking the Grok Slack plugin in a channel where the connected user is not a member, causing unclear 404/channel_not_found errors.
+- Leaving an overly broad MCP include list active, causing context window overflow.
+- Forgetting to disable send/post tools in the policy during a strictly read-only engagement.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** Slack read-only Agent.
-- **Input:** OpenClaw, `send_allowed=no`.
+
+- **Task:** Configure a read-only Slack agent (example data).
+- **Input:** OpenClaw environment, `send_allowed=no`.
 - **Prompt:**
-
 ```text
-Write tool-matrix and disable all post/send tools; smoke test #general read 3 messages.
+Write the tool matrix, disable all post/send tools, and run a smoke test on #general reading 3 messages with redacted bodies.
 ```
-
 - **Expected result:**
-
 ```text
 Primary: openclaw slack (read)
 Disabled: chat.postMessage, imessage send
-Smoke: 3 messages fetched, subjects redacted in log
+Smoke: 3 messages fetched, bodies redacted in log
 File: output/messaging-tooling.md
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** macOS iMessage vorbereiten.
-- **Input:** Darwin, Hermes bundled imessage.
+
+- **Task:** Prepare macOS iMessage skill activation (example data).
+- **Input:** Host OS `darwin`, Hermes bundled `imessage` skill.
 - **Prompt:**
-
 ```text
-Document imessage skill activation and list last 2 chats (handles redacted).
+Document imessage skill activation on macOS and list the last 2 chats with handles redacted. Gate sending behind explicit confirmation.
 ```
-
 - **Expected result:**
-
 ```text
 Platform: darwin — imessage skill active
 Chats: +43***01 (2 msgs), team@*** (5 msgs)
-Send: gated until user types SEND
+Send: gated until user explicitly approves SEND
 ```

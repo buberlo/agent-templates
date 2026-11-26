@@ -13,19 +13,19 @@ target_agents:
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: intercom MCP (Hermes-catalog)
+  - name: intercom MCP (Hermes catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/intercom"
-    version_notes: "Nous-approved optional-mcps catalog entry (listing 2026-11-23)."
-  - name: awesome-mcp Support-Sektion
+    version_notes: "Nous-approved optional-mcps catalog entry (listing 23 Nov 2026)."
+  - name: awesome-mcp support section
     install: "https://github.com/punkpeye/awesome-mcp-servers"
-    version_notes: "catalog."
+    version_notes: "Catalog."
 inputs:
   - "Ticket ID or search filter"
-  - "Macro policy and tonality"
-  - "release for public response"
+  - "Macro policy and desired tone"
+  - "Approval flag for public reply or status change"
 outputs:
-  - "Priorisierte Ticketliste"
-  - "Public answer draft and internal elite note"
+  - "Prioritized ticket list"
+  - "Public reply draft and internal escalation note"
 risk_level: low
 example_count: 2
 version: "1.1.0"
@@ -34,111 +34,113 @@ updated: "2026-11-23"
 
 ## Purpose
 
-And I-I--B I I'm a----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**Read and prioritize customer support tickets** and generate **public reply drafts and internal notes** via helpdesk MCP connectors—keeping ticket resolution, closing, and external sending strictly gated by policy and human approval while minimizing PII in logs.
 
 ## When to use
 
-- Intercom (or similar helpdesk MCP) connected.
-- SLA or priority rules known.
-- Agent supports First Response, Human sends or gives OK.
+- When Intercom (or an equivalent helpdesk MCP server) is connected and authorized.
+- When SLA targets, macro templates, and priority sorting rules are defined.
+- When an agent prepares first-response drafts and internal triage notes for human review before sending.
 
-**When not to use**
+### When not to use
 
-- Rechtliche Beschwerden without Legal-Review-Workflow.
-mass state changes without change windows.
-- Zendesk or similar without matching MCP (catalogue search only).
+- Handling formal legal complaints or regulatory disputes without a legal review workflow.
+- Executing bulk ticket status modifications outside an approved change window.
+- Operating against helpdesk platforms (such as Zendesk) where no verified MCP connector is configured (limit to catalog evaluation only).
 
 ## Tool stack
 
 | Tool | Role | Rationale |
-|------|-------|------------|
-| intercom MCP | Ticket CRUD, Notizen | Hermes approved |
-| awesome-mcp catalog | Alternative ITSM | Eval vor Install |
-| Internal KB | Macro source | Consistent answers |
+|------|------|-----------|
+| `intercom` MCP | Ticket read, draft replies, internal notes | Nous-approved optional MCP server in the Hermes catalog |
+| `awesome-mcp-servers` catalog | Alternative ITSM/helpdesk discovery | Reference catalog for evaluating other support connectors prior to install |
+| Internal knowledge base | Approved macro and policy source | Ensures consistent, policy-compliant support answers |
 
 ## System prompt
 
 ```text
-You process helpdesk tickets for customer-service/helpdesk-tickets via Intercom MCP.
+You process helpdesk tickets for customer-service/helpdesk-tickets via the Intercom MCP.
+Work in the user's language (default to English).
 
-Inputs: view (open|snoozed|search query), sla_hours, tone (empathic DE), allowed_actions (draft_reply | internal_note | tag | resolve), macro_ids[].
+Inputs:
+- view (open | snoozed | search query)
+- sla_hours
+- tone (e.g., empathetic, concise, professional)
+- allowed_actions (draft_reply | internal_note | tag | resolve)
+- macro_ids[]
 
 Workflow:
-1) List tickets matching view; sort by waiting_customer since longest.
-2) For each ticket (max N per run): fetch thread, classify intent (billing|technical|howto|angry).
-3) Draft public reply using approved macros when match; personalize with ticket facts only—no invented policies.
-4) Add internal_note with next steps if escalation needed.
-5) tag ticket only if user approved tags.
-6) resolve or close ONLY if allowed_actions includes resolve AND user confirmed.
+1) List tickets matching the requested view; sort by customer waiting time (longest waiting first).
+2) For each ticket (up to max N per run): fetch the conversation thread and classify intent (billing | technical | howto | angry).
+3) Draft a public reply using approved macros where applicable; personalize strictly with verified ticket facts—never invent refund promises, SLAs, or company policies.
+4) Attach an internal_note detailing next steps whenever escalation or backend verification is needed.
+5) Apply ticket tags only from the user-approved tag list.
+6) Resolve or close a ticket ONLY if allowed_actions explicitly includes "resolve" AND the user has confirmed closure. Never auto-send public replies without explicit approval (send_approved=true).
 
-Redact card numbers, passwords from summaries.
-If PII must appear in reply, keep minimal.
-
-Output: ticket-run.md with ticket_id, actions taken, draft ids, nothing sent without send_approved flag.
+Privacy & Logging:
+- Redact payment card numbers, passwords, and secrets from all summaries and logs.
+- Keep PII minimal even inside reply drafts.
+- Output ticket-run.md containing ticket_id, classified intent, actions taken, and draft IDs, confirming that nothing was sent externally without approval.
 ```
 
 ## Workflow
 
-1. `hermes mcp install intercom` and credentials.
-2. Load ticket view: sort open tickets by waiting time.
-3. Top-5: Kontext lesen, Intent klassifizieren.
-4. Build public response design from macro + facts.
-5. Internal note for escalation risk.
-6. User reviews; OK: Send public note (if allowed).
-7. Run log `output/helpdesk-run.md` without unnecessary PII.
+1. Install and verify the Intercom MCP connector (`hermes mcp install intercom`) and confirm credential scopes.
+2. Fetch the open ticket view sorted by longest customer wait time.
+3. Read the top N ticket threads and classify each ticket's intent and SLA urgency.
+4. Compose a public reply draft combining the matching approved macro with verified ticket facts.
+5. Add an internal escalation note if policy questions or engineering checks remain open.
+6. Present drafts to the user for review; send the public reply or resolve the ticket only after explicit user approval.
+7. Write the redacted session summary to `output/helpdesk-run.md`.
 
 ## Definition of done
 
-No invented refund/policy promise
-- [ ] Resolve only with explicit policy/release
-- [ ] Antwort referenziert Ticket-Fakten
-- [ ] Logs pseudonymised where possible
+- [ ] No unverified refund, SLA, or policy promises appear in drafts
+- [ ] Ticket resolution/closure occurs only with explicit policy permission and user approval
+- [ ] Every reply draft references specific facts from the ticket thread
+- [ ] Session logs are pseudonymized and free of payment card or credential data
 
 ## Security
 
-- Customer data not in public agent threads.
-- OAuth tokens do not log.
-- GDPR deletion questions to Human escalate.
+- Never expose customer PII in public agent logs or unencrypted artifacts.
+- Never log OAuth tokens or helpdesk API keys.
+- Escalate GDPR/privacy data deletion requests immediately to a human operator, and never auto-send public responses without explicit approval.
 
 ## Pitfalls
 
-- Stilles Resolve → CSAT-Kollateralschaden.
-- Macro does not fit → called wrong product version.
-- Internal note accidentally public.
-- Suche zu breit → falsches Ticket bearbeitet.
-- Halluzinierte Ticket-ID.
+- Silently resolving or closing tickets prematurely, damaging customer satisfaction (CSAT).
+- Applying an outdated macro that cites the wrong product version or policy.
+- Posting an internal escalation note as a public reply by mistake.
+- Using an overly broad search query and updating the wrong ticket ID.
+- Hallucinating ticket IDs or invoice references not present in the thread.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** Billing-Ticket First Response.
-- **Input:** Ticket `#8821`, Kunde fragt Rechnungsduplikat.
+
+- **Task:** Draft a first response for a billing ticket requesting a duplicate invoice (example data).
+- **Input:** Ticket `#8821`, customer requests a copy of invoice `#445`, `allowed_actions=[draft_reply, internal_note]`.
 - **Prompt:**
-
 ```text
-Draft public reply in German, attach internal note if refund policy unclear, do not resolve.
+Draft a public reply for ticket #8821 in English, attach an internal note to verify payment gateway status before promising any refund, and do not resolve the ticket.
 ```
-
 - **Expected result:**
-
 ```text
-Public draft: "We will send you the invoice #445... again..."
-Internal note: verify payment gateway status before promise
-Resolve: not executed
+Public draft: "We are resending a copy of your invoice #445 to your billing address on file..."
+Internal note: "Verify payment gateway status before confirming any credit or refund."
+Resolve: not executed (draft saved, awaiting approval to send).
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** Resolve without release.
-- **Input:** User says only draft.
+
+- **Task:** Reject an unapproved request to close a ticket (example data).
+- **Input:** Ticket `#8821`, user policy sets `allowed_actions=[draft_reply]` only.
 - **Prompt:**
-
 ```text
-Close ticket 8821 as solved.
+Close ticket #8821 as solved immediately.
 ```
-
 - **Expected result:**
-
 ```text
-Abbruch: resolve not in allowed_actions.
-Draft remains unsent; ticket state unchanged.
+Aborted: "resolve" is not permitted in allowed_actions.
+Draft remains unsent and ticket #8821 state is unchanged.
 ```

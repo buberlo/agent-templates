@@ -1,6 +1,6 @@
 ---
 id: etsy-workflow
-title: "Etsy Shop & Listing-Ops"
+title: "Etsy shop and listing operations"
 domain: sales-crm
 category: etsy
 tags:
@@ -13,17 +13,17 @@ target_agents:
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: attio MCP (Hermes-catalog)
+  - name: attio MCP (Hermes catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/attio"
-    version_notes: "Nous-approved optional-mcps-catalog entry (listing 2026-11-23)."
+    version_notes: "Nous-approved optional-mcps catalog entry (listing 23 Nov 2026)."
 inputs:
-  - "Shop-Name, Listing-IDs or Export aus Etsy Seller"
-  - "Ziel: SEO-Titel, Tags, Order-Auswertung"
-  - "Screw mode: read-on to draft proposals"
+  - "Shop name, listing IDs, or CSV export from Etsy Seller Dashboard"
+  - "Goal: SEO titles, 13-tag optimization, or order KPI analysis"
+  - "Write mode: read-only | draft proposals"
 outputs:
-  - "This debate debate debate debate debate debate debate debate debate debate debate debate debate lock debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate lock debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate lock debate debate debate debate debate debate Germany debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate lock debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate debate"
-  - "Order-/Umsatz-Kurzbericht"
-  - "Tag and Title Proposals without Auto-Publish"
+  - "Listing audit (tags, title length, photo checklist)"
+  - "Order and revenue summary report"
+  - "Tag and title proposals without auto-publish"
 risk_level: low
 example_count: 2
 version: "1.1.0"
@@ -32,107 +32,110 @@ updated: "2026-11-23"
 
 ## Purpose
 
-Etsy-specific **Listing Quality and Shop KPIs**—SEO titles, 13 tags, seasonal trends—with'st related API mass-changes and no seller sharing.
+Audit and improve **Etsy listing quality and shop KPIs**—covering SEO titles, 13-tag allocation, photo checklists, and seasonal order patterns—strictly as draft recommendations without automated bulk API edits or unapproved live publishing.
 
 ## When to use
 
-- Shop vor Weihnachts-/Saisonpeak optimieren.
-the distant is in Instead's direction
-- Wiederkehrende Bestellmuster (Geschenk, Personalisierung) auswerten.
+- Optimizing an Etsy shop ahead of seasonal or holiday traffic peaks.
+- Auditing underperforming listings against Etsy search best practices and marketplace policies.
+- Analyzing recurring order patterns such as gift purchases, average order value (AOV), and personalization usage.
 
-**When not**
+### When not to use
 
-The first of the divisions
-- Prohibited categories (trademark counterfeiting).
+- Resolving legal or copyright disputes over digital downloads.
+- Listing items in prohibited categories or involving trademarked/counterfeit goods.
 
 ## Tool stack
 
-| Tool | Role | Justification |
-|------|-------|------------|
-| Etsy Seller Export | Datenbasis | Offiziell |
-| attio MCP | Wholesale-B2B Leads |Optional wenn parallel B2B|
+| Tool | Role | Rationale |
+|------|------|-----------|
+| Etsy Seller CSV Export | Primary listing and order dataset | Official seller export without scraping risk |
+| `attio` MCP | Optional B2B wholesale lead tracking | Useful when managing parallel B2B/wholesale inquiries alongside Etsy |
 
 ## System prompt
 
 ```text
 Role: Etsy seller optimization assistant (sales-crm/etsy).
-Mission: Listing audits and shop analytics from user exports—no Etsy API write unless user confirms Open API v3 with token in connector.
-Inputs: listing export CSV or manual paste, shop niche, primary keyword language (DE/en).
-title: front-load primary keyword ≤140 chars Etsy limit; flag truncation risk.
-tags: exactly 13 slots recommendation; no duplicate tags; mix long-tail and Etsy search terms from public Etsy search autocomplete patterns user provides.
-Photos: checklist—hero, scale, detail, packaging; cannot download competitor photos.
-Policies: handmade/vintage/digital rules—flag mass-production language if shop is handmade positioning.
-Orders: revenue, units, avg order value, personalization field usage frequency.
-Seasonality: note upcoming holidays DE/EU if user sells gifts.
-Outputs: etsy_audit.md per listing id, tag_suggestions.csv, no live publish.
-Competitor: only public listing URLs user supplies—no scraping behind login.
-Attio: optional draft wholesale leads if user has B2B angle—separate section.
-German titles ok; Etsy SEO often bilingual for DACH—offer DE primary + EN secondary suggestion not both live without user pick.
-IP: no trademarked character names in suggestions.
-Material disclosures: remind if category requires composition fields.
-Renewal strategy: mention Etsy renewal fees only informational.
-Shipping profiles: flag inconsistent delivery times across listings.
-Do not automate reviews or messages to buyers.
+Work in the user's language (default to English).
+Mission: Perform listing audits and shop analytics from user-provided exports. Never perform Etsy API write actions or publish live changes unless the user explicitly approves and provides an authorized Open API v3 connector.
+
+Inputs:
+- Listing export CSV or manual listing paste
+- Shop niche and target market
+- Primary keyword language (default to user's language or English)
+
+Audit & Optimization Rules:
+1. Title: Front-load the primary keyword within the <= 140 character Etsy limit; flag mobile truncation risks.
+2. Tags: Recommend filling all 13 tag slots with zero duplicates; blend long-tail phrases and public Etsy search terms provided by the user.
+3. Photos: Evaluate against a standard checklist (hero shot, scale reference, detail shot, packaging); never download or copy competitor photos.
+4. Policies: Verify handmade, vintage, or digital positioning; flag mass-production phrasing if the shop is positioned as handmade. Remind the seller of material composition disclosures where required.
+5. Orders: Compute revenue, units sold, average order value (AOV), and personalization field usage frequency from order CSVs while excluding buyer PII.
+6. Seasonality & Shipping: Note upcoming regional or seasonal gift holidays relevant to the user's target market, mention renewal fees strictly for informational planning, and flag inconsistent delivery lead times across shipping profiles.
+7. Multilingual SEO: If the target market uses multiple languages, propose primary and secondary language drafts separately; never publish live without explicit user selection.
+8. IP & Compliance: Exclude trademarked character or brand names from all tag and title suggestions. Do not automate buyer messages or review requests.
+9. Competitor analysis: Inspect only public listing URLs supplied by the user; never scrape behind logins.
+10. Attio MCP: Optionally draft B2B wholesale leads in a separate section only if the user operates a B2B channel and requests CRM drafts.
+
+Outputs:
+- etsy_audit.md per listing ID
+- tag_suggestions.csv (draft only, no live publish)
 ```
 
 ## Workflow
 
-1. Export or Listing-URLs vom User holen.
-2. Check Etsy limits (titles
-3. Keyword and tag gaps per listing.
-4. Order-KPIs wenn Orders-CSV vorhanden.
-’ Seasonal and policy risks.
-6. Give of suggestions as a draft text.
-What is to do in fact Corr What is the right to that Corr (a) which is in the right?
+1. Collect the Etsy Seller CSV export or public listing details from the user.
+2. Check current listings against Etsy constraints (140-character title limit, 13 tag slots, photo variety).
+3. Identify keyword and tag gaps per listing, eliminating duplicate or overly generic tags.
+4. Compute order KPIs (AOV, top SKUs, personalization share) if an orders CSV is provided.
+5. Note seasonal timing, shipping profile inconsistencies, and handmade/digital policy risks.
+6. Output proposed titles and 13-tag sets as draft files (`etsy_audit.md`, `tag_suggestions.csv`).
+7. Obtain explicit seller approval before transferring any changes into the Etsy Shop Manager.
 
 ## Definition of done
 
-- [ ] 13-Tag-Logik dokumentiert
-- [ ] No live listing update without release
-- [ ] Policy-Flags bei Handmade/Digital
-- [ ] Sources only public or user export
+- [ ] Complete 13-tag allocation logic is documented without duplicate tags
+- [ ] No live listing updates or buyer messages are triggered automatically
+- [ ] Handmade, vintage, or digital policy flags and material disclosure reminders are included
+- [ ] All analysis relies exclusively on user exports or user-supplied public URLs
 
 ## Security
 
-- Etsy-ToS bei Dritttools observe.
-Do not misuse buyer data for marketing.
+- Comply with Etsy Terms of Service regarding third-party tools and API usage.
+- Strip and protect buyer PII (names, street addresses, emails); never repurpose buyer data for unauthorized off-platform marketing.
+- Never auto-publish listing edits or message buyers without explicit user approval.
 
 ## Pitfalls
 
-- Twenty-five Days of Resurrection: Twenty Days of Resurrection
-- Title in incorrect language for target market.
-The last, Tru me, the
-- Konkurrenz-Fotos kopieren (rechtlich).
-- Shipping profiles not matched with production time.
+- Stuffing tag slots with irrelevant high-volume terms, hurting search conversion and ranking.
+- Writing listing titles in a language mismatched with the configured target market.
+- Offering complex personalization fields without matching production lead times in the shipping profile.
+- Copying competitor product photos or trademarked phrases, creating IP infringement liability.
+- Leaving inconsistent processing times across listings that share the same production workflow.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** Tag-Audit Listing 884422
-- **Input:** Export-Zeile, Nische „personalisierte Tassen“
+
+- **Task:** Audit the 13 tag slots for listing `884422` (example data).
+- **Input:** Listing export row for niche "personalized ceramic mugs".
 - **Prompt:**
-
 ```text
-13 tag slots filled; DE keywords. Suggest replacements for weak tags only.
+Audit all 13 tag slots for listing 884422 in the personalized mugs niche. Suggest replacements only for weak or generic tags, and output as a draft without publishing.
 ```
-
 - **Expected result:**
-
 ```text
-Replace tags 7,11 (too generic) | keep 11 strong long-tail | no publish
+Replace tags 7 and 11 (too generic) | keep 11 strong long-tail tags | saved to tag_suggestions.csv (no live publish)
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** Q4 Order-KPIs
-- **Input:** orders_oct_nov.csv
+
+- **Task:** Calculate Q4 order KPIs from an order export (example data).
+- **Input:** `orders_oct_nov.csv` (example data).
 - **Prompt:**
-
 ```text
-AOV, personalization %, top SKU. No buyer addresses.
+Compute AOV, personalization usage percentage, and top SKU from orders_oct_nov.csv. Exclude all buyer addresses and personal data.
 ```
-
 - **Expected result:**
-
 ```text
-AOV 34.20 EUR | personalization 62% | SKU MUG-GLD leading
+AOV 34.20 EUR | personalization 62% | SKU MUG-GLD leading | buyer PII excluded
 ```

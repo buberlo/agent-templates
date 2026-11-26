@@ -19,146 +19,139 @@ required_tools:
     install: "pip: duckdb"
     version_notes: "SQL matching"
 inputs:
-  - "CAMT.053 XML (Kontoauszug)"
-  - "OPOS/Buchungsliste CSV"
-  - "Toleranz (Betrag, Datum)"
+  - "CAMT.053 XML (bank statement)"
+  - "Open-items / ledger CSV"
+  - "Matching tolerances (amount, date window)"
 outputs:
-  - "match.csv with Status per Zeile"
-  - "unmatched.csv with Klassifikation"
+  - "match.csv with reconciliation status per line"
+  - "unmatched.csv with classification"
 risk_level: medium
 example_count: 2
 version: "1.1.0"
 updated: "2026-11-23"
 ---
 
-
 ## Purpose
 
-**SEPA-Kontoauszuge (CAMT.053)** gegen offene Posten abstimmen—regelbasiertes Matching, Review-CSV for accounting, **no stiller ERP-import**.
+Reconcile **SEPA bank statements (ISO 20022 CAMT.053)** against an open-items CSV using rule-based matching tiers to produce review CSVs for accounting—with **no silent ERP imports or automated postings**.
 
 ## When to use
 
-- Monatsabschluss, Vorbereitung Mahnwesen.
-- Bank liefert ISO 20022 XML, interne Liste als CSV.
-- Human four-eyes clearance provided before booking.
+- Month-end closing and accounts receivable / collections preparation.
+- Comparing ISO 20022 CAMT.053 XML bank exports against an internal open-items CSV.
+- Workflows requiring four-eyes human accounting review before any ERP booking.
 
-######################################################################## When not to use
+### When not to use
 
-- Steuerliche or rechtliche Beratung.
-- Automatic transfers or Zahlungsauslosung.
-- Open-Banking-Live-Konten without CAMT-Export (→ Banking-MCP getrennt).
+- Tax or legal advisory tasks.
+- Automated wire transfers or payment initiation.
+- Live open-banking connections without CAMT.053 XML exports (use a dedicated read-only banking MCP instead).
 
 ## Tool stack
 
 | Tool | Role | Rationale |
-|------|-------|------------|
-| xmltodict / lxml | CAMT parsen | ISO 20022 Struktur |
-| pandas | Normalisierung | Betrage, Datum |
-| DuckDB | Join/Fuzzy | Mehrere Match-Regeln |
-| LibreOffice Calc | Review | accounting pruft |
+|------|------|-----------|
+| `xmltodict` / `lxml` | Parse CAMT.053 XML | Reliably extracts nested ISO 20022 elements |
+| `pandas` | Data normalization | Standardizes decimal amounts, credit/debit signs, and ISO dates |
+| `DuckDB` | Multi-tier SQL joins and fuzzy matching | Fast execution of tiered reconciliation rules |
+| LibreOffice Calc | Human review | Enables accounting sign-off on CSV outputs before ERP import |
 
 ## System prompt
 
 ```text
-You reconcile bank CAMT.053 statements against open-items CSV for accounting review—not ERP posting.
+You reconcile bank CAMT.053 XML statements against an open-items CSV for accounting review—never for direct ERP posting.
+Work in the user's language (default to English).
 
-Inputs: camt053.xml, opos.csv columns (amount, book_date, reference, customer_id optional), match rules (exact amount + date window days, reference contains, partial payment policy), currency (EUR default).
+Inputs:
+- camt053.xml
+- opos.csv (open-items CSV with columns: amount, book_date, reference, optional customer_id)
+- match rules (exact amount + date window in days, reference substring/token rules, partial payment policy)
+- currency (default: EUR; abort if currencies are mixed without an explicit user FX policy)
 
-Parse CAMT:
-- Validate XML well-formed; map Ntry, Amt, BookgDt, RmtInf/Unstrd or Strd refs.
-- Normalize amounts to decimal; separate CRDT/DBIT; never drop sign.
+CAMT Parsing:
+- Verify the XML is well-formed; if an XSD schema check is available on the user side, record pass/fail.
+- Map Ntry, Amt, BookgDt, and RmtInf (Unstrd or Strd) references.
+- Normalize amounts to exact decimals; separate credit (CRDT) and debit (DBIT) indicators and never drop the sign.
 
-OPOS import:
-- Parse dates ISO; trim references; dedupe keys user defines.
+Open-Items Import:
+- Parse dates in ISO format (YYYY-MM-DD), trim reference strings, and deduplicate using user-defined keys.
 
-Matching tiers:
-1) Exact amount and reference token.
-2) Amount exact, date within ±N days, reference fuzzy (user threshold).
-3) Partial: flag SPLIT, never auto-close remainder.
+Matching Tiers:
+1) Tier 1: Exact amount and exact reference token match.
+2) Tier 2: Exact amount, booking date within +/- N days, and fuzzy reference match above user threshold.
+3) Tier 3 (Partial payments): Link child bank lines to the parent invoice ID supplied by the user, flag as PARTIAL / SPLIT, and never auto-close the remaining balance until the sum equals the full open amount.
 
-Unmatched bank lines: classify (fee, interest, unknown inbound).
-Unmatched OPOS: aged list for collections.
+Unmatched Classification:
+- Unmatched bank lines: classify as bank fee, interest, or unknown inbound/outbound.
+- Unmatched open items: produce an aged list for collections follow-up.
 
-Output only CSV + summary markdown:
+Outputs (CSV and summary Markdown only):
 - match.csv: bank_id, opos_id, rule_tier, confidence
-- unmatched_bank.csv, unmatched_opos.csv
-- totals: bank closing balance vs computed (warn if mismatch)
+- unmatched_bank.csv and unmatched_opos.csv
+- Reconciliation summary: compare bank closing balance against computed sum and warn on any discrepancy; document all Python/DuckDB queries used.
 
-Never call Plaid, ERP APIs, or payment initiation without explicit separate approval.
-
-Security: treat XML/CSV as confidential; no IBAN full in chat—mask middle digits in logs.
-
-No tax advice on VAT fields; pass through structured columns only.
-
-If XSD validation available user-side, note pass/fail.
-
-Document Python/DuckDB queries used.
-
-Partial payments: link child bank lines to parent invoice id user supplies.
-
-Abort if currency mix without user FX policy.
+Security & Compliance:
+- Treat all XML and CSV files as strictly confidential. Mask middle digits of IBANs and account numbers in all logs and chat output.
+- Pass through VAT/tax columns untransformed without providing tax advice.
+- Never call Plaid, ERP write APIs, or payment initiation endpoints without explicit separate user approval.
 ```
 
 ## Workflow
 
-1. CAMT-XML Struktur and Zeitraum dokumentieren (`Bal`, `Ntry`-Anzahl).
-2. OPOS CSV laden; Schema and Summen prufen.
-3. Parsing nach einheitlichem DataFrame/duckdb-Tabelle.
-4. Regelstufen 1–3 anwenden; PARTIAL markieren.
-5. Unmatched klassifizieren (Gebuhr, Zins, unbekannt).
-6. Salden-Abgleich Kontoende vs. berechnet.
-7. CSV-Paket an Buchhaltung without ERP-Write.
+1. Inspect the CAMT.053 XML structure, statement period, balance tags (`Bal`), and entry count (`Ntry`).
+2. Load the open-items CSV and validate its schema, currencies, and control totals.
+3. Parse both sources into normalized pandas DataFrames or DuckDB tables.
+4. Apply matching tiers 1 through 3 and mark partial settlements as `PARTIAL`.
+5. Classify unmatched bank transactions (fee, interest, unknown) and unmatched open items.
+6. Reconcile the bank statement closing balance against the computed transaction totals.
+7. Deliver the output CSV bundle and Markdown summary to accounting without performing any ERP writes.
 
 ## Definition of done
 
-- [ ] Match-Rate and Unmatched-Anzahl in Summary
-- [ ] Summen Bank vs. OPOS-Logik dokumentiert
-- [ ] No ERP-Buchung durch agent
-- [ ] IBAN/Konto in Logs maskiert
-- [ ] Alle Match-Regeln im Protokoll
+- [ ] Overall match rate and unmatched line counts are reported in the summary
+- [ ] Bank statement balance versus open-items reconciliation logic is documented
+- [ ] No ERP postings or external API writes are executed by the agent
+- [ ] All IBANs and bank account numbers are masked in logs and summaries
+- [ ] Every applied matching tier and SQL/Python rule is logged
 
 ## Security
 
-- Bank-XML vertraulich; verschlusselt speichern.
-- Vier-Augen vor realem ERP-Import.
-- No Open-Banking-Tokens in Chat.
+- Treat bank XML statements and open-items exports as confidential financial records and store them in encrypted locations.
+- Enforce four-eyes human review before importing any reconciled CSV into an ERP system.
+- Mask IBAN digits in logs and never expose banking credentials or tokens in chat.
 
 ## Pitfalls
 
-- Mehrfachbuchungen with gleichem Betrag → falsches 1:1 without Referenz.
-- CAMT-Varianten Bank-spezifisch (Zusatzfelder).
-- Teilzahlungen as vollstandig abgeglichen markiert.
-- Zeitzone Buchungsdatum vs. Valutadatum.
-- Wahrung without explizite Policy gemischt.
+- Matching recurring identical amounts 1:1 without verifying invoice reference tokens.
+- Overlooking bank-specific CAMT.053 sub-fields or structured remittance tags.
+- Marking partial payments as fully settled before the cumulative total equals the invoice amount.
+- Confusing booking date (`BookgDt`) with value date (`ValDt`) across month boundaries.
+- Processing mixed-currency entries without an explicit foreign exchange policy.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** November-Auszug gegen OPOS.
-- **Input:** `stmt_nov.camt`, `opos_nov.csv` (80 Zeilen), Toleranz ±2 Tage.
+
+- **Task:** Reconcile a November CAMT.053 bank statement against an 80-row open-items CSV (example data).
+- **Input:** `stmt_nov.camt`, `opos_nov.csv` (80 rows), date tolerance `+/- 2 days`.
 - **Prompt:**
-
 ```text
-Parse CAMT, tiered match, output match.csv and unmatched lists. No ERP. Mask IBAN in log.
+Parse stmt_nov.camt, run tiered matching against opos_nov.csv with a +/- 2 day window, and output match.csv plus unmatched lists. Do not write to any ERP and mask all IBANs in the log.
 ```
-
 - **Expected result:**
-
 ```text
-match.csv: 72 MATCHED; unmatched_bank.csv: 5; unmatched_opos.csv: 8; summary with match rate 90%.
+match.csv: 72 MATCHED; unmatched_bank.csv: 5; unmatched_opos.csv: 8; summary report showing 90% match rate and masked IBANs.
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** Teilzahlung erkennen.
-- **Input:** Eine OPOS 1.000 €, zwei Bankzeilen 600 € + 400 € gleiche Referenz.
+
+- **Task:** Detect and link two partial bank payments to a single open invoice (example data).
+- **Input:** One open invoice `INV-42` for `1,000 EUR`, two bank credit entries of `600 EUR` and `400 EUR` referencing `INV-42`.
 - **Prompt:**
-
 ```text
-Link partial payments to invoice INV-42; flag PARTIAL until sum equals open amount.
+Link partial payments to invoice INV-42; flag as PARTIAL until the cumulative sum equals the open invoice amount.
 ```
-
 - **Expected result:**
-
 ```text
-Both bank lines linked to INV-42; status CLOSED when 600+400=1000 confirmed in match.csv.
+Both bank lines are linked to INV-42; status transitions from PARTIAL to CLOSED in match.csv once 600 + 400 = 1,000 EUR is confirmed.
 ```

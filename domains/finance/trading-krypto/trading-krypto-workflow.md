@@ -15,139 +15,120 @@ required_tools:
     install: "pip: pandas"
     version_notes: "Portfolio math"
 inputs:
-  - "export CSV Borsen/Wallet"
-  - "Berichtszeitraum"
+  - "Exchange or wallet trade export CSV"
+  - "Reporting period"
 outputs:
   - "portfolio_report.md"
-  - "UNKNOWN tax note"
+  - "Asset exposure table (exposure.csv) and UNKNOWN tax-lot notes"
 risk_level: high
 example_count: 2
 version: "1.1.0"
 updated: "2026-11-23"
 ---
 
-
 ## Purpose
 
-**Portfolio- and Trade-Exporte** auswerten—Performance, Exposure—**no Trades, no Orders**, no Anlageberatung.
+Analyze **trading and crypto portfolio CSV exports in strictly read-only mode**—computing asset exposure and clearly labeled **ESTIMATE** PnL summaries while **never placing orders, executing transfers, handling private keys, or providing investment or tax advice**.
 
 ## When to use
 
-- CSV from Borse/Wallet for overview.
-- Risiko-Exposure Bucket.
-- Vorbereitung Steuerberater (Daten nur).
+- Summarizing historical trade and balance CSV exports from exchanges or wallets.
+- Calculating asset allocation and risk exposure buckets from static export snapshots.
+- Preparing pre-sorted trade logs and missing cost-basis lists for review by a tax advisor (data preparation only).
 
-######################################################################## When not to use
+### When not to use
 
-- Automatisches Trading.
-- Hebel-Produktempfehlung.
-- Seed/Private Keys anfassen.
+- Automated order execution, rebalancing, or bot trading.
+- Requesting investment recommendations, price predictions, or leveraged product advice.
+- Any workflow that touches wallet seed phrases or private keys.
 
 ## Tool stack
 
 | Tool | Role | Rationale |
-|------|-------|------------|
-| pandas | Trades | PnL ESTIMATE |
-| ccxt | Optional read | Wenn user keys |
-| csv | Export | Universal |
+|------|------|-----------|
+| `pandas` | Trade normalization and exposure math | Computes position sizes, fee totals, and `ESTIMATE` FIFO/average-cost PnL |
+| `ccxt` (optional read-only) | Read-only balance/trade fetch | Used only if explicitly pre-approved via `trading-krypto-mcp-focus` |
+| CSV exports | Universal input/output format | Air-gapped analysis with reproducible tables |
 
 ## System prompt
 
 ```text
-You analyze trading/crypto exports read-only—no place order, no withdraw, no transfer.
+You analyze trading and crypto CSV exports in strictly read-only mode. Never place orders, cancel orders, withdraw funds, initiate transfers, or provide investment/tax advice.
+Work in the user's language (default to English).
 
-Inputs: trades.csv columns per user map, positions optional, output portfolio_report.md exposure.csv.
+Inputs:
+- trades.csv (columns mapped per user specification)
+- optional positions.csv
+Outputs:
+- portfolio_report.md
+- exposure.csv
 
-Compute simple ESTIMATE PnL per user fifo or avg method stated—NOT tax truth.
-
-Never ask for private keys or store them.
-
-If api keys for read-only ccxt user supplies via env only.
-
-Exposure by asset percent of total mark-to-market using last price in csv only—no live price fetch unless user approves api.
-
-Disclaim investment advice and tax.
-
-Approvals: execute trade requires rejected always refer to exchange UI.
-
-High risk header mandatory.
-
-No leverage recommendation.
-
-Document assumptions in report.
-
-Mask wallet addresses show first6...last4.
-
-Handle staking rewards as separate row type if column labels.
-
-Note fx eurusd if quotes usd and display eur requested.
-
-Flag missing cost basis unknown lots.
-
-Separate spot vs derivative if column type exists.
-Do not simulate liquidations or margin calls as advice.
+Mandatory Rules:
+1. High-Risk & Non-Advisory Header: Begin portfolio_report.md with a mandatory high-risk disclaimer stating that all figures are informational only and do not constitute investment, financial, legal, or tax advice.
+2. Trade Refusal: If the user asks to execute a buy/sell order or transfer funds, reject the request immediately and refer the user to their exchange UI. Never recommend leverage, margin products, or liquidation strategies.
+3. Key Safety: Never ask for, accept, or store private keys or seed phrases. If read-only ccxt API keys are used, they must reside exclusively in environment variables.
+4. Masking: Mask all on-chain wallet addresses in reports and logs to first6...last4 format.
+5. Exposure & Pricing: Compute asset exposure as a percentage of total mark-to-market value using the latest prices present in the user's CSV export—do not fetch live external prices unless the user explicitly approves a read-only price API. Note any FX conversion assumptions (e.g., USD quotes converted to EUR display currency).
+6. PnL Estimation: Compute simple realized/unrealized PnL using the user-specified method (FIFO or weighted average) after deducting trade fees. Label all PnL figures prominently as ESTIMATE (never authoritative tax truth).
+7. Classification & Gaps: Flag any lot with missing acquisition cost basis as UNKNOWN. Separate spot positions from derivatives and list staking rewards as a distinct row type when labeled in the source columns. Document all assumptions clearly.
 ```
 
 ## Workflow
 
-1. CSV schema.
-2. Trades normalisieren.
-3. Positions aggregate.
-4. Exposure.csv.
-5. ESTIMATE PnL.
-6. portfolio_report.md disclaimers.
-7. No Order-APIs.
+1. Validate the input `trades.csv` schema, fee columns, and timestamp formats.
+2. Normalize trade sides, asset symbols, fees, and separate spot, derivative, and staking reward rows.
+3. Aggregate open positions and flag lots with missing acquisition history as `UNKNOWN` cost basis.
+4. Export `exposure.csv` showing asset allocation percentages based on the CSV snapshot prices.
+5. Calculate `ESTIMATE` PnL (using FIFO or average cost as specified) inclusive of transaction fees.
+6. Write `portfolio_report.md` with masked wallet addresses (`first6...last4`), documented assumptions, and mandatory investment/tax disclaimers.
+7. Ensure zero order, trading, or transfer API endpoints are called.
 
 ## Definition of done
 
-- [ ] No trade API calls
-- [ ] ESTIMATE labels
-- [ ] No keys stored
-- [ ] Investment disclaimer
-- [ ] Addresses masked
+- [ ] Zero trading, order, or transfer API calls are executed
+- [ ] All PnL and valuation figures are explicitly labeled as `ESTIMATE`
+- [ ] No private keys, seed phrases, or raw API secrets are requested or stored
+- [ ] Mandatory non-investment and non-tax advisory disclaimers appear in the report header
+- [ ] All wallet addresses are masked to `first6...last4`
 
 ## Security
 
-- High risk.
-- No keys in chat.
-- No trade execution.
+- Treat portfolio holdings and wallet addresses as high-risk sensitive data; mask addresses to `first6...last4`.
+- Never accept seed phrases, private keys, or trade-enabled API keys in chat or files.
+- Permanently block all trade execution, withdrawal, and on-chain signing operations.
 
 ## Pitfalls
 
-- PnL without Fees.
-- Wrong fifo.
-- Live price drift.
-- Phishing fake csv.
-- Tax misinterpreted.
+- Computing gross PnL while omitting exchange trading fees and funding costs.
+- Applying FIFO across multiple exchanges improperly without chronological timestamp sorting.
+- Mixing static CSV snapshot prices with unverified live market prices.
+- Ingesting untrusted or phishing CSV files containing malicious formula payloads.
+- Treating a simplified `ESTIMATE` PnL report as a final statutory tax declaration.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** Kraken export Q4.
-- **Input:** trades.csv.
+
+- **Task:** Generate a Q4 read-only portfolio and exposure report from an exchange CSV export (example data).
+- **Input:** `trades.csv` from a Q4 exchange export (example data).
 - **Prompt:**
-
 ```text
-portfolio_report exposure ESTIMATE fifo; read only.
+Generate portfolio_report.md and exposure.csv with ESTIMATE FIFO PnL from trades.csv in read-only mode. Mask any wallet addresses.
 ```
-
 - **Expected result:**
-
 ```text
-report with disclaimer; exposure by asset; no orders.
+portfolio_report.md and exposure.csv created with high-risk investment/tax disclaimer header, asset allocation percentages, fee-adjusted ESTIMATE FIFO PnL, UNKNOWN cost-basis flags where applicable, masked wallet addresses (0x1234...abcd), and zero order API calls.
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** Buy order ablehnen.
-- **Input:** buy 1 btc now.
+
+- **Task:** Reject an order execution request and enforce read-only analysis (example data).
+- **Input:** User prompt asks to buy 1 BTC immediately.
 - **Prompt:**
-
 ```text
-Reject order; analysis only.
+Buy 1 BTC at market price right now.
 ```
-
 - **Expected result:**
-
 ```text
-Rejection message; no API trade.
+Request rejected: this workflow is strictly read-only analysis and never places orders. Please execute trades manually through your exchange's official interface.
 ```
