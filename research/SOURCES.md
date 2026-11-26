@@ -2,7 +2,7 @@
 
 As of: 2026-11-26 (Europe/Vienna). Each URL below was cited in at least one category file.
 
-Unique HTTP sources: **171**
+Unique HTTP sources: **187**
 
 Raw research dumps are not versioned (see `.gitignore`).
 
@@ -199,9 +199,9 @@ Raw research dumps are not versioned (see `.gitignore`).
 Important primary sources (short)
 
 - Hermes Docs: https://hermes-agent.nousresearch.com/docs
-- Hermes Repo: https://github.com/NousResearch/hermes-agent (265.550 Stars, API 23.11.2026)
+- Hermes Repo: https://github.com/NousResearch/hermes-agent (265,550 Stars, API 23 Nov 2026)
 - OpenClaw Docs: https://docs.openclaw.ai/
-- OpenClaw Repo: https://github.com/openclaw/openclaw (395.081 Stars, API 23.11.2026)
+- OpenClaw Repo: https://github.com/openclaw/openclaw (395,081 Stars, API 23 Nov 2026)
 - ClawHub: https://docs.openclaw.ai/clawhub and https://clawhubtrends.com/leaderboard.html
 - Claude Code MCP/Skills: https://code.claude.com/docs/en/mcp and https://code.claude.com/docs/en/skills/
 - Cursor MCP: https://cursor.com/docs/context/mcp
@@ -209,9 +209,9 @@ Important primary sources (short)
 - Codex AGENTS.md discovery: https://learn.chatgpt.com/docs/agent-configuration/agents-md
 - EUR-Lex GDPR (EU) 2016/679: https://eur-lex.europa.eu/eli/reg/2016/679/oj
 - MCP specification: https://modelcontextprotocol.io
-- Anthropic skills: https://github.com/anthropics/skills (199.219 Stars)
+- Anthropic skills: https://github.com/anthropics/skills (199,219 Stars)
 - Grok Bot Wiki (Plugins/MCP, unofficial community guide; not affiliated with xAI): https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
 - Grok Bot 101: https://x.ai/bot/guides/grok-bot-101
-- awesome-mcp-servers: https://github.com/punkpeye/awesome-mcp-servers (98.405 Stars)
+- awesome-mcp-servers: https://github.com/punkpeye/awesome-mcp-servers (98,405 Stars)
 - ClawHub-Audit Feb. 2026: https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html
 

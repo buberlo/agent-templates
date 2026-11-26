@@ -1,6 +1,6 @@
 ---
 id: reverse-engineering-workflow
-title: "Reverse Engineering (nur autorisiert)"
+title: "Reverse Engineering (Authorized Only)"
 domain: security
 category: reverse-engineering
 tags:
@@ -36,7 +36,7 @@ updated: "2026-11-23"
 ## When to use
 
 - Own binaries, licensed audits, incident with authorized sample.
-- Lab-Setup-Checkliste vor menschlicher Analyse.
+- Lab setup checklist before human analysis.
 
 **When not:** Third party software without license/ROE; Crack/Keygen targets.
 
@@ -71,9 +71,9 @@ Schedule peer review of analysis plan before any human executes dynamic steps.
 
 ## Workflow
 
-1. Rechtsgrundlage dokumentieren.
+1. Document the legal basis.
 2. SHA256 des Artefakts notieren.
-3. Lab-Isolation Checkliste (VM snapshot, no USB, VLAN).
+3. Lab isolation checklist (VM snapshot, no USB, VLAN).
 4. Analysis plan headings: static, dynamic, memory — without tool commands.
 5. Human analyst takes over.
 6. Findings in encrypted report template.
@@ -81,18 +81,18 @@ Schedule peer review of analysis plan before any human executes dynamic steps.
 
 ## Definition of done
 
-- [ ] Authorization dokumentiert
+- [ ] Authorization documented
 - [ ] No RE-Befehle im Agent-Output
 - [ ] Isolation checklist completely
 
 ## Security
 
-- **high risk**; Malware nur im Org-Lab.
+- **high risk**; malware in the org lab only.
 No samples of public models.
 
 ## Pitfalls
 
-- „Nur schnell auf dem Laptop“ — Kontamination.
+- "Just quickly on the laptop" — contamination.
 - Shared VM Snapshots veraltet.
 - Strings leak secrets in chat.
 - Unauthorized game RE — rechtliches Risiko.

@@ -70,10 +70,10 @@ Version outputs with date stamp.
 
 ## Workflow
 
-1. Ziele
+1. Goals
 2. Pillars
 3. Funnel-%
-4. Brave-Stichprobe
+4. Brave spot check
 5. Kalender
 6. KPIs
 7. Risiken
@@ -82,7 +82,7 @@ Version outputs with date stamp.
 
 - [ ] System-Prompt befolgt
 Titier (esters)
-- [ ] Quellen dokumentiert
+- [ ] Sources documented
 - [ ] Outputs wie spezifiziert
 
 ## Security

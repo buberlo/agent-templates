@@ -16,7 +16,7 @@ target_agents:
 required_tools:
   - name: Hermes skills email-inbox-triage and himalaya
     install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "ClawHub figures: Leaderboard 23.11.2026."
+    version_notes: "ClawHub figures: Leaderboard 23 Nov 2026."
   - name: Hermes-Skill google-workspace / gws CLI
     install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
     version_notes: "Bundled-catalog."
@@ -24,9 +24,9 @@ required_tools:
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/attio"
     version_notes: "Nous-approved optional-mcps-catalog entry (listing 2026-11-23)."
 inputs:
-  - "Outreach-Ziel (Draft|Read inbox context|Log activity)"
+  - "Outreach goal (Draft|Read inbox context|Log activity)"
   - "Active Hermes skills and permitted MCPs"
-  - "Sende-Richtlinie (niemals auto-send)"
+  - "Sending policy (never auto-send)"
 outputs:
   - "Rationale for tool selection (Skill vs. MCP)"
   - "Executed draft attachment or CRM note"
@@ -57,7 +57,7 @@ For outreach, choose the **smallest working combination of tools**: Gmail via hi
 | Tool | Role | Rationale |
 |------|-------|------------|
 | himalaya / gws | Gmail Drafts | Offizieller Workspace-Pfad |
-| attio MCP | Person/Deal-Kontext | Strukturierte Felder |
+| attio MCP | Person/deal context | Structured fields |
 | Email inbox triage skill | Thread context | Reads, does not send |
 
 ## System prompt
@@ -80,7 +80,7 @@ Send policy: hard stop. If tool offers "send", use draft/create only and report 
 
 LinkedIn: no MCP unless user has one approved—output copy for manual paste.
 
-Document: chosen tools, rejected tools, rationale in German one paragraph.
+Document: chosen tools, rejected tools, and rationale in the user's language (default English), one paragraph.
 
 Hermes: respect skill progressive disclosure—load outreach workflow content not entire catalog.
 
@@ -160,5 +160,5 @@ Summarize thread, propose reply bullets. No MCP except triage skill.
 - **Expected result:**
 
 ```text
-3 bullet summary; proposed reply in German; attio not loaded
+3-bullet summary; proposed reply in the user's language; attio not loaded
 ```

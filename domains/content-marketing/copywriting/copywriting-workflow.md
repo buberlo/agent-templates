@@ -15,7 +15,7 @@ required_tools:
     install: "https://github.com/firecrawl/firecrawl-mcp-server"
     version_notes: "7886 Stars"
 inputs:
-  - "Briefing Zielgruppe"
+  - "Audience briefing"
   - "Format Ad/Landing"
   - "And the taboo words."
 outputs:

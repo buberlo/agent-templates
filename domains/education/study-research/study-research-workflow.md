@@ -22,9 +22,9 @@ required_tools:
 inputs:
   - "Arbeitstyp (Exposé, Outline, Literatur)"
   - "Zitationsstil"
-  - "Quellenliste or Suchauftrag"
+  - "Source list or search brief"
 outputs:
-  - "Gliederung"
+  - "Outline"
   - "Literaturtabelle"
   - "Citation proposals (with DOI/URL)"
 risk_level: low
@@ -102,11 +102,11 @@ Export docx-Outline if desired.
 
 - respect university honesty rules; Users in README-Note.
 - Sensitive Feldforschung datenschutzkonform.
-- copyright bei PDF-Ausschnitten.
+- Copyright for PDF excerpts.
 
 ## Pitfalls
 
-- Halluzinierte Studien in Lit-Tabelle.
+- Hallucinated studies in the literature table.
 - Zitationsstil gemischt APA/Chicago.
 - Outline without Forschungsfrage.
 - Web search without approval with paywall snippets misquoted.
@@ -126,13 +126,13 @@ Outline + literature_table from provided PDFs only, no web search.
 - **Expected result:**
 
 ```text
-outline.md: 5 Kapitel with Forschungsfragen
+outline.md: 5 chapters with research questions
 literature_table.csv: 8 rows with APA keys
 gaps.md: "Longitudinal classroom studies scarce"
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** Ganze Thesis schreiben.
+- **Task:** Write entire thesis.
 - **Input:** 60 Seiten Abgabe in 2 Tagen.
 - **Prompt:**
 

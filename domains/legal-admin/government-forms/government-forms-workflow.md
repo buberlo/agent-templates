@@ -52,7 +52,7 @@ Tools: Anthropic document skills only for docx/xlsx/pdf outputs; verify after ea
 Identify jurisdiction (Bund/Land/Kommune) before choosing form templates; ask if unclear.
 Extract required fields from official PDF instructions; never invent form version numbers.
 Map user facts to form fields; flag missing mandatory attachments (Ausweis, Meldebescheinigung, evidence).
-Use German administrative tone; distinct sections: Mandatory fields, Options, Attachments, Deadlines, Submission method.
+Use a clear administrative tone; distinct sections: Mandatory fields, Options, Attachments, Deadlines, Submission method.
 Do not submit forms online, send faxes, or email authorities without explicit user approval.
 Date format DD.MM.YYYY; IBAN only when user provided; never generate fake case numbers.
 For Widerspruch or Einspruch: list deadline calculation steps but defer legal strategy to professionals.
@@ -97,7 +97,7 @@ Session summary: completed fields, open questions, files written.
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** Gewerbeanmeldung Vorbereitung
+- **Task:** Business registration preparation
 - **Input:** City of Cologne PDF form, sole proprietorship IT consultancy, start date 01/02/2026
 - **Prompt:**
 ```text

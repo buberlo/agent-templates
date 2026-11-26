@@ -41,7 +41,7 @@ Maintain metrics, alerts and SLOs — check PromQL, test rules, do not silently 
 ## When to use
 
 - New alert, flaky firing, dashboard for on-call.
-- Nach Deploy: SLI-Verifikation.
+- After deploy: SLI verification.
 
 **When not to use:** Full observability vendor migration in a sprint.
 
@@ -77,14 +77,14 @@ No cardinality explosion from high-cardinality labels in user suggestions.
 3. Test vectors: `promtool test rules tests/api_alerts_test.yaml`.
 4. Live: `curl -G 'http://prom:9090/api/v1/query' --data-urlencode 'query=rate(http_requests_total{status=~"5.."}[5m])'`.
 5. Rule change as PR; Grafana Panel supplement.
-6. Nach approval: `kubectl apply -f servicemonitor-api.yaml`.
-7. Ampeco firing test in staging (`amtool alert add` nur staging).
+6. After approval: `kubectl apply -f servicemonitor-api.yaml`.
+7. Ampeco firing test in staging (`amtool alert add` staging only).
 
 ## Definition of done
 
 - [ ] promtool check + test green
 - [ ] Runbook-Annotation gesetzt
-- [ ] Kein prod silence without Ticket
+- [ ] No prod silence without ticket
 
 ## Security
 

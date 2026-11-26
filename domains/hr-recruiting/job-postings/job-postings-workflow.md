@@ -26,7 +26,7 @@ inputs:
   - "Target channels (Indeed, careers page, LinkedIn) – Publish only with approval"
 outputs:
   - "job_description.docx (inclusive, checked for compliance with the General Act on Equal Treatment (AGG))"
-  - "channel_pack.md (Titelvarianten, Zeichenlimits pro Kanal)"
+  - "channel_pack.md (title variants, character limits per channel)"
   - "interview_scorecard_draft.md derived from must-haves"
   - "bias_checklist.md"
 risk_level: low
@@ -91,7 +91,7 @@ Remote/hybrid: location field explicit per user (no "everywhere" without tax hin
 ## Definition of done
 
 - [ ] No unconfirmed benefits or salary figures
-- [ ] Bias-Checkliste durchgearbeitet; problematische Phrasen ersetzt
+- [ ] Bias checklist completed; problematic phrases replaced
 - [ ] Scorecard-Kriterien decken Must-Haves ab
 - [ ] No live publishing carried out
 

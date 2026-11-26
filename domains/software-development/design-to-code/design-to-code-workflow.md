@@ -70,7 +70,7 @@ Document deviations from design with reason (a11y, performance).
 
 ## Workflow
 
-1. Spec/PNG/Tokens einlesen.
+1. Read spec/PNG/tokens.
 2. Komponent-Hierarchie skizzieren.
 3. Implementieren im Designsystem.
 4. Story/page route lokal.

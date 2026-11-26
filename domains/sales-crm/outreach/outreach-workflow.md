@@ -16,7 +16,7 @@ target_agents:
 required_tools:
   - name: Hermes skills email-inbox-triage and himalaya
     install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
-    version_notes: "ClawHub figures: Leaderboard 23.11.2026."
+    version_notes: "ClawHub figures: Leaderboard 23 Nov 2026."
   - name: Hermes-Skill google-workspace / gws CLI
     install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
     version_notes: "Bundled-catalog."
@@ -58,7 +58,7 @@ Draft **hyper-relevant 1:1 messages**: evidence-based facts instead of mail-merg
 | Tool | Role | Rationale |
 |------|-------|------------|
 | Himalaya / GWS | Gmail Draft | No sending without approval |
-| attio MCP | Kontext, Task | Activity draft |
+| attio MCP | Context, Task | Activity draft |
 | Close MCP | Sequence Step | If Close Team |
 
 ## System prompt
@@ -88,9 +88,9 @@ Bounce handling: never retry guessed email patterns.
 
 1. Clarify ICP, offer and prohibited claims.
 2. Collect Hook + Source per contact (CRM/Manual).
-3. Erstkontakt-Entwurf schreiben (Betreff + Body).
+3. Write initial contact draft (subject + body).
 4. Follow-up matrix (days 3/7/14) with new value.
-5. Drafts in Gmail/CRM anlegen—Status „draft“.
+5. Create drafts in Gmail/CRM—status "draft".
 6. Tick off the quality checklist for each email.
 7. Invite users to approve sending; no SMTP sending.
 
@@ -99,7 +99,7 @@ Bounce handling: never retry guessed email patterns.
 - [ ] Every email with a documented personalization source
 - [ ] No shipping without explicit approval
 - [ ] Word limit and CTA adhered to
-- [ ] Rechtlicher Kontext (B2B/Newsletter) notiert
+- [ ] Legal context (B2B/newsletter) noted
 
 ## Security
 
@@ -111,7 +111,7 @@ Bounce handling: never retry guessed email patterns.
 
 - Invent a ChatGPT hook → Damage to reputation if asked about it.
 - Mark Gmail draft as "sent" in the CRM.
-- Zuviele Links im ersten Touch → Spam-Ordner.
+- Too many links in the first touch → spam folder.
 - Activate Close Sequence without enrollment rules.
 - English to German C-level without context.
 

@@ -68,13 +68,13 @@ GDPR: reports may contain recipient domain volumes — handle confidentially.
 
 ## Workflow
 
-1. Reports in Ordner sammeln (`/var/spool/dmarc/incoming/*.xml.gz`).
+1. Collect reports in folder (`/var/spool/dmarc/incoming/*.xml.gz`).
 2. `parsedmarc -f /path/to/report.xml -o /tmp/dmarc_out`.
 Open JSON/HTML; Tabulate fail rate per source.
 4. Legitime Forwarder vs. unbekannte Sending-IPs trennen.
 5. Comparison with DNS: `dig TXT  dmarc.example.de` and SPF record.
 6. Empfehlung an Mail-Admin (Policy-Stufe).
-7. Trend vs. Vorwoche dokumentieren.
+7. Document trend vs. previous week.
 
 ## Definition of done
 
@@ -90,8 +90,8 @@ Open JSON/HTML; Tabulate fail rate per source.
 ## Pitfalls
 
 - Only one week of data — too early for reject.
-- Forwarder als „Angriff“ klassifiziert.
-- parsedmarc Version skew bei neuen XML-Schemas.
+- Forwarder classified as an "attack".
+- parsedmarc version skew with new XML schemas.
 - SPF -all not set despite good DMARC pass rate.
 - Uhrzeit/Zeitzone Report-Period missverstanden.
 

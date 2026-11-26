@@ -31,7 +31,7 @@ inputs:
   - "approval before Versand"
 outputs:
   - "Valide .docx"
-  - "Optional PDF/PNG for Sichtpruefung"
+  - "Optional PDF/PNG for visual inspection"
 risk_level: low
 example_count: 2
 version: "1.1.0"
@@ -50,16 +50,16 @@ updated: "2026-11-23"
 
 **When not to use**
 
-- Serienbrief with CSV-Datenquelle (→ dokumente-libreoffice-mail-merge).
+- Mail merge with CSV data source (→ documents-libreoffice-mail-merge).
 - Komplexe contract-Track-Changes with Anwaelten in Word Desktop only.
-- Automatischer E-Mail-Versand the Dokuments without approval-Workflow.
+- Automatic email sending of the document without an approval workflow.
 
 ## Tool stack
 
 | Tool | Role | Rationale |
 |------|-------|------------|
 | Anthropic docx-Skill | generation + validate.py | Official Verify-path |
-| Hermes microsoft-office | python-docx Skripte | Ohne Microsoft Office |
+| Hermes microsoft-office | python-docx scripts | Without Microsoft Office |
 | LibreOffice soffice | PDF-Export | Visuelle QA |
 | pdftoppm | PNG from PDF | Tabellen-Rand verify |
 
@@ -97,7 +97,7 @@ If Hermes path: run bundled read script and echo sheet/section inventory.
 
 ## Workflow
 
-1. Briefing in Gliederung with Tabellen-Spaltenbreiten (DXA) festhalten.
+1. Capture briefing in outline with table column widths (DXA).
 2. docx-Skill or `docx_write.py` ausfuehren → `output.docx`.
 3. `validate.py output.docx` — at FAIL Ursache beheben and neu bauen.
 4. `soffice --headless --convert-to pdf output.docx`.
@@ -110,20 +110,20 @@ If Hermes path: run bundled read script and echo sheet/section inventory.
 - [ ] Validator: All validations PASSED
 - [ ] Tabellen sichtbar innerhalb setspiegel on QA-PNG
 - [ ] pagesformat A4 (or documented Abweichung)
-- [ ] no Versand without Nutzerfreigabe
+- [ ] No sending without user approval
 - [ ] PDF/PNG-QA-files at layoutkritischen Tabellen
 
 ## Security
 
 - PII in Beispieltabellen only with synthetischen Daten.
-- Write/Senden only after expliziter approval.
+- Write/send only after explicit approval.
 - Skills/MCP minimal halten (only docx-Scope).
 
 ## Pitfalls
 
 - Validator gruen, aber Tabelle ragt visuell over the Rand (DXA-Summe).
 - Default US Letter in Skill, User erwartet A4.
-- LibreOffice-Render weicht minimal of Word ab—Kunden-Word-Stichprobe at Vertraegen.
+- LibreOffice rendering differs slightly from Word—spot-check in client's Word for contracts.
 - python-docx ersetzt no komplexen Vorlagen-Content-Controls.
 - Grosse eingebettete Bilder blaehen file on without Kompression.
 
@@ -131,7 +131,7 @@ If Hermes path: run bundled read script and echo sheet/section inventory.
 
 ### Example 1 (Example data (self-written))
 - **Task:** Briefing-DOCX wie im Anthropic-Tutorial create and validieren.
-- **Input:** Titel, zwei H1-Abschnitte, listn, Preistabelle with Spalten-DXA.
+- **Input:** Title, two H1 sections, lists, price table with column DXA.
 - **Prompt:**
 
 ```text
@@ -143,7 +143,7 @@ Create briefing.docx per outline; run validate.py; render PDF and pdftoppm; fix 
 
 ### Example 2 (Example data (self-written))
 - **Task:** Hermes microsoft-office path for internes Memo without Anthropic Plugin.
-- **Input:** Gliederung 3 Abschnitte, no Tabelle.
+- **Input:** Outline with 3 sections, no table.
 - **Prompt:**
 
 ```text

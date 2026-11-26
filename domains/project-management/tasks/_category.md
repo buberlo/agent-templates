@@ -1,7 +1,7 @@
 # Tasks
 
 - **Domain:** `project-management`
-- **Category:** `tasks `
+- **Category:** `tasks`
 - **As of:** 2026-11-23
 
 ## Summary
@@ -17,11 +17,11 @@ Perform tasks in Todoist, Issues or local task systems.
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
 | todoist MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/todoist | Aufgabenverwaltung. | hermes mcp install todoist | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
-| Hermes-Skills document-to-action-items, weekly-review-planning | Skill | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | Aufgaben aus Dokumenten; Wochenplanung. | Bundled. | Bundled. | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | no (as cited) |
+| Hermes-Skills document-to-action-items, weekly-review-planning | Skill | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | Action items from documents; weekly planning. | Bundled. | Bundled. | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | no (as cited) |
 
 ## Typical workflows
 
-- Inbox verarbeiten, Due Dates in Europe/Vienna, no stillen Completes.
+- Process inbox, due dates in Europe/Vienna, no silent completes.
 
 ## Pitfalls
 

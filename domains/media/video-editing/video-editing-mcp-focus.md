@@ -24,7 +24,7 @@ required_tools:
     version_notes: "Frame-Extraktion; only when required"
 inputs:
   - "Video-Task (Cut, Conversion, Frames, Motion)"
-  - "list erlaubter Tools/MCPs"
+  - "List of allowed tools/MCPs"
 outputs:
   - "Ausgefuehrte Befehle or gerenderter Clip"
   - "Empfehlung CLI vs. MCP with Begruendung"
@@ -36,7 +36,7 @@ updated: "2026-11-23"
 
 ## Purpose
 
-Agenten waehlen the **leichtesten belastbaren path** for Video-Aufgaben: meist **FFmpeg im Terminal**, Skills for Remotion or Frame-Extraktion—MCP only, when echter Mehrwert againstover Token-Overhead besteht.
+Agents choose the **lightest reliable path** for video tasks: usually **FFmpeg in the terminal**, skills for Remotion or frame extraction—MCP only when there is real added value over the token overhead.
 
 ## When to use
 
@@ -47,7 +47,7 @@ Agenten waehlen the **leichtesten belastbaren path** for Video-Aufgaben: meist *
 **When not to use**
 
 - Komplexe Multi-Track-Timeline with J-Cuts and Sounddesign in NLE.
-- MCP-catalog should without Aufgabenbezug „komplett“ geladen will (Kontextkosten).
+- Do not load the MCP catalog “completely” without a task reference (context cost).
 - Live-OBS-Produktion.
 
 ## Tool stack
@@ -57,7 +57,7 @@ Agenten waehlen the **leichtesten belastbaren path** for Video-Aufgaben: meist *
 | ffmpeg / ffprobe | Cut, Encode, Metadaten | no MCP required; Hermes Video-Analyse setzt PATH voraus |
 | Remotion Skills | React-Video | Official 2026-path statt Legacy-MCP |
 | Video Frames Skill | Stills | OpenClaw/ClawHub; only at Bedarf |
-| youtube-content Skill | transcript→Text | when Ausgabe Text, not Re-Encode |
+| youtube-content skill | Transcript→text | When output is text, not re-encode |
 
 ## System prompt
 
@@ -89,16 +89,16 @@ Log wall-clock time for ffmpeg jobs exceeding five minutes for capacity planning
 
 1. Task klassifizieren: file-Op vs. Generativ vs. Text from Video.
 2. Tool-Policy verify: unrequirede MCPs disable.
-3. `ffprobe` on Eingabedatei; Cutprofil festlegen.
+3. `ffprobe` on input file; define cut profile.
 4. FFmpeg-Befehl ausfuehren or Remotion-Render starten.
-5. Ausgabe with `ffprobe` and ggf. Framegrab verifizieren.
+5. Verify output with `ffprobe` and a frame grab if needed.
 6. Kurzbericht: warum no MCP / welches Skill genutzt.
 7. at catalog-pathen: Link to remotion-dev/skills or ffmpeg.org notieren.
 
 ## Definition of done
 
 - [ ] Geringstpossiblee Tool-Menge aktiv
-- [ ] Befehle reproduzierbar dokumentiert
+- [ ] Commands documented reproducibly
 - [ ] no MCP only for `ffmpeg -version`
 - [ ] Output technisch geprueft
 - [ ] approvaln at Publish/Overwrite eingehalten
@@ -106,15 +106,15 @@ Log wall-clock time for ffmpeg jobs exceeding five minutes for capacity planning
 ## Security
 
 - MCP-Credentials not in argv; OAuth on Connector-Backend (Grok-Bot-Wiki).
-- Video with personenbezogenen Daten: Verarbeitung only lokal when possible.
+- Video with personal data: process locally only whenever possible.
 
 ## Pitfalls
 
 - MCP-Schema-Overhead kann Zehntausende Tokens kosten—before messen/policy.
-- Fragmentierte FFmpeg-MCPs without klaren Maintainer—CLI bevorzugen.
+- Fragmented FFmpeg MCPs without a clear maintainer—prefer the CLI.
 - Skills vs. MCP verwechseln: Skills are Procedures, no Socket-Verbindung.
 - Remotion without Skills → veraltete MCP-Namen in aelteren Threads.
-- Frame-Skill vs. ffmpeg: Doppelarbeit kostet Zeit and Kontext.
+- Frame skill vs. ffmpeg: duplicate work costs time and context.
 
 ## Basic examples
 
@@ -136,7 +136,7 @@ Rationale: single-pass transcode; MCP adds no capability.
 
 ### Example 2 (Example data (self-written))
 - **Task:** MCP-Token-Overhead deliberately vermeiden.
-- **Input:** Policy erlaubt only Terminal + ffmpeg.
+- **Input:** Policy allows only terminal + ffmpeg.
 - **Prompt:**
 
 ```text

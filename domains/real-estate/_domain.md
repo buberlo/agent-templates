@@ -1,4 +1,4 @@
-# Real Estate
+# Real estate
 
 **Domain slug:** `real-estate`
 **Categories:** 3
@@ -6,12 +6,12 @@
 
 ## Overview
 
-Templates and Category Metadata for **Real Estate** — derived from research from 2026-11-23.
+Templates and category metadata for **Real estate** — derived from research dated 2026-11-23.
 
 ## Categories
 
 | Category | Slug | Templates |
 |-----------|------|-----------|
-| Property listings | `exposes` | 1 |
-| Property search | `immobilien-suche` | 1 |
-| HOA management | `verwaltung-weg` | 1 |
+| HOA management | `hoa-management` | 2 |
+| Property listings | `property-listings` | 2 |
+| Property search | `property-search` | 1 |

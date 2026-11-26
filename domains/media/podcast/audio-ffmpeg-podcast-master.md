@@ -21,7 +21,7 @@ required_tools:
     version_notes: "Peaks and Dauer before Mastering"
 inputs:
   - "Roh-Audio (WAV/MP3 from Recorder or Riverside)"
-  - "Target loudness (z. B. -16 LUFS integriert for Podcast)"
+  - "Target loudness (e.g. -16 LUFS integrated for podcast)"
   - "Optional: Intro/Outro-Clips"
 outputs:
   - "Master-MP3 or AAC for Hosting"
@@ -45,7 +45,7 @@ Consistent **loudness**, **safe headroom**, and **delivery-ready podcast episode
 **When not to use**
 
 - Musik-lastige Produktion with Stem-Mix and komplexem Bus-Routing.
-- De-Esser and manuelles Dialogue-Edit on Wortebene (DAW + Mensch).
+- De-esser and manual word-level dialogue editing (DAW + human).
 - Live-Recording with Round-Trip-Latenz-Korrektur.
 
 ## Tool stack
@@ -91,28 +91,28 @@ Archive raw guest file checksum (sha256) in log for dispute resolution.
 
 1. `ffprobe -show_streams episode_raw.wav` — 48 kHz stereo bestaetigen.
 2. Stille am Anfang/Ende: optional `silenceremove` only with approval (kann Atmosphaere kappen).
-3. `ffmpeg -i episode_raw.wav -af loudnorm=...:print_format=json -f null -` → Messwerte speichern.
-4. Zweiter Durchlauf with `measured_*` from JSON; Ausgabe `episode_norm.wav`.
+3. `ffmpeg -i episode_raw.wav -af loudnorm=...:print_format=json -f null -` → save measurements.
+4. Second pass with `measured_*` from JSON; output `episode_norm.wav`.
 5. Intro/Outro: `ffmpeg -i intro.wav -i episode_norm.wav -i outro.wav -filter_complex concat=n=3:v=0:a=1 -ar 48000 final.wav`.
 6. Encode: `ffmpeg -i final.wav -codec:a libmp3lame -q:a 2 episode.mp3`.
-7. `ffmpeg -i episode.mp3 -af loudnorm=print_format=summary -f null -` zur approval loggen.
+7. Log `ffmpeg -i episode.mp3 -af loudnorm=print_format=summary -f null -` for approval.
 
 ## Definition of done
 
 - [ ] Integrated Loudness im Targetkorridor (±0,5 LUFS)
 - [ ] True Peak ≤ vereinbartem Ceiling
-- [ ] no hoerbares Pumping durch doppeltes loudnorm on bereits limitiertem Material
+- [ ] No audible pumping from double loudnorm on already limited material
 - [ ] Intro/Outro without Klick or Sample-Rate-Mismatch
-- [ ] Filtergraph and target values im Protokoll
+- [ ] Filtergraph and target values in the log
 
 ## Security
 
-- Gaststimmen and vertrauliche Inhalte not an Cloud-Mastering-Dienste senden without Vertrag.
-- Veroeffentlichung at Hosting-Plattformen only after expliziter approval.
+- Do not send guest voices and confidential content to cloud mastering services without a contract.
+- Publication to hosting platforms only after explicit approval.
 
 ## Pitfalls
 
-- Einmalige loudnorm without zweiten Pass with `measured_*` is oft ungenau—Zwei-Pass-Workflow einhalten.
+- Single-pass loudnorm without a second pass using `measured_*` is often inaccurate—follow the two-pass workflow.
 - MP3-generation before loudnorm macht Messungen unzuverlaessig—first WAV master, dann Lossy.
 - Mono-Spur as fake stereo (`pan`) kann Phase-Probleme create—lieber explizit `-ac 1`.
 - aggressive `afftdn` entfemt „S“-Laute—Nurstufen testen.

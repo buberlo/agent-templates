@@ -20,7 +20,7 @@ Azure/KS operations through all-emplodie of the official MCP servers and Azure C
 
 ## Typical workflows
 
-- Docs listen Troubleshooting, Health, CRUD je nach Access-Level.
+- Docs list troubleshooting, health, and CRUD depending on access level.
 
 ## Pitfalls
 

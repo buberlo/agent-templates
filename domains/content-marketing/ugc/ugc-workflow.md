@@ -29,7 +29,7 @@ updated: "2026-11-23"
 
 ## Purpose
 
-UGC Skript + Rechte-Checkliste—kein Paid upload.
+UGC script + rights checklist—no paid upload.
 
 ## When to use
 
@@ -77,13 +77,13 @@ End each summary with stable relative paths to scripts, shot lists, and rights c
 ## Definition of done
 
 - [ ] Outputs erstellt
-- [ ] user approvaln eingehalten
-- [ ] Quellen/Annahmen geloggt
-- [ ] Kein Auto-Publish
+- [ ] User approval observed
+- [ ] Sources and assumptions logged
+- [ ] No auto-publish
 
 ## Security
 
-- Credentials nur im Connector.
+- Keep credentials in the connector only.
 - Send/Publish only after release.
 
 ## Pitfalls

@@ -1,6 +1,6 @@
 ---
 id: documents-libreoffice-mail-merge
-title: "Serienbrief with LibreOffice and CSV"
+title: "Mail Merge with LibreOffice and CSV"
 domain: office-documents
 category: word-docx
 tags:
@@ -34,17 +34,17 @@ updated: "2026-11-23"
 
 ## Purpose
 
-**Personalisierte Massenanwrite** from ODT + CSV headless create—PDF pro Zeile, protokollierte Fehler, no stillen PII-Leaks.
+Create **personalized mail merges** headlessly from ODT + CSV—one PDF per row, logged errors, no silent PII leaks.
 
 ## When to use
 
 - Einladungen, Mahnungen, Zertifikate from CRM-Export (CSV).
-- LibreOffice on Server/CI without GUI verfuegbar.
-- E-Mail-Versand erfolgt in separatem, freigegebenem step.
+- LibreOffice available on server/CI without GUI.
+- Email sending takes place in a separate, approved step.
 
 **When not to use**
 
-- Direkter SMTP-Massenversand without rechtliche Pruefung.
+- Direct SMTP bulk sending without legal review.
 - Komplexe Word-ONLY-fields (REVNUM, IF) without ODT-Migration.
 - Echtzeit-Personalisierung waehrend Live-Event without Batch-Window.
 
@@ -55,7 +55,7 @@ updated: "2026-11-23"
 | LibreOffice Writer | Mail-Merge | Offen, automatisierbar |
 | soffice | Headless CLI | PDF-Export |
 | CSV | Datenquelle | Einfacher CRM-Export |
-| python3 | Vorvalidierung | Spalten vs. fields |
+| python3 | Pre-validation | Columns vs. fields |
 
 ## System prompt
 
@@ -95,9 +95,9 @@ Validate encoding: latin-1 CSV on DE umlauts needs utf-8-sig or iconv first.
 
 ## Workflow
 
-1. CSV-Header with ODT-Fieldliste abgleichen (Mapping-Tabelle).
-2. Testlauf 3 Zeilen → `out/test/` PDFs.
-3. `pdftotext out/test/*.pdf` Stichprobe Platzhalter.
+1. Match CSV headers against the ODT field list (mapping table).
+2. Test run 3 rows → `out/test/` PDFs.
+3. `pdftotext out/test/*.pdf` spot-check placeholders.
 4. Vollbatch headless in `out/pdf/`.
 5. Zeilenzaehlung: `wc -l kunden.csv` vs. `ls out/pdf | wc -l`.
 6. `merge.log` on ERROR-Zeilen verify.
@@ -106,24 +106,24 @@ Validate encoding: latin-1 CSV on DE umlauts needs utf-8-sig or iconv first.
 ## Definition of done
 
 - [ ] 100 % erfolgreicher Zeilen have PDF (according to Log)
-- [ ] no unersetzten Merge-fields in Stichprobe
+- [ ] No unreplaced merge fields in spot check
 - [ ] filenamen eindeutig and sortierbar
-- [ ] CSV/Log not oeffentlich abgelegt
-- [ ] Testlauf dokumentiert before Vollbatch
+- [ ] CSV/log not stored publicly
+- [ ] Test run documented before full batch
 
 ## Security
 
-- CSV enthaelt PII—Zugriff on Output-Ordner beschraenken.
+- CSV contains PII—restrict access to output folder.
 - Textinhalt before Massenversand of Fachseite freigegeben.
 - no Versand without separaten approval-Workflow.
 
 ## Pitfalls
 
 - UTF-8 BOM in CSV verschiebt ersten Spaltennamen.
-- LibreOffice-Makro-path unter headless anders as GUI.
+- LibreOffice macro path under headless differs from GUI.
 - Tausender-Zeilen-Batch without RAM-Limit killt soffice.
 - ODT-Field «City» vs. CSV «Ort» still leer.
-- PDF-Namen with Sonderzeichen on Windows-Share problematisch.
+- PDF names with special characters are problematic on a Windows share.
 
 ## Basic examples
 
@@ -143,7 +143,7 @@ out/pdf/: 200 PDFs (or 197 + merge.log with 3 ERROR rows); test/ with 3 PDFs doc
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** Fehlerfall fehlende Pflichtspalte.
+- **Task:** Error case: missing required column.
 - **Input:** `brief.odt`, CSV without Spalte `lastname`.
 - **Prompt:**
 

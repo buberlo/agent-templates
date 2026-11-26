@@ -39,14 +39,14 @@ Create **concise educational cards** (Anki format) from lectures, scripts or vid
 ## When to use
 
 - Test preparation with limited material body.
-- Transkript or docx liegt vor.
+- Transcript or docx is available.
 - Export as a tab-separated file for Anki.
 
 **When not to use**
 
 - Raw material without copyright clearance.
 - Medizinrechtliche Merkhilfen without Fachreview.
-- Riesige PDFs without Chunking → Kontext-Overflow.
+- Huge PDFs without chunking → context overflow.
 
 ## Tool stack
 
@@ -81,10 +81,10 @@ Deliver: anki_import.tsv, quality_notes.md, card_count.
 ## Workflow
 
 1. Download source (docx or YouTube transcript).
-2. Chunken in sections (max ~2k words per pass).
+2. Chunk into sections (max ~2k words per pass).
 3. Pro Abschnitt Karten generieren bis `max_cards`.
 4. Remove duplicates; Check Cloze cards.
-5. `anki_import.tsv` schreiben (UTF-8, Tabs).
+5. Write `anki_import.tsv` (UTF-8, tabs).
 6. `quality notes.md` with sample 5 cards.
 7. Users imported into Anki; Agent does not send cloud syncs.
 
@@ -92,7 +92,7 @@ Deliver: anki_import.tsv, quality_notes.md, card_count.
 
 - [ ] A card = a verifiable fact
 - [ ] Source on the back
-- [ ] No Antwort in Frage versteckt (Stichprobe)
+- [ ] No answer hidden in question (spot check)
 TSV valid for Anki Desktop Import
 
 ## Security
@@ -105,7 +105,7 @@ Explorers.
 
 - Karten zu lang → schlechte Retention.
 - Cloze zu komplex.
-- Falsche Zeitstempel bei Transkript-Sync.
+- Incorrect timestamps during transcript sync.
 - Tag-Overflow in Anki.
 - Import-Kodierung falsch (Komma statt Tab).
 
@@ -124,14 +124,14 @@ Max 30 cards, tag prefix BIO101::ch2, export anki_import.tsv.
 
 ```text
 card_count: 30
-Sample front: "Was ist Mitose?"
+Sample front: "What is mitosis?"
 Sample back: "Zellteilung … — Source: Kap. 2 §Mitose"
 quality_notes: 2 duplicates removed
 ```
 
 ### Example 2 (Example data (self-written))
 - **Task:** YouTube without URL.
-- **Input:** Nur Thema "Photosynthese".
+- **Input:** Topic "Photosynthesis" only.
 - **Prompt:**
 
 ```text

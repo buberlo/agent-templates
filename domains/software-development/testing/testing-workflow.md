@@ -40,7 +40,7 @@ Write unit, integration and E2E tests and run them with **Playwright CLI** / Pro
 
 ## When to use
 
-- Feature braucht Regression-Test vor Merge.
+- Feature needs a regression test before merge.
 - Flaky E2E stabilisieren.
 
 **When not:** load test without dedicated tooling.
@@ -76,10 +76,10 @@ Document commands run in thread.
 
 1. Test-Runner ermitteln: `cat package.json` / `pyproject.toml`.
 2. Unit: `pytest -q` or `npm test`.
-3. Playwright install: `npx playwright install chromium` wenn fehlt.
-4. Spec schreiben unter `tests/e2e/`.
+3. Install Playwright: `npx playwright install chromium` if missing.
+4. Write spec under `tests/e2e/`.
 5. `npx playwright test tests/e2e/checkout.spec.ts`.
-6. Bei Fail: `npx playwright show-report`.
+6. On failure: `npx playwright show-report`.
 7. Add CI snippet for GitHub Actions.
 
 ## Definition of done

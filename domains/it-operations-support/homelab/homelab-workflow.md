@@ -102,7 +102,7 @@ Destroy: never kubectl delete namespace all without typed confirm phrase user pr
 
 ## Pitfalls
 
-- Falscher kube-context → Work-Cluster getroffen.
+- Wrong kube-context → work cluster hit.
 - No backup before `helm upgrade`.
 - One node down → entire k3s stack unclear.
 

@@ -13,14 +13,17 @@ target_agents:
   - generic-mcp-agents
   - generic
 required_tools:
-  - name: primary-tool
-    install: "see category"
-    version_notes: "as of 2026-11-23"
+  - name: Hermes skills email-inbox-triage and himalaya
+    install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
+    version_notes: "ClawHub figures: leaderboard 23 Nov 2026."
+  - name: Hermes skill google-workspace / gws CLI
+    install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
+    version_notes: "Bundled catalog."
 inputs:
-  - "Context/briefing for E-Mail"
-  - "Files, URLs, or IDs per task"
+  - "Context and briefing for email tooling"
+  - "Mailbox type, files, URLs, or message IDs per task"
 outputs:
-  - "Documented result (file, report, or ticket update)"
+  - "Documented tool selection, redacted command log, and saved draft artifacts"
 risk_level: low
 example_count: 2
 version: "1.1.0"
@@ -29,111 +32,112 @@ updated: "2026-11-23"
 
 ## Purpose
 
-**Select targeted email stacks**: Hermes Triage + Himalaya (IMAP) or **gws*rate / Gmail-MCP—Skills for workflow, MCP for OAuth connection; Standard remains **design, no sending**.
+**Select and configure targeted email tool stacks**: choose between Hermes `email-inbox-triage` + `himalaya` (IMAP/SMTP) or `gws` / Gmail MCP—using skills for structured triage workflows and MCP connectors for OAuth access while keeping **draft creation (never auto-sending)** as the strict default.
 
 ## When to use
 
-Agent should only activate the appropriate e-mail tools (include/exclude, tool policy).
-- Mix of workspace (gws) and third-party IMAP.
-Documentation of which path Gmail MCP vs. It is the Himalayas.
+- Restricting an agent to activate only the minimum required email tools via MCP include/exclude lists and tool policies.
+- Operating across a mix of Google Workspace (`gws`) and third-party IMAP mailboxes.
+- Documenting which operational path uses Gmail MCP versus the Himalaya CLI.
 
-**When not to use**
+### When not to use
 
-- A single, recurring, scripted im particular nomination  introduction ? mail-Gmail-mcp-triage ?
-- No set up OAuth or IMAP password handling.
-- Hochriskante Massenkommunikation.
+- Running a single recurring Gmail triage routine with fixed queries (use `email-gmail-mcp-triage` instead).
+- Environments without configured OAuth connectors or secure secret-store handling for IMAP credentials.
+- High-risk bulk or mass outbound email campaigns.
 
 ## Tool stack
 
 | Tool | Role | Rationale |
-|------|-------|------------|
-shops, turneds, turneds, turneds and turneds,
-| Himalaya / imap-smtp-email | IMAP/SMTP CLI | OpenClaw/ClawHub, kein Google-only |
-| gws CLI | Gmail, Calendar, Drive | Workspace-Inbox in einem CLI |
-| Grok Gmail-Plugin | Chat-gebundenes Lesen/Schreiben | Offizieller OAuth-Connector |
+|------|------|-----------|
+| `email-inbox-triage` | Inbox prioritization and reply drafting | Bundled Hermes workflow skill |
+| `himalaya` / `imap-smtp-email` | IMAP/SMTP CLI access | Works with standard IMAP servers beyond Google-only setups |
+| `gws` CLI | Gmail, Calendar, and Drive CLI | Unified Google Workspace inbox management from one CLI |
+| Grok Gmail plugin | Session-bound read/draft access | Official OAuth connector managed by the platform |
 
 ## System prompt
 
 ```text
-You configure and use email tools for communication/email: Hermes email-inbox-triage, himalaya CLI, gws, or Gmail MCP—pick the minimum set for the task.
+You configure and operate email tools for communication/email: Hermes email-inbox-triage, himalaya CLI, gws CLI, or Gmail MCP—activating only the minimum tool set required for the task.
+Work in the user's language.
 
-Inputs: mailbox type (gmail_oauth | imap | workspace_gws), allowed actions (read | draft | label | send), credential location (never paste secrets).
+Inputs:
+- mailbox_type (gmail_oauth | imap | workspace_gws)
+- allowed_actions (read | draft | label | send)
+- credential_location (reference to secret store or OAuth profile; never paste raw secrets)
 
-Decision:
-- Gmail with MCP available → MCP search + create_draft.
-- Generic IMAP → himalaya envelope list + folder sync; draft via SMTP only after approval.
-- Workspace admin tasks → gws gmail users.messages.list.
+Routing decision:
+- Gmail with MCP available -> MCP search + create_draft.
+- Generic IMAP -> himalaya envelope list + folder sync; save drafts locally or in Drafts folder, and use SMTP send only after explicit user approval.
+- Workspace admin or CLI tasks -> gws gmail users.messages.list.
 
-Always:
-1) List which tools you enable and why.
-2) Read before write; summarize in German if user writes German.
-3) create_draft / save to Drafts; send only on explicit "SEND message_id".
+Mandatory rules:
+1) List which tools you enable and explain why; disable unused MCPs to reduce the prompt injection surface.
+2) Always read before writing and summarize findings in the user's language (defaulting to English).
+3) Default all outbound compositions to create_draft / save to Drafts. Never auto-send; execute a send action only upon explicit user approval ("SEND <message_id>").
+4) Verify writes by re-fetching the draft ID or listing the Drafts folder.
 
-Output: tool-choice.md (one page), command log redacted, artifact paths.
-Disable unused MCPs to reduce prompt injection surface.
-Verify: re-fetch draft or list folder after write.
+Outputs:
+- tool-choice.md (one-page decision summary)
+- Redacted command log and saved artifact paths
 ```
 
 ## Workflow
 
-1. Clarify request: Gmail-OAuth, IMAP or gws.
-2. Hermes MCP set: only "gmail" or "himalaya" included.
-3. `gws gmail users.messages.list --user me --query "is:unread"" or "himalaya envelope list".
-profits from the raising Skill **email-inbox-triage** for prioritization and draft text concerned.
-PT-Corory, or/thory, or yet ororteed or in third or yet yet, or yet or yet or yet or yet or yet or yet or yet or yet or yet or yet or yet or yet or yet or yet or yet or yet or yet or yet or yet or yet or yet or yet or yet or yet or yet or yet or yet
-6. Document result list `output/email-session.md` with tool path.
-7. Send step only after user sharing with message ID.
+1. Clarify the mailbox requirement: Gmail OAuth, generic IMAP, or Google Workspace (`gws`).
+2. Configure the Hermes MCP filter or tool policy to include only the chosen backend (`gmail` or `himalaya`).
+3. List unread messages via `gws gmail users.messages.list --user me --query "is:unread"` or `himalaya envelope list`.
+4. Run the `email-inbox-triage` skill to prioritize threads and prepare reply text.
+5. Save replies strictly as drafts (via MCP `create_draft`, local `.eml` files, or the IMAP Drafts folder).
+6. Document the active tool path, message counts, and draft locations in `output/email-session.md`.
+7. Execute any actual send step only if the user explicitly approves with the target message ID.
 
 ## Definition of done
 
-the feedback the the on the the formula, – the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the on the the the aboves pull the once: the the the the the extract referred or the the and exercise referred traderslam the the the fort the or the the the the the the the treat treat the down or the the hit the the to theor or the the the take the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the thespar the tap to just the the the the and the quarter.” the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the
-does not  into the presence of a then-migrant.
-Re morning (WW ,  (ww) rushing upwards ( second benefiting in and ing in (ww) and (ww)
-- [ ] Writing actions only as a drafts or with release
+- [ ] Enabled email tools are documented with a clear rationale
+- [ ] No credentials or tokens appear in chat logs or Markdown files
+- [ ] At least one read operation is verified (unread count or redacted header snippet)
+- [ ] Outbound operations are restricted to drafts or gated behind explicit user approval
 
 ## Security
 
-- IMAP app passwords only in Secret Store, not in argv.
-- Grok/OAuth-Tokens bleiben auf Connector-Backend.
-- PII in Agent-Logs minimieren; Himalaya-Logs rotieren.
+- Store IMAP app passwords exclusively in a system secret store, never in command-line arguments (`argv`) or config files committed to git.
+- Keep OAuth tokens managed on the official connector backend.
+- Minimize PII in agent logs, rotate local Himalaya logs, and require explicit approval before sending any email.
 
 ## Pitfalls
 
-- Skill and MCP in parallel for the same account → double actions.
-- Himalaya without TLS → Credentials im Klartext.
-- gws without richtiges `GOOGLE_APPLICATION_CREDENTIALS` → scheinbar leere Inbox.
-- OpenClaw-ClawHub-Skills without `skills verify` laden.
-- Send by mistake if MCP send tool is not removed from policy.
+- Enabling both a CLI skill and an MCP server in parallel for the same mailbox, causing duplicate drafts or label changes.
+- Running Himalaya without TLS enabled, exposing credentials in plaintext.
+- Invoking `gws` without a valid `GOOGLE_APPLICATION_CREDENTIALS` setup, resulting in an apparently empty inbox.
+- Loading third-party registry skills without running `skills verify` first.
+- Leaving the MCP send tool enabled in a draft-only policy, risking accidental transmission.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** IMAP-Firmenpostfach triagieren.
-- **Input:** Server `mail.firma.example`, Skill Himalaya aktiv.
+
+- **Task:** Triage a company IMAP mailbox and save local reply drafts (example data).
+- **Input:** IMAP server `mail.company.example`, Himalaya CLI and `email-inbox-triage` skill enabled.
 - **Prompt:**
-
 ```text
-Enable only himalaya + email-inbox-triage. List unread INBOX, classify, save reply drafts locally as .eml for review.
+Enable only himalaya + email-inbox-triage. List unread messages in INBOX, classify them, and save reply drafts locally as .eml files for review without sending.
 ```
-
 - **Expected result:**
-
 ```text
 Tools: himalaya, email-inbox-triage (gmail MCP disabled)
-Unread: 17 | Drafts saved: output/drafts/re-28401.eml, re-28402.eml
+Unread: 17 | Drafts saved: output/drafts/re-28401.eml, output/drafts/re-28402.eml
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** Workspace-Inbox lesen without Send-Tool.
-- **Input:** gws installiert, Policy: read+draft only.
+
+- **Task:** Read a Google Workspace inbox with send tools disabled (example data).
+- **Input:** `gws` CLI installed, policy set to `read+draft` only.
 - **Prompt:**
-
 ```text
-gws list 5 newest unread, summarize subjects in German, no send tools in session.
+Use gws to list the 5 newest unread messages, summarize their subjects, and ensure no send tools are bound in this session.
 ```
-
 - **Expected result:**
-
 ```text
 1) Onboarding docs — Alice
 2) Invoice #8821 — finance@

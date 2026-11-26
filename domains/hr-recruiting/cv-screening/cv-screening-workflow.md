@@ -82,7 +82,7 @@ Language: rationale in user's language (DE default).
 ## Workflow
 
 1. Have the user confirm the scorecard and hard filters.
-2. CVs einlesen; Kandidaten-IDs vergeben.
+2. Read CVs; assign candidate IDs.
 3. Rate each dimension with a quote or "not mentioned".
 4. Must-Have-Gate anwenden; Scores aggregieren.
 5. Create a shortlist based on the target size or threshold.

@@ -38,11 +38,11 @@ Scraping tasks **route*: Firecrawl for site→markdown, Playwright for precise D
 ## When to use
 
 - Unclear whether MCP or local Playwright is cheaper.
-- Mix statische Docs + eine dynamische Tabelle.
+- Mix of static docs + one dynamic table.
 
 **When not to use**
 
-- Reine Websuche → recherche-wissen/web-exa.
+- Pure web search → research-knowledge/web-exa.
 
 ## Tool stack
 
@@ -88,10 +88,10 @@ No storage of crawl results in cloud without user ok.
 1. Clarify goal: Text vs. structured table.
 Check JS-Heavy.
 3. Firecrawl vs Playwright entscheiden.
-4. Exa nur Discovery optional.
+4. Exa optional for discovery only.
 5. Child-Workflow starten.
-6. routing.md schreiben.
-7. Kein doppeltes Crawlen.
+6. Write routing.md.
+7. No duplicate crawling.
 
 ## Definition of done
 
@@ -106,10 +106,10 @@ Check JS-Heavy.
 
 ## Pitfalls
 
-- Firecrawl auf SPA without Inhalt.
+- Firecrawl on SPA without content.
 - Playwright for 10k pages without cap.
 - Exa + Firecrawl parallel Kosten.
-- Markdown-Tabelle falsch geparst.
+- Markdown table parsed incorrectly.
 - recherche web-exa verwechselt.
 
 ## Basic examples
@@ -130,7 +130,7 @@ routing: firecrawl | playwright rejected
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** Preistabelle 20 Seiten
+- **Task:** 20-page price table
 - **Input:** paginated catalog
 - **Prompt:**
 

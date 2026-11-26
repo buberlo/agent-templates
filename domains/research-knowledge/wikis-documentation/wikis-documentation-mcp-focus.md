@@ -33,8 +33,8 @@ updated: "2026-11-23"
 
 ## When to use
 
-- Wiki-Seiten zu Dritttools schreiben.
-- Vor wikis-dokumentation-workflow Fact-Gathering.
+- Write wiki pages for third-party tools.
+- Fact-gathering before wikis-documentation-workflow.
 
 **When not**
 
@@ -65,7 +65,7 @@ Mark UNVERIFIED if docs moved or 404.
 
 No copy entire manual—fair use bullets.
 
-Hand off facts.md to wikis-dokumentation-workflow for prose.
+Hand off facts.md to wikis-documentation-workflow for prose.
 
 Disable unrelated MCPs.
 
@@ -85,14 +85,14 @@ Log access date ISO per url.
 4. UNVERIFIED markieren.
 5. grounded check.
 6. Handed over to wiki workflow.
-7. MCP-Liste loggen.
+7. Log the MCP list.
 
 ## Definition of done
 
 - [ ] Jeder Bullet hat URL
-- [ ] Nur official domains bevorzugt
+- [ ] Prefer official domains only
 - [ ] ≤5 Fetches
-- [ ] UNVERIFIED bei 404
+- [ ] UNVERIFIED on 404
 - [ ] Handoff klar
 
 ## Security

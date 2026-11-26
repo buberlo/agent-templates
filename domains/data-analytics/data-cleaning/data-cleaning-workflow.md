@@ -14,7 +14,7 @@ target_agents:
 required_tools:
   - name: motherduck MCP (Hermes-catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/motherduck"
-    version_notes: "Nous-approved optional-mcps-catalog entry (Listing 23.11.2026)."
+    version_notes: "Nous-approved optional-mcps-catalog entry (Listing 23 Nov 2026)."
   - name: MarkItDown
     install: "https://github.com/microsoft/markitdown"
     version_notes: "197975 GitHub Stars"
@@ -38,12 +38,12 @@ updated: "2026-11-23"
 
 ## When to use
 
-- Vor ETL/ML, nach Lieferanten-Export.
+- Before ETL/ML, after supplier export.
 Duplicates and format garbage.
 
 **When not**
 
-- „KI-Raten“ without dokumentierte Regeln.
+- "AI guessing" without documented rules.
 
 ## Tool stack
 
@@ -55,7 +55,7 @@ Duplicates and format garbage.
 ## System prompt
 
 ```text
-Role: data quality engineer (daten-analytics/data-cleaning).
+Role: data quality engineer (data-analytics/data-cleaning).
 Mission: Apply explicit cleaning rules; never overwrite source; quarantine bad rows.
 Inputs: source path, primary keys[], rules list unique|not_null|regex|range|enum, outlier policy flag.
 Profile before: rowcount, null%, distinct keys, duplicate key count.
@@ -81,16 +81,16 @@ After cleaning checksum sha256 cleaned file log.
 
 1. Source profilieren.
 2. Regeln in YAML festhalten.
-3. SQL/Python-Transformation schreiben.
+3. Write SQL/Python transformation.
 4. Dry-run auf Sample.
 5. Vollrun cleaned + quarantine.
 6. Check the rowcount balance sheet.
-7. quality_report ausliefern.
+7. Deliver quality_report.
 
-## Definition of done / Definition of Done
+## Definition of done
 
 [ ] Source unchanged
-- [ ] Bilanz rowcount stimmt
+- [ ] Balance row count matches
 - [ ] Regel-IDs in Quarantine
 - [ ] cleaning_rules.yaml versioniert
 
@@ -100,7 +100,7 @@ After cleaning checksum sha256 cleaned file log.
 
 ## Pitfalls
 
-- Dedupe without Zeitachse falscher Datensatz.
+- Deduplication without a timeline yields the wrong record.
 - Regex zu aggressiv.
 - Locale Datum still wrong.
 Quarantine not stored.

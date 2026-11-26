@@ -22,7 +22,7 @@ required_tools:
     install: "optional impress export"
     version_notes: "PDF Deck review"
 inputs:
-  - "Gliederung and Folienanzahl"
+  - "Outline and slide count"
   - "CI-Farben and Logo-path"
 outputs:
   - "deck.pptx"
@@ -35,17 +35,17 @@ updated: "2026-11-23"
 
 ## Purpose
 
-**Folien-Decks** from Briefing strukturiert bauen—Titel, Inhalt, Sprechernotizen—with Validator and PDF-Review.
+Build structured **slide decks** from briefing—title, content, speaker notes—with validator and PDF review.
 
 ## When to use
 
 - Sales-Pitch, Status-Review, Workshop-Intro.
-- 10–40 Folien, konsistentes Layout.
+- 10–40 slides, consistent layout.
 - no Animations-Heavy-Design required.
 
 **When not to use**
 
-- Broadcast Motion Graphics (→ medien).
+- Broadcast Motion Graphics (→ media).
 - Template with komplexen Slide Masters without Vorlage-file.
 - Automatischer Upload to SlideShare without approval.
 
@@ -92,25 +92,25 @@ Use high-contrast text on brand backgrounds.
 
 ## Workflow
 
-1. Outline in Folienliste with harter Zeichenanzahl verify.
+1. Verify outline in slide list with strict character limits.
 2. Skill/CLI Deck generieren.
 3. Validator laufen.
 4. PDF-Export for visuelle QA.
-5. Stichprobe 3 Folien (Titel, Chart, Abschluss).
+5. Spot-check 3 slides (title, chart, closing).
 6. Sprechernotizen re-checked.
 7. approval for externe Nutzung einholen.
 
 ## Definition of done
 
-- [ ] Folienanzahl = Outline
-- [ ] Validator OK or Abweichungen dokumentiert
+- [ ] Slide count = outline
+- [ ] Validator OK or deviations documented
 - [ ] no invented KPIs in Charts
-- [ ] PDF-QA at Brand-Folien
+- [ ] PDF QA on brand slides
 - [ ] approval before Versand
 
 ## Security
 
-- Vertrauliche Strategie-Folien not oeffentlich teilen.
+- Do not share confidential strategy slides publicly.
 - Kundennamen only with approval.
 - Skills minimal enable.
 
@@ -120,12 +120,12 @@ Use high-contrast text on brand backgrounds.
 - to kleine Schrift in PDF-Review unsichtbar in Editor.
 - Logo PNG to gross → langsame file.
 - Tabellen breiter as Slide.
-- Notizen with vertraulichen Details at oeffentlicher PDF.
+- Speaker notes with confidential details in public PDF.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** 12-Folien Status-Deck.
+- **Task:** 12-slide status deck.
 - **Input:** Outline 12 Punkte, CI #003366.
 - **Prompt:**
 

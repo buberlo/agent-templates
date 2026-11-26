@@ -71,18 +71,18 @@ Do not store credentials in MCP session prompts.
 
 ## Workflow
 
-1. Skill-Matrix Explore vs Verify definieren.
+1. Define Explore vs. Verify skill matrix.
 2. Optional MCP: navigate staging login (read-only data).
-3. Spec aus MCP/codegen in Repo schreiben.
+3. Write spec from MCP/codegen to repo.
 4. `npx playwright test` — Skill Verify.
-5. Bei Fail: trace `npx playwright show-trace`.
+5. On failure: trace `npx playwright show-trace`.
 6. Unit-Tests parallel `npm test`.
 7. PR with test plan.
 
 ## Definition of done
 
 CLI playwright green
-- [ ] MCP nur wo dokumentiert
+- [ ] MCP only where documented
 - [ ] No Secrets in Specs
 
 ## Security
@@ -92,8 +92,8 @@ CLI playwright green
 
 ## Pitfalls
 
-- Nur MCP — no CI-Reproduzierbarkeit.
-- Riesige A11y-Snapshots — Kontext voll.
+- MCP only — no CI reproducibility.
+- Huge A11y snapshots — context full.
 - DevTools MCP auf Prod.
 - Spec aus veralteter UI.
 
@@ -116,7 +116,7 @@ npx playwright test → 3 passed
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** MCP vermeiden bei API-only.
+- **Task:** Avoid MCP for API-only.
 - **Input:** REST service.
 - **Prompt:**
 

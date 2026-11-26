@@ -27,7 +27,7 @@ required_tools:
     version_notes: "Nous-approved optional-mcps-catalog entry (listing 2026-11-23)."
 inputs:
   - "ICP: Industry, size, geo, tech signals"
-  - "Zielrolle (z. B. VP Sales, Head of Ops)"
+  - "Target role (e.g. VP Sales, Head of Ops)"
   - "List size and CRM target (Attio/Close/CSV)"
 outputs:
   - "Qualified account/contact list with sources"
@@ -45,7 +45,7 @@ updated: "2026-11-23"
 
 ## When to use
 
-- Neues Segment testen (z. B. DACH Logistik 50–200 MA).
+- Test new segment (e.g. DACH logistics 50–200 employees).
 - Enrich event/content participants with company profile information.
 - TAM/SAM estimate with sample list.
 
@@ -95,7 +95,7 @@ Intent: funding news, hiring surge, new CTO—tag intent_flags[].
 4. Assign signals per account (≥2 for Qualify).
 5. Mark contacts/roles with Confidence.
 6. Create a fit score and exclude list.
-7. CSV + optional CRM-Importanleitung ausliefern.
+7. Deliver CSV + optional CRM import instructions.
 
 ## Definition of done
 

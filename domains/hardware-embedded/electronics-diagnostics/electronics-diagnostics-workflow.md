@@ -29,12 +29,12 @@ updated: "2026-11-23"
 
 ## Purpose
 
-Schaltplane lesen, Messwerte dokumentieren and BOMs for Fehlersuche strukturieren — no high voltagesarbeit.
+Read schematics, document measurements, and structure BOMs for troubleshooting — no high-voltage work.
 
 ## When to use
 
 - Board bring-up or intermittierender Fehler with Messprotokoll.
-- Netzteil-Spannungen and Ripple loggen.
+- Log power supply voltages and ripple.
 - Not for Netzspannung > SELV or defective LiPo fire response.
 
 ## Tool stack
@@ -66,39 +66,39 @@ Conclude with measurement log template path and ranked next tests.
 
 ## Workflow
 
-1. Symptom, Schaltplan and letzte Anderungen sammeln.
+1. Collect symptoms, schematic, and recent changes.
 2. BOM and kritische Nets identifizieren.
 3. Messplan with erwarteten Werten.
-4. user tragt Messwerte a or dictiert.
-5. Hypothesenliste priorisieren.
-6. Sichere nachste Schritte (Komponente tauschen vs scope).
+4. User enters or dictates measurements.
+5. Prioritize hypothesis list.
+6. Safe next steps (swap component vs. scope).
 7. Abschlussprotokoll and Lessons learned.
 
 ## Definition of done
 
-- [ ] HV-Schritte ausgeschlossen or STOP
+- [ ] HV steps excluded or STOP
 - [ ] Messpunkte referenziert
-- [ ] Hypothesen not as Fakten
+- [ ] Hypotheses not presented as facts
 - [ ] LiPo-Sicherheitsregel beachtet
 
 ## Security
 
 - No Anleitungen for gefahrliche high voltage or defekte power supplies without qualified person.
-- Flash/Bootloader only with Nutzerfreigabe and dokumentiertem Rollback.
+- Flash/bootloader only with user approval and documented rollback.
 - Seriennummern and Standortdaten in Logs minimieren.
-- Bei Rauch, Hitze or Schlag -> sofortiger Stopp; no Weiteranalyse online.
+- In case of smoke, heat, or shock -> immediate stop; no further online analysis.
 
 ## Pitfalls
 
 - Multimeter on Strom in Spannungsmessung.
-- Ground clip on falscher Masse Schleife.
-- Ohne Entladevorgang Kondensator messen.
-- Falscher IC Footprint einge lotet.
+- Ground clip on wrong ground loop.
+- Measuring capacitor without discharging first.
+- Wrong IC footprint soldered in.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** 3.3V Rail fallt unter Last
+- **Task:** 3.3V rail drops under load
 - **Input:** KiCad PDF, LDO U2, erwartet 3.3 misst 3.0@200mA
 - **Prompt:**
 ```text
@@ -110,7 +110,7 @@ Messplan 6 Punkte, Ripple with Coupling Hinweis.
 - **Input:** 100kHz, pullups 4k7, zwei slaves
 - **Prompt:**
 ```text
-Checkliste Adressenkonflikt, Lange, scope capture was user sehen soll.
+Checklist for address conflict, length, and scope capture of what the user should see.
 ```
-- **Expected result:** 5 Debug-Schritte; Log-Spalten Zeit, Master, Addr, ACK.
+- **Expected result:** 5 debug steps; log columns Time, Master, Addr, ACK.
 

@@ -38,7 +38,7 @@ Monitor topics—RSS/News search, digest with URLs, severity for alerts, no disi
 
 - Wettbewerber, Regulatorik, Sicherheitsadvisories.
 Daily or weekly digest.
-- Vorstandsvorbereitung (informationsonly).
+- Executive board preparation (information only).
 
 **When not**
 
@@ -94,7 +94,7 @@ Limit 25 items per digest unless user asks more.
 3. Dedupe URLs.
 4. Firecrawl Kernartikel.
 5. Severity labeln.
-6. digest.md schreiben.
+6. Write digest.md.
 7. alert.md at high; Release before shipment.
 
 ## Definition of done
@@ -102,7 +102,7 @@ Limit 25 items per digest unless user asks more.
 - [ ] Every story with URL and date
 - [ ] Rumors marked
 - [ ] Excludes respektiert
-- [ ] Kein Auto-Post
+- [ ] No auto-posting
 - [ ] query_log vorhanden
 
 ## Security

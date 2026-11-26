@@ -6,32 +6,36 @@
 
 ## Summary
 
-Folien and Decks programmatisch create, verify and as Bilder rendern.
+Programmatically generate, verify and render slides and decks as images.
 
 ## Recommended tool stack
 
 - Anthropic pptx-Skill (pptxgenjs) or Hermes pptx_create.py
-- XML-Validate plus visual Render-Check
+- XML-Validate plus visueller Render-Check
 
 ## MCP servers and skills
 
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| Anthropic document skills (docx, pptx, xlsx, pdf) | Skill | https://github.com/anthropics/skills | Official agent skills for creating/checking Office and PDF files; the verify step (validate.py, render to PDF/PNG) is part of the instructions. | Claude Code: /plugin marketplace add anthropics/skills and /plugin install document-skills@anthropic-agent-skills. | 199.219 Stars | https://aifrontierpost.com/articles/anthropic-official-agent-skills-tutorial/ | no (as cited) |
-| Hermes-Skill microsoft-office | Skill + CLI | https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/productivity/productivity-microsoft-office | docx/pptx/xlsx offline over Python-CLIs (python-docx, python-pptx, openpyxl). Office-App not required; PDF-Render only with LibreOffice. | Bundled in Hermes (~/.hermes/skills/), Scripts in the skill folder. | Part of the official Bundled-Katalogs. | https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/productivity/productivity-microsoft-office | no (as cited) |
-| ClawHub „Powerpoint / PPTX“ (ivangdavila) | Skill | https://clawhubtrends.com/leaderboard.html | Community-Skill for PowerPoint. | openclaw skills install (Owner ivangdavila) and openclaw skills verify. | 41.155 Downloads, 122 Registry-Stars (ClawHub Leaderboard 23.11.2026). | https://clawhubtrends.com/leaderboard.html | no (as cited) |
+| Anthropic document skills (docx, pptx, xlsx, pdf) | Skill | https://github.com/anthropics/skills | Official agent skills for creating/validating Office and PDF files; verification step (validate.py, render to PDF/PNG) is part of the instructions. | Claude Code: /plugin marketplace add anthropics/skills and /plugin install document-skills@anthropic-agent-skills. | 199,219 stars | https://aifrontierpost.com/articles/anthropic-official-agent-skills-tutorial/ | no (as cited) |
+| Hermes skill microsoft-office | Skill + CLI | https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/productivity/productivity-microsoft-office | Offline docx/pptx/xlsx via Python CLIs (python-docx, python-pptx, openpyxl). Office app not required; PDF rendering only with LibreOffice. | Bundled in Hermes (~/.hermes/skills/), scripts in the skill folder. | Part of the official bundled catalog. | https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/productivity/productivity-microsoft-office | no (as cited) |
+| ClawHub „Powerpoint / PPTX“ (ivangdavila) | Skill | https://clawhubtrends.com/leaderboard.html | Community-Skill for PowerPoint. | openclaw skills install (Owner ivangdavila) and openclaw skills verify. | 41,155 Downloads, 122 Registry-Stars (ClawHub Leaderboard 23 Nov 2026). | https://clawhubtrends.com/leaderboard.html | no (as cited) |
 
 ## Typical workflows
 
-- Structured deck. after Build: validate.py, slide_text.py, soffice/pptx_render, Folienbilder read.
-- Farben as FF0000 without #; Layout 10x5,625 Zoll observe.
+- Set the task, allowed tools, and definition of done.
+- Read or research first, then draft, then request approval for any action that has effects.
+- Recheck the output (file, URL, ticket) and cite the source.
+- Structured deck. After build: validate.py, slide_text.py, soffice/pptx_render, inspect slide images.
+- Colors as FF0000 without #; observe 10x5.625 inch layout.
 
 ## Pitfalls
 
-- Skills are workflows/instructions (progressive disclosure); MCPs are connections and tools. Combine both; do not confuse them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Enable only the MCPs/skills the task needs. Hermes filters via include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Do not put tokens or passwords in chat, skill files, or custom MCP command arguments. Grok Bot wiki: OAuth tokens stay on the connector backend; command servers must not include credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Write, send, pay, deploy, and delete only after explicit approval; good document skills require a verify step (re-read the file, render PDF/PNG).
+- Skills are workflows/instructions (progressive disclosure), MCP are connections and tools. Combine the two, not confuse them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
+- Enable only the MCPs/Skills that the task needs. Hermes filters per include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
+- Do not write tokens or passwords in chat, skill files or command arguments of custom MCPs. Grok Bot wiki: OAuth tokens remain on the connector backend; Command servers must not contain credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- Write, send, pay, deploy and delete only after explicit approval; good document skills require a verify step (read the file again, render PDF/PNG).
+- validate.py requires Python >=3.10. The XML checker does not detect wrong numbers in callouts.
 
 ## Sources
 
@@ -44,3 +48,7 @@ Folien and Decks programmatisch create, verify and as Bilder rendern.
 - https://hermes-agent.nousresearch.com/docs/reference/skills-catalog
 - https://docs.openclaw.ai/skills/
 - https://github.com/NousResearch/hermes-agent
+- https://code.claude.com/docs/en/features-overview
+- https://github.com/ComposioHQ/awesome-claude-skills
+- https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp
+- https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp

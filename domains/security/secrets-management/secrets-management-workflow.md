@@ -38,8 +38,8 @@ Secrets **invent, rotate and store** — Vault/SOPS/GitHub Secrets — never pla
 
 ## When to use
 
-- Rotation nach Incident, neuer Integrations-Key.
-- Audit: wo liegen Secrets.
+- Rotation after incident, new integration key.
+- Audit: where secrets are stored.
 
 **When not:** Extract secrets from Repo in Chat for “analysis”.
 
@@ -71,8 +71,8 @@ No secret values in commit messages or PR titles.
 ## Workflow
 
 1. Inventory: `gh secret list`, `vault kv list secret/` (paths only).
-2. Rotation-Ticket anlegen.
-3. Neuen Secret in Vault erzeugen — Wert nur in Vault UI/secure channel.
+2. Create rotation ticket.
+3. Create new secret in Vault — value only in Vault UI/secure channel.
 4. Consumer-Apps konfigurieren (dual-key window).
 5. Old Secret revoke after confirmation.
 6. `gitleaks detect` on repo for leaks.
@@ -80,13 +80,13 @@ No secret values in commit messages or PR titles.
 
 ## Definition of done
 
-- [ ] Kein Secret-Wert im Chat/PR
+- [ ] No secret value in chat/PR
 -[ ] Rotation documented with ticket
 - [ ] Leak scan executed or planned
 
 ## Security
 
-- **high risk** bei Prod-Secrets.
+- **high risk** for prod secrets.
 - Break-glass only with two-person rule.
 
 ## Pitfalls
@@ -95,7 +95,7 @@ No secret values in commit messages or PR titles.
 - Rotation without Consumer-Update — Ausfall.
 - sops age key auf Laptop verloren.
 - GH Secret Set silently overwrites.
-- Historischer Git-Leak bleibt nach Rotation.
+- Historical Git leak remains after rotation.
 
 ## Basic examples
 

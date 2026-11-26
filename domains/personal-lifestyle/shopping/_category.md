@@ -6,7 +6,7 @@
 
 ## Summary
 
-Produktvergleich, Preisziele, Bestellvorbereitung.
+Product comparison, price targets, order preparation.
 
 ## Recommended tool stack
 

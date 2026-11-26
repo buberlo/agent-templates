@@ -1,6 +1,6 @@
 ---
 id: excel-xlsx-workflow
-title: "Excel-Arbeitsmappen erstellen and verify"
+title: "Create and Verify Excel Workbooks"
 domain: office-documents
 category: excel-xlsx
 tags:
@@ -36,15 +36,15 @@ updated: "2026-11-23"
 
 ## When to use
 
-- KPI-Reports, Preislisten or Datenbereinigung as Arbeitsmappe.
-- Agent schreibt file; User oeffnet in Excel/LibreOffice zur Endkontrolle.
+- KPI reports, price lists, or data cleaning as a workbook.
+- Agent writes the file; user opens it in Excel/LibreOffice for final review.
 - no Live-ERP-Connector required.
 
 **When not to use**
 
 - Echtzeit-DWH or Millionenzeilen without dediziertes BI-Tool.
 - Makros/VBA-Produktion without Sandbox-approval.
-- Finanzielles Reporting without 4-Augen (→ finanzen-Templates).
+- Financial reporting without four-eyes review (→ finance templates).
 
 ## Tool stack
 
@@ -89,16 +89,16 @@ Watch Excel serial dates: convert ISO in pandas before write.
 ## Workflow
 
 1. Daten in pandas normalisieren (Datum, Dezimal).
-2. Skill/CLI: Struktur Sheets `Data`, `Calc`, `Report` anlegen.
+2. Skill/CLI: Create structure sheets `Data`, `Calc`, `Report`.
 3. Formeln eintragen; no hartcodierten Summen in Report.
-4. `xlsx_read.py` or Skill-Read: Stichprobe values.
+4. `xlsx_read.py` or skill read: spot-check values.
 5. `xlsx_recalc.py` or Calc-Oeffnung anfordern when #NAME? droht.
-6. Validator/Skill-Check falls verfuegbar.
+6. Validator/skill check if available.
 7. path + Recalc-Status an User.
 
 ## Definition of done
 
-- [ ] Formelzellen liefern erwartete Stichproben (or PENDING_USER dokumentiert)
+- [ ] Formula cells return expected spot-check values (or PENDING_USER documented)
 - [ ] no Text-Zahlen in Summen-Spalten
 - [ ] Sheet-Namen and Bereiche wie Spezifikation
 - [ ] no Versand without approval

@@ -17,7 +17,7 @@ required_tools:
     version_notes: "OCI and classic repo"
   - name: kubectl
     install: "apt: kubectl"
-    version_notes: "Zugriff auf Zielcluster"
+    version_notes: "Access to the target cluster"
   - name: helm-diff
     install: "helm plugin install https://github.com/databus23/helm-diff"
     version_notes: "Upgrade-Vorschau"
@@ -51,7 +51,7 @@ Roll out helmet releases with pinned chart version and git-versioned values — 
 |------|-------|------------|
 | helm | Package manager | install, upgrade, history |
 | helm diff | Review | PR-taugliches Manifest-Delta |
-| kubectl | Verify | Pods/Services nach Release |
+| kubectl | Verify | Pods/services after release |
 
 ## System prompt
 
@@ -78,9 +78,9 @@ One of `helm version` and `kubectl config current-context`.
 2. Chart-Version: `helm search repo <chart> --version <x.y.z>` or `helm show chart oci://...`.
 3. `helm template ingress ingress-nginx/ingress-nginx -f values.yaml -n ingress`.
 4. `helm diff upgrade ingress ingress-nginx/ingress-nginx -f values.yaml -n ingress --version 4.11.1`.
-5. Nach approval: `helm upgrade --install ingress ingress-nginx/ingress-nginx -f values.yaml -n ingress --version 4.11.1 --atomic --timeout 10m`.
+5. After approval: `helm upgrade --install ingress ingress-nginx/ingress-nginx -f values.yaml -n ingress --version 4.11.1 --atomic --timeout 10m`.
 ... "helm history ingress -n ingress" and "kubectl -n ingress get pods".
-7. `values.yaml` ins Git committen (PR), not just helmet revision secret.
+7. Commit `values.yaml` to Git (PR), not just the Helm revision secret.
 
 ## Definition of done
 
@@ -96,8 +96,8 @@ One of `helm version` and `kubectl config current-context`.
 
 ## Pitfalls
 
-- `helm upgrade` without `--atomic` — halb kaputter Release bleibt.
-- Subchart-Versionen unpinned — Drift bei `helm dependency update`.
+- `helm upgrade` without `--atomic` — leaves a half-broken release behind.
+- Subchart versions unpinned — drift on `helm dependency update`.
 - Namespace fehlt — `helm install` scheitert or landet in `default`.
 - CRD-Upgrade-Reihenfolge — manche Charts brauchen zwei Step-Upgrades.
 - `helm diff' ignores hooks — check pre/post hooks separately.

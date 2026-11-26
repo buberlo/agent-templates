@@ -23,7 +23,7 @@ inputs:
   - "Subscription-ID or Name"
   - "Ressourcengruppe / AKS-Cluster"
 outputs:
-  - "Azure CLI Protokoll"
+  - "Azure CLI log"
   - "Empfehlung or ARM/Bicep-Hinweis"
 risk_level: high
 example_count: 2
@@ -46,7 +46,7 @@ Inspect Azure resources with **az** read-first; AKS diagnosis and policy checks 
 | Tool | Role | Justification |
 |------|-------|------------|
 | az | Management | account, aks, monitor |
-| kubectl | AKS | nach `az aks get-credentials` |
+| kubectl | AKS | after `az aks get-credentials` |
 | AKS MCP | optional | readonly call_kubectl laut MS-Docs |
 
 ## System prompt
@@ -79,10 +79,10 @@ Export sensitive outputs (kubeconfigs) never into chat body.
 6. `kubectl get nodes` read-only Diagnose.
 7. Changes only as a Bicep/Runbook proposal.
 
-## Definition of done / Definition of Done
+## Definition of done
 
 Subscription and Tenant in Summary
-- [ ] No ungenehmigten Mutations-Befehle
+- [ ] No unapproved mutation commands
 - [ ] AKS version and Node-Health documented
 
 ## Security
@@ -93,7 +93,7 @@ Subscription and Tenant in Summary
 
 ## Pitfalls
 
-- Falsche Subscription nach `az login` — stiller Zugriff auf falsche RG.
+- Wrong subscription after `az login` — silent access to wrong RG.
 - `--admin` kubeconfig without RBAC — Overprivilege.
 - AAD token expired in the middle of script — renewed `az aks get-credentials` required.
 - Policy Deny on RG — Plan fails, not just CLI.

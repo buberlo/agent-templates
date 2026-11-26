@@ -1,4 +1,4 @@
-# Persoenliche Termine
+# Personal appointments
 
 - **Domain:** `personal-lifestyle`
 - **Category:** `personal-appointments`
@@ -6,7 +6,7 @@
 
 ## Summary
 
-Doctor, Government, private Kalender – with reminders and Unterlagen.
+Doctor, government, and personal calendars – with reminders and documents.
 
 ## Recommended tool stack
 

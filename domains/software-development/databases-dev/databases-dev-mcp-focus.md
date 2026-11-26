@@ -77,7 +77,7 @@ Fallback: read migrations folder if MCP auth fails.
 
 ## Definition of done
 
-- [ ] Kein MCP DDL applied
+- [ ] No MCP DDL applied
 - [ ] Migration in git
 - [ ] Staging-only DSN
 

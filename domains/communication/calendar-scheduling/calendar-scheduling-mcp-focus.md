@@ -38,7 +38,7 @@ Choose Calendar Connections Clean: gws vs. Calendly MCP vs. Grok Plugin Write pr
 ## When to use
 
 - Agent setup for scheduling; Multiple calendar options in the catalog.
-- Read-only Availability-Check vor Produktiv-Einladungen.
+- Read-only availability check before production invitations.
 Documentation for Ops/Security (which tokens, which scopes).
 
 **When not to use**
@@ -52,7 +52,7 @@ Concrete meeting invitation with participants → `calendar-scheduling-workflow`
 |------|-------|------------|
 | gws calendar | Google Workspace | CLI + bundled Skill |
 | Calendly MCP | Externe Buchung | Hermes optional-mcps |
-| Grok Google Calendar | OAuth im Chat | Schnelltest Free/Busy |
+| Grok Google Calendar | OAuth in chat | Quick free/busy test |
 
 ## System prompt
 
@@ -79,7 +79,7 @@ Never paste refresh tokens. Note Europe/Vienna as display default.
 2. Write-right policy (`write allowed`).
 3. Check hermes mcp install or gws auth login status.
 4. Smoke test: next 2 events list (title, start, TZ).
-5. Schreib-Tools aus Session entfernen wenn read-only.
+5. Remove write tools from session when read-only.
 6. `output/calendar-tooling.md` with scopes and commands.
 7. User confirmed before scheduling workflow.
 
@@ -87,14 +87,14 @@ Never paste refresh tokens. Note Europe/Vienna as display default.
 
 - [ ] Source of truth named for Creates
 Smoke test successful or error with remediation
-- [ ] Default-Zeitzone dokumentiert
+- [ ] Default time zone documented
 - [ ] Write-Tools gated
 
 ## Security
 
 enested in the gaunting in the en-a-reichen in Plus in the f  traders in the a possible in the gaunting in the gaunting in the gaunting in the gaunting in the
 - Calendly API keys not in Git.
-- Grok-Plugin erbt Nutzerrechte—no Eskalation.
+- Grok plugin inherits user permissions—no escalation.
 
 ## Pitfalls
 
@@ -125,7 +125,7 @@ File: output/calendar-tooling.md
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** Calendly + Google schreiben.
+- **Task:** Write to Calendly + Google.
 - **Input:** Public booking + internal calendar.
 - **Prompt:**
 

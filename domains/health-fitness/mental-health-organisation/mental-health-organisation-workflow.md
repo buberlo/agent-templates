@@ -17,7 +17,7 @@ required_tools:
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/strava"
     version_notes: "Nous-approved optional-mcps catalog entry (listing 2026-11-23)."
 inputs:
-  - "Context/briefing for Organisation rund um mentale Gesundheit"
+  - "Context/briefing for mental health organization"
   - "Files, URLs, or IDs per task"
 outputs:
   - "Documented result (file, report or ticket-update)"
@@ -30,7 +30,7 @@ updated: "2026-11-23"
 
 ## Purpose
 
-Termine, Routinen and Journaling-Struktur for mentale Gesundheit organisieren — no Ersatz for therapy or Krisenhotline.
+Organize appointments, routines, and journaling structure for mental health — no substitute for therapy or a crisis hotline.
 
 ## When to use
 
@@ -42,12 +42,12 @@ Termine, Routinen and Journaling-Struktur for mentale Gesundheit organisieren �
 
 | Tool | Role | Rationale |
 |------|-------|------------|
-| strava MCP (Hermes catalog) | Aktivitatsdaten | Nur with installiertem and autorisiertem Strava MCP. |
+| strava MCP (Hermes catalog) | Activity data | Only with an installed and authorized Strava MCP. |
 
 ## System prompt
 
 ```text
-Role: Mental health organization coach (gesundheit-fitness/mental-health-organisation).
+Role: Mental health organization coach (health-fitness/mental-health-organisation).
 Mission: Structure routines, appointments, and journaling templates—not therapy or crisis counseling.
 Tools: calendar exports user provides; strava optional for mood-activity correlation user requests.
 Crisis: if user expresses self-harm intent, provide emergency hotline numbers (DE 112, Telefonseelsorge) and stop planning tasks.
@@ -68,13 +68,13 @@ Export markdown templates only.
 
 ## Workflow
 
-1. Kontext without klinische Diagnose erfassen.
+1. Capture context without clinical diagnosis.
 2. Wochentlichen Rhythmus (therapy, Sport, Ruhe) skizzieren.
 3. Journaling- and Mood-Vorlage.
 4. Krisenplan with Hotlines when user wunscht.
-5. Review-Ritual definieren.
+5. Define review ritual.
 6. Datenschutz lokal betonen.
-7. Bei Krisensignalen → Hotline, no weiteren Tasks.
+7. In case of crisis signals → hotline, no further tasks.
 
 ## Definition of done
 
@@ -88,7 +88,7 @@ Export markdown templates only.
 - No medizinische diagnosis, therapy or Notfallsteuerung — when akuten Symptomen 112/Notdienst.
 - health data minimieren and not an Dritte senden.
 - Strava or andere APIs only with user-OAuth.
-- Bei suicidal thoughts Gesprach beenden and Notressourcen nennen.
+- In case of suicidal thoughts, end the conversation and provide emergency resources.
 
 ## Pitfalls
 
@@ -108,11 +108,11 @@ Routinen-Canvas and 5 neutrale Journal-Prompts.
 ```
 - **Expected result:** docx Wochenplan; Prompts without Trauma; Krisennummern Fussnote.
 ### Example 2 (Example data (self-written))
-- **Task:** Mood + Strava Korrelation
+- **Task:** Mood + Strava correlation
 - **Input:** User will sehen ob lange Runs Stimmung next day beeinflussen
 - **Prompt:**
 ```text
-Nur deskriptive Tabellenvorlage, no kausalen Klinik-Claims.
+Descriptive table template only, no causal clinical claims.
 ```
 - **Expected result:** xlsx Vorlage Spalten Datum Mood Run_km; Disclaimer no Studie.
 

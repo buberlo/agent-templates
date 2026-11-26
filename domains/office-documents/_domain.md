@@ -1,4 +1,4 @@
-# Office and Documents
+# Office documents
 
 **Domain slug:** `office-documents`
 **Categories:** 11
@@ -6,17 +6,17 @@
 
 ## Overview
 
-Templates and category metadata for **Office and Documents** — derived from research on 2026-11-23.
+Templates and category metadata for **Office documents** — derived from research dated 2026-11-23.
 
 ## Categories
 
 | Category | Slug | Templates |
 |-----------|------|-----------|
-| Diagrams and Whiteboards | `diagramme-whiteboard` | 1 |
-| E-Signature | `e-signatur` | 1 |
+| Diagrams and whiteboard | `diagrams-whiteboard` | 1 |
+| E-signature | `e-signature` | 1 |
 | Excel / XLSX | `excel-xlsx` | 2 |
 | Forms | `forms` | 1 |
-| Google Docs / Drive | `google-workspace-docs` | 1 |
+| Google Workspace docs | `google-workspace-docs` | 1 |
 | Notion | `notion` | 1 |
 | Obsidian | `obsidian` | 1 |
 | OCR | `ocr` | 2 |

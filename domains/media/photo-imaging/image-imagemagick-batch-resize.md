@@ -20,11 +20,11 @@ required_tools:
     install: "apt/brew: exiftool"
     version_notes: "Optional: Metadaten and Orientation"
 inputs:
-  - "Ordner with Quellbildern (JPEG/PNG/TIFF)"
+  - "Folder with source images (JPEG/PNG/TIFF)"
   - "Targetbreite/Hoehe or lange Kante"
   - "Exportprofil (JPEG-Qualitaet, WebP, Strip-EXIF ja/nein)"
 outputs:
-  - "Ausgabeordner with einheitlichen Abmessungen"
+  - "Output folder with uniform dimensions"
   - "Manifest (filename → Masse)"
 risk_level: low
 example_count: 2
@@ -34,7 +34,7 @@ updated: "2026-11-23"
 
 ## Purpose
 
-**Homogene Web- or catalog-Exporte** from Foto-Ordnern: scale, schaerfen (dezent), Farbprofil and Metadaten kontrolliert—reproduzierbar with ImageMagick, without GUI-Batch.
+**Homogeneous web or catalog exports** from photo folders: scale, sharpen (subtly), and control color profile and metadata—reproducible with ImageMagick, without a GUI batch.
 
 ## When to use
 
@@ -46,7 +46,7 @@ updated: "2026-11-23"
 
 - RAW-Entwicklung (Lightroom/Capture One) with individueller Belichtung.
 - Gesichtserkennung and smartes Cropping on Motivmittelpunkt.
-- DRM-geschuetzte Bildarchive or Stock-Lizenzen without approval zum Strip.
+- DRM-protected image archives or stock licenses without approval for stripping.
 
 ## Tool stack
 
@@ -89,29 +89,29 @@ For CMYK JPEG input, convert to sRGB before resize and note color shift risk.
 ## Workflow
 
 1. `find in/ -type f \( -iname '*.jpg' -o -iname '*.png' \) | wc -l` zaehlen.
-2. Stichprobe: `magick identify -verbose in/sample.jpg | grep -i orientation`.
+2. Spot check: `magick identify -verbose in/sample.jpg | grep -i orientation`.
 3. `mkdir -p out && magick mogrify -path out/ -auto-orient -resize 1600x1600\> -strip -quality 85 in/*.jpg`.
 4. `magick identify -format '%f %w %h %b\n' out/* > manifest.csv`.
 5. Ausreisser: `awk '$2 > 1600 || $3 > 1600' manifest.csv` (sollte leer sein).
 6. Optional WebP: `magick mogrify -path out/webp/ -format webp -quality 82 out/*.jpg`.
-7. result and Manifest an User; Quellordner unberuehrt.
+7. Deliver result and manifest to user; source folder untouched.
 
 ## Definition of done
 
 - [ ] no Quelldatei viaschrieben
 - [ ] all Ausgaben ≤ vereinbarte Kantenlaenge (without Upscaling)
-- [ ] Orientation korrekt (Stichprobe visuell or EXIF)
-- [ ] manifest.csv vollstaendig
+- [ ] Orientation correct (visual or EXIF spot check)
+- [ ] manifest.csv complete
 - [ ] Strip-EXIF only when freigegeben
 
 ## Security
 
 - Personenfotos: EXIF-GPS and Geraetenamen before Publikation entfernen—User bestaetigen.
-- Urheberrechtlich geschuetztes Bildmaterial not without Lizenznachweis verarbeiten.
+- Do not process copyrighted imagery without proof of license.
 
 ## Pitfalls
 
-- `mogrify` without `-path` viaschreibt Quellen—immer separaten Targetordner.
+- `mogrify` without `-path` overwrites sources—always use a separate target folder.
 - JPEG-Qualitaet 100: grosse files without sichtlichen Gewinn.
 - CMYK-TIFF without Profilkonvertierung wirkt on Web neon—before `-colorspace sRGB`.
 - Leere or korrupte files create 0-Byte-Outputs—`identify` Exit-Code verify.
@@ -138,7 +138,7 @@ sku_002.jpg 800 1200 198022
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** Ein Bild with falscher EXIF-Orientation korrigieren.
+- **Task:** Fix an image with incorrect EXIF orientation.
 - **Input:** `tilted.jpg` Orientation 6.
 - **Prompt:**
 

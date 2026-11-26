@@ -36,13 +36,13 @@ updated: "2026-11-23"
 
 ## Purpose
 
-Agenten orchestrieren **generative Bildproduktion** with klarem Split: **lokale ComfyUI-Workflows** vs. **Hermes MCPs** (comfy-cloud, cloudinary) vs. **ClawHub-Skills**—inklusive Kosten-, Rechte- and QA-Gates.
+Agents orchestrate **generative image production** with a clear split: **local ComfyUI workflows** vs. **Hermes MCPs** (comfy-cloud, cloudinary) vs. **ClawHub skills**—including cost, rights, and QA gates.
 
 ## When to use
 
-- Marke braucht Varianten (Banner, Social) from wiederholbarem Prompt-Set.
+- Brand needs variants (banner, social) from a repeatable prompt set.
 - Hermes/OpenClaw-Umgebung has freigeschaltete MCPs or Skills.
-- CDN-Upload only after expliziter approval (cloudinary).
+- CDN upload only after explicit approval (cloudinary).
 
 **When not to use**
 
@@ -91,7 +91,7 @@ Archive negative prompts alongside positive prompts in sidecar JSON.
 1. Briefing and Tool-Policy read; MCPs not „all enable“.
 2. path waehlen: lokal Comfy vs. comfy-cloud vs. Skill.
 3. Generierung with fixedm Seed for V1; Varianten only on Anfrage.
-4. `magick identify` and visuelle Stichprobe.
+4. `magick identify` and visual spot check.
 5. Web-Varianten lokal create (`-resize 1200>`).
 6. Optional cloudinary upload after approval with transform URL document.
 7. sidecar JSON and pathe liefern.
@@ -106,17 +106,17 @@ Archive negative prompts alongside positive prompts in sidecar JSON.
 
 ## Security
 
-- API-Keys in Umgebungsvariablen; not in Repo.
-- Generierte Bilder with Markenzeichen Dritter vermeiden.
+- Store API keys in environment variables; not in the repo.
+- Avoid generated images with third-party trademarks.
 - Cloudinary-Upload only with Datenschutz-approval.
 
 ## Pitfalls
 
 - comfy-cloud Timeout at hohen Steps—Queue klein halten.
-- Skill and MCP parallel → doppelte Kosten.
-- cloudinary without Optimierung liefert riesige PNGs—Transformation setzen.
+- Skill and MCP in parallel → double costs.
+- cloudinary without optimization returns huge PNGs—set transformation.
 - Nano Banana Skill-Namen variieren—`openclaw skills verify`.
-- no Rechte-Pruefung at Trainingsstil bekannter Kuenstler.
+- No rights check when using the training style of well-known artists.
 
 ## Basic examples
 

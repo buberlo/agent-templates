@@ -12,24 +12,24 @@ Invent and prioritize known vulnerabilities in your own systems and track patche
 
 - Semgrep/SAST im CI
 - Tickets in Jira/Linear
-- Nur eigene/autorisierte Systeme
+- Only your own or authorized systems
 
 ## MCP servers and skills
 
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| semgrep MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/semgrep | Statische Befunde im Agent-Workflow. | hermes mcp install semgrep | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
+| semgrep MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/semgrep | Static analysis findings in the agent workflow. | hermes mcp install semgrep | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
 | atlassian MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/atlassian | Ticket-Nachverfolgung. | hermes mcp install atlassian | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
 | linear MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/linear | Ticket-Nachverfolgung. | hermes mcp install linear | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
 
 ## Typical workflows
 
-- Befunde inventarisieren, priorisieren, Patch-Ticket, Nachscan.
+- Inventory findings, prioritize them, open a patch ticket, then rescan.
 
 ## Pitfalls
 
 - Scanner output is not automatically complete.
-- Nur defensive, autorisierte Nutzung; no Angriffsverfahren in dieser Sammlung.
+- Defensive, authorized use only; this collection does not include attack methods.
 - No Angriffs- or Umgehungsanleitungen in diesen Templates.
 - Do not put tokens or passwords in chat, skill files, or custom MCP command arguments. Grok Bot wiki: OAuth tokens stay on the connector backend; command servers must not pass credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
 - Skills are workflows/instructions (progressive disclosure); MCP servers are connections and tools. Combine both; do not conflate them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills

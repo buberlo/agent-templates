@@ -15,15 +15,15 @@ target_agents:
 required_tools:
   - name: linear MCP (Hermes catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/linear"
-    version_notes: "Nous-approved optional-mcps catalog entry (Listing 23.11.2026)."
+    version_notes: "Nous-approved optional-mcps catalog entry (Listing 23 Nov 2026)."
   - name: atlassian MCP (Hermes catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/atlassian"
-    version_notes: "Nous-approved optional-mcps catalog entry (Listing 23.11.2026)."
+    version_notes: "Nous-approved optional-mcps catalog entry (Listing 23 Nov 2026)."
 inputs:
   - "Primary system: linear|jira"
   - "Project/Team ID and issue template (bug/story/task)"
   - "Spezifikation or User Story Text"
-  - "Erlaubte Operationen: create|update|comment (Default: create draft only)"
+  - "Allowed operations: create|update|comment (default: create draft only)"
 outputs:
   - "issue_drafts.md (title, body, acceptance criteria, labels)"
   - "created_issues.json (only after explicit create approval)"
@@ -41,13 +41,13 @@ Create or draft issues from specifications, link sprints, change status only in 
 
 ## When to use
 
-- Feature-Spec soll in umsetzbare Tickets zerlegt werden.
+- Feature spec should be broken down into actionable tickets.
 - Convert bug report structured into Jira/Linear.
 - Sprint planning needs ticket designs with AC.
 
 **When not**
 
-- Hunderte Issues without Priorisierung anlegen.
+- Creating hundreds of issues without prioritization.
 Maintain both systems in parallel with duplicated keys.
 - Spez without Akzeptanzkriterien in „Done“ schieben.
 
@@ -90,7 +90,7 @@ Cut Spec in epics/stories/tasks (vote size).
 6. At USER_APPROVAL CREATE: Create issues and return IDs.
 7. No Done Transitions without separate QA release.
 
-## Definition of done / Definition of Done
+## Definition of done
 
 - [ ] Jedes Ticket hat ≥1 testbares AC
 - [ ] Trace table complete for delivered tickets
@@ -100,7 +100,7 @@ Cut Spec in epics/stories/tasks (vote size).
 ## Security
 
 - Issue-Create/Update/Comment only with explicit release.
-- No Kundendaten in Ticket-Titeln.
+- No customer data in ticket titles.
 
 ## Pitfalls
 

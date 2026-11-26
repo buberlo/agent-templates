@@ -1,10 +1,10 @@
 ---
 id: network-workflow
-title: "Netzwerk"
+title: "Network"
 domain: it-operations-support
 category: network
 tags:
-  - netzwerk
+  - network
   - it-operations-support
   - skillcli
 target_agents:
@@ -34,7 +34,7 @@ Analysis **network faults read-first**: Layer 2/3/DNS, documented commands – n
 
 ## When to use
 
-- „Kein Internet“, VPN split-tunnel, DNS-Failures.
+- "No internet", VPN split-tunnel, DNS failures.
 - Intermittent Latency.
 
 **When not to use**

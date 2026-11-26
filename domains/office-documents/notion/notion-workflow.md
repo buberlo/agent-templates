@@ -29,18 +29,18 @@ updated: "2026-11-23"
 
 ## Purpose
 
-**Notion-Wikis and Task-DBs** over MCP durchsuchen, pages erstellen/aktualisieren—Integration with OAuth, changes nachvollziehbar.
+Search **Notion wikis and task DBs** via MCP, create/update pages—integration with OAuth, traceable changes.
 
 ## When to use
 
 - Team-Wiki in Notion is Source of Truth.
-- Agent should Meeting Notes or DB-Eintraege anlegen.
+- Agent should create meeting notes or DB entries.
 - Recherche-resultse strukturiert in Notion landen.
 
 **When not to use**
 
 - GDPR-kritische Daten without DPA with Notion.
-- Vollstaendiger Ersatz for Obsidian/Git offline.
+- Full replacement for offline Obsidian/Git.
 - Loeschen alter pages without Archiv-Policy.
 
 ## Tool stack
@@ -110,7 +110,7 @@ Avoid duplicating pages—search first.
 
 - Integration token only OAuth.
 - Gastzugriff not erweitern.
-- HR-Daten only in geschuetzten Spaces.
+- HR data only in protected spaces.
 
 ## Pitfalls
 
@@ -123,7 +123,7 @@ Avoid duplicating pages—search first.
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** Meeting Note unter Team-Parent.
+- **Task:** Meeting note under team parent.
 - **Input:** Parent URL, Titel, Bullet Notes MD.
 - **Prompt:**
 

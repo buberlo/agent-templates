@@ -1,6 +1,6 @@
 ---
 id: subtitles-translation-mcp-focus
-title: "Subtitles and Uebersetzung: Whisper plus FFmpeg"
+title: "Subtitles and Translation: Whisper plus FFmpeg"
 domain: media
 category: subtitles-translation
 tags:
@@ -24,8 +24,8 @@ required_tools:
     version_notes: "no Ersatz for lokale MP4-ASR"
 inputs:
   - "Video or vorhandenes SRT"
-  - "Targetsprachen and Lieferformat"
-  - "Uebersetzung durch Agent vs. CAT-Export"
+  - "Target languages and delivery format"
+  - "Translation by agent vs. CAT export"
 outputs:
   - "SRT/VTT je Sprache"
   - "Optional: eingebettete softsubs"
@@ -48,7 +48,7 @@ updated: "2026-11-23"
 **When not to use**
 
 - Laufschrift in Live-Sendeplan without delay-kompensierte Pipeline.
-- Reine maschinelle Uebersetzung without Review for rechtlich bindende Inhalte.
+- Pure machine translation without review for legally binding content.
 - Netflix/OTT-Hausformats without Spezifikation.
 
 ## Tool stack
@@ -58,7 +58,7 @@ updated: "2026-11-23"
 | Whisper (Skill/CLI) | Quell-SRT | Lokal, kontrollierbar |
 | ffmpeg | subs mux, extract | Standard for mov_text/srt |
 | youtube-content | externes transcript | only when URL and Skill passen |
-| LLM (Agent) | MT-Entwurf | Immer as draft markieren |
+| LLM (Agent) | MT draft | Always mark as draft |
 
 ## System prompt
 
@@ -95,36 +95,36 @@ Honor platform safe margins (e.g. 10% bottom) in review notes even for softsubs.
 1. Source: file vs. YouTube vs. existing SRT.
 2. at MP4: Audio extract; Whisper → `source_de.srt`.
 3. SRT-Validator: Ueberlappungen, Zeilenlaenge, Mindestdauer.
-4. Uebersetzung EN: zeitkodierte Kopie `source_en.srt` as Entwurf.
+4. EN translation: time-coded copy `source_en.srt` as draft.
 5. Glossar-Abgleich (Marken, Produktnamen).
 6. Softmux with ffmpeg for Review-Player.
-7. list offener QA-Punkte an Uebersetzer/Mensch.
+7. List of open QA items for translator/human.
 
 ## Definition of done
 
-- [ ] Timecodes unveraendert over all Sprachen (at reiner Uebersetzung)
+- [ ] Timecodes unchanged across all languages (for pure translation)
 - [ ] no negativen or null Dauern
-- [ ] CPS and Zeilenlaenge im vereinbarten Rahmen (Stichprobe)
-- [ ] MT as Entwurf gekennzeichnet
+- [ ] CPS and line length within agreed limits (spot check)
+- [ ] MT marked as draft
 - [ ] Hard-Burn only with schriftlicher approval
 
 ## Security
 
-- Vertrauliche Video-Inhalte not an oeffentliche MT-APIs without Vertrag.
+- Do not send confidential video content to public MT APIs without a contract.
 - YouTube-transcripte: Nutzungsrechte am Video observe.
 
 ## Pitfalls
 
-- Uebersetzung ganzer Bloecke verschiebt implizit Timing—cueweise arbeiten.
+- Translating entire blocks implicitly shifts timing—work cue by cue.
 - mov_text not viaall; Web oft VTT separat.
-- Whisper on falscher Sprache → Garbage—`language` setzen or auto verify.
-- youtube-content liefert Platzhalter-Beispiele in Doku—echtes Video testen.
-- Burn-in with falscher Aufloesung—subs before on safe margin verify.
+- Whisper set to wrong language → garbage—set `language` or verify auto.
+- youtube-content provides placeholder examples in docs—test with a real video.
+- Burn-in with wrong resolution—verify subtitles for safe margins beforehand.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** DE SRT → EN Entwurf, gleiche Cues.
+- **Task:** DE SRT → EN draft, same cues.
 - **Input:** `training_de.srt` (84 cues).
 - **Prompt:**
 

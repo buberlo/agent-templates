@@ -15,18 +15,18 @@ target_agents:
   - generic
 required_tools:
   - name: ffmpeg
-    install: "OS-Paket: ffmpeg (ffprobe mitgeliefert)"
-    version_notes: "FFmpeg 6.x/7.x; libx264 and AAC verfuegbar"
+    install: "OS package: ffmpeg (ffprobe included)"
+    version_notes: "FFmpeg 6.x/7.x; libx264 and AAC available"
   - name: ffprobe
     install: "Part of the ffmpeg-Pakets"
-    version_notes: "JSON-Ausgabe for Automatisierung"
+    version_notes: "JSON output for automation"
   - name: whisper
     install: "pip: openai-whisper or whisper.cpp CLI"
     version_notes: "large-v3-turbo for DE/EN; GPU optional"
 inputs:
   - "Quellvideo (MP4, MOV, MKV)"
   - "Cutfenster (IN/OUT or -ss/-to)"
-  - "Targetprofil (Aufloesung, Codec, Container)"
+  - "Target profile (resolution, codec, container)"
   - "Optional: Subtitles (ASR or lieferbare SRT)"
 outputs:
   - "Fertiges MP4 with web-tauglichem Profil"
@@ -43,15 +43,15 @@ This template guides agents through **cut**, **transcode**, and optional **subti
 
 ## When to use
 
-- Kunde liefert eine or wenige files; delivery should einheitliches H.264/AAC-MP4 plus optionale Subtitles sein.
+- Client provides one or a few files; delivery should be a uniform H.264/AAC MP4 plus optional subtitles.
 - Cut is linear (ein IN/OUT-Block or wenige Segmente); no Multicam-Sync.
 - Agent has Shell-Zugriff on `ffmpeg`/`ffprobe` (no dediziertes Video-MCP required).
 
 **When not to use**
 
 - Color Grading, komplexes Compositing or Frame-genaue Fusion mehrerer Kameras.
-- DRM-geschuetzte Quellen or Broadcast-Mezzanine with strikten Hausnormen without approvalprofil.
-- Einarbeitung in Social-Reels with Plattform-API-Upload (dafuer eigene Publishing-Templates).
+- DRM-protected sources or broadcast mezzanines with strict in-house standards without an approved profile.
+- Editing into social reels with platform API upload (use dedicated publishing templates for this).
 
 ## Tool stack
 
@@ -97,22 +97,22 @@ Never upload to third-party hosts or publish URLs without approval.
 2. Rohschnitt: `ffmpeg -i input.mov -ss 00:01:12.000 -to 00:04:05.000 -c copy cut.mkv` only when Codec/Container passen; sonst Re-Encode-Zweig.
 3. Transcode: `ffmpeg -i cut.mkv -vf scale=-2:1080 -c:v libx264 -crf 20 -preset medium -c:a aac -b:a 192k -movflags +faststart deliver.mp4`.
 4. Optional Whisper: `whisper deliver.mp4 --language de --output_format srt --output_dir ./subs/`.
-5. VTT from SRT ableiten or `ffmpeg -i deliver.mp4 -i subs.srt -c copy -c:s mov_text deliver_subs.mp4` after approval for Softsubs.
-6. QA: `ffprobe deliver.mp4`, Stichprobe with `ffplay` or Framegrab `ffmpeg -ss 30 -i deliver.mp4 -frames:v 1 qa.jpg`.
+5. Derive VTT from SRT or run `ffmpeg -i deliver.mp4 -i subs.srt -c copy -c:s mov_text deliver_subs.mp4` after approval for softsubs.
+6. QA: `ffprobe deliver.mp4`, spot check with `ffplay` or frame grab `ffmpeg -ss 30 -i deliver.mp4 -frames:v 1 qa.jpg`.
 
 ## Definition of done
 
 - [ ] Ausgabedauer weicht hoechstens ±0,5 s vom Cutfenster ab
 - [ ] Video `yuv420p`, Audio without Clipping; `-movflags +faststart` gesetzt
-- [ ] no sichtbarer A/V-Drift in Stichproben
-- [ ] Subtitles zeitlich plausibel (falls erzeugt); Eigennamen stichprobenartig geprueft
-- [ ] all FFmpeg-Befehle im Thread or Log dokumentiert
+- [ ] No visible A/V drift in spot checks
+- [ ] Subtitles temporally plausible (if generated); proper nouns spot-checked
+- [ ] All FFmpeg commands documented in thread or log
 
 ## Security
 
-- no Uploads on Cloud-Transcoder or Video-Hosting without Kundenfreigabe.
-- Meeting-Audio, faces and voices only with DSGVO-/confidentiality approval transkribieren.
-- Hard-Burn-Subtitles and irreversible Deletes only after expliziter Bestaetigung.
+- No uploads to cloud transcoders or video hosting without client approval.
+- Transcribe meeting audio, faces, and voices only with GDPR/confidentiality approval.
+- Hard-burned subtitles and irreversible deletes only after explicit confirmation.
 
 ## Pitfalls
 
@@ -120,7 +120,7 @@ Never upload to third-party hosts or publish URLs without approval.
 - `-ss` before `-i` is schneller, aber ungenauer; for deliveryen with Frame-Toleranz `<1s` `-ss` after `-i` nutzen.
 - Vertikale iPhone-Movies: Rotation-Metadaten vs. tatsaechliche Pixel—`ffprobe` and Testframe verify.
 - `loudnorm` zweimal anwenden or on bereits limitiertes Material—Pumping and Verzerrung.
-- Whisper halluziniert at Musik and Ueberlagerung—SRT manuell against Audio stichproben.
+- Whisper hallucinates during music and overlapping speech—manually spot-check SRT against audio.
 
 ## Basic examples
 
@@ -157,7 +157,7 @@ Transcribe training.mp4 to German SRT with Whisper, fix obvious proper nouns, mu
 ```text
 1
 00:00:01,200 --> 00:00:04,800
-Willkommen zum Onboarding-Modul drei.
+Welcome to onboarding module three.
 
 Output: training_de.srt, training_subs.mp4 (video copy + mov_text), ffprobe lists Stream #0:2 subtitle.
 ```

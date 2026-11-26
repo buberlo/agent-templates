@@ -36,7 +36,7 @@ updated: "2026-11-23"
 
 ## When to use
 
-- PKM/Team-Wiki liegt as Ordner im Repo.
+- PKM/team wiki is located as a folder in the repo.
 - Agent arbeitet im IDE with direktem filezugriff.
 - Offline-first, Sync separat (Syncthing/Git).
 
@@ -108,7 +108,7 @@ Add see-also section with 2-3 wikilinks when helpful.
 
 ## Security
 
-- Vault kann Secrets enthalten—not committen.
+- Vault may contain secrets—do not commit.
 - `.obsidian/plugins` API keys verify.
 - Loeschen only with approval.
 

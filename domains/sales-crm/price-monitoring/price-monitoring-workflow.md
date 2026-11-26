@@ -38,7 +38,7 @@ updated: "2026-11-23"
 
 - MAP policy monitoring for dealer network.
 - Track buy-box or competitor price daily.
-- Eigenen Shopify-Preis gegen Amazon-Liste spiegeln.
+- Mirror own Shopify price against Amazon listing.
 
 **When not to use**
 
@@ -78,17 +78,17 @@ If no prior snapshot, report baseline only no delta.
 ## Workflow
 
 1. Confirm watchlist and thresholds.
-2. Vor-Snapshot laden or Baseline markieren.
-3. Preise lesen (MCP + User-Shop-Export).
-4. Snapshot-Datei schreiben.
+2. Load pre-snapshot or mark baseline.
+3. Read prices (MCP + user shop export).
+4. Write snapshot file.
 5. Calculate deltas and MAP violations.
 6. Alert text for users (email manually).
-7. Kein Repricing-API-Call.
+7. No repricing API call.
 
 ## Definition of done
 
 - [ ] Neues Snapshot-File, altes unangetastet
-- [ ] VAT/Shipping dokumentiert
+- [ ] VAT/shipping documented
 - [ ] Alerts with delta pct
 - [ ] No car price change
 
@@ -100,7 +100,7 @@ If no prior snapshot, report baseline only no delta.
 ## Pitfalls
 
 - Tages-Deal without Ende-Datum als Dauerpreis.
-- Versand separat → falscher Vergleich.
+- Shipping separate → flawed comparison.
 - Ein Snapshot without Trend-Story.
 - MCP and shop export different SKU-IDs.
 - Sommerzeit in Cron falsch.

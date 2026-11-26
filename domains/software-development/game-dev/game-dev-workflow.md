@@ -38,7 +38,7 @@ Implement gameplay and UI logic in Godot/Unity — **headless smoke**, asset dis
 ## When to use
 
 - Mechanic prototype, Bug in GDScript/C#.
-- Export-Pipeline vorbereiten.
+- Prepare export pipeline.
 
 **When not:** AAA asset production without artist pipeline.
 
@@ -47,7 +47,7 @@ Implement gameplay and UI logic in Godot/Unity — **headless smoke**, asset dis
 | Tool | Role | Justification |
 |------|-------|------------|
 | Godot CLI | CI smoke | headless |
-| git LFS | assets |wenn policy|
+| git LFS | assets | if required by policy |
 | engine tests | GUT/NUnit | project |
 
 ## System prompt
@@ -73,7 +73,7 @@ Version pin engine in export preset notes.
 2. Szene/Script lokalisieren.
 3. Implement with a clear node hierarchy.
 4. Headless smoke or Test-Szene.
-5. Profiler-Hinweis wenn FPS-issue.
+5. Profiler note if there is an FPS issue.
 6. git commit without accidental large binaries.
 7. Export notes in README.
 
@@ -89,7 +89,7 @@ Smoke runs headless or documented editor step
 
 ## Pitfalls
 
-- Godot headless braucht Display tricks — project config.
+- Godot headless requires display tricks — project config.
 - Git without LFS — repo explode.
 - Singleton order race.
 - Unit vs integration in engine fuzzy.

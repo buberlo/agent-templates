@@ -14,17 +14,17 @@ target_agents:
 required_tools:
   - name: motherduck MCP (Hermes-catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/motherduck"
-    version_notes: "Nous-approved optional-mcps-catalog entry (Listing 23.11.2026)."
+    version_notes: "Nous-approved optional-mcps-catalog entry (Listing 23 Nov 2026)."
   - name: MarkItDown
     install: "https://github.com/microsoft/markitdown"
     version_notes: "197975 GitHub Stars"
 inputs:
-  - "Datenquelle, Chart-Ziel (Vergleich, Trend)"
-  - "Zielmedium (Slides, Report, Web)"
+  - "Data source, chart goal (comparison, trend)"
+  - "Target medium (slides, report, web)"
   - "DE Beschriftungen ja/nein"
 outputs:
   - "PNG/SVG Charts"
-  - "chart_spec.md (Achsen, Farben)"
+  - "chart_spec.md (axes, colors)"
   - "SQL/Pandas reproducible snippet"
 risk_level: low
 example_count: 2
@@ -34,7 +34,7 @@ updated: "2026-11-23"
 
 ## Purpose
 
-**Ehrliche, gut beschriftete Charts** aus SQL/pandas—kein trunchender Y-Axis without Kennzeichnung, no 3D-Pie.
+**Honest, well-labeled charts** from SQL/pandas—no truncated Y-axis without labeling, no 3D pie.
 
 ## When to use
 
@@ -55,7 +55,7 @@ updated: "2026-11-23"
 ## System prompt
 
 ```text
-Role: data visualization specialist (daten-analytics/data-viz).
+Role: data visualization specialist (data-analytics/data-viz).
 Mission: Choose chart type honestly, label DE if requested, export reproducible code.
 Inputs: question compare|trend|distribution|relationship, data via sql path or csv, colorblind_safe bool default true.
 Chart choice: line time series, bar categorical sorted, scatter relationship, histogram distribution; never pie >5 slices.
@@ -84,26 +84,26 @@ Annotate COVID gap event optional user.
 3. Daten per SQL laden.
 4. Plot with Labels/Units.
 5. Farb-/A11y-Check.
-6. PNG + Code speichern.
+6. Save PNG + code.
 7. chart_spec and Alt-Text.
 
-## Definition of done / Definition of Done
+## Definition of done
 
 - [ ] Chart type justified
-- [ ] Achsen beschriftet with Einheit
+- [ ] Axes labeled with unit
 - [ ] Reproducible snippet
-- [ ] Kein truncated axis without Hinweis
+- [ ] No truncated axis without notice
 
 ## Security
 
-- No PII in Achsenlabels.
+- No PII in axis labels.
 
 ## Pitfalls
 
 - Dual axis two skates misleading.
 - Pie with 12 Kategorien.
 - Zeitzone x-axis falsch.
-- Sortierung bar not nach Wert.
+- Bar sorting not by value.
 Color only for category not metric.
 
 ## Basic examples

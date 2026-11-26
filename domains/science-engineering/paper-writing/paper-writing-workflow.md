@@ -20,7 +20,7 @@ inputs:
   - "Context/briefing for paper writing"
   - "Files, URLs or IDs laut Task"
 outputs:
-  - "Dokumentiertes result (Datei, Bericht or Ticket-Update)"
+  - "Documented result (file, report, or ticket update)"
 risk_level: low
 example_count: 2
 version: "1.0.0"
@@ -79,12 +79,12 @@ Do not submit to journal on user behalf.
 
 - [ ] Any claim linked or UNKNOWN
 - [ ] Bibtex Keys tested
-- [ ] Kein Journal-Submit
+- [ ] No journal submission
 - [ ] Ethik AI Disclosure Vorlage
 
 ## Security
 
-- No Fabrication von Messwerten or Zitaten — UNKNOWN or Nutzerdaten.
+- No fabrication of measurement values or quotes — UNKNOWN or user data.
 - Version raw data and scripts; no deletion without release.
 - Peer-Review-Standards: no garantierte Annahme.
 
@@ -115,5 +115,5 @@ Do not submit to journal on user behalf.
 Point-by-point without aggressiven Ton.
 ```
 
-- **Expected result:** rebuttal.md; Verweis neue Fig S3 wenn User liefert.
+- **Expected result:** rebuttal.md; reference new Fig S3 if provided by user.
 

@@ -6,7 +6,7 @@
 
 ## Summary
 
-Translate Figma/Design systems into executable code or components.
+Translate Figma/design systems into working code or components.
 
 ## Recommended tool stack
 
@@ -17,19 +17,22 @@ Translate Figma/Design systems into executable code or components.
 
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| figma MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/figma | Design-to-Code-Kontext. | hermes mcp install figma | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
-| Playwright MCP | MCP | https://github.com/microsoft/playwright-mcp |Local browser automation with accessibility snapshots, UI tests and interaction with web apps.| npx @playwright/mcp@latest (offizielle Docs/Repo). | 40.040 Stars | https://playwright.dev/mcp/introduction | no (as cited) |
+| figma MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/figma | Design-to-code context. | hermes mcp install figma | Nous-approved optional-mcps catalog entry (listing 23 Nov 2026). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
+| Playwright MCP | MCP | https://github.com/microsoft/playwright-mcp | Local browser automation via accessibility snapshots, UI tests, and interaction with web apps. | npx @playwright/mcp@latest (official docs/repo). | 40,040 stars | https://playwright.dev/mcp/introduction | no (as cited) |
 
 ## Typical workflows
 
-- Only selected frames, not load entire files into context at once.
+- Set the task, allowed tools, and definition of done.
+- Read or research first, then draft, then request approval for any action that has effects.
+- Recheck the output (file, URL, ticket) and cite the source.
+- Load only selected frames into context, not entire files at once.
 
 ## Pitfalls
 
-- Skills are workflows/instructions (progressive disclosure); MCP servers are connections and tools. Combine both; do not conflate them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Enable only the MCPs/skills the task needs. Hermes filters via include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Do not put tokens or passwords in chat, skill files, or custom MCP command arguments. Grok Bot wiki: OAuth tokens stay on the connector backend; command servers must not pass credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Write, send, pay, deploy, and delete only after explicit approval; good document skills require a verify step (re-read the file, render PDF/PNG).
+- Skills are workflows/instructions (progressive disclosure), MCP are connections and tools. Combine the two, not confuse them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
+- Enable only the MCPs/Skills that the task needs. Hermes filters per include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
+- Do not write tokens or passwords in chat, skill files or command arguments of custom MCPs. Grok Bot wiki: OAuth tokens remain on the connector backend; Command servers must not contain credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- Write, send, pay, deploy and delete only after explicit approval; good document skills require a verify step (read the file again, render PDF/PNG).
 
 ## Sources
 
@@ -42,3 +45,6 @@ Translate Figma/Design systems into executable code or components.
 - https://hermes-agent.nousresearch.com/docs/reference/skills-catalog
 - https://docs.openclaw.ai/skills/
 - https://github.com/NousResearch/hermes-agent
+- https://code.claude.com/docs/en/features-overview
+- https://github.com/ComposioHQ/awesome-claude-skills
+- https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp

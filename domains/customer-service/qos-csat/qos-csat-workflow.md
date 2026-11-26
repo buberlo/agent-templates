@@ -77,18 +77,18 @@ Deliver: qos-report.md with tables, theme chart ascii optional, backlog.csv.
 
 1. Define period and metrics.
 2. Extension of the consequent increase in consumption
-3. Stichprobe negativer Tickets (n≤30) lesen.
+3. Read a sample of negative tickets (n≤30).
 4. Topics cluster with count.
-5. Delta zur Vorperiode berechnen.
+5. Calculate delta against the previous period.
 6. Qos-report.md and backlog.csv.
 7. Review with support lead; no auto measures in production.
 
 ## Definition of done
 
-- [ ] Aggregat + Stichprobe klar getrennt
+- [ ] Aggregate + sample clearly separated
 - [ ] Kundennamen in Report pseudonymisiert
 Each backlog line with evidence anchor
-- [ ] Vorperiode-Vergleich wenn Daten da
+- [ ] Prior-period comparison when data is available
 
 ## Security
 
@@ -126,7 +126,7 @@ File: qos-report.md
 
 ### Example 2 (Example data (self-written))
 - **Task:** Fehlender Zeitraum.
-- **Input:** Kein start/end.
+- **Input:** No start/end.
 - **Prompt:**
 
 ```text

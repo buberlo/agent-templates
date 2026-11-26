@@ -44,9 +44,42 @@ GERMAN_MARKER_WORDS = re.compile(
     r"\b(Zweck|Arbeitsablauf|Grundbeispiele|Beispieldaten|Praxisbeispiel|Lieferobjekt|"
     r"Eingabe|Freigabe|Kurzbeschreibung|Implementierung|Reiseplanung|Nutzer|Dateien|"
     r"Katalog|Begründung|Fallstricke|Qualitätskriterien|Sicherheit|wurde|können|koennen|"
-    r"Keine|keine|nicht|für|fuer)\b",
+    r"Keine|keine|nicht|für|fuer|müssen|muessen|Entwurf|Posteingang|Ordner|Datei|"
+    r"Offizielle|Websuche|erstellen|prüfen|pruefen|Serienbrief|Forensik|autorisiert|"
+    r"Produktvergleich|triagieren|Zusammenfassung|Checkliste|Eskalation|Folien|"
+    r"Dokumentation|Kontext|Netzwerk|Automatisierung|Vorbereitung|dokumentiert|"
+    r"oeffentlich\w*|Uebersetzung\w*|vollstaendig\w*|Aufloesung|verfuegbar|"
+    r"Enthaelt|Vertraege|Anderungen|Pruefung|Bitte|Termin)\b",
     re.I,
 )
+# Do not add \bdie\b — it false-positives on the English verb "die".
+
+GERMAN_DATE_RE = re.compile(r"\b\d{1,2}\.\d{1,2}\.20\d{2}\b")
+GERMAN_THOUSANDS_RE = re.compile(
+    r"\b\d{1,3}(?:\.\d{3})+\b(?=\s*(?:Stars|Downloads|EUR|stars|€))"
+)
+GERMAN_DECIMAL_EUR_RE = re.compile(r"\b\d{1,3}(?:\.\d{3})*,\d{2}\s*EUR\b")
+
+TOKEN_LOOP_RE = re.compile(
+    r"\b(\w+(?:\s+\w+){0,2})\s+(?:\1\s+){3,}\1\b"
+)
+CHAR_RUN_RE = re.compile(r"([^\s\-|=])\1{7,}")
+
+URL_RE = re.compile(r"https?://\S+")
+KNOWN_BAD_URL_PATTERNS = (
+    "github.n.com",
+    "githubaas",
+    "nousnesssearch",
+    "claue.com",
+    "claude.rel",
+    "urners-agent",
+    "fie-crawl",
+    "github.uni",
+    "code.com/composio",
+    "search.com/code",
+    "githb.com",
+)
+SUSPICIOUS_TLDS = {".zip", ".mov", ".tk", ".gq", ".cf", ".ml", ".ga"}
 
 
 def split_frontmatter(text):
@@ -271,12 +304,27 @@ def extract_basic_examples_expected_outputs(body: str) -> list[str]:
         return []
     part = body.split("## Basic examples", 1)[1]
     outputs = []
-    for pattern in (
-        r"\*\*Expected result:\*\*\s*\n\n```(?:text|bash)?\s*\n(.*?)```",
-        r"\*\*Expected result:\*\*\s+```(?:text|bash)?\s*\n(.*?)```",
-    ):
-        for m in re.finditer(pattern, part, re.S):
-            outputs.append(m.group(1).strip())
+    seen = set()
+    fence = re.compile(
+        r"\*\*Expected result:\*\*\s*\n*```(?:[\w+-]*)[ \t]*\n(.*?)```",
+        re.S,
+    )
+    inline = re.compile(
+        r"\*\*Expected result:\*\*[ \t]*\n*[ \t]*(?!```)([^\n]+"
+        r"(?:\n(?![ \t]*\*\*(?:Task|Input|Expected result|Prompt):|"
+        r"[ \t]*### |[ \t]*## )[^\n]+)*)"
+    )
+    for m in fence.finditer(part):
+        text = m.group(1).strip()
+        if text and text not in seen:
+            outputs.append(text)
+            seen.add(text)
+    for m in inline.finditer(part):
+        text = m.group(1).strip()
+        if not text or text.startswith("```") or text in seen:
+            continue
+        outputs.append(text)
+        seen.add(text)
     return outputs
 
 
@@ -420,14 +468,68 @@ def count_basic_examples(body):
     return len(re.findall(r"^### Example \d+", part, re.M))
 
 
+def text_without_urls(text: str) -> str:
+    return URL_RE.sub("", text or "")
+
+
 def text_has_german(text: str) -> bool:
     if not text or not text.strip():
         return False
-    if GERMAN_UMLAUT.search(text):
+    body = text_without_urls(text)
+    if GERMAN_UMLAUT.search(body):
         return True
-    if LEGACY_GERMAN_HEADINGS.search(text):
+    if LEGACY_GERMAN_HEADINGS.search(body):
         return True
-    return bool(GERMAN_MARKER_WORDS.search(text))
+    if GERMAN_HEADING_MARKERS.search(body):
+        return True
+    return bool(GERMAN_MARKER_WORDS.search(body))
+
+
+def german_number_format_errors(text: str) -> list[str]:
+    errors = []
+    body = text_without_urls(text)
+    if GERMAN_DATE_RE.search(body):
+        errors.append("language gate: German date format (use 23 Nov 2026, not 23.11.2026)")
+    if GERMAN_THOUSANDS_RE.search(body) or GERMAN_DECIMAL_EUR_RE.search(body):
+        errors.append(
+            "language gate: German number format (use 1,585 stars / 1,234.56 EUR)"
+        )
+    return errors
+
+
+def repetition_loop_errors(text: str) -> list[str]:
+    errors = []
+    for line in (text or "").splitlines():
+        if TOKEN_LOOP_RE.search(line):
+            errors.append("repetition loop: the same token sequence repeats in a line")
+            break
+        if CHAR_RUN_RE.search(line):
+            errors.append("repetition loop: a single character repeats 8+ times")
+            break
+    return errors
+
+
+def url_hygiene_errors(text: str) -> list[str]:
+    errors = []
+    for raw in URL_RE.findall(text or ""):
+        url = raw.rstrip(".,;:")
+        lowered = url.lower()
+        if "://" not in url:
+            errors.append(f"URL hygiene: malformed URL {url}")
+            continue
+        host = url.split("://", 1)[1].split("/")[0].split("?")[0].split("#")[0].lower()
+        if "🙂" in url or any(ord(ch) > 127 for ch in host):
+            errors.append(f"URL hygiene: non-ASCII or emoji host in {url}")
+            continue
+        if any(pat in lowered for pat in KNOWN_BAD_URL_PATTERNS):
+            errors.append(f"URL hygiene: known-bad or typo domain in {url}")
+            continue
+        # TLD is last label, plus handle two-part like .co.uk as last label only
+        if "." in host:
+            tld = "." + host.rsplit(".", 1)[-1]
+            if tld in SUSPICIOUS_TLDS:
+                errors.append(f"URL hygiene: suspicious TLD {tld} in {url}")
+    return errors
 
 
 def path_has_legacy_german(rel: str) -> bool:
@@ -501,6 +603,102 @@ def language_gate(rel: str, fm_text: str | None, data: dict | None, body: str, f
             errors.append(f"language gate: German section heading {line.strip()!r}")
     if text_has_german(body):
         errors.append("language gate: German text in body")
+    errors.extend(german_number_format_errors(full_text))
+    errors.extend(repetition_loop_errors(full_text))
+    errors.extend(url_hygiene_errors(full_text))
+    return errors
+
+
+def validate_mcp_catalog_categories() -> list[str]:
+    """Every mcp/catalog.json category must be an existing domain/category path."""
+    errors: list[str] = []
+    if not MCP_CATALOG_PATH.is_file():
+        return errors
+    try:
+        data = json.loads(MCP_CATALOG_PATH.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return errors
+    existing = {
+        f"{p.parent.name}/{p.name}"
+        for p in DOMAINS_DIR.glob("*/*")
+        if p.is_dir() and not p.name.startswith(".")
+    }
+    for i, server in enumerate(data.get("servers") or []):
+        name = server.get("name") or f"servers[{i}]"
+        for cat in server.get("categories") or []:
+            if cat not in existing:
+                errors.append(
+                    f"{MCP_CATALOG_PATH.relative_to(ROOT)}: "
+                    f"{name!r} references missing category {cat!r}"
+                )
+    count = data.get("count")
+    servers = data.get("servers") or []
+    if isinstance(count, int) and count != len(servers):
+        errors.append(
+            f"{MCP_CATALOG_PATH.relative_to(ROOT)}: count {count} != "
+            f"{len(servers)} servers"
+        )
+    return errors
+
+
+def _count_sources_unique_urls() -> int:
+    path = ROOT / "research" / "SOURCES.md"
+    if not path.is_file():
+        return 0
+    text = path.read_text(encoding="utf-8")
+    part = text.split("## URL list", 1)[1] if "## URL list" in text else text
+    urls = []
+    for line in part.splitlines():
+        line = line.strip()
+        if line.startswith("- http"):
+            urls.append(line[2:].strip().rstrip(".,;"))
+    return len(set(urls))
+
+
+def validate_published_counts(template_count: int) -> list[str]:
+    errors: list[str] = []
+    readme = ROOT / "README.md"
+    if readme.is_file():
+        text = readme.read_text(encoding="utf-8")
+        if not re.search(rf"\| Templates \| {template_count}\b", text):
+            errors.append(
+                f"README.md: Templates count must be {template_count}"
+            )
+        mcp_count = None
+        if MCP_CATALOG_PATH.is_file():
+            try:
+                mcp_count = json.loads(
+                    MCP_CATALOG_PATH.read_text(encoding="utf-8")
+                ).get("count")
+            except json.JSONDecodeError:
+                mcp_count = None
+        if isinstance(mcp_count, int) and not re.search(
+            rf"\| MCP entries \| {mcp_count}\b", text
+        ):
+            errors.append(f"README.md: MCP entries count must be {mcp_count}")
+    mcp_readme = ROOT / "mcp" / "README.md"
+    if mcp_readme.is_file() and MCP_CATALOG_PATH.is_file():
+        try:
+            mcp_count = json.loads(
+                MCP_CATALOG_PATH.read_text(encoding="utf-8")
+            ).get("count")
+        except json.JSONDecodeError:
+            mcp_count = None
+        text = mcp_readme.read_text(encoding="utf-8")
+        if isinstance(mcp_count, int) and not re.search(
+            rf"\*\*{mcp_count}\*\* entries", text
+        ):
+            errors.append(
+                f"mcp/README.md: entry count must be {mcp_count}"
+            )
+    sources = ROOT / "research" / "SOURCES.md"
+    if sources.is_file():
+        unique = _count_sources_unique_urls()
+        text = sources.read_text(encoding="utf-8")
+        if not re.search(rf"Unique HTTP sources: \*\*{unique}\*\*", text):
+            errors.append(
+                f"research/SOURCES.md: Unique HTTP sources must be {unique}"
+            )
     return errors
 
 
@@ -515,6 +713,7 @@ def catalog_generated_at(templates: list[dict]) -> str:
 
 
 def main():
+    check_only = "--check" in sys.argv
     schema = load_schema()
     templates = discover_templates()
     all_errors = []
@@ -579,8 +778,8 @@ def main():
             else:
                 seen_ids[tid] = str(rel)
         for section in required_body_sections():
-            if section not in body:
-                errs.append(f"missing section {section}")
+            if not re.search(rf"^{re.escape(section)}\s*$", body, re.M):
+                errs.append(f"missing exact section heading {section}")
         ec = data.get("example_count")
         found = count_basic_examples(body)
         if isinstance(ec, int) and found < ec:
@@ -612,6 +811,7 @@ def main():
 
     all_errors.extend(duplicate_system_prompt_line_errors(template_bodies_for_dupes))
     all_errors.extend(validate_mcp_catalog_language())
+    all_errors.extend(validate_mcp_catalog_categories())
 
     for domain, category in sorted(expected_cats):
         cat_dir = DOMAINS_DIR / domain / category
@@ -622,6 +822,8 @@ def main():
         ]
         if not tpl_files:
             all_errors.append(f"domains/{domain}/{category}: no template files")
+
+    all_errors.extend(validate_published_counts(len(validated_templates)))
 
     if all_errors:
         print("Validation failed:", file=sys.stderr)
@@ -670,6 +872,13 @@ def main():
                 "categories": cats,
             }
         )
+
+    if check_only:
+        print(
+            f"OK (check only): {len(catalog['domains'])} domains, "
+            f"{len(expected_cats)} categories, {len(catalog['templates'])} templates."
+        )
+        return 0
 
     catalog_path = ROOT / "catalog.json"
     with catalog_path.open("w", encoding="utf-8") as f:

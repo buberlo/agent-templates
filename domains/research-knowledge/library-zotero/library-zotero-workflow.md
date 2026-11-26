@@ -37,14 +37,14 @@ updated: "2026-11-23"
 ## When to use
 
 Team uses Zotero as a single source for quotes.
-- Agent liefert .bib + Import-Schritte or Web-Translator-Hinweise.
+- Agent provides .bib + import steps or Web Translator instructions.
 - DOI-Listen aus Papers abarbeiten.
 
 **When not**
 
 - Vollautomatik without Zotero API/Connector beim User.
 - Paywall-PDFs massenladen.
-- Bibtex without User-Review bei Thesis.
+- BibTeX without user review for a thesis.
 
 ## Tool stack
 
@@ -94,8 +94,8 @@ Keep abstract optional not required for import.
 
 1. Eingabeliste normalisieren (DOI bevorzugt).
 2. Metadaten pro Eintrag holen.
-3. BibTeX schreiben.
-4. Duplikate gegen User-.bib.
+3. Write BibTeX.
+4. Check duplicates against user .bib.
 5. import_steps.md.
 Missing metadata for FAILs.
 7. User importiert lokal.
@@ -104,14 +104,14 @@ Missing metadata for FAILs.
 
 - [ ] Jeder Eintrag DOI or MISSING note
 - [ ] Keys eindeutig
-- [ ] Import-Schritte klar
+- [ ] Import steps clear
 - [ ] No Paywall-PDFs gezogen
 - [ ] No fake DOI
 
 ## Security
 
 - Zotero Sync Token not in chat.
-- PDFs nur OA.
+- PDFs only if OA.
 - Thesis-Daten lokal.
 
 ## Pitfalls
@@ -119,13 +119,13 @@ Missing metadata for FAILs.
 - Falsche BibTeX-Typen.
 - Umlaute in keys.
 - BBT without Refresh.
-- Crossref Lag bei neuen DOIs.
+- Crossref lag for new DOIs.
 - Duplicate keys on import.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** 5 DOIs nach BibTeX.
+- **Task:** 5 DOIs to BibTeX.
 - **Input:** DOI-Liste Projekt X.
 - **Prompt:**
 

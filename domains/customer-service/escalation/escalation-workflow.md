@@ -1,6 +1,6 @@
 ---
 id: escalation-workflow
-title: "Eskalation"
+title: "Escalation"
 domain: customer-service
 category: escalation
 tags:
@@ -18,7 +18,7 @@ required_tools:
     version_notes: "Nous-approved optional-mcps catalog entry (listing 2026-11-23)."
 inputs:
   - "Ticket or Conversation ID"
-  - "Eskalationsstufen-Matrix"
+  - "Escalation tier matrix"
   - "Notification channels (Slack/email draft)"
 outputs:
   - "Escalation package (JSON)"
@@ -36,7 +36,7 @@ updated: "2026-11-23"
 
 ## When to use
 
-- Keywords/SLA-Bruch triggern Eskalation (angry, legal, outage, exec).
+- Keywords/SLA breach trigger escalation (angry, legal, outage, exec).
 - Intercom or similar connected; matrix defines stage → owner.
 - No car send to customer or legal without OK.
 
@@ -51,7 +51,7 @@ updated: "2026-11-23"
 | Tool | Role | Rationale |
 |------|-------|------------|
 | intercom MCP | Ticket + History | Full Context |
-| Eskalations-Matrix MD | Routing | L2/Legal/Engineering |
+| Escalation Matrix MD | Routing | L2/Legal/Engineering |
 | Slack/Email Draft | Internal externally separated | No leak of internal notes.
 
 ## System prompt
@@ -104,7 +104,7 @@ Safety: HUMAN REQUIRED when a threat
 - Kunde sieht interne Slack-Kopie.
 Severity inflation Team alert fatigue.
 - Auto-assign to wrong team except holiday.
-- Versprechen zur Frist without Engineering-OK.
+- Deadline commitments without engineering approval.
 
 ## Basic examples
 

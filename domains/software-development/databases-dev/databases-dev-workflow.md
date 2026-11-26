@@ -82,7 +82,7 @@ No manual prod psql unless user supplies PROD_APPROVE.
 
 - [ ] Down migration present or justified
 - [ ] Tests green
-- [ ] EXPLAIN bei Perf-Tasks
+- [ ] EXPLAIN for performance tasks
 
 ## Security
 
@@ -92,8 +92,8 @@ No manual prod psql unless user supplies PROD_APPROVE.
 ## Pitfalls
 
 - Migration without Lock-Zeit-Denken — Big table freeze.
-- Nullable fehlt bei Backfill.
-- Unique Index vor Duplikat-Cleanup.
+- Missing nullable during backfill.
+- Unique index before duplicate cleanup.
 - ORM auto migration silently diverges.
 - CROSS JOIN accidental.
 

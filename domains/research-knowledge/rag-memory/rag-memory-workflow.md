@@ -19,7 +19,7 @@ required_tools:
     install: "Hermes bundled /obsidian"
     version_notes: "Visible store"
 inputs:
-  - "Fakten zum Persistieren"
+  - "Facts to persist"
   - "Vault or mem0 Scope"
 outputs:
   - "Persistierte Memories"
@@ -108,13 +108,13 @@ Log embedding model name when indexing.
 - [ ] No Secrets persistiert
 - [ ] Retrieval-Test bestanden
 - [ ] Source per fact
-- [ ] ClawHub verified wenn genutzt
+- [ ] ClawHub verified when used
 - [ ] Delete with confirm
 
 ## Security
 
-- ClawHub verify Pflicht.
-- DSGVO bei PII.
+- ClawHub verification mandatory.
+- GDPR for PII.
 - API keys env only.
 
 ## Pitfalls

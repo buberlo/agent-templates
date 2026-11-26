@@ -30,19 +30,19 @@ updated: "2026-11-23"
 
 ## Purpose
 
-Mods entwickeln or konfigurieren — Skripte, Konfigs and Asset-Pipelines for games, the the user legal besitzt.
+Develop or configure mods — scripts, configs, and asset pipelines for games the user legally owns.
 
 ## When to use
 
-- Mod-Struktur for a erlaubtes game planen or bestehenden Mod debuggen.
-- Load-Order, Dependencies and kompatible Versionen dokumentieren.
+- Plan the mod structure for an allowed game or debug an existing mod.
+- Document load order, dependencies, and compatible versions.
 - Not for Piraterie, Anti-Cheat-Bypass or Schummel in Online-Ranked.
 
 ## Tool stack
 
 | Tool | Role | Rationale |
 |------|-------|------------|
-| unreal-engine MCP (Hermes catalog) | Engine-Integration | Wenn Hermes unreal-engine MCP installiert ist: Editor-Aktionen dokumentieren. |
+| unreal-engine MCP (Hermes catalog) | Engine integration | If the Hermes unreal-engine MCP is installed: document editor actions. |
 
 ## System prompt
 
@@ -67,30 +67,30 @@ Backup savegames before user applies mod locally—remind, do not run without pa
 
 ## Workflow
 
-1. game, Version, Mod-Loader and Ziel (neu/fix/Config) klaren.
+1. Clarify game, version, mod loader, and goal (new/fix/config).
 2. Bestehende Mod-Files lesen; Abhangigkeiten tabellieren.
 3. Anderungsplan with Rollback and Savegame-Hinweis.
-4. Code/Config-Entwurf with kleinen testbaren Schritten.
+4. Code/config draft with small testable steps.
 5. Load-Order and Konfliktpotenzial with anderen Mods bewerten.
-6. README Install/Deinstall erstellen.
+6. Create install/uninstall README.
 7. user wendet Mod lokal an; agent ladt nichts hoch.
 
 ## Definition of done
 
 - [ ] Game-Version and Loader genannt
-- [ ] Kein DRM-Bypass
-- [ ] Rollback dokumentiert
+- [ ] No DRM bypass
+- [ ] Rollback documented
 - [ ] No Nexus upload without release
 
 ## Security
 
-- Nur legale Kopien, eigene Server or from Entwickler erlaubte Modding-Workflows.
+- Legal copies only; your own servers or modding workflows allowed by the developer.
 - No Crack-, Keygen- or DRM-Umgehungsanleitungen.
-- Anderungen an Live-Servern or Mod-Uploads only nach approval.
+- Changes to live servers or mod uploads only after approval.
 
 ## Pitfalls
 
-- Patch-Inkompatibilitat nach Game-update.
+- Patch incompatibility after game update.
 - Zwei Mods uberschreiben dieselbe Config — Merge-Plan notig.
 - BepInEx vs. Melon Loader verwechseln.
 - Unreal MCP without Backup von Assets.
@@ -99,10 +99,10 @@ Backup savegames before user applies mod locally—remind, do not run without pa
 
 ### Example 1 (Example data (self-written))
 - **Task:** Skyrim Quality-of-Life Mod Config
-- **Input:** Skyrim SE 1.6.640, SKSE, Ziel: UI-Skalierung in INI
+- **Input:** Skyrim SE 1.6.640, SKSE, goal: UI scaling in INI
 - **Prompt:**
 ```text
-Zeige sichere INI-Anderungen with Backup-Schritten. No Script-Extender-DLLs from Unbekannten.
+Show safe INI changes with backup steps. No script extender DLLs from unknown sources.
 ```
 - **Expected result:** Markdown with 3 INI-Zeilen, Backup-Batch-Hinweis, Load-Order unverandert.
 ### Example 2 (Example data (self-written))
@@ -110,7 +110,7 @@ Zeige sichere INI-Anderungen with Backup-Schritten. No Script-Extender-DLLs from
 - **Input:** Eigenes UE5.4 Projekt, wolf companion blueprint
 - **Prompt:**
 ```text
-Ordnerstruktur Content/Mods/Wolf and Anderungsliste for MCP-sichere Schritte.
+Folder structure Content/Mods/Wolf and change list for MCP-safe steps.
 ```
 - **Expected result:** README + Component list; MCP calls only by user sharing per step.
 

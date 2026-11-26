@@ -6,31 +6,34 @@
 
 ## Summary
 
-Brand guidelines, design systems, Figma/Canva connection and visual templates.
+Markenrichtlinien, Design-Systeme, Figma/Canva-Anbindung and visuelle Vorlagen.
 
 ## Recommended tool stack
 
-Figma and Canva MCPs
-Infographic and design skills
+- Figma- and Canva-MCPs
+- Infographic- and Design-Skills
 
 ## MCP servers and skills
 
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| figma MCP (Hermes-catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/figma | Figma aus dem Nous-catalog. | hermes mcp install figma | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
-| canva MCP (Hermes-catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/canva | Canva aus dem Nous-catalog. | hermes mcp install canva | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
-| Hermes-Skills baoyu-infographic, popular-web-designs, claude-design | Skill | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | Infografiken, HTML-Design-Systeme, einmalige HTML-Artefakte. | Bundled creative/. | Bundled. | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | no (as cited) |
+| figma MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/figma | Figma from the Nous catalog. | hermes mcp install figma | Nous-approved optional-mcps catalog entry (listing 23 Nov 2026). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
+| canva MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/canva | Canva from the Nous catalog. | hermes mcp install canva | Nous-approved optional-mcps catalog entry (listing 23 Nov 2026). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
+| Hermes skills baoyu-infographic, popular-web-designs, claude-design | Skill | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | Infographics, HTML design systems, one-off HTML artifacts. | Bundled creative/. | Bundled. | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | no (as cited) |
 
 ## Typical workflows
 
-- Set brand tokens first, then create artifact and visually test.
+- Set the task, allowed tools, and definition of done.
+- Read or research first, then draft, then request approval for any action that has effects.
+- Recheck the output (file, URL, ticket) and cite the source.
+- Define brand tokens first, then generate the artifact and inspect it visually.
 
 ## Pitfalls
 
-It is then possible to provide the following information: alive, combining the two, not the same. Sources: https://code.claude.com/docs/en/features-overview , https://github.uni/com...
-- Only activate the MCPs/Skills the task needs. PLEASE I W (yourselves) 05: . . . Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mp.
-- Do not write tokens or passwords in chat, skill files or command-patterns of custom-MCPs. Grok bot wiki: OAuth tokens remain on the connector backend; Command-servers may not contain the credentials in the field. Source: https://www.grokbotwiki importer.com/guides/grok-bot-plugins-mcp
-- Write, send, pay, deploy and delete only after explicit approval; good document skills require a Ver concerned stepon (Reread File, render PDF/PNG).
+- Skills are workflows/instructions (progressive disclosure), MCP are connections and tools. Combine the two, not confuse them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
+- Enable only the MCPs/Skills that the task needs. Hermes filters per include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
+- Do not write tokens or passwords in chat, skill files or command arguments of custom MCPs. Grok Bot wiki: OAuth tokens remain on the connector backend; Command servers must not contain credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- Write, send, pay, deploy and delete only after explicit approval; good document skills require a verify step (read the file again, render PDF/PNG).
 
 ## Sources
 
@@ -41,3 +44,4 @@ It is then possible to provide the following information: alive, combining the t
 - https://github.com/punkpeye/awesome-mcp-servers
 - https://docs.openclaw.ai/skills/
 - https://github.com/NousResearch/hermes-agent
+- https://code.claude.com/docs/en/features-overview

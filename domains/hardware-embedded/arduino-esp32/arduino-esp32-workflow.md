@@ -29,7 +29,7 @@ updated: "2026-11-23"
 
 ## Purpose
 
-Arduino- and ESP32-sketches entwickeln, Pinouts dokumentieren and Flash-/Seriell-Workflows begleiten.
+Develop Arduino and ESP32 sketches, document pinouts, and guide flash and serial workflows.
 
 ## When to use
 
@@ -66,13 +66,13 @@ End with build/flash command summary and open hardware questions.
 
 ## Workflow
 
-1. Board, Framework and Sensorliste from user erfassen.
+1. Capture board, framework, and sensor list from user.
 2. Pinout-Tabelle and Schaltplan-referral.
-3. Sketch-Entwurf with modularen .h/.cpp when sinnvoll.
-4. Build-Befehle dokumentieren.
-5. Flash-Checkliste (Port, Treiber, Boot-Modus).
+3. Sketch draft with modular .h/.cpp when appropriate.
+4. Document build commands.
+5. Flash checklist (port, driver, boot mode).
 6. Seriell-Log-Interpretation an Nutzerlieferung.
-7. Nach approval: Flash only when user explizit ausfuhrt.
+7. After approval: flash only when explicitly executed by the user.
 
 ## Definition of done
 
@@ -84,14 +84,14 @@ End with build/flash command summary and open hardware questions.
 ## Security
 
 - No Anleitungen for gefahrliche high voltage or defekte power supplies without qualified person.
-- Flash/Bootloader only with Nutzerfreigabe and dokumentiertem Rollback.
+- Flash/bootloader only with user approval and documented rollback.
 - Seriennummern and Standortdaten in Logs minimieren.
 
 ## Pitfalls
 
 - GPIO34–39 input-only on ESP32.
 - Brownout when WiFi start without Kapazitat.
-- Falscher USB-Chip Treiber (CP2102 vs CH340).
+- Wrong USB chip driver (CP2102 vs CH340).
 - Deep sleep without RTC GPIO Wake definiert.
 
 ## Basic examples
@@ -111,5 +111,5 @@ Sketch with init check, Celsius log alle 5s not-blockierend.
 ```text
 Diagnosebaum Treiber, Kabel, Boot-Button, Baud reduzieren.
 ```
-- **Expected result:** Checkliste 8 Schritte; Rollback letzte funktionierende commit sha.
+- **Expected result:** 8-step checklist; rollback to last working commit SHA.
 

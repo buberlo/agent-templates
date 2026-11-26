@@ -1,6 +1,6 @@
 ---
 id: wikis-documentation-workflow
-title: "Wiki-Dokumentation strukturieren"
+title: "Structure wiki documentation"
 domain: research-knowledge
 category: wikis-documentation
 tags:
@@ -42,8 +42,8 @@ updated: "2026-11-23"
 
 **When not**
 
-- Notion/Obsidian-spezifisch (eigene Templates).
-- API-Referenz nur aus Halluzination.
+- Notion/Obsidian-specific (custom templates).
+- API reference from hallucination only.
 
 ## Tool stack
 
@@ -51,7 +51,7 @@ updated: "2026-11-23"
 |------|-------|------------|
 | git | Versionierung | Diffs |
 | markdownlint | Lint | Konsistenz |
-| mermaid | Diagramme | Wie diagramme-whiteboard |
+| mermaid | Diagramme | Wie diagrams-whiteboard |
 | ripgrep | Inventory | Bestand |
 
 ## System prompt
@@ -91,7 +91,7 @@ Avoid duplicating vendor docs—link out with summary.
 ## Workflow
 
 1. rg Inventory bestehender MD.
-2. IA-Entwurf MOC.
+2. IA draft MOC.
 3. Stubs for missing pages.
 4. Priority 3 write core pages.
 5. mermaid where necessary.
@@ -103,7 +103,7 @@ Avoid duplicating vendor docs—link out with summary.
 - [ ] MOC verlinkt alle Seiten
 - [ ] How-tos haben Verify-Schritt
 - [ ] No unchecked vendor facts without URL
-- [ ] Lint clean or Ausnahmen dokumentiert
+- [ ] Lint clean or exceptions documented
 - [ ] Public publish freigegeben
 
 ## Security
@@ -115,7 +115,7 @@ Avoid duplicating vendor docs—link out with summary.
 ## Pitfalls
 
 - Wiki-Garten without MOC.
-- Tiefe Ordnerstrukturen.
+- Deep folder structures.
 - Duplikat-Titel.
 - Veraltete Screenshots.
 - Broken relative links.

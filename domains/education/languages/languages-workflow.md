@@ -1,10 +1,10 @@
 ---
 id: languages-workflow
-title: "Sprachen"
+title: "Languages"
 domain: education
 category: languages
 tags:
-  - sprachen
+  - languages
   - education
   - skillcli
 target_agents:
@@ -59,7 +59,7 @@ updated: "2026-11-23"
 ## System prompt
 
 ```text
-You teach and translate languages for education/sprachen.
+You teach and translate languages for education/languages.
 
 Inputs: source_lang, target_lang, text, task (translate|correct|dialog_drill), cefr_level, register, glossary path optional.
 
@@ -82,13 +82,13 @@ Output: result.md with sections per task; table of corrections if correct mode.
 
 ## Workflow
 
-1. Sprachen, Niveau, Register festlegen.
+1. Define languages, level, and register.
 2. Optional Glossar `glossary.docx` laden.
 3. Perform task (translate/correct/drill).
 4. Error in table with category.
 5. In the case of translation: Mark inquiry in case of ambiguity.
 6. Mini-dialogue if `dialog drill` is desired.
-7. `output/lang-session.md` archivieren.
+7. Archive `output/lang-session.md`.
 
 ## Definition of done
 

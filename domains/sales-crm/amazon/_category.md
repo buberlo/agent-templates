@@ -16,7 +16,7 @@ Amazon product, order and Seller Central data (often unofficial or Seller APIs).
 
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| HasData/amazon-mcp | MCP | https://github.com/HasData/amazon-mcp |Catalog entry: Product data, reviews, seller as JSON.| Siehe Repo (typisch API-Key-Dienst). |Stars not pulled here via API.| https://github.com/punkpeye/awesome-mcp-servers | ja, markiert |
+| HasData/amazon-mcp | MCP | https://github.com/HasData/amazon-mcp | Catalog entry: product data, reviews, and seller as JSON. | See the repo (typically an API-key service). | Stars not pulled here via API. | https://github.com/punkpeye/awesome-mcp-servers | yes, marked |
 
 ## Typical workflows
 

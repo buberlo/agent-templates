@@ -6,28 +6,32 @@
 
 ## Summary
 
-Lokale Vaults read, verlinken, notieren – oft as Memory-Layer.
+Read, link, and take notes in local vaults – often as a memory layer.
 
 ## Recommended tool stack
 
-- Obsidian-Skill on the lokalen Vault
+- Obsidian-Skill auf den lokalen Vault
 
 ## MCP servers and skills
 
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| Obsidian-Skills (Hermes bundled, ClawHub steipete) | Skill | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | Vault read, suchen, Notizen anlegen/edit – frequentlyer Memory-/Wissens-Layer. | Hermes bundled /obsidian. OpenClaw: ClawHub-Skill Obsidian (steipete). | ClawHub: 92.458 Downloads, 381 Stars (Leaderboard 23.11.2026). | https://clawhubtrends.com/leaderboard.html | no (as cited) |
+| Obsidian skills (Hermes bundled, ClawHub steipete) | Skill | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | Read and search vault, create/edit notes – common memory/knowledge layer. | Hermes bundled /obsidian. OpenClaw: ClawHub skill Obsidian (steipete). | ClawHub: 92,458 downloads, 381 stars (leaderboard 23 Nov 2026). | https://clawhubtrends.com/leaderboard.html | no (as cited) |
 
 ## Typical workflows
 
-- Neue Notizen with Quellenangaben; bestehende files not still viawrite.
+- Set the task, allowed tools, and definition of done.
+- Read or research first, then draft, then request approval for any action that has effects.
+- Recheck the output (file, URL, ticket) and cite the source.
+- New notes with source citations; do not silently overwrite existing files.
 
 ## Pitfalls
 
-- Skills are workflows/instructions (progressive disclosure); MCPs are connections and tools. Combine both; do not confuse them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
-- Enable only the MCPs/skills the task needs. Hermes filters via include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
-- Do not put tokens or passwords in chat, skill files, or custom MCP command arguments. Grok Bot wiki: OAuth tokens stay on the connector backend; command servers must not include credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
-- Write, send, pay, deploy, and delete only after explicit approval; good document skills require a verify step (re-read the file, render PDF/PNG).
+- Skills are workflows/instructions (progressive disclosure), MCP are connections and tools. Combine the two, not confuse them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
+- Enable only the MCPs/Skills that the task needs. Hermes filters per include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
+- Do not write tokens or passwords in chat, skill files or command arguments of custom MCPs. Grok Bot wiki: OAuth tokens remain on the connector backend; Command servers must not contain credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
+- Write, send, pay, deploy and delete only after explicit approval; good document skills require a verify step (read the file again, render PDF/PNG).
+- OpenClaw loading order can overwrite the same skill name from different roots. Source: https://docs.openclaw.ai/skills/
 
 ## Sources
 
@@ -36,3 +40,7 @@ Lokale Vaults read, verlinken, notieren – oft as Memory-Layer.
 - https://docs.openclaw.ai/skills/
 - https://github.com/punkpeye/awesome-mcp-servers
 - https://github.com/NousResearch/hermes-agent
+- https://code.claude.com/docs/en/features-overview
+- https://github.com/ComposioHQ/awesome-claude-skills
+- https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp
+- https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp

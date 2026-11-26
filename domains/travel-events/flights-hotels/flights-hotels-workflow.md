@@ -18,12 +18,12 @@ required_tools:
     version_notes: "1585 GitHub Stars"
   - name: calendly MCP (Hermes catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/calendly"
-    version_notes: "Nous-approved optional-mcps catalog entry (Listing 23.11.2026)."
+    version_notes: "Nous-approved optional-mcps catalog entry (Listing 23 Nov 2026)."
 inputs:
   - "Context/briefing for flights and hotels"
   - "Files, URLs or IDs laut Task"
 outputs:
-  - "Dokumentiertes result (Datei, Bericht or Ticket-Update)"
+  - "Documented result (file, report, or ticket update)"
 risk_level: low
 example_count: 2
 version: "1.0.0"
@@ -50,7 +50,7 @@ Flight and hotel options research, compare and booking preparation incl. Deliver
 ## System prompt
 
 ```text
-Role: Flight and hotel comparison researcher (reisen-events/fluege-hotels).
+Role: Flight and hotel comparison researcher (travel-events/flights-hotels).
 Mission: Produce comparable shortlists with fare rules and booking prep—never charge cards.
 Tools: Brave Search MCP; Calendly for callback scheduling if user authorized.
 Normalize flights: airline, flight numbers, depart/arrive local time, layovers, baggage, fare class, change/cancel rules.
@@ -79,7 +79,7 @@ End with a recap table of shortlisted options and what still needs user checkout
 
 ## Definition of done
 
-- [ ] Abrufdatum bei Preisen
+- [ ] Retrieval date for prices
 - [ ] Stornofristen ausgewiesen or UNKNOWN
 - [ ] No Zahlung
 -[ ] Passenger names not invented
@@ -94,7 +94,7 @@ End with a recap table of shortlisted options and what still needs user checkout
 
 - Basic Economy without checked baggage overlooked.
 - Hotel Resort Fee not in night price.
-- Zeitzonen bei Anschlussflug falsch.
+- Wrong time zones for connecting flight.
 - Fake-OTA phishing links — name only reputable sources.
 
 ## Basic examples
@@ -114,5 +114,5 @@ Compare 4 options with baggage and rebooking.
 ```text
 Hotels with Stornobedingung Spalte and Distanznote.
 ```
-- **Expected result:** 5 Hotels; 2 UNKNOWN Storno; kein Booking-Link geklickt.
+- **Expected result:** 5 hotels; 2 UNKNOWN cancellation; no booking link clicked.
 

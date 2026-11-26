@@ -43,7 +43,7 @@ Introduce or repair GitHub actions for Lint and tests – with pinnable actions,
 
 ## When to use
 
-- Neues Repo without CI or flaky Pipeline nach Dependency-Upgrade.
+- New repo without CI or flaky pipeline after dependency upgrade.
 - PR should have green checks before Branch Protection takes effect.
 
 **When not to use:* Full GitLab-Migration or, Self-Hosted-Runner-Hardening in one step (own runbooks).
@@ -53,7 +53,7 @@ Introduce or repair GitHub actions for Lint and tests – with pinnable actions,
 | Tool | Role | Rationale |
 |------|-------|------------|
 | gh | Actions/PRs | `gh run view`, Logs without Browser |
-| act | Lokal | Workflows vor Push testen |
+| act | Local | Test workflows before push |
 | GITHUB_TOKEN | CI | Least scope in workflow permissions |
 
 ## System prompt
@@ -83,37 +83,37 @@ Output: final ci.yml snippet, commands run, and check names for branch rules.
 
 1 `gh repo view --j and `gh workflow list' for actual status.
 2. Fehljob: `gh run list --branch main --limit 3` dann `gh run view <id> --log-failed`.
-3. Lokal reproduzieren: `pytest -q` / `npm test` wie im Workflow dokumentiert.
-4. Workflow entwerfen or fixen unter `.github/workflows/ci.yml` (lint + test Jobs).
+3. Reproduce locally: `pytest -q` / `npm test` as documented in the workflow.
+4. Draft or fix workflow under `.github/workflows/ci.yml` (lint + test jobs).
 5. `act pull_request -j test` (optional `-P ubuntu-latest=catthehacker/ubuntu:act-latest`).
 6. Branch pushing; `gh pr create` or existing PR; waiting for green run: `gh run watch`.
-7. Branch Protection: `gh api repos/{owner}/{repo}/branches/main/protection` nur lesen; Empfehlung dokumentieren.
+7. Branch protection: read-only `gh api repos/{owner}/{repo}/branches/main/protection`; document recommendation.
 
 ## Definition of done
 
 - [ ] separate triggers `pull request` and `push` on `main`
 - [ ] Medium runtime under 15 min or matrix
 - [ ] No Secrets in Logs or Workflow-Kommentaren
-- [ ] Action-SHAs gepinnt or Renovate-Policy dokumentiert
+- [ ] Action SHAs pinned or Renovate policy documented
 
 ## Security
 
 `GITHUB TOKEN` with minimal `permissions`; no write access without need.
-- Fork-PR-Workflows without Secrets; kein `pull_request_target` without Security-Review.
-- Pipeline-Writes (deploy, publish) nur nach expliziter approval.
+- Fork PR workflows without secrets; no `pull_request_target` without security review.
+- Pipeline writes (deploy, publish) only after explicit approval.
 
 ## Pitfalls
 
 - `act` does not cover all actions 1:1 — self-hosted labels and OIDC fail locally.
-- Floating `@v4` bei Actions: Supply-Chain-Risiko bei Tag-Move — SHA pinnen.
+- Floating `@v4` in Actions: supply chain risk on tag move — pin SHA.
 Matrix explodes minute quota — only OS/version combinations with real benefit.
 - `cache` without Lockfile-Pfad trifft nie — `package-lock.json`/`poetry.lock` explizit setzen.
-- `gh run view --log` bei riesigen Logs truncated — Job-Log per Web-UI or Artifact.
+- `gh run view --log` truncated for huge logs — job log via web UI or artifact.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** Python-Repo: pytest-CI von Grund auf.
+- **Task:** Python repo: pytest CI from scratch.
 - **Input:** `acme/widgets`, Default-Branch `main`, Test `pytest -q`.
 - **Prompt:**
 

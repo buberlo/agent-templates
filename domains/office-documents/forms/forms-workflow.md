@@ -33,7 +33,7 @@ updated: "2026-11-23"
 
 ## Purpose
 
-**Government and contract forms** fill programmatically, re-check fields, visually verify—**no submission** without Mensch.
+**Government and contract forms** fill programmatically, re-check fields, visually verify—**no submission** without a human.
 
 ## When to use
 
@@ -44,7 +44,7 @@ updated: "2026-11-23"
 **When not to use**
 
 - Form without machine-readable fields (→ OCR).
-- Rechtsverbindliche Signatur (→ e-signatur).
+- Legally binding signature (→ e-signature).
 - Automatische Portal-Uploads without approval.
 
 ## Tool stack
@@ -53,7 +53,7 @@ updated: "2026-11-23"
 |------|-------|------------|
 | pypdf | AcroForm | Fieldliste |
 | Hermes pdf | fill | Skill-path |
-| pdftoppm | QA | Sichtpruefung |
+| pdftoppm | QA | Visual inspection |
 | DOCX path | Word forms | only when fields exist |
 
 ## System prompt
@@ -101,17 +101,17 @@ Watch multi-line address fields length limits.
 
 ## Definition of done
 
-- [ ] verification.json = fields.json for all Pflichtfielder
-- [ ] QA-PNG without leere Pflichtfielder sichtbar
-- [ ] no Portal-Submit durch Agent
+- [ ] verification.json = fields.json for all required fields
+- [ ] QA PNG shows no empty required fields
+- [ ] No portal submission by agent
 - [ ] Batch-Fehlerzeilen im Log
 - [ ] no invented Ausweisnummern
 
 ## Security
 
-- PII only in geschuetzten pathen.
+- PII only in protected paths.
 - submission menschlich.
-- no qualifizierte Signatur durch Agent.
+- No qualified signature by agent.
 
 ## Pitfalls
 
@@ -139,7 +139,7 @@ antrag_filled.pdf; verification diff empty; qa/antrag_p1.png.
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** Fehlendes Pflichtfield.
+- **Task:** Missing required field.
 - **Input:** JSON without `case_id`.
 - **Prompt:**
 

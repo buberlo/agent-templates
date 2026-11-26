@@ -10,8 +10,8 @@ Research baseline: **2026-11-24** (see `research/SOURCES.md`; raw archive is not
 |--------|------:|
 | Domains | 27 |
 | Categories | 199 (`_category.md` per category) |
-| Templates | 279 (≥1 per category, 2+ where research was rich) |
-| MCP entries | 105 (`mcp/catalog.json`) |
+| Templates | 288 (≥1 per category, 2+ where research was rich) |
+| MCP entries | 107 (`mcp/catalog.json`) |
 
 ## Layout
 
@@ -51,6 +51,7 @@ Category metadata lives in `_category.md` (not duplicated in template frontmatte
 | OpenClaw | [adapters/openclaw.md](adapters/openclaw.md) |
 | Claude Code | [adapters/claude-code.md](adapters/claude-code.md) |
 | Cursor | [adapters/cursor.md](adapters/cursor.md) |
+| Codex | [adapters/codex.md](adapters/codex.md) |
 | Generic | [adapters/generic.md](adapters/generic.md) |
 
 Platform setup templates: `domains/agent-platforms/<platform>/`.

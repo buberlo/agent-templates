@@ -6,11 +6,11 @@
 
 ## Summary
 
-Board-Hygiene, Handoffs, Definition of Done (z. B. Hermes sdlc-review).
+Board hygiene, handoffs, Definition of Done (e.g. Hermes sdlc-review).
 
 ## Recommended tool stack
 
-- Linear/Jira/Todoist-MCPs, Status nur nach Regelwerk change
+- Linear/Jira/Todoist MCPs; change status only according to the ruleset
 
 ## MCP server and skills
 
@@ -25,7 +25,7 @@ Board-Hygiene, Handoffs, Definition of Done (z. B. Hermes sdlc-review).
 - First read/research, then draft, then release for effective steps.
 - Proofread the output (file, URL, ticket) and specify the source.
 
-## Pitfalls
+- Board spam from overly aggressive autopilots.
 
 - Skills are workflows/instructions (progressive disclosure); MCPs are connections and tools. Combine the two, don't confuse them. Sources: https://code.claude.com/docs/en/features-overview , https://github.com/ComposioHQ/awesome-claude-skills
 - Only activate the MCPs/skills that the task needs. Hermes filters by include/exclude; OpenClaw has tool policies and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/

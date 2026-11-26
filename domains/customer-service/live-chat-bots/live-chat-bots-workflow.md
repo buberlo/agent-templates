@@ -21,8 +21,8 @@ inputs:
   - "KB-Artikel-IDs"
   - "Handoff-Regeln"
 outputs:
-  - "Antwortvorschlag im Chat"
-  - "Handoff an Mensch (wenn Trigger)"
+  - "Suggested reply in chat"
+  - "Handoff to human (when triggered)"
 risk_level: medium
 example_count: 2
 version: "1.1.0"
@@ -49,8 +49,8 @@ updated: "2026-11-23"
 
 | Tool | Role | Rationale |
 |------|-------|------------|
-| intercom MCP | Conversations | Echtzeit-Kontext |
-| KB/RAG intern | Antwortgrundlage | Zitierpflicht |
+| intercom MCP | Conversations | Real-time context |
+| Internal KB/RAG | Response basis | Mandatory citation |
 | Handoff queue | Human | SLA for waiting time |
 
 ## System prompt
@@ -81,14 +81,14 @@ Open Conversation via MCP.
 4. Passenden KB-Abschnitt zitieren (intern).
 5. Suggest short answer or trigger handoff.
 6. Man takes over at Handoff; The bot stops.
-7. Session in `output/chat-bot-session.md` loggen.
+7. Log the session in `output/chat-bot-session.md`.
 
 ## Definition of done
 
 - [ ] Every factual answer with KB reference internally
 - [ ] Handoff on rule trigger
-- [ ] No Zahlungsdaten im Chat
-- [ ] Kein Auto-Close
+- [ ] No payment data in chat
+- [ ] No auto-close
 
 ## Security
 
@@ -102,12 +102,12 @@ Open Conversation via MCP.
 - Endlosschleife without Handoff.
 - Zu lange Antworten im Mobile-Chat.
 The Loe B once to Ts.
-- Mehrsprachiger Kunde, KB nur EN.
+- Multilingual customer, KB in EN only.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** Passwort-Hilfe im Chat.
+- **Task:** Password help in chat.
 - **Input:** Customer "do not come in", KB `art 102`.
 - **Prompt:**
 

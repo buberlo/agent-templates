@@ -69,7 +69,7 @@ Suggest CODEOWNERS path owners when touch sensitive dirs.
 ## Workflow
 
 MCP: PR files and checks.
-2. Skill Checkliste laden.
+2. Load skill checklist.
 3. Pro risk file: MCP search or gh diff section.
 4. Findings severity taggen.
 5. Draft review body.
@@ -78,19 +78,19 @@ MCP: PR files and checks.
 
 ## Definition of done
 
-- [ ] Blockers referenzieren paths
+- [ ] Blockers reference paths
 - [ ] MCP read-only confirmed
-- [ ] Kein MCP merge
+- [ ] No MCP merge
 
 ## Security
 
 - Fine-grained PAT scope.
-- Review draft vor Share redigieren.
+- Edit review draft before sharing.
 
 ## Pitfalls
 
 - MCP file cap — incomplete.
-- Doppelte GitHub tools.
+- Duplicate GitHub tools.
 - Injection via PR description in MCP content.
 - Approve tool alias verwechselt.
 

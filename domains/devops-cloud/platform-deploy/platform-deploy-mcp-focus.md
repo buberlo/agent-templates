@@ -41,7 +41,7 @@ Deploy MCPs (GitHub Deployments, Vercel) in Skills with **PROD APPROVE** gate an
 ## When to use
 
 Agent uses Vercel/GitHub MCP for releases.
-- Team dokumentiert MCP-minimierten Deploy-Skill.
+- Team documents MCP-minimized deploy skill.
 
 **When not to use: therefore only kubectl/helm — see `k8s-*` and `platform-deploy-workflow`.
 
@@ -77,12 +77,12 @@ Post-deploy: MCP read deployment status until ready.
 3. Preview via MCP or `vercel deploy` Skill-Schritt.
 4. Smoke URLs curl.
 5. Block bis PROD_APPROVE.
-6. Prod deploy MCP/gh; Deployment-ID speichern.
+6. Prod deploy MCP/gh; save deployment ID.
 7. Matrix and audit into the ticket.
 
 ## Definition of done
 
-- [ ] Prod nur nach PROD_APPROVE
+- [ ] Prod only after PROD_APPROVE
 - [ ] Deployment-ID + SHA
 - [ ] Rollback in Skill definiert
 
@@ -93,9 +93,9 @@ Post-deploy: MCP read deployment status until ready.
 
 ## Pitfalls
 
-- Vercel MCP prod aus Versehen — Skill-Gate Pflicht.
+- Accidental prod deploy via Vercel MCP — skill gate required.
 - GitHub MCP sieht Fork — falsche Environment.
-- Doppelter Deploy MCP Race.
+- Duplicate deploy MCP race.
 
 ## Basic examples
 

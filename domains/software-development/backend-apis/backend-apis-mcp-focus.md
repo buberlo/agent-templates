@@ -82,14 +82,14 @@ Disable DB MCP in prod connection strings unless user supplies staging DSN name.
 
 ## Definition of done
 
-- [ ] HTTP verify dokumentiert
+- [ ] HTTP verification documented
 - [ ] DB MCP read-only eingehalten
 - [ ] Spec and code synchronous
 
 ## Security
 
 Prod-DB prohibited by MCP without release.
-- Tokens in curl nur env vars.
+- Tokens in curl via env vars only.
 
 ## Pitfalls
 

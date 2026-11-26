@@ -18,7 +18,7 @@ required_tools:
     version_notes: "Nous-approved optional-mcps catalog entry (listing 2026-11-23)."
   - name: ClawHub „Agent Phone Call“ (mrsz)
     install: "https://clawhubtrends.com/leaderboard.html"
-    version_notes: "72.476 Downloads, 8 Registry-Stars (ClawHub Leaderboard 23.11.2026)."
+    version_notes: "72,476 downloads, 8 registry stars (ClawHub Leaderboard 23 Nov 2026)."
 inputs:
   - "Call script and target (inbound/outbound)"
   - "Consent and Recording Rules"
@@ -53,7 +53,7 @@ emergency calls, suicide prevention, medical hotlines without a so- introduction
 | Tool | Role | Rationale |
 |------|-------|------------|
 | twilio-docs MCP | API/TwiML Referenz | Sichere Snippets |
-| Agent Phone Call (OpenClaw) | Dial-Workflow | ClawHub, vor verify |
+| Agent Phone Call (OpenClaw) | Dial workflow | ClawHub, verify beforehand |
 ,pir linetea- --pir, me,pir - Abulines a, aations aish self a remark - line, - all Direct, line - - line - line - line - line - line - line - line - line - line - line - line - - is - - - line - line - line - line - line - line - line - - line - line - line - line - - line - line - line - -te - line - - line - line - line - line - line - line - line - line - line - line - line - line - line - line - line - line - line - line - line - line - line - line - line - line - line - line - line - line - line - - line - line - line - line - line - line - line - line - line - reasons - - -tru - - - - - - - -tru - - - - - - - - - - - - - -). - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - line basis-a - - - - - - - -
 
 ## System prompt
@@ -80,7 +80,7 @@ ClawHub skills: remind verify before use.
 
 1. Script and compliance (recording opt-in)
 2. `openc skills verify` for Agent Phone Call.
-3. TwiML/Flow-Skizze via twilio-docs MCP referenzieren.
+3. Reference TwiML/flow sketch via twilio-docs MCP.
 4. Dry-Run: Read script as a dialogue, estimate duration.
 5. User: `APPROVE DIAL` + last 4 digits.
 6. execute call (skill/provider); Monitor the maximum duration.
@@ -89,13 +89,13 @@ ClawHub skills: remind verify before use.
 ## Definition of done
 
 - [ ] APPROVE_DIAL protokolliert
-- [ ] Recording-Hinweis im Script wenn recording_allowed
+- [ ] Recording notice in script if recording_allowed
 - [ ] No dial without release
 - [ ] Post-Call-Summary with next steps
 
 ## Security
 
-- ClawHub-Skills verify vor Einsatz (Registry-Risiken).
+- Verify ClawHub skills before use (registry risks).
 Twilio credentials in secrets, not prompts.
 - Minimize PII from call logs at CRM export.
 
@@ -110,7 +110,7 @@ Twilio credentials in secrets, not prompts.
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** Termin-Erinnerung Outbound.
+- **Task:** Appointment-reminder outbound.
 - **Input:** Script 4 sentences, recording no, callee +43***4567.
 - **Prompt:**
 
@@ -139,5 +139,5 @@ Call customer now about invoice.
 
 ```text
 Abbruch: APPROVE_DIAL fehlt.
-Script-Entwurf erstellt; kein Dial, no Twilio API write.
+Script draft created; no dial, no Twilio API write.
 ```

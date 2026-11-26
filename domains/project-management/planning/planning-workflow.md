@@ -43,7 +43,7 @@ Model schedules, milestones, dependencies and **capacity realistic**—incorpora
 
 - Release or project plan from backlog and team size.
 - What-if-for delayed vendor delivery date.
-- Meilenstein-Review vor Steering.
+- Milestone review before steering meeting.
 
 **When not**
 
@@ -89,10 +89,10 @@ Version plan_{project}_{date}.
 6. Risk/scenario section for external deps.
 7. export deliverables; Tracker dates only after release.
 
-## Definition of done / Definition of Done
+## Definition of done
 
 - [ ] Assumptions and confidence explicit
-- [ ] Kritischer Pfad benannt
+- [ ] Critical path identified
 - [ ] target vs projected verglichen
 - [ ] No heimlichen Due-Date-Updates
 
@@ -104,7 +104,7 @@ Version plan_{project}_{date}.
 ## Pitfalls
 
 - Velocity overestimated from a sprint.
-- Feiertage AT/DE verwechselt bei verteiltem Team.
+- Confusing AT/DE holidays in a distributed team.
 - Externe Deps without Owner → Scheinslack.
 - All stories as M without estimate → Plan fiction.
 - Linear Cycle vs. Jira Version misaligned.
@@ -127,8 +127,8 @@ projected_end > target or buffer needed | critical path 6 items | LOW if >40% un
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** Kein target_date
-- **Input:** nur Scope-Paragraph
+- **Task:** No target_date
+- **Input:** Scope paragraph only
 - **Prompt:**
 
 ```text
@@ -138,5 +138,5 @@ Need commitment date or planning horizon.
 - **Expected result:**
 
 ```text
-Abbruch | Nachfrage Zieltermin/Horizont | no milestones.csv
+Abort | Ask for target date/horizon | no milestones.csv
 ```

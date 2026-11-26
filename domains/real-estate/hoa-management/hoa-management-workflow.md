@@ -23,7 +23,7 @@ inputs:
   - "Context/briefing for administration / WEG"
   - "Files, URLs or IDs laut Task"
 outputs:
-  - "Dokumentiertes result (Datei, Bericht or Ticket-Update)"
+  - "Documented result (file, report, or ticket update)"
 risk_level: low
 example_count: 2
 version: "1.0.0"
@@ -71,7 +71,7 @@ Output checklist for next ETV: open points, required attachments, user tasks bef
 
 1. Record files (decisions, billings, contracts) with upload list.
 2. Create chronology and decision register in xlsx.
-3. Fristen aus Protokollen extrahieren; Unsicherheiten markieren.
+3. Extract deadlines from minutes; mark uncertainties.
 4. With Brave Search general deadlines and form notes (public) supplement — not as legal advice.
 Create e-mail or response drafts; no dispatch.
 6. User review of deadlines and drafts.
@@ -86,7 +86,7 @@ Create e-mail or response drafts; no dispatch.
 
 ## Security
 
-- No verbindlichen Kauf-, Miet- or Besichtigungstermine without explizite Nutzerfreigabe.
+- No binding purchase, rental, or viewing appointments without explicit user approval.
 - Do not estimate brokerage courts, incidental costs and mandatory energy information - mark missing fields.
 - Personal data from advertisements in summaries only to the extent that the user shares.
 - Do not invent decisions and votes - stop at illegible sites.
@@ -95,13 +95,13 @@ Create e-mail or response drafts; no dispatch.
 
 Confuse annual accounts vs. business plan — keep document type in the register.
 - accept deadlines from samples on the Internet without reference to your own decision.
-- Mahnwesen automatisieren: Zahlungsaufforderungen nur als Entwurf.
+- Automate dunning: payment reminders as draft only.
 - Gemeinschaftseigentum vs. Sondereigentum falsch zuordnen — im Zweifel Frage an User.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** ETV-Vorbereitung aus Protokoll-PDF
+- **Task:** ETV preparation from minutes PDF
 - **Input:** Protocol ETV 2025.pdf, Top 3 Roof Renovation, User is Owner
 - **Prompt:**```text
 Extract resolutions, majority type, deadlines. Create docx conversation guide and xlsx deadline calendar.

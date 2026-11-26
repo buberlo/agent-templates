@@ -15,10 +15,10 @@ target_agents:
 required_tools:
   - name: linear MCP (Hermes catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/linear"
-    version_notes: "Nous-approved optional-mcps catalog entry (Listing 23.11.2026)."
+    version_notes: "Nous-approved optional-mcps catalog entry (Listing 23 Nov 2026)."
   - name: atlassian MCP (Hermes catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/atlassian"
-    version_notes: "Nous-approved optional-mcps catalog entry (Listing 23.11.2026)."
+    version_notes: "Nous-approved optional-mcps catalog entry (Listing 23 Nov 2026)."
 inputs:
   - "Reporting period (week/sprint) and audience (team|steering|exec)"
   - "Project/board ID for actual data"
@@ -42,7 +42,7 @@ Status reports, weekly notes and stakeholder updates **from tracker data and fac
 ## When to use
 
 Weekly Steering or Team Weekly.
-- Exec braucht 1-Seite RAG nach Sprint-Ende.
+- Exec needs a 1-page RAG status after sprint end.
 - Diff to the last report desired.
 
 **When not**
@@ -85,20 +85,20 @@ Week boundaries Europe/Vienna Monday-Sunday unless user sprint calendar.
 2. Load tracker data for closed/open issues.
 Set RAG with documents per milestone/sprint target.
 4. Metrics and Scope-Churn.
-5. Risiken, Blocker, Entscheidungen strukturieren.
-6. Optional Diff zum Vorreport.
-7. Report + E-Mail-Entwurf liefern (without Versand).
+5. Structure risks, blockers, and decisions.
+6. Optional diff against previous report.
+7. Deliver report + email draft (without sending).
 
-## Definition of done / Definition of Done
+## Definition of done
 
 - [ ] RAG any traffic light with issue or milestone receipt
 - [ ] Metrics with Query timestamp or "partially"
 - [ ] decisions log with owner proposal
-- [ ] Kein E-Mail-Versand
+- [ ] No email sending
 
 ## Security
 
-- Stakeholder-Mail nur als Entwurf.
+- Stakeholder email as draft only.
 - Confidential customer/financial details only if user inserted.
 
 ## Pitfalls
@@ -106,7 +106,7 @@ Set RAG with documents per milestone/sprint target.
 - Count Completed Issues that have been reopened.
 Compare Velocity without equal team capacity.
 - Exec report with 30 ticket IDs unreadable.
-- Risiko aus letztem Report kopieren obwohl geschlossen.
+- Copying a risk from the last report even though it is closed.
 - Traffic light green because due date is in the future despite blockers.
 
 ## Basic examples

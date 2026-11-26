@@ -42,7 +42,7 @@ updated: "2026-11-23"
 **When not**
 
 - Freedom-to-operate Gutachten.
-- Anmeldung schreiben/einreichen.
+- Write/submit registration.
 - Secret invention in public chat.
 
 ## Tool stack
@@ -102,7 +102,7 @@ Distinguish application vs granted when metadata provides.
 - [ ] URLs zu Register
 - [ ] No FTO yes/no
 - [ ] Secret mode beachtet
-- [ ] Claims nur summary UNREVIEWED
+- [ ] Claims summary only UNREVIEWED
 
 ## Security
 

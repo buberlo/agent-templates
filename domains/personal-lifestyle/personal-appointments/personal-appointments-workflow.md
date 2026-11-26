@@ -1,10 +1,10 @@
 ---
 id: personal-appointments-workflow
-title: "Persoenliche Termine"
+title: "Personal appointments"
 domain: personal-lifestyle
 category: personal-appointments
 tags:
-  - termine
+  - appointments
   - personal-lifestyle
   - skillcli
 target_agents:
@@ -17,7 +17,7 @@ required_tools:
     install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
     version_notes: "Bundled catalog."
 inputs:
-  - "Kontext/Briefing for Persoenliche Termine"
+  - "Context/briefing for personal appointments"
   - "files, URLs or IDs according to Task"
 outputs:
   - "Documented result (file, report, or ticket update)"
@@ -29,13 +29,13 @@ updated: "2026-11-23"
 
 ## Purpose
 
-Private and behoerdliche Termine buendeln, Unterlagen-Packlisten and reminders vorbereiten.
+Bundle private and government appointments, prepare document checklists and reminders.
 
 ## When to use
 
 - Doctor + government authority + family in a monthly calendar harmonize.
-- Termin with Dokumenten-Checkliste (Ausweis, Bescheide).
-- not Termine when Doctor without User buchen.
+- Appointment with document checklist (ID, official notices).
+- Do not book doctor appointments without the user.
 
 ## Tool stack
 
@@ -46,7 +46,7 @@ Private and behoerdliche Termine buendeln, Unterlagen-Packlisten and reminders v
 ## System prompt
 
 ```text
-Role: Personal scheduling coordinator (persoenlich-lifestyle/termine-persoenlich).
+Role: Personal scheduling coordinator (personal-lifestyle/personal-appointments).
 Mission: Align appointments, document checklists, and draft calendar holds—user confirms bookings.
 Tools: google-workspace calendar create drafts via gws; no unsolicited invites to third parties.
 Timezone explicit Europe/Berlin default confirm.
@@ -67,7 +67,7 @@ Import only user-supplied data; no mailbox scrape without permission.
 
 1. Terminliste and bestehenden Kalender importieren.
 2. Konflikte markieren.
-3. Prep-Checklisten pro Termin.
+3. Prep checklists per appointment.
 4. Reisezeit-Puffer.
 5. gws Event-Entwuerfe.
 6. User akzeptiert Eintraege.
@@ -77,21 +77,21 @@ Import only user-supplied data; no mailbox scrape without permission.
 
 - [ ] Zeitzone konsistent
 - [ ] no Buchung without OK
-- [ ] Dokumentenliste je Termin
+- [ ] Document list per appointment
 - [ ] Geteilte Kalender privacy
 
 ## Security
 
-- no stillen Bestellungen, Zahlungen or Account-changes.
-- Persoenliche Adressen only in lokalen files, not in oeffentliche Repos.
-- Preise as Momentaufnahme with Datum kennzeichnen.
+- no silent orders, payments, or account changes.
+- Keep personal addresses only in local files, not in public repos.
+- Mark prices as a snapshot with a date.
 
 ## Pitfalls
 
 - DST Umstellung vergessen.
 - Doppelbuchung zwei Aerzte.
 - Falsche Governmentadresse.
-- Oeffentlicher Kalender sensible Titel.
+- Public calendar with sensitive titles.
 
 ## Basic examples
 
@@ -100,9 +100,9 @@ Import only user-supplied data; no mailbox scrape without permission.
 - **Input:** Hautarzt 14.11 10:30, Buergeramt 19.11 8:00, 45 Min Fahrt
 - **Prompt:**
 ```text
-Kalender Drafts + Checkliste Ausweis Meldebescheinigung.
+Calendar drafts + checklist for ID and registration certificate.
 ```
-- **Expected result:** 2 Events Draft; Checklisten 5 Items; Konflikt keiner.
+- **Expected result:** 2 event drafts; checklists of 5 items; no conflicts.
 ### Example 2 (Example data (self-written))
 - **Task:** familyn-Sporttraining Kinder
 - **Input:** Training Di+Do 17:00, Eltern Abholung 18:15

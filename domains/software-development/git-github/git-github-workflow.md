@@ -23,7 +23,7 @@ inputs:
   - "Repo, Branch, Issue/PR-Nummer"
   - "Scope read vs write"
 outputs:
-  - "PR/Issue-Update or Diff-Zusammenfassung"
+  - "PR/issue update or diff summary"
   - "Gh-Befehlsprotokoll"
 risk_level: medium
 example_count: 2
@@ -37,7 +37,7 @@ GitHub workflows with **gh** and **git**: branches, PRs, reviews, issues — wri
 
 ## When to use
 
-- PR erstellen, Review-Kommentare, Issue triagieren.
+- Create PR, review comments, triage issue.
 - Check CI status before merge.
 
 **When not:** GitLab/Bitbucket (other templates).
@@ -77,13 +77,13 @@ Document every gh command in order.
 4. `git push -u origin fix/123-issue`.
 5. `gh pr create --fill` or with body template.
 6. `gh pr checks` warten.
-7. Nach MERGE_APPROVE: `gh pr merge 42 --squash`.
+7. After MERGE_APPROVE: `gh pr merge 42 --squash`.
 
 ## Definition of done
 
 - [ ] Checks green or documented exception
 - [ ] PR description with test plan
-- [ ] Kein Force-Push auf main
+- [ ] No force-push to main
 
 ## Security
 
@@ -93,8 +93,8 @@ Document every gh command in order.
 ## Pitfalls
 
 - gh check for false repo (submodule) — cwd.
-- PR gegen veraltete main — erst rebase/fetch.
-- --fill committet geheime Files — git diff vor push.
+- PR against outdated main — rebase/fetch first.
+- --fill commits secret files — git diff before push.
 - gh pr merge without required checks — Branch protection.
 - Co-authored-by without Zustimmung.
 

@@ -15,7 +15,7 @@ target_agents:
 required_tools:
   - name: Brave Search MCP
     install: "https://github.com/brave/brave-search-mcp-server"
-    version_notes: "Websuche API"
+    version_notes: "Web search API"
   - name: Exa MCP
     install: "https://github.com/exa-labs/exa-mcp-server"
     version_notes: "Neural search"
@@ -24,10 +24,10 @@ required_tools:
     version_notes: "Fetch/extract"
 inputs:
   - "Recherchefrage"
-  - "Erlaubte MCPs"
+  - "Allowed MCPs"
 outputs:
   - "Minimaler MCP-Satz"
-  - "Suchstrategie"
+  - "Search strategy"
 risk_level: low
 example_count: 2
 version: "1.1.0"
@@ -41,8 +41,8 @@ updated: "2026-11-23"
 ## When to use
 
 - Agent setup for web research.
-- Token-Budget durch MCP-Minimalismus.
-- Strategie vor Briefing-Lauf (web-exa-perplexity-briefing).
+- Token budget through MCP minimalism.
+- Strategy before briefing run (web-exa-perplexity-briefing).
 
 **When not**
 
@@ -98,15 +98,15 @@ Cache fetch results in thread to avoid duplicate firecrawl on same url.
 2. Choose a search MCP.
 3. Firecrawl for top URLs.
 4. Playwright only after release.
-5. MCP-Liste dokumentieren.
-6. Quellen-Snippets strukturieren.
+5. Document the MCP list.
+6. Structure source snippets.
 7. Presented to briefing template.
 
 ## Definition of done
 
 - [ ] ≤2 aktive Search-MCPs
-- [ ] Firecrawl nur auf Kurzliste
-- [ ] Queries geloggt
+- [ ] Firecrawl on shortlist only
+- [ ] Queries logged
 - [ ] Playwright justified when used
 - [ ] No Credentials in Queries
 

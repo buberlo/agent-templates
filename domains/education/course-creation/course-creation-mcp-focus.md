@@ -1,6 +1,6 @@
 ---
 id: course-creation-mcp-focus
-title: "Kurse erstellen: MCP/Skill focus"
+title: "Course Creation: MCP/Skill Focus"
 domain: education
 category: course-creation
 tags:
@@ -38,26 +38,26 @@ updated: "2026-11-23"
 ## When to use
 
 - Agent setup for course production; Uncertainty which skill pptx generates.
-- CI-artiger Validate-Schritt vor LMS-Upload.
-- Minimales Toolset gegen Prompt-Leaks.
+- CI-style validation step before LMS upload.
+- Minimal toolset against prompt leaks.
 
 **When not to use**
 
-- Konkretes Curriculum schreiben → `kurse-erstellen-workflow`.
+- Write a concrete curriculum → `course-creation-workflow`.
 - No Python/LibreOffice available for PDF readers and PDF required.
 
 ## Tool stack
 
 | Tool | Role | Rationale |
 |------|-------|------------|
-| Anthropic pptx/docx | Validierung | validate.py |
+| Anthropic pptx/docx | Validation | validate.py |
 | Hermes microsoft-office | Offline Generierung | Bundled |
 | youtube-content | Primary sources | Transcript import |
 
 ## System prompt
 
 ```text
-You configure course authoring tools for education/kurse-erstellen.
+You configure course authoring tools for education/course-creation.
 
 Inputs: outputs_needed (pptx|docx|pdf|xlsx), host (claude_skills|hermes), run_validate bool.
 
@@ -77,7 +77,7 @@ Deliver smoke test: 1-slide pptx title "Tooling OK" and validation result line.
 
 1. Write down required formats.
 2. Anthropic vs. Hermes plugin capability.
-3. `course-authoring-tooling.md` schreiben.
+3. Write `course-authoring-tooling.md`.
 4. Mini-pptx erzeugen (1 Folie).
 5. Execute validator if available.
 6. YouTube-Skill Activate and video-sources
@@ -86,7 +86,7 @@ Deliver smoke test: 1-slide pptx title "Tooling OK" and validation result line.
 ## Definition of done
 
 - [ ] Ein Primary-Tool pro Ausgabeformat
-- [ ] Validate- or Read-back-Schritt dokumentiert
+- [ ] Validation or read-back step documented
 - [ ] Smoke-pptx successful or error with fix
 [ ] Unnecessary skills deactivated
 
@@ -107,7 +107,7 @@ External YouTube URLs only with userlist.
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** Nur Hermes pptx.
+- **Task:** Hermes pptx only.
 - **Input:** `outputs_needed=pptx`, hermes host.
 - **Prompt:**
 

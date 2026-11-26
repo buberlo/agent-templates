@@ -6,7 +6,7 @@
 
 ## Summary
 
-Livestreams, Sender-Setups and mediale Ausspielung (OBS-nah, Plattform-Tools).
+Livestreams, broadcast setups, and media playout (OBS-adjacent, platform tools).
 
 ## Recommended tool stack
 

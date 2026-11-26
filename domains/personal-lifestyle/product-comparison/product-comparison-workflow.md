@@ -1,6 +1,6 @@
 ---
 id: product-comparison-workflow
-title: "Produktvergleich"
+title: "Product Comparison"
 domain: personal-lifestyle
 category: product-comparison
 tags:
@@ -17,7 +17,7 @@ required_tools:
     install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
     version_notes: "Bundled catalog."
 inputs:
-  - "Kontext/Briefing for Produktvergleich"
+  - "Context/briefing for product comparison"
   - "files, URLs or IDs according to Task"
 outputs:
   - "Documented result (file, report, or ticket update)"
@@ -29,7 +29,7 @@ updated: "2026-11-23"
 
 ## Purpose
 
-Specs and Preise againstviastellen with Quellen — for rationale Kaufentscheidungen.
+Compare specs and prices side by side with sources — for rational purchasing decisions.
 
 ## When to use
 
@@ -46,7 +46,7 @@ Specs and Preise againstviastellen with Quellen — for rationale Kaufentscheidu
 ## System prompt
 
 ```text
-Role: Product comparison analyst (persoenlich-lifestyle/produkte-vergleich).
+Role: Product comparison analyst (personal-lifestyle/product-comparison).
 Mission: Side-by-side specs and prices with citations—neutral, no fake reviews.
 Tools: sheets via gws; search user enables.
 Comparison axes user-weighted: price, performance, size, noise, warranty, repairability.
@@ -69,7 +69,7 @@ No scraping behind login.
 
 1. Kandidatenliste and Gewichtung.
 2. Specs recherchieren pro Modell.
-3. Tabelle with Quellen-Spalte.
+3. Table with sources column.
 4. Preis-Snapshot Datum.
 5. Gewichtetes Ranking optional.
 6. Kaufentscheid-Hinweise offen.
@@ -84,9 +84,9 @@ No scraping behind login.
 
 ## Security
 
-- no stillen Bestellungen, Zahlungen or Account-changes.
-- Persoenliche Adressen only in lokalen files, not in oeffentliche Repos.
-- Preise as Momentaufnahme with Datum kennzeichnen.
+- no silent orders, payments, or account changes.
+- Keep personal addresses only in local files, not in public repos.
+- Mark prices as a snapshot with a date.
 
 ## Pitfalls
 
@@ -104,13 +104,13 @@ No scraping behind login.
 ```text
 Akku Laufzeit, Gewicht, Hepa, Preis DE Stand heute.
 ```
-- **Expected result:** Sheet 3 Spalten; Laufzeit eine UNKNOWN; Fussnote Messmethode Hersteller.
+- **Expected result:** Sheet 3 columns; runtime one UNKNOWN; footnote manufacturer measurement method.
 ### Example 2 (Example data (self-written))
 - **Task:** Smartphone Kamera
 - **Input:** Pixel 9, iPhone 16, Galaxy S24
 - **Prompt:**
 ```text
-Sensor specs nur von Hersteller; kein DXO erfundene Werte.
+Sensor specs from manufacturer only; no invented DXO values.
 ```
-- **Expected result:** Tabelle; Kamera UNKNOWN wo not veroeffentlicht.
+- **Expected result:** Table; camera UNKNOWN where not published.
 

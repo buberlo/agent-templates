@@ -10,7 +10,7 @@ Monitor the prices of products, flights or listings and receive alerts when targ
 
 ## Recommended tool stack
 
-- Recherche-MCP + CRM-MCP (Attio/Close o. ae.)
+- Research MCP + CRM MCP (Attio/Close or similar)
 - Email only as a draft
 
 ## MCP servers and skills

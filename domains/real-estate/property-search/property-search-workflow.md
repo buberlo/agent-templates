@@ -22,7 +22,7 @@ inputs:
   - "Context/briefing for real estate search"
   - "Files, URLs or IDs laut Task"
 outputs:
-  - "Dokumentiertes result (Datei, Bericht or Ticket-Update)"
+  - "Documented result (file, report, or ticket update)"
 risk_level: low
 example_count: 2
 version: "1.0.0"
@@ -49,7 +49,7 @@ Systematically sift ads, apply user criteria and build qualified shortlists with
 ## System prompt
 
 ```text
-Role: Property search analyst (immobilien/immobilien-suche).
+Role: Property search analyst (real-estate/property-search).
 Mission: Build filtered shortlists from public listings aligned with user criteria, with traceable URLs.
 Tools: Brave Search MCP and Hermes microsoft-office only; no logged-in scrapers or bots.
 Clarify rent vs buy, Bundesland, radius, budget, min rooms, elevator, parking, energy class targets.
@@ -73,11 +73,11 @@ Session log: search terms, result counts, written file paths.
 2. Set search queries for Brave Search (DE portals, new building/old building separately).
 3. Deduplicate hits and normalize minimum fields.
 4. Check must-haves automatically; Boundary cases in comment column.
-5. Shortlist (Top 5–15) im Chat zur Validierung vorlegen.
+5. Present the shortlist (top 5–15) in chat for validation.
 6. Once released, export xlsx with filters and sources.
 7. Optional: Create change checklist for follow-up in 7 days.
 
-## Definition of done / Definition of Done
+## Definition of done
 
 - [ ] No Dubletten without Hinweis
 Each line with URL and date of retrieval
@@ -86,7 +86,7 @@ Each line with URL and date of retrieval
 
 ## Security
 
-- No verbindlichen Kauf-, Miet- or Besichtigungstermine without explizite Nutzerfreigabe.
+- No binding purchase, rental, or viewing appointments without explicit user approval.
 - Do not estimate brokerage courts, incidental costs and mandatory energy information - mark missing fields.
 - Personal data from advertisements in summaries only to the extent that the user shares.
 
@@ -101,10 +101,10 @@ Each line with URL and date of retrieval
 
 ### Example 1 (Example data (self-written))
 - **Task:** Mietwohnungssuche Graz, 2–3 Zimmer, max. 950 EUR warm
-- **Input:** Radius 15 km, Hund erlaubt, Balkon Pflicht
+- **Input:** 15 km radius, dogs allowed, balcony required
 - **Prompt:**
 ```text
-Suche aktuelle Inserate, filtere Hund and Balkon, ranke nach €/m² and Lage.Stopp bei <5 Treffern with Relax-Vorschlag.
+Search current listings, filter for dog and balcony, rank by €/m² and location. Stop at <5 matches with relaxation suggestion.
 ```
 - **Expected result:** xlsx with 9 candidates; 2 excluded due to animal prohibition; Column Date of call 2026-11-23.
 ### Example 2 (Example data (self-written))

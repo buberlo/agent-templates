@@ -20,7 +20,7 @@ required_tools:
     version_notes: "URL verify"
 inputs:
   - "Textentwurf or Frage"
-  - "Quellenformat (APA, inline URL)"
+  - "Source format (APA, inline URL)"
 outputs:
   - "Revised text with quotations"
   - "source verification log"
@@ -37,7 +37,7 @@ updated: "2026-11-23"
 ## When to use
 
 - Agent output for customers or wiki.
-- Fact-check nach Web research.
+- Fact-check after web research.
 - Combination with academic or news monitoring.
 
 **When not**
@@ -87,7 +87,7 @@ Refresh access date to ISO on edit.
 
 ## Workflow
 
-1. Claims aus Entwurf extrahieren.
+1. Extract claims from draft.
 2. Search for source per claim or fetching user URL.
 3. Status OK/UNVERIFIED setzen.
 4. Rewrite text with quotes.
@@ -107,7 +107,7 @@ Refresh access date to ISO on edit.
 
 - No internal URLs in public texts without sharing.
 - Do not distribute paywall full text.
-- Quellen-Log kann sensibel sein.
+- Source log may be sensitive.
 
 ## Pitfalls
 

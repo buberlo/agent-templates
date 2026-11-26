@@ -23,7 +23,7 @@ inputs:
   - "Project ID and Region"
   - "GKE-Cluster or Compute-Ressource"
 outputs:
-  - "gcloud-Protokoll"
+  - "gcloud log"
   - "Empfehlung / Terraform-google-Modul-Hinweis"
 risk_level: high
 example_count: 2
@@ -37,7 +37,7 @@ Invent GCP projects with **gcloud**, check GKE read-only and make changes only v
 ## When to use
 
 - GKE-Version, Node-Pool-Status, IAM-Bindings lesen.
-- Fehlersuche nach fehlgeschlagenem Deploy auf Cloud Run/GKE.
+- Troubleshooting after failed deploy on Cloud Run/GKE.
 
 **When not:** Org policy changes without cloud admin.
 
@@ -46,7 +46,7 @@ Invent GCP projects with **gcloud**, check GKE read-only and make changes only v
 | Tool | Role | Justification |
 |------|-------|------------|
 | gcloud | CLI | config, container, iam |
-| kubectl | GKE | nach get-credentials |
+| kubectl | GKE | after get-credentials |
 | terraform-google | optional | module proposals |
 
 ## System prompt
@@ -78,23 +78,23 @@ Prefer regional flags: --region europe-west3.
 6. IAM read: `gcloud projects get-iam-policy <id> --format=json` (Ausschnitt).
 7. Mutations as a terraform proposal, do not execute directly.
 
-## Definition of done / Definition of Done
+## Definition of done
 
 - [ ] Projekt-ID in jeder Antwort
-- [ ] GKE Master/Node-Version dokumentiert
+- [ ] GKE master/node version documented
 - [ ] No Service-Account-Keys erzeugt
 
 ## Security
 
-- Prod-Projekt: high risk; Deletes verboten without Ticket.
+- Prod project: high risk; deletions prohibited without a ticket.
 - IAM `roles/owner` not as a default proposal.
 - Audit logs do not mass export to public threads.
 
 ## Pitfalls
 
 - Vergessener `gke-gcloud-auth-plugin` — kubectl auth scheitert.
-- Zonen vs. Region bei GKE — falsche Flag-Kombination.
-- Default VPC-Annahmen — Shared VPC braucht Host-Projekt-Kontext.
+- Zones vs. region in GKE — wrong flag combination.
+- Default VPC assumptions — Shared VPC requires host project context.
 Quotas — Create fails, List works; Check the quota separately.
 
 ## Basic examples

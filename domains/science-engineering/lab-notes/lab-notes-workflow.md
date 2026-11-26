@@ -20,7 +20,7 @@ inputs:
   - "Context/briefing for Lab Notes"
   - "Files, URLs or IDs laut Task"
 outputs:
-  - "Dokumentiertes result (Datei, Bericht or Ticket-Update)"
+  - "Documented result (file, report, or ticket update)"
 risk_level: low
 example_count: 2
 version: "1.0.0"
@@ -68,12 +68,12 @@ Redact collaborator personal emails optional.
 ## Workflow
 
 1. Experiment ID and Target.
-2. Protokoll aus Nutzerstichpunkten.
+2. Protocol from user bullet points.
 3. Table of materials and equipment.
 4. Performed chronologically.
 5. Deviations and incidents.
 6. Rohdaten-Pfad register.
-7. Review-Checkliste PI.
+7. PI review checklist.
 
 ## Definition of done
 
@@ -84,10 +84,10 @@ Redact collaborator personal emails optional.
 
 ## Security
 
-- No Fabrication von Messwerten or Zitaten — UNKNOWN or Nutzerdaten.
+- No fabrication of measurement values or quotes — UNKNOWN or user data.
 - Version raw data and scripts; no deletion without release.
 - Peer-Review-Standards: no garantierte Annahme.
-- Biologische/biohazard S2+ → User SOP folgen, Agent nur Text.
+- Biological/biohazard S2+ → follow user SOP, agent text only.
 
 ## Pitfalls
 

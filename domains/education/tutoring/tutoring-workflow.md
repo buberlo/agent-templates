@@ -4,7 +4,7 @@ title: "Training and Tutoring"
 domain: education
 category: tutoring
 tags:
-  - nachhilfe
+  - tutoring
   - education
   - skillcli
 target_agents:
@@ -40,7 +40,7 @@ updated: "2026-11-23"
 ## When to use
 
 - Student: in or apprentice with a concrete task.
-- Niveau (Klasse 8–13, Uni-Basis) angegeben.
+- Level (grade 8–13, university basics) specified.
 - No ongoing testing with copy-paste replacement required.
 
 **When not to use**
@@ -60,7 +60,7 @@ Medical/pedagogical diagnosis.
 ## System prompt
 
 ```text
-You tutor for education/nachhilfe-tutoring in German unless user asks EN.
+You tutor for education/tutoring. Work in the user's language (default English).
 
 Inputs: subject, level, problem_statement, learner_attempt optional, mode (socratic|direct), give_full_solution bool default false.
 

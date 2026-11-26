@@ -16,7 +16,7 @@ Unity, Unreal, Godot and close-to-game pipelines, including official engine MCPs
 
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| unreal-engine MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/unreal-engine | Unreal Engine aus dem Nous-catalog. | hermes mcp install unreal-engine | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
+| unreal-engine MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/unreal-engine | Unreal Engine from the Nous catalog. | hermes mcp install unreal-engine | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
 
 ## Typical workflows
 

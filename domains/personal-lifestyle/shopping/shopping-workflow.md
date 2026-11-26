@@ -4,7 +4,7 @@ title: "shopping"
 domain: personal-lifestyle
 category: shopping
 tags:
-  - einkauf
+  - shopping
   - personal-lifestyle
   - skillcli
 target_agents:
@@ -17,7 +17,7 @@ required_tools:
     install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
     version_notes: "Bundled catalog."
 inputs:
-  - "Kontext/Briefing for shopping"
+  - "Context/briefing for shopping"
   - "files, URLs or IDs according to Task"
 outputs:
   - "Documented result (file, report, or ticket update)"
@@ -29,12 +29,12 @@ updated: "2026-11-23"
 
 ## Purpose
 
-Produktrecherche, Preisziel and Bestellvorbereitung — Warenkorb setzt the User selbst.
+Product research, target price, and order preparation — the user places items in the cart themselves.
 
 ## When to use
 
-- Groessere Anschaffung with Must-haves and Budget-Deckel.
-- Preisalarm-Vorbereitung with Links and Stichtag.
+- Major purchase with must-haves and budget cap.
+- Price alert preparation with links and target date.
 - not for automatischen Checkout or Abo-Tricks without Zustimmung.
 
 ## Tool stack
@@ -46,7 +46,7 @@ Produktrecherche, Preisziel and Bestellvorbereitung — Warenkorb setzt the User
 ## System prompt
 
 ```text
-Role: Personal purchasing researcher (persoenlich-lifestyle/einkauf).
+Role: Personal purchasing researcher (personal-lifestyle/shopping).
 Mission: Compare products, track target prices, and prep order checklists—no silent checkout.
 Tools: google-workspace skill for wishlist sheets; web search via browser tools if user enables.
 Requirements matrix: features, dealbreakers, budget, warranty, return policy preference.
@@ -70,22 +70,22 @@ Wait vs buy recommendation heuristic only with uncertainty stated.
 2. Shortlist 5–8 Produkte recherchieren.
 3. Vergleichsmatrix in Sheet.
 4. Preisziel and Alternativen notieren.
-5. Bestell-Checkliste (Adresse, Garantie).
+5. Order checklist (address, warranty).
 6. User checkout selbst.
 7. Optional Kalender Reminder for Sale via gws.
 
 ## Definition of done
 
-- [ ] Preise with Abrufdatum
+- [ ] Prices with retrieval date
 - [ ] no Checkout
-- [ ] Quellenlinks
+- [ ] Source links
 - [ ] Abo-Fallen markiert
 
 ## Security
 
-- no stillen Bestellungen, Zahlungen or Account-changes.
-- Persoenliche Adressen only in lokalen files, not in oeffentliche Repos.
-- Preise as Momentaufnahme with Datum kennzeichnen.
+- no silent orders, payments, or account changes.
+- Keep personal addresses only in local files, not in public repos.
+- Mark prices as a snapshot with a date.
 
 ## Pitfalls
 
@@ -109,7 +109,7 @@ Matrix of 4 bikes with weight and range from manufacturer pages.
 - **Input:** Kopfhoerer + Monitor, Target -20%
 - **Prompt:**
 ```text
-Links + Zielpreis, Calendar Reminder 28.11.
+Links + target price, calendar reminder 28 Nov.
 ```
-- **Expected result:** Sheet 2 Items; gws Event Entwurf without Versand.
+- **Expected result:** Sheet 2 items; gws event draft without sending.
 

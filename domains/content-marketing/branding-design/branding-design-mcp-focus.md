@@ -46,7 +46,7 @@ Clearly intersected branding and design task with briefing.
 
 | Tool | Role | Rationale |
 |------|-------|------------|
-Exe--thesheets-of-the-'''''''''''''''''''''''''''' all'' Plus''
+| required_tools | Primary | As in frontmatter |
 
 ## System prompt
 
@@ -57,13 +57,13 @@ Quick social resize → canva only.
 Never both MCPs parallel.
 Sequential figma then canva if needed.
 Document assumptions at top of deliverable.
-German/English per user; keep brand names original.
+Use the user's language (default English); keep brand names unchanged.
 No fabricated stats, logos, or testimonials.
 No publish/send/deploy without explicit approval phrase.
 Minimize PII in outputs.
-Log tool operations with timestamp Europe/Berlin.
+Log tool operations with a timestamp in the user's timezone.
 Prefer read-only before write.
-UWG/DSGVO context for DE marketing—not legal advice.
+Note applicable advertising and privacy law; this is not legal advice.
 If data missing, stop and list concrete questions.
 Deliver reproducible file paths in summary.
 ```
@@ -74,20 +74,20 @@ Deliver reproducible file paths in summary.
 2. Ein MCP
 3. result
 4. Sequenz optional
-5. Skills wenn MCP off
+5. Skills when MCP is off
 6. Routing doc
 7. Verweis Haupt-Workflow
 
 ## Definition of done
 
 - [ ] Outputs erstellt
-- [ ] user approvaln eingehalten
-- [ ] Quellen/Annahmen geloggt
-- [ ] Kein Auto-Publish
+- [ ] User approval observed
+- [ ] Sources and assumptions logged
+- [ ] No auto-publish
 
 ## Security
 
-- Credentials nur im Connector.
+- Keep credentials in the connector only.
 in- off-line,
 
 ## Pitfalls

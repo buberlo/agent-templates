@@ -1,6 +1,6 @@
 ---
 id: e-signature-workflow
-title: "E-Signatur-Vorbereitung and Pruefung"
+title: "E-Signature Preparation and Verification"
 domain: office-documents
 category: e-signature
 tags:
@@ -22,7 +22,7 @@ inputs:
   - "Signatur-Anforderung (AES/QES)"
   - "Empfaengerliste"
 outputs:
-  - "Signatur-Checkliste"
+  - "Signature checklist"
   - "Optional vorbereitetes Paket"
 risk_level: high
 example_count: 2
@@ -32,19 +32,19 @@ updated: "2026-11-23"
 
 ## Purpose
 
-**Vertraege for E-Signatur vorbereiten and technisch verify**—fields, Reihenfolge, Signatur-Level—**Agent signiert not** and loest no QES from.
+**Prepare and technically verify contracts for e-signature**—fields, signing order, signature level—**the agent does not sign** and does not trigger a QES.
 
 ## When to use
 
 - PDF before Uebergabe an DocuSign/Adobe/ EU-QES-Dienst.
-- Pruefung bereits signierter PDF on Signaturketten.
-- Checkliste for Legal/Compliance.
+- Check already signed PDFs for signature chains.
+- Checklist for Legal/Compliance.
 
 **When not to use**
 
 - Agent as signierende Person or Notar-Ersatz.
 - Automatischer Versand an Gegenpartei without Legal-approval.
-- Steuerliche Vollmachten without Fachpruefung.
+- Tax powers of attorney without specialist review.
 
 ## Tool stack
 
@@ -90,28 +90,28 @@ Document timezone on signature timestamps UTC display.
 1. PDF-Integritaet with qpdf check.
 2. Field- and pagesinventar.
 3. Signatur-Policy with User abstimmen (SES/AES/QES).
-4. Checkliste for Portal-Setup write.
+4. Write checklist for portal setup.
 5. after User-Signaturlauf: Audit-Report (when file zurueck).
-6. Hash and Version archivieren.
-7. no Envelope-Send durch Agent.
+6. Archive hash and version.
+7. No envelope send by agent.
 
 ## Definition of done
 
-- [ ] Checkliste vollstaendig (fields, Reihenfolge, Exhibits)
-- [ ] SHA256 dokumentiert
-- [ ] no Signaturvorgang durch Agent
+- [ ] Checklist complete (fields, signing order, exhibits)
+- [ ] SHA256 documented
+- [ ] No signing process by agent
 - [ ] Audit only technisch, no Rechtsberatung
-- [ ] approval before Versand dokumentiert
+- [ ] Approval before sending documented
 
 ## Security
 
-- Vertraege streng vertraulich.
+- Contracts are strictly confidential.
 - no Private Keys.
-- Versand only over autorisiertes Signatur-Tool durch Menschen.
+- Sending only via authorized signature tool by a human.
 
 ## Pitfalls
 
-- Signaturfield on falscher Seite.
+- Signature field on wrong page.
 - Anhaenge not im Envelope.
 - QES with falschem ID-Verfahren.
 - PDF/A vs. normales PDF.

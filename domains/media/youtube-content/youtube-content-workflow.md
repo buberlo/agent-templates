@@ -1,6 +1,6 @@
 ---
 id: youtube-content-workflow
-title: "YouTube-transcript to Kapiteln and Content"
+title: "YouTube Transcript to Chapters and Content"
 domain: media
 category: youtube-content
 tags:
@@ -20,7 +20,7 @@ required_tools:
     version_notes: "Alternative Monitor/Summary"
 inputs:
   - "YouTube-URL or Video-ID"
-  - "Gewuenschtes Format (Summary, Kapitel, Thread, Blog)"
+  - "Desired format (summary, chapters, thread, blog)"
 outputs:
   - "Text-Artefakt with Timestamps"
   - "Hinweise when transcript fehlt"
@@ -32,18 +32,18 @@ updated: "2026-11-23"
 
 ## Purpose
 
-from **oeffentlichen YouTube-Videos** structured **Text-Content** create—Kapitel, Summary, Zitate—with Hermes **youtube-content** Skill, chunking at langen transcripten and without Halluzination at fehlenden Subtitlesn.
+Create structured **text content** from **public YouTube videos**—chapters, summary, quotes—with the Hermes **youtube-content** skill, chunking for long transcripts, and without hallucination when subtitles are missing.
 
 ## When to use
 
 - Kanal- or Research-Video should Blogpost, Newsletter or internes Briefing will.
-- transcript is verfuegbar or auto-generated on YouTube.
+- Transcript is available or auto-generated on YouTube.
 - Hermes-Skill with vorbereitetem venv nutzbar.
 
 **When not to use**
 
 - Video herunterladen or reuploaden without Lizenz.
-- Inhalte with deaktivierten transcripten and without approval for ASR-Download.
+- Content with disabled transcripts and without approval for ASR download.
 - Echtzeit-Trending without URL.
 
 ## Tool stack
@@ -52,7 +52,7 @@ from **oeffentlichen YouTube-Videos** structured **Text-Content** create—Kapit
 |------|-------|------------|
 | Hermes youtube-content | transcript + Formate | Official bundled path |
 | YouTube Watcher Skill | Monitoring | OpenClaw-Alternative |
-| Markdown/Office-Skills | Ausgabe-files | Blog/Deck optional |
+| Markdown/Office skills | Output files | Blog/deck optional |
 
 ## System prompt
 
@@ -85,18 +85,18 @@ Attribute source URL in every deliverable footer.
 
 1. URL validieren; Video-ID extract.
 2. Skill: transcript with Timestamps holen; leere Antwort → Abbruch melden.
-3. Zeichenzahl verify; ggf. chunken.
+3. Verify character count; chunk if necessary.
 4. Format according to Auftrag create (Default Summary when unklar).
-5. Timestamps stichprobenartig against transcript-Zeilen.
+5. Spot-check timestamps against transcript lines.
 6. `output.md` write; Quell-URL im Footer.
-7. User um approval for externe Veroeffentlichung bitten.
+7. Ask user for approval before external publication.
 
 ## Definition of done
 
-- [ ] no Inhalte at fehlendem transcript
-- [ ] Kapitel-Timestamps from echten Cues
+- [ ] No content generated when transcript is missing
+- [ ] Chapter timestamps from real cues
 - [ ] Zitate wortgetreu
-- [ ] Quell-URL dokumentiert
+- [ ] Source URL documented
 - [ ] Skill-Doku-Platzhalter not as result ausgegeben
 
 ## Security
@@ -107,16 +107,16 @@ Attribute source URL in every deliverable footer.
 ## Pitfalls
 
 - Auto-Subtitles fehlerhaft at Fachjargon—Review markieren.
-- >50k Zeichen without Chunking → Context-Overflow.
-- Skill-Beispiele in Doku as echtes Output kopieren—verboten.
-- YouTube Watcher and youtube-content doppelt → redundante API-Last.
-- Thread-Format viaschreitet Zeichenlimits without Split.
+- >50k characters without chunking → context overflow.
+- Copying skill examples in docs as real output—prohibited.
+- Duplicate YouTube Watcher and youtube-content → redundant API load.
+- Thread format exceeds character limits without splitting.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** Kapitel + Kurzsummary for Tutorial-URL.
-- **Input:** `https://www.youtube.com/watch?v=dQw4w9WgXcQ` (Example-ID), Format Kapitel.
+- **Task:** Chapters + short summary for tutorial URL.
+- **Input:** `https://www.youtube.com/watch?v=dQw4w9WgXcQ` (example ID), chapters format.
 - **Prompt:**
 
 ```text
@@ -126,9 +126,9 @@ Attribute source URL in every deliverable footer.
 - **Expected result:**
 
 ```markdown
-## Kapitel
+## Chapters
 00:00 Introduction
-02:14 Setup-Schritt
+02:14 Setup step
 ...
 
 ## Summary
@@ -138,8 +138,8 @@ Source: https://www.youtube.com/watch?v=dQw4w9WgXcQ
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** Langes Interview chunken.
-- **Input:** transcript 72k Zeichen.
+- **Task:** Chunk a long interview.
+- **Input:** transcript 72k characters.
 - **Prompt:**
 
 ```text

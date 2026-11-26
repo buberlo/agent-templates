@@ -3,7 +3,6 @@ domains/content-marketing/ads-performance/ads-performance-workflow.md
 domains/content-marketing/branding-design/branding-design-mcp-focus.md
 domains/content-marketing/content-strategy/content-strategy-workflow.md
 domains/content-marketing/influencer/influencer-workflow.md
-domains/content-marketing/landing-pages/landing-pages-workflow.md
 domains/content-marketing/newsletter/newsletter-workflow.md
 domains/content-marketing/seo/seo-workflow.md
 domains/content-marketing/social-facebook-meta/social-facebook-meta-workflow.md
@@ -35,10 +34,6 @@ domains/education/flashcards/flashcards-workflow.md
 domains/education/languages/languages-workflow.md
 domains/education/study-research/study-research-workflow.md
 domains/education/tutoring/tutoring-workflow.md
-domains/finance/budget/budget-workflow.md
-domains/finance/invoicing/invoicing-workflow.md
-domains/finance/payments-stripe/payments-stripe-mcp-focus.md
-domains/finance/trading-krypto/trading-krypto-workflow.md
 domains/gaming-modding/game-libraries/game-libraries-workflow.md
 domains/gaming-modding/game-modding/game-modding-workflow.md
 domains/gaming-modding/game-servers/game-servers-workflow.md
@@ -83,10 +78,8 @@ domains/research-knowledge/wikis-documentation/wikis-documentation-mcp-focus.md
 domains/research-knowledge/wikis-documentation/wikis-documentation-workflow.md
 domains/sales-crm/crm/crm-workflow.md
 domains/sales-crm/e-commerce/e-commerce-workflow.md
-domains/sales-crm/etsy/etsy-workflow.md
 domains/sales-crm/kdp/kdp-workflow.md
 domains/sales-crm/leadgen/leadgen-workflow.md
-domains/sales-crm/marketplaces/marketplaces-workflow.md
 domains/sales-crm/offers-proposals/offers-proposals-workflow.md
 domains/sales-crm/outreach/outreach-workflow.md
 domains/sales-crm/price-monitoring/price-monitoring-workflow.md

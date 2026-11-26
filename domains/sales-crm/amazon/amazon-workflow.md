@@ -20,7 +20,7 @@ required_tools:
 inputs:
   - "Marketplace (DE/US), ASINs or SKU list"
   - "Seller Central access or API credentials (local/OAuth only)"
-  - "Ziel: Listing-Audit, Buy-Box, Reviews, Preisvergleich"
+  - "Goal: listing audit, Buy Box, reviews, price comparison"
 outputs:
   - "ASIN-Bericht (Preis, Rating, Offer-Count, Hauptkategorie)"
   - "Recommendations for action with source links"
@@ -52,7 +52,7 @@ Obtain Amazon data in a structured way for **seller and retail analyses**: catal
 | Tool | Role | Rationale |
 |------|-------|------------|
 | HasData/amazon-mcp | Product data JSON | Only permitted fields; API key in the connector |
-| Seller Central (manuell) | Meldungen, Policy | Agent liefert Checkliste, Mensch klickt |
+| Seller Central (manual) | Notifications, policy | Agent provides checklist, human clicks |
 | DuckDB/CSV local | Snapshots | Time comparisons without repeated API calls |
 
 ## System prompt
@@ -129,7 +129,7 @@ CSV: 3 rows, ISO-8859-1 avoided (UTF-8)
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** Listing-Compliance-Check vor Q4-Kampagne
+- **Task:** Listing compliance check before Q4 campaign
 - **Input:** Own title/bullets (paste), category "Kitchen Helpers"
 - **Prompt:**
 

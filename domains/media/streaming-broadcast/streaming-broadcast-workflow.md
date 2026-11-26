@@ -1,6 +1,6 @@
 ---
 id: streaming-broadcast-workflow
-title: "Streaming-Vorbereitung and Broadcast-Assets"
+title: "Streaming Preparation and Broadcast Assets"
 domain: media
 category: streaming-broadcast
 tags:
@@ -18,13 +18,13 @@ required_tools:
     version_notes: "Pre-Stream-Transcode, Testclips"
   - name: OBS Studio
     install: "obsproject.com; manuelle Konfiguration"
-    version_notes: "Agent dokumentiert Profile, steuert not live without approval"
+    version_notes: "Agent documents profiles, does not control live without approval"
 inputs:
-  - "Stream-Briefing (Targetplattform, Aufloesung, Bitrate)"
+  - "Stream briefing (target platform, resolution, bitrate)"
   - "Medien-Assets (Overlays, Stinger, Pre-Roll)"
 outputs:
-  - "OBS-Profil-Checkliste and normalisierte Assets"
-  - "Test-Encode-Protokoll"
+  - "OBS profile checklist and normalized assets"
+  - "Test-encode log"
 risk_level: medium
 example_count: 2
 version: "1.1.0"
@@ -33,27 +33,27 @@ updated: "2026-11-23"
 
 ## Purpose
 
-**Livestream technisch vorbereiten**: Assets transcodieren, loudness and Aufloesung on Plattform-Limits bringen, **OBS-Checkliste** liefern—without ungefragt Stream-Keys to drehen or Kanaele live to schalten.
+**Technically prepare livestream**: transcode assets, bring loudness and resolution to platform limits, provide **OBS checklist**—without rotating stream keys or taking channels live unprompted.
 
 ## When to use
 
 - Webinar or Unternehmens-Livestream in 720p/1080p geplant.
-- B-Roll, Stinger and Intro-Clips sollen einheitliche Specs have.
-- Agent should FFmpeg-Test encodes and Dokumentation for Operator liefern.
+- B-roll, stinger, and intro clips should have uniform specs.
+- Agent should deliver FFmpeg test encodes and documentation for the operator.
 
 **When not to use**
 
 - 24/7 lineares Fernsehen with Ad-Server.
-- DRM-geschuetzte Ausspielung.
-- Unbeaufsichtigter Start the Livestreams durch Agent.
+- DRM-protected playback.
+- Unattended start of the livestream by the agent.
 
 ## Tool stack
 
 | Tool | Role | Rationale |
 |------|-------|------------|
 | ffmpeg / ffprobe | Asset-Normalisierung | yuv420p, AAC, keyframe spacing |
-| OBS Studio | Live-Mix | De-facto-Standard; Mensch am Go-Live |
-| ffplay | Kurztest | Stichprobe before Show |
+| OBS Studio | Live mix | De facto standard; human at go-live |
+| ffplay | Quick test | Spot check before show |
 
 ## System prompt
 
@@ -92,27 +92,27 @@ Recommend backup recording locally in OBS checklist even when streaming only.
 3. `ffmpeg` Normalisierung after Spec in `stream_assets/`.
 4. Stinger on 2 s Laenge trimmen; Audio fade out 100 ms.
 5. Testpattern `bars.mp4` create.
-6. OBS-Checkliste as Markdown; Operator review.
+6. OBS checklist as Markdown; operator review.
 7. Optional local `-f null` encode test the longest loop source.
 
 ## Definition of done
 
-- [ ] all Assets gleiche fps and Aufloesung wie Canvas
-- [ ] Keyframe-Abstand dokumentiert
+- [ ] All assets match canvas fps and resolution
+- [ ] Keyframe interval documented
 - [ ] Audio peaks safe; no Clip on Stinger
 - [ ] no Stream-Key im Log
-- [ ] Operator-Checkliste vollstaendig
+- [ ] Operator checklist complete
 
 ## Security
 
 - Stream-Keys and RTMP-URLs only in OBS lokal; nie in Repo.
-- Go-Live-Toggle only Mensch.
+- Go-live toggle by human only.
 - Aufgezeichnete Streams: DSGVO at Chat-Overlays.
 
 ## Pitfalls
 
 - Gemischte 25/30 fps Szenen → OBS judder.
-- NVENC on Server without GPU im Checkliste erwaehnt.
+- NVENC on server without GPU mentioned in the checklist.
 - to hohe Bitrate → Plattform transcoded schlecht.
 - Stinger stereo out of phase on Mono-Summe.
 - Agent startet `ffmpeg -f flv rtmp://...` without approval—verbieten.
@@ -136,7 +136,7 @@ gop: 60 frames
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** OBS-Checkliste YouTube 1080p.
+- **Task:** OBS checklist YouTube 1080p.
 - **Input:** no Keys; only Spec.
 - **Prompt:**
 
