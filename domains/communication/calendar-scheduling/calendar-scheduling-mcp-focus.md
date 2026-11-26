@@ -87,7 +87,7 @@ Never paste refresh tokens. Note Europe/Vienna as display default.
 
 - [ ] Source of truth named for Creates
 Smoke test successful or error with remediation
-- [ ] Default-Zeitzone dokumentiert
+- [ ] Default time zone documented
 - [ ] Write-Tools gated
 
 ## Security

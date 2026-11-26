@@ -97,7 +97,7 @@ Warn on unbounded memory growth without ttl policy.
 
 ## Security
 
-- ClawHub audit referenzieren.
+- Reference ClawHub audit.
 - GDPR cloud mem0.
 
 ## Pitfalls

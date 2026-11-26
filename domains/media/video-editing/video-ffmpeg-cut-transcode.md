@@ -106,7 +106,7 @@ Never upload to third-party hosts or publish URLs without approval.
 - [ ] Video `yuv420p`, Audio without Clipping; `-movflags +faststart` gesetzt
 - [ ] No visible A/V drift in spot checks
 - [ ] Subtitles temporally plausible (if generated); proper nouns spot-checked
-- [ ] all FFmpeg-Befehle im Thread or Log dokumentiert
+- [ ] All FFmpeg commands documented in thread or log
 
 ## Security
 

@@ -82,7 +82,7 @@ Do not claim CVE not affected without version proof from lockfile.
 
 ## Definition of done
 
-- [ ] Scan-Befehle dokumentiert
+- [ ] Scan commands documented
 - [ ] CRITICAL triagiert (fix or Ausnahme-Ticket)
 - [ ] No rule disables without justification
 

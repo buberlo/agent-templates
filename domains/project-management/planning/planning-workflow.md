@@ -89,7 +89,7 @@ Version plan_{project}_{date}.
 6. Risk/scenario section for external deps.
 7. export deliverables; Tracker dates only after release.
 
-## Definition of done / Definition of Done
+## Definition of done
 
 - [ ] Assumptions and confidence explicit
 - [ ] Critical path identified

@@ -91,7 +91,7 @@ Keep legend for color semantics when more than 3 colors.
 1. Knoten/Kanten from Briefing tabellarisch.
 2. Mermaid source write.
 3. `mmdc` rendern; at Fehler Syntax fixen.
-4. SVG in MD einbinden testen.
+4. Test embedding SVG in MD.
 5. Optional draw.io for Layout-Korrektur.
 6. Review with User (Screenshot or SVG).
 7. Commit sources to the repo.

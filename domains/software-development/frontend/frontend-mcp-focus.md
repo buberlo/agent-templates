@@ -84,7 +84,7 @@ Coordinate with design tokens file when visual mismatch is reported.
 ## Definition of done
 
 - [ ] build + playwright green
-- [ ] MCP rounds dokumentiert
+- [ ] MCP rounds documented
 - [ ] localhost only
 
 ## Security

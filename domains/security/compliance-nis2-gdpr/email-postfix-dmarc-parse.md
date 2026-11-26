@@ -90,7 +90,7 @@ Open JSON/HTML; Tabulate fail rate per source.
 ## Pitfalls
 
 - Only one week of data — too early for reject.
-- Forwarder als „Angriff“ klassifiziert.
+- Forwarder classified as an "attack".
 - parsedmarc version skew with new XML schemas.
 - SPF -all not set despite good DMARC pass rate.
 - Uhrzeit/Zeitzone Report-Period missverstanden.

@@ -18,7 +18,7 @@ Summarize videos, generate chapters, and derive scripts and channel content from
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
 | Hermes skill youtube-content | Skill | https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/media/media-youtube-content | Fetch YouTube transcripts and turn them into chapters, summaries, threads, blog posts, or quotes. | Bundled; helper fetch_transcript.py via prepared venv (youtube extra), not raw pip into the agent environment. | Bundled catalog. | https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/media/media-youtube-content | no (as cited) |
-| ClawHub „YouTube Watcher“ (michaelgathara) | Skill | https://clawhubtrends.com/leaderboard.html | YouTube beobachten or zusammenfassen. | openclaw skills install (Owner michaelgathara) and openclaw skills verify. | 48,111 Downloads, 294 Registry-Stars (ClawHub Leaderboard 23 Nov 2026). | https://clawhubtrends.com/leaderboard.html | no (as cited) |
+| ClawHub "YouTube Watcher" (michaelgathara) | Skill | https://clawhubtrends.com/leaderboard.html | Monitor or summarize YouTube. | openclaw skills install (Owner michaelgathara) and openclaw skills verify. | 48,111 downloads, 294 registry stars (ClawHub Leaderboard 23 Nov 2026). | https://clawhubtrends.com/leaderboard.html | no (as cited) |
 
 ## Typical workflows
 
@@ -26,7 +26,7 @@ Summarize videos, generate chapters, and derive scripts and channel content from
 - Read or research first, then draft, then request approval for any action that has effects.
 - Recheck the output (file, URL, ticket) and cite the source.
 - Hermes workflow: fetch transcript with --text-only --timestamps, catch empty outputs, chunk if >50k characters, choose format (default: Summary), proofread timestamps.
-- Prompt: /youtube-content fasse VIDEO_URL als Kapitel + 8-Satz-Summary zusammen.
+- Prompt: /youtube-content summarize VIDEO_URL as chapters + 8-sentence summary.
 
 ## Pitfalls
 

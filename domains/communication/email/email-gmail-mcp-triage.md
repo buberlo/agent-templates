@@ -88,9 +88,9 @@ Deliver: label counts, list of draft IDs, triage-summary.md path.
 6. Write `triage-summary.md` with counts and draft IDs.
 7. User reviews drafts; `send email` only after explicit OK per message.
 
-## Definition of done / Definition of Done
+## Definition of done
 
-- [ ] Alle ungelesenen Threads klassifiziert or in `Review-Human`
+- [ ] All unread threads classified or in `Review-Human`
 - [ ] No sent mail without documented release
 Drafts contain correct thread reference/reply-to
 - [ ] Summary without unnecessary PII in the agent log

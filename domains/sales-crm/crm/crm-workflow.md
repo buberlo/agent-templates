@@ -42,7 +42,7 @@ CRM data **reading, correcting and preparing** in the form of deals by Stages, a
 
 - Wochenreview: Pipeline-Gewicht, stuck deals, forecast sanity-check.
 - Find duplicate companies/people before an ICP campaign.
-- Meeting-Notizen als Draft-Task im CRM anlegen.
+- Create meeting notes as a draft task in the CRM.
 
 **When not**
 
@@ -110,7 +110,7 @@ Confirm CRM instance, object type and Auth.
 Stage IDs in Automations override manual agent suggestions.
 - Ignore close date in past on open deals → Forecast gap.
 - Attio-Listen ≠ Pipeline—falsche Summe.
-- Zwei MCPs parallel → doppelte Kontakte anlegen.
+- Two MCPs in parallel → creating duplicate contacts.
 - Currency mix without FX → wrong pipeline weighting.
 
 ## Basic examples

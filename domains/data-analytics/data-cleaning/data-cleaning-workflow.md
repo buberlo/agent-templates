@@ -43,7 +43,7 @@ Duplicates and format garbage.
 
 **When not**
 
-- „KI-Raten“ without dokumentierte Regeln.
+- "AI guessing" without documented rules.
 
 ## Tool stack
 
@@ -85,12 +85,12 @@ After cleaning checksum sha256 cleaned file log.
 4. Dry-run auf Sample.
 5. Vollrun cleaned + quarantine.
 6. Check the rowcount balance sheet.
-7. quality_report ausliefern.
+7. Deliver quality_report.
 
-## Definition of done / Definition of Done
+## Definition of done
 
 [ ] Source unchanged
-- [ ] Bilanz rowcount stimmt
+- [ ] Balance row count matches
 - [ ] Regel-IDs in Quarantine
 - [ ] cleaning_rules.yaml versioniert
 

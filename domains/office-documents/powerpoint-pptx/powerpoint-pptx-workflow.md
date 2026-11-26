@@ -103,7 +103,7 @@ Use high-contrast text on brand backgrounds.
 ## Definition of done
 
 - [ ] Slide count = outline
-- [ ] Validator OK or Abweichungen dokumentiert
+- [ ] Validator OK or deviations documented
 - [ ] no invented KPIs in Charts
 - [ ] PDF QA on brand slides
 - [ ] approval before Versand

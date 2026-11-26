@@ -67,7 +67,7 @@ Summarize matrix row counts and open PASS/FAIL/UNKNOWN totals at end.
 
 1. List of Standards with Edition Year.
 2. User provides permitted excerpts.
-3. Requirements Matrix anlegen.
+3. Create requirements matrix.
 4. Design-Artefakte zuordnen.
 5. Mark Gap and UNKNOWN.
 6. Management Summary without Zertifikat.

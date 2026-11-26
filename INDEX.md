@@ -843,7 +843,7 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `youtube-content-workflow` | YouTube-transcript to Kapiteln and Content | hermes, openclaw, generic | low | 2 |
+| `youtube-content-workflow` | YouTube Transcript to Chapters and Content | hermes, openclaw, generic | low | 2 |
 
 ## Domain: `office-documents` (16 templates)
 

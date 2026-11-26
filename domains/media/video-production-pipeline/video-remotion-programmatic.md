@@ -21,7 +21,7 @@ required_tools:
     version_notes: ">= 18; Chromium-Bundle via Remotion"
   - name: ffmpeg
     install: "OS-Paket ffmpeg"
-    version_notes: "Post-Render-Checks and leichte Nachediting"
+    version_notes: "Post-render checks and light post-editing"
 inputs:
   - "Briefing (Targetgruppe, Laenge, Branding)"
   - "Datenquelle (JSON/CSV/API-Stub)"
@@ -47,7 +47,7 @@ Agents execute **Briefing → React Composition → Render → QA** for repeatab
 
 **When not to use**
 
-- Einmaliger Kinomontage-Cut with viel B-Roll and intuitiver Timeline (NLE).
+- One-off cinematic montage cut with lots of B-roll and an intuitive timeline (NLE).
 - Legally sensitive data must not leave the render worker or enter the cloud without a clear hosting boundary.
 - Echtzeit-Livestream-Grafiken (OBS/NDI) without Remotion-Pipeline.
 
@@ -93,7 +93,7 @@ Stock assets and fonts: only use files the user provided or licenses they confir
 
 1. Record the briefing and JSON schema of the data rows; derive duration from `fps × frames`.
 2. `npx create-video@latest` or bestehendes Repo; `npm install` and Remotion-Skills-README konsultieren.
-3. Composition `ReportVideo` anlegen; Props-Typ in `src/types.ts` definieren.
+3. Create composition `ReportVideo`; define props type in `src/types.ts`.
 4. `npm run start` — Preview with Example-`inputProps` im Remotion Studio.
 5. `npx remotion render ReportVideo deliver/report_2026-11.mp4 --props=@data/payload.json`.
 6. `ffprobe deliver/report_2026-11.mp4`; Poster `npx remotion still ReportVideo poster.png --frame=30`.
@@ -103,22 +103,22 @@ Stock assets and fonts: only use files the user provided or licenses they confir
 
 - [ ] Render without errors; resolution and fps match briefing
 - [ ] all Datenzeilen from Props sichtbar and lesbar (no Overflow without approval)
-- [ ] Render-Befehl and Props-file dokumentiert—Wiederholung without Agent possible
+- [ ] Render command and props file documented—reproduction without agent possible
 - [ ] no unlizenzierten Fonts/Bilder im Bundle
 - [ ] ffprobe-Dauer ±1 Frame against `durationInFrames`
 
 ## Security
 
 - Do not write customer data in props to public issue trackers or cloud render logs.
-- FFmpeg-Nachediting with Wasserzeichen or Upload only after approval.
+- FFmpeg post-editing with watermark or upload only after approval.
 - Dependencies: mention `npm audit` for new packages; no arbitrary postinstall scripts.
 
 ## Pitfalls
 
 - `durationInFrames` to knapp—letzte Animation will abgeschnitten; immer `+fps` Puffer.
 - Grosse Bilder without `width`/`height` in `<Img>` verursachen Layout-Shifts im Render.
-- `--props` as Shell-String bricht at Anfuehrungszeichen—file `@payload.json` bevorzugen.
-- Chromium-Headless on Servern without Fonts—Brand-Fonts in `public/` einbinden.
+- `--props` as a shell string breaks on quotation marks—prefer file `@payload.json`.
+- Headless Chromium on servers without fonts—embed brand fonts in `public/`.
 - Skills vs. MCP: Remotion-Skills nutzen; veraltete MCP-Doku kann falsche Tool-Namen liefern.
 
 ## Basic examples

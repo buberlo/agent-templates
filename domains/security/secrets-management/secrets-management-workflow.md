@@ -71,7 +71,7 @@ No secret values in commit messages or PR titles.
 ## Workflow
 
 1. Inventory: `gh secret list`, `vault kv list secret/` (paths only).
-2. Rotation-Ticket anlegen.
+2. Create rotation ticket.
 3. Create new secret in Vault — value only in Vault UI/secure channel.
 4. Consumer-Apps konfigurieren (dual-key window).
 5. Old Secret revoke after confirmation.

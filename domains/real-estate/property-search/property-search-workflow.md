@@ -77,7 +77,7 @@ Session log: search terms, result counts, written file paths.
 6. Once released, export xlsx with filters and sources.
 7. Optional: Create change checklist for follow-up in 7 days.
 
-## Definition of done / Definition of Done
+## Definition of done
 
 - [ ] No Dubletten without Hinweis
 Each line with URL and date of retrieval

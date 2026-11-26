@@ -95,7 +95,7 @@ Intent: funding news, hiring surge, new CTO—tag intent_flags[].
 4. Assign signals per account (≥2 for Qualify).
 5. Mark contacts/roles with Confidence.
 6. Create a fit score and exclude list.
-7. CSV + optional CRM-Importanleitung ausliefern.
+7. Deliver CSV + optional CRM import instructions.
 
 ## Definition of done
 

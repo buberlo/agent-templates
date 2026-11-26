@@ -98,7 +98,7 @@ Log wall-clock time for ffmpeg jobs exceeding five minutes for capacity planning
 ## Definition of done
 
 - [ ] Geringstpossiblee Tool-Menge aktiv
-- [ ] Befehle reproduzierbar dokumentiert
+- [ ] Commands documented reproducibly
 - [ ] no MCP only for `ffmpeg -version`
 - [ ] Output technisch geprueft
 - [ ] approvaln at Publish/Overwrite eingehalten

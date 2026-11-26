@@ -123,7 +123,7 @@ Validate encoding: latin-1 CSV on DE umlauts needs utf-8-sig or iconv first.
 - LibreOffice macro path under headless differs from GUI.
 - Tausender-Zeilen-Batch without RAM-Limit killt soffice.
 - ODT-Field «City» vs. CSV «Ort» still leer.
-- PDF-Namen with Sonderzeichen on Windows-Share problematisch.
+- PDF names with special characters are problematic on a Windows share.
 
 ## Basic examples
 

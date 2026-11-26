@@ -112,7 +112,7 @@ Archive raw guest file checksum (sha256) in log for dispute resolution.
 
 ## Pitfalls
 
-- Einmalige loudnorm without zweiten Pass with `measured_*` is oft ungenau—Zwei-Pass-Workflow einhalten.
+- Single-pass loudnorm without a second pass using `measured_*` is often inaccurate—follow the two-pass workflow.
 - MP3-generation before loudnorm macht Messungen unzuverlaessig—first WAV master, dann Lossy.
 - Mono-Spur as fake stereo (`pan`) kann Phase-Probleme create—lieber explizit `-ac 1`.
 - aggressive `afftdn` entfemt „S“-Laute—Nurstufen testen.

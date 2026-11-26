@@ -86,7 +86,7 @@ Deliver smoke test: 1-slide pptx title "Tooling OK" and validation result line.
 ## Definition of done
 
 - [ ] Ein Primary-Tool pro Ausgabeformat
-- [ ] Validate- or Read-back-Schritt dokumentiert
+- [ ] Validation or read-back step documented
 - [ ] Smoke-pptx successful or error with fix
 [ ] Unnecessary skills deactivated
 

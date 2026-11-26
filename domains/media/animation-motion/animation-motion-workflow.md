@@ -57,7 +57,7 @@ updated: "2026-11-23"
 | Remotion | React-Composition | Produktion, Skills-Oekosystem |
 | Manim CE | Vektor-Erklaerung | Formeln, Graphen |
 | p5.js | Generativ | Kurze Loops, noise fields |
-| ffmpeg | Nachediting | GIF, Kompression |
+| ffmpeg | Post-editing | GIF, compression |
 
 ## System prompt
 
@@ -102,7 +102,7 @@ If text animates, verify contrast ratio against background for accessibility.
 
 - [ ] Render without Fehler; Dauer ±1 Frame
 - [ ] Text lesbar on Targetgeraet (min font size checked)
-- [ ] Quellcode and Befehl dokumentiert
+- [ ] Source code and command documented
 - [ ] Random seeds fixiert wo required
 - [ ] no unlizenzierte Musik
 

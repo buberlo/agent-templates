@@ -88,7 +88,7 @@ Output: result.md with sections per task; table of corrections if correct mode.
 4. Error in table with category.
 5. In the case of translation: Mark inquiry in case of ambiguity.
 6. Mini-dialogue if `dialog drill` is desired.
-7. `output/lang-session.md` archivieren.
+7. Archive `output/lang-session.md`.
 
 ## Definition of done
 

@@ -89,7 +89,7 @@ Check URLs and robots.
 
 ## Definition of done
 
-- [ ] robots-Check dokumentiert
+- [ ] robots check documented
 - [ ] delay_ms in script
 - [ ] Schema konsistent JSON
 - [ ] No login bypass

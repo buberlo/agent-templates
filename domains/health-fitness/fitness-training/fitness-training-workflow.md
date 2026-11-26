@@ -34,7 +34,7 @@ Trainingsplane, Periodisierung and Tracking-Auswertung — no sportmedizinische 
 
 ## When to use
 
-- Kraft- or Ausdauerplan for gesunden aktiven Erwachsenen with Nutzerangaben.
+- Strength or endurance plan for a healthy active adult with user inputs.
 - Strava-Aktivitaten for Wochenreview auswerten.
 - Not when chest pain, recent surgery, or heart problems without a physician.
 
@@ -78,7 +78,7 @@ Emergency: chest pain directive to call emergency services.
 
 - [ ] Schmerz-Stopp-Hinweis
 - [ ] No diagnosis
-- [ ] Progression dokumentiert
+- [ ] Progression documented
 - [ ] Strava only when authorized
 
 ## Security

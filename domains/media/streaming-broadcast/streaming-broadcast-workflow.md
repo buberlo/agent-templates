@@ -18,7 +18,7 @@ required_tools:
     version_notes: "Pre-Stream-Transcode, Testclips"
   - name: OBS Studio
     install: "obsproject.com; manuelle Konfiguration"
-    version_notes: "Agent dokumentiert Profile, steuert not live without approval"
+    version_notes: "Agent documents profiles, does not control live without approval"
 inputs:
   - "Stream briefing (target platform, resolution, bitrate)"
   - "Medien-Assets (Overlays, Stinger, Pre-Roll)"
@@ -38,7 +38,7 @@ updated: "2026-11-23"
 ## When to use
 
 - Webinar or Unternehmens-Livestream in 720p/1080p geplant.
-- B-Roll, Stinger and Intro-Clips sollen einheitliche Specs have.
+- B-roll, stinger, and intro clips should have uniform specs.
 - Agent should deliver FFmpeg test encodes and documentation for the operator.
 
 **When not to use**
@@ -98,7 +98,7 @@ Recommend backup recording locally in OBS checklist even when streaming only.
 ## Definition of done
 
 - [ ] All assets match canvas fps and resolution
-- [ ] Keyframe-Abstand dokumentiert
+- [ ] Keyframe interval documented
 - [ ] Audio peaks safe; no Clip on Stinger
 - [ ] no Stream-Key im Log
 - [ ] Operator checklist complete

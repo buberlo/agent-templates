@@ -108,7 +108,7 @@ Never spend credits or call paid APIs without confirmation.
 - Lyrics in the wrong language for the vocal model.
 - Commercial=Yes without Pro-Plan according to Anbieter.
 - to langer Prompt will abgeschnitten—Prioritaeten vorne.
-- Skill-Example 1:1 as Kundenlyrics kopieren.
+- Copying skill example 1:1 as client lyrics.
 
 ## Basic examples
 

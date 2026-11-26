@@ -44,7 +44,7 @@ updated: "2026-11-23"
 **When not to use**
 
 - Echtzeit-Inpainting in Kundenfotos without Retusche-approval and Urheberklaerung.
-- Sensible Prompts with verbotenen Inhalten or identifizierbaren Personen without Recht.
+- Sensitive prompts with prohibited content or identifiable individuals without permission.
 - Allein API-basierte DALL·E/Midjourney-Flows without Comfy-Infrastruktur.
 
 ## Tool stack
@@ -91,7 +91,7 @@ Never publish images to stock or social without user approval.
 3. Workflow-Template `sdxl_txt2img_api.json` laden; Prompt-Nodes ersetzen.
 4. `curl -X POST http://127.0.0.1:8188/prompt -d @job.json` → `prompt_id`.
 5. `curl http://127.0.0.1:8188/history/<prompt_id>` bis `outputs` gefuellt.
-6. Bilder after `out/` kopieren; `workflow_snapshot.json` and `params.json` archivieren.
+6. Copy images to `out/`; archive `workflow_snapshot.json` and `params.json`.
 7. Optional Web-Vorschau: `magick out/ComfyUI_*.png -resize 512x512 preview.jpg`.
 
 ## Definition of done
@@ -100,7 +100,7 @@ Never publish images to stock or social without user approval.
 - [ ] Resolution and aspect ratio as briefed
 - [ ] no unautorisierten Checkpoints/LoRAs geladen
 - [ ] Spot check for artifacts; user for brand approval
-- [ ] Cloud-Kosten/Calls dokumentiert (falls MCP)
+- [ ] Cloud costs/calls documented (if MCP)
 
 ## Security
 

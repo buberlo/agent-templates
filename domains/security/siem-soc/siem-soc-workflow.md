@@ -80,7 +80,7 @@ Open Alert/Ticket; Set UTC windows.
 ## Definition of done
 
 - [ ] UTC-Zeiten konsistent
-- [ ] Queries reproduzierbar dokumentiert
+- [ ] Queries documented reproducibly
 - [ ] Containment not carried out without release
 
 ## Security

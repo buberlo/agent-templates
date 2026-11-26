@@ -89,7 +89,7 @@ Watch Excel serial dates: convert ISO in pandas before write.
 ## Workflow
 
 1. Daten in pandas normalisieren (Datum, Dezimal).
-2. Skill/CLI: Struktur Sheets `Data`, `Calc`, `Report` anlegen.
+2. Skill/CLI: Create structure sheets `Data`, `Calc`, `Report`.
 3. Formeln eintragen; no hartcodierten Summen in Report.
 4. `xlsx_read.py` or skill read: spot-check values.
 5. `xlsx_recalc.py` or Calc-Oeffnung anfordern when #NAME? droht.

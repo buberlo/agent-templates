@@ -78,15 +78,15 @@ Prefer regional flags: --region europe-west3.
 6. IAM read: `gcloud projects get-iam-policy <id> --format=json` (Ausschnitt).
 7. Mutations as a terraform proposal, do not execute directly.
 
-## Definition of done / Definition of Done
+## Definition of done
 
 - [ ] Projekt-ID in jeder Antwort
-- [ ] GKE Master/Node-Version dokumentiert
+- [ ] GKE master/node version documented
 - [ ] No Service-Account-Keys erzeugt
 
 ## Security
 
-- Prod-Projekt: high risk; Deletes verboten without Ticket.
+- Prod project: high risk; deletions prohibited without a ticket.
 - IAM `roles/owner` not as a default proposal.
 - Audit logs do not mass export to public threads.
 

@@ -24,7 +24,7 @@ required_tools:
     version_notes: "Audio extract, 16 kHz mono for ASR"
 inputs:
   - "Audio- or Videodatei"
-  - "Sprache(n) and gewuenschtes Format (SRT, VTT, JSON)"
+  - "Language(s) and desired format (SRT, VTT, JSON)"
   - "Optional: speaker count or diarization yes/no"
 outputs:
   - "transcript with Timestamps"

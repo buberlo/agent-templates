@@ -82,7 +82,7 @@ Disable DB MCP in prod connection strings unless user supplies staging DSN name.
 
 ## Definition of done
 
-- [ ] HTTP verify dokumentiert
+- [ ] HTTP verification documented
 - [ ] DB MCP read-only eingehalten
 - [ ] Spec and code synchronous
 

@@ -75,7 +75,7 @@ Cross-check at least two sources for material claims when feasible.
 6. Summary with sources + date.
 7. No further "deep" steps without new template/authorization.
 
-## Definition of done / Definition of Done
+## Definition of done
 
 - [ ] Any claim with URL+date
 - [ ] No intrusive Techniken

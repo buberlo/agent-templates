@@ -24,7 +24,7 @@ inputs:
   - "DE Beschriftungen ja/nein"
 outputs:
   - "PNG/SVG Charts"
-  - "chart_spec.md (Achsen, Farben)"
+  - "chart_spec.md (axes, colors)"
   - "SQL/Pandas reproducible snippet"
 risk_level: low
 example_count: 2
@@ -84,19 +84,19 @@ Annotate COVID gap event optional user.
 3. Daten per SQL laden.
 4. Plot with Labels/Units.
 5. Farb-/A11y-Check.
-6. PNG + Code speichern.
+6. Save PNG + code.
 7. chart_spec and Alt-Text.
 
-## Definition of done / Definition of Done
+## Definition of done
 
 - [ ] Chart type justified
-- [ ] Achsen beschriftet with Einheit
+- [ ] Axes labeled with unit
 - [ ] Reproducible snippet
 - [ ] No truncated axis without notice
 
 ## Security
 
-- No PII in Achsenlabels.
+- No PII in axis labels.
 
 ## Pitfalls
 

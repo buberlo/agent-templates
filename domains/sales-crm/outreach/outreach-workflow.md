@@ -90,7 +90,7 @@ Bounce handling: never retry guessed email patterns.
 2. Collect Hook + Source per contact (CRM/Manual).
 3. Write initial contact draft (subject + body).
 4. Follow-up matrix (days 3/7/14) with new value.
-5. Drafts in Gmail/CRM anlegen—Status „draft“.
+5. Create drafts in Gmail/CRM—status "draft".
 6. Tick off the quality checklist for each email.
 7. Invite users to approve sending; no SMTP sending.
 

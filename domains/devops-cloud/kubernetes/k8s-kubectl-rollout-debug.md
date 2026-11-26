@@ -86,14 +86,14 @@ After remediation: kubectl rollout status until success; snapshot revision numbe
 ## Definition of done
 
 - [ ] Root cause identified or narrowed down to 1–2 hypotheses
-- [ ] Rollout wieder `Successfully rolled out` or Rollback dokumentiert
+- [ ] Rollout is `Successfully rolled out` again or rollback documented
 - [ ] Alle kubectl-Befehle im Thread/Ticket
 
 ## Security
 
 - Prod-Kubeconfig not permanently on laptop without policy.
 - Writing kubectl actions only in the change window and with approval.
-- No Secrets aus `kubectl get secret -o yaml` in Logs kopieren.
+- Do not copy secrets from `kubectl get secret -o yaml` into logs.
 
 ## Pitfalls
 

@@ -4841,7 +4841,7 @@
     },
     {
       "id": "youtube-content-workflow",
-      "title": "YouTube-transcript to Kapiteln and Content",
+      "title": "YouTube Transcript to Chapters and Content",
       "domain": "media",
       "category": "youtube-content",
       "tags": [

@@ -81,7 +81,7 @@ Deliver: anki_import.tsv, quality_notes.md, card_count.
 ## Workflow
 
 1. Download source (docx or YouTube transcript).
-2. Chunken in sections (max ~2k words per pass).
+2. Chunk into sections (max ~2k words per pass).
 3. Pro Abschnitt Karten generieren bis `max_cards`.
 4. Remove duplicates; Check Cloze cards.
 5. Write `anki_import.tsv` (UTF-8, tabs).

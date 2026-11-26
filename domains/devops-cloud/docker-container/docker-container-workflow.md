@@ -77,10 +77,10 @@ Registry login via credential helper, never password in command line.
 6. Tag for Registry: `docker tag app:dev ghcr.io/org/app:1.2.3`.
 7. `docker push` only after release and green scan report.
 
-## Definition of done / Definition of Done
+## Definition of done
 
 - [ ] Image runs non-root when policy is required
-- [ ] No CRITICAL offen or Ausnahme dokumentiert
+- [ ] No CRITICAL open or exception documented
 - [ ] Digest notiert
 
 ## Security

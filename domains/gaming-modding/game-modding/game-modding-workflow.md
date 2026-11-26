@@ -79,7 +79,7 @@ Backup savegames before user applies mod locally—remind, do not run without pa
 
 - [ ] Game-Version and Loader genannt
 - [ ] No DRM bypass
-- [ ] Rollback dokumentiert
+- [ ] Rollback documented
 - [ ] No Nexus upload without release
 
 ## Security

@@ -79,7 +79,7 @@ Legal: only games whose dedicated server license allows your use case.
 - [ ] No Secrets in Klartext in Output
 - [ ] Mod-Versionen gespiegelt
 - [ ] Backup getestet im Runbook beschrieben
-- [ ] Ports dokumentiert
+- [ ] Ports documented
 
 ## Security
 

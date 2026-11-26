@@ -34,7 +34,7 @@ Search **Notion wikis and task DBs** via MCP, create/update pages—integration 
 ## When to use
 
 - Team-Wiki in Notion is Source of Truth.
-- Agent should Meeting Notes or DB-Eintraege anlegen.
+- Agent should create meeting notes or DB entries.
 - Recherche-resultse strukturiert in Notion landen.
 
 **When not to use**

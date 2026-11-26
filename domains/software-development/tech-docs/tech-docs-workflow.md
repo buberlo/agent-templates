@@ -82,7 +82,7 @@ Update index/README TOC when adding pages.
 
 - [ ] Commands verified
 - [ ] Links relative and valid
-- [ ] No Secrets in Beispielen
+- [ ] No secrets in examples
 
 ## Security
 

@@ -90,12 +90,12 @@ Confirm board ID, columns and WIP limits.
 6. Empfehlungen and Draft-Kommentare (without Posten).
 7. provide a report; Optional moves only after release.
 
-## Definition of done / Definition of Done
+## Definition of done
 
 Each flag category with issue IDs/links
 - [ ] WIP violations quantified
 - [ ] No Board-Mutation without allow_writes
-- [ ] Zeitzone Europe/Vienna for Stale-Logik dokumentiert
+- [ ] Time zone Europe/Vienna documented for stale logic
 
 ## Security
 

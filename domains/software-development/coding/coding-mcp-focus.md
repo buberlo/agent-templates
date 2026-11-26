@@ -73,7 +73,7 @@ Commit scope: only files for this task.
 2. Optional GitHub MCP: Issue AC.
 3. Workspace search/edit.
 4. Skill verify: test command.
-5. Diff zusammenfassen.
+5. Summarize diff.
 6. MCP audit footer.
 7. PR on request via gh skill step.
 

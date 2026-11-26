@@ -72,7 +72,7 @@ Export markdown templates only.
 2. Wochentlichen Rhythmus (therapy, Sport, Ruhe) skizzieren.
 3. Journaling- and Mood-Vorlage.
 4. Krisenplan with Hotlines when user wunscht.
-5. Review-Ritual definieren.
+5. Define review ritual.
 6. Datenschutz lokal betonen.
 7. In case of crisis signals → hotline, no further tasks.
 

@@ -98,13 +98,13 @@ Deskew and contrast normalize before tesseract when photos of paper.
 2. at Scan: pages to PNG (300 DPI).
 3. OCR Skill or `tesseract png stdout`.
 4. Confidence-Report pro Seite.
-5. Kritische fields extract + Crop speichern.
+5. Extract critical fields + save crop.
 6. User spot check of amount vs. image.
 7. Textdatei with [?]-Markierungen liefern.
 
 ## Definition of done
 
-- [ ] NATIVE_TEXT vs OCR dokumentiert
+- [ ] NATIVE_TEXT vs. OCR documented
 - [ ] Niedrig-Confidence-pages listed
 - [ ] Amounts/dates spot-checked or marked as OPEN
 - [ ] no Cloud-OCR without approval
@@ -121,7 +121,7 @@ Deskew and contrast normalize before tesseract when photos of paper.
 - 72 DPI reicht not for Kommazahlen.
 - German without englische Begriffe in invoices.
 - Tabellen as Fliesstext without Spalten.
-- Doppelte pages im Scan.
+- Duplicate pages in the scan.
 - Such-PDF schlecht indexiert at schiefem Raster.
 
 ## Basic examples

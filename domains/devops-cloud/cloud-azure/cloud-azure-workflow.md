@@ -79,10 +79,10 @@ Export sensitive outputs (kubeconfigs) never into chat body.
 6. `kubectl get nodes` read-only Diagnose.
 7. Changes only as a Bicep/Runbook proposal.
 
-## Definition of done / Definition of Done
+## Definition of done
 
 Subscription and Tenant in Summary
-- [ ] No ungenehmigten Mutations-Befehle
+- [ ] No unapproved mutation commands
 - [ ] AKS version and Node-Health documented
 
 ## Security

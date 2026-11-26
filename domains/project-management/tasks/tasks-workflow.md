@@ -55,7 +55,7 @@ Weekly review with prioritization.
 
 | Tool | Role | Justification |
 |------|-------|------------|
-| todoist MCP | Tasks lesen/anlegen | Zentrale Task-Liste |
+| todoist MCP | Read/create tasks | Central task list |
 | Hermes-Skills document-to-action-items | Extraction |From documents|
 | weekly-review-planning | Wochenstruktur | Planungsblock |
 
@@ -90,7 +90,7 @@ Language: task text in source language.
 6. Unklare Items als Nachfragen listen.
 7. Optional weekly_plan_draft aus offenen Tasks.
 
-## Definition of done / Definition of Done
+## Definition of done
 
 - [ ] Any task with source line or section
 - [ ] No Due Date without Regel or Explizitheit

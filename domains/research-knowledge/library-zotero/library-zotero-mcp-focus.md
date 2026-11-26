@@ -89,7 +89,7 @@ Rate limit conscious batches for 50+ titles.
 - [ ] Zotero named as the target
 - [ ] ≤2 Search MCPs
 - [ ] No PDF without release
-- [ ] Handoff dokumentiert
+- [ ] Handoff documented
 - [ ] Queries logged
 
 ## Security

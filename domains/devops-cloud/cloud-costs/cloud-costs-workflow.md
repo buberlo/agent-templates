@@ -78,10 +78,10 @@ Confirm cloud and period ('2026-10-01' to '2026-10-31').
 3. Comparison previous month: same command with adjusted period.
 4. Tags: GroupBy `TAG:Environment` wo Tagging existiert.
 5. Terraform-PR optional: `infracost breakdown --path=infra/`.
-6. Top-Anomalien textuell; Idle-Liste aus Compute-Metriken (read).
+6. Top anomalies textually; idle list from compute metrics (read).
 7. Measures as tickets, no `terminate-instances` without approval.
 
-## Definition of done / Definition of Done
+## Definition of done
 
 - [ ] Period and currency called
 - [ ] Top services with amount from API (not estimated)

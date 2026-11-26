@@ -68,7 +68,7 @@ Close with index file path and count of documents still missing dates.
 
 1. Inventory of file types and sources.
 2. Folder and naming scheme.
-3. Timeline anlegen with Lucken markiert.
+3. Create timeline with gaps marked.
 4. Findings index without interpretation.
 5. Doctor visit prep when an appointment is coming up.
 6. Redaktion for Teilen with Angehorigen.

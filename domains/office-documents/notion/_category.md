@@ -6,7 +6,7 @@
 
 ## Summary
 
-Seiten and Datenbanken in Notion suchen, anlegen and aktualisieren.
+Search, create, and update pages and databases in Notion.
 
 ## Recommended tool stack
 

@@ -70,7 +70,7 @@ Handoff to human analyst if MCP auth fails mid-investigation.
 2. MCP query user/host timeline.
 3. Ergebnisse kondensieren.
 4. Document the hypothesis.
-5. Containment-Vorschlag textuell.
+5. Textual containment proposal.
 6. CONTAIN_APPROVE abwarten.
 7. MCP audit an SOC-Ticket.
 

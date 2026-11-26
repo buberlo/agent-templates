@@ -24,7 +24,7 @@ required_tools:
     version_notes: "for Clip-Recherche/transcripte externer Videos"
 inputs:
   - "Episoden-Rohmaterial or fertige WAV/MP3"
-  - "Shorthand-Briefing (Shownotes, Kapitel, Distribution)"
+  - "Shorthand briefing (show notes, chapters, distribution)"
 outputs:
   - "Master-Audio and transcript"
   - "Draft shownotes with timestamps"
@@ -90,8 +90,8 @@ Distinguish sponsor segments in notes when user marks ad reads in briefing.
 1. Rohaudio annehmen; `ffprobe` for Dauer/Peaks.
 2. Two-pass `loudnorm` → `episode_master.wav` (siehe Template audio-ffmpeg-podcast-master).
 3. Whisper-Skill on Master-WAV; Output in `transcript/`.
-4. Kapitelliste from Segment-Timestamps per Skript or Agent-Heuristik.
-5. `show_notes_draft.md` with Summary, Kapiteln, Links.
+4. Chapter list from segment timestamps via script or agent heuristic.
+5. `show_notes_draft.md` with summary, chapters, links.
 6. Host review items in checklist; no RSS action.
 7. after approval: finale MP3-ID3 only with gelieferten Metadaten.
 
@@ -99,7 +99,7 @@ Distinguish sponsor segments in notes when user marks ad reads in briefing.
 
 - [ ] Master-LUFS im Targetkorridor
 - [ ] Transcript covers >95% of speaking duration (spot check)
-- [ ] Kapitelzeiten monoton; erste Kapitelmarke at 0:00 or Intro-Ende
+- [ ] Chapter times monotonic; first chapter marker at 0:00 or end of intro
 - [ ] Show notes marked as draft
 - [ ] no Distribution without approval
 
@@ -111,9 +111,9 @@ Distinguish sponsor segments in notes when user marks ad reads in briefing.
 ## Pitfalls
 
 - transcript on komprimiertem MP3 → schlechtere ASR; immer Master-WAV.
-- Kapitel from Halluzination statt Timestamps—an Transcript binden.
+- Chapters from hallucination instead of timestamps—bind to transcript.
 YouTube content for your own episode instead of file—wrong source.
-- Doppeltes loudnorm on bereits mastered File of Gastgeber.
+- Double loudnorm on an already mastered file from the host.
 - Shownotes with ungeprueften Affiliate-Links.
 
 ## Basic examples

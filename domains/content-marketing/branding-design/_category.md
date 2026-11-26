@@ -19,7 +19,7 @@ Markenrichtlinien, Design-Systeme, Figma/Canva-Anbindung and visuelle Vorlagen.
 |---|---|---|---|---|---|---|---|
 | figma MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/figma | Figma from the Nous catalog. | hermes mcp install figma | Nous-approved optional-mcps catalog entry (listing 23 Nov 2026). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
 | canva MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/canva | Canva from the Nous catalog. | hermes mcp install canva | Nous-approved optional-mcps catalog entry (listing 23 Nov 2026). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
-| Hermes-Skills baoyu-infographic, popular-web-designs, claude-design | Skill | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | Infografiken, HTML-Design-Systeme, einmalige HTML-Artefakte. | Bundled creative/. | Bundled. | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | no (as cited) |
+| Hermes skills baoyu-infographic, popular-web-designs, claude-design | Skill | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | Infographics, HTML design systems, one-off HTML artifacts. | Bundled creative/. | Bundled. | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | no (as cited) |
 
 ## Typical workflows
 

@@ -6,7 +6,7 @@
 
 ## Summary
 
-Eigene MCP-Server designen, implementieren and an Clients anbinden.
+Design, implement, and connect custom MCP servers to clients.
 
 ## Recommended tool stack
 

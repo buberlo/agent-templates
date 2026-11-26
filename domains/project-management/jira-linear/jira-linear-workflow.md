@@ -47,7 +47,7 @@ Create or draft issues from specifications, link sprints, change status only in 
 
 **When not**
 
-- Hunderte Issues without Priorisierung anlegen.
+- Creating hundreds of issues without prioritization.
 Maintain both systems in parallel with duplicated keys.
 - Spez without Akzeptanzkriterien in „Done“ schieben.
 
@@ -90,7 +90,7 @@ Cut Spec in epics/stories/tasks (vote size).
 6. At USER_APPROVAL CREATE: Create issues and return IDs.
 7. No Done Transitions without separate QA release.
 
-## Definition of done / Definition of Done
+## Definition of done
 
 - [ ] Jedes Ticket hat ≥1 testbares AC
 - [ ] Trace table complete for delivered tickets

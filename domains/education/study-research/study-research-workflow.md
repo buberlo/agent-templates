@@ -106,7 +106,7 @@ Export docx-Outline if desired.
 
 ## Pitfalls
 
-- Halluzinierte Studien in Lit-Tabelle.
+- Hallucinated studies in the literature table.
 - Zitationsstil gemischt APA/Chicago.
 - Outline without Forschungsfrage.
 - Web search without approval with paywall snippets misquoted.
@@ -126,7 +126,7 @@ Outline + literature_table from provided PDFs only, no web search.
 - **Expected result:**
 
 ```text
-outline.md: 5 Kapitel with Forschungsfragen
+outline.md: 5 chapters with research questions
 literature_table.csv: 8 rows with APA keys
 gaps.md: "Longitudinal classroom studies scarce"
 ```

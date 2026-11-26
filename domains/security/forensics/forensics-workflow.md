@@ -69,7 +69,7 @@ Handoff to certified forensic analyst for tooling steps.
 1. Check authorization and case ID.
 2. Enter the evidence list with SHA256.
 3. Custody log: who, when, where.
-4. Timeline-Template anlegen (leer, strukturiert).
+4. Create timeline template (empty, structured).
 5. Copy vs. original according to SOP confirm.
 6. Human analyst takes over tooling.
 7. Agent continues documentation only.

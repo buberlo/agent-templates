@@ -110,8 +110,8 @@ Do not claim legal compliance of content—layout only.
 - [ ] no fehlenden Bild- or Include-Referenzen im Build-Log
 - [ ] Schrift and Raender entsprechen CI-Template
 - [ ] PDF under agreed size and page count limits
-- [ ] Versionsstand in Fusszeile/Metadaten stimmt with `meta.yaml`
-- [ ] all Pandoc-Befehle im Thread dokumentiert
+- [ ] Version status in footer/metadata matches `meta.yaml`
+- [ ] All Pandoc commands documented in thread
 
 ## Security
 
@@ -130,7 +130,7 @@ Do not claim legal compliance of content—layout only.
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** Internes Handbuch from drei Kapitel-MDs as PDF bauen.
+- **Task:** Build internal handbook as PDF from three chapter MDs.
 - **Input:** `chapters/{01-intro,02-api,03-ops}.md`, `meta.yaml` (title: „Platform Runbook“, version: 1.2).
 - **Prompt:**
 

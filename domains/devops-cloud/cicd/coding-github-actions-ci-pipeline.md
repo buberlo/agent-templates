@@ -83,7 +83,7 @@ Output: final ci.yml snippet, commands run, and check names for branch rules.
 
 1 `gh repo view --j and `gh workflow list' for actual status.
 2. Fehljob: `gh run list --branch main --limit 3` dann `gh run view <id> --log-failed`.
-3. Lokal reproduzieren: `pytest -q` / `npm test` wie im Workflow dokumentiert.
+3. Reproduce locally: `pytest -q` / `npm test` as documented in the workflow.
 4. Draft or fix workflow under `.github/workflows/ci.yml` (lint + test jobs).
 5. `act pull_request -j test` (optional `-P ubuntu-latest=catthehacker/ubuntu:act-latest`).
 6. Branch pushing; `gh pr create` or existing PR; waiting for green run: `gh run watch`.
@@ -94,7 +94,7 @@ Output: final ci.yml snippet, commands run, and check names for branch rules.
 - [ ] separate triggers `pull request` and `push` on `main`
 - [ ] Medium runtime under 15 min or matrix
 - [ ] No Secrets in Logs or Workflow-Kommentaren
-- [ ] Action-SHAs gepinnt or Renovate-Policy dokumentiert
+- [ ] Action SHAs pinned or Renovate policy documented
 
 ## Security
 

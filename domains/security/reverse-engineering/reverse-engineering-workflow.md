@@ -81,7 +81,7 @@ Schedule peer review of analysis plan before any human executes dynamic steps.
 
 ## Definition of done
 
-- [ ] Authorization dokumentiert
+- [ ] Authorization documented
 - [ ] No RE-Befehle im Agent-Output
 - [ ] Isolation checklist completely
 

@@ -103,7 +103,7 @@ Avoid duplicating vendor docs—link out with summary.
 - [ ] MOC verlinkt alle Seiten
 - [ ] How-tos haben Verify-Schritt
 - [ ] No unchecked vendor facts without URL
-- [ ] Lint clean or Ausnahmen dokumentiert
+- [ ] Lint clean or exceptions documented
 - [ ] Public publish freigegeben
 
 ## Security

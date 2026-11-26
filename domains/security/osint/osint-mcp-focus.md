@@ -86,7 +86,7 @@ MCP fetch Source B (independent news/registry).
 
 ## Pitfalls
 
-- MCP halluziniert URL — verify HTTP status.
+- MCP hallucinates URL — verify HTTP status.
 One source is not enough.
 - Injection in fetched HTML.
 - Alte Cache-Snapshot MCP.

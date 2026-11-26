@@ -92,16 +92,16 @@ Document timezone on signature timestamps UTC display.
 3. Signatur-Policy with User abstimmen (SES/AES/QES).
 4. Write checklist for portal setup.
 5. after User-Signaturlauf: Audit-Report (when file zurueck).
-6. Hash and Version archivieren.
+6. Archive hash and version.
 7. No envelope send by agent.
 
 ## Definition of done
 
 - [ ] Checklist complete (fields, signing order, exhibits)
-- [ ] SHA256 dokumentiert
+- [ ] SHA256 documented
 - [ ] No signing process by agent
 - [ ] Audit only technisch, no Rechtsberatung
-- [ ] approval before Versand dokumentiert
+- [ ] Approval before sending documented
 
 ## Security
 

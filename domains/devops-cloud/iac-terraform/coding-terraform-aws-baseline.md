@@ -80,7 +80,7 @@ After approved apply: capture terraform output -json redacted for ticket.
 ## Workflow
 
 1. `aws sts get-caller-identity` and check account/region against order.
-2. State-Backend anlegen or referenzieren: S3 + DynamoDB Lock (Modul or einmalig).
+2. Create or reference state backend: S3 + DynamoDB lock (module or one-time).
 3. `terraform init -backend-config=backends/dev.hcl` im Root `infra/`.
 4. `terraform fmt -recursive && terraform validate`.
 5. `tflint --config=.tflint.hcl` and `tfsec .` (or `checkov -d .`).

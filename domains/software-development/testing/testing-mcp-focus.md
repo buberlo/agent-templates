@@ -71,7 +71,7 @@ Do not store credentials in MCP session prompts.
 
 ## Workflow
 
-1. Skill-Matrix Explore vs Verify definieren.
+1. Define Explore vs. Verify skill matrix.
 2. Optional MCP: navigate staging login (read-only data).
 3. Write spec from MCP/codegen to repo.
 4. `npx playwright test` — Skill Verify.

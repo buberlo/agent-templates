@@ -18,7 +18,7 @@ Write, test, and publish SKILL.md according to the Agent Skills standard.
 
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| Agent Skills Standard / Anthropic skills repo | Standard + Beispiele | https://github.com/anthropics/skills | Frontmatter name/description, progressive disclosure, optionale scripts/references. | Marketplace add / Kopie after ~/.claude/skills or ~/.hermes/skills bzw. OpenClaw skills/. | 199,219 Stars | https://code.claude.com/docs/en/skills/ | no (as cited) |
+| Agent Skills Standard / Anthropic skills repo | Standard + examples | https://github.com/anthropics/skills | Frontmatter name/description, progressive disclosure, optional scripts/references. | Marketplace add / copy to ~/.claude/skills or ~/.hermes/skills or OpenClaw skills/. | 199,219 stars | https://code.claude.com/docs/en/skills/ | no (as cited) |
 | OpenClaw Skill Workshop | Platform feature | https://docs.openclaw.ai/skills/ | Agent drafts PROPOSAL.md, human reviews and runs openclaw skills workshop apply. | Feature set described in 2026.6.1 guides among others; verify commands in the current CLI. | 395,081 stars | https://www.elegantsoftwaresolutions.com/blog/openclaw-skill-workshop-power-user-guide-2026-6-1 | no (as cited) |
 
 ## Typical workflows

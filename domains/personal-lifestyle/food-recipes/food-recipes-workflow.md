@@ -77,7 +77,7 @@ No restaurant reservation automation.
 ## Definition of done
 
 - [ ] Allergene sichtbar
-- [ ] Skalierung dokumentiert
+- [ ] Scaling documented
 - [ ] no diet-Therapie
 - [ ] Servings klar
 
@@ -90,7 +90,7 @@ No restaurant reservation automation.
 ## Pitfalls
 
 - Knoblauch linear skaliert to scharf.
-- Backzeit at doppelter Menge not angepasst — Hinweis.
+- Baking time not adjusted for double quantity — note.
 - Cross allergen in Sauce.
 - Fleisch Safefood Temperatur only Hinweis generisch.
 

@@ -77,7 +77,7 @@ Close with export filenames and revision id in a short recap.
 ## Definition of done
 
 - [ ] Toleranzen on kritischen Massen
-- [ ] Parameternamen dokumentiert
+- [ ] Parameter names documented
 - [ ] Export-Settings notiert
 - [ ] Sicherheitskritisch → Ingenieur-Hinweis
 

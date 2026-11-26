@@ -88,7 +88,7 @@ If no prior snapshot, report baseline only no delta.
 ## Definition of done
 
 - [ ] Neues Snapshot-File, altes unangetastet
-- [ ] VAT/Shipping dokumentiert
+- [ ] VAT/shipping documented
 - [ ] Alerts with delta pct
 - [ ] No car price change
 

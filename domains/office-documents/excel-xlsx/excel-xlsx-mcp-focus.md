@@ -98,7 +98,7 @@ Prefer copying source to work/ before mutate.
 
 ## Definition of done
 
-- [ ] Tool-Wahl dokumentiert
+- [ ] Tool choice documented
 - [ ] at write: read/recalc durchgefuehrt or PENDING begruendet
 - [ ] Externe Links gemeldet
 - [ ] no Overwrite without approval

@@ -107,13 +107,13 @@ Archive negative prompts alongside positive prompts in sidecar JSON.
 ## Security
 
 - Store API keys in environment variables; not in the repo.
-- Generierte Bilder with Markenzeichen Dritter vermeiden.
+- Avoid generated images with third-party trademarks.
 - Cloudinary-Upload only with Datenschutz-approval.
 
 ## Pitfalls
 
 - comfy-cloud Timeout at hohen Steps—Queue klein halten.
-- Skill and MCP parallel → doppelte Kosten.
+- Skill and MCP in parallel → double costs.
 - cloudinary without optimization returns huge PNGs—set transformation.
 - Nano Banana Skill-Namen variieren—`openclaw skills verify`.
 - No rights check when using the training style of well-known artists.

@@ -33,7 +33,7 @@ Debugging and designing **SSO and identity**: SAML/OIDC metadata, claim mapping,
 
 ## When to use
 
-- Neue SaaS-App anbinden.
+- Connect a new SaaS app.
 - Login loop after IdP change.
 
 **When not to use**

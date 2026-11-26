@@ -87,7 +87,7 @@ List embedded fonts licensing risk when customer brand fonts used.
 2. only pptx-Tools enable.
 3. audit or build-Handoff clarify.
 4. Output verification checklist.
-5. at build → workflow-Template referenzieren.
+5. On build → reference workflow template.
 6. Token-Hinweis at vielen MCPs.
 7. Log the gewaehlten Skill-Version.
 

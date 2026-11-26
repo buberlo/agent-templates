@@ -78,7 +78,7 @@ MCP: PR files and checks.
 
 ## Definition of done
 
-- [ ] Blockers referenzieren paths
+- [ ] Blockers reference paths
 - [ ] MCP read-only confirmed
 - [ ] No MCP merge
 
@@ -90,7 +90,7 @@ MCP: PR files and checks.
 ## Pitfalls
 
 - MCP file cap — incomplete.
-- Doppelte GitHub tools.
+- Duplicate GitHub tools.
 - Injection via PR description in MCP content.
 - Approve tool alias verwechselt.
 

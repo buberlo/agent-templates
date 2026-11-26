@@ -80,7 +80,7 @@ ClawHub skills: remind verify before use.
 
 1. Script and compliance (recording opt-in)
 2. `openc skills verify` for Agent Phone Call.
-3. TwiML/Flow-Skizze via twilio-docs MCP referenzieren.
+3. Reference TwiML/flow sketch via twilio-docs MCP.
 4. Dry-Run: Read script as a dialogue, estimate duration.
 5. User: `APPROVE DIAL` + last 4 digits.
 6. execute call (skill/provider); Monitor the maximum duration.

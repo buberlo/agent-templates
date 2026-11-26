@@ -89,7 +89,7 @@ Set RAG with documents per milestone/sprint target.
 6. Optional diff against previous report.
 7. Deliver report + email draft (without sending).
 
-## Definition of done / Definition of Done
+## Definition of done
 
 - [ ] RAG any traffic light with issue or milestone receipt
 - [ ] Metrics with Query timestamp or "partially"
@@ -106,7 +106,7 @@ Set RAG with documents per milestone/sprint target.
 - Count Completed Issues that have been reopened.
 Compare Velocity without equal team capacity.
 - Exec report with 30 ticket IDs unreadable.
-- Risiko aus letztem Report kopieren obwohl geschlossen.
+- Copying a risk from the last report even though it is closed.
 - Traffic light green because due date is in the future despite blockers.
 
 ## Basic examples

@@ -80,16 +80,16 @@ Test: dry run sample 100 rows procedure.
 ## Workflow
 
 1.Clarify sources, goal, schedule.
-2. Watermark and Keys definieren.
+2. Define watermark and keys.
 3. Write staging DDL.
 4. n8n-Flow skizzieren (Extract→Transform→Load).
 5. Idempotenz-Testplan.
 6. Fehler/Alert-Pfad.
 7. Draft-Artefakte without Prod-Schedule.
 
-## Definition of done / Definition of Done
+## Definition of done
 
-- [ ] Upsert/Merge dokumentiert
+- [ ] Upsert/merge documented
 - [ ] No Secrets in workflow.json
 - [ ] Watermark-Strategie klar
 Prod-Cron not active without release
