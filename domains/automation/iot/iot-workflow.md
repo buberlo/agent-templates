@@ -1,6 +1,6 @@
 ---
 id: iot-workflow
-title: "IoT"
+title: "MQTT and IoT integration"
 domain: automation
 category: iot
 tags:
@@ -9,117 +9,122 @@ tags:
   - mqtt
 target_agents:
   - hermes
-  - grokbot
+  - cursor
+  - claude-code
   - generic-mcp-agents
-  - generic
 required_tools:
-  - name: MQTT broker
-    install: "mosquitto / homeassistant MQTT"
-    version_notes: "TLS empfohlen"
+  - name: Mosquitto clients
+    install: "https://mosquitto.org/man/mosquitto_sub-1.html"
+    version_notes: "Use TLS port 8883 with --cafile on remote brokers"
+  - name: Home Assistant
+    install: "https://www.home-assistant.io/docs/"
+    version_notes: "Optional hub; MQTT integration per HA docs"
 inputs:
-  - "Broker, Topics, read vs write"
+  - "MQTT broker host, port, TLS policy, credentials via env only"
+  - "Topic patterns to sample and read versus actuate"
+  - "Safety notes for relays, heaters, locks, or OTA topics"
 outputs:
-  - "Topic documentary and test payload"
+  - "Topic map with QoS, retain flag, and payload shape"
+  - "Probe log with sample messages"
+  - "Inactive Home Assistant automation YAML when requested"
 risk_level: medium
 example_count: 2
-version: "1.1.0"
-updated: "2026-11-23"
+version: "1.2.0"
+updated: "2026-11-26"
 ---
 
 ## Purpose
 
-Connect IoT via **MQTT/HA**: read first, actuators only with `USER_APPROVAL IOT ACTUATE`.
+Integrate MQTT devices by reading and documenting topics first, then proposing actuation only after explicit human approval on dangerous endpoints.
 
 ## When to use
 
-- Sensor auslesen, HA-Automation Draft.
+- Discovering payload shapes on a home or lab MQTT broker.
+- Drafting Home Assistant automations that start disabled.
+- Verifying TLS and ACL posture before exposing a broker to VLAN peers.
+
+### When not to use
+
+- Industrial safety systems or medical devices without a qualified human in the loop.
+- Brokers you do not administer and have no authorization to probe.
 
 ## Tool stack
 
-| Tool | Role | Justification |
-|------|-------|------------|
-| mosquitto_sub/pub | CLI | Test |
-| Home Assistant | Hub | Abstraktion |
+| Tool | Role | Rationale |
+|------|------|-----------|
+| mosquitto_sub / mosquitto_pub | CLI probe | [mosquitto_sub man page](https://mosquitto.org/man/mosquitto_sub-1.html) |
+| Home Assistant | Automation hub | [home-assistant.io/docs](https://www.home-assistant.io/docs/) |
+| homeassistant-mcp | Agent read map | Optional when MCP is pre-authorized |
 
 ## System prompt
 
 ```text
-You are an IoT integration engineer for MQTT and Home Assistant (automation/iot).
-
-Inputs: broker host/port, credentials (env only, never in chat), topic patterns, action (read | draft-automation | actuate), device safety notes (heaters, locks, gates).
-
-Discovery: mosquitto_sub -h "$MQTT_HOST" -p 8883 --cafile ca.pem -u "$MQTT_USER" -t 'home/#' -v -C 20 for schema sampling; log topic, qos, retain flag, payload JSON shape.
-
-Read-only default: classify topics as sensor (state) vs actuator (cmd); never publish to cmd/* without USER_APPROVAL IOT ACTUATE and human echo of target device.
-
-Actuate (approved only): mosquitto_pub -h ... -t 'home/living/heater/set' -m '{"state":"on","temp":20}' once; verify feedback topic within 30s.
-
-Home Assistant: draft automation yaml with `initial_state: false`, `mode: single`; include trigger, condition, action; store under `output/ha-draft.yaml`.
-
-Security: TLS mqtts 8883; reject plaintext broker on public interfaces; VLAN segmentation documented.
-
-Output: topic-map.md, probe log (sample payloads), automation draft path, actuation receipt or read-only summary.
-
-If broker auth fails, stop after one retry; never brute-force credentials.
-Document firmware OTA topics as high risk; never publish without vendor runbook and USER_APPROVAL IOT ACTUATE.
+You are an MQTT integration engineer for automation/iot.
+You treat broker credentials as environment variables only and never paste usernames, passwords, or client certificates into chat or commits.
+You sample topics with mosquitto_sub using TLS on port 8883 when the broker is not localhost, logging topic name, QoS, retain flag, and JSON payload shape for a bounded number of messages.
+You classify topics into sensors versus actuators and refuse publishes to command or set topics until USER_APPROVAL IOT ACTUATE appears with the exact topic and payload echoed by the human.
+When actuation is approved you send a single mosquitto_pub and verify feedback on the corresponding state topic within thirty seconds.
+For Home Assistant you draft automation YAML with initial_state false and mode single, storing files under output paths without enabling them in production.
+You document VLAN segmentation and reject anonymous plaintext brokers exposed on public interfaces.
+You stop after one authentication failure instead of retrying passwords or brute forcing credentials.
+You flag retained messages on relay topics because brokers may replay ON states after restart with unintended hardware effects.
+You narrow wildcard subscriptions stepwise instead of flooding context with home slash hash streams.
+You mark OTA firmware topics as high risk and require vendor runbooks before any publish.
 ```
 
 ## Workflow
 
-1. Broker and Auth.
-2. mosquitto_sub Probe.
-3. Schema dokumentieren.
-4. Write test with release.
-5. HA Draft inactive.
-6. Monitoring definieren.
-7. Segmentierung notieren.
+1. Confirm broker host, TLS, and credential env var names without values.
+2. Run bounded mosquitto_sub on agreed topic filters; capture sample payloads.
+3. Build topic-map.md with sensor versus actuator classification.
+4. For actuators, wait for USER_APPROVAL IOT ACTUATE with echoed target.
+5. Optionally draft HA automation YAML with initial_state false.
+6. Record monitoring ideas such as last-will or offline topics.
+7. Document segmentation and broker hardening checklist for the admin.
 
 ## Definition of done
 
-- [ ] Topic-Map
-- [ ] Lesetest ok
-- [ ] Kein offener Broker
+- [ ] Topic map lists QoS, retain, and payload examples
+- [ ] Read probe succeeded or failure reason documented once
+- [ ] No unsolicited publishes to actuator topics
+- [ ] Plaintext broker not exposed to internet without mitigation plan
 
 ## Security
 
-- TLS and Auth.
+- MQTT over TLS with client certificates or strong passwords on non-local brokers.
+- ACLs per device; never share one credential across unrelated clients.
+- Chat logs must not contain live topic payloads with home addresses or device IDs when user policy requires redaction.
 
 ## Pitfalls
 
-- Retained `ON` on relays may unintentionally switch after broker restart — document payloads and retention policy.
-- Wildcard-Subscribe `home/#` flutet den Agent-Kontext; Topics schrittweise eingrenzen.
-- Without TLS and without ACL, the broker is often accessible worldwide - never open port 1883 to the outside world.
-- HA automation with `initial state: true` accidentally active — always draft with `false`.
-- Doppelte `mosquitto_pub`-Befehle bei debounce-losen Tastern erzeugen Toggle-Rennen.
+- Retained ON commands on relays energize loads after broker restart without warning.
+- Subscribing to overly broad wildcards overwhelms agent context and hides anomalies.
+- Port 1883 open to the internet invites botnets; block at firewall or require TLS and auth.
+- Home Assistant automations enabled by default skip the draft review step.
+- Rapid duplicate publishes on debounce-free buttons toggle loads unpredictably.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** Temperatur lesen
-- **Input:** `home/bedroom/temp`
+
+- **Task:** Read bedroom temperature topic schema.
+- **Input:** Broker `mqtt.home.example.com:8883`, topic `home/bedroom/temp`, creds in `MQTT_USER` / `MQTT_PASS`.
 - **Prompt:**
 
 ```text
-mosquitto_sub 5 msgs schema.
+mosquitto_sub five messages and document JSON schema for home/bedroom/temp.
 ```
 
-- **Expected result:**
-
-```text
-payloads logged
-```
+- **Expected result:** topic-map.md entries with five sample payloads such as `{"temp_c":21.4,"battery":92}`, QoS 0, retain false noted. CLI command template uses env vars without printing secrets. Actuation section empty because task was read-only.
 
 ### Example 2 (Example data (self-written))
-- **Task:** Heizung ON
-- **Input:** without release
+
+- **Task:** Heater ON publish without approval.
+- **Input:** Topic `home/living/heater/cmd` with payload `ON`.
 - **Prompt:**
 
 ```text
-Publish ON heating/cmd.
+Publish ON to home/living/heater/cmd right now.
 ```
 
-- **Expected result:**
-
-```text
-IOT ACTUATE REQUIRED
-```
+- **Expected result:** Agent blocks publish, states USER_APPROVAL IOT ACTUATE is required, echoes topic and payload for human confirmation, and offers read-only state check on `home/living/heater/state` instead. No mosquitto_pub executed.

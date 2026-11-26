@@ -1,6 +1,6 @@
 ---
 id: browser-automation-mcp-focus
-title: "Browser-Automation: MCP/Skill-Fokus"
+title: "Browser automation: MCP tool selection"
 domain: automation
 category: browser-automation
 tags:
@@ -10,141 +10,127 @@ tags:
   - playwright
 target_agents:
   - hermes
-  - grokbot
+  - cursor
+  - claude-code
+  - openclaw
   - generic-mcp-agents
-  - generic
 required_tools:
   - name: Playwright MCP
     install: "https://github.com/microsoft/playwright-mcp"
-    version_notes: "npx @playwright/mcp@latest"
+    version_notes: "Introduction: https://playwright.dev/mcp/introduction — accessibility snapshots cost context tokens."
   - name: Chrome DevTools MCP
     install: "https://github.com/ChromeDevTools/chrome-devtools-mcp"
-    version_notes: "Nur bei Debug nach Fehlschlag"
+    version_notes: "Attach only after a failed interaction step."
+  - name: Browserbase MCP
+    install: "https://github.com/browserbase/mcp-server-browserbase"
+    version_notes: "Optional remote browser when local Chrome is unavailable."
 inputs:
-  - "Welche MCPs sind im Client aktiv (include/exclude)"
-  - "Aufgabenklasse: interact | debug | read-only"
+  - "Task class: read-only | interact | debug"
+  - "Client active MCP list and include/exclude settings"
+  - "Target host: localhost, staging, or public third-party"
 outputs:
-  - "MCP selection and justification"
-  - "Minimum tool set for the session"
+  - "Chosen primary browser tool and disabled tools with reasons"
+  - "Client-specific MCP include list for the session"
+  - "Handoff template ID when task is scraping or CI testing"
 risk_level: low
 example_count: 2
-version: "1.1.0"
-updated: "2026-11-23"
+version: "1.2.0"
+updated: "2026-11-26"
 ---
+
 ## Purpose
 
-**MCP and skill routing** for browser tasks: Playwright vs. DevTools vs. Lesemcp — Set token budget and tool policy before first navigation.
+Pick the smallest browser automation surface before the first navigation so MCP clients do not load redundant accessibility trees and token-heavy tools.
 
 ## When to use
 
-- Agent starts with many MCPs → targeted reduction browser tools.
-- User asks "which browser MCP?" before a larger session.
+- The agent session starts with many MCP servers enabled and the user wants a browser task.
+- A prior run failed and you need to decide whether to add Chrome DevTools MCP or switch to Playwright CLI.
+- OpenClaw or Hermes needs an explicit include list before enabling browser skills.
 
+### When not to use
 
-######### When not to use
-
-
-- If task is already described as Playwright CLI test spec (directly 'browser-automation-workflow').
+- The user already pinned Playwright CLI with a repo and wants only `npx playwright test`.
+- The goal is bulk public-page extraction without login — use `data-analytics/web-scraping/web-playwright-research-scrape` instead.
 
 ## Tool stack
 
 | Tool | Role | Rationale |
-|----------------------------------------------------------------------------------------------------------------------
-| Playwright MCP | Interaction | UI of your own app |
-| Chrome DevTools MCP | Diagnosis | Network/Console |
-| ClawHub Playwright Skill | Wrapper | Progressive disclosure |
+|------|------|-----------|
+| [Playwright MCP](https://github.com/microsoft/playwright-mcp) | Interactive UI control | Documented at [playwright.dev/mcp/introduction](https://playwright.dev/mcp/introduction) |
+| [Chrome DevTools MCP](https://github.com/ChromeDevTools/chrome-devtools-mcp) | Network and console diagnosis | Short-lived debug adjunct |
+| [Browserbase MCP](https://github.com/browserbase/mcp-server-browserbase) | Hosted browser | When local install is blocked |
+| Playwright CLI | Repeatable scripts | [playwright.dev/docs/intro](https://playwright.dev/docs/intro); often lower token cost than MCP snapshots |
 
 ## System prompt
 
 ```text
-Role: browser MCP router (automatisierung/browser-automation-mcp-focus).
-Mission: Pick minimal MCP/skill set before any navigation; document token risk.
-
-Decision tree:
-read public page text only → Firecrawl/Brave/Exa OFF Playwright unless DOM interaction required.
-own app E2E click/fill → Playwright MCP OR Playwright CLI in terminal—not both unless user asks.
-failed step debug → add Chrome DevTools MCP temporarily; remove after root cause.
-
-Hermes: set mcp include list to playwright + optional devtools; exclude unused catalog entries.
-OpenClaw: tool policy deny browser skills until user confirms task class interact.
-Grok: plugin OAuth handles auth—no tokens in prompts.
-
-Playwright MCP install check: npx @playwright/mcp@latest --help in user env if unsure.
-Skills vs MCP: skill gives workflow text; MCP gives tools—enable skill only if team uses OpenClaw bundle.
-
-Measure overhead: warn if >3 browser-related MCPs enabled citing 67k token anecdote—user may trim.
-Snapshot strategy: ask user to limit snapshot depth or switch to CLI for batch asserts.
-Handoff: scraping tables → id web-playwright-research-scrape in daten-analytics.
-Handoff: CI pipeline → software-entwicklung/testing-workflow.
-
-Never recommend Browserbase for purely local localhost unless user lacks local chrome.
-Session end: suggest disable browser MCPs in client config to restore prompt budget.
-Log recommendation table: task, chosen tool, rejected tools, reason one line each.
+You are a browser automation tooling advisor for automation/browser-automation-mcp-focus.
+Your job is completed before any page loads: you classify the task, pick one primary control plane, and name tools to disable for the rest of the session.
+When the user only needs article text from a public page, recommend search or scrape templates and keep Playwright MCP off unless DOM interaction is required.
+When the user tests their own app with clicks and form fills, choose Playwright MCP for exploratory steps or Playwright CLI when they already maintain a test repo.
+If a step failed, you may recommend Chrome DevTools MCP temporarily, then remove it after the root cause is identified so console and HAR data do not flood context.
+You warn when more than two browser-related MCP servers stay enabled, citing that large accessibility snapshots can dominate prompt budget per community guidance at https://www.reddit.com/r/mcp/comments/1spvkrz/microsoft_recommends_cli_over_mcp_for_playwright/.
+For Hermes and OpenClaw, you output an explicit include/exclude list instead of assuming all catalog browser tools are active.
+You never recommend Browserbase for pure localhost work unless the user cannot run local Chromium.
+You document handoffs: table scraping to web-playwright-research-scrape, CI pipelines to software-development/testing-workflow.
+You end with a one-line table: task class, chosen tool, rejected tools, and reason.
+You refuse to store OAuth tokens or session cookies in skill text; session state belongs in env or storageState paths outside git.
 ```
 
 ## Workflow
 
-1. Classify task class (interact / debug / read).
-2. Capture active MCP list from the user or client config.
-3. Apply decision tree; Select overkill tools.
-4. Install line and include/exclude for Hermes/OpenClaw.
-5. At interact → reference to `browser-automation-workflow` with a concrete first step.
-6. After session: Recommendation to disable heavy MCPs.
+1. Ask whether the task is read-only, interactive UI, or post-failure debug.
+2. List the client’s active MCP servers; mark browser-related entries.
+3. If read-only public content, branch to scrape or search templates unless login or shadow DOM forces Playwright.
+4. If interact on owned app, pick Playwright MCP or CLI; disable parallel browser MCPs.
+5. If debug, add Chrome DevTools MCP with a stated removal step after diagnosis.
+6. Emit include/exclude guidance for Hermes, Cursor, Claude Code, or OpenClaw configs.
+7. Point to `browser-automation-workflow` for the first concrete navigation step when interact was chosen.
 
 ## Definition of done
 
-- [ ] Justified tool selection (max. 2 browser MCPs simultaneously)
-Read-only not solved via Playwright snapshots without warning
-- [ ] Handoff IDs named at Scraping/CI
+- [ ] At most two browser MCP servers recommended simultaneously
+- [ ] Read-only tasks do not default to full accessibility snapshots without warning
+- [ ] Handoff template IDs named when task is scraping or CI
+- [ ] DevTools MCP has an explicit detach step when used
 
 ## Security
 
-- Do not duplicate OAuth and session states in skill files.
-Activate only shared MCPs.
+- Shared MCP OAuth sessions must not be copied into prompts or committed skill files.
+- Remote browser vendors receive page content; confirm data residency before Browserbase.
+- Third-party sites get read-only routing unless the user supplies legal test accounts.
 
 ## Pitfalls
 
-- All browser MCPs in parallel → Prompt fully before task.
-- DevTools permanently on → even more context load.
-- Skill without verified owner (ClawHub warning).
+- Enabling Playwright MCP, Browserbase, and DevTools together leaves little room for task instructions.
+- Leaving DevTools attached inflates every later turn with network logs.
+- OpenClaw ClawHub skills without `skills verify` may be stale or unrelated to Playwright MCP.
+- Choosing MCP for a one-line text fetch triggers unnecessary snapshot cost.
+- Forgetting to disable browser tools after the session slows unrelated coding tasks.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** Click Staging Checkout
-- **Input:** interact, Hermes
+
+- **Task:** Route staging checkout clicks for Cursor with Hermes also enabled.
+- **Input:** Task class `interact`, staging `https://staging.example.com/checkout`, Playwright MCP and Firecrawl both on.
 - **Prompt:**
 
 ```text
-Enable Playwright MCP only; exclude Firecrawl. First step navigate staging URL.
+Before navigation: which browser tools stay enabled for a staging checkout flow?
 ```
 
-- **Expected result:**
-
-```text
-routing: playwright on | firecrawl off | next: open browser-automation-workflow
-```
+- **Expected result:** Primary tool is Playwright MCP with Firecrawl disabled for this session. Include list names `playwright` only among browser tools. Next step references `browser-automation-workflow` with navigate to staging checkout URL. Warn that accessibility snapshots should be limited to checkout steps, not entire catalog pages.
 
 ### Example 2 (Example data (self-written))
-- **Task:** Blog-Artikel nur zusammenfassen
-- **Input:** read-only
+
+- **Task:** Summarize a public blog post without login.
+- **Input:** Task class `read-only`, URL `https://blog.example.com/posts/release-notes`.
 - **Prompt:**
 
 ```text
-Reject Playwright MCP; suggest search or scrape template.
+User wants a summary of a public blog post. Should Playwright MCP be enabled?
 ```
 
-- **Expected result:**
-
-```text
-no browser MCP | handoff daten-analytics/web-scraping or brave search
-```
-
-### Example 2 (Example data (self-written))
-- **Task:** Second dry run
-- **Input:** Example data only
-- **Prompt:**
-```text
-Repeat workflow; no external writes.
-```
-- **Expected result:** Checklist only.
+- **Expected result:** Recommendation rejects Playwright MCP for this session and points to `data-analytics/web-scraping/web-playwright-research-scrape` or search MCP. Handoff row lists rejected tools (Playwright MCP, Browserbase) with reason “no DOM interaction required.” Cites [playwright.dev/mcp/introduction](https://playwright.dev/mcp/introduction) only as contrast, not as the chosen path.

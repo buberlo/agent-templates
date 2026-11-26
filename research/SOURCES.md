@@ -1,8 +1,8 @@
 # Sources
 
-As of: 2026-11-25 (Europe/Vienna). Each URL below was cited in at least one category file.
+As of: 2026-11-26 (Europe/Vienna). Each URL below was cited in at least one category file.
 
-Unique HTTP sources: **158**
+Unique HTTP sources: **171**
 
 Raw research dumps are not versioned (see `.gitignore`).
 
@@ -20,7 +20,10 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://code.claude.com/docs/en/skills/
 - https://cursor.com/docs/agent/hooks
 - https://cursor.com/docs/context/mcp
+- https://developer.android.com/tools/adb
 - https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+- https://docs.n8n.io/api/
+- https://docs.uipath.com/
 - https://docs.litellm.ai/docs/
 - https://cursor.com/docs/context/rules
 - https://developers.openai.com/codex/cli/
@@ -40,7 +43,9 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://github.com/ComposioHQ/awesome-claude-skills
 - https://github.com/EynaExp/meshcentral-mcp
 - https://github.com/GoogleCloudPlatform/kubectl-ai
+- https://github.com/jordansissel/xdotool
 - https://github.com/HasData/amazon-mcp
+- https://help.make.com/
 - https://github.com/NousResearch/hermes-agent
 - https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/atlassian
 - https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/attio
@@ -146,8 +151,11 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/media/media-youtube-content
 - https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/productivity/productivity-microsoft-office
 - https://learn.microsoft.com/en-us/azure/aks/aks-model-context-protocol-server
+- https://learn.microsoft.com/en-us/windows/win32/winauto/uiauto-usepatterns
+- https://man7.org/linux/man-pages/man5/crontab.5.html
 - https://linear.app/docs/mcp
 - https://mcp.cloudflare.com/mcp
+- https://mosquitto.org/man/mosquitto_sub-1.html
 - https://mcp.figma.com/mcp
 - https://mcp.linear.app/mcp
 - https://mcp.sentry.dev
@@ -156,9 +164,11 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://minecraft.wiki/w/RCON
 - https://modelcontextprotocol.io
 - https://ollama.com
+- https://openrpa.dk/
 - https://platform.openai.com/docs/guides/fine-tuning
 - https://papermill.readthedocs.io/en/latest/usage-cli.html
 - https://papermill.readthedocs.io/en/stable/usage-execute.html
+- https://playwright.dev/docs/intro
 - https://playwright.dev/mcp/introduction
 - https://prometheus.io/docs/prometheus/latest/command-line/promtool/
 - https://supabase.com/docs/guides/ai-tools/mcp#security-risks
@@ -168,6 +178,8 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://vercel.com/docs/cli
 - https://vercel.com/docs/deployments
 - https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html
+- https://www.freedesktop.org/software/systemd/man/latest/systemd.timer.html
+- https://www.home-assistant.io/docs/
 - https://www.hud.gov/helping-americans/fair-housing-act-overview
 - https://www.elegantsoftwaresolutions.com/blog/openclaw-skill-workshop-power-user-guide-2026-6-1
 - https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp (unofficial community guide; not affiliated with xAI)
@@ -175,6 +187,7 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://www.reddit.com/r/ClaudeAI/comments/1ryz7zp/i_measured_my_mcp_token_overhead_67k_tokens/
 - https://www.reddit.com/r/mcp/comments/1spvkrz/microsoft_recommends_cli_over_mcp_for_playwright/
 - https://www.terraform.io/
+- https://zapier.com/help
 - https://www.twilio.com/en-us/blog/developers/tutorials/integrations/ai-agent-to-human-agent-elevenlabs-call-handoffs-twilio
 - https://x.ai/bot/guides/grok-bot-101
 - https://x.com/AnylancerInc/status/2116384700449149180
