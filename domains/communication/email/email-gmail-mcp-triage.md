@@ -1,6 +1,6 @@
 ---
 id: email-gmail-mcp-triage
-title: "Posteingang triagieren with Gmail MCP"
+title: "Triage Inbox with Gmail MCP"
 domain: communication
 category: email
 tags:
@@ -33,7 +33,7 @@ updated: "2026-11-23"
 
 ## Purpose
 
-**Posteingang-Triage** with Gmail MCP: ungelesene Threads priorisieren, Labels konsistent setzen and **Antworten nur als Entwurf** vorbereiten—kein Auto-Send.
+**Inbox triage** with Gmail MCP: prioritize unread threads, apply labels consistently, and prepare **replies as drafts only**—no auto-send.
 
 ## When to use
 
@@ -82,10 +82,10 @@ Deliver: label counts, list of draft IDs, triage-summary.md path.
 
 1. Regeln laden: `cat config/inbox-triage-rules.yaml`.
 2. Gmail MCP: `search_emails` with `is:unread newer_than:2d -category:promotions`.
-3. Threads nach YAML priorisieren; Labels `Action`, `Waiting`, `FYI` setzen.
+3. Prioritize threads according to YAML; set labels `Action`, `Waiting`, `FYI`.
 4. Top-10-`Action`: Thread lesen, `create_draft` with Signatur and Ticket-Referenz.
-5. Newsletter: Label `Newsletter` + archivieren (nur nach Policy).
-6. `triage-summary.md` with Counts and Draft-IDs schreiben.
+5. Newsletters: label `Newsletter` + archive (according to policy only).
+6. Write `triage-summary.md` with counts and draft IDs.
 7. User reviews drafts; `send email` only after explicit OK per message.
 
 ## Definition of done / Definition of Done
@@ -98,16 +98,16 @@ Drafts contain correct thread reference/reply-to
 ## Security
 
 - Keep OAuth scopes minimal (no vault export of sensitive attachments to public channels).
-- MCP-Logs and Chat: no vollen Kundenadressen, wenn Policy Pseudonymisierung verlangt.
+- MCP logs and chat: no full customer addresses if policy requires pseudonymization.
 - Auto-Forward and filter changes only after release.
 
 ## Pitfalls
 
 - Reply-All on internal escalations → CC-Leak; Check drafts on recipient list.
 - Promotional query too aggressive → overlook important receipts.
-- Halluzinierte Fakten in Antworten → nur Zitate aus gelesenen Messages.
+- Hallucinated facts in replies → only quotes from read messages.
 - Time zones in meeting suggestions wrong (always IANA, e.g. Europe/Vienna).
-- Doppelte Drafts bei erneutem Lauf without Idempotenz-Check auf `thread_id`.
+- Duplicate drafts on rerun without idempotency check on `thread_id`.
 
 ## Basic examples
 
@@ -130,7 +130,7 @@ Review-Human: 1 (legal@...)
 
 ### Example 2 (Example data (self-written))
 - **Task:** Fehlende Regeldatei.
-- **Input:** Kein Pfad zu `inbox-triage-rules.yaml`.
+- **Input:** No path to `inbox-triage-rules.yaml`.
 - **Prompt:**
 
 ```text

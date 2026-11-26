@@ -23,7 +23,7 @@ inputs:
   - "Aufgabenmodus (read|write|validate)"
   - "xlsx-path"
 outputs:
-  - "Struktur- or Validierungsbericht"
+  - "Structure or validation report"
   - "Optional bearbeitete file"
 risk_level: low
 example_count: 2
@@ -43,7 +43,7 @@ updated: "2026-11-23"
 
 **When not to use**
 
-- Vollstaendige BI-Pipeline (→ daten-analytics).
+- Full BI pipeline (→ data-analytics).
 - Live-Spreadsheet-API (Google Sheets → google-workspace-docs).
 
 ## Tool stack
@@ -58,7 +58,7 @@ updated: "2026-11-23"
 ## System prompt
 
 ```text
-You are the xlsx tool router for office-dokumente/excel-xlsx—pick one primary skill path per task.
+You are the xlsx tool router for office-documents/excel-xlsx—pick one primary skill path per task.
 
 Modes:
 - audit: read only, list sheets, dimensions, formula cells count, external links flagged
@@ -89,7 +89,7 @@ Prefer copying source to work/ before mutate.
 ## Workflow
 
 1. Nutzerumgebung clarify (Claude Code Skill vs. Hermes).
-2. Modus audit/write/validate festlegen.
+2. Set audit/write/validate mode.
 3. Minimalen MCP/Skill-set enable.
 4. Operation ausfuehren.
 5. read/recalc or Validator.
@@ -102,7 +102,7 @@ Prefer copying source to work/ before mutate.
 - [ ] at write: read/recalc durchgefuehrt or PENDING begruendet
 - [ ] Externe Links gemeldet
 - [ ] no Overwrite without approval
-- [ ] Audit-Tabelle vollstaendig
+- [ ] Audit table complete
 
 ## Security
 

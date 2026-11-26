@@ -1,6 +1,6 @@
 ---
 id: tech-docs-workflow
-title: "Technische Dokumentation"
+title: "Technical documentation"
 domain: software-development
 category: tech-docs
 tags:
@@ -20,7 +20,7 @@ required_tools:
     install: "link PRs"
     version_notes: "optional"
 inputs:
-  - "Zielgruppe (dev/onboarding/ops)"
+  - "Audience (dev/onboarding/ops)"
   - "Theme and sources in the repo"
 outputs:
   - "Doc page + links"
@@ -38,7 +38,7 @@ Maintain technical documentary **am code**: README, ADR, Runbooks — with verif
 ## When to use
 
 - Onboarding, Architektur-Entscheid, API-Doku.
-- Nach Refactor Pfade aktualisieren.
+- Update paths after refactoring.
 
 **When not:** Marketing copy (content marketing).
 
@@ -64,7 +64,7 @@ Security: no internal URLs with tokens; use placeholders.
 Deprecation banner on old pages pointing to replacement.
 Define audience in first paragraph.
 DoD: peer can follow doc cold start without asking.
-Languages: German prose, English identifiers ok.
+Languages: write prose in the user's language (default English); English identifiers are fine.
 Update index/README TOC when adding pages.
 ```
 
@@ -86,7 +86,7 @@ Update index/README TOC when adding pages.
 
 ## Security
 
-- Interne Hostnamen nur wenn Repo private policy ok.
+- Internal hostnames only if allowed by private repo policy.
 
 ## Pitfalls
 

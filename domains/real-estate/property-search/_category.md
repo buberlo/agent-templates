@@ -6,7 +6,7 @@
 
 ## Summary
 
-Inserate sichten, Kriterien filtern, Exposés vergleichen.
+Review listings, filter criteria, and compare property profiles.
 
 ## Recommended tool stack
 

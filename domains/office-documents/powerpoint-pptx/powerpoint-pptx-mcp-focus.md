@@ -21,7 +21,7 @@ inputs:
   - "pptx-Task"
 outputs:
   - "Tool-Routing"
-  - "Verify-Checkliste"
+  - "Verify checklist"
 risk_level: low
 example_count: 2
 version: "1.1.0"
@@ -30,17 +30,17 @@ updated: "2026-11-23"
 
 ## Purpose
 
-**PPTX-Skills** gezielt laden—Anthropic vs. Hermes vs. OpenClaw—with Verify-Checkliste statt generischem Office-MCP-Buendel.
+Load **PPTX skills** selectively—Anthropic vs. Hermes vs. OpenClaw—with a verification checklist instead of a generic Office MCP bundle.
 
 ## When to use
 
-- Agenten-Setup for Praesentations-Tasks.
+- Agent setup for presentation tasks.
 - Audit existder .pptx before Event.
 - Token-Budget for Document-Skills plan.
 
 **When not to use**
 
-- Vollstaendiges Deck from Briefing (→ powerpoint-pptx-workflow).
+- Full deck from briefing (→ powerpoint-pptx-workflow).
 
 ## Tool stack
 
@@ -86,7 +86,7 @@ List embedded fonts licensing risk when customer brand fonts used.
 1. Umgebung erkennen (Claude/Hermes/OpenClaw).
 2. only pptx-Tools enable.
 3. audit or build-Handoff clarify.
-4. Verify-Checkliste ausgeben.
+4. Output verification checklist.
 5. at build → workflow-Template referenzieren.
 6. Token-Hinweis at vielen MCPs.
 7. Log the gewaehlten Skill-Version.
@@ -94,14 +94,14 @@ List embedded fonts licensing risk when customer brand fonts used.
 ## Definition of done
 
 - [ ] Maximal pptx-relevante Tools aktiv
-- [ ] Verify-Checkliste geliefert
+- [ ] Verification checklist delivered
 - [ ] Build an workflow verwiesen
 - [ ] no Overwrite without approval
 - [ ] Limitationen (Animation) genannt
 
 ## Security
 
-- Decks with Insider-Info not in oeffentliche Skills loggen.
+- Do not log decks with insider info in public skills.
 - approval before Share-Link.
 - no API-Keys in Notizen.
 

@@ -18,12 +18,12 @@ required_tools:
     version_notes: "1585 GitHub Stars"
   - name: calendly MCP (Hermes catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/calendly"
-    version_notes: "Nous-approved optional-mcps catalog entry (Listing 23.11.2026)."
+    version_notes: "Nous-approved optional-mcps catalog entry (Listing 23 Nov 2026)."
 inputs:
   - "Context/briefing for tickets"
   - "Files, URLs or IDs laut Task"
 outputs:
-  - "Dokumentiertes result (Datei, Bericht or Ticket-Update)"
+  - "Documented result (file, report, or ticket update)"
 risk_level: low
 example_count: 2
 version: "1.0.0"
@@ -50,7 +50,7 @@ Research event and travel tickets, check availability and document purchase prep
 ## System prompt
 
 ```text
-Role: Ticket research assistant (reisen-events/tickets).
+Role: Ticket research assistant (travel-events/tickets).
 Mission: Find official ticket channels and document purchase steps—no bot buying or scalping.
 Tools: Brave Search MCP; Calendly optional for box office callbacks.
 Prefer official box office, venue, or carrier sites; flag reseller risk.
@@ -70,9 +70,9 @@ Summarize official vs reseller channels and outstanding purchase steps for the u
 ## Workflow
 
 Event, date, seat requests, budget capture.
-2. Offizielle Ticketquellen recherchieren.
+2. Research official ticket sources.
 3. Tabulate price levels and fees.
-4. Storno/Umtausch-Regeln extrahieren.
+4. Extract cancellation/exchange rules.
 5. Buy Playbook step by step.
 6. Users buy themselves; Agent is waiting for confirmation.
 7. Optional Ticket Details in Inventory List.
@@ -80,8 +80,8 @@ Event, date, seat requests, budget capture.
 ## Definition of done
 
 - [ ] Primary source officially marked
-- [ ] Reseller-Warnung wenn Secondary
-- [ ] Kein Kauf durch Agent
+- [ ] Reseller warning if secondary
+- [ ] No purchase by agent
 - [ ] On-sale time with time zone
 
 ## Security
@@ -94,7 +94,7 @@ Event, date, seat requests, budget capture.
 ## Pitfalls
 
 - VIP-Pakete without Sitzplatznummer.
-- Dynamische Preise als fixiert darstellen.
+- Presenting dynamic prices as fixed.
 - Namensgebundene Tickets without Ausweis-Hinweis.
 - Risk of counterfeiting in unknown resellers.
 
@@ -113,7 +113,7 @@ Only official channels; Members benefit when mentioned on website.
 - **Input:** Abfahrt Freitag 07:00 flexibel ±2h
 - **Prompt:**
 ```text
-Vergleiche Flexpreis vs Sparpreis Storno.
+Compare flexible fare vs. saver fare cancellation terms.
 ```
 - **Expected result:** Matrix 4 moves; Savings price marked non-cancellable; DB Navigator as a way of buying.
 

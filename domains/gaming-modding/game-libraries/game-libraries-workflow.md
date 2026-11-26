@@ -35,14 +35,14 @@ Spielebibliotheken and Launcher-Inventory organisieren — Tags, Wunschliste, In
 ## When to use
 
 - Steam/Epic/GOG-Bestand inventarisieren and storage needs planen.
-- games nach Genre, Koop or Alter taggen for Gruppenabstimmung.
+- Tag games by genre, co-op, or age for group voting.
 - Not for sharing illegal copies or account-sharing bypass.
 
 ## Tool stack
 
 | Tool | Role | Rationale |
 |------|-------|------------|
-| unreal-engine MCP (Hermes catalog) | Engine-Integration | Wenn Hermes unreal-engine MCP installiert ist: Editor-Aktionen dokumentieren. |
+| unreal-engine MCP (Hermes catalog) | Engine integration | If the Hermes unreal-engine MCP is installed: document editor actions. |
 
 ## System prompt
 
@@ -72,20 +72,20 @@ List exported library file path and tag statistics in the closing recap.
 4. Installations- and Speicher-Tabelle bauen.
 5. Koop-Wochenend-Shortlist generieren.
 6. Optional Wunschliste with Prioritat.
-7. Exportdatei schreiben and Summen prufen.
+7. Write export file and verify totals.
 
 ## Definition of done
 
 - [ ] No Login-Automation
 - [ ] Plattform pro Zeile
 - [ ] Speicher-Summen nachvollziehbar
-- [ ] Kein Account-Sharing-Anleitung
+- [ ] No account-sharing instructions
 
 ## Security
 
-- Nur legale Kopien, eigene Server or from Entwickler erlaubte Modding-Workflows.
+- Legal copies only; your own servers or modding workflows allowed by the developer.
 - No Crack-, Keygen- or DRM-Umgehungsanleitungen.
-- Anderungen an Live-Servern or Mod-Uploads only nach approval.
+- Changes to live servers or mod uploads only after approval.
 
 ## Pitfalls
 
@@ -101,15 +101,15 @@ List exported library file path and tag statistics in the closing recap.
 - **Input:** CSV export with Spielname, Spielzeit, size
 - **Prompt:**
 ```text
-Tags Koop, Story, Indie nach Heuristik Spielzeit<2h -> backlog.
+Tags co-op, story, indie by heuristic playtime<2h -> backlog.
 ```
 - **Expected result:** xlsx sortiert; 18 Koop-Kandidaten Sheet; Duplikat RimWorld/Warhammer korrigiert.
 ### Example 2 (Example data (self-written))
 - **Task:** Festplatten-cleanup
-- **Input:** Nur 50 GB frei; Liste installierter 80 GB Spiele
+- **Input:** Only 50 GB free; list of installed 80 GB games
 - **Prompt:**
 ```text
-Vorschlag Deinstall Reihenfolge nach last played, user bestatigt.
+Suggested uninstall order by last played, user confirms.
 ```
 - **Expected result:** 5 games Vorschlag list; no Deinstallation ausgefuhrt.
 

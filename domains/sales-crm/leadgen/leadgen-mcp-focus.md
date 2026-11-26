@@ -106,8 +106,8 @@ Never run Close sequences from this focus template.
 
 - [ ] Klare Phasentrennung im Log
 - [ ] Maximum one CRM in Phase B
-- [ ] Dry-Run vor Insert
-- [ ] Kein web-exa-Recherche-Scope vermischt
+- [ ] Dry run before insert
+- [ ] No web-exa research scope mixed in
 
 ## Security
 

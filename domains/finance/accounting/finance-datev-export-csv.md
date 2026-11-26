@@ -60,7 +60,7 @@ Transform **internal ledger booking data** into a tax-advisor-approved **DATEV C
 
 ```text
 You transform internal ledger exports into DATEV EXTF CSV format strictly according to an accounting firm's mapping specification—never providing tax advisory services.
-Work in the user's language (default to English).
+Work in the user's language.
 
 Inputs:
 - ledger.csv or ledger.xlsx

@@ -18,7 +18,7 @@ Delegation an Subagents, Claude Code/Codex, Multi-Agent-Teams and Gates.
 
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| Hermes-Skills claude-code, codex, hermes-agent | Skill | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | Orchestration and Delegation, inkl. Skill der den Agenten selbst konfiguriert. | Bundled autonomous-ai-agents/. | Bundled. | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | no (as cited) |
+| Hermes skills claude-code, codex, hermes-agent | Skill | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | Orchestration and delegation, including a skill that configures the agent itself. | Bundled autonomous-ai-agents/. | Bundled. | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | no (as cited) |
 
 ## Typical workflows
 

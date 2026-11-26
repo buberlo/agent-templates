@@ -25,7 +25,7 @@ required_tools:
 inputs:
   - "Briefing (Targetgruppe, Laenge, Branding)"
   - "Datenquelle (JSON/CSV/API-Stub)"
-  - "Composition-Spec (Szenen, Timing, Aufloesung)"
+  - "Composition spec (scenes, timing, resolution)"
 outputs:
   - "Gerendertes MP4 (and optional GIF/Still)"
   - "Reproducibles Remotion-Projekt or PR-Diff"
@@ -37,18 +37,18 @@ updated: "2026-11-23"
 
 ## Purpose
 
-Agenten fuehren **Briefing → React-Composition → Render → QA** for wiederholbare, datengetriebene Videos (KPI-Karten, Changelogs, Social-Clips) with **Remotion** statt manueller Timeline-Arbeit.
+Agents execute **Briefing → React Composition → Render → QA** for repeatable, data-driven videos (KPI cards, changelogs, social clips) with **Remotion** instead of manual timeline work.
 
 ## When to use
 
-- Inhalt variiert pro Lauf (Zahlen, Namen, Tabellen), Layout bleibt gleich.
+- Content varies per run (numbers, names, tables), layout stays the same.
 - CI/CD or Cron should monatliche Report-Videos create.
 - Team beherrscht TypeScript/React or akzeptiert generierten Scaffold.
 
 **When not to use**
 
 - Einmaliger Kinomontage-Cut with viel B-Roll and intuitiver Timeline (NLE).
-- Rechtlich sensible Daten duerfen the Render-Worker or Cloud not verlassen—without klare Hosting-Grenze.
+- Legally sensitive data must not leave the render worker or enter the cloud without a clear hosting boundary.
 - Echtzeit-Livestream-Grafiken (OBS/NDI) without Remotion-Pipeline.
 
 ## Tool stack
@@ -91,17 +91,17 @@ Stock assets and fonts: only use files the user provided or licenses they confir
 
 ## Workflow
 
-1. Briefing and JSON-Schema the Datenzeilen festhalten; Dauer from `fps × frames` ableiten.
+1. Record the briefing and JSON schema of the data rows; derive duration from `fps × frames`.
 2. `npx create-video@latest` or bestehendes Repo; `npm install` and Remotion-Skills-README konsultieren.
 3. Composition `ReportVideo` anlegen; Props-Typ in `src/types.ts` definieren.
 4. `npm run start` — Preview with Example-`inputProps` im Remotion Studio.
 5. `npx remotion render ReportVideo deliver/report_2026-11.mp4 --props=@data/payload.json`.
 6. `ffprobe deliver/report_2026-11.mp4`; Poster `npx remotion still ReportVideo poster.png --frame=30`.
-7. approval-Checkliste with Stakeholder; optional Commit and Tag.
+7. Approval checklist with stakeholder; optional commit and tag.
 
 ## Definition of done
 
-- [ ] Render without Fehler; Aufloesung and fps entsprechen Briefing
+- [ ] Render without errors; resolution and fps match briefing
 - [ ] all Datenzeilen from Props sichtbar and lesbar (no Overflow without approval)
 - [ ] Render-Befehl and Props-file dokumentiert—Wiederholung without Agent possible
 - [ ] no unlizenzierten Fonts/Bilder im Bundle
@@ -109,9 +109,9 @@ Stock assets and fonts: only use files the user provided or licenses they confir
 
 ## Security
 
-- Kundendaten in Props not in oeffentliche Issue-Tracker or Cloud-Render-Logs write.
+- Do not write customer data in props to public issue trackers or cloud render logs.
 - FFmpeg-Nachediting with Wasserzeichen or Upload only after approval.
-- Dependencies: `npm audit` at neuen Paketen erwaehnen; no willkuerlichen Postinstall-Skripte.
+- Dependencies: mention `npm audit` for new packages; no arbitrary postinstall scripts.
 
 ## Pitfalls
 
@@ -152,4 +152,4 @@ Follow remotion-dev/skills for composition structure and render CLI. Document wh
 
 - **Expected result:**
 
-  Projekt with `npx remotion compositions` listet mindestens eine Composition; README-Link https://github.com/remotion-dev/skills im Agent-Protokoll; Render-Artefakt lokal unter `out/`.
+  The project lists at least one composition with `npx remotion compositions`; README link https://github.com/remotion-dev/skills in the agent log; render artifact locally under `out/`.

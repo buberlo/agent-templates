@@ -94,7 +94,7 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `mcp-server-build-mcp-focus` | MCP-Server bauen: MCP/Skill-Fokus | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `mcp-server-build-mcp-focus` | Building MCP servers: MCP/skill focus | hermes, grokbot, generic-mcp-agents… | low | 2 |
 | `mcp-server-build-workflow` | Build an MCP server | hermes, cursor, claude-code… | medium | 3 |
 
 ### `ai-ops/model-routing` (1)
@@ -188,7 +188,7 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `email-gmail-mcp-triage` | Posteingang triagieren with Gmail MCP | hermes, grokbot, generic | medium | 2 |
+| `email-gmail-mcp-triage` | Triage Inbox with Gmail MCP | hermes, grokbot, generic | medium | 2 |
 | `email-mcp-focus` | Email: MCP/skill focus | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `communication/imessage-sms` (1)
@@ -247,7 +247,7 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `landing-pages-workflow` | Landingpages & CRO | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `landing-pages-workflow` | Landing pages and CRO | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `content-marketing/newsletter` (1)
 
@@ -321,7 +321,7 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `escalation-workflow` | Eskalation | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `escalation-workflow` | Escalation | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `customer-service/helpdesk-tickets` (2)
 
@@ -490,7 +490,7 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `course-creation-mcp-focus` | Kurse erstellen: MCP/Skill focus | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `course-creation-mcp-focus` | Course Creation: MCP/Skill Focus | hermes, grokbot, generic-mcp-agents… | low | 2 |
 | `course-creation-workflow` | Course creation | hermes, grokbot, generic-mcp-agents… | low | 3 |
 
 ### `education/flashcards` (2)
@@ -504,7 +504,7 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `languages-workflow` | Sprachen | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `languages-workflow` | Languages | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `education/study-research` (1)
 
@@ -737,7 +737,7 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `network-workflow` | Netzwerk | hermes, claude-code, cursor… | medium | 2 |
+| `network-workflow` | Network | hermes, claude-code, cursor… | medium | 2 |
 
 ### `it-operations-support/remote-support` (1)
 
@@ -817,14 +817,14 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `streaming-broadcast-workflow` | Streaming-Vorbereitung and Broadcast-Assets | hermes, generic, cursor | medium | 2 |
+| `streaming-broadcast-workflow` | Streaming Preparation and Broadcast Assets | hermes, generic, cursor | medium | 2 |
 
 ### `media/subtitles-translation` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `audio-whisper-transcribe-diarize` | Transcription and Sprechersegmente with Whisper | hermes, openclaw, generic | medium | 2 |
-| `subtitles-translation-mcp-focus` | Subtitles and Uebersetzung: Whisper plus FFmpeg | hermes, openclaw, generic | medium | 2 |
+| `audio-whisper-transcribe-diarize` | Transcription and Speaker Segments with Whisper | hermes, openclaw, generic | medium | 2 |
+| `subtitles-translation-mcp-focus` | Subtitles and Translation: Whisper plus FFmpeg | hermes, openclaw, generic | medium | 2 |
 
 ### `media/video-editing` (2)
 
@@ -857,14 +857,14 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `e-signature-workflow` | E-Signatur-Vorbereitung and Pruefung | hermes, generic | high | 2 |
+| `e-signature-workflow` | E-Signature Preparation and Verification | hermes, generic | high | 2 |
 
 ### `office-documents/excel-xlsx` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `excel-xlsx-mcp-focus` | Excel XLSX: Skill- and Tool-Fokus | hermes, claude-code, openclaw… | low | 2 |
-| `excel-xlsx-workflow` | Excel-Arbeitsmappen erstellen and verify | hermes, claude-code, generic | low | 2 |
+| `excel-xlsx-workflow` | Create and Verify Excel Workbooks | hermes, claude-code, generic | low | 2 |
 
 ### `office-documents/forms` (1)
 
@@ -915,7 +915,7 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `documents-libreoffice-mail-merge` | Serienbrief with LibreOffice and CSV | hermes, cursor, generic | medium | 2 |
+| `documents-libreoffice-mail-merge` | Mail Merge with LibreOffice and CSV | hermes, cursor, generic | medium | 2 |
 | `word-docx-mcp-focus` | Word DOCX: MCP- and Skill-Fokus | hermes, claude-code, openclaw… | low | 2 |
 
 ## Domain: `personal-lifestyle` (6 templates)
@@ -937,13 +937,13 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `personal-appointments-workflow` | Persoenliche Termine | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `personal-appointments-workflow` | Personal appointments | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `personal-lifestyle/product-comparison` (1)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `product-comparison-workflow` | Produktvergleich | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `product-comparison-workflow` | Product Comparison | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `personal-lifestyle/shopping` (1)
 
@@ -1061,7 +1061,7 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `wikis-documentation-mcp-focus` | Wiki-Docs: MCP for Research | generic-mcp-agents, grokbot | low | 2 |
-| `wikis-documentation-workflow` | Wiki-Dokumentation strukturieren | cursor, claude-code, generic | low | 2 |
+| `wikis-documentation-workflow` | Structure wiki documentation | cursor, claude-code, generic | low | 2 |
 
 ## Domain: `sales-crm` (13 templates)
 
@@ -1087,7 +1087,7 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `etsy-workflow` | Etsy Shop & Listing-Ops | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `etsy-workflow` | Etsy shop and listing operations | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `sales-crm/kdp` (1)
 
@@ -1106,7 +1106,7 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `marketplaces-workflow` | cross-marketplace (eBay, Otto, Kaufland ...) | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `marketplaces-workflow` | Cross-marketplace operations (eBay, Otto, Kaufland, etc.) | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `sales-crm/offers-proposals` (1)
 
@@ -1165,7 +1165,7 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `tech-standards-workflow` | Technische Standards | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `tech-standards-workflow` | Technical Standards | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ## Domain: `security` (13 templates)
 
@@ -1186,7 +1186,7 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `forensics-workflow` | Forensik (nur autorisiert) | hermes, generic-mcp-agents | high | 2 |
+| `forensics-workflow` | Forensics (Authorized Only) | hermes, generic-mcp-agents | high | 2 |
 
 ### `security/osint` (2)
 
@@ -1205,7 +1205,7 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `reverse-engineering-workflow` | Reverse Engineering (nur autorisiert) | hermes, generic-mcp-agents | high | 2 |
+| `reverse-engineering-workflow` | Reverse Engineering (Authorized Only) | hermes, generic-mcp-agents | high | 2 |
 
 ### `security/secrets-management` (1)
 
@@ -1300,8 +1300,8 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `tech-docs-mcp-focus` | Technische Dokumentation: MCP/Skill-Fokus | hermes, claude-code, cursor… | low | 2 |
-| `tech-docs-workflow` | Technische Dokumentation | hermes, claude-code, cursor… | low | 2 |
+| `tech-docs-mcp-focus` | Technical documentation: MCP/skill focus | hermes, claude-code, cursor… | low | 2 |
+| `tech-docs-workflow` | Technical documentation | hermes, claude-code, cursor… | low | 2 |
 
 ### `software-development/testing` (3)
 
@@ -1317,7 +1317,7 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
-| `event-planning-workflow` | Eventplanung | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `event-planning-workflow` | Event Planning | hermes, grokbot, generic-mcp-agents… | low | 2 |
 | `event-run-of-show-comms-drafter-v1` | Event run-of-show and attendee communications drafter | hermes, grokbot, generic-mcp-agents | medium | 2 |
 
 ### `travel-events/flights-hotels` (1)

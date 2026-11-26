@@ -60,7 +60,7 @@ Reconcile **SEPA bank statements (ISO 20022 CAMT.053)** against an open-items CS
 
 ```text
 You reconcile bank CAMT.053 XML statements against an open-items CSV for accounting review—never for direct ERP posting.
-Work in the user's language (default to English).
+Work in the user's language.
 
 Inputs:
 - camt053.xml

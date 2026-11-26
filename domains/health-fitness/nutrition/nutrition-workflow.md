@@ -4,7 +4,7 @@ title: "Nutrition"
 domain: health-fitness
 category: nutrition
 tags:
-  - ernaehrung
+  - nutrition
   - health-fitness
   - mcp
 target_agents:
@@ -30,11 +30,11 @@ updated: "2026-11-23"
 
 ## Purpose
 
-Mahlzeitenplanung, Nahrwert-estimateen and Einkaufslisten — Lifestyle, no klinische nutritionstherapie.
+Meal planning, nutritional estimates, and shopping lists — lifestyle, not clinical nutrition therapy.
 
 ## When to use
 
-- Wochenplan unter Kalorien-/Makroziel with Vorlieben and Ausschlussen.
+- Weekly plan within calorie/macro targets with preferences and exclusions.
 - Einkaufsliste aus Rezeptliste generieren.
 - Not when eating disorders, pregnancy diet or insulin-dependent diabetes without a qualified professional.
 
@@ -42,12 +42,12 @@ Mahlzeitenplanung, Nahrwert-estimateen and Einkaufslisten — Lifestyle, no klin
 
 | Tool | Role | Rationale |
 |------|-------|------------|
-| strava MCP (Hermes catalog) | Aktivitatsdaten | Nur with installiertem and autorisiertem Strava MCP. |
+| strava MCP (Hermes catalog) | Activity data | Only with an installed and authorized Strava MCP. |
 
 ## System prompt
 
 ```text
-Role: Meal planning assistant (gesundheit-fitness/ernaehrung).
+Role: Meal planning assistant (health-fitness/nutrition).
 Mission: Build meal plans, grocery lists, and rough macro estimates—no medical nutrition therapy.
 Tools: strava MCP only if user wants calorie burn cross-check with activity data and OAuth is active.
 Collect allergies, cultural/ethical diet, budget, cooking time, equipment—not diagnoses.
@@ -67,20 +67,20 @@ Log disclaimers on every export file header.
 
 ## Workflow
 
-1. Ziele, Ausschlusse and Kochzeit budgetieren.
+1. Budget goals, exclusions, and cooking time.
 2. 7-Tage Raster with Fruhstuck/Mittag/Abend vorschlagen.
 3. Makro-estimate per Tag (optional).
 4. Einkaufsliste aggregieren.
-5. Strava-Abgleich nur wenn autorisiert.
+5. Strava sync only when authorized.
 6. User passt Portionen an.
-7. export Markdown or xlsx nach approval.
+7. Export Markdown or xlsx after approval.
 
 ## Definition of done
 
 - [ ] Allergie-Hinweise pro Rezept
 - [ ] No diagnosis or therapy
 - [ ] Makros as estimate markiert
-- [ ] Notfall-Hinweis bei klinischen Themen
+- [ ] Emergency notice for clinical topics
 
 ## Security
 
@@ -99,7 +99,7 @@ Log disclaimers on every export file header.
 
 ### Example 1 (Example data (self-written))
 - **Task:** Vegetarischer Wochenplan office
-- **Input:** 2000 kcal Ziel, no Erdnusse, 30 Min Kochzeit/Abend
+- **Input:** 2000 kcal goal, no peanuts, 30 min cooking time/evening
 - **Prompt:**
 ```text
 5 Abendessen with Prep, Einkaufsliste DE Supermarkt Gange.
@@ -110,7 +110,7 @@ Log disclaimers on every export file header.
 - **Input:** OAuth aktiv, letzte Woche 2200 kcal Ø Verbrauch laut User
 - **Prompt:**
 ```text
-Plane leichte Defizit 300 kcal nur wenn User explizit abnimmt.
+Plan a slight deficit of 300 kcal only when the user explicitly wants to lose weight.
 ```
-- **Expected result:** Tagesplan angepasst; Disclaimer kein medizinischer Rat.
+- **Expected result:** Daily plan adjusted; disclaimer: not medical advice.
 

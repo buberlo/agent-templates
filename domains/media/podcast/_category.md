@@ -6,7 +6,7 @@
 
 ## Summary
 
-Podcast-Workflows: Aufnahme-Vorbereitung, Schnitt, Shownotes, Transkript and Distribution.
+Podcast workflows: recording preparation, editing, show notes, transcript, and distribution.
 
 ## Recommended tool stack
 

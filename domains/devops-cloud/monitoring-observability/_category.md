@@ -16,7 +16,7 @@ Metrics, Traces, Dashboards in Grafana, Datadog, Sentry, Prometheus.
 
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| Sentry MCP | MCP | https://github.com/getsentry/sentry-mcp | Produktionsfehler, Issues and Kontext for Coding-Agenten. | Officials getsentry/sentry-mcp Repo. | 973 Stars | https://github.com/getsentry/sentry-mcp | no (as cited) |
+| Sentry MCP | MCP | https://github.com/getsentry/sentry-mcp | Production errors, issues, and context for coding agents. | Official getsentry/sentry-mcp repo. | 973 Stars | https://github.com/getsentry/sentry-mcp | no (as cited) |
 | grafana MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/grafana | Grafana from the Nous catalog. | hermes mcp install grafana | Nous-approved optional-mcps catalog entry (listing 23 Nov 2026). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
 | datadog MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/datadog | Datadog from the Nous catalog. | hermes mcp install datadog | Nous-approved optional-mcps catalog entry (listing 23 Nov 2026). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
 | betterstack MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/betterstack | Better Stack from the Nous catalog. | hermes mcp install betterstack | Nous-approved optional-mcps catalog entry (listing 23 Nov 2026). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |

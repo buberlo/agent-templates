@@ -6,7 +6,7 @@
 
 ## Summary
 
-Alerts triagieren, Korrelation and Playbooks in SIEM/SOAR-Umgebungen (defensiv).
+Triage alerts, correlation, and playbooks in SIEM/SOAR environments (defensive).
 
 ## Recommended tool stack
 
@@ -17,7 +17,7 @@ Alerts triagieren, Korrelation and Playbooks in SIEM/SOAR-Umgebungen (defensiv).
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
 | datadog MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/datadog | Observability context, where authorized. | hermes mcp install datadog | Nous-approved optional-mcps catalog entry (listing 23 Nov 2026). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
-| Sentry MCP | MCP | https://github.com/getsentry/sentry-mcp | Produktionsfehler, Issues and Kontext for Coding-Agenten. | Officials getsentry/sentry-mcp Repo. | 973 Stars | https://github.com/getsentry/sentry-mcp | no (as cited) |
+| Sentry MCP | MCP | https://github.com/getsentry/sentry-mcp | Production errors, issues, and context for coding agents. | Official getsentry/sentry-mcp repo. | 973 Stars | https://github.com/getsentry/sentry-mcp | no (as cited) |
 | grafana MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/grafana | Read dashboards/alerts. | hermes mcp install grafana | Nous-approved optional-mcps catalog entry (listing 23 Nov 2026). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
 
 ## Typical workflows
@@ -33,7 +33,7 @@ Alerts triagieren, Korrelation and Playbooks in SIEM/SOAR-Umgebungen (defensiv).
 - Enable only the MCPs/Skills that the task needs. Hermes filters per include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
 - Do not write tokens or passwords in chat, skill files or command arguments of custom MCPs. Grok Bot wiki: OAuth tokens remain on the connector backend; Command servers must not contain credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
 - Write, send, pay, deploy and delete only after explicit approval; good document skills require a verify step (read the file again, render PDF/PNG).
-- Write-Zugriff auf Detection-Rules ist hochsensibel.
+- Write access to detection rules is highly sensitive.
 - Defensive, authorized use only.
 - These templates do not include attack or bypass instructions.
 

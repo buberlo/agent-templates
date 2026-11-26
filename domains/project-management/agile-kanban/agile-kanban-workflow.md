@@ -15,15 +15,15 @@ target_agents:
 required_tools:
   - name: linear MCP (Hermes-catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/linear"
-    version_notes: "Nous-approved optional-mcps-catalog entry (Listing 23.11.2026)."
+    version_notes: "Nous-approved optional-mcps-catalog entry (Listing 23 Nov 2026)."
   - name: atlassian MCP (Hermes-catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/atlassian"
-    version_notes: "Nous-approved optional-mcps-catalog entry (Listing 23.11.2026)."
+    version_notes: "Nous-approved optional-mcps-catalog entry (Listing 23 Nov 2026)."
 inputs:
   - "Board-URL or Projekt-ID (Linear/Jira)"
   - "Spalten-Workflow and WIP-Limits (or „Standard“)"
   - "Definition of Done (Team-Text)"
-  - "Read-only vs. Status-Updates erlaubt (Default: read-only Audit)"
+  - "Read-only vs. status updates allowed (default: read-only audit)"
 outputs:
   - "board_health_report.md (Stale, WIP, Blocker)"
   - "handoff_gaps.md zwischen Spalten"
@@ -42,13 +42,13 @@ Kanban/Scrum board **Keep hygienic**: Make WIP, Stale Cards, Handoffs and DoD vi
 ## When to use
 
 - Board feels "sticky" (many in-progress, little done).
-- Retro braucht datenbasierte Board-Metriken.
+- Retro requires data-driven board metrics.
 - Handoff between Dev/QA/Design should be sharpened.
 
 **When not to use**
 
 - Close or postpone en masse issues without review.
-- WIP-Limits ignorieren and nur Karten wegschieben.
+- Ignoring WIP limits and just moving cards along.
 - Two tools (Linear+Jira) mutate in parallel without user priority.
 
 ## Tool stack
@@ -61,7 +61,7 @@ Kanban/Scrum board **Keep hygienic**: Make WIP, Stale Cards, Handoffs and DoD vi
 ## System prompt
 
 ```text
-Role: Kanban board hygiene coach (projektmanagement/agile-kanban).
+Role: Kanban board hygiene coach (project-management/agile-kanban).
 Mission: Audit board health—report stale, WIP breach, blocked, dod gaps—minimal writes.
 default_mode: read-only fetch issues by board/project; summarize.
 WIP: compare count per column vs user limits; flag overflow with issue ids.
@@ -85,7 +85,7 @@ Autopilot guard: max 0 writes unless allow_writes explicit in prompt.
 Confirm board ID, columns and WIP limits.
 2. Loading issues (read-only); Column occupation count.
 3. Stale/Blocked/Overflow markieren.
-4. Stichprobe Done vs. DoD-Checkliste.
+4. Sample check of Done vs. DoD checklist.
 5. Describe handoff gaps between columns.
 6. Empfehlungen and Draft-Kommentare (without Posten).
 7. provide a report; Optional moves only after release.
@@ -99,7 +99,7 @@ Each flag category with issue IDs/links
 
 ## Security
 
-- Issue-Inhalte vertraulich; Report nur an Auftraggeber.
+- Issue contents confidential; report to client only.
 - Status transitions and comments only with release.
 
 ## Pitfalls
@@ -128,7 +128,7 @@ WIP breach: 5 in Dev | 8 stale ids listed | dod violations: 2/10 | no writes
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** allow_writes without Ziel-Spalte
+- **Task:** allow_writes without a target column
 - **Input:** „move all stale to done“
 - **Prompt:**
 

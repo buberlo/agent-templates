@@ -69,14 +69,14 @@ Handoff to human analyst if MCP auth fails mid-investigation.
 1. Alert in Skill laden.
 2. MCP query user/host timeline.
 3. Ergebnisse kondensieren.
-4. Hypothese dokumentieren.
+4. Document the hypothesis.
 5. Containment-Vorschlag textuell.
 6. CONTAIN_APPROVE abwarten.
 7. MCP audit an SOC-Ticket.
 
 ## Definition of done
 
-- [ ] Kein MCP write without APPROVE
+- [ ] No MCP write without APPROVE
 - [ ] Queries im Ticket
 - [ ] PII maskiert
 

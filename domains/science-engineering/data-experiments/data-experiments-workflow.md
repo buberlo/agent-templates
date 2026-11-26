@@ -20,7 +20,7 @@ inputs:
   - "Context/briefing for experimental data"
   - "Files, URLs or IDs laut Task"
 outputs:
-  - "Dokumentiertes result (Datei, Bericht or Ticket-Update)"
+  - "Documented result (file, report, or ticket update)"
 risk_level: low
 example_count: 2
 version: "1.0.0"
@@ -70,10 +70,10 @@ Figure colorblind-safe palettes suggestion.
 1. Load raw data and metadata.
 2. Column mapping and units.
 3. QC-Report (Missing, Range).
-4. Analyse-Skript Entwurf.
+4. Analysis script draft.
 5. Plots and tables.
-6. Archivstruktur committen.
-7. README Reproduktion.
+6. Commit the archive structure.
+7. README reproduction.
 
 ## Definition of done
 
@@ -84,7 +84,7 @@ Figure colorblind-safe palettes suggestion.
 
 ## Security
 
-- No Fabrication von Messwerten or Zitaten — UNKNOWN or Nutzerdaten.
+- No fabrication of measurement values or quotes — UNKNOWN or user data.
 - Version raw data and scripts; no deletion without release.
 - Peer-Review-Standards: no garantierte Annahme.
 
@@ -108,11 +108,11 @@ QC + moving mean plot + outlier >3sigma mark.
 - **Expected result:** analysis/plot_volt.py; PNG; QC.md 2% missing.
 ### Example 2 (Example data (self-written))
 - **Task:** Vergleich zweier Runs
-- **Input:** run_A.csv run_B.csv gleiche Protokoll-ID
+- **Input:** run_A.csv run_B.csv same protocol ID
 - **Prompt:**
 
 ```text
-t-test nur wenn User normal_QQ ok; sonst Mann-Whitney Vorschlag.
+t-test only if user normal_QQ is OK; otherwise suggest Mann-Whitney.
 ```
 - **Expected result:** Table tests with assumption flag UNKNOWN QQ.
 

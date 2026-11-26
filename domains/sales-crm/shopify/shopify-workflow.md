@@ -22,7 +22,7 @@ inputs:
   - "Whether draft-only or live changes allowed"
 outputs:
   - "catalog-Snapshot (SKU, Preis, Bestand, Status)"
-  - "Abweichungsliste gegen Briefing"
+  - "Deviation list against the briefing"
   - "Optional: Shopify Draft (Product/Inventory) for release"
 risk_level: medium
 example_count: 2
@@ -35,7 +35,7 @@ Shopify stores **read, monitor and adjust in a controlled manner**: variants, in
 
 ## When to use
 
-- Bestandsabgleich nach ERP-Import or Pop-up-Sale.
+- Inventory reconciliation after ERP import or pop-up sale.
 - Produkt-Drift finden (Preis, Compare-at, fehlende Bilder).
 Order KPIs for a campaign (AOV, Refunds) from Admin API.
 
@@ -79,11 +79,11 @@ Do not disable fraud filters or payment providers.
 ## Workflow
 
 Shop, Scopes and Writing Mode (read-only vs. draft) clarify.
-2. Datenbedarf festlegen: Produkte, Lagerorte, Order-Zeitraum.
+2. Define data requirements: products, warehouse locations, order period.
 3. Paginate catalog and save snapshot.
 4. Comparison with target list (SCU, price, stock).
 5. Abweichungen priorisieren (Oversell, 0-Bild, SEO-Title leer).
-6. Order-KPIs berechnen, wenn angefragt.
+6. Calculate order KPIs if requested.
 7. Release changes only as a draft or patch list.
 
 ## Definition of done
@@ -95,13 +95,13 @@ Shop, Scopes and Writing Mode (read-only vs. draft) clarify.
 
 ## Security
 
-- Admin-Token niemals in Chat or Repo committen.
+- Never post admin tokens in chat or commit them to the repo.
 - `risk level: medium`—Write accesses to Live Store only after release.
-- DSGVO: Datenminimierung bei Order-Exports.
+- GDPR: Data minimization for order exports.
 
 ## Pitfalls
 
-- Inventory an einem Lagerort aktualisieren, Verkauf an anderem Ort → Oversell.
+- Update inventory at one warehouse location, sale at another location → oversell.
 - Compare-at price lowered only cosmetically → loss of trust.
 Metafield-Sync ERP overwrites without versioning.
 - Theme preview link publicly share with unreleased prices.
@@ -110,7 +110,7 @@ Metafield-Sync ERP overwrites without versioning.
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** Bestandsaudit vor Black Friday
+- **Task:** Inventory audit before Black Friday
 - **Input:** `demo-brand.myshopify.com`, SKUs `HOODIE-BLK-S/M/L`
 - **Prompt:**
 
@@ -137,5 +137,5 @@ Net sales, order count, refund rate %. No customer names in output.
 - **Expected result:**
 
 ```text
-Orders: 412 | Net: 38.420 EUR | Refund rate: 2.1%
+Orders: 412 | Net: 38,420 EUR | Refund rate: 2.1%
 ```

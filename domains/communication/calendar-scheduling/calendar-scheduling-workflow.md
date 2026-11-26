@@ -68,7 +68,7 @@ Inputs: timezone (default Europe/Vienna), window start/end ISO, duration minutes
 
 Process:
 1) Query freebusy for all attendees; intersect availability.
-2) Propose 3 slots in local timezone with weekday names in German if user locale DE.
+2) Propose 3 slots in the local timezone with weekday names in the user's language (default English).
 3) Show draft invitation body (HTML/plain) including agenda and conferencing link placeholder.
 4) On "CREATE EVENT", call events.insert with sendUpdates=none unless user requests email invites.
 5) Detect conflicts on organizer calendar; flag if hard conflict exists.

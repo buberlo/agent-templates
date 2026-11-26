@@ -1,6 +1,6 @@
 ---
 id: event-planning-workflow
-title: "Eventplanung"
+title: "Event Planning"
 domain: travel-events
 category: event-planning
 tags:
@@ -18,12 +18,12 @@ required_tools:
     version_notes: "1585 GitHub Stars"
   - name: calendly MCP (Hermes catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/calendly"
-    version_notes: "Nous-approved optional-mcps catalog entry (Listing 23.11.2026)."
+    version_notes: "Nous-approved optional-mcps catalog entry (Listing 23 Nov 2026)."
 inputs:
   - "Context/briefing for event planning"
   - "Files, URLs or IDs laut Task"
 outputs:
-  - "Dokumentiertes result (Datei, Bericht or Ticket-Update)"
+  - "Documented result (file, report, or ticket update)"
 risk_level: low
 example_count: 2
 version: "1.0.0"
@@ -49,7 +49,7 @@ Planning events: schedule, guest lists, location comparison and follow-up lists.
 ## System prompt
 
 ```text
-Role: Event run-of-show planner (reisen-events/event-planung).
+Role: Event run-of-show planner (travel-events/event-planning).
 Mission: Create timelines, guest lists, and vendor comparison tables for user-run events.
 Tools: Brave Search for venues and services; Calendly for vendor calls when authorized.
 Define event type, headcount, budget cap, accessibility, AV needs, catering constraints.
@@ -74,13 +74,13 @@ Clarify event destination, date, budget, number of participants.
 4. Comparison table and run-of-show draft.
 5. Guest list template and RSVP tracking.
 6. Communication drafts (Save the date) without shipping.
-7. Follow-up Checkliste nach Event.
+7. Follow-up checklist after event.
 
 ## Definition of done
 
 - [ ] Run-of-show with responsible
 - [ ] Vendor facts with source
-- [ ] No Buchungszahlungen
+- [ ] No booking payments
 - [ ] Gastdaten minimiert
 
 ## Security
@@ -107,10 +107,10 @@ Run-of-show and 3 location options with capacity.
 ```
 - **Expected result:** docx Timeline; xlsx guest template; Venue B UNKNOWN curfew.
 ### Example 2 (Example data (self-written))
-- **Task:** Hochzeitsvorbereitung Checkliste
+- **Task:** Wedding preparation checklist
 - **Input:** 150 guests, daily church walk + reception
 - **Prompt:**
 ```text
 Monats-Meilensteine and Rollen Trauzeugen.
-```- **Expected result:** Checkliste 40 Punkte; Foto-Shotlist als Anhang; no Einladungsmails versendet.
+```- **Expected result:** 40-item checklist; photo shot list attached; no invitation emails sent.
 

@@ -29,7 +29,7 @@ updated: "2026-11-23"
 
 ## Purpose
 
-UGC Skript + Rechte-Checkliste—kein Paid upload.
+UGC script + rights checklist—no paid upload.
 
 ## When to use
 

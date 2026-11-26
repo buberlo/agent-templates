@@ -23,7 +23,7 @@ Measure agent and model quality, detect regressions.
 - Set the task, allowed tools, and definition of done.
 - Read or research first, then draft, then request approval for any action that has effects.
 - Recheck the output (file, URL, ticket) and cite the source.
-- Goldens anlegen, after Prompt/Skill-Aenderungen regressen.
+- Create goldens, run regression tests after prompt/skill changes.
 
 ## Pitfalls
 

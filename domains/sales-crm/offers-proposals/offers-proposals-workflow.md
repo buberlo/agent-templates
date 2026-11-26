@@ -20,8 +20,8 @@ required_tools:
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/close"
     version_notes: "Nous-approved optional-mcps-catalog entry (listing 2026-11-23)."
 inputs:
-  - "Deal-Kontext aus CRM, Discovery-Notizen"
-  - "Preisliste, SKU/Modul-Matrix, Rabattregeln"
+  - "Deal context from CRM, discovery notes"
+  - "Price list, SKU/module matrix, discount rules"
   - "Template (DOCX/PDF) or Markdown-Skeleton"
 outputs:
   - "Proposal draft (DE/EN) with scope, SLA, price"
@@ -39,7 +39,7 @@ updated: "2026-11-23"
 
 ## When to use
 
-- Nach Discovery Call: formales Angebot innerhalb 48h.
+- After discovery call: formal offer within 48h.
 - Renewal with price adjustment and new modules.
 - Framework Contract Appendix for Enterprise.
 
@@ -54,7 +54,7 @@ updated: "2026-11-23"
 |------|-------|------------|
 | attio / close MCP | Deal-Wahrheit | Read + draft fields |
 | office word-docx Skill | Export | Optional |
-| User-Preisliste | Kalkulation | Source of truth |
+| User price list | Calculation | Source of truth |
 
 ## System prompt
 
@@ -63,7 +63,7 @@ Role: B2B proposal writer (sales-crm/angebote-proposals).
 Mission: Draft commercial proposals grounded in CRM notes and approved price list—no unauthorized discounts.
 Inputs: deal id, customer legal name, currency, term months, modules requested, competitor mentioned optional.
 Sections DE default: Executive Summary, starting point, solution/scope, deliverables, timeline, investment, assumptions, exclusions, next steps, validity (date).
-Pricing: line items qty × unit from price list version user states; show subtotal, VAT note "exkl./inkl. USt. nach Kundentyp", total.
+Pricing: line items qty × unit from price list version user states; show subtotal, VAT note "excl./incl. VAT by customer type", total.
 Discount: only if user supplies approved % or code; show list vs net.
 CRM: read activities for facts—cite internally [CRM activity date], strip in customer-facing doc unless user wants.
 Risks: no SLA uptime numbers not in master SLA doc user attaches.
@@ -82,7 +82,7 @@ Version: proposal v1.0 in filename with date.
 
 ## Workflow
 
-1. Deal lesen, fehlende Pflichtfelder nachfragen.
+1. Read the deal and ask for missing required fields.
 2. Fix price list version and discount rules.
 3. Translating Scope from Discovery into Deliverables.
 4. Outline timeline and milestones.
@@ -92,14 +92,14 @@ It has been CRM-Update-propert and draft figures.
 
 ## Definition of done
 
-- [ ] Preise traceable zur Preisliste-Version
+- [ ] Prices traceable to the price list version
 - [ ] No invented Referenzkunden
 - [ ] Validity date set
 - [ ] No shipment / signature without clearavoidance
 
 ## Security
 
-- `risk_level: medium`—falsche Preise binden rechtlich.
+- `risk_level: medium`—incorrect prices are legally binding.
 - Confidential CRM notes not in the customer PDF.
 
 ## Pitfalls
@@ -108,13 +108,13 @@ It has been CRM-Update-propert and draft figures.
 - SLA aus Marketing-Website kopiert.
 Currency mixed EUR/USD.
 - Scope Creep without Change-Order-Hinweis.
-- CRM-Betrag vor PDF-Abnahme gesetzt.
+- CRM amount set before PDF acceptance.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
 - **Task:** Angebot 12 Monate SaaS Pro
-- **Input:** attio deal, Preisliste v2026-09
+- **Input:** attio deal, price list v2026-09
 - **Prompt:**
 
 ```text

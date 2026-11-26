@@ -11,14 +11,14 @@ READMEs, API docs, architecture docs; often with Context7 against current librar
 ## Recommended tool stack
 
 - Context7 for Library-Docs
-- DeepWiki for oeffentliche Repos
+- DeepWiki for public repos
 - MarkItDown
 
 ## MCP servers and skills
 
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| Context7 | MCP / Plattform | https://github.com/upstash/context7 | Aktuelle, versionsspezifische librarysdokumentation in den Agent-Kontext holen. | Paket @upstash/context7-mcp bzw. Docs im Repo. | 65,314 Stars | https://github.com/upstash/context7 | no (as cited) |
+| Context7 | MCP / Platform | https://github.com/upstash/context7 | Fetch up-to-date, version-specific library documentation into the agent context. | Package @upstash/context7-mcp or docs in the repo. | 65,314 stars | https://github.com/upstash/context7 | no (as cited) |
 | MarkItDown | CLI / library | https://github.com/microsoft/markitdown | Convert files and Office documents to Markdown – used in skills and MCP wrappers. | Python package / repo. | 197,975 stars | https://github.com/microsoft/markitdown | no (as cited) |
 | deepwiki MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/deepwiki | Query public GitHub repos. | hermes mcp install deepwiki | Nous-approved optional-mcps catalog entry (listing 23 Nov 2026). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
 

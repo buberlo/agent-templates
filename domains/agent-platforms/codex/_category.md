@@ -25,7 +25,7 @@ OpenAI Codex CLI as a coding agent, often delegated by Hermes, MCP-capable.
 - Set the task, allowed tools, and definition of done.
 - Read or research first, then draft, then request approval for any action that has effects.
 - Recheck the output (file, URL, ticket) and cite the source.
-- In Hermes bleiben, Codex only for die Coding-Schleife; Reviews zurueck im Orchestrator.
+- Stay in Hermes, use Codex only for the coding loop; bring reviews back into the orchestrator.
 
 ## Pitfalls
 

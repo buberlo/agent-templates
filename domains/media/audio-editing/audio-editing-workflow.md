@@ -37,7 +37,7 @@ General **audio post-production** with FFmpeg: extract, cut, loudnorm, format co
 ## When to use
 
 - Sprachmemos, Sessions or Extrakte from Video sollen hoerbar and einheitlich will.
-- Batch-Conversion WAV→FLAC/MP3 with gleichen Parametern.
+- Batch conversion WAV→FLAC/MP3 with identical parameters.
 - Agent should command chain document.
 
 **When not to use**
@@ -88,7 +88,7 @@ Keep intermediate WAV until user confirms final codec; delete only after approva
 
 ## Workflow
 
-1. `ffprobe input` — Kanaele, Rate, Dauer.
+1. `ffprobe input` — channels, rate, duration.
 2. from Video: `ffmpeg -i clip.mp4 -vn -map 0:a:0 -c:a pcm_s16le audio.wav`.
 3. Cut: `ffmpeg -i audio.wav -ss 5 -to 120 -c copy trimmed.wav` or re-encode at MP3.
 4. loudnorm two-pass on `trimmed.wav`.
@@ -101,7 +101,7 @@ Keep intermediate WAV until user confirms final codec; delete only after approva
 - [ ] Ausgabeformat and -rate wie spezifiziert
 - [ ] no Clipping (true peak ≤ -1 dBTP when normalisiert)
 - [ ] Cut an richtigen Zeitmarken ±0,1 s
-- [ ] Befehlsprotokoll vollstaendig
+- [ ] Command log complete
 
 ## Security
 
@@ -112,7 +112,7 @@ Keep intermediate WAV until user confirms final codec; delete only after approva
 - MP3-Cut with `-c copy` an Frame-Grenzen unsauber.
 - Stereo to Mono without `-ac 1` kann Phasen-Mono-Effekt ignorieren—`-pan` only deliberately.
 - loudnorm on Musik-Mix verfaelscht Dynamik.
-- Mehrfaches Transcodieren MP3→AAC→MP3: Generationsverlust.
+- Multiple transcoding MP3→AAC→MP3: generation loss.
 - Whisper on 8 kHz Telefon-Audio without Upsample.
 
 ## Basic examples

@@ -10,7 +10,7 @@ iOS/Android development, device testing via mobile MCP or simulators.
 
 ## Recommended tool stack
 
-- Device-MCP (mobile-mcp or Mobilerun) zusaetzlich zum SDK/Build
+- Device MCP (mobile-mcp or Mobilerun) in addition to SDK/build
 
 ## MCP servers and skills
 

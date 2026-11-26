@@ -11,7 +11,7 @@ Strictly base answers on verifiable sources and cite them.
 ## Recommended tool stack
 
 - Hermes grounded-citations
-- Jede Aussage with URL or Dokumentpfad
+- Every claim with a URL or document path
 
 ## MCP servers and skills
 

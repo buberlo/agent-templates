@@ -24,7 +24,7 @@ required_tools:
     install: "npm: @mermaid-js/mermaid-cli"
     version_notes: "Diagramme vorrendern as SVG/PNG"
 inputs:
-  - "Markdown-Quellen (ein or mehrere files)"
+  - "Markdown sources (one or more files)"
   - "YAML-Metadaten (Titel, Autor, CI-Template)"
   - "Optional: CSS/Typst-Template"
 outputs:
@@ -38,18 +38,18 @@ updated: "2026-11-23"
 
 ## Purpose
 
-**Technische and interne Dokumentation** from Markdown in konsistente, druckbare PDFs viageben—with reproducible Pandoc-commands, Typst-Engine and optional vorgerenderten Diagrammen.
+**Technical and internal documentation** from Markdown into consistent, printable PDFs—with reproducible Pandoc commands, the Typst engine, and optional pre-rendered diagrams.
 
 ## When to use
 
-- Handbuecher, Policies or Angebote liegen bereits as Markdown im Repo.
+- Manuals, policies, or proposals already exist as Markdown in the repo.
 - CI verlangt fixeds Layout (Titelseite, TOC, Fusszeile with Versionsstand).
 - no WYSIWYG-Editor required; Build should in CI or per Agent-Shell laufen.
 
 **When not to use**
 
 - Komplexe Excel-Modelle or interaktive Forms.
-- Rechtlich finale Urkunden without menschliche approval the PDFs.
+- Legally final certificates without human approval of the PDFs.
 - Reine DOCX-Editing with Track Changes (→ word-docx-Templates).
 
 ## Tool stack
@@ -59,7 +59,7 @@ updated: "2026-11-23"
 | Pandoc | MD → PDF/DOCX | Einheitlicher Conversionspfad |
 | Typst | PDF-Engine | Schneller as LaTeX; gut for Tabellen |
 | mermaid-cli | Diagramme | no Runtime-Diagramme im PDF |
-| pypdf / pdfinfo | QA | pageszahl and filegroesse verify |
+| pypdf / pdfinfo | QA | Verify page count and file size |
 
 ## System prompt
 
@@ -98,31 +98,31 @@ Do not claim legal compliance of content—layout only.
 ## Workflow
 
 1. `meta.yaml` and all `*.md` on relative Bildpfade verify.
-2. Mermaid-Bloecke listen; `mmdc -i diagram.mmd -o assets/diagram.svg` batchweise.
+2. List Mermaid blocks; run `mmdc -i diagram.mmd -o assets/diagram.svg` in batches.
 3. Dry-run: `pandoc --print-default-data-file` only at Template-Debugging.
 4. `pandoc ... -o handbuch_v1.pdf` with vereinbartem Typst-Template.
-5. `pdfinfo handbuch_v1.pdf` → pages, Groesse document.
-6. Stichprobe TOC and Fusszeile im gerenderten PDF (User or pdftoppm Seite 1).
-7. Optional `review.docx` for inhaltliche Kommentare; PDF unveraendert canonical.
+5. `pdfinfo handbuch_v1.pdf` → document pages and size.
+6. Spot-check TOC and footer in rendered PDF (user or pdftoppm page 1).
+7. Optional `review.docx` for content comments; PDF remains canonical.
 
 ## Definition of done
 
 - [ ] no fehlenden Bild- or Include-Referenzen im Build-Log
 - [ ] Schrift and Raender entsprechen CI-Template
-- [ ] PDF unter vereinbarter Groessen- and pageszahl-Limite
+- [ ] PDF under agreed size and page count limits
 - [ ] Versionsstand in Fusszeile/Metadaten stimmt with `meta.yaml`
 - [ ] all Pandoc-Befehle im Thread dokumentiert
 
 ## Security
 
-- Vertrauliche Inhalte only over verschluesselte Kanaele versenden.
-- no API-Keys, Tokens or Kundendaten in Example-Codebloecken im PDF.
-- Rechtlich bindende approval liegt when Autor, not when Agenten.
+- Send confidential content only over encrypted channels.
+- No API keys, tokens, or customer data in example code blocks in the PDF.
+- Legally binding approval rests with the author, not the agent.
 
 ## Pitfalls
 
 - Mermaid im PDF without Vorrender → leere Kaesten or Build-Abbruch.
-- Typst-Template with falscher Papiergroesse (US Letter vs. A4).
+- Typst template with wrong paper size (US Letter vs. A4).
 - `include`-pathe at Pandoc Multi-Root-Projekten brechen still.
 - Git LFS-Bilder not ausgecheckt → 0-Byte-Assets im PDF.
 - LaTeX and Typst gemischt in a Repo without documented Engine-Wahl.
@@ -148,8 +148,8 @@ pdfinfo handbuch_v1.pdf | grep Pages
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** Review-DOCX parallel zum PDF for Marketing-Feedback.
-- **Input:** `policy.md`, gleiches `meta.yaml`.
+- **Task:** Review DOCX alongside PDF for marketing feedback.
+- **Input:** `policy.md`, same `meta.yaml`.
 - **Prompt:**
 
 ```text

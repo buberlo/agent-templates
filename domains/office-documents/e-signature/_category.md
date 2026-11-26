@@ -6,7 +6,7 @@
 
 ## Summary
 
-Signaturprozesse vorbereiten and Status in Signaturdiensten verfolgen.
+Prepare signature processes and track status in signature services.
 
 ## Recommended tool stack
 

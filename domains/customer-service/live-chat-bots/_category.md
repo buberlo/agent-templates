@@ -10,14 +10,14 @@ Chat agents for support channels, handoff to people and knowledge base connectio
 
 ## Recommended tool stack
 
-- Helpdesk-MCP (z. B. Intercom) + interne Knowledge-Base
-- No stillen Closes
+- Helpdesk MCP (e.g. Intercom) + internal knowledge base
+- No silent closes
 
 ## MCP servers and skills
 
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| intercom MCP (Hermes-catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/intercom | Intercom aus dem Nous-catalog. | hermes mcp install intercom | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
+| intercom MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/intercom | Intercom from the Nous catalog. | hermes mcp install intercom | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
 
 ## Typical workflows
 

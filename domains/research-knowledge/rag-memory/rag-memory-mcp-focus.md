@@ -33,7 +33,7 @@ updated: "2026-11-23"
 
 ## When to use
 
-- Architektur-Entscheid vor rag-memory-workflow.
+- Architecture decision before rag-memory-workflow.
 
 **When not**
 

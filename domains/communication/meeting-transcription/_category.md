@@ -6,7 +6,7 @@
 
 ## Summary
 
-Meetings transkribieren, Decisions and Action Items extrahieren, Follow-ups entwerfen.
+Transcribe meetings, extract decisions and action items, draft follow-ups.
 
 ## Recommended tool stack
 
@@ -18,7 +18,7 @@ Meetings transkribieren, Decisions and Action Items extrahieren, Follow-ups entw
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
 | ClawHub / OpenClaw Skill Openai Whisper (steipete) | Skill | https://clawhubtrends.com/leaderboard.html | Transcription via Whisper, a frequently installed skill according to ClawHub. | openclaw skills install (owner steipete, name Openai Whisper). | 77,380 downloads, 303 stars on ClawHub (23 Nov 2026). | https://clawhubtrends.com/leaderboard.html | no (as cited) |
-| Hermes-Skills meeting-action-items, teams-meeting-pipeline | Skill | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | Action Items with Owner/Zitat; Teams-Meeting-Zusammenfassungen. | Bundled productivity/. | Bundled. | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | no (as cited) |
+| Hermes-Skills meeting-action-items, teams-meeting-pipeline | Skill | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | Action items with owner/quote; Teams meeting summaries. | Bundled productivity/. | Bundled. | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | no (as cited) |
 | fireflies MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/fireflies | Meeting transcripts via Fireflies. | hermes mcp install fireflies | Nous-approved optional-mcps catalog entry (listing 23 Nov 2026). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
 
 ## Typical workflows

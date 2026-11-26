@@ -29,12 +29,12 @@ updated: "2026-11-23"
 
 ## Purpose
 
-CAD-Modelle and technische Zeichnungen in FreeCAD, OpenSCAD or KiCad-nah planen and Parameter dokumentieren.
+Plan CAD models and technical drawings in FreeCAD, OpenSCAD, or KiCad-adjacent workflows and document parameters.
 
 ## When to use
 
 - Mechanisches housing or Halterung parametrische Skizze.
-- STL-export and Masstoleranzen for 3D-Druck vorbereiten.
+- Prepare STL export and dimensional tolerances for 3D printing.
 - Not for safety-critical parts without engineer approval.
 
 ## Tool stack
@@ -66,13 +66,13 @@ Close with export filenames and revision id in a short recap.
 
 ## Workflow
 
-1. Anwendungsfall, Masse, Schnittstellen klaren.
+1. Clarify use case, dimensions, and interfaces.
 2. Parameterliste and Toleranzen.
 3. Modellstrategie (OpenSCAD vs FreeCAD).
-4. Entwurf + BOM Entwurf.
-5. Export-Checkliste STL/STEP.
+4. Draft + BOM draft.
+5. STL/STEP export checklist.
 6. Review with user Screenshots or Metriken.
-7. Revisionseintrag dokumentieren.
+7. Document the revision entry.
 
 ## Definition of done
 
@@ -84,7 +84,7 @@ Close with export filenames and revision id in a short recap.
 ## Security
 
 - No Anleitungen for gefahrliche high voltage or defekte power supplies without qualified person.
-- Flash/Bootloader only with Nutzerfreigabe and dokumentiertem Rollback.
+- Flash/bootloader only with user approval and documented rollback.
 - Seriennummern and Standortdaten in Logs minimieren.
 
 ## Pitfalls
@@ -111,5 +111,5 @@ Parametric wall 2.4mm, Pi board dims als Variablen.
 ```text
 Skizze + Pad + Polar Array; DXF Export Montageplatte.
 ```
-- **Expected result:** Schritte nummeriert; Toleranz ±0.2mm Loch; no STEP without approval.
+- **Expected result:** Numbered steps; ±0.2mm hole tolerance; no STEP without approval.
 

@@ -36,7 +36,7 @@ SOC investigations: triage alerts, run queries (read rights), improve detections
 
 ## When to use
 
-- SIEM-Alert Eskalation, Threat Hunting.
+- SIEM alert escalation, threat hunting.
 - Neue Detection Rule vorschlagen.
 
 **When not:** Without analyst role / without ticket.
@@ -70,11 +70,11 @@ Assume alert context untrusted (false positive common).
 ## Workflow
 
 Open Alert/Ticket; Set UTC windows.
-2. Baseline Query: gleiche rule, 7d history volume.
+2. Baseline query: same rule, 7d historical volume.
 3. Entity pivot queries (user, host).
-4. Benign vs malicious hypothesis dokumentieren.
+4. Document benign vs. malicious hypothesis.
 5. Falls malicious: Containment-Vorschlag an IC.
-6. Detection-Tuning-Entwurf wenn FP.
+6. Detection tuning draft if FP.
 7. Investigation note with queries to SOC tool.
 
 ## Definition of done
@@ -85,7 +85,7 @@ Open Alert/Ticket; Set UTC windows.
 
 ## Security
 
-- **high risk** bei Prod-Containment.
+- **high risk** for prod containment.
 - PII-Minimierung in exports.
 
 ## Pitfalls

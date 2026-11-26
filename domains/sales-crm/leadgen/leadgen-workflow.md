@@ -27,7 +27,7 @@ required_tools:
     version_notes: "Nous-approved optional-mcps-catalog entry (listing 2026-11-23)."
 inputs:
   - "ICP: Industry, size, geo, tech signals"
-  - "Zielrolle (z. B. VP Sales, Head of Ops)"
+  - "Target role (e.g. VP Sales, Head of Ops)"
   - "List size and CRM target (Attio/Close/CSV)"
 outputs:
   - "Qualified account/contact list with sources"
@@ -45,7 +45,7 @@ updated: "2026-11-23"
 
 ## When to use
 
-- Neues Segment testen (z. B. DACH Logistik 50–200 MA).
+- Test new segment (e.g. DACH logistics 50–200 employees).
 - Enrich event/content participants with company profile information.
 - TAM/SAM estimate with sample list.
 

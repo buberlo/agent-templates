@@ -15,10 +15,10 @@ target_agents:
 required_tools:
   - name: kubectl
     install: "apt/curl: kubectl"
-    version_notes: "Minor-Version passend zum Cluster"
+    version_notes: "Minor version matching the cluster"
   - name: kubectx
     install: "brew/apt: kubectx"
-    version_notes: "Kontextwechsel"
+    version_notes: "Context switch"
   - name: stern
     install: "brew/apt: stern"
     version_notes: "Multi-Pod-Logs"
@@ -27,7 +27,7 @@ inputs:
   - "Namespace and Deployment Name"
   - "Symptom (CrashLoop, ImagePull, Pending)"
 outputs:
-  - "Root-Cause-Zusammenfassung"
+  - "Root-cause summary"
   - "Empfohlene Remediation or Rollback"
 risk_level: high
 example_count: 2
@@ -41,7 +41,7 @@ Stabilise faulty Kubernetes deployments with read-first diagnosis; Rollback only
 
 ## When to use
 
-- CrashLoopBackOff, ImagePullBackOff or fehlgeschlagener Rollout nach Release.
+- CrashLoopBackOff, ImagePullBackOff, or failed rollout after release.
 Prod or staging clusters with valid RBAC.
 
 **When not to use:** Cluster-Upgrades or Node-Drain (eigenes Playbook).
@@ -79,13 +79,13 @@ After remediation: kubectl rollout status until success; snapshot revision numbe
 2. `kubectl -n <ns> rollout status deploy/<name> --timeout=120s`.
 3. `kubectl -n <ns> get pods -l app=<label> -o wide` and failing pod.
 4. `kubectl -n <ns> describe pod <pod>` and `kubectl -n <ns> logs <pod> --previous`.
-5. `stern -n <ns> -l app=<label> --since 15m` bei Flapping.
-6. Fix (Config/Secret/Image) or nach approval `kubectl rollout undo deploy/<name> -n <ns>`.
+5. `stern -n <ns> -l app=<label> --since 15m` on flapping.
+6. Fix (config/secret/image) or after approval `kubectl rollout undo deploy/<name> -n <ns>`.
 7. of an untouched and untouched gourmand, and of an untouched and untouched goar
 
 ## Definition of done
 
-- [ ] Root Cause benannt or auf 1–2 Hypothesen eingegrenzt
+- [ ] Root cause identified or narrowed down to 1–2 hypotheses
 - [ ] Rollout wieder `Successfully rolled out` or Rollback dokumentiert
 - [ ] Alle kubectl-Befehle im Thread/Ticket
 
@@ -97,16 +97,16 @@ After remediation: kubectl rollout status until success; snapshot revision numbe
 
 ## Pitfalls
 
-- Falscher Kontext — Classic „prod gedacht, staging getroffen“.
-- `logs` without `--previous` bei Restart-Loop — letzter Crash fehlt.
-- Rollback undo without ReplicaSet-Grund — gleiche kaputte Config bleibt.
+- Wrong context — classic "meant prod, hit staging".
+- `logs` without `--previous` on restart loop — last crash missing.
+- Rollback undo without checking the ReplicaSet cause — leaves the same broken config in place.
 - Readiness fails due to external dependency - undo does not help.
 - `kubectl delete pod` als Default — verschleiert StatefulSet-/PDB-Probleme.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** API-Deployment crash nach Tag `v2.3.1`.
+- **Task:** API deployment crash after tag `v2.3.1`.
 - **Input:** Namespace `prod`, Deploy `api`.
 - **Prompt:**
 
@@ -124,7 +124,7 @@ kubectl -n prod rollout undo deploy/api
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** ImagePullBackOff nach Registry-Wechsel.
+- **Task:** ImagePullBackOff after registry change.
 - **Input:** Pod Events `401 Unauthorized`.
 - **Prompt:**
 

@@ -6,7 +6,7 @@
 
 ## Summary
 
-Board-Hygiene, Handoffs, Definition of Done (z. B. Hermes sdlc-review).
+Board hygiene, handoffs, Definition of Done (e.g. Hermes sdlc-review).
 
 ## Recommended tool stack
 

@@ -58,7 +58,7 @@ Maintain **help center articles and support macros** from recurring tickets and 
 
 ```text
 You maintain support documentation for customer-service/knowledge-base.
-Work in the user's language (default to English).
+Work in the user's language.
 
 Inputs:
 - topic

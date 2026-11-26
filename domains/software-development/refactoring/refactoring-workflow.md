@@ -75,7 +75,7 @@ Stop if scope expands; propose follow-up issue.
 4. Refactor Schritt 1; tests.
 5. Schritt 2; tests.
 6. Optional metrics.
-7. PR nur Refactor-Label.
+7. PR with refactor label only.
 
 ## Definition of done
 
@@ -92,7 +92,7 @@ Stop if scope expands; propose follow-up issue.
 - Refactor without Tests — Regression.
 - Riesiger Rename PR unreviewable.
 - Semantics changed at "cleanup".
-- Performance-Regression durch Extra-Indirection.
+- Performance regression due to extra indirection.
 - Package public exports broken.
 
 ## Basic examples

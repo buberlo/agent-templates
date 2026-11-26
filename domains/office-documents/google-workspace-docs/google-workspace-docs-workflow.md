@@ -23,7 +23,7 @@ inputs:
   - "Aenderungsauftrag"
   - "approval Schreibzugriff"
 outputs:
-  - "Aktualisiertes Dokument"
+  - "Updated document"
   - "Aenderungsprotokoll"
 risk_level: medium
 example_count: 2
@@ -33,7 +33,7 @@ updated: "2026-11-23"
 
 ## Purpose
 
-**Google Workspace-Dokumente** over MCP bearbeiten—read, strukturiert aendern, changes protokollieren—with OAuth, not with Passwort im Chat.
+Edit **Google Workspace documents** via MCP—read, make structured edits, log changes—with OAuth, not with a password in chat.
 
 ## When to use
 
@@ -45,7 +45,7 @@ updated: "2026-11-23"
 
 - Air-gapped without Google.
 - Massenmigration to Microsoft 365 without Export-Spec.
-- Oeffentliche Docs without Rechtepruefung.
+- Public docs without permission check.
 
 ## Tool stack
 
@@ -97,19 +97,19 @@ For Sheets: note if IMPORTRANGE external—do not break without user ok.
 4. Snapshot-Backup when freigegeben.
 5. changes anwenden or Diff liefern.
 6. changelog.md write.
-7. User Link zur Pruefung.
+7. User link for review.
 
 ## Definition of done
 
-- [ ] Korrektes Dokument bearbeitet (ID match)
+- [ ] Correct document edited (ID match)
 - [ ] Changelog with Abschnitten/Zellen
 - [ ] no Sharing-Aenderung without approval
 - [ ] Backup when vereinbart
-- [ ] no Passwort im Chat
+- [ ] No password in chat
 
 ## Security
 
-- OAuth only; Tokens not loggen.
+- OAuth only; do not log tokens.
 - Write after approval.
 - DSGVO at PII in Docs.
 
@@ -125,7 +125,7 @@ For Sheets: note if IMPORTRANGE external—do not break without user ok.
 
 ### Example 1 (Example data (self-written))
 - **Task:** FAQ-Abschnitt in Doc aktualisieren.
-- **Input:** Doc URL, neuer Absatz unter „Support“.
+- **Input:** Doc URL, new paragraph under "Support".
 - **Prompt:**
 
 ```text

@@ -22,7 +22,7 @@ inputs:
   - "Read-only market analysis or metadata draft only"
 outputs:
   - "Category and keyword suggestion with competitor ASINs"
-  - "Cover/Description-Checkliste (kein Upload)"
+  - "Cover/description checklist (no upload)"
   - "Royalty-Szenario grob (Preis × Seitenformat)"
 risk_level: low
 example_count: 2
@@ -50,7 +50,7 @@ updated: "2026-11-23"
 | Tool | Role | Rationale |
 |------|-------|------------|
 | HasData/amazon-mcp | Read Comp books | Read-only |
-| Manuell KDP-Richtlinien | Compliance | Kein MCP-Ersatz |
+| Manual KDP guidelines | Compliance | No MCP replacement |
 
 ## System prompt
 
@@ -82,14 +82,14 @@ Never upload files to KDP or change list price.
 3. Fill in category paths and keyword slots (draft).
 4. Drafts of titles/subtitles/descriptions.
 5. Royalty-Hinweis grob rechnen.
-6. Policy-Check (AI, Inhalt, Marken).
+6. Policy check (AI, content, trademarks).
 7. Transfer pack for manual KDP entry.
 
 ## Definition of done
 
 - [ ] Comp ASINs with retrieval source
 - [ ] Keyword-Byte-Limits beachtet (DE)
-- [ ] Kein KDP-Upload/Preis-API
+- [ ] No KDP upload/pricing API
 - [ ] AI disclosure notice, if relevant
 
 ## Security
@@ -109,7 +109,7 @@ Never upload files to KDP or change list price.
 
 ### Example 1 (Example data (self-written))
 - **Task:** Nonfiction Productivity EN, 7 Keywords
-- **Input:** Working title, Ziel amazon.de
+- **Input:** Working title, target amazon.de
 - **Prompt:**
 
 ```text

@@ -35,8 +35,8 @@ Implement features and bug fixes in the repo: smallest meaningful diff, run test
 
 ## When to use
 
-- Implementation nach Spec or Issue.
-- Lokale Reproduktion eines Bugs.
+- Implementation according to spec or issue.
+- Local reproduction of a bug.
 
 **When not:** Large architectural conversion without ADR.
 
@@ -81,7 +81,7 @@ Do not push without user request.
 
 - [ ] AC fulfilled
 - [ ] Tests green
-- [ ] Kein Scope-Creep
+- [ ] No scope creep
 
 ## Security
 
@@ -92,7 +92,7 @@ Do not push without user request.
 - Stilbruch im Monorepo.
 - Fehlende Dependency im Manifest.
 - Giant commit schwer zu reviewen.
-- Tests nur happy path.
+- Happy-path tests only.
 - Breaking change without Version bump.
 
 ## Basic examples

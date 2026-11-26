@@ -32,18 +32,18 @@ updated: "2026-11-23"
 
 ## Purpose
 
-from **oeffentlichen YouTube-Videos** structured **Text-Content** create—Kapitel, Summary, Zitate—with Hermes **youtube-content** Skill, chunking at langen transcripten and without Halluzination at fehlenden Subtitlesn.
+Create structured **text content** from **public YouTube videos**—chapters, summary, quotes—with the Hermes **youtube-content** skill, chunking for long transcripts, and without hallucination when subtitles are missing.
 
 ## When to use
 
 - Kanal- or Research-Video should Blogpost, Newsletter or internes Briefing will.
-- transcript is verfuegbar or auto-generated on YouTube.
+- Transcript is available or auto-generated on YouTube.
 - Hermes-Skill with vorbereitetem venv nutzbar.
 
 **When not to use**
 
 - Video herunterladen or reuploaden without Lizenz.
-- Inhalte with deaktivierten transcripten and without approval for ASR-Download.
+- Content with disabled transcripts and without approval for ASR download.
 - Echtzeit-Trending without URL.
 
 ## Tool stack
@@ -52,7 +52,7 @@ from **oeffentlichen YouTube-Videos** structured **Text-Content** create—Kapit
 |------|-------|------------|
 | Hermes youtube-content | transcript + Formate | Official bundled path |
 | YouTube Watcher Skill | Monitoring | OpenClaw-Alternative |
-| Markdown/Office-Skills | Ausgabe-files | Blog/Deck optional |
+| Markdown/Office skills | Output files | Blog/deck optional |
 
 ## System prompt
 
@@ -87,13 +87,13 @@ Attribute source URL in every deliverable footer.
 2. Skill: transcript with Timestamps holen; leere Antwort → Abbruch melden.
 3. Zeichenzahl verify; ggf. chunken.
 4. Format according to Auftrag create (Default Summary when unklar).
-5. Timestamps stichprobenartig against transcript-Zeilen.
+5. Spot-check timestamps against transcript lines.
 6. `output.md` write; Quell-URL im Footer.
-7. User um approval for externe Veroeffentlichung bitten.
+7. Ask user for approval before external publication.
 
 ## Definition of done
 
-- [ ] no Inhalte at fehlendem transcript
+- [ ] No content generated when transcript is missing
 - [ ] Kapitel-Timestamps from echten Cues
 - [ ] Zitate wortgetreu
 - [ ] Quell-URL dokumentiert

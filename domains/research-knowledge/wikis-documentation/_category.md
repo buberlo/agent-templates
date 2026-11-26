@@ -1,4 +1,4 @@
-# Wikis and Dokumentation
+# Wikis and documentation
 
 - **Domain:** `research-knowledge`
 - **Category:** `wikis-documentation`
@@ -10,7 +10,7 @@ Maintain and query internal wikis, DeepWiki, docs sites and knowledge spaces.
 
 ## Recommended tool stack
 
-- DeepWiki-MCP for oeffentliche Repos
+- DeepWiki MCP for public repos
 - Notion/Obsidian intern
 
 ## MCP servers and skills

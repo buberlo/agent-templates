@@ -10,7 +10,7 @@ Term papers, literature, citations, and study plans.
 
 ## Recommended tool stack
 
-- Office-/Video-Skills, Sourcespflicht
+- Office/video skills, mandatory source citation
 
 ## MCP servers and skills
 

@@ -19,8 +19,8 @@ Gateway, ClawHub, Skill Workshop, MCP, Android-Companion, Skill-Verify.
 
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| OpenClaw | Agent-Plattform | https://github.com/openclaw/openclaw | Self-hosted Gateway, Skills, Plugins, MCP, Kanaele, Android-Companion. | Docs auf docs.openclaw.ai; CLI openclaw skills\ | mcp\ | plugins. | 395,081 Stars (API 23 Nov 2026). |
-| ClawHub | Registry | https://github.com/openclaw/clawhub | Oeffentliche Skill- and Plugin-Registry, Semver, Downloads, Security-Scan-Summaries, openclaw skills verify. | openclaw skills install @owner/skill, openclaw plugins install clawhub:<pkg>, optional npm i -g clawhub zum Publizieren. | 9,559 Stars; Site clawhub.ai / docs. | https://docs.openclaw.ai/clawhub | no (as cited) |
+| OpenClaw | Agent platform | https://github.com/openclaw/openclaw | Self-hosted gateway, skills, plugins, MCP, channels, Android companion. | Docs at docs.openclaw.ai; CLI openclaw skills\ | mcp\ | plugins. | 395,081 stars (API 23 Nov 2026). |
+| ClawHub | Registry | https://github.com/openclaw/clawhub | Public skill and plugin registry, semver, downloads, security scan summaries, openclaw skills verify. | openclaw skills install @owner/skill, openclaw plugins install clawhub:<pkg>, optional npm i -g clawhub for publishing. | 9,559 stars; site clawhub.ai / docs. | https://docs.openclaw.ai/clawhub | no (as cited) |
 
 ## Typical workflows
 

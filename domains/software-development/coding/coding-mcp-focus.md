@@ -90,7 +90,7 @@ Commit scope: only files for this task.
 ## Pitfalls
 
 - Zu viele MCPs — schlechtere Patches.
-- GitHub MCP without Issue — fehlender Kontext.
+- GitHub MCP without issue — missing context.
 - Skill skipped.
 - MCP write statt IDE.
 
@@ -113,8 +113,8 @@ npm test
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** Ohne GitHub MCP.
-- **Input:** lokale Spec im Chat.
+- **Task:** Without GitHub MCP.
+- **Input:** Local spec in chat.
 - **Prompt:**
 
 ```text

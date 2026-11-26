@@ -89,7 +89,7 @@ Disable DB MCP in prod connection strings unless user supplies staging DSN name.
 ## Security
 
 Prod-DB prohibited by MCP without release.
-- Tokens in curl nur env vars.
+- Tokens in curl via env vars only.
 
 ## Pitfalls
 

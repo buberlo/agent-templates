@@ -32,7 +32,7 @@ updated: "2026-11-23"
 
 ## Purpose
 
-**Prozess- and Architekturdiagramme** as versionierbare Quellen (Mermaid, draw.io) create and for Docs/PDF exportieren.
+Create **process and architecture diagrams** as versionable sources (Mermaid, draw.io) and export for docs/PDF.
 
 ## When to use
 
@@ -94,7 +94,7 @@ Keep legend for color semantics when more than 3 colors.
 4. SVG in MD einbinden testen.
 5. Optional draw.io for Layout-Korrektur.
 6. Review with User (Screenshot or SVG).
-7. Quellen ins Repo committen.
+7. Commit sources to the repo.
 
 ## Definition of done
 
@@ -106,14 +106,14 @@ Keep legend for color semantics when more than 3 colors.
 
 ## Security
 
-- Interne Architektur not oeffentlich posten without approval.
-- no echten Hostnames in oeffentlichen Demos.
+- Do not post internal architecture publicly without approval.
+- No real hostnames in public demos.
 - Whiteboard-Screenshots can PII enthalten.
 
 ## Pitfalls
 
 - Mermaid-Knoten with Klammern without Quotes.
-- SVG riesig durch eingebettete Fonts.
+- Huge SVG due to embedded fonts.
 - draw.io without CLI-Export manuell vergessen.
 - Sequenzdiagramm with falschem activate/deactivate.
 - Dark-Theme in Print-PDF unleserlich.

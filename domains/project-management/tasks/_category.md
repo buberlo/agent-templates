@@ -21,7 +21,7 @@ Perform tasks in Todoist, Issues or local task systems.
 
 ## Typical workflows
 
-- Inbox verarbeiten, Due Dates in Europe/Vienna, no stillen Completes.
+- Process inbox, due dates in Europe/Vienna, no silent completes.
 
 ## Pitfalls
 

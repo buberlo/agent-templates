@@ -45,7 +45,7 @@ updated: "2026-11-23"
 
 **When not to use**
 
-- Vollstaendiger OCR-Batch (→ ocr-workflow).
+- Full OCR batch (→ ocr-workflow).
 - only natives PDF read (→ pdf-mcp-focus).
 
 ## Tool stack
@@ -89,7 +89,7 @@ Note GPU optional for some engines—not assumed.
 
 ## Workflow
 
-1. Vertraulichkeit and Volumen erfassen.
+1. Assess confidentiality and volume.
 2. Check whether a text layer exists (fast PDF text extract).
 3. tool tree anwenden; MCP-set minimieren.
 4. Routing-Memo an User.
@@ -102,8 +102,8 @@ Note GPU optional for some engines—not assumed.
 - [ ] Tool-Wahl begruendet (privacy, quality)
 - [ ] no viafluessiger MCP-catalog geladen
 - [ ] MarkItDown not as OCR verkauft
-- [ ] Follow-up Template benannt
-- [ ] no Keys im Chat
+- [ ] Follow-up template specified
+- [ ] No keys in chat
 
 ## Security
 

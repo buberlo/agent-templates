@@ -16,9 +16,9 @@ Services, APIs, Auth and serverseitige Logik.
 
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| Context7 | MCP / Plattform | https://github.com/upstash/context7 | Aktuelle, versionsspezifische librarysdokumentation in den Agent-Kontext holen. | Paket @upstash/context7-mcp bzw. Docs im Repo. | 65,314 Stars | https://github.com/upstash/context7 | no (as cited) |
+| Context7 | MCP / Platform | https://github.com/upstash/context7 | Fetch up-to-date, version-specific library documentation into the agent context. | Package @upstash/context7-mcp or docs in the repo. | 65,314 stars | https://github.com/upstash/context7 | no (as cited) |
 | supabase MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/supabase | Projects/SQL; community recommends read-only mode. Hosted URL in third-party repos mcp.supabase.com – repo supabase/supabase-mcp returned 404 via API. | hermes mcp install supabase | Nous-approved optional-mcps catalog entry (listing 23 Nov 2026). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
-| Sentry MCP | MCP | https://github.com/getsentry/sentry-mcp | Produktionsfehler, Issues and Kontext for Coding-Agenten. | Officials getsentry/sentry-mcp Repo. | 973 Stars | https://github.com/getsentry/sentry-mcp | no (as cited) |
+| Sentry MCP | MCP | https://github.com/getsentry/sentry-mcp | Production errors, issues, and context for coding agents. | Official getsentry/sentry-mcp repo. | 973 Stars | https://github.com/getsentry/sentry-mcp | no (as cited) |
 
 ## Typical workflows
 

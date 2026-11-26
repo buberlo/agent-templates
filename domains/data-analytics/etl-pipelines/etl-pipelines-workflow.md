@@ -18,14 +18,14 @@ required_tools:
     version_notes: "211894 GitHub Stars"
   - name: motherduck MCP (Hermes-catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/motherduck"
-    version_notes: "Nous-approved optional-mcps-catalog entry (Listing 23.11.2026)."
+    version_notes: "Nous-approved optional-mcps-catalog entry (Listing 23 Nov 2026)."
 inputs:
-  - "Quellen (API, S3, SFTP), Ziel (Warehouse/Lake)"
+  - "Sources (API, S3, SFTP), destination (warehouse/lake)"
   - "Frequenz, SLAs, Idempotenz"
   - "Fehler-Alert-Kanal"
 outputs:
   - "Pipeline-Diagramm (Mermaid/ASCII)"
-  - "n8n Workflow-JSON Entwurf"
+  - "n8n workflow JSON draft"
   - "DDL/Staging-SQL"
 risk_level: medium
 example_count: 2
@@ -55,7 +55,7 @@ Design ETL: Extract Transform Load with Idempotency, Retry, Staging—n8n-Workfl
 ## System prompt
 
 ```text
-Role: ETL pipeline designer (daten-analytics/etl-pipelines).
+Role: ETL pipeline designer (data-analytics/etl-pipelines).
 Design idempotent pipelines with staging bronze silver optional—no prod cron enable without USER_APPROVAL ETL PROD.
 Inputs: sources, destination, schedule cron, keys watermark updated_at, backfill days optional.
 Layers: bronze raw append, silver cleaned typed, gold aggregates if user wants—document.
@@ -81,7 +81,7 @@ Test: dry run sample 100 rows procedure.
 
 1.Clarify sources, goal, schedule.
 2. Watermark and Keys definieren.
-3. Staging-DDL schreiben.
+3. Write staging DDL.
 4. n8n-Flow skizzieren (Extract→Transform→Load).
 5. Idempotenz-Testplan.
 6. Fehler/Alert-Pfad.

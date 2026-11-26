@@ -17,7 +17,7 @@ Tool-Schema-Overhead, Lazy Loading, CLI statt fetter MCPs, Prompt-Budgets.
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
 | Playwright MCP | MCP | https://github.com/microsoft/playwright-mcp | Local browser automation via accessibility snapshots, UI tests, and interaction with web apps. | npx @playwright/mcp@latest (official docs/repo). | 40,040 stars | https://playwright.dev/mcp/introduction | no (as cited) |
-| Context7 | MCP / Plattform | https://github.com/upstash/context7 | Aktuelle, versionsspezifische librarysdokumentation in den Agent-Kontext holen. | Paket @upstash/context7-mcp bzw. Docs im Repo. | 65,314 Stars | https://github.com/upstash/context7 | no (as cited) |
+| Context7 | MCP / Platform | https://github.com/upstash/context7 | Fetch up-to-date, version-specific library documentation into the agent context. | Package @upstash/context7-mcp or docs in the repo. | 65,314 stars | https://github.com/upstash/context7 | no (as cited) |
 | Hermes tools.include / exclude and MCP filter | Config | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | Export only the tools each server needs. | ~/.hermes/config.yaml or hermes mcp status. | Product docs. | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
 
 ## Typical workflows

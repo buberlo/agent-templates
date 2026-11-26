@@ -42,7 +42,7 @@ updated: "2026-11-23"
 **When not**
 
 - Peer-Review-Garantie or Gutachten.
-- Paywall-Journals without Zugang (nur Metadaten).
+- Paywalled journals without access (metadata only).
 - Plagiatsfreie Ghostwriting-Zusage.
 
 ## Tool stack
@@ -50,7 +50,7 @@ updated: "2026-11-23"
 | Tool | Role | Justification |
 |------|-------|------------|
 | Hermes arxiv | Suche | Bundled |
-| grounded-citations | Quellenpflicht | Halluzinationsschutz |
+| grounded-citations | Source requirement | Hallucination protection |
 | Semantic Scholar | Optional API | Metadaten |
 | Zotero | Optional | Export User |
 
@@ -112,7 +112,7 @@ Include withdrawn papers check status field.
 ## Security
 
 - No DRM-PDFs crack.
-- copyright bei distribution observe.
+- Observe copyright during distribution.
 - No invented Ergebnisse.
 
 ## Pitfalls

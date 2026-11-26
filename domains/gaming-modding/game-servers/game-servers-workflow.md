@@ -30,19 +30,19 @@ updated: "2026-11-23"
 
 ## Purpose
 
-game-Server aufsetzen, Mods synchronisieren and Backup-/update-Routinen dokumentieren.
+Set up game servers, synchronize mods, and document backup and update routines.
 
 ## When to use
 
 - Self-hosted Survival/Creators-Server for Freundesrunde planen.
-- Mods on Server and Client angleichen; Rollout-Checkliste.
+- Align mods on server and client; rollout checklist.
 - Not for kommerzielle Hosting without DDoS- and Lizenzrisiko-Klarung.
 
 ## Tool stack
 
 | Tool | Role | Rationale |
 |------|-------|------------|
-| unreal-engine MCP (Hermes catalog) | Engine-Integration | Wenn Hermes unreal-engine MCP installiert ist: Editor-Aktionen dokumentieren. |
+| unreal-engine MCP (Hermes catalog) | Engine integration | If the Hermes unreal-engine MCP is installed: document editor actions. |
 
 ## System prompt
 
@@ -66,13 +66,13 @@ Legal: only games whose dedicated server license allows your use case.
 
 ## Workflow
 
-1. Serverziel, Spiel, Player-Slots, Hosting-Umgebung erfassen.
-2. Install-Dokumentation (steamcmd/docker) schreiben.
+1. Capture server goal, game, player slots, hosting environment.
+2. Write install documentation (steamcmd/docker).
 3. Mod-list and Sync-Prozess zwischen Server/Client.
 4. Backup- and Restore-Runbook.
 5. update- and Rollback-Flow.
-6. Security-hardening (Passworter, Firewall).
-7. Smoke-Test nach User-Deployment reviewen.
+6. Security hardening (passwords, firewall).
+7. Review smoke test after user deployment.
 
 ## Definition of done
 
@@ -83,16 +83,16 @@ Legal: only games whose dedicated server license allows your use case.
 
 ## Security
 
-- Nur legale Kopien, eigene Server or from Entwickler erlaubte Modding-Workflows.
+- Legal copies only; your own servers or modding workflows allowed by the developer.
 - No Crack-, Keygen- or DRM-Umgehungsanleitungen.
-- Anderungen an Live-Servern or Mod-Uploads only nach approval.
+- Changes to live servers or mod uploads only after approval.
 
 ## Pitfalls
 
 - World-Folder backup wahrend Server lauft — stop-Befehl notig.
 - Port-Konflikt with anderem Dienst.
 - Client-Mod without Server-Equivalent desync.
-- Automatisches steamcmd without `--validate` nach Crash.
+- Automatic steamcmd without `--validate` after crash.
 
 ## Basic examples
 
@@ -101,15 +101,15 @@ Legal: only games whose dedicated server license allows your use case.
 - **Input:** linux vps, 4 Spieler, Mods: Valheim Plus
 - **Prompt:**
 ```text
-docker-compose Entwurf with Volumes and Mod-Sync Tabelle.
+docker-compose draft with volumes and mod-sync table.
 ```
-- **Expected result:** compose.yaml Snippet without Passwort; Umgebungsvariablen Tabelle; Backup cron Text.
+- **Expected result:** compose.yaml snippet without password; environment variables table; backup cron text.
 ### Example 2 (Example data (self-written))
 - **Task:** Minecraft Paper Migration
 - **Input:** Vanilla 1.20.4 zu Paper, 12 Plugin-Namen
 - **Prompt:**
 ```text
-Migrationscheckliste and Rollback world.tar Schritte.
+Migration checklist and world.tar rollback steps.
 ```
-- **Expected result:** Checkliste 18 Punkte; inkompatibles Plugin markiert.
+- **Expected result:** 18-item checklist; incompatible plugin flagged.
 

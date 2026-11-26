@@ -89,7 +89,7 @@ Send/Publish only after release nitrogen.
 ## Pitfalls
 
 - Auto-post
-- Link without Kontext
+- Link without context
 - Regeln ignoriert
 - Hashtag spam
 - Sensational lies

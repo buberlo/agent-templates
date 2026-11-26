@@ -11,7 +11,7 @@ Untertitel (SRT/VTT), Transkription and sprachliche Lokalisation von AV-Inhalten
 ## Recommended tool stack
 
 - Whisper or vorhandenes Transkript
-- FFmpeg zum Einbetten von SRT/VTT
+- FFmpeg for embedding SRT/VTT
 
 ## MCP servers and skills
 

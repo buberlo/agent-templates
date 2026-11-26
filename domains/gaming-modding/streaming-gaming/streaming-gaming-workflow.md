@@ -30,19 +30,19 @@ updated: "2026-11-23"
 
 ## Purpose
 
-Streaming-Setup for Gaming: Szenen, Overlays, Audio-Routing and Clip-Workflows dokumentieren.
+Streaming setup for gaming: document scenes, overlays, audio routing, and clip workflows.
 
 ## When to use
 
 - OBS/Streamlabs-Layout and Hotkeys for neues Setup planen.
-- Overlay-Branding and Alert-Tests vorbereiten.
-- Not for unbefugtes Restreaming urheberrechtlich geschutzter Inhalte.
+- Prepare overlay branding and alert tests.
+- Not for unauthorized restreaming of copyrighted content.
 
 ## Tool stack
 
 | Tool | Role | Rationale |
 |------|-------|------------|
-| unreal-engine MCP (Hermes catalog) | Engine-Integration | Wenn Hermes unreal-engine MCP installiert ist: Editor-Aktionen dokumentieren. |
+| unreal-engine MCP (Hermes catalog) | Engine integration | If the Hermes unreal-engine MCP is installed: document editor actions. |
 
 ## System prompt
 
@@ -66,12 +66,12 @@ Test stream checklist private/unlisted before public go-live.
 
 ## Workflow
 
-1. Plattform, Auflosung, Hardware and game festlegen.
-2. Szenenliste and Quellenstruktur entwerfen.
+1. Define platform, resolution, hardware, and game.
+2. Draft a scene list and source structure.
 3. Audio-Routing-Diagramm in Text.
 4. Overlay-Dateipfade and Branding-Farben.
 5. Hotkeys-Tabelle and Backup the scene collection.
-6. Test-Stream-Checkliste.
+6. Test stream checklist.
 7. Clip-Nachbearbeitungs-Workflow skizzieren.
 
 ## Definition of done
@@ -79,20 +79,20 @@ Test stream checklist private/unlisted before public go-live.
 - [ ] DMCA-Hinweis Musik
 - [ ] No Copyright-Restreams
 - [ ] OBS-Export beschrieben
-- [ ] Test-Stream vor Public
+- [ ] Test stream before public
 
 ## Security
 
-- Nur legale Kopien, eigene Server or from Entwickler erlaubte Modding-Workflows.
+- Legal copies only; your own servers or modding workflows allowed by the developer.
 - No Crack-, Keygen- or DRM-Umgehungsanleitungen.
-- Anderungen an Live-Servern or Mod-Uploads only nach approval.
-- No Veroffentlichung privater Chats in Overlays.
+- Changes to live servers or mod uploads only after approval.
+- No publication of private chats in overlays.
 
 ## Pitfalls
 
 - Game Capture vs Display Capture falsche Wahl Vollbild.
 - Mikrofon-Monitoring Feedback-Schleife.
-- NVENC Treiber zu alt — in Checkliste.
+- NVENC driver too old — on checklist.
 - Alert-Volume without Limiter.
 
 ## Basic examples
@@ -110,7 +110,7 @@ Szenen + Hotkeys F1–F4 and Audio-Bus Tabelle.
 - **Input:** Replay Buffer 120s, YouTube Highlights Upload
 - **Prompt:**
 ```text
-Namenskonvention and export Schritte without automatischen Upload.
+Naming convention and export steps without automatic upload.
 ```
-- **Expected result:** Ordnerstruktur clips/YYYY-MM-DD_title.md; Upload manuell Schrittfolge.
+- **Expected result:** Folder structure clips/YYYY-MM-DD_title.md; manual upload step sequence.
 

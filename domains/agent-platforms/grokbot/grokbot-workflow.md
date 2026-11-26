@@ -58,10 +58,10 @@ Tasks require connected SaaS services via Connect Apps with fixed tool policies 
 Du arbeitest als Grok Bot with Plugins and MCP. Nutze Connect Apps for Standard-Integrationen.
 Custom MCP only: public HTTPS or Command on the bot box — never laptop localhost, never VPN-only without reachability.
 No tokens, API keys or passwords in chat, skill texts or command arguments.
-OAuth liegt auf dem Connector-Backend; fordere niemals Roh-Credentials vom User an.
+OAuth resides on the connector backend; never request raw credentials from the user.
 Before destructive tools (write, send, delete, pay): Policy “Needs approval” or explicit release.
 Block individual tools when the task needs them — less schema noise.
-Skill-Ceiling 200 observe: nur relevante Skills @-attachieren.
+Observe skill ceiling of 200: only @-attach relevant skills.
 If the connector is missing: work on the box (CLI/Files), do not start, a private MCP is connected.
 Shared Bot: alle Command-Zeilen als for Team-Leser sichtbar behandeln.
 After Document Creation: Verify (read/render) as usual in Document Skills.
@@ -71,7 +71,7 @@ After Document Creation: Verify (read/render) as usual in Document Skills.
 
 Open Connect Apps; Select plugin and comply with the auth deadline.
 Formulate the task; Apply appropriate skills with @ (stay under 200 skill ceiling).
-3. Fehlende Integration: Custom MCP planen — HTTPS-Endpoint or Box-Command, niemals lokaler Laptop-Host.
+3. Missing integration: plan a custom MCP — HTTPS endpoint or box command, never a local laptop host.
 4. Tool-Policies setzen: kritische Tools auf Needs approval or Blocked.
 5. Bot-Task starten; Ausgaben protokollieren.
 6. Before Send/Write: Wait for approval or use policy dialogue.
@@ -80,15 +80,15 @@ Formulate the task; Apply appropriate skills with @ (stay under 200 skill ceilin
 
 ## Definition of done
 
-- [ ] Kein Custom MCP auf unerreichbarem localhost/VPN-only without dokumentierte Box-Alternative
+- [ ] No custom MCP on unreachable localhost/VPN-only without documented box alternative
 - [ ] Tool policies match the risk (writes not “Always allow” without reason)
 - [ ] No Credentials in argv, Chat or Skill-Files
 - [ ] Only attached skills/tools that the task needs
-- [ ] Dokument-Artefakte verifiziert (Lesen/Render)
+- [ ] Document artifacts verified (read/render)
 
 ## Security
 
-- Connect Apps: Tokens nur auf Connector-Backend; Bot fordert no Secrets in Klartext.
+- Connect Apps: Tokens only on connector backend; bot requests no secrets in plain text.
 - Command-Server auf Shared Bots: Team kann Befehlszeile lesen — no Keys in Args.
 - Write, send, pay, deploy and delete only after approval or policy.
 
@@ -99,7 +99,7 @@ Formulate the task; Apply appropriate skills with @ (stay under 200 skill ceilin
 - **Skill-Ceiling 200:** Too many active skills lead to confusion or abort — targeted @-attach.
 **Shared bot visibility:** Internal URLs or tokens in command lines are readable by members.
 - **Marketing threads:** Apply viral “N GitHub MCP” lists on X unchecked — trust only Wiki/Connect apps.
-- **Kein Secret-Header:** Custom MCP hat laut Wiki keinen sicheren Header-Geheimnis-Weg — Design entsprechend anpassen.
+- **No secret header:** According to the wiki, custom MCP has no secure header secret mechanism — adapt design accordingly.
 
 ## Basic examples
 
@@ -119,14 +119,14 @@ Formulate the task; Apply appropriate skills with @ (stay under 200 skill ceilin
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** Falscher Custom MCP (localhost auf Entwicklerrechner)
+- **Task:** Wrong custom MCP (localhost on developer machine)
 - **Input:** User suggests `http://127.0.0.1:3847/mcp` on MacBook
 - **Prompt:**```text
-Verbinde meinen lokalen MCP unter localhost:3847.
+Connect my local MCP at localhost:3847.
 ```
 - **Expected result:**
 ```text
 Abort with reason: Bot reaches laptop-localhost not.
 Suggestion: Start MCP on bot box as npx command OR public HTTPS with Auth on the server.
-Kein Versuch, Token in argv zu setzen.
+No attempt to pass token in argv.
 ```

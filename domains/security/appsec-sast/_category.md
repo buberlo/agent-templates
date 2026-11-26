@@ -17,8 +17,8 @@ Statistics (e.g., Semgrep) and secure reviews in the own code.
 
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| semgrep MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/semgrep | SAST-Befunde. | hermes mcp install semgrep | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
-| Hermes-Skill requesting-code-review | Skill | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | Enthaelt einen Security-Scan-Schritt im Review-Workflow. | Bundled. | Bundled. | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | no (as cited) |
+| semgrep MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/semgrep | SAST findings. | hermes mcp install semgrep | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
+| Hermes skill requesting-code-review | Skill | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | Includes a security scan step in the review workflow. | Bundled. | Bundled. | https://hermes-agent.nousresearch.com/docs/reference/skills-catalog | no (as cited) |
 
 ## Typical workflows
 

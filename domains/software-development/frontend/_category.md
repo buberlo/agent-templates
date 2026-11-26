@@ -6,11 +6,11 @@
 
 ## Summary
 
-UI-Implementierung, Design-to-Code (Figma), Komponenten and Accessibility.
+UI implementation, design-to-code (Figma), components, and accessibility.
 
 ## Recommended tool stack
 
-- Figma-MCP + Coding-Agent + Browser-MCP zum Sichtpruefen
+- Figma MCP + coding agent + browser MCP for visual inspection
 
 ## MCP servers and skills
 

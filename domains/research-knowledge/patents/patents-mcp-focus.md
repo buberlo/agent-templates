@@ -31,7 +31,7 @@ updated: "2026-11-23"
 
 ## When to use
 
-- Vor patente-workflow Agent-Setup.
+- Agent setup before patente-workflow.
 
 **When not**
 

@@ -29,7 +29,7 @@ updated: "2026-11-23"
 
 ## Purpose
 
-3D-Druck vorbereiten: STL prufen, Slicer-Profile and G-Code-Checklisten liefern.
+Prepare 3D printing: check STL, provide slicer profiles and G-code checklists.
 
 ## When to use
 
@@ -66,25 +66,25 @@ Deliver slicer profile path and first-layer checklist in the session summary.
 
 ## Workflow
 
-1. Drucker, Filament and Modellquelle erfassen.
+1. Capture printer, filament, and model source.
 2. STL-diagnosis (Manifold, size).
 3. Orientierung and Support-Vorschlag.
 4. Slicer-Profil als Tabelle.
-5. G-code export and ersten Layer Checkliste.
+5. G-code export and first-layer checklist.
 6. User startet Druck physisch.
 7. result-Foto optional for Tuning-Iteration.
 
 ## Definition of done
 
 - [ ] Temps from Filament-Hersteller or UNKNOWN
-- [ ] Kein Druckstart durch Agent
+- [ ] No print start by the agent
 - [ ] Support begrundet
-- [ ] Sicherheits-Disclaimer bei Lastteilen
+- [ ] Safety disclaimer for load-bearing parts
 
 ## Security
 
 - No Anleitungen for gefahrliche high voltage or defekte power supplies without qualified person.
-- Flash/Bootloader only with Nutzerfreigabe and dokumentiertem Rollback.
+- Flash/bootloader only with user approval and documented rollback.
 - Seriennummern and Standortdaten in Logs minimieren.
 
 ## Pitfalls

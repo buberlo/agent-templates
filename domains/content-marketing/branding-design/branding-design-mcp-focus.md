@@ -46,7 +46,7 @@ Clearly intersected branding and design task with briefing.
 
 | Tool | Role | Rationale |
 |------|-------|------------|
-Exe--thesheets-of-the-'''''''''''''''''''''''''''' all'' Plus''
+| required_tools | Primary | As in frontmatter |
 
 ## System prompt
 
@@ -74,7 +74,7 @@ Deliver reproducible file paths in summary.
 2. Ein MCP
 3. result
 4. Sequenz optional
-5. Skills wenn MCP off
+5. Skills when MCP is off
 6. Routing doc
 7. Verweis Haupt-Workflow
 

@@ -41,7 +41,7 @@ Browse central and pod logs, correlate errors, and deliver reusable queries—wi
 ## When to use
 
 - Incident-Triage, neue Fehlermeldung in Monitoring.
-- Logging-Pipeline-Validierung nach Deploy.
+- Logging pipeline validation after deploy.
 
 **When not to use:** Long-term archive without legal hold clarification.
 
@@ -86,7 +86,7 @@ Stern: stern -n prod deploy/api --since 30m for burst incidents.
 
 - [ ] Time window and source documented
 - [ ] Query wiederverwendbar
-- [ ] No Roh-PII im Chat
+- [ ] No raw PII in chat
 
 ## Security
 
@@ -98,8 +98,8 @@ Prod logs may contain customer data — minimize.
 Unbounded query — Loki/CloudWatch costs and timeout.
 - Falsche TZ in --start-time — leere Ergebnisse.
 - JSON logs without json parser - Regex misleading.
-- nur ERROR-Level — Root in vorherigem INFO.
-- kubectl logs without --previous bei CrashLoop.
+- ERROR level only — root cause in previous INFO.
+- kubectl logs without --previous on CrashLoop.
 
 ## Basic examples
 

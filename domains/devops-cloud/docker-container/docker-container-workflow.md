@@ -38,7 +38,7 @@ Reproducible build, scan and prepare container images for registry push – with
 ## When to use
 
 - New Dockerfile, image too big, CVE triage after build.
-- Lokaler Parity-Test vor K8s-Deploy.
+- Local parity test before K8s deploy.
 
 **When not:** Full registry management (see plattform-deploy).
 
@@ -47,7 +47,7 @@ Reproducible build, scan and prepare container images for registry push – with
 | Tool | Role | Justification |
 |------|-------|------------|
 | docker buildx | Multi-arch Build | reproduzierbar |
-| trivy | Scan | CVE vor Push |
+| trivy | Scan | CVE before push |
 | dive | Layer | Bloat finden |
 
 ## System prompt

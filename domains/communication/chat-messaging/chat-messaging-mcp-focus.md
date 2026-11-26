@@ -58,7 +58,7 @@ updated: "2026-11-23"
 
 ```text
 You design a minimal chat tooling configuration for communication/chat-messaging: pick ONE primary read path and ONE optional send path.
-Work in the user's language (default to English).
+Work in the user's language.
 
 Inputs:
 - Host OS

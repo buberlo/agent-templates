@@ -40,7 +40,7 @@ Run static analysis and dependency scans in CI and locally, prioritize finds and
 
 ## When to use
 
-- Vor Release, nach Dependabot/Architektur-Wechsel.
+- Before release, after Dependabot/architecture changes.
 - Security Champions Review.
 
 **When not:** DAST/E2E Pentest (pentest template).
@@ -72,12 +72,12 @@ Do not claim CVE not affected without version proof from lockfile.
 
 ## Workflow
 
-1. Sprachen/Monorepo-Pfade identifizieren.
+1. Identify languages/monorepo paths.
 2. `semgrep scan --config auto --json -o semgrep.json`.
 3. `pip-audit` / `npm audit --json` parallel.
 4. Findings Dedupe and Severity.
 5. Fixed proposals per CRITICAL/HIGH.
-6. Tests nach Fix laufen lassen.
+6. Run tests after fix.
 7. Optional `gh pr create` with SARIF summary.
 
 ## Definition of done

@@ -41,7 +41,7 @@ Analyze cloud spend, highlight anomalies and **rightsizing**/reserve recommendat
 ## When to use
 
 - Monthly FinOps review, sudden increase in costs.
-- Vor Terraform-Apply: Infracost auf Plan.
+- Before Terraform apply: Infracost on plan.
 
 **When not:** Contract negotiation without CFO clearance.
 
@@ -98,12 +98,12 @@ Confirm cloud and period ('2026-10-01' to '2026-10-31').
 - Untagged Ressourcen verzerren Service-Gruppen.
 Infracost without a current provider plan — false estimate.
 - Reserved Instance Recommendation without workload stability — loss of money.
-- Nur Compute betrachtet — NAT Gateway, Egress, Logs vergessen.
+- Only compute considered — NAT Gateway, egress, logs forgotten.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** AWS Oktober nach Service.
+- **Task:** AWS October by service.
 - **Input:** Account with CE access.
 - **Prompt:**
 

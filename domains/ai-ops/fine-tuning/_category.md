@@ -23,7 +23,7 @@ Modelle auf eigenen Daten nachtrainieren (Axolotl and vergleichbare Toolchains).
 - Set the task, allowed tools, and definition of done.
 - Read or research first, then draft, then request approval for any action that has effects.
 - Recheck the output (file, URL, ticket) and cite the source.
-- Datensatz-Rechte klaeren, Baseline-Eval, kleines Run, erneut evalen.
+- Clarify dataset rights, run baseline eval, execute small run, re-evaluate.
 
 ## Pitfalls
 

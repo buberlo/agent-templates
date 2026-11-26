@@ -10,7 +10,7 @@ Generative images via model APIs, ComfyUI, or built-in image tools of the agent 
 
 ## Recommended tool stack
 
-- Plattform-eigene Image-Tools (z. B. Hermes Tool Gateway) or Comfy/Cloud-MCPs
+- Platform-native image tools (e.g. Hermes Tool Gateway) or Comfy/cloud MCPs
 
 ## MCP servers and skills
 

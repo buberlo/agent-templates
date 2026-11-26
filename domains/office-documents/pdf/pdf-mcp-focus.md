@@ -32,7 +32,7 @@ inputs:
   - "approval for irreversible changes"
 outputs:
   - "Bearbeitete PDF or strukturierter Text"
-  - "Verify-Log (pages, Hash, Stichprobe)"
+  - "Verification log (pages, hash, spot check)"
 risk_level: low
 example_count: 3
 version: "1.1.0"
@@ -47,13 +47,13 @@ updated: "2026-11-23"
 
 - Agent should PDF-Toolkit (Skill/MCP) gezielt auswaehlen statt generisch to scrapen.
 - Merge, Form fill or OCR on scans with human final review.
-- after DOCX-generation PDF as Pruef-Artefakt (gleicher Workflow wie Anthropic-Tutorial).
+- After DOCX generation, render PDF as a verification artifact (same workflow as the Anthropic tutorial).
 
 **When not to use**
 
 - Finale Government-submission without menschliche Sichtpruefe.
-- Passwort-geschuetzte PDFs without vom User gelieferte Credentials.
-- Voller Layout-Editor-Ersatz (InDesign-Niveau).
+- Password-protected PDFs without user-provided credentials.
+- Full layout editor replacement (InDesign level).
 
 ## Tool stack
 
@@ -83,7 +83,7 @@ Merge: preserve bookmarks when possible; log order of inputs; verify output page
 Forms: fill only fields user supplied; never invent SSN, tax IDs, or signatures.
 After fill, re-read field values programmatically and render page images for visual check.
 
-OCR: run skill OCR; produce side-by-side diff sample for numbers and legal references (Aktenzeichen).
+OCR: run skill OCR; produce side-by-side diff sample for numbers and legal references (case numbers).
 
 Verify loop (mandatory on deliverable):
 - Re-open output with pypdf; compare sha256 if user tracks integrity.
@@ -104,32 +104,32 @@ Log pypdf version in troubleshoot notes when merge fails on encrypted inputs.
 ## Workflow
 
 1. Inbound-PDF with pypdf inventory (pages, encryption, form fields).
-2. Skill/MCP passend zur Task enable (only pdf-Scope).
-3. Operation ausfuehren (read/merge/fill/ocr) in Testkopie unter `out/`.
+2. Enable the skill/MCP matching the task (pdf scope only).
+3. Execute operation (read/merge/fill/ocr) on test copy under `out/`.
 4. Programmatic field review or text extraction.
-5. `pdftoppm -f 1 -l 2 out/result.pdf out/qa` for visuelle Stichprobe.
+5. `pdftoppm -f 1 -l 2 out/result.pdf out/qa` for visual spot check.
 6. User-approval at submissions-PDFs document.
-7. Finales Artefakt with path and pageszahl viageben.
+7. Hand over final artifact with path and page count.
 
 ## Definition of done
 
-- [ ] Ausgabe-PDF oeffnet and pageszahl stimmt with Erwartung
+- [ ] Output PDF opens and page count matches expectation
 - [ ] form fields programmatisch against should-values geprueft
-- [ ] OCR: kritische Zahlen im Stichproben-Vergleich zum Scan
+- [ ] OCR: spot-check critical numbers against scan
 - [ ] no Upload/Versand without documented approval
 - [ ] Tool-Aufrufe and Skill-Namen im Log
 
 ## Security
 
-- OCR-Fehler at Betraegen and Aktenzeichen: menschliche Sichtpruefung before submission.
+- OCR errors in amounts and case numbers: human visual inspection before submission.
 - no Tokens in Skill-Argumenten or Custom-MCP-CLI.
-- Original-PDFs not loeschen without explizite Bestaetigung.
+- Do not delete original PDFs without explicit confirmation.
 
 ## Pitfalls
 
 - Gruener Validator without PNG/PDF-Render erkennt Tabellen-Overflow not.
-- OCR verwechselt 0/O and 1/l in IBAN and Aktenzeichen.
-- Merge without einheitliche pagesgroesse erzeugt unsichtbare Skalierungsfehler.
+- OCR confuses 0/O and 1/l in IBANs and case numbers.
+- Merging without uniform page size creates invisible scaling errors.
 - to viele MCPs aktiv → Token-Overhead before the ersten Aktion.
 - Signierte PDFs after Editing invalid—neu signieren is separater Prozess.
 
@@ -174,5 +174,5 @@ extracted.txt with TOTAL and DATE lines; confidence warnings on any digit under 
 Use Anthropic pdf skill / pypdf PdfReader: report page count and first heading text from briefing.pdf.
 ```
 
-- **Expected result:** pageszahl and Textauszug dokumentiert; gleicher Verify-Workflow wie DOCX-Pipeline.
+- **Expected result:** Page count and text excerpt documented; same verification workflow as DOCX pipeline.
 - **Source:** https://aifrontierpost.com/articles/anthropic-official-agent-skills-tutorial/

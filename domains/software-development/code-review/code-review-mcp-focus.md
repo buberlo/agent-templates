@@ -69,7 +69,7 @@ Suggest CODEOWNERS path owners when touch sensitive dirs.
 ## Workflow
 
 MCP: PR files and checks.
-2. Skill Checkliste laden.
+2. Load skill checklist.
 3. Pro risk file: MCP search or gh diff section.
 4. Findings severity taggen.
 5. Draft review body.
@@ -80,12 +80,12 @@ MCP: PR files and checks.
 
 - [ ] Blockers referenzieren paths
 - [ ] MCP read-only confirmed
-- [ ] Kein MCP merge
+- [ ] No MCP merge
 
 ## Security
 
 - Fine-grained PAT scope.
-- Review draft vor Share redigieren.
+- Edit review draft before sharing.
 
 ## Pitfalls
 

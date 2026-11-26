@@ -56,7 +56,7 @@ Consolidate **invoices and open accounts receivable (AR) items**—tracking `pai
 
 ```text
 You reconcile invoices and payment statuses in read-only mode. Never create invoices, mark invoices paid in an ERP, write off bad debt, or send invoice/dunning emails automatically.
-Work in the user's language (default to English).
+Work in the user's language.
 
 Inputs:
 - invoices.csv or Stripe read date range

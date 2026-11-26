@@ -1,6 +1,6 @@
 ---
 id: tech-standards-workflow
-title: "Technische Standards"
+title: "Technical Standards"
 domain: science-engineering
 category: tech-standards
 tags:
@@ -20,7 +20,7 @@ inputs:
   - "Context/Briefing for Technical Standards"
   - "Files, URLs or IDs laut Task"
 outputs:
-  - "Dokumentiertes result (Datei, Bericht or Ticket-Update)"
+  - "Documented result (file, report, or ticket update)"
 risk_level: low
 example_count: 2
 version: "1.0.0"
@@ -33,7 +33,7 @@ Research standards and specifications and hold design designs against them – n
 
 ## When to use
 
-- ISO/DIN Anforderungsliste gegen Produktentwurf tabellieren.
+- Tabulate ISO/DIN requirements list against product design.
 - Gap analysis for CE preparation documentary.
 - Not certification without a notified body.
 
@@ -78,11 +78,11 @@ Summarize matrix row counts and open PASS/FAIL/UNKNOWN totals at end.
 - [ ] Edition Jahr je Norm
 - [ ] No complete copies of the standard
 - [ ] PASS only with user receipt
-- [ ] Benannte Stelle Hinweis
+- [ ] Notified body note
 
 ## Security
 
-- No Fabrication von Messwerten or Zitaten — UNKNOWN or Nutzerdaten.
+- No fabrication of measurement values or quotes — UNKNOWN or user data.
 - Version raw data and scripts; no deletion without release.
 - Peer-Review-Standards: no garantierte Annahme.
 
@@ -101,7 +101,7 @@ Summarize matrix row counts and open PASS/FAIL/UNKNOWN totals at end.
 - **Prompt:**
 
 ```text
-Matrix PASS/FAIL/UNKNOWN Prozessdokumente.
+PASS/FAIL/UNKNOWN matrix for process documents.
 ```
 - **Expected result:** matrix.md 22 Zeilen; 5 UNKNOWN without Audit.
 ### Example 2 (Example data (self-written))
@@ -110,7 +110,7 @@ Matrix PASS/FAIL/UNKNOWN Prozessdokumente.
 - **Prompt:**
 
 ```text
-Hazard mapping Tabelle, kein CE result.
+Hazard mapping table, no CE result.
 ```
 - **Expected result:** traceability.xlsx; Footer no declaration of conformity.
 

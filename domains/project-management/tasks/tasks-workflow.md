@@ -15,7 +15,7 @@ target_agents:
 required_tools:
   - name: todoist MCP (Hermes catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/todoist"
-    version_notes: "Nous-approved optional-mcps catalog entry (Listing 23.11.2026)."
+    version_notes: "Nous-approved optional-mcps catalog entry (Listing 23 Nov 2026)."
   - name: Hermes-Skills document-to-action-items, weekly-review-planning
     install: "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog"
     version_notes: "Bundled."
@@ -23,11 +23,11 @@ inputs:
   - "Inbox source: meeting notes, email text, or document path"
   - "Todoist-Projekt/Label (optional)"
   - "Zeitzone Default Europe/Vienna"
-  - "Erlaubt: create|complete (Default: create draft list, complete=false)"
+  - "Allowed: create|complete (default: create draft list, complete=false)"
 outputs:
   - "task_candidates.md (action, owner, due, context)"
   - "todoist_import_review.md"
-  - "inbox_zero_summary.md nach Verarbeitung"
+  - "inbox_zero_summary.md after processing"
   - "weekly plan draft.md (Mo–Fr blocks)"
 risk_level: low
 example_count: 2
@@ -37,7 +37,7 @@ updated: "2026-11-23"
 
 ## Purpose
 
-Aufgaben aus Inbox-Material extrahieren, in Todoist **strukturiert vorbereiten or anlegen**, Due Dates in Europe/Vienna—no stillen Completes, no invented Deadlines.
+Extract tasks from inbox material, **prepare or create them in a structured way** in Todoist, due dates in Europe/Vienna—no silent completions, no invented deadlines.
 
 ## When to use
 
@@ -48,7 +48,7 @@ Weekly review with prioritization.
 **When not**
 
 - Fremde Tasks als erledigt markieren.
-- Due Dates raten wenn User „offen“ will.
+- Guessing due dates when the user wants them "open".
 - Without release en masse Todoist.
 
 ## Tool stack
@@ -56,7 +56,7 @@ Weekly review with prioritization.
 | Tool | Role | Justification |
 |------|-------|------------|
 | todoist MCP | Tasks lesen/anlegen | Zentrale Task-Liste |
-| Hermes-Skills document-to-action-items | Extraktion |Aus Dokumenten|
+| Hermes-Skills document-to-action-items | Extraction |From documents|
 | weekly-review-planning | Wochenstruktur | Planungsblock |
 
 ## System prompt
@@ -83,7 +83,7 @@ Language: task text in source language.
 ## Workflow
 
 1. Read inbox source; confirm time zone.
-2. Action Items extrahieren (Skill bei langen Docs).
+2. Extract action items (use skill for long docs).
 3. Structuring candidates with owner/due/project.
 4. Check open Todoist tasks for duplicates.
 5. Preview; create at USER_APPROVAL CREATE in Todoist.
@@ -106,7 +106,7 @@ Language: task text in source language.
 
 - "Next week" without reference date incorrectly calculated.
 - Meeting-Task an alle Teilnehmer statt Owner.
-- 50 Micro-Tasks aus einem Satz generiert.
+- 50 micro-tasks generated from a single sentence.
 - DUPLICATE check out because Read is not allowed.
 Complete on completing similarity without ID.
 

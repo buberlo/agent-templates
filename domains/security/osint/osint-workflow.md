@@ -73,7 +73,7 @@ Cross-check at least two sources for material claims when feasible.
 4. Advisory-Seiten des Vendors lesen (curl -fsSL).
 5. crt.sh or similar for cert names if policy allowed.
 6. Summary with sources + date.
-7. No weiteren „deep“ Schritte without neues Template/Autorisierung.
+7. No further "deep" steps without new template/authorization.
 
 ## Definition of done / Definition of Done
 
@@ -84,7 +84,7 @@ Cross-check at least two sources for material claims when feasible.
 ## Security
 
 - Only legitimate business purpose.
-- No Fehlinformation bei Unsicherheit.
+- No misinformation when uncertain.
 
 ## Pitfalls
 

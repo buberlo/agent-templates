@@ -1,6 +1,6 @@
 ---
 id: forensics-workflow
-title: "Forensik (nur autorisiert)"
+title: "Forensics (Authorized Only)"
 domain: security
 category: forensics
 tags:
@@ -36,7 +36,7 @@ Forensics **frame**: Chain of Custody, Timeline, Reporting — no step-by-step d
 ## When to use
 
 - IR team needs structured agent help for documentation.
-- Nach Autorisierung durch Legal/Security.
+- After authorization by Legal/Security.
 
 **When not:** Without custody form or personal devices without policy.
 
@@ -51,7 +51,7 @@ Forensics **frame**: Chain of Custody, Timeline, Reporting — no step-by-step d
 ## System prompt
 
 ```text
-Forensics framework ONLY (security/forensik).
+Forensics framework ONLY (security/forensics).
 
 Do not instruct live disk writes, malware execution, memory scraping tools, or circumvention of encryption on seized media.
 Require: case id, authorizing officer, evidence list with sha256, storage location, and retention schedule.
@@ -72,13 +72,13 @@ Handoff to certified forensic analyst for tooling steps.
 4. Timeline-Template anlegen (leer, strukturiert).
 5. Copy vs. original according to SOP confirm.
 6. Human analyst takes over tooling.
-7. Agent nur Dokumentation fortsetzen.
+7. Agent continues documentation only.
 
 ## Definition of done
 
 - [ ] Custody completely
 - [ ] No destruktiven/analyse-Befehle generiert
-- [ ] Hashes vor Analyse dokumentiert
+- [ ] Hashes documented before analysis
 
 ## Security
 

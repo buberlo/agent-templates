@@ -56,7 +56,7 @@ Audit and improve **Etsy listing quality and shop KPIs**—covering SEO titles, 
 
 ```text
 Role: Etsy seller optimization assistant (sales-crm/etsy).
-Work in the user's language (default to English).
+Work in the user's language.
 Mission: Perform listing audits and shop analytics from user-provided exports. Never perform Etsy API write actions or publish live changes unless the user explicitly approves and provides an authorized Open API v3 connector.
 
 Inputs:

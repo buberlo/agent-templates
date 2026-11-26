@@ -17,14 +17,14 @@ required_tools:
     version_notes: "SDXL-Checkpoint; Workflow as API-JSON"
   - name: comfy-cloud MCP
     install: "hermes mcp install comfy-cloud (optional)"
-    version_notes: "only at freigegebenem Cloud-Account"
+    version_notes: "only with an approved cloud account"
 inputs:
   - "Prompt (Motiv, Stil, Negativliste)"
-  - "pagesverhaeltnis and Aufloesung (SDXL-safe)"
+  - "Aspect ratio and resolution (SDXL-safe)"
   - "Checkpoint/LoRA-Namen (lokal vorhanden)"
 outputs:
   - "PNG(s) with Seed and Workflow-Snapshot"
-  - "Parameter-JSON for Reproduktion"
+  - "Parameter JSON for reproduction"
 risk_level: medium
 example_count: 2
 version: "1.1.0"
@@ -39,7 +39,7 @@ updated: "2026-11-23"
 
 - Brands need a recurring layout (product mockup, social format) with lightly varying prompts.
 - Team betreibt ComfyUI lokal or Hermes comfy-cloud with Vertrag.
-- Ausgabe should nachvollziehbar (Seed, Nodes) archiviert will.
+- Output should be archived reproducibly (seed, nodes).
 
 **When not to use**
 
@@ -87,7 +87,7 @@ Never publish images to stock or social without user approval.
 ## Workflow
 
 1. ComfyUI-Status verify: `curl -s http://127.0.0.1:8188/system_stats`.
-2. Checkpoint-list from `models/checkpoints/` against Briefing abgleichen.
+2. Cross-check the checkpoint list from `models/checkpoints/` against the briefing.
 3. Workflow-Template `sdxl_txt2img_api.json` laden; Prompt-Nodes ersetzen.
 4. `curl -X POST http://127.0.0.1:8188/prompt -d @job.json` → `prompt_id`.
 5. `curl http://127.0.0.1:8188/history/<prompt_id>` bis `outputs` gefuellt.
@@ -97,15 +97,15 @@ Never publish images to stock or social without user approval.
 ## Definition of done
 
 - [ ] Seed and Workflow-JSON archiviert—Re-Run possible
-- [ ] Aufloesung and pagesverhaeltnis wie briefed
+- [ ] Resolution and aspect ratio as briefed
 - [ ] no unautorisierten Checkpoints/LoRAs geladen
-- [ ] Stichprobe on Artefakte; User for Markenfreigabe
+- [ ] Spot check for artifacts; user for brand approval
 - [ ] Cloud-Kosten/Calls dokumentiert (falls MCP)
 
 ## Security
 
 - Generierte Personen not as echte Individuen ausgeben; Markenassets only with Rechteliste.
-- comfy-cloud API-Keys not in Chat or Repo-Commits; Umgebungsvariablen.
+- Do not put comfy-cloud API keys in chat or repo commits; use environment variables.
 - NSFW-Filter and Firmenpolicy before Batch-Generierung clarify.
 
 ## Pitfalls
@@ -113,8 +113,8 @@ Never publish images to stock or social without user approval.
 - Falsche Node-IDs when API-Workflow → stille Fehler; against gespeichertes Template diffen.
 - SDXL with to hoher CFG → waxy skin; typisch 5–7 testen.
 - Random Seed without Log macht approval impossible—immer notieren.
-- MCP-Timeout at langen Samplern—`steps` and Queue-Groesse begrenzen.
-- Refiner without Base-Output-Node-Verkabelung liefert schwarze Bilder.
+- MCP timeout on long samplers—limit `steps` and queue size.
+- Refiner without base output node wiring produces black images.
 
 ## Basic examples
 
@@ -139,8 +139,8 @@ Run SDXL ComfyUI workflow 1344x768, seed 4242, save snapshot and PNG. cfg 6, ste
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** Hermes optional-mcps comfy-cloud for GPU-freie Agenten.
-- **Input:** Freigegebener comfy-cloud MCP, gleicher Prompt wie oben.
+- **Task:** Hermes optional-mcps comfy-cloud for GPU-free agents.
+- **Input:** Approved comfy-cloud MCP, same prompt as above.
 - **Prompt:**
 
 ```text
@@ -149,4 +149,4 @@ Use comfy-cloud MCP to enqueue SDXL job; archive returned image URL locally; cit
 
 - **Expected result:**
 
-  Lokale Kopie `out/hero.png`, Protokolleintrag with https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/comfy-cloud ; no oeffentlicher Upload.
+  Local copy `out/hero.png`, log entry with https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/comfy-cloud ; no public upload.

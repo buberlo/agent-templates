@@ -34,7 +34,7 @@ Slack, Discord, Telegram, WhatsApp, iMessage – read and (with approval) send m
 - Do not write tokens or passwords in chat, skill files or command arguments of custom MCPs. Grok Bot wiki: OAuth tokens remain on the connector backend; Command servers must not contain credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
 - Write, send, pay, deploy and delete only after explicit approval; good document skills require a verify step (read the file again, render PDF/PNG).
 - Hermes skills with platforms: [macos] are silently skipped on Linux. Source: https://x.com/JayQinQT/status/2120856724668133406
-- imessage-Skill ist macOS-spezifisch.
+- imessage skill is macOS-specific.
 
 ## Sources
 

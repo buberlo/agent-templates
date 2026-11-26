@@ -31,7 +31,7 @@ updated: "2026-11-23"
 
 ## Purpose
 
-Compliance-evidence: MCP liest **Policy-Dokumente**, technische Evidenz (z. B. DMARC) per CLI-Template — kein legal advice.
+Compliance evidence: MCP reads **policy documents**, technical evidence (e.g., DMARC) via CLI template — no legal advice.
 
 ## When to use
 
@@ -90,7 +90,7 @@ Wiki write only after release.
 - Agent "certified" wrongly.
 - Full RoPA in chat.
 - Policy MCP veraltet.
-- Technische Evidenz fehlt — nur Papier.
+- Technical evidence missing — paper only.
 - Cross-border transfer not checked.
 
 ## Basic examples

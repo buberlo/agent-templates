@@ -69,7 +69,7 @@ Human review before external sharing of OSINT brief.
 1. confirm scope.
 MCP fetch Source A (vendor advisory).
 MCP fetch Source B (independent news/registry).
-4. CLI RDAP cross-check wenn Domain.
+4. CLI RDAP cross-check if domain.
 5. Letter with footnotes.
 6. MCP audit log.
 7. No further step in contradiction without clarification.

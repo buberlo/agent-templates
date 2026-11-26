@@ -4,7 +4,7 @@ title: "Organize health data"
 domain: health-fitness
 category: health-data-organization
 tags:
-  - gesundheitsdaten
+  - health-data
   - health-fitness
   - mcp
 target_agents:
@@ -30,11 +30,11 @@ updated: "2026-11-23"
 
 ## Purpose
 
-Termine, Befunde and Unterlagen chronologisch organisieren — Aktenhulfe, no Befundinterpretation.
+Organize appointments, findings, and documents chronologically — file organization aid, no interpretation of medical findings.
 
 ## When to use
 
-- Arztordner digital strukturieren vor Facharztwechsel.
+- Digitally structure medical records before changing specialists.
 - Impf- and Laborhistorie in Timeline.
 - Not laboratory diagnosis or Medikamentenanpassung.
 
@@ -42,12 +42,12 @@ Termine, Befunde and Unterlagen chronologisch organisieren — Aktenhulfe, no Be
 
 | Tool | Role | Rationale |
 |------|-------|------------|
-| strava MCP (Hermes catalog) | Aktivitatsdaten | Nur with installiertem and autorisiertem Strava MCP. |
+| strava MCP (Hermes catalog) | Activity data | Only with an installed and authorized Strava MCP. |
 
 ## System prompt
 
 ```text
-Role: Personal health records organizer (gesundheit-fitness/gesundheitsdaten-organisation).
+Role: Personal health records organizer (health-fitness/health-data-organization).
 Mission: Sort appointments, documents, and timelines—never interpret labs or prescribe.
 Tools: document skills or local markdown; strava only irrelevant unless user ties fitness labs.
 Folder taxonomy: appointments, imaging, labs, prescriptions, bills, referrals—user defined root.
@@ -66,20 +66,20 @@ Close with index file path and count of documents still missing dates.
 
 ## Workflow
 
-1. Bestandsaufnahme Dateitypen and Quellen.
-2. Ordner- and Benennungsschema.
+1. Inventory of file types and sources.
+2. Folder and naming scheme.
 3. Timeline anlegen with Lucken markiert.
-4. Befundindex without Interpretation.
-5. Arztbesuch-Prep wenn Termin nahe.
+4. Findings index without interpretation.
+5. Doctor visit prep when an appointment is coming up.
 6. Redaktion for Teilen with Angehorigen.
-7. Backup-Checkliste User.
+7. User backup checklist.
 
 ## Definition of done
 
 - [ ] Laborwerte not interpretiert
 - [ ] Sensible IDs redigiert
 - [ ] Chronologie with Datum
-- [ ] No Cloud-Uploads durch agent
+- [ ] No cloud uploads by the agent
 
 ## Security
 
@@ -91,17 +91,17 @@ Close with index file path and count of documents still missing dates.
 
 - Falsches Datum aus Scan OCR.
 - Medikamentendosierung halluzinieren.
-- Befund PDF without Passwort in Chat.
-- Strava Gesundheitsdaten vermischen without Consent.
+- Findings PDF without a password in chat.
+- Mixing Strava health data without consent.
 
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** Ordner for Orthopadie-Wechsel
+- **Task:** Folder for switching orthopedists
 - **Input:** 3 MRT PDFs, 5 Labor PDFs, Termin 12.12.2026
 - **Prompt:**
 ```text
-Index with Datum, Dokumenttyp, Fragenliste orthopedist.
+Index with date, document type, question list for the orthopedist.
 ```
 - **Expected result:** CSV 8 Eintrage; Fragen 6 neutral; MRT without diagnosis-Text.
 ### Example 2 (Example data (self-written))
@@ -111,5 +111,5 @@ Index with Datum, Dokumenttyp, Fragenliste orthopedist.
 ```text
 Timeline only explizit lesbare Eintrage; Rest UNKNOWN.
 ```
-- **Expected result:** Markdown Timeline 4 Events; UNKNOWN bei unleserlicher Seite Impfpass.
+- **Expected result:** Markdown timeline of 4 events; UNKNOWN for illegible vaccination record page.
 

@@ -73,7 +73,7 @@ Flag transitive dependency depth when fix requires major bump.
 1. GitHub MCP list alerts for repo.
 2. Export CVE ids.
 3. `trivy fs .` or `osv-scanner`.
-4. Match/drift dokumentieren.
+4. Document match/drift.
 5. Priority table.
 6. Draft tickets.
 7. MCP/CLI audit footer.
@@ -82,7 +82,7 @@ Flag transitive dependency depth when fix requires major bump.
 
 - [ ] CLI verify for CRITICAL
 - [ ] No MCP dismiss without release
-- [ ] SLA auf jedem Ticket-Entwurf
+- [ ] SLA on every ticket draft
 
 ## Security
 

@@ -10,7 +10,7 @@ Language learning, translation, corrections, and practice dialogues.
 
 ## Recommended tool stack
 
-- Office-/Video-Skills, Sourcespflicht
+- Office/video skills, mandatory source citation
 
 ## MCP servers and skills
 

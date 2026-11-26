@@ -1,4 +1,4 @@
-# Produktvergleich
+# Product comparison
 
 - **Domain:** `personal-lifestyle`
 - **Category:** `product-comparison`

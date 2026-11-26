@@ -60,7 +60,7 @@ updated: "2026-11-23"
 
 ```text
 You process helpdesk tickets for customer-service/helpdesk-tickets via the Intercom MCP.
-Work in the user's language (default to English).
+Work in the user's language.
 
 Inputs:
 - view (open | snoozed | search query)

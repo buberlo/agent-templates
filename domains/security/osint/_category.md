@@ -10,7 +10,7 @@ Systematically collect public information; no illegal access methods.
 
 ## Recommended tool stack
 
-- Oeffentliche Such-MCPs, only offene Sources
+- Public search MCPs, open sources only
 
 ## MCP servers and skills
 
@@ -26,7 +26,7 @@ Systematically collect public information; no illegal access methods.
 - Set the task, allowed tools, and definition of done.
 - Read or research first, then draft, then request approval for any action that has effects.
 - Recheck the output (file, URL, ticket) and cite the source.
-- Fragestellung, only oeffentliche Sources, Herkunft dokumentieren.
+- State the question, public sources only, document provenance.
 
 ## Pitfalls
 

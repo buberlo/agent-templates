@@ -24,7 +24,7 @@ required_tools:
 inputs:
   - "Storyboard or Skript"
   - "Technikwahl (Remotion vs. Manim vs. p5)"
-  - "Dauer and Aufloesung"
+  - "Duration and resolution"
 outputs:
   - "Gerendertes MP4 or GIF"
   - "Quellcode im Repo"
@@ -36,13 +36,13 @@ updated: "2026-11-23"
 
 ## Purpose
 
-**Programmatische Motion** of the Idee zum Render: Remotion for UI-/Daten-Motion, **Manim** for Erklaer-Mathe, **p5.js** for generative Kurzloops—Skills nutzen, Output immer ansehen.
+**Programmatic motion** from idea to render: Remotion for UI/data motion, **Manim** for explanatory math, **p5.js** for generative short loops—use skills, always inspect the output.
 
 ## When to use
 
 - Animation should versioniert (Git) and parametrisierbar sein.
 - Recurring explainer videos or social motion from templates.
-- Hermes bundled creative-Skills verfuegbar.
+- Hermes bundled creative skills available.
 
 **When not to use**
 
@@ -90,12 +90,12 @@ If text animates, verify contrast ratio against background for accessibility.
 
 ## Workflow
 
-1. Storyboard in 3–7 Shots; Dauer pro Shot festlegen.
+1. Storyboard in 3–7 shots; define duration per shot.
 2. Engine waehlen and Skill-README oeffnen.
 3. Scaffold (Remotion project / manim Scene / p5 sketch).
 4. Low-res Preview (480p or -ql).
-5. Final render volle Aufloesung.
-6. `ffprobe` and Stichprobe im Player.
+5. Final render at full resolution.
+6. `ffprobe` and spot check in player.
 7. Commit with README: Render-Befehl.
 
 ## Definition of done

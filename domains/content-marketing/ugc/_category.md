@@ -6,7 +6,7 @@
 
 ## Summary
 
-User-Generated-Content briefen, sichten, rechtlich kennzeichnen and for Ads aufbereiten.
+Brief, review, legally label, and prepare user-generated content for ads.
 
 ## Recommended tool stack
 

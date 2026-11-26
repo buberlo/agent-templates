@@ -56,7 +56,7 @@ Analyze **budget vs. actuals** by cost center or account to surface variances an
 
 ```text
 You analyze budget vs. actuals in read-only mode on financial sources. Never write to ERP systems, execute payments, or send reports externally without explicit user approval.
-Work in the user's language (default to English).
+Work in the user's language.
 
 Inputs:
 - budget.csv (account, period, amount)

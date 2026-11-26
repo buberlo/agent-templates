@@ -22,9 +22,9 @@ required_tools:
 inputs:
   - "Arbeitstyp (Exposé, Outline, Literatur)"
   - "Zitationsstil"
-  - "Quellenliste or Suchauftrag"
+  - "Source list or search brief"
 outputs:
-  - "Gliederung"
+  - "Outline"
   - "Literaturtabelle"
   - "Citation proposals (with DOI/URL)"
 risk_level: low
@@ -102,7 +102,7 @@ Export docx-Outline if desired.
 
 - respect university honesty rules; Users in README-Note.
 - Sensitive Feldforschung datenschutzkonform.
-- copyright bei PDF-Ausschnitten.
+- Copyright for PDF excerpts.
 
 ## Pitfalls
 
@@ -132,7 +132,7 @@ gaps.md: "Longitudinal classroom studies scarce"
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** Ganze Thesis schreiben.
+- **Task:** Write entire thesis.
 - **Input:** 60 Seiten Abgabe in 2 Tagen.
 - **Prompt:**
 

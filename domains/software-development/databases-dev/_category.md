@@ -10,13 +10,13 @@ Schema, migrations, queries for app databases (Postgres, Supabase, Neon).
 
 ## Recommended tool stack
 
-- Supabase/Neon/Prisma-Postgres aus dem Hermes catalog, Read-only default
+- Supabase/Neon/Prisma-Postgres from the Hermes catalog, read-only by default
 
 ## MCP servers and skills
 
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
-| supabase MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/supabase | Supabase aus dem Nous-catalog. | hermes mcp install supabase | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
+| supabase MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/supabase | Supabase from the Nous catalog. | hermes mcp install supabase | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
 | neon MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/neon | Neon-Postgres. | hermes mcp install neon | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
 | prisma-postgres MCP (Hermes catalog) | MCP | https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/prisma-postgres | Prisma Postgres. | hermes mcp install prisma-postgres | Nous-approved optional-mcps catalog entry (listing 2026-11-23). | https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp | no (as cited) |
 

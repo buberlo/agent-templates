@@ -42,13 +42,13 @@ updated: "2026-11-23"
 
 - Rechnungs- and contract-Scans as durchsuchbaren Text.
 - no natives Textlayer im PDF.
-- result is Entwurf for Mensch or ERP, not Auto-Buchung.
+- Result is a draft for human or ERP, not auto-booking.
 
 **When not to use**
 
 - Handschrift without spezialisiertes Modell.
-- Rechtlich bindende submission without Mensch.
-- Inhalte with strengem Cloud-Verbot without lokales OCR.
+- Legally binding submission without a human.
+- Content under strict cloud prohibition without local OCR.
 
 ## Tool stack
 
@@ -99,21 +99,21 @@ Deskew and contrast normalize before tesseract when photos of paper.
 3. OCR Skill or `tesseract png stdout`.
 4. Confidence-Report pro Seite.
 5. Kritische fields extract + Crop speichern.
-6. User Stichprobe Betrag vs. Bild.
+6. User spot check of amount vs. image.
 7. Textdatei with [?]-Markierungen liefern.
 
 ## Definition of done
 
 - [ ] NATIVE_TEXT vs OCR dokumentiert
 - [ ] Niedrig-Confidence-pages listed
-- [ ] Betraege/Datum stichprobenartig geprueft or as OPEN markiert
+- [ ] Amounts/dates spot-checked or marked as OPEN
 - [ ] no Cloud-OCR without approval
 - [ ] Engine-Log vorhanden
 
 ## Security
 
 - contract- and Gesundheits-Scans vertraulich.
-- no oeffentlichen OCR-APIs without Vertrag.
+- No public OCR APIs without a contract.
 - submission only after menschlicher approval.
 
 ## Pitfalls
@@ -138,7 +138,7 @@ OCR beide pages; extract total and invoice date; flag conf<85%; save page crops.
 - **Expected result:**
 
 ```text
-invoice_scan.txt; critical_field_table: TOTAL 1.234,56 EUR date 2026-11-15; page2 conf warning if any.
+invoice_scan.txt; critical_field_table: TOTAL 1,234.56 EUR date 2026-11-15; page2 conf warning if any.
 ```
 
 ### Example 2 (Example data (self-written))

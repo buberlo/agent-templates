@@ -56,7 +56,7 @@ CRM data **reading, correcting and preparing** in the form of deals by Stages, a
 |------|-------|------------|
 | attio MCP | Records, Lists | Modern API |
 | close MCP | Sequences, Calls | Outbound teams |
-| CSV Export | Offline-Dedup |Wenn MCP read batch|
+| CSV Export | Offline dedup | If MCP read batch |
 
 ## System prompt
 
@@ -85,7 +85,7 @@ HubSpot/Salesforce: out of scope unless user only pastes export—treat as stati
 ## Workflow
 
 Confirm CRM instance, object type and Auth.
-2. Schema/List-Felder einlesen (Custom Attributes dokumentieren).
+2. Read schema/list fields (document custom attributes).
 3. Drag pipeline snapshot with filters.
 4. Apply aging and data quality rules.
 5. List duplicate candidates by domain/name.
@@ -127,7 +127,7 @@ Snapshot open deals. Columns: name, stage, amount EUR, days_in_stage. Flag >30 d
 - **Expected result:**
 
 ```text
-14 deals | 218.000 EUR raw | 3 stuck >30d: Acme (Negotiation, 47d)
+14 deals | 218,000 EUR raw | 3 stuck >30d: Acme (Negotiation, 47d)
 ```
 
 ### Example 2 (Example data (self-written))

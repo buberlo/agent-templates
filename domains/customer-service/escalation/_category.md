@@ -10,7 +10,7 @@ Identify severe cases, escalate internally, and communicate status.
 
 ## Recommended tool stack
 
-- Helpdesk-MCP (z. B. Intercom) + interne Knowledge-Base
+- Helpdesk MCP (e.g. Intercom) + internal knowledge base
 - No silent closes
 
 ## MCP servers and skills

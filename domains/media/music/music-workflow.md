@@ -17,11 +17,11 @@ required_tools:
     version_notes: "Craft + Suno-Prompt-Patterns"
 inputs:
   - "Mood, Genre, Tempo, Sprache"
-  - "Lyrics-Entwurf or Thema"
+  - "Lyrics draft or theme"
   - "approval for generative Musik ja/nein"
 outputs:
   - "Lyrics- and Prompt-Paket"
-  - "Rechte-/ToS-Checkliste"
+  - "Rights/ToS checklist"
 risk_level: medium
 example_count: 2
 version: "1.1.0"
@@ -30,18 +30,18 @@ updated: "2026-11-23"
 
 ## Purpose
 
-**Musik-Creative** strukturieren: Lyrics after Handwerksregeln, **Suno- or Diensle-Prompts** from the Hermes-Skill ableiten—generative Generierung only after Rechte-approval, no stillen Uploads.
+Structure **music creative** work: craft lyrics by songwriting rules and derive **Suno or service prompts** from the Hermes skill—run generative creation only after rights approval, with no silent uploads.
 
 ## When to use
 
 - Jingle, Podcast-Intro-Musik or Demo-Song geplant.
-- Texte and Prompts sollen reviewbar in Markdown liegen.
+- Lyrics and prompts should be stored in Markdown for review.
 - User will Skill-Wissen to Songwriting nutzen.
 
 **When not to use**
 
 - Mastering fertiger Multitracks (audio-editing-Template).
-- Sampling urheberrechtlich geschuetzter Masters.
+- Sampling copyrighted masters.
 - Automatische Spotify-Distribution without Label-approval.
 
 ## Tool stack
@@ -50,7 +50,7 @@ updated: "2026-11-23"
 |------|-------|------------|
 | Hermes songwriting-and-ai-music | Struktur, Prompts | Bundled Skill-catalog |
 | Suno o. ae. | Generierung | only after approval; ToS variieren |
-| ffmpeg | Kurz-Snippet verify | when User MP3 liefert |
+| ffmpeg | Verify short snippet | When user provides MP3 |
 
 ## System prompt
 
@@ -83,29 +83,29 @@ Never spend credits or call paid APIs without confirmation.
 
 1. Briefing: Genre, Mood, Commercial ja/nein.
 2. Skill-README for Prompt-Muster oeffnen.
-3. Lyrics-Entwurf with klarer Struktur (Verse/Chorus).
+3. Lyrics draft with a clear structure (verse/chorus).
 4. Suno-Prompt bauen; Negativliste ergaenzen.
-5. Rechte-Checkliste fill (ToS, territory, exclusivity).
+5. Fill out rights checklist (ToS, territory, exclusivity).
 6. User-approval einholen before Generierung.
-7. Falls MP3 geliefert: `ffprobe` and Ablage document.
+7. If MP3 provided: run `ffprobe` and document storage location.
 
 ## Definition of done
 
-- [ ] Lyrics strukturiert and reviewbar
-- [ ] Prompt unter Plattform-Limits
-- [ ] Commercial-Checkliste ausgefuellt
+- [ ] Lyrics structured and ready for review
+- [ ] Prompt within platform limits
+- [ ] Commercial checklist completed
 - [ ] no generative API without approval
 - [ ] no kopierten Hook-Zeilen bekannter Hits
 
 ## Security
 
 - Generative Musik-ToS the Anbieters before Kundenprojekt read.
-- no API-Keys im Chat.
+- No API keys in chat.
 
 ## Pitfalls
 
 - Suno-Style-Prompt with Kuenstlernamen → Ablehnung or rechtliches Risiko.
-- Lyrics in falscher Sprache for Vocal-Model.
+- Lyrics in the wrong language for the vocal model.
 - Commercial=Yes without Pro-Plan according to Anbieter.
 - to langer Prompt will abgeschnitten—Prioritaeten vorne.
 - Skill-Example 1:1 as Kundenlyrics kopieren.
@@ -144,5 +144,5 @@ Write chorus 4 lines DE, catchy hook, suggest title; no generative call.
 **Title:** New Streets
 **Chorus:**
 Lichter wie Konfetti, ich atme dich ein,
-jede Ecke ein Versprechen — ich lass mich rein.
+every corner a promise — I let myself in.
 ```

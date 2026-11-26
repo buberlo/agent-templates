@@ -33,7 +33,7 @@ updated: "2026-11-23"
 
 ## When to use
 
-- Setup vor bibliothek-zotero-workflow.
+- Setup before bibliothek-zotero-workflow.
 - Decision Brave vs. Exa for paper search.
 
 **When not**
@@ -78,7 +78,7 @@ Rate limit conscious batches for 50+ titles.
 
 1. Modus discover vs export.
 2. MCP-Minimalset.
-3. Suchstrategie.
+3. Search strategy.
 4. Sample 1 DOI resolve.
 5. routing.md.
 6. Verweis workflow.
@@ -86,7 +86,7 @@ Rate limit conscious batches for 50+ titles.
 
 ## Definition of done
 
-- [ ] Zotero als Ziel benannt
+- [ ] Zotero named as the target
 - [ ] ≤2 Search MCPs
 - [ ] No PDF without release
 - [ ] Handoff dokumentiert

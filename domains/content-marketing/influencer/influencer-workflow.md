@@ -68,7 +68,7 @@ Deliver reproducible file paths in summary.
 
 1. ICP
 2. Search
-3. Profile Stichprobe
+3. Profile spot check
 4. Fit-Score
 5. Shortlist
 6. Brief

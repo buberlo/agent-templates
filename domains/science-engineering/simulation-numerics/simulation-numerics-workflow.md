@@ -20,7 +20,7 @@ inputs:
   - "Context/briefing for simulation and numerics"
   - "Files, URLs or IDs laut Task"
 outputs:
-  - "Dokumentiertes result (Datei, Bericht or Ticket-Update)"
+  - "Documented result (file, report, or ticket update)"
 risk_level: low
 example_count: 2
 version: "1.0.0"
@@ -33,7 +33,7 @@ Document numerical experiments, parameter sweeps and plot reproduction in notebo
 
 ## When to use
 
-- Finite-Elemente or ODE-Sweep nach Konvergenzcheck.
+- Finite element or ODE sweep after convergence check.
 - Prepare notebook for supplementary material.
 - Not CFD security proofs without an engineer.
 
@@ -78,12 +78,12 @@ arXiv benchmark papers compare only qualitatively unless user data matches.
 
 - [ ] Konvergenz or Limitation stated
 - [ ] Solver settings geloggt
-- [ ] Kein HPC Submit without User
+- [ ] No HPC submit without user
 - [ ] Safety disclaimer if structural
 
 ## Security
 
-- No Fabrication von Messwerten or Zitaten — UNKNOWN or Nutzerdaten.
+- No fabrication of measurement values or quotes — UNKNOWN or user data.
 - Version raw data and scripts; no deletion without release.
 - Peer-Review-Standards: no garantierte Annahme.
 

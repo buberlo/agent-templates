@@ -1,6 +1,6 @@
 ---
 id: tech-docs-mcp-focus
-title: "Technische Dokumentation: MCP/Skill-Fokus"
+title: "Technical documentation: MCP/skill focus"
 domain: software-development
 category: tech-docs
 tags:

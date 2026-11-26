@@ -23,7 +23,7 @@ Visual or API-driven automations, including official n8n MCP entries.
 - Set the task, allowed tools, and definition of done.
 - Read or research first, then draft, then request approval for any action that has effects.
 - Recheck the output (file, URL, ticket) and cite the source.
-- Deterministische Integrationen in n8n, unsichere Urteile im Agenten, klare Schnittstelle dazwischen.
+- Deterministic integrations in n8n, uncertain judgments in the agent, clear interface in between.
 
 ## Pitfalls
 

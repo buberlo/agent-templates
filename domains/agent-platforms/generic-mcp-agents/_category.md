@@ -18,7 +18,7 @@ Common pattern: MCP for access, tools for actions, skills for workflows.
 | Name | Type | URL | Use | Install | Popularity | Source | Unverified |
 |---|---|---|---|---|---|---|---|
 | punkpeye/awesome-mcp-servers | Catalog | https://github.com/punkpeye/awesome-mcp-servers | Large curated list, last active Nov 2026, web directory glama.ai. | Use only as a directory, do not install as a server. | 98,405 stars | https://github.com/punkpeye/awesome-mcp-servers | no (as cited) |
-| modelcontextprotocol/servers | Referenz | https://github.com/modelcontextprotocol/servers | Referenzimplementierungen. | Repo. | 92,179 Stars | https://github.com/modelcontextprotocol/servers | no (as cited) |
+| modelcontextprotocol/servers | Reference | https://github.com/modelcontextprotocol/servers | Reference implementations. | Repo. | 92,179 stars | https://github.com/modelcontextprotocol/servers | no (as cited) |
 
 ## Typical workflows
 

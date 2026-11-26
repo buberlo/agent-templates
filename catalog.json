@@ -1504,13 +1504,13 @@
     },
     {
       "id": "mcp-server-build-mcp-focus",
-      "title": "MCP-Server bauen: MCP/Skill-Fokus",
+      "title": "Building MCP servers: MCP/skill focus",
       "domain": "ai-ops",
       "category": "mcp-server-build",
       "tags": [
         "mcp",
         "ai-ops",
-        "referenz"
+        "reference"
       ],
       "target_agents": [
         "hermes",
@@ -1953,7 +1953,7 @@
     },
     {
       "id": "email-gmail-mcp-triage",
-      "title": "Posteingang triagieren with Gmail MCP",
+      "title": "Triage Inbox with Gmail MCP",
       "domain": "communication",
       "category": "email",
       "tags": [
@@ -2205,7 +2205,7 @@
     },
     {
       "id": "landing-pages-workflow",
-      "title": "Landingpages & CRO",
+      "title": "Landing pages and CRO",
       "domain": "content-marketing",
       "category": "landing-pages",
       "tags": [
@@ -2449,7 +2449,7 @@
     },
     {
       "id": "escalation-workflow",
-      "title": "Eskalation",
+      "title": "Escalation",
       "domain": "customer-service",
       "category": "escalation",
       "tags": [
@@ -3287,7 +3287,7 @@
     },
     {
       "id": "course-creation-mcp-focus",
-      "title": "Kurse erstellen: MCP/Skill focus",
+      "title": "Course Creation: MCP/Skill Focus",
       "domain": "education",
       "category": "course-creation",
       "tags": [
@@ -3374,11 +3374,11 @@
     },
     {
       "id": "languages-workflow",
-      "title": "Sprachen",
+      "title": "Languages",
       "domain": "education",
       "category": "languages",
       "tags": [
-        "sprachen",
+        "languages",
         "education",
         "skillcli"
       ],
@@ -3444,7 +3444,7 @@
       "domain": "education",
       "category": "tutoring",
       "tags": [
-        "nachhilfe",
+        "tutoring",
         "education",
         "skillcli"
       ],
@@ -3972,7 +3972,7 @@
       "domain": "health-fitness",
       "category": "health-data-organization",
       "tags": [
-        "gesundheitsdaten",
+        "health-data",
         "health-fitness",
         "mcp"
       ],
@@ -4016,7 +4016,7 @@
       "domain": "health-fitness",
       "category": "nutrition",
       "tags": [
-        "ernaehrung",
+        "nutrition",
         "health-fitness",
         "mcp"
       ],
@@ -4361,11 +4361,11 @@
     },
     {
       "id": "network-workflow",
-      "title": "Netzwerk",
+      "title": "Network",
       "domain": "it-operations-support",
       "category": "network",
       "tags": [
-        "netzwerk",
+        "network",
         "it-operations-support",
         "skillcli"
       ],
@@ -4708,7 +4708,7 @@
     },
     {
       "id": "streaming-broadcast-workflow",
-      "title": "Streaming-Vorbereitung and Broadcast-Assets",
+      "title": "Streaming Preparation and Broadcast Assets",
       "domain": "media",
       "category": "streaming-broadcast",
       "tags": [
@@ -4730,7 +4730,7 @@
     },
     {
       "id": "audio-whisper-transcribe-diarize",
-      "title": "Transcription and Sprechersegmente with Whisper",
+      "title": "Transcription and Speaker Segments with Whisper",
       "domain": "media",
       "category": "subtitles-translation",
       "tags": [
@@ -4752,7 +4752,7 @@
     },
     {
       "id": "subtitles-translation-mcp-focus",
-      "title": "Subtitles and Uebersetzung: Whisper plus FFmpeg",
+      "title": "Subtitles and Translation: Whisper plus FFmpeg",
       "domain": "media",
       "category": "subtitles-translation",
       "tags": [
@@ -4883,7 +4883,7 @@
     },
     {
       "id": "e-signature-workflow",
-      "title": "E-Signatur-Vorbereitung and Pruefung",
+      "title": "E-Signature Preparation and Verification",
       "domain": "office-documents",
       "category": "e-signature",
       "tags": [
@@ -4925,7 +4925,7 @@
     },
     {
       "id": "excel-xlsx-workflow",
-      "title": "Excel-Arbeitsmappen erstellen and verify",
+      "title": "Create and Verify Excel Workbooks",
       "domain": "office-documents",
       "category": "excel-xlsx",
       "tags": [
@@ -5159,7 +5159,7 @@
     },
     {
       "id": "documents-libreoffice-mail-merge",
-      "title": "Serienbrief with LibreOffice and CSV",
+      "title": "Mail Merge with LibreOffice and CSV",
       "domain": "office-documents",
       "category": "word-docx",
       "tags": [
@@ -5271,11 +5271,11 @@
     },
     {
       "id": "personal-appointments-workflow",
-      "title": "Persoenliche Termine",
+      "title": "Personal appointments",
       "domain": "personal-lifestyle",
       "category": "personal-appointments",
       "tags": [
-        "termine",
+        "appointments",
         "personal-lifestyle",
         "skillcli"
       ],
@@ -5293,7 +5293,7 @@
     },
     {
       "id": "product-comparison-workflow",
-      "title": "Produktvergleich",
+      "title": "Product Comparison",
       "domain": "personal-lifestyle",
       "category": "product-comparison",
       "tags": [
@@ -5319,7 +5319,7 @@
       "domain": "personal-lifestyle",
       "category": "shopping",
       "tags": [
-        "einkauf",
+        "shopping",
         "personal-lifestyle",
         "skillcli"
       ],
@@ -5869,7 +5869,7 @@
     },
     {
       "id": "wikis-documentation-workflow",
-      "title": "Wiki-Dokumentation strukturieren",
+      "title": "Structure wiki documentation",
       "domain": "research-knowledge",
       "category": "wikis-documentation",
       "tags": [
@@ -5958,7 +5958,7 @@
     },
     {
       "id": "etsy-workflow",
-      "title": "Etsy Shop & Listing-Ops",
+      "title": "Etsy shop and listing operations",
       "domain": "sales-crm",
       "category": "etsy",
       "tags": [
@@ -6046,7 +6046,7 @@
     },
     {
       "id": "marketplaces-workflow",
-      "title": "cross-marketplace (eBay, Otto, Kaufland ...)",
+      "title": "Cross-marketplace operations (eBay, Otto, Kaufland, etc.)",
       "domain": "sales-crm",
       "category": "marketplaces",
       "tags": [
@@ -6311,7 +6311,7 @@
     },
     {
       "id": "tech-standards-workflow",
-      "title": "Technische Standards",
+      "title": "Technical Standards",
       "domain": "science-engineering",
       "category": "tech-standards",
       "tags": [
@@ -6396,7 +6396,7 @@
     },
     {
       "id": "forensics-workflow",
-      "title": "Forensik (nur autorisiert)",
+      "title": "Forensics (Authorized Only)",
       "domain": "security",
       "category": "forensics",
       "tags": [
@@ -6476,7 +6476,7 @@
     },
     {
       "id": "reverse-engineering-workflow",
-      "title": "Reverse Engineering (nur autorisiert)",
+      "title": "Reverse Engineering (Authorized Only)",
       "domain": "security",
       "category": "reverse-engineering",
       "tags": [
@@ -6973,7 +6973,7 @@
     },
     {
       "id": "tech-docs-mcp-focus",
-      "title": "Technische Dokumentation: MCP/Skill-Fokus",
+      "title": "Technical documentation: MCP/skill focus",
       "domain": "software-development",
       "category": "tech-docs",
       "tags": [
@@ -6995,7 +6995,7 @@
     },
     {
       "id": "tech-docs-workflow",
-      "title": "Technische Dokumentation",
+      "title": "Technical documentation",
       "domain": "software-development",
       "category": "tech-docs",
       "tags": [
@@ -7085,7 +7085,7 @@
     },
     {
       "id": "event-planning-workflow",
-      "title": "Eventplanung",
+      "title": "Event Planning",
       "domain": "travel-events",
       "category": "event-planning",
       "tags": [

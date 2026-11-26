@@ -89,7 +89,7 @@ Deliver reproducible file paths in summary.
 ## Pitfalls
 
 - Auto-post
-- Link without Kontext
+- Link without context
 - Regeln ignoriert
 - Hashtag spam
 - Sensational lies

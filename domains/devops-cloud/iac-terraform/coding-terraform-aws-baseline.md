@@ -41,7 +41,7 @@ Repeatable AWS baseline (VPC, IAM roles, Remote State S3+DynamoDB) per Terraform
 
 ## When to use
 
-- Greenfield-Account or Audit-Finding „ClickOps“ in Kernnetzwerk.
+- Greenfield account or "ClickOps" audit finding in core network.
 - Uniform tags and state backend before team scale-out.
 
 When, not to use: Live migration cut without maintenance window and rollback plan.
@@ -102,7 +102,7 @@ After approved apply: capture terraform output -json redacted for ticket.
 
 ## Pitfalls
 
-- Falscher AWS-Profile: Plan gegen falsches Konto — immer `get-caller-identity`.
+- Wrong AWS profile: plan against wrong account — always `get-caller-identity`.
 - State lock depends on canceled Apply - only delete DynamoDB entry by appointment.
 - `terraform import` without subsequent plan — drift remains invisible.
 - Provider-Upgrade without `terraform state replace-provider` — Ressourcen-Adressen brechen.
@@ -128,7 +128,7 @@ terraform plan -out=plan.out -var-file=envs/dev.tfvars
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** tfsec HIGH wegen offenem S3-Bucket im Entwurf.
+- **Task:** tfsec HIGH due to open S3 bucket in draft.
 - **Input:** Finding `AWS017` auf Modul `state`.
 - **Prompt:**
 

@@ -1,6 +1,6 @@
 ---
 id: audio-whisper-transcribe-diarize
-title: "Transcription and Sprechersegmente with Whisper"
+title: "Transcription and Speaker Segments with Whisper"
 domain: media
 category: subtitles-translation
 tags:
@@ -17,15 +17,15 @@ required_tools:
     install: "pip: openai-whisper; optional faster-whisper"
     version_notes: "large-v3-turbo; GPU empfohlen"
   - name: pyannote.audio
-    install: "pip: pyannote.audio (HF-Token for Diarisierung)"
-    version_notes: "only at expliziter approval and Token"
+    install: "pip: pyannote.audio (HF token for diarization)"
+    version_notes: "only with explicit approval and token"
   - name: ffmpeg
     install: "OS-Paket ffmpeg"
     version_notes: "Audio extract, 16 kHz mono for ASR"
 inputs:
   - "Audio- or Videodatei"
   - "Sprache(n) and gewuenschtes Format (SRT, VTT, JSON)"
-  - "Optional: Sprecheranzahl or Diarisierung ja/nein"
+  - "Optional: speaker count or diarization yes/no"
 outputs:
   - "transcript with Timestamps"
   - "Optional: SRT with Sprecher-Praefixen"
@@ -37,19 +37,19 @@ updated: "2026-11-23"
 
 ## Purpose
 
-**Zeitlich verknuepfte transcripte** and optional **Sprechersegmente** for Subtitles, Uebersetzung and Barrierefreiheit—lokal with Whisper, Diarisierung only at freigegebenem Setup.
+**Time-aligned transcripts** and optional **speaker segments** for subtitles, translation, and accessibility—locally with Whisper, diarization only with an approved setup.
 
 ## When to use
 
 - Internes Training, Podcast or Webinar should untertitelt will.
 - Rohmaterial liegt as MP4/MKV/WAV before; Genauigkeit wichtiger as Echtzeit.
-- OpenClaw Whisper-Skill or CLI is verfuegbar.
+- OpenClaw Whisper skill or CLI is available.
 
 **When not to use**
 
-- Broadcast-Subtitles with strengen CEA-608/EBU-Timing-Vorgaben without QA-Mensch.
-- Inhalt unter Strafverfolgung/Anwaltsgeheimnis without juristische approval for ML-Verarbeitung.
-- Reine Uebersetzung from bereits perfektem SRT (dann CAT-Workflow statt Re-ASR).
+- Broadcast subtitles with strict CEA-608/EBU timing requirements without a human QA reviewer.
+- Content subject to law enforcement or attorney-client privilege without legal approval for ML processing.
+- Pure translation from an already perfect SRT (use CAT workflow instead of re-ASR).
 
 ## Tool stack
 
@@ -95,31 +95,31 @@ When translating later, keep a glossary file of locked terms (product names).
 2. `ffmpeg -i input.mp4 -vn -ac 1 -ar 16000 audio.wav`.
 3. `whisper audio.wav --model large-v3-turbo --language de --output_dir work/`.
 4. `audio.srt` on Zeilenlaenge verify; Skript `split_long_lines.py` optional.
-5. at Diarisierung: pyannote → `segments.json`; with Whisper-Segmenten merge.
+5. For diarization: pyannote → `segments.json`; merge with Whisper segments.
 6. `ffmpeg -i input.mp4 -i work/audio.srt -c copy -c:s srt -metadata:s:s:0 language=de out_soft.mkv` only after approval.
-7. Stichprobe: 3 zufaellige Intervalle im Player against Text abgleichen.
+7. Spot check: verify 3 random intervals in the player against the text.
 
 ## Definition of done
 
 - [ ] Timestamps monoton steigend; no Ueberlappung in SRT
 - [ ] Sprache korrekt erkannt or explizit gesetzt
 - [ ] Eigennamen/Fachbegriffe markiert, when unsicher
-- [ ] Diarisierung only when angefordert and dokumentiert
+- [ ] Diarization only when requested and documented
 - [ ] Quellaudio not in fremde Cloud hochgeladen
 
 ## Security
 
-- voicesbiometrie and personenbezogene Inhalte: approval and Loeschfrist for `work/`.
-- HF-Token and API-Keys not committen.
-- Oeffentliche YouTube-Subtitles: copyright am Quellvideo clarify.
+- Voice biometrics and personal content: approval and deletion deadline for `work/`.
+- Do not commit HF tokens and API keys.
+- Public YouTube subtitles: clarify copyright on the source video.
 
 ## Pitfalls
 
-- Musik unter Sprache → Phantom-Text; VAD or manuelles Skip.
-- Diarisierung + Whisper-Offsets falsch gemergt → wechselnde falsche Labels.
-- 25 fps vs 30 fps Video: SRT from Audio oft passt, aber eingebettete VTT braucht gleiche timebase.
+- Music under speech → phantom text; use VAD or manual skip.
+- Diarization + Whisper offsets merged incorrectly → alternating wrong labels.
+- 25 fps vs 30 fps video: SRT from audio often fits, but embedded VTT requires the same timebase.
 - Grosse Modelle on CPU: Stunden Laufzeit—Batch nachts plan.
-- Automatische Uebersetzung without Review verletzt Markentonalitaet.
+- Automatic translation without review violates brand tone of voice.
 
 ## Basic examples
 
@@ -144,8 +144,8 @@ Duration coverage: 00:07:58.2 / 00:08:00.0
 ```
 
 ### Example 2 (Example data (self-written))
-- **Task:** Zwei Sprecher, Diarisierung from.
-- **Input:** Interview WAV, only transcript JSON for Uebersetzer.
+- **Task:** Two speakers, diarization off.
+- **Input:** Interview WAV, transcript JSON only for translators.
 - **Prompt:**
 
 ```text

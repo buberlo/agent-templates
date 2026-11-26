@@ -35,7 +35,7 @@ Control Android/iOS devices (Mobilerun, mobile-mcp, OpenClaw companion).
 - Enable only the MCPs/Skills that the task needs. Hermes filters per include/exclude; OpenClaw has tool policy and prompt budgets. Sources: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp , https://docs.openclaw.ai/skills/
 - Do not write tokens or passwords in chat, skill files or command arguments of custom MCPs. Grok Bot wiki: OAuth tokens remain on the connector backend; Command servers must not contain credentials in argv. Source: https://www.grokbotwiki.com/guides/grok-bot-plugins-mcp
 - Write, send, pay, deploy and delete only after explicit approval; good document skills require a verify step (read the file again, render PDF/PNG).
-- Cloud-MCP-Keys schuetzen. Companion ist not der Agent-Host.
+- Protect cloud MCP keys. Companion is not the agent host.
 
 ## Sources
 

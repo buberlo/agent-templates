@@ -18,12 +18,12 @@ required_tools:
     version_notes: "1585 GitHub Stars"
   - name: calendly MCP (Hermes catalog)
     install: "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/calendly"
-    version_notes: "Nous-approved optional-mcps catalog entry (Listing 23.11.2026)."
+    version_notes: "Nous-approved optional-mcps catalog entry (Listing 23 Nov 2026)."
 inputs:
   - "Context/briefing for travel planning"
   - "Files, URLs or IDs laut Task"
 outputs:
-  - "Dokumentiertes result (Datei, Bericht or Ticket-Update)"
+  - "Documented result (file, report, or ticket update)"
 risk_level: low
 example_count: 2
 version: "1.0.0"
@@ -78,10 +78,10 @@ Close each run with a bullet recap of itineraries, files, and open booking quest
 
 ## Definition of done
 
-- [ ] Quellen pro Tag or UNKNOWN
+- [ ] Sources per day or UNKNOWN
 - [ ] No booking carried out
 - [ ] Packing list completely by climate
-- [ ] Visa-Hinweis nur verweisend
+- [ ] Visa note for reference only
 
 ## Security
 
@@ -109,7 +109,7 @@ Day plan with 3 museums, vegan restaurants with rating source only. Packing list
 - **Expected result:** Markdown-Itinerary 5 tables; Saturday closing day Wieliczka noted; Packing list 22 items.
 ### Example 2 (Example data (self-written))
 - **Task:** Family trip with rollator
-- **Input:** Barcelona 4 Tage, rollatorfreie Routen Pflicht
+- **Input:** Barcelona 4 days, step-free rollator-accessible routes required
 - **Prompt:**
 ```text
 Only stops with public accessible information or UNKNOWN.

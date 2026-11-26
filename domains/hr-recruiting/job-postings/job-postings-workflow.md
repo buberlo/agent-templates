@@ -91,7 +91,7 @@ Remote/hybrid: location field explicit per user (no "everywhere" without tax hin
 ## Definition of done
 
 - [ ] No unconfirmed benefits or salary figures
-- [ ] Bias-Checkliste durchgearbeitet; problematische Phrasen ersetzt
+- [ ] Bias checklist completed; problematic phrases replaced
 - [ ] Scorecard-Kriterien decken Must-Haves ab
 - [ ] No live publishing carried out
 

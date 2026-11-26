@@ -27,7 +27,7 @@ inputs:
   - "Shorthand-Briefing (Shownotes, Kapitel, Distribution)"
 outputs:
   - "Master-Audio and transcript"
-  - "Entwurf Shownotes with Timestamps"
+  - "Draft shownotes with timestamps"
 risk_level: medium
 example_count: 2
 version: "1.1.0"
@@ -36,11 +36,11 @@ updated: "2026-11-23"
 
 ## Purpose
 
-Podcast-episode of **Rohaudio** over **Mastering (FFmpeg)**, **transcript (Whisper-Skill)** bis **Shownotes-Entwurf**—MCP/Skills only dort, wo sie Transcription or Textableitung beschleunigen, not for triviale Cute.
+Podcast episode from **raw audio** through **mastering (FFmpeg)**, **transcript (Whisper skill)** to **draft show notes**—use MCP/skills only where they speed up transcription or text derivation, not for trivial cuts.
 
 ## When to use
 
-- Gleicher Workflow jede Woche: Master → transcript → Kapitel → Shownotes-Review.
+- Same workflow every week: master → transcript → chapters → show notes review.
 - OpenClaw/Hermes with Whisper-Skill bereits freigeschaltet.
 - distribution erfolgt manuell or in separatem step.
 
@@ -56,8 +56,8 @@ Pure marketing campaigns without audio source.
 |------|-------|------------|
 | ffmpeg | Master, Cut Filler | CLI, datensparsam |
 | Whisper Skill | transcript | Haeufig installiert on ClawHub |
-| Hermes youtube-content | Referenzclips | transcripte for erwaehnte Links |
-| Editor (Markdown) | Shownotes | Mensch gibt finale approval |
+| Hermes youtube-content | Reference clips | Transcripts for mentioned links |
+| Editor (Markdown) | Show notes | Human gives final approval |
 
 ## System prompt
 
@@ -92,20 +92,20 @@ Distinguish sponsor segments in notes when user marks ad reads in briefing.
 3. Whisper-Skill on Master-WAV; Output in `transcript/`.
 4. Kapitelliste from Segment-Timestamps per Skript or Agent-Heuristik.
 5. `show_notes_draft.md` with Summary, Kapiteln, Links.
-6. Host-Review-Punkte in Checkliste; no RSS-Aktion.
+6. Host review items in checklist; no RSS action.
 7. after approval: finale MP3-ID3 only with gelieferten Metadaten.
 
 ## Definition of done
 
 - [ ] Master-LUFS im Targetkorridor
-- [ ] transcript deckt >95 % the Sprechdauer ab (Stichprobe)
+- [ ] Transcript covers >95% of speaking duration (spot check)
 - [ ] Kapitelzeiten monoton; erste Kapitelmarke at 0:00 or Intro-Ende
-- [ ] Shownotes as Entwurf gekennzeichnet
+- [ ] Show notes marked as draft
 - [ ] no Distribution without approval
 
 ## Security
 
-- Gaeste: Aufnahme- and Veroeffentlichungsrecht before Shownotes with Zitaten clarify.
+- Guests: clarify recording and publication rights before publishing show notes with quotes.
 - Whisper-Skill: Audio not an unbekannte Dritt-Endpoints when Skill cloud-nah konfiguriert—Policy read.
 
 ## Pitfalls
@@ -132,7 +132,7 @@ Master to -16 LUFS MP3, Whisper DE transcript, draft show notes with 4 chapters.
 ```markdown
 ## Ep42 – API design with Lea (DRAFT)
 00:00 Intro
-08:12 Was ist eine gute API-Grenze?
+08:12 What is a good API boundary?
 ...
 Files: ep42.mp3, ep42.txt, show_notes_draft.md
 ```

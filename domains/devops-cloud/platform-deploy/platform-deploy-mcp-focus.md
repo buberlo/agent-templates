@@ -82,7 +82,7 @@ Post-deploy: MCP read deployment status until ready.
 
 ## Definition of done
 
-- [ ] Prod nur nach PROD_APPROVE
+- [ ] Prod only after PROD_APPROVE
 - [ ] Deployment-ID + SHA
 - [ ] Rollback in Skill definiert
 
@@ -93,7 +93,7 @@ Post-deploy: MCP read deployment status until ready.
 
 ## Pitfalls
 
-- Vercel MCP prod aus Versehen — Skill-Gate Pflicht.
+- Accidental prod deploy via Vercel MCP — skill gate required.
 - GitHub MCP sieht Fork — falsche Environment.
 - Doppelter Deploy MCP Race.
 

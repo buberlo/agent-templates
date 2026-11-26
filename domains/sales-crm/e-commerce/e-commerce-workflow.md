@@ -41,7 +41,7 @@ updated: "2026-11-23"
 
 - Weekly ops review via Shopify + Amazon + Marketplace.
 - Explain returns or stockout spike.
-- B2B-Upsell aus Enterprise-Bestellmustern im CRM vorbereiten.
+- Prepare B2B upsell from enterprise ordering patterns in the CRM.
 
 **When not**
 
@@ -52,7 +52,7 @@ Full ERP migration.
 
 | Tool | Role | Justification |
 |------|-------|------------|
-| attio MCP | B2B Deals | Korrelation |
+| attio MCP | B2B Deals | Correlation |
 | close MCP | Outbound Fit | Optional |
 | Kanal-Exports | Wahrheit | Shopify/Amazon Templates |
 
@@ -86,7 +86,7 @@ Confirm channels and period.
 3. SKU-Matrix pflegen or aus Nutzerdatei laden.
 4. Calculate KPIs and tabulate them channel by channel.
 5. Mark deviations and anomalies.
-6. Ops-Issues nach Severity sortieren.
+6. Sort ops issues by severity.
 7. CRM drafts only with a clear account match.
 
 ## Definition of done
@@ -99,7 +99,7 @@ Confirm channels and period.
 ## Security
 
 Order exports can contain customer PII—minimize.
-- CRM-Writes nur Draft.
+- CRM writes as draft only.
 
 ## Pitfalls
 

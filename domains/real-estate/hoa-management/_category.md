@@ -6,7 +6,7 @@
 
 ## Summary
 
-Unterlagen, Fristen and Schriftverkehr rund um Eigentum/Verwaltung organisieren.
+Organize documents, deadlines, and correspondence related to property and property management.
 
 ## Recommended tool stack
 

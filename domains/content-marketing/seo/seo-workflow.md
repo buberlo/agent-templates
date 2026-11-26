@@ -78,7 +78,7 @@ Version outputs with date stamp.
 2. Crawl starten
 3. Technik clustern
 4. On-Page je Template
-5. SERP-Stichprobe
+5. SERP spot check
 6. Priorisieren
 7. Meta-CSV
 

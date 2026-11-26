@@ -6,7 +6,7 @@
 
 ## Summary
 
-Bearbeiten, konvertieren, batch-verarbeiten and beschreiben vorhandener Fotos and Grafiken.
+Edit, convert, batch-process, and caption existing photos and graphics.
 
 ## Recommended tool stack
 

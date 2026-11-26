@@ -89,7 +89,7 @@ Send/Pub Japan only after  financing.
 ## Pitfalls
 
 - Auto-post
-- Link without Kontext
+- Link without context
 - Regeln ignoriert
 - Hashtag spam
 - Sensational lies

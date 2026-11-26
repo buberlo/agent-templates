@@ -10,7 +10,7 @@ Structure requirements, TOMs, DPAs and evidence (not legal advice).
 
 ## Recommended tool stack
 
-- Dokumenten-Skills for Verzeichnisse and Vorlagen
+- Document skills for inventories and templates
 - Do not pass off output as legal advice
 
 ## MCP servers and skills
@@ -26,7 +26,7 @@ Structure requirements, TOMs, DPAs and evidence (not legal advice).
 - Set the task, allowed tools, and definition of done.
 - Read or research first, then draft, then request approval for any action that has effects.
 - Recheck the output (file, URL, ticket) and cite the source.
-- Ist-Zustand dokumentieren, Luecken als Fragen an Fachleute, Nachweise versionieren.
+- Document current state, frame gaps as questions for domain experts, version evidence.
 
 ## Pitfalls
 

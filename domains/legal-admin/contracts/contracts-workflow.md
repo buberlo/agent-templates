@@ -67,7 +67,7 @@ Disclaimer on every output: informational, not legal opinion.
 ## Workflow
 
 1. Clarify the contract type and user role; name the versions.
-2. PDF/docx einlesen; Gliederungsstruktur extrahieren.
+2. Read PDF/docx; extract outline structure.
 3. Create a catalogue of clauses with a summary and citation anchors.
 4. Risk heuristics only as discussion points, not as a legal judgement.
 5. When comparing: Join on clause topics, tabulate deviations.
@@ -105,7 +105,7 @@ Clause alignment table. Highlight material changes in liability and jurisdiction
 ```
 - **Expected result:** xlsx 14 rows; v5 shorter term highlighted; UNKNOWN if signature page v4 is missing.
 ### Example 2 (Example data (self-written))
-- **Task:** Rahmenvertrag Gliederungsreport
+- **Task:** Master agreement outline report
 - **Input:** 38-seitiger Dienstleistungsvertrag IT-Support
 - **Prompt:**
 ```text

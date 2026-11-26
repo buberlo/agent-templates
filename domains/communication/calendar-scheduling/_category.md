@@ -6,7 +6,7 @@
 
 ## Summary
 
-Termine finden, halten, einladen; Calendly, Google Calendar, Outlook.
+Find, schedule, and send invites for appointments; Calendly, Google Calendar, Outlook.
 
 ## Recommended tool stack
 

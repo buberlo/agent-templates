@@ -95,7 +95,7 @@ Version: onboarding_{role_slug}_{start_date}.
 - [ ] All tasks have owners and due dates (relative or absolute)
 - [ ] No live account creation documented
 - [ ] Compliance training marked before access to the live environment (if relevant)
-- [ ] Files per Re-Read verifiziert
+- [ ] Files verified via re-read
 
 ## Security
 

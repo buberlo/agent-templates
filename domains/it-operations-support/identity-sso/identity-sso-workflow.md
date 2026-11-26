@@ -19,7 +19,7 @@ required_tools:
 inputs:
   - "App, IdP, Fehlersymptom (login loop, claims)"
 outputs:
-  - "SAML/OIDC Checkliste"
+  - "SAML/OIDC checklist"
   - "Claim-Mapping-Draft"
 risk_level: high
 example_count: 2
@@ -75,7 +75,7 @@ Post change smoke: login test incognito three users role admin user guest if app
 
 1. Record the error screen and app ID.
 2. Read SP/IdP metadata and certs.
-3. Claim-Tabelle beidseitig vergleichen.
+3. Compare the claim table on both sides.
 4. Fix as draft (redirect, claim, cert).
 5. Staging-App testen.
 6. Prod with 'SSO CHANGE APPROVAL' and window.

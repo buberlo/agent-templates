@@ -16,7 +16,7 @@ required_tools:
     version_notes: "Bundled"
 inputs:
   - "Thema"
-  - "Opt-in Kontext"
+  - "Opt-in context"
   - "CTA"
 outputs:
   - "issue_draft.md"

@@ -40,7 +40,7 @@ updated: "2026-11-23"
 ## When to use
 
 - Vendor-Auswahl, Policy-Updates, Markt-Snapshots.
-- Vor Meeting or Investment-Memo.
+- Before a meeting or investment memo.
 - Zeitgebundene Frage (letzte 12 Monate).
 
 **When not**
@@ -97,11 +97,11 @@ Downrank content farms and SEO spam in source table.
 ## Workflow
 
 1st question and time window fix.
-2. Subfragen ableiten.
+2. Derive sub-questions.
 3. Exa pro Subfrage (max 5 Treffer).
 4. Firecrawl auf Kern-URLs.
-5. Claims ↔ Quellen mappen.
-6. briefing.md schreiben.
+5. Map claims ↔ sources.
+6. Write briefing.md.
 7. User Review UNVERIFIED markieren.
 
 ## Definition of done
@@ -122,7 +122,7 @@ API keys protected.
 
 - Exa-Snippet without Firecrawl-Check.
 - Alte Blogposts als „aktuell“.
-- Ein Quellen-Bias.
+- Single-source bias.
 - Footnotes without URL.
 - Perplexity-Zitat without Primary fetch.
 

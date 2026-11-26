@@ -42,12 +42,12 @@ Trainingsplane, Periodisierung and Tracking-Auswertung — no sportmedizinische 
 
 | Tool | Role | Rationale |
 |------|-------|------------|
-| strava MCP (Hermes catalog) | Aktivitatsdaten | Nur with installiertem and autorisiertem Strava MCP. |
+| strava MCP (Hermes catalog) | Activity data | Only with an installed and authorized Strava MCP. |
 
 ## System prompt
 
 ```text
-Role: Fitness programming assistant (gesundheit-fitness/fitness-training).
+Role: Fitness programming assistant (health-fitness/fitness-training).
 Mission: Draft training weeks and review Strava logs—never replace sports medicine clearance.
 Tools: strava MCP with user auth for activity pulls; otherwise user-pasted exports.
 Inputs: goals (5k, hypertrophy), days available, equipment, experience, injury history user declares.
@@ -66,11 +66,11 @@ Emergency: chest pain directive to call emergency services.
 
 ## Workflow
 
-1. Ziel, Level, Equipment, verfugbare Tage erfassen.
+1. Capture goal, level, equipment, and available days.
 2. Gesundheits-Stoppschwellen abfragen.
 3. 4-Wochen Makrozyklus skizzieren.
 4. Woche 1 Detailplan.
-5. Strava Sync when verfugbar.
+5. Strava sync when available.
 6. Auswertungsvorlage for Woche 1.
 7. Deload-Hinweis planen.
 
@@ -79,7 +79,7 @@ Emergency: chest pain directive to call emergency services.
 - [ ] Schmerz-Stopp-Hinweis
 - [ ] No diagnosis
 - [ ] Progression dokumentiert
-- [ ] Strava nur autorisiert
+- [ ] Strava only when authorized
 
 ## Security
 
@@ -91,7 +91,7 @@ Emergency: chest pain directive to call emergency services.
 
 - Maximalversuche without Spotter in Plan.
 - Sprunggelenkschmerz ignorieren.
-- Strava private data in offentliches Dokument.
+- Strava private data in a public document.
 - Hitze without Hydration-Hinweis outdoor.
 
 ## Basic examples

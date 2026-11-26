@@ -73,7 +73,7 @@ Idempotent: same run overwrites output dated file not merge silent.
 German sites encoding utf-8 verify.
 Playwright storage state not commit cookies git.
 Medium risk: pause on 403 429 escalate user.
-Do not use for recherche-wissen web-exa—that is search not scrape—this template is DOM extract only.
+Do not use for research-knowledge web-exa—that is search not scrape—this template is DOM extract only.
 har optional debug one page user request.
 ```
 
@@ -82,7 +82,7 @@ har optional debug one page user request.
 Check URLs and robots.
 2. Selektoren an einer Seite validieren.
 3. Write a script with delays.
-4. Testlauf kleine Stichprobe.
+4. Test run on a small sample.
 5. Full run with Pagination-Cap.
 6. JSON/CSV exportieren.
 7. Archive error log and screenshots.
@@ -92,7 +92,7 @@ Check URLs and robots.
 - [ ] robots-Check dokumentiert
 - [ ] delay_ms in script
 - [ ] Schema konsistent JSON
-- [ ] Kein Login-Bypass
+- [ ] No login bypass
 
 ## Security
 
@@ -103,7 +103,7 @@ Check URLs and robots.
 
 - Dynamic content without wait_for_selector.
 - Pagination Endlos-Schleife.
-- 403 durch fehlenden Delay.
+- 403 due to missing delay.
 - robots ignoriert.
 - PII in public output.
 

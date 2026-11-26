@@ -23,7 +23,7 @@ inputs:
   - "Context/Briefing for Property listings"
   - "Files, URLs or IDs laut Task"
 outputs:
-  - "Dokumentiertes result (Datei, Bericht or Ticket-Update)"
+  - "Documented result (file, report, or ticket update)"
 risk_level: low
 example_count: 2
 version: "1.0.0"
@@ -71,10 +71,10 @@ Log queries and output paths in the session recap.
 ## Workflow
 
 1. Clarify briefing: target (purchase/rental), region, budget, output format (docx/xlsx/markdown).
-2. Quellen sammeln: URLs, PDF-Property listings, Makler-Mails; fehlende Pflichtfelder notieren.
+2. Collect sources: URLs, PDF property listings, broker emails; note missing required fields.
 3. Complete with Brave Search MCP portal information and situation information; Record date of call.
 4. mapping data into a common schema; Mark implausibility (m2 vs. room).
-5. Entwurf des Kurzprofils or Vergleichstabelle im Chat vorlegen.
+5. Present draft of the short profile or comparison table in chat.
 6. After sharing create Office file, open and check tables against sources.
 7. Attach Open Question List and Viewing Checklist.
 
@@ -87,7 +87,7 @@ Log queries and output paths in the session recap.
 
 ## Security
 
-- No verbindlichen Kauf-, Miet- or Besichtigungstermine without explizite Nutzerfreigabe.
+- No binding purchase, rental, or viewing appointments without explicit user approval.
 - Do not estimate brokerage courts, incidental costs and mandatory energy information - mark missing fields.
 - Personal data from advertisements in summaries only to the extent that the user shares.
 
@@ -101,8 +101,8 @@ Log queries and output paths in the session recap.
 ## Basic examples
 
 ### Example 1 (Example data (self-written))
-- **Task:** Drei Berliner Altbauwohnungen als Exposé-1-Pager vergleichen
-- **Input:** Links zu immobilienscout24-Inseraten; Budget 450.000 EUR; min. 3 Zimmer
+- **Task:** Compare three Berlin pre-war apartments as a 1-page listing summary
+- **Input:** Links to immobilienscout24 listings; budget 450,000 EUR; min. 3 rooms
 - **Prompt:**```text
 Create for each advertisement a short profile according to the scheme location/building/cost/energy. Build an xlsx ranking table with source column. No brokerage contacts.
 ```
