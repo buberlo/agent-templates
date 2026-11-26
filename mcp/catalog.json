@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-11-24T00:00:00Z",
-  "count": 99,
+  "count": 105,
   "servers": [
     {
       "name": "Agent Skills progressive disclosure",
@@ -495,6 +495,17 @@
       "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
+      "name": "ElevenLabs ElevenAgents",
+      "url": "https://elevenlabs.io/docs/eleven-agents/build/overview",
+      "type": "Platform",
+      "stars": null,
+      "categories": [
+        "customer-service/live-chat-bots"
+      ],
+      "auth": "ElevenLabs workspace OAuth / API key",
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
+    },
+    {
       "name": "GitHub Official MCP",
       "url": "https://github.com/github/github-mcp-server",
       "type": "MCP",
@@ -537,6 +548,19 @@
         "security/siem-soc"
       ],
       "auth": "varies",
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
+    },
+    {
+      "name": "Gmail MCP (Google Workspace remote)",
+      "url": "https://developers.google.com/workspace/gmail/api/guides/configure-mcp-server",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "communication/email",
+        "personal-lifestyle/household",
+        "real-estate/hoa-management"
+      ],
+      "auth": "Google OAuth (AI-agent client)",
       "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
@@ -927,6 +951,17 @@
       "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
     },
     {
+      "name": "n8n Instance MCP",
+      "url": "https://docs.n8n.io/connect/connect-to-n8n-mcp-server",
+      "type": "MCP",
+      "stars": null,
+      "categories": [
+        "automation/n8n-make-zapier"
+      ],
+      "auth": "OAuth or API key (instance-level)",
+      "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
+    },
+    {
       "name": "neon MCP (Hermes-Catalog)",
       "url": "https://github.com/NousResearch/hermes-agent/tree/main/optional-mcps/neon",
       "type": "MCP",
@@ -955,6 +990,7 @@
       "stars": null,
       "categories": [
         "office-documents/notion",
+        "project-management/planning",
         "research-knowledge/wikis-documentation",
         "security/compliance-nis2-gdpr"
       ],
@@ -1061,6 +1097,17 @@
       ],
       "auth": "local CLI",
       "risk_notes": "Flash and erase need human approval; do not pass tokens in argv."
+    },
+    {
+      "name": "papermill",
+      "url": "https://papermill.readthedocs.io/en/latest/usage-cli.html",
+      "type": "CLI",
+      "stars": null,
+      "categories": [
+        "science-engineering/data-experiments"
+      ],
+      "auth": "none",
+      "risk_notes": "Executes notebook code; run only on trusted notebooks in isolated envs."
     },
     {
       "name": "Playwright MCP",
@@ -1234,6 +1281,17 @@
       ],
       "auth": "varies",
       "risk_notes": "Enable only when the category needs it; do not pass tokens in argv."
+    },
+    {
+      "name": "USDA FoodData Central API",
+      "url": "https://fdc.nal.usda.gov/api-guide/",
+      "type": "API",
+      "stars": null,
+      "categories": [
+        "health-fitness/nutrition"
+      ],
+      "auth": "data.gov API key",
+      "risk_notes": "Do not commit API keys to repositories; respect rate limits."
     },
     {
       "name": "Tavily MCP",

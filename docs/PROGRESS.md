@@ -1,5 +1,14 @@
 # Migration progress
 
+## Completed (2026-11-25) — Batch 8
+
+- **Eight new templates (thin domains):** Personal Gmail daily digest (`personal-lifestyle/household`); meeting transcript to Notion actions (`project-management/planning`); ElevenLabs voice FAQ with human escalation (`customer-service/live-chat-bots`); pantry weekly meal plan with USDA FDC API (`health-fitness/nutrition`); rubric assignment feedback drafter (`education/tutoring`); Jupyter reproducibility audit with papermill (`science-engineering/data-experiments`); landlord maintenance triage and quote compare (`real-estate/hoa-management`); n8n workflow builder and reviewer via instance MCP (`automation/n8n-make-zapier`).
+- **Assets:** Example data (self-written) SVG diagrams under `domains/personal-lifestyle/household/assets/` and `domains/customer-service/live-chat-bots/assets/`.
+- **MCP catalog:** Added Gmail MCP (Google Workspace remote), ElevenLabs ElevenAgents, n8n Instance MCP, papermill CLI, and USDA FoodData Central API; extended Notion MCP (hosted) to `project-management/planning`.
+- **Sources:** New URLs in `research/SOURCES.md` (Google Gmail MCP, Notion workflow via mcp.notion.com already listed, ElevenLabs ElevenAgents and transfer_to_number, USDA FDC API, papermill, n8n instance MCP connect guide, Twilio ElevenLabs handoff blueprint, markitdown, nbconvert).
+- **Validator:** `python3 scripts/validate_and_index.py` — 0 errors; regenerated `INDEX.md` and root `catalog.json`.
+- **Template total:** **279** after regeneration.
+
 ## Completed (2026-11-25) — Batch 7
 
 - **Hand rewrites (13 templates):** Full **ai-ops** backlog cluster (evals-benchmarks, fine-tuning, local-models-ollama, mcp-server-build, model-routing, prompt-engineering, skills-authoring) plus six **devops-cloud** templates (incident-response workflow and MCP focus, monitoring-observability MCP focus, platform-deploy, cloud-aws, kubernetes MCP focus) with English prose, numbered workflows, approval gates, and **Example data (self-written)** blocks citing official tool docs.

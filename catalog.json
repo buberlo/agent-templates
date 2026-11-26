@@ -82,7 +82,7 @@
     {
       "slug": "automation",
       "category_count": 8,
-      "template_count": 10,
+      "template_count": 11,
       "categories": [
         {
           "slug": "browser-automation",
@@ -106,7 +106,7 @@
         },
         {
           "slug": "n8n-make-zapier",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "rpa",
@@ -227,7 +227,7 @@
     {
       "slug": "customer-service",
       "category_count": 5,
-      "template_count": 7,
+      "template_count": 8,
       "categories": [
         {
           "slug": "escalation",
@@ -243,7 +243,7 @@
         },
         {
           "slug": "live-chat-bots",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "qos-csat",
@@ -348,7 +348,7 @@
     {
       "slug": "education",
       "category_count": 5,
-      "template_count": 7,
+      "template_count": 8,
       "categories": [
         {
           "slug": "course-creation",
@@ -368,7 +368,7 @@
         },
         {
           "slug": "tutoring",
-          "template_count": 1
+          "template_count": 2
         }
       ]
     },
@@ -456,7 +456,7 @@
     {
       "slug": "health-fitness",
       "category_count": 4,
-      "template_count": 5,
+      "template_count": 6,
       "categories": [
         {
           "slug": "fitness-training",
@@ -472,7 +472,7 @@
         },
         {
           "slug": "nutrition",
-          "template_count": 1
+          "template_count": 2
         }
       ]
     },
@@ -678,7 +678,7 @@
     {
       "slug": "personal-lifestyle",
       "category_count": 5,
-      "template_count": 5,
+      "template_count": 6,
       "categories": [
         {
           "slug": "food-recipes",
@@ -686,7 +686,7 @@
         },
         {
           "slug": "household",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "personal-appointments",
@@ -705,7 +705,7 @@
     {
       "slug": "project-management",
       "category_count": 5,
-      "template_count": 7,
+      "template_count": 8,
       "categories": [
         {
           "slug": "agile-kanban",
@@ -717,7 +717,7 @@
         },
         {
           "slug": "planning",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "reporting",
@@ -732,11 +732,11 @@
     {
       "slug": "real-estate",
       "category_count": 3,
-      "template_count": 4,
+      "template_count": 5,
       "categories": [
         {
           "slug": "hoa-management",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "property-listings",
@@ -841,11 +841,11 @@
     {
       "slug": "science-engineering",
       "category_count": 5,
-      "template_count": 6,
+      "template_count": 7,
       "categories": [
         {
           "slug": "data-experiments",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "lab-notes",
@@ -1623,6 +1623,28 @@
       "path": "domains/automation/n8n-make-zapier/n8n-make-zapier-workflow.md"
     },
     {
+      "id": "n8n-workflow-builder-review-mcp-v1",
+      "title": "n8n workflow builder and reviewer via instance MCP",
+      "domain": "automation",
+      "category": "n8n-make-zapier",
+      "tags": [
+        "n8n",
+        "mcp",
+        "workflow"
+      ],
+      "target_agents": [
+        "cursor",
+        "claude-code",
+        "hermes",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "high",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-25",
+      "path": "domains/automation/n8n-make-zapier/n8n-workflow-builder-review-mcp-v1.md"
+    },
+    {
       "id": "rpa-workflow",
       "title": "RPA",
       "domain": "automation",
@@ -2361,6 +2383,27 @@
       "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/customer-service/knowledge-base/knowledge-base-workflow.md"
+    },
+    {
+      "id": "elevenlabs-voice-faq-agent-v1",
+      "title": "ElevenLabs voice phone FAQ agent with human escalation",
+      "domain": "customer-service",
+      "category": "live-chat-bots",
+      "tags": [
+        "elevenlabs",
+        "voice",
+        "faq",
+        "escalation"
+      ],
+      "target_agents": [
+        "hermes",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "high",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-25",
+      "path": "domains/customer-service/live-chat-bots/elevenlabs-voice-faq-agent-v1.md"
     },
     {
       "id": "live-chat-bots-workflow",
@@ -3201,6 +3244,28 @@
       "path": "domains/education/study-research/study-research-workflow.md"
     },
     {
+      "id": "rubric-assignment-feedback-drafter-v1",
+      "title": "Rubric-based assignment feedback drafter for teachers",
+      "domain": "education",
+      "category": "tutoring",
+      "tags": [
+        "grading",
+        "rubric",
+        "feedback"
+      ],
+      "target_agents": [
+        "hermes",
+        "cursor",
+        "claude-code",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-25",
+      "path": "domains/education/tutoring/rubric-assignment-feedback-drafter-v1.md"
+    },
+    {
       "id": "tutoring-workflow",
       "title": "Training and Tutoring",
       "domain": "education",
@@ -3771,6 +3836,27 @@
       "version": "1.0.0",
       "updated": "2026-11-23",
       "path": "domains/health-fitness/nutrition/nutrition-workflow.md"
+    },
+    {
+      "id": "pantry-weekly-meal-plan-usda-v1",
+      "title": "Pantry-based weekly meal plan with USDA nutrition lookup",
+      "domain": "health-fitness",
+      "category": "nutrition",
+      "tags": [
+        "meal-planning",
+        "usda",
+        "pantry"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-25",
+      "path": "domains/health-fitness/nutrition/pantry-weekly-meal-plan-usda-v1.md"
     },
     {
       "id": "cv-screening-workflow",
@@ -4943,6 +5029,28 @@
       "path": "domains/personal-lifestyle/food-recipes/food-recipes-workflow.md"
     },
     {
+      "id": "gmail-personal-daily-digest-v1",
+      "title": "Personal Gmail daily digest with labels and draft replies",
+      "domain": "personal-lifestyle",
+      "category": "household",
+      "tags": [
+        "gmail",
+        "digest",
+        "drafts",
+        "personal"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-25",
+      "path": "domains/personal-lifestyle/household/gmail-personal-daily-digest-v1.md"
+    },
+    {
       "id": "household-workflow",
       "title": "Household",
       "domain": "personal-lifestyle",
@@ -5101,6 +5209,29 @@
       "path": "domains/project-management/jira-linear/jira-linear-workflow.md"
     },
     {
+      "id": "meeting-transcript-notion-actions-v1",
+      "title": "Meeting transcript to action items and decisions in Notion",
+      "domain": "project-management",
+      "category": "planning",
+      "tags": [
+        "notion",
+        "meetings",
+        "action-items"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "cursor",
+        "claude-code",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-25",
+      "path": "domains/project-management/planning/meeting-transcript-notion-actions-v1.md"
+    },
+    {
       "id": "planning-workflow",
       "title": "Planning",
       "domain": "project-management",
@@ -5209,6 +5340,27 @@
       "version": "1.0.0",
       "updated": "2026-11-23",
       "path": "domains/real-estate/hoa-management/hoa-management-workflow.md"
+    },
+    {
+      "id": "landlord-maintenance-triage-quotes-v1",
+      "title": "Landlord maintenance triage and contractor quote comparison",
+      "domain": "real-estate",
+      "category": "hoa-management",
+      "tags": [
+        "maintenance",
+        "landlord",
+        "triage"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-25",
+      "path": "domains/real-estate/hoa-management/landlord-maintenance-triage-quotes-v1.md"
     },
     {
       "id": "listing-description-comps-writer-v1",
@@ -5851,6 +6003,28 @@
       "version": "1.0.0",
       "updated": "2026-11-23",
       "path": "domains/science-engineering/data-experiments/data-experiments-workflow.md"
+    },
+    {
+      "id": "jupyter-reproducibility-audit-v1",
+      "title": "Jupyter notebook reproducibility audit with papermill",
+      "domain": "science-engineering",
+      "category": "data-experiments",
+      "tags": [
+        "jupyter",
+        "papermill",
+        "reproducibility"
+      ],
+      "target_agents": [
+        "cursor",
+        "claude-code",
+        "hermes",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-25",
+      "path": "domains/science-engineering/data-experiments/jupyter-reproducibility-audit-v1.md"
     },
     {
       "id": "lab-notes-workflow",
