@@ -1,26 +1,30 @@
 # Template index
 
-Auto-generated. **27** domains, **199** categories, **279** templates.
+Auto-generated. **27** domains, **199** categories, **288** templates.
 
-## Domain: `agent-platforms` (10 templates)
+## Domain: `agent-platforms` (17 templates)
 
-### `agent-platforms/claude-code` (2)
+### `agent-platforms/claude-code` (3)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `claude-code-mcp-focus` | Claude Code: MCP and skill focus | claude-code, cursor, generic-mcp-agents | low | 2 |
+| `claude-code-pre-tool-permission-hooks-v1` | Claude Code PreToolUse permission hooks | claude-code, cursor, generic-mcp-agents | medium | 2 |
 | `claude-code-workflow` | Claude Code | claude-code, cursor, generic-mcp-agents | low | 2 |
 
-### `agent-platforms/codex` (1)
+### `agent-platforms/codex` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
+| `codex-agents-md-nested-overrides-v1` | Codex AGENTS.md nested overrides | codex, cursor, claude-code… | low | 2 |
 | `codex-workflow` | Codex | codex, generic-mcp-agents | low | 2 |
 
-### `agent-platforms/cursor` (1)
+### `agent-platforms/cursor` (3)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
+| `cursor-hooks-shell-mcp-gates-v1` | Cursor Agent hooks: shell and MCP gates | cursor, generic-mcp-agents | medium | 2 |
+| `cursor-subagent-governance-hooks-v1` | Cursor subagent governance with hooks | cursor, generic-mcp-agents | medium | 2 |
 | `cursor-workflow` | Cursor | cursor, generic-mcp-agents | low | 2 |
 
 ### `agent-platforms/generic-mcp-agents` (2)
@@ -30,32 +34,36 @@ Auto-generated. **27** domains, **199** categories, **279** templates.
 | `generic-mcp-agents-mcp-focus` | Generic MCP agents: MCP and skill focus | hermes, grokbot, generic-mcp-agents… | low | 2 |
 | `generic-mcp-agents-workflow` | Generic MCP agents | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-### `agent-platforms/grokbot` (1)
+### `agent-platforms/grokbot` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
+| `grokbot-scheduled-x-research-brief-v1` | Grok Bot scheduled X research brief | grokbot, generic-mcp-agents | low | 2 |
 | `grokbot-workflow` | Grok Bot | grokbot, generic-mcp-agents | low | 2 |
 
-### `agent-platforms/hermes` (1)
+### `agent-platforms/hermes` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
+| `hermes-optional-mcp-sprint-onboarding-v1` | Hermes optional MCP sprint onboarding | hermes, generic-mcp-agents | low | 2 |
 | `hermes-workflow` | Hermes Agent (Nous Research) | hermes, generic-mcp-agents | low | 2 |
 
-### `agent-platforms/openclaw` (2)
+### `agent-platforms/openclaw` (3)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
+| `openclaw-clawhub-skill-verify-install-v1` | OpenClaw ClawHub verify and install | openclaw, generic-mcp-agents | high | 2 |
 | `openclaw-mcp-focus` | OpenClaw: MCP and skill focus | openclaw, generic-mcp-agents | high | 2 |
 | `openclaw-workflow` | OpenClaw | openclaw, generic-mcp-agents | high | 2 |
 
-## Domain: `ai-ops` (11 templates)
+## Domain: `ai-ops` (12 templates)
 
-### `ai-ops/agent-orchestration` (1)
+### `ai-ops/agent-orchestration` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `agent-orchestration-workflow` | Agent orchestration | hermes, grokbot, generic-mcp-agents… | medium | 2 |
+| `parent-child-agent-handoff-v1` | Parent-child agent handoff contract | hermes, cursor, claude-code… | medium | 2 |
 
 ### `ai-ops/context-token-management` (2)
 
@@ -511,7 +519,7 @@ Auto-generated. **27** domains, **199** categories, **279** templates.
 | `rubric-assignment-feedback-drafter-v1` | Rubric-based assignment feedback drafter for teachers | hermes, cursor, claude-code… | medium | 2 |
 | `tutoring-workflow` | Training and Tutoring | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-## Domain: `finance` (10 templates)
+## Domain: `finance` (11 templates)
 
 ### `finance/accounting` (1)
 
@@ -525,11 +533,12 @@ Auto-generated. **27** domains, **199** categories, **279** templates.
 |----|-------|--------|------|----------|
 | `finance-camt053-reconcile` | Bank reconciliation with CAMT.053 | hermes, cursor, generic | medium | 2 |
 
-### `finance/budget` (1)
+### `finance/budget` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `budget-workflow` | Budget planning and variances | hermes, generic | low | 2 |
+| `personal-monthly-budget-variance-v1` | Personal monthly budget variance review | hermes, cursor, generic-mcp-agents | low | 2 |
 
 ### `finance/invoicing` (1)
 
