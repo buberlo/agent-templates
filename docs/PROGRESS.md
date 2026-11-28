@@ -1,5 +1,14 @@
 # Migration progress
 
+## Completed (2026-11-28) — Batch 11
+
+- **Eight new templates (thin domains):** KiCad BOM, ERC, and DRC pre-fab review with kicad-cli (`hardware-embedded/cad`); ESPHome device YAML review before flashing (`hardware-embedded/arduino-esp32`); NDA and terms-of-service change diff with lawyer boundary (`legal-admin/contracts`); rental application document checklist with fair-housing wording notes (`real-estate/property-search`); weekly sleep and workout review from wearable exports, explicitly not medical advice (`health-fitness/health-data-organization`); job description bias and clarity review citing EEOC and Gender Decoder (`hr-recruiting/job-postings`); flight disruption rebooking and EU passenger-rights checklist (`travel-events/flights-hotels`); personal subscription audit from statements and receipts (`personal-lifestyle/household`).
+- **MCP catalog:** Added kicad-mcp (lamaalrajih) for `hardware-embedded/cad` (requires KiCad 9.0+, DRC through the KiCad CLI); reused Gmail MCP, google_workspace_mcp, homeassistant-mcp, strava MCP, MarkItDown, and the reference filesystem, fetch, and time servers.
+- **Sources:** `research/SOURCES.md` gained 24 URLs (KiCad 9.0 docs, ESPHome CLI/YAML/security/API/OTA, pandoc, git diff, Python difflib/csv/xml.etree, Your Europe air passenger rights, Apple Health export, EEOC prohibited practices, DOJ Fair Housing Act, HUD FHEO, Gender Decoder, kicad-mcp, MCP reference servers); every new URL checked for HTTP 200.
+- **Counts:** README templates 288 → 296, MCP entries 107 → 108; `mcp/README.md` 107 → 108; unique HTTP sources 187 → 211.
+- **Validator:** `python3 scripts/validate_and_index.py` — 0 errors, no warnings for the new templates; regenerated `INDEX.md` and root `catalog.json`.
+- **Template total:** **296** templates, **27** domains, **199** categories.
+
 ## Completed (2026-11-26) — Cleanup batch
 
 - **English-only repair:** Restored official source URLs (verified with HTTP 200) and remapped 12 dead `mcp/catalog.json` category references. Rewrote 17 MT-garbled templates from pre-migration German sources. Translated residual German and Denglisch in templates, category/domain pages, frontmatter, checklists, and system prompts. System prompts now respond in the user's language (default English). Normalized leftover German slug mentions in prose (folders were already English). No website folder-slug redirects required (`buberlo/agent-templates-web` has no hardcoded German slugs).

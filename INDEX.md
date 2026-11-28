@@ -1,6 +1,6 @@
 # Template index
 
-Auto-generated. **27** domains, **199** categories, **288** templates.
+Auto-generated. **27** domains, **199** categories, **296** templates.
 
 ## Domain: `agent-platforms` (17 templates)
 
@@ -595,7 +595,7 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 |----|-------|--------|------|----------|
 | `streaming-gaming-workflow` | Gaming streaming | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-## Domain: `hardware-embedded` (5 templates)
+## Domain: `hardware-embedded` (7 templates)
 
 ### `hardware-embedded/3d-printing` (1)
 
@@ -603,18 +603,20 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 |----|-------|--------|------|----------|
 | `3d-printing-workflow` | 3D printing | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-### `hardware-embedded/arduino-esp32` (2)
+### `hardware-embedded/arduino-esp32` (3)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `arduino-esp32-workflow` | Arduino and ESP32 | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `esphome-device-yaml-review-v1` | ESPHome device YAML review before flashing | hermes, grokbot, claude-code… | medium | 2 |
 | `firmware-build-flash-debug-v1` | Firmware build, flash, and serial debug loop | hermes, grokbot, cursor… | high | 2 |
 
-### `hardware-embedded/cad` (1)
+### `hardware-embedded/cad` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `cad-workflow` | CAD | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `kicad-bom-erc-drc-review-v1` | KiCad BOM, ERC, and DRC pre-fab review | hermes, grokbot, claude-code… | medium | 2 |
 
 ### `hardware-embedded/electronics-diagnostics` (1)
 
@@ -622,7 +624,7 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 |----|-------|--------|------|----------|
 | `electronics-diagnostics-workflow` | Electronics diagnostics | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-## Domain: `health-fitness` (6 templates)
+## Domain: `health-fitness` (7 templates)
 
 ### `health-fitness/fitness-training` (2)
 
@@ -631,11 +633,12 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 | `fitness-training-workflow` | Fitness and training | hermes, grokbot, generic-mcp-agents… | low | 2 |
 | `wearable-training-plan-builder-v1` | Training plan builder from wearable exports | hermes, grokbot, generic-mcp-agents | medium | 2 |
 
-### `health-fitness/health-data-organization` (1)
+### `health-fitness/health-data-organization` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `health-data-organization-workflow` | Organize health data | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `weekly-sleep-workout-review-v1` | Weekly sleep and workout review from wearable exports | hermes, grokbot, openclaw… | medium | 2 |
 
 ### `health-fitness/mental-health-organisation` (1)
 
@@ -650,7 +653,7 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 | `nutrition-workflow` | Nutrition | hermes, grokbot, generic-mcp-agents… | low | 2 |
 | `pantry-weekly-meal-plan-usda-v1` | Pantry-based weekly meal plan with USDA nutrition lookup | hermes, grokbot, generic-mcp-agents | low | 2 |
 
-## Domain: `hr-recruiting` (6 templates)
+## Domain: `hr-recruiting` (7 templates)
 
 ### `hr-recruiting/cv-screening` (1)
 
@@ -670,10 +673,11 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 |----|-------|--------|------|----------|
 | `job-applications-workflow` | Job applications | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-### `hr-recruiting/job-postings` (1)
+### `hr-recruiting/job-postings` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
+| `job-description-bias-clarity-review-v1` | Job description bias and clarity review | hermes, grokbot, claude-code… | medium | 2 |
 | `job-postings-workflow` | Job postings | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `hr-recruiting/onboarding` (2)
@@ -745,14 +749,15 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 |----|-------|--------|------|----------|
 | `it-meshcentral-remote-session` | Remote support with MeshCentral | hermes, generic | high | 2 |
 
-## Domain: `legal-admin` (5 templates)
+## Domain: `legal-admin` (6 templates)
 
-### `legal-admin/contracts` (2)
+### `legal-admin/contracts` (3)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `contract-review-summary-v1` | Contract review summary and redline suggestions | hermes, grokbot, claude-code… | high | 2 |
 | `contracts-workflow` | Contracts | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `nda-terms-change-diff-v1` | NDA and terms-of-service change diff with lawyer boundary | hermes, grokbot, claude-code… | high | 2 |
 
 ### `legal-admin/government-forms` (1)
 
@@ -918,7 +923,7 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 | `documents-libreoffice-mail-merge` | Mail Merge with LibreOffice and CSV | hermes, cursor, generic | medium | 2 |
 | `word-docx-mcp-focus` | Word DOCX: MCP- and Skill-Fokus | hermes, claude-code, openclaw… | low | 2 |
 
-## Domain: `personal-lifestyle` (6 templates)
+## Domain: `personal-lifestyle` (7 templates)
 
 ### `personal-lifestyle/food-recipes` (1)
 
@@ -926,12 +931,13 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 |----|-------|--------|------|----------|
 | `food-recipes-workflow` | Food and recipes | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-### `personal-lifestyle/household` (2)
+### `personal-lifestyle/household` (3)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `gmail-personal-daily-digest-v1` | Personal Gmail daily digest with labels and draft replies | hermes, grokbot, generic-mcp-agents | medium | 2 |
 | `household-workflow` | Household | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `personal-subscription-audit-v1` | Personal subscription audit from statements and receipts | hermes, grokbot, openclaw… | low | 2 |
 
 ### `personal-lifestyle/personal-appointments` (1)
 
@@ -986,7 +992,7 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 |----|-------|--------|------|----------|
 | `tasks-workflow` | Tasks | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-## Domain: `real-estate` (5 templates)
+## Domain: `real-estate` (6 templates)
 
 ### `real-estate/hoa-management` (2)
 
@@ -1002,11 +1008,12 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 | `listing-description-comps-writer-v1` | Listing description and comparable research | hermes, grokbot, cursor… | medium | 2 |
 | `property-listings-workflow` | Property listings | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
-### `real-estate/property-search` (1)
+### `real-estate/property-search` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
 | `property-search-workflow` | Immobiliensuche | hermes, grokbot, generic-mcp-agents… | low | 2 |
+| `rental-application-checklist-v1` | Rental application document checklist and packet assembly | hermes, grokbot, openclaw… | medium | 2 |
 
 ## Domain: `research-knowledge` (13 templates)
 
@@ -1311,7 +1318,7 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 | `testing-mcp-focus` | Testing: MCP/Skill-Fokus | hermes, claude-code, cursor… | low | 3 |
 | `testing-workflow` | Testing | hermes, claude-code, cursor… | low | 3 |
 
-## Domain: `travel-events` (6 templates)
+## Domain: `travel-events` (7 templates)
 
 ### `travel-events/event-planning` (2)
 
@@ -1320,10 +1327,11 @@ Auto-generated. **27** domains, **199** categories, **288** templates.
 | `event-planning-workflow` | Event Planning | hermes, grokbot, generic-mcp-agents… | low | 2 |
 | `event-run-of-show-comms-drafter-v1` | Event run-of-show and attendee communications drafter | hermes, grokbot, generic-mcp-agents | medium | 2 |
 
-### `travel-events/flights-hotels` (1)
+### `travel-events/flights-hotels` (2)
 
 | id | title | agents | risk | examples |
 |----|-------|--------|------|----------|
+| `flight-disruption-rebooking-checklist-v1` | Flight disruption rebooking and passenger-rights checklist | hermes, grokbot, openclaw… | medium | 2 |
 | `flights-hotels-workflow` | Flights and Hotels | hermes, grokbot, generic-mcp-agents… | low | 2 |
 
 ### `travel-events/tickets` (1)
