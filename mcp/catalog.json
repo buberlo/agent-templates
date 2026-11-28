@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-11-24T00:00:00Z",
-  "count": 107,
+  "count": 108,
   "servers": [
     {
       "name": "Agent Skills progressive disclosure",
@@ -1098,6 +1098,17 @@
       ],
       "auth": "local CLI",
       "risk_notes": "Flash and erase need human approval; do not pass tokens in argv."
+    },
+    {
+      "name": "kicad-mcp (lamaalrajih)",
+      "url": "https://github.com/lamaalrajih/kicad-mcp",
+      "type": "MCP",
+      "stars": 540,
+      "categories": [
+        "hardware-embedded/cad"
+      ],
+      "auth": "local (KICAD_SEARCH_PATHS in .env)",
+      "risk_notes": "Requires KiCad 9.0+, Python 3.10+, and uv; DRC runs through the KiCad CLI. Tools can open projects and generate files, so restrict KICAD_SEARCH_PATHS to the projects under review and keep design edits in KiCad with a human."
     },
     {
       "name": "papermill",

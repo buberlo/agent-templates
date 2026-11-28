@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T00:00:00Z",
+  "generated_at": "2026-11-28T00:00:00Z",
   "domains": [
     {
       "slug": "agent-platforms",
@@ -433,7 +433,7 @@
     {
       "slug": "hardware-embedded",
       "category_count": 4,
-      "template_count": 5,
+      "template_count": 7,
       "categories": [
         {
           "slug": "3d-printing",
@@ -441,11 +441,11 @@
         },
         {
           "slug": "arduino-esp32",
-          "template_count": 2
+          "template_count": 3
         },
         {
           "slug": "cad",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "electronics-diagnostics",
@@ -456,7 +456,7 @@
     {
       "slug": "health-fitness",
       "category_count": 4,
-      "template_count": 6,
+      "template_count": 7,
       "categories": [
         {
           "slug": "fitness-training",
@@ -464,7 +464,7 @@
         },
         {
           "slug": "health-data-organization",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "mental-health-organisation",
@@ -479,7 +479,7 @@
     {
       "slug": "hr-recruiting",
       "category_count": 5,
-      "template_count": 6,
+      "template_count": 7,
       "categories": [
         {
           "slug": "cv-screening",
@@ -495,7 +495,7 @@
         },
         {
           "slug": "job-postings",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "onboarding",
@@ -553,11 +553,11 @@
     {
       "slug": "legal-admin",
       "category_count": 3,
-      "template_count": 5,
+      "template_count": 6,
       "categories": [
         {
           "slug": "contracts",
-          "template_count": 2
+          "template_count": 3
         },
         {
           "slug": "government-forms",
@@ -678,7 +678,7 @@
     {
       "slug": "personal-lifestyle",
       "category_count": 5,
-      "template_count": 6,
+      "template_count": 7,
       "categories": [
         {
           "slug": "food-recipes",
@@ -686,7 +686,7 @@
         },
         {
           "slug": "household",
-          "template_count": 2
+          "template_count": 3
         },
         {
           "slug": "personal-appointments",
@@ -732,7 +732,7 @@
     {
       "slug": "real-estate",
       "category_count": 3,
-      "template_count": 5,
+      "template_count": 6,
       "categories": [
         {
           "slug": "hoa-management",
@@ -744,7 +744,7 @@
         },
         {
           "slug": "property-search",
-          "template_count": 1
+          "template_count": 2
         }
       ]
     },
@@ -966,7 +966,7 @@
     {
       "slug": "travel-events",
       "category_count": 4,
-      "template_count": 6,
+      "template_count": 7,
       "categories": [
         {
           "slug": "event-planning",
@@ -974,7 +974,7 @@
         },
         {
           "slug": "flights-hotels",
-          "template_count": 1
+          "template_count": 2
         },
         {
           "slug": "tickets",
@@ -3860,6 +3860,33 @@
       "path": "domains/hardware-embedded/arduino-esp32/arduino-esp32-workflow.md"
     },
     {
+      "id": "esphome-device-yaml-review-v1",
+      "title": "ESPHome device YAML review before flashing",
+      "domain": "hardware-embedded",
+      "category": "arduino-esp32",
+      "tags": [
+        "esphome",
+        "esp32",
+        "yaml",
+        "firmware",
+        "iot",
+        "home-assistant"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "claude-code",
+        "cursor",
+        "codex",
+        "openclaw"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-28",
+      "path": "domains/hardware-embedded/arduino-esp32/esphome-device-yaml-review-v1.md"
+    },
+    {
       "id": "firmware-build-flash-debug-v1",
       "title": "Firmware build, flash, and serial debug loop",
       "domain": "hardware-embedded",
@@ -3901,6 +3928,33 @@
       "version": "1.0.0",
       "updated": "2026-11-23",
       "path": "domains/hardware-embedded/cad/cad-workflow.md"
+    },
+    {
+      "id": "kicad-bom-erc-drc-review-v1",
+      "title": "KiCad BOM, ERC, and DRC pre-fab review",
+      "domain": "hardware-embedded",
+      "category": "cad",
+      "tags": [
+        "kicad",
+        "bom",
+        "erc",
+        "drc",
+        "pcb",
+        "manufacturing"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "claude-code",
+        "cursor",
+        "codex",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-28",
+      "path": "domains/hardware-embedded/cad/kicad-bom-erc-drc-review-v1.md"
     },
     {
       "id": "electronics-diagnostics-workflow",
@@ -3987,6 +4041,31 @@
       "version": "1.0.0",
       "updated": "2026-11-23",
       "path": "domains/health-fitness/health-data-organization/health-data-organization-workflow.md"
+    },
+    {
+      "id": "weekly-sleep-workout-review-v1",
+      "title": "Weekly sleep and workout review from wearable exports",
+      "domain": "health-fitness",
+      "category": "health-data-organization",
+      "tags": [
+        "sleep",
+        "workouts",
+        "wearables",
+        "health-data",
+        "privacy"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "openclaw",
+        "claude-code",
+        "cursor"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-28",
+      "path": "domains/health-fitness/health-data-organization/weekly-sleep-workout-review-v1.md"
     },
     {
       "id": "mental-health-organisation-workflow",
@@ -4118,6 +4197,30 @@
       "version": "1.1.0",
       "updated": "2026-11-23",
       "path": "domains/hr-recruiting/job-applications/job-applications-workflow.md"
+    },
+    {
+      "id": "job-description-bias-clarity-review-v1",
+      "title": "Job description bias and clarity review",
+      "domain": "hr-recruiting",
+      "category": "job-postings",
+      "tags": [
+        "job-descriptions",
+        "bias-review",
+        "recruiting",
+        "inclusive-language"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "claude-code",
+        "cursor",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-28",
+      "path": "domains/hr-recruiting/job-postings/job-description-bias-clarity-review-v1.md"
     },
     {
       "id": "job-postings-workflow",
@@ -4445,6 +4548,31 @@
       "version": "1.0.0",
       "updated": "2026-11-23",
       "path": "domains/legal-admin/contracts/contracts-workflow.md"
+    },
+    {
+      "id": "nda-terms-change-diff-v1",
+      "title": "NDA and terms-of-service change diff with lawyer boundary",
+      "domain": "legal-admin",
+      "category": "contracts",
+      "tags": [
+        "nda",
+        "terms-of-service",
+        "contract-diff",
+        "legal-review"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "claude-code",
+        "cursor",
+        "codex",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "high",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-28",
+      "path": "domains/legal-admin/contracts/nda-terms-change-diff-v1.md"
     },
     {
       "id": "government-forms-workflow",
@@ -5270,6 +5398,30 @@
       "path": "domains/personal-lifestyle/household/household-workflow.md"
     },
     {
+      "id": "personal-subscription-audit-v1",
+      "title": "Personal subscription audit from statements and receipts",
+      "domain": "personal-lifestyle",
+      "category": "household",
+      "tags": [
+        "subscriptions",
+        "personal-finance",
+        "receipts",
+        "household"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "openclaw",
+        "claude-code",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "low",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-28",
+      "path": "domains/personal-lifestyle/household/personal-subscription-audit-v1.md"
+    },
+    {
       "id": "personal-appointments-workflow",
       "title": "Personal appointments",
       "domain": "personal-lifestyle",
@@ -5621,6 +5773,30 @@
       "version": "1.0.0",
       "updated": "2026-11-23",
       "path": "domains/real-estate/property-search/property-search-workflow.md"
+    },
+    {
+      "id": "rental-application-checklist-v1",
+      "title": "Rental application document checklist and packet assembly",
+      "domain": "real-estate",
+      "category": "property-search",
+      "tags": [
+        "rental-application",
+        "documents",
+        "checklist",
+        "fair-housing"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "openclaw",
+        "claude-code",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-28",
+      "path": "domains/real-estate/property-search/rental-application-checklist-v1.md"
     },
     {
       "id": "academic-workflow",
@@ -7125,6 +7301,30 @@
       "version": "1.0.0",
       "updated": "2026-11-24",
       "path": "domains/travel-events/event-planning/event-run-of-show-comms-drafter-v1.md"
+    },
+    {
+      "id": "flight-disruption-rebooking-checklist-v1",
+      "title": "Flight disruption rebooking and passenger-rights checklist",
+      "domain": "travel-events",
+      "category": "flights-hotels",
+      "tags": [
+        "flights",
+        "rebooking",
+        "passenger-rights",
+        "disruption"
+      ],
+      "target_agents": [
+        "hermes",
+        "grokbot",
+        "openclaw",
+        "claude-code",
+        "generic-mcp-agents"
+      ],
+      "risk_level": "medium",
+      "example_count": 2,
+      "version": "1.0.0",
+      "updated": "2026-11-28",
+      "path": "domains/travel-events/flights-hotels/flight-disruption-rebooking-checklist-v1.md"
     },
     {
       "id": "flights-hotels-workflow",

@@ -1,8 +1,8 @@
 # Sources
 
-As of: 2026-11-26 (Europe/Vienna). Each URL below was cited in at least one category file.
+As of: 2026-11-28 (Europe/Vienna). Each URL below was cited in at least one category file.
 
-Unique HTTP sources: **187**
+Unique HTTP sources: **211**
 
 Raw research dumps are not versioned (see `.gitignore`).
 
@@ -195,6 +195,30 @@ Raw research dumps are not versioned (see `.gitignore`).
 - https://x.com/Naruto79z/status/2119108886477033981
 - https://x.com/loudernet/status/2119104655061823561
 - https://x.com/tooltierai/status/2122012506868584772
+- https://docs.kicad.org/9.0/en/cli/cli.html
+- https://docs.kicad.org/9.0/en/eeschema/eeschema.html
+- https://docs.kicad.org/9.0/en/pcbnew/pcbnew.html
+- https://docs.python.org/3/library/csv.html
+- https://docs.python.org/3/library/difflib.html
+- https://docs.python.org/3/library/xml.etree.elementtree.html
+- https://esphome.io/components/api/
+- https://esphome.io/components/ota/
+- https://esphome.io/guides/cli/
+- https://esphome.io/guides/security_best_practices/
+- https://esphome.io/guides/yaml/
+- https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_en.htm
+- https://gender-decoder.katmatfield.com/about
+- https://git-scm.com/docs/git-diff
+- https://github.com/lamaalrajih/kicad-mcp
+- https://github.com/lovedaybrooke/gender-decoder
+- https://github.com/modelcontextprotocol/servers/tree/main/src/fetch
+- https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem
+- https://github.com/modelcontextprotocol/servers/tree/main/src/time
+- https://pandoc.org/MANUAL.html
+- https://support.apple.com/guide/iphone/share-your-health-data-iph5ede58c3d/ios
+- https://www.eeoc.gov/prohibited-employment-policiespractices
+- https://www.hud.gov/program_offices/fair_housing_equal_opp
+- https://www.justice.gov/crt/fair-housing-act-1
 
 Important primary sources (short)
 
